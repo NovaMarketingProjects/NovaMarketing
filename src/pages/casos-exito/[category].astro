@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/blog/PageHeader.astro';
+import SuccessCard from '../../components/blog/SuccessCard.astro';
+import CategoryTabs from '../../components/blog/CategoryTabs.astro';
+import { strapiClient } from '../../lib/strapi';
+import { buildAlternates } from '../../lib/i18n';
+
+export async function getStaticPaths() {
+  try {
+    const categoriesRes = await strapiClient.getCaseStudyCategories('es');
+    const allCategories = categoriesRes.data.map(i => i.attributes ?? i);
+
+    return allCategories.map(cat => ({
+      params: { category: cat.slug },
+      props: { categoryData: cat }
+    }));
+  } catch (e) {
+    console.error("DEBUG: Casos getStaticPaths error:", e);
+    return [];
+  }
+}
+
+const { categoryData } = Astro.props;
+const { category } = Astro.params;
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const canonicalPathES = `/casos-exito/${category}`;
+const canonicalPathCA = `/ca/casos-exit/${category}`;
+const alternates = buildAlternates(canonicalPathES, canonicalPathCA, SITE_URL);
+
+// Fetch data
+const casesRes = await strapiClient.getCaseStudies('es', { category });
+const allCategoriesRes = await strapiClient.getCaseStudyCategories('es');
+
+const cases = casesRes.data.map(i => i.attributes ?? i);
+const allCategories = allCategoriesRes.data.map(i => i.attributes ?? i);
+---
+
+<BaseLayout
+  title={`${categoryData.name} | Casos de éxito | Nova Marketing`}
+  description={`Mira cómo hemos ayudado a empresas en ${categoryData.name.toLowerCase()} a crecer.`}
+  locale="es"
+  alternates={alternates}
+>
+  <PageHeader 
+    badge={`RESULTADOS > ${categoryData.name.toUpperCase()}`}
+    title={categoryData.name}
+    description={`Proyectos de gran impacto en el sector de ${categoryData.name.toLowerCase()}.`}
+  />
+
+  <section class="py-20 px-6 sm:px-12 bg-white">
+    <div class="max-w-7xl mx-auto">
+      
+      <CategoryTabs 
+        categories={allCategories} 
+        currentCategory={category} 
+        baseUrl="/casos-exito"
+        locale="es"
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+        {cases.map(cs => (
+          <SuccessCard caseStudy={cs} locale="es" />
+        ))}
+      </div>
+
+      {cases.length === 0 && (
+        <div class="text-center py-40 border-2 border-dashed border-zinc-100 rounded-3xl">
+          <p class="text-zinc-400 font-light">Todavía no hay casos en esta categoría.</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+</BaseLayout>

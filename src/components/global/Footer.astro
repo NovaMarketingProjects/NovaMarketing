@@ -9,7 +9,7 @@ const links = {
     es: {
         explore: 'EXPLORAR',
         agency: 'AGENCIA',
-        services: 'SERVICIOS',
+        casos: 'CASOS DE ÉXITO',
         blog: 'BLOG',
         legal: 'LEGAL',
         privacy: 'PRIVACIDAD',
@@ -21,7 +21,7 @@ const links = {
     ca: {
         explore: 'EXPLORAR',
         agency: 'AGÈNCIA',
-        services: 'SERVEIS',
+        casos: 'CASOS D\'ÈXIT',
         blog: 'BLOG',
         legal: 'LEGAL',
         privacy: 'PRIVACITAT',
@@ -53,7 +53,7 @@ const prefix = locale === 'ca' ? '/ca' : '';
                 <div class="flex flex-col gap-6">
                     <span class="text-zinc-600">{t.explore}</span>
                     <a href={`${prefix}/`} class="hover:text-accent transition-colors">{t.agency}</a>
-                    <a href={`${prefix}/servicios/`} class="hover:text-accent transition-colors">{t.services}</a>
+                    <a href={locale === 'ca' ? "/ca/casos-exit/" : "/casos-exito/"} class="hover:text-accent transition-colors">{t.casos}</a>
                     <a href={`${prefix}/blog/`} class="hover:text-accent transition-colors">{t.blog}</a>
                 </div>
                 <div class="flex flex-col gap-6">

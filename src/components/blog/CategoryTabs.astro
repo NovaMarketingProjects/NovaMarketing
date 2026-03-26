@@ -1,0 +1,54 @@
+---
+interface Props {
+  categories: { name: string; slug: string; count?: number }[];
+  currentCategory?: string;
+  baseUrl: string;
+  locale?: 'es' | 'ca';
+}
+
+const { categories, currentCategory = 'all', baseUrl, locale = 'es' } = Astro.props;
+const allLabel = locale === 'ca' ? 'Totes' : 'Todas';
+---
+
+<div class="flex flex-wrap justify-center gap-3 sm:gap-4 mb-20 reveal">
+  <a
+    href={`${baseUrl}/`}
+    class:list={[
+      'px-6 py-4 sm:px-10 sm:py-5 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.3em] rounded-2xl transition-all duration-500 border-2',
+      currentCategory === 'all'
+        ? 'bg-accent border-accent text-white shadow-[0_15px_35px_rgba(255,107,0,0.25)] scale-105'
+        : 'bg-white border-black/5 text-zinc-500 hover:border-black/10 hover:text-black hover:bg-zinc-50'
+    ]}
+  >
+    {allLabel}
+  </a>
+
+  {categories.map((cat) => (
+    <a
+      href={`${baseUrl}/${cat.slug}/`}
+      class:list={[
+        'px-6 py-4 sm:px-10 sm:py-5 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.3em] rounded-2xl transition-all duration-500 border-2',
+        currentCategory === cat.slug
+          ? 'bg-accent border-accent text-white shadow-[0_15px_35px_rgba(255,107,0,0.25)] scale-105'
+          : 'bg-white border-black/5 text-zinc-500 hover:border-black/10 hover:text-black hover:bg-zinc-50'
+      ]}
+    >
+      {cat.name}
+    </a>
+  ))}
+</div>
+
+<style>
+  .reveal {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: revealFixed 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes revealFixed {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

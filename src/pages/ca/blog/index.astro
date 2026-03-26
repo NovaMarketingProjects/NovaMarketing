@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHeader from '../../../components/blog/PageHeader.astro';
+import BlogCard from '../../../components/blog/BlogCard.astro';
+import CategoryTabs from '../../../components/blog/CategoryTabs.astro';
+import { strapiClient } from '../../../lib/strapi';
+import { buildAlternates } from '../../../lib/i18n';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const alternates = buildAlternates('/blog', '/blog', SITE_URL);
+
+// Fetch data
+let posts = [];
+let categoriesWithPosts = [];
+
+try {
+  const postsRes = await strapiClient.getBlogPosts('ca');
+  posts = postsRes.data.map(i => i.attributes ?? i);
+  
+  const categoriesRes = await strapiClient.getBlogCategories('ca');
+  const allCategories = categoriesRes.data.map(i => i.attributes ?? i);
+
+  categoriesWithPosts = allCategories.filter(cat => 
+    posts.some(post => post.category?.slug === cat.slug)
+  );
+} catch (e) {
+  console.error("DEBUG: Blog CA index error:", e);
+}
+---
+
+<BaseLayout
+  title="Blog de Marketing Digital per a Pimes | Nova Marketing"
+  description="Consells, guies i tendències sobre marketing digital, SEO, SEM i disseny web per a petites i mitjanes empreses."
+  locale="ca"
+  alternates={alternates}
+>
+  <PageHeader 
+    badge="BLOG"
+    title="Notícies i <span class='text-mktg-gradient'>Articles</span>"
+    description="Estratègies avançades i consells pràctics perquè la teva pime creixi en l'entorn digital."
+  />
+
+  <section class="py-20 px-6 sm:px-12 bg-white">
+    <div class="max-w-7xl mx-auto">
+      
+      <CategoryTabs 
+        categories={categoriesWithPosts} 
+        currentCategory="all" 
+        baseUrl="/ca/blog"
+        locale="ca"
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {posts.map(post => (
+          <BlogCard post={post} locale="ca" />
+        ))}
+      </div>
+
+      {posts.length === 0 && (
+        <div class="text-center py-40 border-2 border-dashed border-zinc-100 rounded-3xl">
+          <p class="text-zinc-400 font-light">Encara no hi ha articles en aquesta secció.</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+</BaseLayout>

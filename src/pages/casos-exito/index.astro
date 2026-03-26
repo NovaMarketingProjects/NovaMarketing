@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/blog/PageHeader.astro';
+import SuccessCard from '../../components/blog/SuccessCard.astro';
+import CategoryTabs from '../../components/blog/CategoryTabs.astro';
+import { strapiClient } from '../../lib/strapi';
+import { buildAlternates } from '../../lib/i18n';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const alternates = buildAlternates('/casos-exito', '/ca/casos-exit', SITE_URL);
+
+// Fetch data
+let cases = [];
+let categoriesWithCases = [];
+
+try {
+  const casesRes = await strapiClient.getCaseStudies('es');
+  cases = casesRes.data.map(i => i.attributes ?? i);
+  
+  const categoriesRes = await strapiClient.getCaseStudyCategories('es');
+  const allCategories = categoriesRes.data.map(i => i.attributes ?? i);
+
+  categoriesWithCases = allCategories.filter(cat => 
+    cases.some(cs => cs.category?.slug === cat.slug)
+  );
+} catch (e) {
+  console.error("DEBUG: Casos index error:", e);
+}
+---
+
+<BaseLayout
+  title="Casos de éxito | Nova Marketing"
+  description="Resultados reales logrados para pequeñas y medianas empresas. Mira cómo hemos ayudado a crecer a nuestros clientes."
+  locale="es"
+  alternates={alternates}
+>
+  <PageHeader 
+    badge="RESULTADOS"
+    title="Casos de <span class='text-mktg-gradient text-3xl sm:text-6xl md:text-8xl lg:text-9xl'>Éxito</span>"
+    description="Cada proyecto es una oportunidad para superar expectativas y generar crecimiento real."
+  />
+
+  <section class="py-20 px-6 sm:px-12 bg-white">
+    <div class="max-w-7xl mx-auto">
+      
+      <CategoryTabs 
+        categories={categoriesWithCases} 
+        currentCategory="all" 
+        baseUrl="/casos-exito"
+        locale="es"
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+        {cases.map(cs => (
+          <SuccessCard caseStudy={cs} locale="es" />
+        ))}
+      </div>
+
+      {cases.length === 0 && (
+        <div class="text-center py-40 border-2 border-dashed border-zinc-100 rounded-3xl">
+          <p class="text-zinc-400 font-light">Todavía no hay casos de éxito en esta sección.</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+</BaseLayout>

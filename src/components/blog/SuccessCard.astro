@@ -1,0 +1,75 @@
+---
+import type { CaseStudy } from '../../lib/strapi';
+import { getStrapiImageUrl } from '../../lib/strapi';
+
+interface Props {
+  caseStudy: CaseStudy;
+  locale: 'es' | 'ca';
+}
+
+const { caseStudy, locale } = Astro.props;
+const prefix = locale === 'ca' ? '/ca' : '';
+const caseUrl = `${prefix}/casos-exito/${caseStudy.slug}/`;
+const imageUrl = getStrapiImageUrl(caseStudy.featuredImage) || '/og-default.jpg';
+const clientLogoUrl = getStrapiImageUrl(caseStudy.clientLogo);
+const category = caseStudy.category?.name || (locale === 'ca' ? 'Cas d\'èxit' : 'Caso de éxito');
+---
+
+<a href={caseUrl} class="group bg-white border border-black/5 rounded-3xl overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-700 shadow-sm flex flex-col h-full relative">
+  <!-- Image Container with gradient bottom -->
+  <div class="relative aspect-[16/11] overflow-hidden">
+    <img 
+      src={imageUrl} 
+      alt={caseStudy.title}
+      class="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
+    
+    <div class="absolute top-4 left-4 z-10">
+      <span class="bg-white/95 backdrop-blur-sm border border-black/5 px-4 py-2 rounded-full text-[9px] font-black uppercase tracking-[0.25em] text-accent shadow-lg">
+        {category}
+      </span>
+    </div>
+
+    {clientLogoUrl && (
+      <div class="absolute bottom-6 left-6 z-10 w-24 h-12 bg-white/10 backdrop-blur-md rounded-xl p-3 flex items-center justify-center border border-white/20">
+        <img src={clientLogoUrl} alt={caseStudy.clientName} class="max-w-full max-h-full object-contain filter invert" />
+      </div>
+    )}
+  </div>
+
+  <!-- Content Section -->
+  <div class="p-10 flex flex-col flex-1 bg-white relative">
+    <div class="mb-4">
+       <span class="text-[8px] font-black tracking-widest uppercase text-zinc-400 block mb-2">{caseStudy.clientName}</span>
+       <h3 class="text-2xl sm:text-3xl font-black uppercase tracking-tighter text-zinc-900 leading-[0.85] group-hover:text-accent transition-colors">
+         {caseStudy.title}
+       </h3>
+    </div>
+    
+    <p class="text-zinc-500 font-light text-sm line-clamp-3 mb-8 leading-relaxed">
+      {caseStudy.excerpt}
+    </p>
+
+    {caseStudy.results && caseStudy.results.length > 0 && (
+      <div class="grid grid-cols-2 gap-4 pt-6 border-t border-zinc-50">
+          <div class="flex flex-col">
+            <span class="text-xl font-black text-black leading-none">{caseStudy.results[0].value}</span>
+            <span class="text-[8px] font-black uppercase tracking-wider text-accent">{caseStudy.results[0].metric}</span>
+          </div>
+          {caseStudy.results[1] && (
+          <div class="flex flex-col">
+            <span class="text-xl font-black text-black leading-none">{caseStudy.results[1].value}</span>
+            <span class="text-[8px] font-black uppercase tracking-wider text-accent">{caseStudy.results[1].metric}</span>
+          </div>
+          )}
+      </div>
+    )}
+
+    <div class="mt-10 flex items-center justify-between">
+      <span class="text-[10px] font-black tracking-[0.3em] text-accent flex items-center gap-2 group-hover:gap-4 transition-all uppercase">
+        {locale === 'ca' ? 'VEURE RESULTATS' : 'VER RESULTADOS'} <span class="text-base">→</span>
+      </span>
+    </div>
+  </div>
+</a>

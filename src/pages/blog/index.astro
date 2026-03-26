@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/blog/PageHeader.astro';
+import BlogCard from '../../components/blog/BlogCard.astro';
+import CategoryTabs from '../../components/blog/CategoryTabs.astro';
+import { strapiClient } from '../../lib/strapi';
+import { buildAlternates } from '../../lib/i18n';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const alternates = buildAlternates('/blog', '/blog', SITE_URL);
+
+// Fetch data
+let posts = [];
+let categoriesWithPosts = [];
+
+try {
+  const postsRes = await strapiClient.getBlogPosts('es');
+  posts = postsRes.data.map(i => i.attributes ?? i);
+  
+  const categoriesRes = await strapiClient.getBlogCategories('es');
+  const allCategories = categoriesRes.data.map(i => i.attributes ?? i);
+
+  categoriesWithPosts = allCategories.filter(cat => 
+    posts.some(post => post.category?.slug === cat.slug)
+  );
+} catch (e) {
+  console.error("DEBUG: Blog index error:", e);
+}
+
+// Specific categories requested by user (optional filtering if needed, but showing all with posts is better)
+// const allowedSlugs = ['marketing-digital', 'seo', 'seo-local', 'google-ads', 'diseno-web'];
+---
+
+<BaseLayout
+  title="Blog de Marketing Digital para Pymes | Nova Marketing"
+  description="Consejos, guías y tendencias sobre marketing digital, SEO, SEM y diseño web para pequeñas y medianas empresas."
+  locale="es"
+  alternates={alternates}
+>
+  <PageHeader 
+    badge="BLOG"
+    title="Noticias y <span class='text-mktg-gradient'>Artículos</span>"
+    description="Estrategias avanzadas y consejos prácticos para que tu pyme crezca en el entorno digital."
+  />
+
+  <section class="py-20 px-6 sm:px-12 bg-white">
+    <div class="max-w-7xl mx-auto">
+      
+      <CategoryTabs 
+        categories={categoriesWithPosts} 
+        currentCategory="all" 
+        baseUrl="/blog"
+        locale="es"
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {posts.map(post => (
+          <BlogCard post={post} locale="es" />
+        ))}
+      </div>
+
+      {posts.length === 0 && (
+        <div class="text-center py-40 border-2 border-dashed border-zinc-100 rounded-3xl">
+          <p class="text-zinc-400 font-light">Todavía no hay artículos en esta sección.</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+</BaseLayout>

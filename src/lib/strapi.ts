@@ -229,11 +229,18 @@ export const strapiClient = {
     strapiRequest(`/api/blog-categories?locale=${locale}&sort=name:asc`),
 
   // Casos de éxito
-  getCaseStudies: (locale = 'es'): Promise<StrapiResponse<CaseStudy[]>> =>
-    strapiRequest(`/api/case-studies?populate=*&locale=${locale}&publicationState=live`),
+  getCaseStudies: (locale = 'es', options?: { category?: string; limit?: number }): Promise<StrapiResponse<CaseStudy[]>> => {
+    let query = `/api/case-studies?populate=*&locale=${locale}&publicationState=live&sort=publishedAt:desc`;
+    if (options?.category) query += `&filters[category][slug][$eq]=${options.category}`;
+    if (options?.limit) query += `&pagination[pageSize]=${options.limit}`;
+    return strapiRequest(query);
+  },
 
   getCaseStudy: (slug: string, locale = 'es'): Promise<StrapiResponse<CaseStudy[]>> =>
     strapiRequest(`/api/case-studies?filters[slug][$eq]=${slug}&populate=deep&locale=${locale}`),
+
+  getCaseStudyCategories: (locale = 'es'): Promise<StrapiResponse<CaseStudyCategory[]>> =>
+    strapiRequest(`/api/case-study-categories?locale=${locale}&sort=name:asc`),
 
   // Redirecciones
   getRedirects: (): Promise<StrapiResponse<SeoRedirect[]>> =>

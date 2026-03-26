@@ -85,7 +85,7 @@ const currentPath = Astro.url.pathname;
       </div>
 
       <a href={`${prefix}/blog/`} class:list={['text-[12px] uppercase font-bold tracking-[0.15em] hover:text-accent transition-colors whitespace-nowrap', currentPath.startsWith(`${prefix}/blog`) ? 'text-accent' : 'text-zinc-700']}> {t.blog} </a>
-      <a href={`${prefix}/casos-exito/`} class:list={['text-[12px] uppercase font-bold tracking-[0.15em] hover:text-accent transition-colors whitespace-nowrap', currentPath.startsWith(`${prefix}/casos-exito`) ? 'text-accent' : 'text-zinc-700']}> {t.casos} </a>
+      <a href={locale === 'ca' ? '/ca/casos-exit/' : '/casos-exito/'} class:list={['text-[12px] uppercase font-bold tracking-[0.15em] hover:text-accent transition-colors whitespace-nowrap', currentPath.includes('/casos-') ? 'text-accent' : 'text-zinc-700']}> {t.casos} </a>
 </nav>
 
     <!-- ACTIONS (Far Right) -->

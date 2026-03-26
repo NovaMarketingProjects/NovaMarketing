@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/blog/PageHeader.astro';
+import BlogCard from '../../components/blog/BlogCard.astro';
+import CategoryTabs from '../../components/blog/CategoryTabs.astro';
+import { strapiClient } from '../../lib/strapi';
+import { buildAlternates } from '../../lib/i18n';
+
+export async function getStaticPaths() {
+  try {
+    const categoriesRes = await strapiClient.getBlogCategories('es');
+    const allCategories = categoriesRes.data.map(i => i.attributes ?? i);
+
+    return allCategories.map(cat => ({
+      params: { category: cat.slug },
+      props: { categoryData: cat }
+    }));
+  } catch (e) {
+    console.error("DEBUG: Blog getStaticPaths error:", e);
+    return [];
+  }
+}
+
+const { categoryData } = Astro.props;
+const { category } = Astro.params;
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const canonicalPath = `/blog/${category}`;
+const alternates = buildAlternates(canonicalPath, canonicalPath, SITE_URL);
+
+// Fetch data
+const postsRes = await strapiClient.getBlogPosts('es', { category });
+const allCategoriesRes = await strapiClient.getBlogCategories('es');
+
+const posts = postsRes.data.map(i => i.attributes ?? i);
+const allCategories = allCategoriesRes.data.map(i => i.attributes ?? i);
+
+// Filter categories for the tabs (optional if you want to show all categories that have posts in general, or only those requested by user)
+const categoriesWithPosts = allCategories.filter(cat => !!cat.slug); // Showing all found
+---
+
+<BaseLayout
+  title={`${categoryData.name} | Blog | Nova Marketing`}
+  description={categoryData.description || `Artículos sobre ${categoryData.name} para pymes.`}
+  locale="es"
+  alternates={alternates}
+>
+  <PageHeader 
+    badge={`BLOG > ${categoryData.name.toUpperCase()}`}
+    title={categoryData.name}
+    description={`Recursos y noticias especializadas en ${categoryData.name.toLowerCase()}.`}
+  />
+
+  <section class="py-20 px-6 sm:px-12 bg-white">
+    <div class="max-w-7xl mx-auto">
+      
+      <CategoryTabs 
+        categories={categoriesWithPosts} 
+        currentCategory={category} 
+        baseUrl="/blog"
+        locale="es"
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {posts.map(post => (
+          <BlogCard post={post} locale="es" />
+        ))}
+      </div>
+
+      {posts.length === 0 && (
+        <div class="text-center py-40 border-2 border-dashed border-zinc-100 rounded-3xl">
+          <p class="text-zinc-400 font-light">Todavía no hay artículos en esta categoría.</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+</BaseLayout>
