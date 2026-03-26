@@ -1,0 +1,14 @@
+# Nova Marketing - 301 Redirects & WWW Cleanup
+# Force Non-WWW
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^www\.novamarketing\.es [NC]
+RewriteRule ^(.*)$ https://novamarketing.es/$1 [L,R=301]
+
+# Localized redirection for success stories (ES/CA)
+# From /ca/casos-exito/ to /ca/casos-exit/
+Redirect 301 /ca/casos-exito/ https://novamarketing.es/ca/casos-exit/
+Redirect 301 /ca/casos-exito https://novamarketing.es/ca/casos-exit/
+
+# Ensure HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
