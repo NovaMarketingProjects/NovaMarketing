@@ -1,0 +1,65 @@
+---
+import PageLegal from '../../components/layout/PageLegal.astro';
+import { buildAlternates } from '../../lib/i18n';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const alternates = buildAlternates('/privacidad', '/privacitat', SITE_URL);
+---
+
+<PageLegal 
+  title="Política de Privacitat" 
+  description="Informació detallada sobre el tractament de dades personals a Nova Marketing."
+  lastUpdated="Març 2026"
+  locale="ca"
+  alternates={alternates}
+>
+  <h2>1. Responsable del Tractament</h2>
+  <ul>
+    <li><strong>Titular:</strong> Sergio García López (Nova Marketing)</li>
+    <li><strong>NIF:</strong> 43546352-S</li>
+    <li><strong>Domicili:</strong> Carrer Bilbao 1 7-1, 08202, Sabadell (Barcelona).</li>
+    <li><strong>Email:</strong> hola@novamarketing.es</li>
+  </ul>
+
+  <h2>2. Finalitat del Tractament de Dades</h2>
+  <p>A Nova Marketing tractem la informació que ens faciliten les persones interessades amb les següents finalitats:</p>
+  <ul>
+    <li><strong>Gestió de consultes:</strong> Respondre als dubtes o sol·licituds d'informació plantejades a través dels formularis de contacte.</li>
+    <li><strong>Pressupostació:</strong> Elaborar i enviar propostes econòmiques de serveis de posicionament SEO, publicitat, xarxes i disseny web.</li>
+    <li><strong>Gestió de clients:</strong> Execució dels serveis contractats, facturació i suport.</li>
+    <li><strong>Butlletins (Newsletters):</strong> Enviament de comunicacions comercials i butlletins sobre màrqueting digital (sempre que existeixi consentiment explícit).</li>
+  </ul>
+
+  <h2>3. Legitimació</h2>
+  <p>La base legal per al tractament de les seves dades és:</p>
+  <ul>
+    <li><strong>El consentiment de l'interessat:</strong> Per a la subscripció a la newsletter i consultes en formularis.</li>
+    <li><strong>L'execució d'un contracte o precontracte:</strong> Per a l'elaboració de pressupostos i prestació de serveis de màrqueting.</li>
+  </ul>
+
+  <h2>4. Conservació de les Dades</h2>
+  <p>Les dades personals proporcionades es conservaran:</p>
+  <ul>
+    <li><strong>Leads/Contactes:</strong> Durant un termini màxim de 2 anys des de l'últim contacte, a menys que l'interessat sol·liciti la seva supressió abans, per mantenir-lo informat de futures ofertes que puguin ser del seu interès.</li>
+    <li><strong>Clients:</strong> Mentre es mantingui la relació mercantil i, després d'ella, durant els terminis exigits per la llei per atendre possibles responsabilitats (6 anys per a llibres de comptabilitat i factures).</li>
+  </ul>
+
+  <h2>5. Destinataris i Transferències</h2>
+  <p>Les seves dades no es cediran a tercers, tret d'obligació legal. No obstant això, per a la prestació del servei utilitzem eines de tercers que poden processar dades fora de l'Espai Econòmic Europeu:</p>
+  <ul>
+    <li><strong>Google Analytics / Search Console:</strong> Google LLC (EUA).</li>
+    <li><strong>Plataformes de Mailing:</strong> Sistemes de gestió d'enviaments sota acords de protecció de dades vigents.</li>
+  </ul>
+
+  <h2>6. Drets de l'Interessat</h2>
+  <p>Qualsevol persona té dret a obtenir confirmació sobre si a Nova Marketing estem tractant dades personals que els concerneixin o no. Les persones interessades tenen dret a:</p>
+  <ul>
+    <li>Accedir a les seves dades personals.</li>
+    <li>Sol·licitar la rectificació de dades inexactes.</li>
+    <li>Sol·licitar la seva supressió quan les dades ja no siguin necessàries.</li>
+    <li>Sol·licitar la limitació del seu tractament.</li>
+    <li>Oposar-se al tractament.</li>
+    <li>Sol·licitar la portabilitat de les dades.</li>
+  </ul>
+  <p>Per exercir aquests drets, pot enviar un correu electrònic a <strong>hola@novamarketing.es</strong> adjuntant una còpia del seu DNI. Així mateix, té dret a presentar una reclamació davant l'Agencia Española de Protección de Datos (www.aepd.es).</p>
+</PageLegal>

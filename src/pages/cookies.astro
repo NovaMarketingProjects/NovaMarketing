@@ -1,0 +1,81 @@
+---
+import PageLegal from '../components/layout/PageLegal.astro';
+import { buildAlternates } from '../lib/i18n';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const alternates = buildAlternates('/cookies', '/cookies', SITE_URL);
+---
+
+<PageLegal 
+  title="Política de Cookies" 
+  description="Información detallada sobre el uso de cookies en el sitio web de Nova Marketing."
+  lastUpdated="Marzo 2026"
+  alternates={alternates}
+>
+  <h2>1. ¿Qué son las cookies?</h2>
+  <p>Una cookie es un pequeño archivo de texto que se almacena en su navegador cuando visita casi cualquier página web. Su utilidad es que la web sea capaz de recordar su visita cuando vuelva a navegar por esa página.</p>
+
+  <h2>2. Cookies utilizadas en este sitio web</h2>
+  <p>Siguiendo las directrices de la Agencia Española de Protección de Datos, procedemos a detallar el uso de cookies que hace Nova Marketing:</p>
+
+  <h3>A. Cookies Técnicas (Necesarias)</h3>
+  <p>Son aquellas que permiten al usuario la navegación a través de una página web y la utilización de las diferentes opciones o servicios que en ella existan (controlar el tráfico, identificar la sesión, acceder a partes de acceso restringido, etc.). Estas no requieren consentimiento.</p>
+
+  <h3>B. Cookies de Análisis (Terceros)</h3>
+  <p>Son aquellas que, tratadas por nosotros o por terceros, nos permiten cuantificar el número de usuarios y realizar la medición y análisis estadístico de la utilización que hacen los usuarios del servicio ofertado.</p>
+  <ul>
+    <li><strong>Google Analytics:</strong> Almacena cookies para elaborar estadísticas sobre el tráfico y volumen de visitas de esta web.</li>
+  </ul>
+
+  <h3>C. Cookies de Publicidad Comportamental (Terceros)</h3>
+  <ul>
+    <li><strong>Meta Pixel (Facebook Ads):</strong> Estas cookies permiten mostrar anuncios personalizados al usuario en las plataformas de Meta (Facebook/Instagram) basados en su comportamiento previo en nuestra web.</li>
+  </ul>
+
+  <div class="overflow-x-auto my-8">
+    <table class="min-w-full">
+      <thead>
+        <tr>
+          <th>Proveedor</th>
+          <th>Cookie</th>
+          <th>Finalidad</th>
+          <th>Duración</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Google Analytics</td>
+          <td>_ga, _gid</td>
+          <td>Medición estadística de visitas.</td>
+          <td>2 años / 24h</td>
+        </tr>
+        <tr>
+          <td>Meta / Facebook</td>
+          <td>_fbp, fr</td>
+          <td>Seguimiento de conversiones y retargeting publicitario.</td>
+          <td>3 meses</td>
+        </tr>
+        <tr>
+          <td>Propia</td>
+          <td>cookie_notice</td>
+          <td>Recordar si el usuario ha aceptado la política de cookies.</td>
+          <td>1 año</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>4. Desactivación o eliminación de cookies</h2>
+  <p>En cualquier momento podrá ejercer su derecho de desactivación o eliminación de cookies de este sitio web. Estas acciones se realizan de forma diferente en función del navegador que esté usando:</p>
+  <ul>
+    <li><strong>Google Chrome:</strong> Configuración &gt; Privacidad y seguridad &gt; Cookies y otros datos de sitios.</li>
+    <li><strong>Mozilla Firefox:</strong> Ajustes &gt; Privacidad y Seguridad &gt; Cookies y datos del sitio.</li>
+    <li><strong>Safari:</strong> Preferencias &gt; Privacidad.</li>
+  </ul>
+
+  <h2>5. Notas adicionales</h2>
+  <ul>
+    <li>Ni esta web ni sus representantes legales se hacen responsables ni del contenido ni de la veracidad de las políticas de privacidad que puedan tener los terceros mencionados en esta política de cookies.</li>
+    <li>Los navegadores web son las herramientas encargadas de almacenar las cookies y desde este lugar debe efectuar su derecho a la eliminación o desactivación de las mismas.</li>
+  </ul>
+</PageLegal>

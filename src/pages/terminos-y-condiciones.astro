@@ -1,0 +1,50 @@
+---
+import PageLegal from '../components/layout/PageLegal.astro';
+import { buildAlternates } from '../lib/i18n';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const alternates = buildAlternates('/terminos-y-condiciones', '/termes-i-condicions', SITE_URL);
+---
+
+<PageLegal 
+  title="Términos y Condiciones" 
+  description="Términos y condiciones de contratación de los servicios profesionales de Nova Marketing."
+  lastUpdated="Marzo 2026"
+  alternates={alternates}
+>
+  <h2>1. Objeto de los Servicios</h2>
+  <p>Nova Marketing, bajo la titularidad de Sergio García López, ofrece servicios profesionales de:</p>
+  <ul>
+    <li>Posicionamiento SEO y consultoría de marketing.</li>
+    <li>Gestión de campañas de publicidad (Google Ads y Meta Ads).</li>
+    <li>Diseño y desarrollo web.</li>
+    <li>Gestión de redes sociales.</li>
+  </ul>
+  <p>La descripción detallada, duración y precio de cada servicio se especificará en el Presupuesto o Factura enviado previamente al Cliente, el cual tiene carácter de contrato entre las partes.</p>
+
+  <h2>2. Forma de Pago y Plazos</h2>
+  <p>Salvo que se acuerde lo contrario por escrito:</p>
+  <ul>
+    <li><strong>Servicios recurrentes (Fee Mensual):</strong> El pago se realizará dentro de los primeros 5 días naturales del mes de servicio.</li>
+    <li><strong>Proyectos puntuales (Web/Consultoría):</strong> Se requerirá el abono del 50% a la firma del presupuesto y el 50% restante antes de la entrega final o activación del servicio.</li>
+  </ul>
+  <p>El retraso en los pagos facultará a Nova Marketing a suspender temporalmente los servicios tras previo aviso al Cliente.</p>
+
+  <h2>3. Propiedad Intelectual</h2>
+  <ul>
+    <li><strong>Cuentas de Publicidad (Google/Meta Ads):</strong> Salvo pacto en contrario, las cuentas de publicidad creadas pertenecen al Cliente, manteniendo este la propiedad de los datos y el histórico acumulado. Nova Marketing actúa únicamente como gestor.</li>
+    <li><strong>Know-How y Estrategia:</strong> Nova Marketing se reserva la propiedad intelectual sobre las metodologías propias de trabajo y estrategias de posicionamiento SEO empleadas.</li>
+  </ul>
+
+  <h2>4. Naturaleza de los Servicios (Responsabilidad)</h2>
+  <ul>
+    <li><strong>Algoritmos Externos:</strong> El Cliente reconoce que los resultados en Posicionamiento SEO y Google/Meta Ads dependen de algoritmos de terceros (Google, Meta, etc.). Nova Marketing no puede garantizar posiciones específicas o costes de clic determinados.</li>
+    <li><strong>Colaboración del Cliente:</strong> La eficacia del servicio depende de que el Cliente facilite la información y accesos necesarios en los plazos acordados. Nova Marketing no será responsable de retrasos derivados de la falta de entrega de materiales por parte del Cliente.</li>
+  </ul>
+
+  <h2>5. Duración y Resolución</h2>
+  <p>Los servicios recurrentes (SEO/Ads/Redes) tendrán la duración pactada en el presupuesto inicial. Ambas partes podrán resolver el contrato comunicándolo por escrito con una antelación mínima de 30 días naturales.</p>
+
+  <h2>6. Jurisdicción y Ley Aplicable</h2>
+  <p>Para cuantas cuestiones pudieran suscitarse sobre la interpretación, cumplimiento y ejecución de los presentes Términos y Condiciones, las partes se someten a la jurisdicción y competencia de los Juzgados y Tribunales de la ciudad de Sabadell (Barcelona), España, con renuncia expresa a cualquier otro fuero que pudiera corresponderles.</p>
+</PageLegal>

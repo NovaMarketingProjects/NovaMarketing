@@ -1,0 +1,50 @@
+---
+import PageLegal from '../../components/layout/PageLegal.astro';
+import { buildAlternates } from '../../lib/i18n';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const alternates = buildAlternates('/aviso-legal', '/avis-legal', SITE_URL);
+---
+
+<PageLegal 
+  title="Avís Legal" 
+  description="Informació identificativa de Nova Marketing en compliment amb la LSSI-CE."
+  lastUpdated="Març 2026"
+  locale="ca"
+  alternates={alternates}
+>
+  <h2>1. Informació Identificativa</h2>
+  <p>En compliment amb el deure d'informació recollit a l'article 10 de la Llei 34/2002, de 11 de juliol, de Serveis de la Societat de la Informació i del Comerç Electrònic (LSSI-CE), a continuació es reflecteixen les següents dades:</p>
+  <ul>
+    <li><strong>Titular:</strong> Sergio García López (en endavant, Nova Marketing)</li>
+    <li><strong>NIF:</strong> 43546352-S</li>
+    <li><strong>Domicili social:</strong> Carrer Bilbao 1 7-1, 08202, Sabadell (Barcelona), Espanya.</li>
+    <li><strong>Correu electrònic de contacte:</strong> hola@novamarketing.es</li>
+  </ul>
+
+  <h2>2. Usuaris i Accés</h2>
+  <p>L'accés i/o ús d'aquest portal web de Nova Marketing atribueix la condició d'USUARI, que accepta, des d'aquest accés i/o ús, les Condicions Generals d'Ús aquí reflectides. Les citades Condicions seran d'aplicació independentment de les Condicions Generals de Contractació que en el seu cas resultin d'obligat compliment.</p>
+
+  <h2>3. Ús del Portal</h2>
+  <p>El lloc web proporciona accés a multitud d'informacions, serveis, programes o dades (en endavant, "els continguts") a Internet pertanyents a Nova Marketing o als seus llicenciants als quals l'USUARI pugui tenir accés. L'USUARI assumeix la responsabilitat de l'ús del portal. Aquesta responsabilitat s'estén al registre que fos necessari per accedir a determinats serveis o continguts.</p>
+  <p>L'USUARI es compromet a fer un ús adequat dels continguts i serveis que Nova Marketing ofereix a través del seu portal i amb caràcter enunciatiu però no limitatiu, a no emprar-los per:</p>
+  <ul>
+    <li>Incórrer en activitats il·lícites, il·legals o contràries a la bona fe i a l'ordre públic.</li>
+    <li>Difondre continguts o propaganda de caràcter racista, xenòfob, pornogràfic-il·legal, d'apologia del terrorisme o atentatori contra els drets humans.</li>
+    <li>Provocar danys en els sistemes físics i lògics de Nova Marketing, dels seus proveïdors o de terceres persones.</li>
+    <li>Intentar accedir i, en el seu cas, utilitzar els comptes de correu electrònic d'altres usuaris i modificar o manipular els seus missatges.</li>
+  </ul>
+
+  <h2>4. Propietat Intel·lectual i Industrial</h2>
+  <p>Nova Marketing per si o com a cessionària, és titular de tots els drets de propietat intel·lectual i industrial de la seva pàgina web, així com dels elements continguts en la mateixa (imatges, so, àudio, vídeo, programari o textos; marques o logotips, combinacions de colors, estructura i disseny, selecció de materials usats, etc.), titularitat de Nova Marketing o bé dels seus llicenciants.</p>
+  <p>Tots els drets reservats. En virtut del que disposen els articles 8 i 32.1, paràgraf segon, de la Llei de Propietat Intel·lectual, queden expressament prohibides la reproducció, la distribució i la comunicació pública, inclosa la seva modalitat de posada a disposició, de la totalitat o part dels continguts d'aquesta pàgina web, amb fins comercials, en qualsevol suport i per qualsevol mitjà tècnic, sense l'autorització de Nova Marketing.</p>
+
+  <h2>5. Exclusió de Garanties i Responsabilitat</h2>
+  <p>Nova Marketing no es fa responsable, en cap cas, dels danys i perjudicis de qualsevol naturalesa que poguessin ocasionar, a títol enunciatiu: errors o omissions en els continguts, falta de disponibilitat del portal o la transmissió de virus o programes maliciosos o lesius en els continguts, malgrat haver adoptat totes les mesures tecnològiques necessàries per evitar-ho.</p>
+
+  <h2>6. Modificacions</h2>
+  <p>Nova Marketing es reserva el dret d'efectuar sense previ avís les modificacions que consideri oportunes al seu portal, podent canviar, suprimir o afegir tant els continguts i serveis que es prestin a través de la mateixa com la forma en la qual aquests apareguin presentats o localitzats al seu portal.</p>
+
+  <h2>7. Legislació Aplicable i Jurisdicció</h2>
+  <p>La relació entre Nova Marketing i l'USUARI es regirà per la normativa espanyola vigent i qualsevol controvèrsia se sotmetrà als Jutjats i Tribunals de la ciutat de Sabadell, llevat que la llei aplicable disposi el contrari.</p>
+</PageLegal>

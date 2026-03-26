@@ -26,9 +26,20 @@ const {
   siteUrl,
 } = Astro.props;
 
+const cleanSiteUrl = siteUrl.replace(/\/+$/, '');
 const ogLocale = locale === 'ca' ? 'ca_ES' : 'es_ES';
-const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteUrl).href;
-const ogImageFull = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
+
+let canonicalUrl = canonical;
+if (!canonicalUrl) {
+    const rawPath = Astro.url.pathname.split('?')[0].split('#')[0].replace(/\/+$/, '');
+    canonicalUrl = `${cleanSiteUrl}${rawPath || '/'}/`;
+} else {
+    // Si viene una canonical manual, aseguramos el slash final (quitando primero si ya existe para evitar doble //)
+    const baseUrlCanonical = canonicalUrl.split('?')[0].split('#')[0].replace(/\/+$/, '');
+    canonicalUrl = `${baseUrlCanonical}/`;
+}
+
+const ogImageFull = ogImage.startsWith('http') ? ogImage : `${cleanSiteUrl}${ogImage}`;
 ---
 
 <!-- Primary Meta -->

@@ -52,15 +52,28 @@ export function buildAlternates(
   caPath: string,
   siteUrl: string,
 ): { lang: string; url: string }[] {
-  const normEs = esPath.startsWith('/') ? esPath : `/${esPath}`;
-  const normCa = caPath.startsWith('/') ? caPath : `/${caPath}`;
-  // Si caPath ya empieza con /ca, no lo volvemos a añadir
-  const caUrl = normCa.startsWith('/ca/') || normCa === '/ca' ? normCa : `/ca${normCa}`;
+  const baseUrl = siteUrl.replace(/\/+$/, '');
+  
+  const normalize = (path: string) => {
+    if (!path) return '/';
+    let p = path.split('?')[0].split('#')[0]; 
+    p = p.replace(/^https?:\/\/[^\/]+/, ''); 
+    p = p.replace(/\/+$/, ''); 
+    if (!p.startsWith('/')) p = '/' + p;
+    return p === '/' ? '/' : `${p}/`;
+  };
+
+  const finalEs = normalize(esPath);
+  let finalCa = normalize(caPath);
+  
+  if (finalCa.startsWith('/ca/')) {
+    finalCa = finalCa.substring(3);
+  }
 
   return [
-    { lang: 'es', url: `${siteUrl}${normEs}` },
-    { lang: 'ca', url: `${siteUrl}${caUrl}` },
-    { lang: 'x-default', url: `${siteUrl}${normEs}` },
+    { lang: LOCALE_LANG.es, url: `${baseUrl}${finalEs}` },
+    { lang: LOCALE_LANG.ca, url: `${baseUrl}/ca${finalCa}` },
+    { lang: 'x-default', url: `${baseUrl}${finalEs}` },
   ];
 }
 

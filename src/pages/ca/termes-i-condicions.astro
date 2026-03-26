@@ -1,0 +1,51 @@
+---
+import PageLegal from '../../components/layout/PageLegal.astro';
+import { buildAlternates } from '../../lib/i18n';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const alternates = buildAlternates('/terminos-y-condiciones', '/termes-i-condicions', SITE_URL);
+---
+
+<PageLegal 
+  title="Termes i Condicions" 
+  description="Termes i condicions de contractació dels serveis professionals de Nova Marketing."
+  lastUpdated="Març 2026"
+  locale="ca"
+  alternates={alternates}
+>
+  <h2>1. Objecte dels Serveis</h2>
+  <p>Nova Marketing, sota la titularitat de Sergio García López, ofereix serveis professionals de:</p>
+  <ul>
+    <li>Posicionament SEO i consultoria de màrqueting.</li>
+    <li>Gestió de campanyes de publicitat (Google Ads i Meta Ads).</li>
+    <li>Disseny i desenvolupament web.</li>
+    <li>Gestió de xarxes socials.</li>
+  </ul>
+  <p>La descripció detallada, durada i preu de cada servei s'especificarà en el Pressupost o Factura enviat prèviament al Client, el qual té caràcter de contracte entre les parts.</p>
+
+  <h2>2. Forma de Pagament i Terminis</h2>
+  <p>Tret que s'acordi el contrari per escrit:</p>
+  <ul>
+    <li><strong>Serveis recurrents (Fee Mensual):</strong> El pagament es realitzarà dins dels primers 5 dies naturals del mes de servei.</li>
+    <li><strong>Projectes puntuals (Web/Consultoria):</strong> Es requerirà l'abonament del 50% a la signatura del pressupost i el 50% restant abans del lliurament final o activació del servei.</li>
+  </ul>
+  <p>El retard en els pagaments facultarà Nova Marketing a suspendre temporalment els serveis després de previ avís al Client.</p>
+
+  <h2>3. Propietat Intel·lectual</h2>
+  <ul>
+    <li><strong>Comptes de Publicitat (Google/Meta Ads):</strong> Tret de pacte en contrari, els comptes de publicitat creats pertanyen al Client, mantenint aquest la propietat de les dades i l'històric acumulat. Nova Marketing actua únicament com a gestor.</li>
+    <li><strong>Know-How i Estratègia:</strong> Nova Marketing es reserva la propietat intel·lectual sobre les metodologies pròpies de treball i estratègies de posicionamiento SEO empleades.</li>
+  </ul>
+
+  <h2>4. Naturalesa dels Serveis (Responsabilitat)</h2>
+  <ul>
+    <li><strong>Algorismes Externs:</strong> El Client reconeix que els resultats en Posicionament SEO i Google/Meta Ads depenen d'algorismes de tercers (Google, Meta, etc.). Nova Marketing no pot garantir posicions específiques o costos de clic determinats.</li>
+    <li><strong>Col·laboració del Client:</strong> L'eficàcia del servei depèn que el Client faciliti la informació i accessos necessaris en els terminis acordats. Nova Marketing no serà responsable de retards derivats de la falta de lliurament de materials per part del Client.</li>
+  </ul>
+
+  <h2>5. Durada i Resolució</h2>
+  <p>Els serveis recurrents (SEO/Ads/Xarxes) tindran la durada pactada al pressupost inicial. Ambdues parts podran resoldre el contracte comunicant-ho per escrit amb una antelació mínima de 30 dies naturals.</p>
+
+  <h2>6. Jurisdicció i Llei Aplicable</h2>
+  <p>Per totes les qüestions que poguessin suscitar-se sobre la interpretació, compliment i execució dels presents Termes i Condicions, les parts se sotmeten a la jurisdicció i competència dels Jutjats i Tribunals de la ciutat de Sabadell (Barcelona), Espanya, amb renúncia expressa a qualsevol altre fòrum que pogués correspondre'ls.</p>
+</PageLegal>

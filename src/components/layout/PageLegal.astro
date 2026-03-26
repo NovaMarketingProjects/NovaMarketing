@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  lastUpdated?: string;
+  locale?: 'es' | 'ca';
+  alternates?: { lang: string; url: string }[];
+}
+
+const { title, description, lastUpdated, locale = 'es', alternates = [] } = Astro.props;
+---
+
+<BaseLayout {title} {description} {locale} {alternates}>
+  <section class="pt-32 pb-20 px-4 min-h-screen relative overflow-hidden bg-white">
+    <!-- Fondo Ambiental -->
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+    <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/10 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+    
+    <div class="max-w-4xl mx-auto relative z-10 px-4 sm:px-6">
+      <header class="mb-16 reveal">
+        <h1 class="text-4xl sm:text-7xl font-black uppercase tracking-tighter text-zinc-900 leading-[0.85] mb-6">
+          <span class="block">{title}</span>
+        </h1>
+        {lastUpdated && (
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-px bg-accent/30"></span>
+            <p class="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] text-zinc-400">
+               {locale === 'ca' ? 'Última actualització' : 'Última actualización'}: {lastUpdated}
+            </p>
+          </div>
+        )}
+      </header>
+
+      <article class="prose prose-zinc max-w-none 
+                  prose-h2:text-2xl prose-h2:sm:text-3xl prose-h2:font-black prose-h2:uppercase prose-h2:tracking-tighter prose-h2:text-zinc-900 prose-h2:mt-12 prose-h2:mb-6 prose-h2:pb-4 prose-h2:border-b prose-h2:border-zinc-100
+                  prose-p:text-zinc-500 prose-p:font-light prose-p:leading-relaxed prose-p:text-sm prose-p:sm:text-base
+                  prose-li:text-zinc-500 prose-li:font-light prose-li:text-sm prose-li:sm:text-base
+                  prose-strong:font-black prose-strong:text-zinc-900
+                  prose-table:text-left prose-table:text-zinc-600 prose-table:font-light
+                  prose-thead:text-zinc-900 prose-thead:font-black prose-thead:uppercase prose-thead:tracking-widest prose-thead:text-[10px]
+                  reveal">
+        <slot />
+      </article>
+
+      <footer class="mt-20 pt-8 border-t border-zinc-100 reveal">
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-6">
+           <p class="text-[10px] uppercase font-black tracking-widest text-zinc-400">© 2026 Nova Marketing</p>
+           <a href={locale === 'ca' ? '/ca' : '/'} class="text-xs font-black uppercase tracking-widest text-accent hover:opacity-70 transition-opacity">
+              {locale === 'ca' ? 'Tornar a l\'Inici' : 'Volver al Inicio'}
+           </a>
+        </div>
+      </footer>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:global>
+  /* Animación reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>

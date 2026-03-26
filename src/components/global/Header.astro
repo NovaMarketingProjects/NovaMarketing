@@ -23,10 +23,10 @@ const t = {
     casos: 'Casos de éxito',
     contactar: 'CONTACTAR',
     services: [
-      { href: '/agencia-seo-para-pymes', label: 'Posicionamiento SEO' },
-      { href: '/agencia-sem-para-pymes', label: 'Google Ads' },
-      { href: '/diseno-web-para-pymes', label: 'Diseño de Páginas Web' },
-      { href: '/consultoria-marketing-para-pymes', label: 'Consultoría de Marketing' },
+      { href: '/agencia-seo-para-pymes/', label: 'Posicionamiento SEO' },
+      { href: '/agencia-sem-para-pymes/', label: 'Google Ads' },
+      { href: '/diseno-web-para-pymes/', label: 'Diseño de Páginas Web' },
+      { href: '/consultoria-marketing-para-pymes/', label: 'Consultoría de Marketing' },
     ]
   },
   ca: {
@@ -36,10 +36,10 @@ const t = {
     casos: 'Casos d\'èxit',
     contactar: 'CONTACTAR',
     services: [
-      { href: '/ca/agencia-seo-per-pimes', label: 'Posicionament SEO' },
-      { href: '/ca/agencia-sem-per-pimes', label: 'Google Ads' },
-      { href: '/ca/disseny-web-per-pimes', label: 'Disseny de Pàgines Web' },
-      { href: '/ca/consultoria-marketing-per-pimes', label: 'Consultoria de Marketing' },
+      { href: '/ca/agencia-seo-per-pimes/', label: 'Posicionament SEO' },
+      { href: '/ca/agencia-sem-per-pimes/', label: 'Google Ads' },
+      { href: '/ca/disseny-web-per-pimes/', label: 'Disseny de Pàgines Web' },
+      { href: '/ca/consultoria-marketing-per-pimes/', label: 'Consultoria de Marketing' },
     ]
   }
 
@@ -84,8 +84,8 @@ const currentPath = Astro.url.pathname;
         </div>
       </div>
 
-      <a href={`${prefix}/blog`} class:list={['text-[12px] uppercase font-bold tracking-[0.15em] hover:text-accent transition-colors whitespace-nowrap', currentPath.startsWith(`${prefix}/blog`) ? 'text-accent' : 'text-zinc-700']}> {t.blog} </a>
-      <a href={`${prefix}/casos-exito`} class:list={['text-[12px] uppercase font-bold tracking-[0.15em] hover:text-accent transition-colors whitespace-nowrap', currentPath.startsWith(`${prefix}/casos-exito`) ? 'text-accent' : 'text-zinc-700']}> {t.casos} </a>
+      <a href={`${prefix}/blog/`} class:list={['text-[12px] uppercase font-bold tracking-[0.15em] hover:text-accent transition-colors whitespace-nowrap', currentPath.startsWith(`${prefix}/blog`) ? 'text-accent' : 'text-zinc-700']}> {t.blog} </a>
+      <a href={`${prefix}/casos-exito/`} class:list={['text-[12px] uppercase font-bold tracking-[0.15em] hover:text-accent transition-colors whitespace-nowrap', currentPath.startsWith(`${prefix}/casos-exito`) ? 'text-accent' : 'text-zinc-700']}> {t.casos} </a>
 </nav>
 
     <!-- ACTIONS (Far Right) -->
@@ -121,8 +121,8 @@ const currentPath = Astro.url.pathname;
         </div>
      </details>
 
-     <a href={`${prefix}/blog`} class="text-[12px] uppercase font-bold tracking-wider text-zinc-700"> {t.blog} </a>
-     <a href={`${prefix}/casos-exito`} class="text-[12px] uppercase font-bold tracking-wider text-zinc-700"> {t.casos} </a>
+     <a href={`${prefix}/blog/`} class="text-[12px] uppercase font-bold tracking-wider text-zinc-700"> {t.blog} </a>
+     <a href={`${prefix}/casos-exito/`} class="text-[12px] uppercase font-bold tracking-wider text-zinc-700"> {t.casos} </a>
 
      
      <div class="mt-1 pt-3 border-t border-black/5 flex justify-center">

@@ -12,13 +12,19 @@ interface Props {
 
 const { locale, alternates } = Astro.props;
 
-function getAltUrl(targetLang: string): string {
-  const alt = alternates.find(a => a.lang === targetLang);
+function getAltUrl(targetLang: 'es' | 'ca'): string {
+  // Coincidir con los códigos exactos devueltos por buildAlternates (es-ES / ca-ES)
+  const code = targetLang === 'es' ? 'es-ES' : 'ca-ES';
+  const alt = alternates.find(a => a.lang === code);
+
   if (alt) {
-    // Convert Absolute canonical URL to Relative layout router for local development navigation
-    return alt.url.replace(/^https?:\/\/[^\/]+/, '');
+    // Convert Absolute canonical URL to Relative path
+    let url = alt.url.replace(/^https?:\/\/[^\/]+/, '');
+    return url || '/';
   }
-  return targetLang === 'ca' ? '/ca' : '/';
+  
+  // Fallback seguro con slash final
+  return targetLang === 'ca' ? '/ca/' : '/';
 }
 ---
 

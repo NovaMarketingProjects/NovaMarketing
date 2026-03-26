@@ -1,64 +1,196 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { buildAlternates } from '../../lib/i18n';
+import LogoMarquee from '../../components/sections/LogoMarquee.astro';
+import FaqHome from '../../components/sections/FaqHome.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-sem-para-pymes', '/agencia-sem-per-pimes', SITE_URL);
 
+const faqItems = [
+    {
+        question: "Quant de temps triga la meva petita empresa a aparèixer a Google amb els anuncis?",
+        answer: "A diferència d'altres estratègies, la publicitat a Google és gairebé immediata. Un cop configurem i activem la campanya de la teva pyme, els teus anuncis poden començar a mostrar-se en qüestió d'hores. És la forma més ràpida de que una petita empresa aconsegueixi visibilitat i contactes nous des del primer dia."
+    },
+    {
+        question: "Cal invertir milers d'euros perquè la meva pyme obtingui resultats?",
+        answer: "No, aquesta és la gran avantatge de Google Ads per a les petites i mitjanes empreses. Tu decideixes quant vols invertir al dia. A Nova ens encarreguem d'esprémer cada euro del teu pressupost, optimitzant les campanyes perquè la teva pyme competeixi només en les cerques que realment tenen probabilitat de convertir-se en una venda."
+    },
+    {
+        question: "Què passa si deixo d'invertir en publicitat per a la meva petita empresa?",
+        answer: "En ser un sistema de \"pagament per clic\", en el moment en què s'atura la inversió, els anuncis deixen de mostrar-se. Per això, per a les pimes, recomanem combinar Google Ads amb una bona estratègia de captació a llarg termini. No obstant això, mentre la campanya estigui activa, t'assegures un flux constant de clients potencials per a la teva petita empresa."
+    },
+    {
+        question: "Com sabré si els anuncis de mi pyme estan funcionant realment?",
+        answer: "La transparència és clau per a nosaltres. Tindràs accés a informes clars on veuràs quantes persones han fet clic, quant ha costat cada contacte i, lo més important, quantes vendes o trucades ha generat la inversió de la teva petita i mitjana empresa. Sabràs exactament quin retorn estàs obtenint pels teus diners."
+    },
+    {
+        question: "Els meus anuncis sortiran només en el cercador o també a Google Maps?",
+        answer: "Podem configurar les campanyes de la teva pyme perquè apareguin on més t'interessi: en els resultats de cerca, a Google Maps (ideal per a petites empreses locals) o fins i tot a YouTube. Analitzem on són els teus clients perquè la teva petita i mitjana empresa estigui present just quan ells necessiten el teu servei."
+    },
+    {
+        question: "Per què hauria de contractar una agència en lloc de gestionar jo mateix els anuncis de la meva pyme?",
+        answer: "Google Ads és una eina potent però complexa. Un error en la configuració pot fer que una petita empresa gasti el seu pressupost en clics que no compren. A Nova utilitzem la nostra experiència i tecnologia per triar la KW exacta i redactar anuncis que converteixin, evitant que la teva pyme malgasti diners en proves innecessàries."
+    }
+];
+
+const semServiceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Agència de Google Ads i SEM",
+  "name": "Gestió de Campanyes de Google Ads per a Pimes a Catalunya",
+  "description": "Agència especialitzada en SEM i Google Ads per a pimes. Maximitza el teu ROI amb campanyes de cerca, display i shopping a Barcelona, el Vallès i tota Catalunya.",
+  "provider": {
+    "@type": "ProfessionalService",
+    "name": "Nova Marketing",
+    "url": "https://novamarketing.es",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Carrer de Bilbao 1",
+      "addressLocality": "Sabadell",
+      "addressRegion": "Barcelona",
+      "postalCode": "08202",
+      "addressCountry": "ES"
+    }
+  },
+  "areaServed": [
+    {"@type": "Country", "name": "Spain"},
+    {"@type": "State", "name": "Catalunya"},
+    {"@type": "City", "name": "Barcelona"},
+    {"@type": "City", "name": "L'Hospitalet de Llobregat"},
+    {"@type": "City", "name": "Terrassa"},
+    {"@type": "City", "name": "Sabadell"},
+    {"@type": "City", "name": "Badalona"},
+    {"@type": "City", "name": "Sant Cugat del Vallès"},
+    {"@type": "City", "name": "Lleida"},
+    {"@type": "City", "name": "Tarragona"},
+    {"@type": "City", "name": "Mataró"},
+    {"@type": "City", "name": "Reus"},
+    {"@type": "City", "name": "Girona"},
+    {"@type": "City", "name": "Cornellà de Llobregat"},
+    {"@type": "City", "name": "Sant Boi de Llobregat"},
+    {"@type": "City", "name": "Cerdanyola del Vallès"},
+    {"@type": "City", "name": "El Prat de Llobregat"},
+    {"@type": "City", "name": "Castelldefels"},
+    {"@type": "City", "name": "Rubí"},
+    {"@type": "City", "name": "Manresa"},
+    {"@type": "City", "name": "Vilanova i la Geltrú"},
+    {"@type": "City", "name": "Granollers"},
+    {"@type": "City", "name": "Viladecans"},
+    {"@type": "City", "name": "Santa Coloma de Gramenet"},
+    {"@type": "City", "name": "Vic"},
+    {"@type": "City", "name": "Figueres"},
+    {"@type": "City", "name": "Mollet del Vallès"},
+    {"@type": "City", "name": "Gavà"},
+    {"@type": "City", "name": "Sant Adrià de Besòs"},
+    {"@type": "City", "name": "Esplugues de Llobregat"},
+    {"@type": "City", "name": "Olot"},
+    {"@type": "City", "name": "Vilafranca del Penedès"}
+  ],
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "Pimes i negocis locals que busquen augmentar vendes mitjançant publicitat de pagament"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Catàleg de Serveis SEM",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Gestió de Campanyes de Cerca (Search)"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Publicidad en Google Shopping para E-commerce"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Campanyes de Remarketing i Display"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Auditoria de comptes de Google Ads"
+        }
+      }
+    ]
+  },
+  "serviceOutput": "Optimització del CPA (Cost per Adquisició), augment del CTR i informes detallats de conversions.",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://novamarketing.es/ca/agencia-sem-per-pimes/"
+  }
+};
 
 const steps = [
   { title: "Estudi de Keywords", desc: "Analitzem les paraules clau amb major intenció de compra per atreure clients llestos per adquirir els teus productes o serveis." },
-  { title: "Optimització de Landings", desc: "Adaptem l'estructura de la teva web perquè cada visita es tradueixi en una conversió, maximitzant la teva inversió publicitària." },
+  { title: "Optimització de Landings", desc: "Adaptem l'estructura de la teva web perquè cada visita es tradueixi en una conversió, maximitzant la teva inversió publicitaria." },
   { title: "Creació d'Anuncis", desc: "Redactem anuncis de cerca d'alt impacte i dissenyem banners atractius de Display i Shopping per captar l'atenció." },
-  { title: "Test A/B i Optimització", desc: "Provem contínuament diferents versions d'anuncis per abaixar el CPC (cost per clic) i elevar la rendibilitat." }
+  { title: "Test A/B i Optimització", desc: "Provem contínuament diferents versions d'anuncis per abaixar el CPC (cost per clic) i elevar la rentabilitat." }
 ];
 
 const benefits = [
   { title: "Control total del teu pressupost", desc: "Tu decideixes quant invertir cada dia. Gestió de campanyes sense sorpreses, sense costos ocults i adaptat a la teva PIME." },
-  { title: "Segmentació Avançada", desc: "Arribem només a qui busca els teus serveis a la teva zona i horari. No disparem a cegues, apuntem al teu client ideal." },
-  { title: "Mesura exacta del ROI", desc: "Sabràs exactament quants euros de venda ha generat cada euro invertit. Resultats mesurables amb informes transparents." }
+  { title: "Segmentación Avanzada", desc: "Arribem només a qui busca els teus serveis a la teva zona i horari. No disparem a cegues, apuntem al teu client ideal." },
+  { title: "Medició exacta del ROI", desc: "Sabràs exactament quants euros de venda ha generat cada euro invertit. Resultats mesurables amb informes transparents." }
 ];
 ---
 
 <BaseLayout
-  title="Agència SEM per a Pimes | Gestió Google Ads | Nova Marketing"
+  title="Agència Google Ads per a PYMES | Nova Marketing"
   description="Gestió de campanyes de Google Ads orientades a vendes per a pimes. Rentabilitza la teva inversió des del primer dia amb anuncis optimitzats."
   locale="ca"
   alternates={alternates}
+  schemas={[semServiceSchema]}
 >
 
     <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
-    <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
-        <!-- Background Grid Mesh -->
+    <section class="min-h-[88vh] flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
         <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
-
-        <!-- Glow Orbs -->
         <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
         <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
 
-        <div class="max-w-4xl mx-auto reveal">
-            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
+        <div class="max-w-7xl mx-auto reveal relative z-10">
+            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-6 shadow-sm">
                 <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
                 Especialistes en Google Ads
             </span>
-            <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
-                Agència SEM <br /> per a Pimes
+
+            <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl uppercase font-black tracking-tighter leading-[0.85] mb-6 text-zinc-900 flex flex-col items-center text-center">
+                <span>Agència de</span>
+                <span>Google Ads</span>
+                <span class="text-mktg-gradient px-4 overflow-visible inline-block">per a pymes</span>
             </h1>
-            <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-10">
-                Gestió de Campanyes en Google Ads orientades a vendes. Optimitzem la teva inversió per captar clients des del primer dia sense llençar els diners.
+
+            <p class="text-base sm:text-lg text-zinc-500 font-light leading-relaxed max-w-2xl mx-auto mb-12">
+                Gestió de Campanyes en Google Ads orientades a vendes. Rentabilitzem la teva inversió des del primer segon amb objectius de negoci reals.
             </p>
-            <div class="flex justify-center mt-4">
-                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                    SOL·LICITAR AUDITORIA ADS
+
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300 !py-5 !px-12 !text-[12px] !tracking-wider font-black w-full sm:w-auto">
+                    SOL·LICITAR AUDITORIA GRATIS
                 </a>
             </div>
         </div>
     </section>
 
+    <!-- ═══ LOGOS CLIENTES (SOCIAL PROOF) ══════════════════════════════════ -->
+    <LogoMarquee />
+
     <!-- ═══ SECCIÓN 1: ESTRATEGIA ═══════════════════════════════════════════ -->
     <section class="py-20 sm:py-32 bg-zinc-50 border-b border-black/5 px-4 sm:px-6">
         <div class="max-w-4xl mx-auto text-center reveal">
-            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+            <h2 class="text-3xl sm:text-5xl lg:text-7xl font-black tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.82]">
                 Campanyes Google Ads que sí Generen Clients
             </h2>
             <p class="text-zinc-500 font-light text-base sm:text-lg leading-relaxed w-[75%] mx-auto">
@@ -67,11 +199,11 @@ const benefits = [
         </div>
     </section>
 
-    <!-- ═══ SECCIÓN 2: CÓMO TRABAJAMOS (ROADMAP) ════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
+    <!-- ═══ SECCIÓN 2: TIMELINE (ROADMAP) ═══════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
         <div class="max-w-5xl mx-auto">
             <div class="text-center mb-16 sm:mb-24 reveal">
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                <h2 class="text-2xl sm:text-5xl lg:text-7xl font-black tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.85]">
                     La Nostra Metodologia SEM per a PIMES
                 </h2>
                 <div class="text-zinc-500 w-[75%] mx-auto font-light text-sm sm:text-base leading-relaxed space-y-4">
@@ -82,16 +214,12 @@ const benefits = [
             </div>
 
             <div id="timeline-container" class="relative">
-                <!-- Vertical Background Line -->
                 <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
-                <!-- Vertical Progressing Line -->
                 <div id="progress-bar" class="hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100" style="height: 0%;"></div>
                 
                 <div class="space-y-16 md:space-y-24 flex flex-col items-center">
                     {steps.map((step, index) => (
                         <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal" style={`transition-delay: ${index * 100}ms`}>
-                            
-                            <!-- Left Side Side (Desktop Only Alternation - For Even Indices) -->
                             <div class="hidden md:block md:flex-1 text-right md:order-1">
                                 {index % 2 === 0 && (
                                     <div class="md:pr-12">
@@ -100,21 +228,15 @@ const benefits = [
                                     </div>
                                 )}
                             </div>
-                            
-                            <!-- Center Node -->
                             <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all duration-300">
                                 0{index + 1}
                             </div>
-
-                            <!-- Right Side Side (Desktop Odd / Mobile All Content) -->
                             <div class="flex-1 text-left md:order-3">
                                 <div class="md:pl-12">
                                     <h3 class:list={["text-xl sm:text-2xl font-black uppercase tracking-tighter mb-2 text-zinc-900", index % 2 === 0 ? "md:hidden" : ""]}>{step.title}</h3>
                                     <p class:list={["text-sm text-zinc-500 font-light max-w-md mr-auto", index % 2 === 0 ? "md:hidden" : ""]}>{step.desc}</p>
                                 </div>
                             </div>
-
-
                         </div>
                     ))}
                 </div>
@@ -122,77 +244,9 @@ const benefits = [
         </div>
     </section>
 
-    <!-- ═══ SECCIÓN 3: BENEFICIOS (CARDS) ══════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 relative overflow-hidden border-t border-black/5">
-        <!-- Deco meshes -->
-        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_80%,transparent_100%)]"></div>
-        <div class="absolute -top-40 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl opacity-20 animate-pulse"></div>
-        <div class="absolute -bottom-40 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl opacity-10"></div>
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16 sm:mb-24 reveal">
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-4 text-zinc-900 leading-[0.9]">
-                    Per què invertir en SEM amb nosaltres?
-                </h2>
-                <p class="text-zinc-500 w-[75%] mx-auto font-light text-sm sm:text-base">Resultats immediats, escala el teu negoci amb seguretat.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {benefits.map((benefit, i) => (
-                    <div class="group p-8 border border-black/5 bg-white rounded-sm hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal" style={`transition-delay: ${i * 100}ms`}>
-                        <div class="h-1 bg-black w-12 group-hover:w-full transition-all duration-500 mb-6"></div>
-                        <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-4 text-zinc-900">{benefit.title}</h3>
-                        <p class="text-sm text-zinc-500 font-light leading-relaxed">{benefit.desc}</p>
-                    </div>
-                ))}
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ SECCIÓN 4: CASOS DE ÉXITO ══════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
-        <div class="max-w-7xl mx-auto">
-            <div class="mb-16 sm:mb-24 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">SEM que funciona</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-7xl uppercase tracking-tighter font-extrabold mb-2 text-zinc-900 leading-[0.9]">
-                    Casos d'èxit de SEM per a pimes
-                </h2>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
-                <div class="bg-zinc-50 p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all">
-                    <div>
-                        <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">E-COMMERCE Ads</span>
-                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">Botiga Online Calçat</h3>
-                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">CPA reduït un 40% i ROAS augmentat x3 en campanyes de Shopping i cerca.</p>
-                    </div>
-                    <div class="text-2xl font-black tracking-tighter text-black mt-4">x3 ROAS</div>
-                </div>
-
-                <div class="bg-zinc-50 p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all" style="transition-delay: 100ms">
-                    <div>
-                        <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">LOCAL Ads</span>
-                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">Clínica Estètica Sabadell</h3>
-                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Captació constant de leads qualificats a cost mínim per a agenda plena.</p>
-                    </div>
-                    <div class="text-2xl font-black tracking-tighter text-black mt-4">+50 Leads/Mes</div>
-                </div>
-
-                <div class="bg-zinc-50 p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all" style="transition-delay: 200ms">
-                    <div>
-                        <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">B2B Ads</span>
-                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">Subministraments Industrials</h3>
-                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Campanyes de Display i Search reduint cost d'adquisició corporatiu x2.</p>
-                    </div>
-                    <div class="text-2xl font-black tracking-tighter text-black mt-4">-50% Cost adq.</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ CONTACTO (v6 Form) ════════════════════════════════════════════ -->
+    <!-- ═══ CONTACTO ═══════════════════════════════════════════════════════ -->
     <section id="contacto" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
         <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
-            
             <div class="reveal text-white">
                 <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 sm:mb-12 opacity-70 block">AUDITORIA ADS GRATIS</span>
                 <h2 class="text-5xl sm:text-8xl font-black uppercase tracking-tighter leading-[0.8] mb-8 sm:mb-12">
@@ -229,18 +283,15 @@ const benefits = [
         </div>
     </section>
 
+    <!-- ═══ FAQ ════════════════════════════════════════════════════════════ -->
+    <FaqHome 
+        items={faqItems} 
+        title="Preguntes sobre Google Ads <br /> que ens fan altres pimes" 
+    />
+
 </BaseLayout>
 
-<script>
-    document.getElementById('contact-form')?.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const btn = (e.target as HTMLFormElement).querySelector('button');
-        if (btn) {
-            btn.innerHTML = '¡ENVIAT CORRECTAMENT!';
-            btn.style.background = '#000000';
-        }
-    });
-
+<script is:inline>
     function initTimeline() {
         const progressBar = document.getElementById('progress-bar');
         const timeline = document.getElementById('timeline-container');
@@ -269,7 +320,6 @@ const benefits = [
         document.addEventListener('astro:page-load', updateProgress);
         updateProgress();
     }
-    
     document.addEventListener('DOMContentLoaded', initTimeline);
     document.addEventListener('astro:page-load', initTimeline);
 </script>

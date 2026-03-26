@@ -1,0 +1,82 @@
+---
+import PageLegal from '../../components/layout/PageLegal.astro';
+import { buildAlternates } from '../../lib/i18n';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const alternates = buildAlternates('/cookies', '/cookies', SITE_URL);
+---
+
+<PageLegal 
+  title="Política de Cookies" 
+  description="Informació detallada sobre l'ús de cookies al lloc web de Nova Marketing."
+  lastUpdated="Març 2026"
+  locale="ca"
+  alternates={alternates}
+>
+  <h2>1. Què són les cookies?</h2>
+  <p>Una cookie és un petit fitxer de text que s'emmagatzema al seu navegador quan visita gairebé qualsevol pàgina web. La seva utilitat és que la web sigui capaç de recordar la seva visita quan torni a navegar per aquesta pàgina.</p>
+
+  <h2>2. Cookies utilitzades en aquest lloc web</h2>
+  <p>Seguint les directrius de l'Agència Espanyola de Protecció de Dades, procedim a detallar l'ús de cookies que fa Nova Marketing:</p>
+
+  <h3>A. Cookies Tècniques (Necessàries)</h3>
+  <p>Són aquelles que permeten a l'usuari la navegació a través d'una pàgina web i la utilització de les diferents opcions o serveis que en ella existeixin (controlar el trànsit, identificar la sessió, accedir a parts d'accés restringit, etc.). Aquestes no requereixen consentiment.</p>
+
+  <h3>B. Cookies d'Anàlisi (Tercers)</h3>
+  <p>Són aquelles que, tractades per nosaltres o per tercers, ens permeten quantificar el nombre d'usuaris i realitzar el mesurament i l'anàlisi estadístic de la utilització que fan els usuaris del servei ofert.</p>
+  <ul>
+    <li><strong>Google Analytics:</strong> Emmagatzema cookies per elaborar estadístiques sobre el trànsit i el volum de visites d'aquesta web.</li>
+  </ul>
+
+  <h3>C. Cookies de Publicitat Comportamental (Tercers)</h3>
+  <ul>
+    <li><strong>Meta Pixel (Facebook Ads):</strong> Aquestes cookies permeten mostrar anuncis personalitzats a l'usuari a les plataformes de Meta (Facebook/Instagram) basats en el seu comportament previ a la nostra web.</li>
+  </ul>
+
+  <div class="overflow-x-auto my-8">
+    <table class="min-w-full">
+      <thead>
+        <tr>
+          <th>Proveïdor</th>
+          <th>Cookie</th>
+          <th>Finalitat</th>
+          <th>Durada</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Google Analytics</td>
+          <td>_ga, _gid</td>
+          <td>Mesurament estadístic de visites.</td>
+          <td>2 anys / 24h</td>
+        </tr>
+        <tr>
+          <td>Meta / Facebook</td>
+          <td>_fbp, fr</td>
+          <td>Seguiment de conversions i retargeting publicitari.</td>
+          <td>3 mesos</td>
+        </tr>
+        <tr>
+          <td>Pròpia</td>
+          <td>cookie_notice</td>
+          <td>Recordar si l'usuari ha acceptat la política de cookies.</td>
+          <td>1 any</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>4. Desactivació o eliminació de cookies</h2>
+  <p>En qualsevol moment podrà exercir el seu dret de desactivació o eliminació de cookies d'aquest lloc web. Aquestes accions es realitzen de forma diferent en funció del navegador que estigui usant:</p>
+  <ul>
+    <li><strong>Google Chrome:</strong> Configuració &gt; Privadesa i seguretat &gt; Cookies i altres dades de llocs.</li>
+    <li><strong>Mozilla Firefox:</strong> Ajustos &gt; Privadesa i Seguretat &gt; Cookies i dades del lloc.</li>
+    <li><strong>Safari:</strong> Preferències &gt; Privadesa.</li>
+  </ul>
+
+  <h2>5. Notes addicionals</h2>
+  <ul>
+    <li>Ni aquesta web ni els seus representants legals es fan responsables ni del contingut ni de la veracitat de les polítiques de privadesa que puguin tenir els tercers esmentats en aquesta política de cookies.</li>
+    <li>Els navegadors web són les eines encarregades d'emmagatzemar les cookies i des d'aquest lloc ha d'efectuar el seu dret a l'eliminació o desactivació de les mateixes.</li>
+  </ul>
+</PageLegal>

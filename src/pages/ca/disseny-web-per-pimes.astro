@@ -1,9 +1,136 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { buildAlternates } from '../../lib/i18n';
+import LogoMarquee from '../../components/sections/LogoMarquee.astro';
+import FaqHome from '../../components/sections/FaqHome.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/diseno-web-para-pymes', '/disseny-web-per-pimes', SITE_URL);
+
+const faqItems = [
+    {
+        question: "Quin tipus de pàgina web necessita la meva pyme per començar?",
+        answer: "Tot depèn del teu objectiu. Si busques donar una imatge professional i explicar els teus serveis, una web corporativa és ideal per a la teva petita empresa. Si el que vols és vendre productes directament, necessites un ecommerce o botiga online. A Nova analitzem el teu model de negoci per recomanar-te l'opció que millor retorn d'inversió ofereixi a la teva petita i mitjana empresa."
+    },
+    {
+        question: "Què és una landing page i per què la meva petita empresa podria necessitar-ne una?",
+        answer: "Una landing page (o pàgina d'aterratge) és una web d'una sola pàgina dissenyada exclusivament perquè l'usuari realitzi una acció, com trucar o omplir un formulari. És l'eina més potent per a les pimes que fan campanyes de publicitat, ja que eliminen distraccions i multipliquen les possibilitats d'aconseguir clients per a la teva petita empresa."
+    },
+    {
+        question: "Podré gestionar jo mateix la botiga online o la web de la meva pyme?",
+        answer: "Sí, totalment. Dissenyam pàgines web per a petites i mitjanes empreses que són fàcils d'usar i autogestionables. Un cop acabem el projecte, la teva pyme tindrà total autonomia per pujar nous productes al teu ecommerce, canviar textos o pujar notícies sense dependre de nosaltres per a cada petit canvi."
+    },
+    {
+        question: "La web de la meva petita empresa estarà preparada per aparèixer a Google?",
+        answer: "Des del primer minut. No només creem webs boniques, sinó que les optimitzem tècnicament perquè Google les vegi amb bons ulls. Realitzem una estructura basada en la KW més important del teu sector perquè la teva petita i mitjana empresa tingui una base sòlida des de la qual començar a treballar el seu posicionament orgànic."
+    },
+    {
+        question: "Es veurà bé la pàgina de la meva pyme en telèfons mòbils?",
+        answer: "Avui dia, la majoria dels clients d'una petita empresa accedeixen des del mòbil. Per això, tots els nostres dissenys són \"responsive\", el que significa que la web de la teva pyme s'adaptarà perfectament a qualsevol dispositiu (mòbil, tauleta o ordinador), garantint una experiència d'usuari professional i ràpida."
+    },
+    {
+        question: "Quant de temps triga a estar llista la web de la meva petita i mitjana empresa?",
+        answer: "Els temps varien segons la complexitat. Una landing page pot estar llista en pocs dies, mentre que una web corporativa completa o un ecommerce amb molts productes requereix més temps de desenvolupament. En qualsevol cas, a la nostra agència treballem amb terminis ajustats perquè sabem que la teva pyme no pot permetre's perdre oportunitats de negoci."
+    }
+];
+
+const webDesignServiceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Disseny Web per a Pimes",
+  "name": "Disseny de Pàgines Web i Botigues Online per a Pimes a Catalunya",
+  "description": "Agència de disseny web especialitzada en pimes i autònoms. Creem webs corporatives, landing pages i ecommerce optimitzats per a Google a tota Catalunya.",
+  "provider": {
+    "@type": "ProfessionalService",
+    "name": "Nova Marketing",
+    "url": "https://novamarketing.es",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Carrer de Bilbao 1",
+      "addressLocality": "Sabadell",
+      "addressRegion": "Barcelona",
+      "postalCode": "08202",
+      "addressCountry": "ES"
+    }
+  },
+  "areaServed": [
+    {"@type": "Country", "name": "Spain"},
+    {"@type": "State", "name": "Catalunya"},
+    {"@type": "City", "name": "Barcelona"},
+    {"@type": "City", "name": "L'Hospitalet de Llobregat"},
+    {"@type": "City", "name": "Terrassa"},
+    {"@type": "City", "name": "Sabadell"},
+    {"@type": "City", "name": "Badalona"},
+    {"@type": "City", "name": "Sant Cugat del Vallès"},
+    {"@type": "City", "name": "Lleida"},
+    {"@type": "City", "name": "Tarragona"},
+    {"@type": "City", "name": "Mataró"},
+    {"@type": "City", "name": "Reus"},
+    {"@type": "City", "name": "Girona"},
+    {"@type": "City", "name": "Cornellà de Llobregat"},
+    {"@type": "City", "name": "Sant Boi de Llobregat"},
+    {"@type": "City", "name": "Cerdanyola del Vallès"},
+    {"@type": "City", "name": "El Prat de Llobregat"},
+    {"@type": "City", "name": "Castelldefels"},
+    {"@type": "City", "name": "Rubí"},
+    {"@type": "City", "name": "Manresa"},
+    {"@type": "City", "name": "Vilanova i la Geltrú"},
+    {"@type": "City", "name": "Granollers"},
+    {"@type": "City", "name": "Viladecans"},
+    {"@type": "City", "name": "Santa Coloma de Gramenet"},
+    {"@type": "City", "name": "Vic"},
+    {"@type": "City", "name": "Figueres"},
+    {"@type": "City", "name": "Mollet del Vallès"},
+    {"@type": "City", "name": "Gavà"},
+    {"@type": "City", "name": "Sant Adrià de Besòs"},
+    {"@type": "City", "name": "Esplugues de Llobregat"},
+    {"@type": "City", "name": "Olot"},
+    {"@type": "City", "name": "Vilafranca del Penedès"}
+  ],
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "Pimes i negocis locals que busquen millorar la seva presència digital i augmentar vendes online"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Catàleg de Serveis de Disseny Web",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Disseny de Web Corporativa"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Creació de Botigues Online (Ecommerce)"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Desenvolupament de Landing Pages de Conversió"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Manteniment i Seguretat Web"
+        }
+      }
+    ]
+  },
+  "serviceOutput": "Lloc web professional autogestionable, optimitzat per a conversió i visibilitat en cercadors.",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://novamarketing.es/ca/disseny-web-per-pimes/"
+  }
+};
 
 const steps = [
   { title: "Disseny 100% Responsive", desc: "Adaptem la teva web a qualsevol dispositiu mòbil. Més del 70% dels teus clients potencials et buscaran des d'un smartphone." },
@@ -15,101 +142,102 @@ const steps = [
 const benefits = [
   { title: "Tot Inclòs", desc: "Domini, Allotjament SSD d'alta velocitat i correus corporatius configurats des del primer moment sense costos ocults." },
   { title: "WhatsApp i Xarxes Unides", desc: "Integració nativa amb els teus canals de comunicació perquè les visites puguin contactar amb un sol clic." },
-  { title: "Màxima Seguretat Legal", desc: "Certificat de seguretat SSL encriptat i adaptació completa a la Llei de Protecció de Dades (RGPD) europea." },
-  { title: "Desenvolupament web propi", desc: "Desenvolupem la pàgina web a mida perquè compleixi amb totes les teves necessitats i estigui optimitzada per al SEO." }
-
+  { title: "Màxima Seguretat Legal", desc: "Certificat de seguretat SSL encriptat i adaptació completa a la Llei de Protecció de Dades (RGPD) europea." }
 ];
 ---
 
 <BaseLayout
-  title="Disseny de Pàgines Web per a Pimes | Web Professional | Nova Marketing"
-  description="Creamos la web profesional que la tuva empresa necesita para crecer. Diseños adaptables, ultrarrápidos y 100% enfocados a captar clientes."
+  title="Disseny Web per a PYMES | Nova Marketing"
+  description="Creem la web professional que la teva empresa necessita per créixer. Dissenys adaptables, ultraràpids i 100% enfocats a captar clients."
   locale="ca"
   alternates={alternates}
+  schemas={[webDesignServiceSchema]}
 >
 
     <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
-    <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
-        <!-- Background Grid Mesh -->
+    <section class="min-h-[88vh] flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
         <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
-
-        <!-- Glow Orbs -->
         <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
         <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
 
-        <div class="max-w-5xl mx-auto reveal">
-            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
+        <div class="max-w-7xl mx-auto reveal relative z-10">
+            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-6 shadow-sm">
                 <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
                 Especialistes en Disseny Web
             </span>
-            <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
-                Disseny de Pàgines <br /> Web per a Pimes
+
+            <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] uppercase font-black tracking-tighter leading-[0.82] mb-8 text-zinc-900 flex flex-col items-center text-center">
+                <span>Disseny de</span>
+                <span>Pàgines Web</span>
+                <span class="text-mktg-gradient px-4 overflow-visible inline-block">per a Pimes</span>
             </h1>
 
-            <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-10">
-                Creamos la web profesional que la teva empresa necessita per a créixer. Dissenys adaptables, ultraràpids i 100% enfocats a captar clients.
+            <p class="text-base sm:text-lg text-zinc-500 font-light leading-relaxed max-w-2xl mx-auto mb-12">
+                Creem la web professional que la tecnologia d'avui exigeix: ràpida, venedora i 100% autogestionable per a la teva petita empresa.
             </p>
-            <div class="flex justify-center mt-4">
-                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                    SOL·LICITAR PRESSUPOST WEB
-                </a>
+
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                <button class="contact-modal-trigger btn-mktg-v5 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300 !py-5 !px-12 !text-[12px] !tracking-wider font-black w-full sm:w-auto">
+                    SOL·LICITAR AUDITORIA GRATIS
+                </button>
             </div>
         </div>
     </section>
+
+    <!-- ═══ LOGOS CLIENTES (SOCIAL PROOF) ══════════════════════════════════ -->
+    <LogoMarquee />
 
     <!-- ═══ SECCIÓN 1: ESTRATEGIA ═══════════════════════════════════════════ -->
     <section class="py-20 sm:py-32 bg-zinc-50 border-b border-black/5 px-4 sm:px-6">
         <div class="max-w-4xl mx-auto text-center reveal">
-            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                El teu aparador digital 24/7 sense problemes
+            <h2 class="text-3xl sm:text-5xl lg:text-7xl font-black tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.82]">
+                Disseny Web Estratègic per al teu Negoci
             </h2>
             <p class="text-zinc-500 font-light text-base sm:text-lg leading-relaxed w-[75%] mx-auto">
-                No fem webs per omplir espai. Dissenyam pàgines pensades per a l'usuari d'avui, resolent els seus dubtes de forma visual, transmetent confiança i aconseguint un embut de conversió net.
+                No creem simples webs. Desenvolupem eines de venda optimitzades per captar leads i convertir-los en clients per a la teva pyme de forma automàtica.
             </p>
         </div>
     </section>
 
-    <!-- ═══ SECCIÓN 2: CÓMO TRABAJAMOS (ROADMAP) ════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
+    <!-- ═══ SECCIÓN 2: TIMELINE (COMO GOOGLE ADS) ═══════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
         <div class="max-w-5xl mx-auto">
             <div class="text-center mb-16 sm:mb-24 reveal">
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Característiques de la tèva nova web
+                <h2 class="text-2xl sm:text-5xl lg:text-7xl font-black tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.85]">
+                    Com treballem el Disseny Web de la teva Empresa
                 </h2>
                 <div class="text-zinc-500 w-[75%] mx-auto font-light text-sm sm:text-base leading-relaxed space-y-4">
                     <p>
-                        Cuidem cada detall tècnic perquè no hagis de preocupar-te de res. Rendiment, estructura i usabilitat garantits.
+                        Oblida't del Disseny Web en pilot automàtic. Comptaràs amb un <strong>Account Manager dedicat</strong> que treballarà al teu costat per resoldre els teus dubtes, supervisar cada avanç i mantenir-te informat amb reports clars.
                     </p>
                 </div>
             </div>
 
-            <div id="timeline-container" class="relative">
+            <div id="timeline-container" class="relative timeline-container">
                 <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
-                <div id="progress-bar" class="hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100" style="height: 0%;"></div>
+                <div class="progress-bar hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100" style="height: 0%;"></div>
                 
-                <div class="space-y-16 md:space-y-24 flex flex-col items-center">
+                <div class="space-y-16 flex flex-col items-center">
                     {steps.map((step, index) => (
                         <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal" style={`transition-delay: ${index * 100}ms`}>
-                            
-                            <div class="hidden md:block md:flex-1 text-right md:order-1">
-                                {index % 2 === 0 && (
-                                    <div class="md:pr-12">
-                                        <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{step.title}</h3>
-                                        <p class="text-sm text-zinc-500 font-light max-w-md ml-auto">{step.desc}</p>
-                                    </div>
-                                )}
+                            <div class:list={[
+                                "flex-1 w-full",
+                                index % 2 === 0 ? "md:order-1 md:text-right" : "md:order-3 md:text-left"
+                            ]}>
+                                <div class="p-8 sm:p-10 bg-zinc-50 border border-black/5 rounded-3xl hover:border-accent/10 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+                                     <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{index + 1}. {step.title}</h3>
+                                     <div class:list={["h-0.5 bg-accent w-full mb-4 opacity-80", index % 2 === 0 ? "md:ml-auto" : ""]}></div>
+                                     <p class:list={["text-sm text-zinc-500 font-light max-w-md", index % 2 === 0 ? "md:ml-auto" : ""]}>{step.desc}</p>
+                                     <div class="absolute -bottom-6 -right-5 text-8xl font-black text-black/[0.02] select-none z-0 group-hover:scale-105 transition-transform duration-500">0{index+1}</div>
+                                </div>
                             </div>
-                            
                             <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all duration-300">
                                 0{index + 1}
                             </div>
-
-                            <div class="flex-1 text-left md:order-3">
-                                <div class="md:pl-12">
-                                    <h3 class:list={["text-xl sm:text-2xl font-black uppercase tracking-tighter mb-2 text-zinc-900", index % 2 === 0 ? "md:hidden" : ""]}>{step.title}</h3>
-                                    <p class:list={["text-sm text-zinc-500 font-light max-w-md mr-auto", index % 2 === 0 ? "md:hidden" : ""]}>{step.desc}</p>
-                                </div>
-                            </div>
+                            <div class:list={[
+                                "hidden md:block md:flex-1",
+                                index % 2 === 0 ? "md:order-3" : "md:order-1"
+                            ]}></div>
                         </div>
                     ))}
                 </div>
@@ -117,128 +245,59 @@ const benefits = [
         </div>
     </section>
 
-    <!-- ═══ SECCIÓN 3: BENEFICIOS (CARDS) ══════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 relative overflow-hidden border-t border-black/5">
-        <!-- Deco meshes -->
-        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_80%,transparent_100%)]"></div>
-        <div class="absolute -top-40 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl opacity-20 animate-pulse"></div>
-        <div class="absolute -bottom-40 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl opacity-10"></div>
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16 sm:mb-24 reveal">
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-4 text-zinc-900 leading-[0.9]">
-                    Què inclou el nostre servei de Disseny Web?
-                </h2>
-                <p class="text-zinc-500 w-[75%] mx-auto font-light text-sm sm:text-base">Transparència total per al creixement de la teva petita empresa.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {benefits.map((benefit, i) => (
-                    <div class="group p-8 border border-black/5 bg-white rounded-sm hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal" style={`transition-delay: ${i * 100}ms`}>
-                        <div class="h-1 bg-black w-12 group-hover:w-full transition-all duration-500 mb-6"></div>
-                        <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-4 text-zinc-900 h-14 sm:h-16">{benefit.title}</h3>
-                        <p class="text-sm text-zinc-500 font-light leading-relaxed">{benefit.desc}</p>
-                    </div>
-                ))}
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ SECCIÓN 4: PORTFOLIO / CASOS ══════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
-        <div class="max-w-7xl mx-auto">
-            <div class="mb-16 sm:mb-24 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Nuestro Portafolio</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-7xl uppercase tracking-tighter font-extrabold mb-2 text-zinc-900 leading-[0.9]">
-                    Proyectes de disseny web reals
-                </h2>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
-                <div class="bg-zinc-50 p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all">
-                    <div>
-                        <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">WEB CORPORATIVA</span>
-                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">Estudi Arquitectura</h3>
-                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Disseny minimalista i net optimitzat per a resoldre dubtes visuals i captar leads.</p>
-                    </div>
-                    <div class="text-2xl font-black tracking-tighter text-black mt-4">Redissenyo Pro</div>
-                </div>
-
-                <div class="bg-zinc-50 p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all" style="transition-delay: 100ms">
-                    <div>
-                        <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">E-COMMERCE Venda</span>
-                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">Botiga de Moda Calçat</h3>
-                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Augment de conversions un 55% gràcies a una experiència de checkout ágil.</p>
-                    </div>
-                    <div class="text-2xl font-black tracking-tighter text-black mt-4">+55% Conversió</div>
-                </div>
-
-                <div class="bg-zinc-50 p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all" style="transition-delay: 200ms">
-                    <div>
-                        <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">LANDING PAGE</span>
-                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">Serveis Consultoria</h3>
-                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Estructura d'una sola pàgina enllaçada a campanyes per captació de leads rècord.</p>
-                    </div>
-                    <div class="text-2xl font-black tracking-tighter text-black mt-4">Multiplica Captació</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ CONTACTO (v6 Form) ════════════════════════════════════════════ -->
+    <!-- ═══ CONTACTO FORM ════════════════════════════════════════════════ -->
     <section id="contacto" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
-            
+        <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
             <div class="reveal text-white">
-                <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 sm:mb-12 opacity-70 block">PRESSUPOST SENSE COMPROMÍS</span>
-                <h2 class="text-5xl sm:text-8xl font-black uppercase tracking-tighter leading-[0.8] mb-8 sm:mb-12">
-                   ESTRENA <br>LA TEVA <br>WEB AVUI
+                <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">CREIXEMENT IMMEDIAT</span>
+                <h2 class="text-4xl sm:text-5xl lg:text-5xl font-black uppercase tracking-tighter leading-[0.85] mb-8">
+                   Contactar amb Experts en Web per a Pimes
                 </h2>
-                <p class="font-light max-w-md text-base sm:text-xl">Escriu-nos i et donarem una proposta a mida per a la teva petita empresa.</p>
+                <p class="font-light max-w-sm text-base">
+                    Sol·licita la teva auditoria web gratis. Revisarem la teva pàgina actual i traçarem un pla per optimitzar la teva conversió.
+                </p>
             </div>
 
             <div class="reveal">
-                <div class="bg-white p-8 sm:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
-                    <form class="space-y-8 sm:space-y-12" id="contact-form">
-                        <div class="grid sm:grid-cols-2 gap-6 sm:gap-12 text-[9px] sm:text-[10px] font-black tracking-widest uppercase">
-                            <div class="flex flex-col gap-3 sm:gap-4">
-                                <label class="opacity-30">NOM</label>
-                                <input type="text" name="name" aria-label="Nombre" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
-                            </div>
-                            <div class="flex flex-col gap-3 sm:gap-4">
-                                <label class="opacity-30">TELÈFON</label>
-                                <input type="tel" name="phone" class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                <div class="bg-white p-8 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
+                    <form class="space-y-6" id="contact-form">
+                        <div class="grid grid-cols-1 gap-4 text-[10px] font-black tracking-widest uppercase text-zinc-800">
+                            <div class="flex flex-col gap-2">
+                                <label class="opacity-40">NOM</label>
+                                <input type="text" name="name" aria-label="Nombre" required class="border-b border-zinc-200 py-2 focus:border-accent outline-none font-normal text-sm text-zinc-900">
                             </div>
                         </div>
-                        <div class="flex flex-col gap-3 sm:gap-4 text-[9px] sm:text-[10px] font-black tracking-widest uppercase">
-                            <label class="opacity-30">EMAIL PROFESSIONAL</label>
-                            <input type="email" name="email" aria-label="Correo electrónico" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                        <div class="grid grid-cols-1 gap-4 text-[10px] font-black tracking-widest uppercase text-zinc-800">
+                            <div class="flex flex-col gap-2">
+                                <label class="opacity-40">EMAIL PROFESSIONAL</label>
+                                <input type="email" name="email" aria-label="Correo electrónico" required class="border-b border-zinc-200 py-2 focus:border-accent outline-none font-normal text-sm text-zinc-900">
+                            </div>
                         </div>
-                        <div class="flex flex-col gap-3 sm:gap-4 text-[9px] sm:text-[10px] font-black tracking-widest uppercase">
-                            <label class="opacity-30">TIPUS DE PROJECTE</label>
-                            <textarea name="msg" aria-label="Mensaje" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="Què necessites per a la teva web?"></textarea>
+                        <div class="grid grid-cols-1 gap-4 text-[10px] font-black tracking-widest uppercase text-zinc-800">
+                            <div class="flex flex-col gap-2">
+                                <label class="opacity-40">MISSATGE</label>
+                                <textarea name="msg" aria-label="Mensaje" rows="2" class="border-b border-zinc-200 py-2 focus:border-accent outline-none font-normal text-sm text-zinc-900 resize-none"></textarea>
+                            </div>
                         </div>
-                        <button type="submit" class="w-full btn-mktg-v5 !py-6 sm:!py-8">REBRE PRESSUPOST</button>
+                        <button type="submit" class="w-full btn-mktg-v5 !py-4 shadow-md uppercase">AUDITAR LA MEVA PRESÈNCIA WEB</button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- ═══ FAQ ════════════════════════════════════════════════════════════ -->
+    <FaqHome 
+        items={faqItems} 
+        title="Preguntes sobre disseny web <br /> que ens fan altres pimes" 
+    />
+
 </BaseLayout>
 
-<script>
-    document.getElementById('contact-form')?.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const btn = (e.target as HTMLFormElement).querySelector('button');
-        if (btn) {
-            btn.innerHTML = '¡SOL·LICITUD ENVIADA!';
-            btn.style.background = '#000000';
-        }
-    });
-
+<script is:inline>
     function initTimeline() {
-        const progressBar = document.getElementById('progress-bar');
-        const timeline = document.getElementById('timeline-container');
+        const progressBar = document.querySelector('.timeline-container .progress-bar');
+        const timeline = document.querySelector('.timeline-container');
         if (!progressBar || !timeline) return;
 
         function updateProgress() {

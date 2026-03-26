@@ -1,9 +1,136 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { buildAlternates } from '../lib/i18n';
+import LogoMarquee from '../components/sections/LogoMarquee.astro';
+import FaqHome from '../components/sections/FaqHome.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-sem-para-pymes', '/agencia-sem-per-pimes', SITE_URL);
+
+const faqItems = [
+    {
+        question: "¿Cuánto tiempo tarda mi pequeña empresa en aparecer en Google con los anuncios?",
+        answer: "A diferencia de otras estrategias, la publicidad en Google es casi inmediata. Una vez que configuramos y activamos la campaña de tu pyme, tus anuncios pueden empezar a mostrarse en cuestión de horas. Es la forma más rápida de que una pequeña empresa consiga visibilidad y contactos nuevos desde el primer día."
+    },
+    {
+        question: "¿Es necesario invertir miles de euros para que mi pyme obtenga resultados?",
+        answer: "No, esa es la gran ventaja de Google Ads para las pequeñas y medianas empresas. Tú decides cuánto quieres invertir al día. En Nova nos encargamos de exprimir cada euro de tu presupuesto, optimizando las campañas para que tu pyme compita solo en las búsquedas que realmente tienen probabilidad de convertirse en una venta."
+    },
+    {
+        question: "¿Qué pasa si dejo de invertir en publicidad para mi pequeña empresa?",
+        answer: "Al ser un sistema de \"pago por clic\", en el momento en que se detiene la inversión, los anuncios dejan de mostrarse. Por eso, para las pymes, recomendamos combinar Google Ads con una buena estrategia de captación a largo plazo. Sin embargo, mientras la campaña esté activa, te aseguras un flujo constante de clientes potenciales para tu pequeña empresa."
+    },
+    {
+        question: "¿Cómo sabré si los anuncios de mi pyme están funcionando realmente?",
+        answer: "La transparencia es clave para nosotros. Tendrás acceso a informes claros donde verás cuántas personas han hecho clic, cuánto ha costado cada contacto y, lo más importante, cuántas ventas o llamadas ha generado la inversión de tu pequeña y mediana empresa. Sabrás exactamente qué retorno estás obteniendo por tu dinero."
+    },
+    {
+        question: "¿Mis anuncios saldrán solo en el buscador o también en Google Maps?",
+        answer: "Podemos configurar las campañas de tu pyme para que aparezcan donde más te interese: en los resultados de búsqueda, en Google Maps (ideal para pequeñas empresas locales) o incluso en YouTube. Analizamos dónde están tus clientes para que tu pequeña y mediana empresa esté presente justo cuando ellos necesitan tu servicio."
+    },
+    {
+        question: "¿Por qué debería contratar a una agencia en lugar de gestionar yo mismo los anuncios de mi pyme?",
+        answer: "Google Ads es una herramienta potente pero compleja. Un error en la configuración puede hacer que una pequeña empresa gaste su presupuesto en clics que no compran. En Nova utilizamos nuestra experiencia y tecnología para elegir la KW exacta y redactar anuncios que conviertan, evitando que tu pyme malgaste dinero en pruebas innecesarias."
+    }
+];
+
+const semServiceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Agencia de Google Ads y SEM",
+  "name": "Gestión de Campañas de Google Ads para Pymes en Cataluña",
+  "description": "Agencia especializada en SEM y Google Ads para pymes. Maximiza tu ROI con campañas de búsqueda, display y shopping en Barcelona, el Vallès y toda Cataluña.",
+  "provider": {
+    "@type": "ProfessionalService",
+    "name": "Nova Marketing",
+    "url": "https://novamarketing.es",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Carrer de Bilbao 1",
+      "addressLocality": "Sabadell",
+      "addressRegion": "Barcelona",
+      "postalCode": "08202",
+      "addressCountry": "ES"
+    }
+  },
+  "areaServed": [
+    {"@type": "Country", "name": "Spain"},
+    {"@type": "State", "name": "Cataluña"},
+    {"@type": "City", "name": "Barcelona"},
+    {"@type": "City", "name": "L'Hospitalet de Llobregat"},
+    {"@type": "City", "name": "Terrassa"},
+    {"@type": "City", "name": "Sabadell"},
+    {"@type": "City", "name": "Badalona"},
+    {"@type": "City", "name": "Sant Cugat del Vallès"},
+    {"@type": "City", "name": "Lleida"},
+    {"@type": "City", "name": "Tarragona"},
+    {"@type": "City", "name": "Mataró"},
+    {"@type": "City", "name": "Reus"},
+    {"@type": "City", "name": "Girona"},
+    {"@type": "City", "name": "Cornellà de Llobregat"},
+    {"@type": "City", "name": "Sant Boi de Llobregat"},
+    {"@type": "City", "name": "Cerdanyola del Vallès"},
+    {"@type": "City", "name": "El Prat de Llobregat"},
+    {"@type": "City", "name": "Castelldefels"},
+    {"@type": "City", "name": "Rubí"},
+    {"@type": "City", "name": "Manresa"},
+    {"@type": "City", "name": "Vilanova i la Geltrú"},
+    {"@type": "City", "name": "Granollers"},
+    {"@type": "City", "name": "Viladecans"},
+    {"@type": "City", "name": "Santa Coloma de Gramenet"},
+    {"@type": "City", "name": "Vic"},
+    {"@type": "City", "name": "Figueres"},
+    {"@type": "City", "name": "Mollet del Vallès"},
+    {"@type": "City", "name": "Gavà"},
+    {"@type": "City", "name": "Sant Adrià de Besòs"},
+    {"@type": "City", "name": "Esplugues de Llobregat"},
+    {"@type": "City", "name": "Olot"},
+    {"@type": "City", "name": "Vilafranca del Penedès"}
+  ],
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "Pymes y negocios locales que buscan aumentar ventas mediante publicidad de pago"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Servicios de Publicidad SEM",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Gestión de Campañas de Búsqueda (Search)"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Publicidad en Google Shopping para E-commerce"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Campañas de Remarketing y Display"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Auditoría de cuentas de Google Ads"
+        }
+      }
+    ]
+  },
+  "serviceOutput": "Optimización del CPA (Coste por Adquisición), aumento del CTR y reportes detallados de conversiones.",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://novamarketing.es/agencia-sem-para-pymes/"
+  }
+};
 
 const steps = [
   { title: "Estudio de Keywords", desc: "Analizamos las palabras clave con mayor intención de compra para atraer clientes listos para adquirir tus productos o servicios." },
@@ -20,10 +147,11 @@ const benefits = [
 ---
 
 <BaseLayout
-  title="Agencia SEM para Pymes | Auditoría y Estrategia SEO | Nova Marketing"
+  title="Agencia Google Ads para PYMES | Nova Marketing"
   description="Gestión de campañas de Google Ads orientadas a ventas para pymes. Rentabiliza tu inversión desde el primer día con anuncios optimizados."
   locale="es"
   alternates={alternates}
+  schemas={[semServiceSchema]}
 >
 
     <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
@@ -39,13 +167,13 @@ const benefits = [
             </span>
 
             <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] uppercase font-black tracking-tighter leading-[0.82] mb-8 text-zinc-900 flex flex-col items-center text-center">
-                <span class="whitespace-nowrap">Agencia de</span>
-                <span class="whitespace-nowrap">Google Ads</span>
-                <span class="bg-gradient-to-r from-accent via-accent/90 to-purple-600 bg-clip-text text-transparent px-4 overflow-visible inline-block whitespace-nowrap">para Pymes</span>
+                <span>Agencia de</span>
+                <span>Google Ads</span>
+                <span class="text-mktg-gradient px-4 overflow-visible inline-block">para pymes</span>
             </h1>
 
             <p class="text-base sm:text-lg text-zinc-500 font-light leading-relaxed max-w-2xl mx-auto mb-12">
-                Multiplicamos el tráfico y las ventas de tu pyme con estrategias de posicionamiento orgánico en Google que generan rentabilidad a largo plazo.
+                Rentabilizamos tu inversión en Google Ads desde el primer minuto con campañas orientadas 100% a objetivos de negocio.
             </p>
 
             <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
@@ -56,56 +184,8 @@ const benefits = [
         </div>
     </section>
 
-        <!-- ═══ LOGOS CLIENTES (SOCIAL PROOF) ══════════════════════════════════ -->
-    <section class="py-12 border-b border-black/5 bg-zinc-50/40 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6">
-            <p class="text-[9px] sm:text-[10px] uppercase font-black tracking-widest text-zinc-400 text-center mb-8">Pymes que ya crecen con Nova Marketing</p>
-            
-            <!-- Contenedor Maratón -->
-            <div class="overflow-hidden w-full relative [mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
-                <div id="logos-marquee" class="flex items-center gap-16 w-max animate-scroll">
-                    <!-- Cargado por Script: loop infinito aleatorio -->
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <style>
-        @keyframes scrollMarquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        .animate-scroll {
-            animation: scrollMarquee 25s linear infinite;
-        }
-    </style>
-
-    <script is:inline>
-        function initLogoMarquee() {
-            const logos = [
-                { src: "/clients/CB-lHospitalet-Cliente-de-Nova Marketing-r5f0scfd94zyqbmfo5vpk2w6v7emig4amkcax3a2r8.webp", alt: "CB l Hospitalet", h: "h-8 sm:h-9" },
-                { src: "/clients/MedHS-Cliente-de-Nova Marketing-r75br90omlfaxa8kgggtsvolkw6r9dqian13ef1dv8.webp", alt: "MedHS", h: "h-8 sm:h-9" },
-                { src: "/clients/Tagtio-Cliente-de-Nova Marketing-r75br67623bfygcnwx8y3ee7sqknmafba92myl5kdw.webp", alt: "Tagtio", h: "h-10 sm:h-11" },
-                { src: "/clients/Tejados-Tapar-Cliente-de-Nova Marketing-r5f0vx799fw8wwfds7jljoec8zrwszbis9ptnzz52s.webp", alt: "Tejados Tapar", h: "h-8 sm:h-9" },
-                { src: "/clients/mundeta-qvxx80vpuo9q6upotffivgzlru6avjeprbpo6kgdbo.webp", alt: "Mundeta", h: "h-9 sm:h-10" }
-            ];
-
-            // Shuffle
-            const shuffledLogos = logos.sort(() => Math.random() - 0.5);
-
-            // Duplicate list 2 times to prevent gaps
-            const fullList = [...shuffledLogos, ...shuffledLogos, ...shuffledLogos, ...shuffledLogos];
-
-            const container = document.getElementById('logos-marquee');
-            if (container) {
-                container.innerHTML = fullList.map(item => 
-                    `<img src="${item.src}" alt="${item.alt}" class="${item.h} w-auto object-contain filter grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 pointer-events-none" />`
-                ).join('');
-            }
-        }
-        document.addEventListener('DOMContentLoaded', initLogoMarquee);
-        document.addEventListener('astro:page-load', initLogoMarquee);
-    </script>
+    <!-- ═══ LOGOS CLIENTES (SOCIAL PROOF) ══════════════════════════════════ -->
+    <LogoMarquee />
 
     <!-- ═══ SECCIÓN 1: AUDITORÍA Y ESTRATEGIA ═══════════════════════════════ -->
     <section class="py-20 sm:py-32 bg-zinc-50 border-b border-black/5 px-4 sm:px-6 relative overflow-hidden">
@@ -114,19 +194,19 @@ const benefits = [
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16 sm:mb-24 reveal">
                 <h2 class="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.82]">
-                    Auditoría y Estrategia <br class="hidden sm:inline" /> SEO para tu Pyme
+                    Dominio Total de <br class="hidden sm:inline" /> Google Ads para Pymes
                 </h2>
                 <p class="text-zinc-500 font-light text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
-                    No empezamos a ciegas ni usamos plantillas genéricas. Analizamos tu web de arriba a abajo para diseñar una estrategia orientada 100% a conversiones.
+                    No experimentamos con tu dinero. Diseñamos campañas quirúrgicas que impactan exactamente en tu cliente ideal cuando está listo para comprar.
                 </p>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
                 {[
-                    { title: "Auditoría Técnica", desc: "Corregimos errores de indexación, velocidad y adaptabilidad móvil para que Google te valore más." },
-                    { title: "Estudio de Keywords", desc: "Analizamos qué busca tu cliente potencial para posicionar términos con intención de compra real." },
-                    { title: "SEO On-Page", desc: "Optimizamos títulos, etiquetas y enlazado interno para decirle a Google exactamente qué vendes." },
-                    { title: "Plan de Enlaces", desc: "Construimos autoridad con enlaces de calidad que disparan la relevancia de tu dominio." }
+                    { title: "Auditoría de Cuenta", desc: "Analizamos tu historial (si tienes) para detectar fugas de presupuesto y oportunidades de mejora inmediata." },
+                    { title: "Keyword Research SEM", desc: "Seleccionamos las palabras con mayor tasa de conversión, evitando clics curiosos que no compran." },
+                    { title: "Anuncios de Impacto", desc: "Redactamos textos persuasivos que disparan el CTR y mejoran el nivel de calidad de tus campañas." },
+                    { title: "Optimización de Puja", desc: "Gestión inteligente de las pujas para que pagues lo mínimo posible por cada cliente captado." }
                 ].map((s, i) => (
                     <div class="group flex flex-col justify-between p-8 sm:p-10 h-full bg-white rounded-3xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden reveal flex-1">
                         <div class="absolute inset-x-0 h-1 bottom-0 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
@@ -163,16 +243,12 @@ const benefits = [
             </div>
 
             <div id="timeline-container" class="relative timeline-container">
-                <!-- Vertical Background Line -->
                 <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
-                <!-- Vertical Progressing Line -->
                 <div class="progress-bar hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100" style="height: 0%;"></div>
                 
                 <div class="space-y-16 flex flex-col items-center">
-                                        {steps.map((step, index) => (
+                    {steps.map((step, index) => (
                         <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal" style={`transition-delay: ${index * 100}ms`}>
-                            
-                            <!-- Card Container (Always Rendered Once) -->
                             <div class:list={[
                                 "flex-1 w-full",
                                 index % 2 === 0 ? "md:order-1 md:text-right" : "md:order-3 md:text-left"
@@ -181,149 +257,19 @@ const benefits = [
                                      <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{index + 1}. {step.title}</h3>
                                      <div class:list={["h-0.5 bg-accent w-full mb-4 opacity-80", index % 2 === 0 ? "md:ml-auto" : ""]}></div>
                                      <p class:list={["text-sm text-zinc-500 font-light max-w-md", index % 2 === 0 ? "md:ml-auto" : ""]}>{step.desc}</p>
-                                     <!-- Large BG Number -->
                                      <div class="absolute -bottom-6 -right-5 text-8xl font-black text-black/[0.02] select-none z-0 group-hover:scale-105 transition-transform duration-500">0{index+1}</div>
                                 </div>
                             </div>
-                            
-                            <!-- Center Node -->
                             <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all duration-300">
                                 0{index + 1}
                             </div>
-
-                            <!-- Empty balanced spacer on Desktop -->
                             <div class:list={[
                                 "hidden md:block md:flex-1",
                                 index % 2 === 0 ? "md:order-3" : "md:order-1"
                             ]}></div>
-
                         </div>
                     ))}
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ SECCIÓN 4: PYMES QUE TRABAJAN EL SEM ═══════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50 border-y border-black/5 px-4 sm:px-6 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16 sm:mb-24 reveal">
-                <h2 class="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tighter uppercase mb-4 text-zinc-900 leading-[0.9]">
-                    Pymes que trabajan el SEM
-                </h2>
-                <p class="text-zinc-500 w-[75%] mx-auto font-light text-sm sm:text-base">Métricas reales que demuestran la rentabilidad de nuestros clientes en Google Ads.</p>
-            </div>
-
-            <!-- Panel de Métricas Directas -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 reveal text-center">
-                <div class="p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm relative group overflow-hidden">
-                    <div class="absolute -bottom-4 -right-4 w-16 h-16 bg-[radial-gradient(#000000_10%,transparent_10%)] bg-[length:8px_8px] opacity-10"></div>
-                    <div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">+150%</div>
-                    <div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Incremento en Conversiones</div>
-                </div>
-                <div class="p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm relative group overflow-hidden">
-                    <div class="absolute -bottom-4 -right-4 w-16 h-16 bg-[radial-gradient(#000000_10%,transparent_10%)] bg-[length:8px_8px] opacity-10"></div>
-                    <div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">+500</div>
-                    <div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Leads Generados/Mes</div>
-                </div>
-                <div class="p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm relative group overflow-hidden">
-                    <div class="absolute -bottom-4 -right-4 w-16 h-16 bg-[radial-gradient(#000000_10%,transparent_10%)] bg-[length:8px_8px] opacity-10"></div>
-                    <div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">x4.5</div>
-                    <div class="text-xs text-zinc-400 font-black tracking-widest uppercase">ROAS Promedio</div>
-                </div>
-                <div class="p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm relative group overflow-hidden">
-                    <div class="absolute -bottom-4 -right-4 w-16 h-16 bg-[radial-gradient(#000000_10%,transparent_10%)] bg-[length:8px_8px] opacity-10"></div>
-                    <div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">100+</div>
-                    <div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Cuentas Auditadas</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ SECCIÓN 5: OPINIÓN DE NUESTROS CLIENTES ══════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16 sm:mb-24 reveal">
-                <h2 class="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tighter uppercase mb-4 text-zinc-900 leading-[0.9]">
-                    Opinión de nuestros clientes
-                </h2>
-                <p class="text-zinc-500 w-[75%] mx-auto font-light text-sm sm:text-base">Resultados y confianza depositada en nuestro equipo de Google Ads.</p>
-            </div>
-
-            <!-- Reseña Tarjetas (Estilo Estrellas) - Horizontal de 3 Columnas -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
-                <!-- Tarjeta 1 -->
-                <div class="bg-white p-10 rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-xl hover:border-accent/10 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex flex-col justify-between group">
-                    <div>
-                        <div class="flex items-center gap-1 mb-6 text-accent">
-                            {[1, 2, 3, 4, 5].map(() => (
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                            ))}
-                        </div>
-                        <p class="font-light text-zinc-600 text-base sm:text-lg leading-relaxed mb-8">
-                            "Teníamos campañas que quemaban presupuesto sin control. El equipo reestructuró la cuenta y el primer mes bajamos el coste por lead a la mitad duplicando las ventas."
-                        </p>
-                    </div>
-                    <div>
-                        <div class="font-black text-zinc-900">Tienda Online de Calzado</div>
-                    </div>
-                </div>
-
-                <!-- Tarjeta 2 -->
-                <div class="bg-white p-10 rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-xl hover:border-accent/10 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex flex-col justify-between group">
-                    <div>
-                        <div class="flex items-center gap-1 mb-6 text-accent">
-                            {[1, 2, 3, 4, 5].map(() => (
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                            ))}
-                        </div>
-                        <p class="font-light text-zinc-600 text-base sm:text-lg leading-relaxed mb-8">
-                           "La segmentación exacta nos permite llegar justo a quien nos busca en el momento exacto. Transparencia total y ROAS altamente positivo desde la primera semana." 
-                        </p>
-                    </div>
-                    <div>
-                        <div class="font-black text-zinc-900">Empresa de Logística Industrial</div>
-                    </div>
-                </div>
-
-                <!-- Tarjeta 3 -->
-                <div class="bg-white p-10 rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-xl hover:border-accent/10 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex flex-col justify-between group">
-                    <div>
-                        <div class="flex items-center gap-1 mb-6 text-accent">
-                            {[1, 2, 3, 4, 5].map(() => (
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                            ))}
-                        </div>
-                        <p class="font-light text-zinc-600 text-base sm:text-lg leading-relaxed mb-8">
-                           "La claridad con la que explican a dónde va cada euro y el por qué, nos permitió duplicar las ventas. Hemos dejado de experimentar para ir sobre seguro." 
-                        </p>
-                    </div>
-                    <div>
-                        <div class="font-black text-zinc-900">Compañía Industrial</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ SECCIÓN 6: BENEFICIOS REGULAR SECTOR ════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-[#0a0a0b] text-white border-y border-white/5 px-4 sm:px-6 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16 sm:mb-24 reveal">
-                <h2 class="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tighter uppercase mb-4 text-white leading-[0.9]">
-                    Beneficios de invertir en Campañas SEM
-                </h2>
-                <p class="text-zinc-400 w-[75%] mx-auto font-light text-sm sm:text-base">Resultados estables y crecimiento orgánico real.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {benefits.map((benefit, i) => (
-                    <div class="group p-8 bg-zinc-900/40 backdrop-blur-xl border border-zinc-800/50 rounded-2xl hover:border-white/10 hover:shadow-[0_20px_50px_rgba(255,255,255,0.01)] transition-all duration-500 relative overflow-hidden reveal" style={`transition-delay: ${i * 100}ms`}>
-                        <div class="absolute bottom-0 inset-x-0 h-1 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
-                        <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-4 text-white">{benefit.title}</h3>
-                        <p class="text-sm text-zinc-400 font-light leading-relaxed">{benefit.desc}</p>
-                    </div>
-                ))}
             </div>
         </div>
     </section>
@@ -334,10 +280,10 @@ const benefits = [
             <div class="reveal text-white">
                 <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">CRECIMIENTO INMEDIATO</span>
                 <h2 class="text-4xl sm:text-5xl lg:text-5xl font-black uppercase tracking-tighter leading-[0.85] mb-8">
-                   Contactar con Expertos en SEO para Pymes
+                   Contactar con Expertos en Ads para Pymes
                 </h2>
                 <p class="font-light max-w-sm text-base">
-                    Solicita tu auditoría Ads gratis. Revisaremos tu web y trazaremos un plan para optimizar tu tráfico de pago.
+                    Solicita tu auditoría Ads gratis. Revisaremos tu cuenta y trazaremos un plan para optimizar tu ROI.
                 </p>
             </div>
 
@@ -362,39 +308,43 @@ const benefits = [
                                 <textarea name="msg" aria-label="Mensaje" rows="2" class="border-b border-zinc-200 py-2 focus:border-accent outline-none font-normal text-sm text-zinc-900 resize-none"></textarea>
                             </div>
                         </div>
-                        <button type="submit" class="w-full btn-mktg-v5 !py-4 shadow-md uppercase">AUDITAR MI WEB</button>
+                        <button type="submit" class="w-full btn-mktg-v5 !py-4 shadow-md uppercase">AUDITAR MI CUENTA</button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
 
-<script>
+    <!-- ═══ FAQ ════════════════════════════════════════════════════════════ -->
+    <FaqHome 
+        items={faqItems} 
+        title="Preguntas sobre Google Ads <br /> que nos hacen otras pymes" 
+    />
+
+</BaseLayout>
+
+<script is:inline>
     function initTimeline() {
-        const progressBars = document.querySelectorAll('.progress-bar');
-        const timelines = document.querySelectorAll('.timeline-container');
-        if (progressBars.length === 0 || timelines.length === 0) return;
+        const progressBar = document.querySelector('.timeline-container .progress-bar');
+        const timeline = document.querySelector('.timeline-container');
+        if (!progressBar || !timeline) return;
 
         function updateProgress() {
-            timelines.forEach((timeline, i) => {
-                const progressBar = progressBars[i];
-                if (!progressBar) return;
-                const rect = timeline.getBoundingClientRect();
-                const winHeight = window.innerHeight;
-                const topPassed = (winHeight / 2) - rect.top;
-                let percentage = (topPassed / rect.height) * 100;
-                percentage = Math.max(0, Math.min(100, percentage));
-                progressBar.style.height = `${percentage}%`;
+            const rect = timeline.getBoundingClientRect();
+            const winHeight = window.innerHeight;
+            const topPassed = (winHeight / 2) - rect.top;
+            let percentage = (topPassed / rect.height) * 100;
+            percentage = Math.max(0, Math.min(100, percentage));
+            progressBar.style.height = `${percentage}%`;
 
-                const nodes = timeline.querySelectorAll('.node-circle');
-                nodes.forEach((node) => {
-                    const nodeTop = node.getBoundingClientRect().top;
-                    if (nodeTop < winHeight / 2) {
-                        node.classList.add('!border-accent', '!bg-accent', '!text-white');
-                    } else {
-                        node.classList.remove('!border-accent', '!bg-accent', '!text-white');
-                    }
-                });
+            const nodes = timeline.querySelectorAll('.node-circle');
+            nodes.forEach((node) => {
+                const nodeTop = node.getBoundingClientRect().top;
+                if (nodeTop < winHeight / 2) {
+                    node.classList.add('!border-accent', '!bg-accent', '!text-white');
+                } else {
+                    node.classList.remove('!border-accent', '!bg-accent', '!text-white');
+                }
             });
         }
 
@@ -405,5 +355,3 @@ const benefits = [
     document.addEventListener('DOMContentLoaded', initTimeline);
     document.addEventListener('astro:page-load', initTimeline);
 </script>
-
-</BaseLayout>
