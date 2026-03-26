@@ -1,0 +1,37 @@
+# Nova Marketing - Digital Marketing Agency for SMEs
+Nova Marketing is a specialized digital marketing agency helping small and medium-sized enterprises (SMEs) grow through performance-driven strategies in SEO, Google Ads, and Web Design.
+
+## Core Services
+- **SEO for SMEs**: Specialized search engine optimization to improve organic visibility.
+- **Google Ads (SEM)**: Professional management of high-converting advertising campaigns.
+- **Web Design**: Conversion-oriented web development using modern technologies.
+- **Marketing Consulting**: Strategic growth guidance for local and national businesses.
+
+## Target Markets
+Specialized services in Catalonia, specifically:
+- Barcelona
+- Sabadell
+- Terrassa
+- Sant Cugat
+
+## Multilingual Support
+The website is fully accessible in two languages:
+- **Spanish (ES)**: https://novamarketing.es/
+- **Catalan (CA)**: https://novamarketing.es/ca/
+
+## Key Resources
+- **Case Studies (ES)**: https://novamarketing.es/casos-exito/
+- **Case Studies (CA)**: https://novamarketing.es/ca/casos-exit/
+- **Blog (ES)**: https://novamarketing.es/blog/
+- **Blog (CA)**: https://novamarketing.es/ca/blog/
+
+## Legal & Compliance
+- Aviso Legal: https://novamarketing.es/aviso-legal/
+- Política de Privacidad: https://novamarketing.es/privacidad/
+- Política de Cookies: https://novamarketing.es/cookies/
+- Términos y Condiciones: https://novamarketing.es/terminos-y-condiciones/
+
+## Technical Details
+- **Tech Stack**: Built with Astro (v6+) and Strapi CMS.
+- **Owner**: Sergio García López
+- **Location**: Sabadell, Barcelona, Spain.
