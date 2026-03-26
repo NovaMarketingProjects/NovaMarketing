@@ -7,13 +7,6 @@ export default defineConfig({
   site: process.env.SITE_URL || 'https://novamarketing.es',
   integrations: [
     sitemap({
-      i18n: {
-        defaultLocale: 'es',
-        locales: {
-          es: 'es-ES',
-          ca: 'ca-ES',
-        },
-      },
       serialize(item) {
         const mapping = [
           ['/', '/ca/'],
