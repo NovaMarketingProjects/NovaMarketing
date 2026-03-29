@@ -2,6 +2,7 @@
 <xsl:stylesheet version="2.0" 
                 xmlns:html="http://www.w3.org/TR/REC-html40"
                 xmlns:sitemap="http://www.sitemaps.org/schemas/sitemap/0.9"
+                xmlns:xhtml="http://www.w3.org/1999/xhtml"
                 xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:output method="html" version="1.0" encoding="UTF-8" indent="yes"/>
@@ -90,6 +91,7 @@
 								<xsl:if test="sitemap:urlset/sitemap:url/sitemap:changefreq">
 									<th>Frecuencia</th>
 								</xsl:if>
+								<th>Traducciones (Hreflang)</th>
 								<th>Última Modificación</th>
 							</tr>
 						</thead>
@@ -105,6 +107,7 @@
 											<xsl:value-of select="sitemap:loc"/>
 										</a>
 									</td>
+									<td>-</td>
 									<td>-</td>
 									<td>-</td>
 									<td>
