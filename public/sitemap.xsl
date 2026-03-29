@@ -84,12 +84,36 @@
 						<thead>
 							<tr>
 								<th>URL</th>
-								<th>Prioridad</th>
-								<th>Frecuencia</th>
+								<xsl:if test="sitemap:urlset/sitemap:url/sitemap:priority">
+									<th>Prioridad</th>
+								</xsl:if>
+								<xsl:if test="sitemap:urlset/sitemap:url/sitemap:changefreq">
+									<th>Frecuencia</th>
+								</xsl:if>
 								<th>Última Modificación</th>
 							</tr>
 						</thead>
 						<tbody>
+							<!-- Si es un SITEMAP INDEX -->
+							<xsl:for-each select="sitemap:sitemapindex/sitemap:sitemap">
+								<tr>
+									<td>
+										<xsl:variable name="itemURL">
+											<xsl:value-of select="sitemap:loc"/>
+										</xsl:variable>
+										<a href="{$itemURL}">
+											<xsl:value-of select="sitemap:loc"/>
+										</a>
+									</td>
+									<td>-</td>
+									<td>-</td>
+									<td>
+										<xsl:value-of select="concat(substring(sitemap:lastmod,0,11),concat(' ', substring(sitemap:lastmod,12,5)))"/>
+									</td>
+								</tr>
+							</xsl:for-each>
+							
+							<!-- Si es un URL SET (Sitemap estándar) -->
 							<xsl:for-each select="sitemap:urlset/sitemap:url">
 								<tr>
 									<td>
@@ -100,17 +124,21 @@
 											<xsl:value-of select="sitemap:loc"/>
 										</a>
 									</td>
-									<td>
-										<xsl:variable name="priority" select="sitemap:priority"/>
-										<span class="priority-mid">
-											<xsl:if test="$priority &gt; 0.7"><xsl:attribute name="class">priority-high</xsl:attribute></xsl:if>
-											<xsl:if test="$priority &lt; 0.5"><xsl:attribute name="class">priority-low</xsl:attribute></xsl:if>
-											<xsl:value-of select="sitemap:priority"/>
-										</span>
-									</td>
-									<td>
-										<xsl:value-of select="sitemap:changefreq"/>
-									</td>
+									<xsl:if test="sitemap:priority">
+										<td>
+											<xsl:variable name="priority" select="sitemap:priority"/>
+											<span class="priority-mid">
+												<xsl:if test="$priority &gt; 0.7"><xsl:attribute name="class">priority-high</xsl:attribute></xsl:if>
+												<xsl:if test="$priority &lt; 0.5"><xsl:attribute name="class">priority-low</xsl:attribute></xsl:if>
+												<xsl:value-of select="sitemap:priority"/>
+											</span>
+										</td>
+									</xsl:if>
+									<xsl:if test="sitemap:changefreq">
+										<td>
+											<xsl:value-of select="sitemap:changefreq"/>
+										</td>
+									</xsl:if>
 									<td>
 										<xsl:value-of select="concat(substring(sitemap:lastmod,0,11),concat(' ', substring(sitemap:lastmod,12,5)))"/>
 									</td>
