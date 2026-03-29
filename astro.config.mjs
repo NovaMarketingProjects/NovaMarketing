@@ -1,6 +1,8 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
+import fs from 'node:fs';
+import path from 'node:path';
 
 // https://astro.build/config - Refreshing routes
 export default defineConfig({
@@ -76,6 +78,32 @@ export default defineConfig({
               { lang: 'x-default', url: esUrl }
             ];
           }
+
+          // Intentar obtener lastmod real del archivo
+          try {
+            const projectRoot = process.cwd();
+            let relativePath = path.join('src', 'pages', pathName);
+            
+            // Ajustes de rutas para Astro (index.astro o .astro directo)
+            if (pathName === '/' || pathName === '/ca/') {
+              relativePath = path.join('src', 'pages', pathName, 'index.astro');
+            } else if (pathName.endsWith('/')) {
+              relativePath = path.join('src', 'pages', pathName.slice(0, -1) + '.astro');
+            } else {
+              relativePath = path.join('src', 'pages', pathName + '.astro');
+            }
+
+            const fullPath = path.join(projectRoot, relativePath);
+            if (fs.existsSync(fullPath)) {
+              item.lastmod = fs.statSync(fullPath).mtime.toISOString();
+            } else {
+              // Fallback a la fecha actual si es una página dinámica o no encontrada
+              item.lastmod = new Date().toISOString();
+            }
+          } catch (e) {
+            item.lastmod = new Date().toISOString();
+          }
+
         } catch (e) {
           console.warn(`[Sitemap] Skipping invalid URL: ${item.url}`);
         }
