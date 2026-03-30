@@ -1,0 +1,292 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHeader from '../../../components/blog/PageHeader.astro';
+import SuccessCard from '../../../components/blog/SuccessCard.astro';
+import CategoryTabs from '../../../components/blog/CategoryTabs.astro';
+import { strapiClient, getStrapiImageUrl } from '../../../lib/strapi';
+import { buildAlternates } from '../../../lib/i18n';
+
+export async function getStaticPaths() {
+  try {
+    // 1. Fetch Case Studies CA + ES (para cruzar slugs por documentId)
+    const [casesRes, casesEsRes, categoriesRes] = await Promise.all([
+      strapiClient.getCaseStudies('ca'),
+      strapiClient.getCaseStudies('es'),
+      strapiClient.getCaseStudyCategories('ca'),
+    ]);
+
+    const cases = casesRes.data.map(i => i.attributes ?? i).filter(c => c.isPublic);
+    const categories = categoriesRes.data.map(i => i.attributes ?? i);
+
+    // Mapa documentId → slug ES
+    const esSlugMap: Record<string, string> = {};
+    for (const item of casesEsRes.data) {
+      const c = item.attributes ?? item;
+      if (item.documentId) esSlugMap[item.documentId] = c.slug;
+    }
+
+    const paths = [
+      ...cases.map(cs => {
+        const raw = casesRes.data.find(i => (i.attributes ?? i).slug === cs.slug);
+        const esSlug = (raw?.documentId && esSlugMap[raw.documentId]) || cs.slug;
+        return {
+          params: { slug: cs.slug },
+          props: { pageType: 'case-study', item: cs, esSlug }
+        };
+      }),
+      ...categories.map(cat => ({
+        params: { slug: cat.slug || cat.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-') },
+        props: { pageType: 'category', item: cat, esSlug: null }
+      }))
+    ];
+
+    return paths;
+  } catch (e) {
+    console.error("DEBUG CA: Casos individual getStaticPaths error:", e);
+    return [];
+  }
+}
+
+const { slug } = Astro.params;
+const { pageType, item: initialData, esSlug: propEsSlug } = Astro.props;
+const locale = 'ca';
+
+let caseStudy = null;
+let categoryData = null;
+let cases = [];
+let allCategories = [];
+
+if (pageType === 'case-study') {
+    // Use data already fetched in getStaticPaths (no need to re-fetch)
+    caseStudy = initialData;
+} else {
+    // Category page: use category metadata from props, fetch its cases
+    categoryData = initialData;
+    try {
+        const casesRes = await strapiClient.getCaseStudies(locale, { category: slug as string });
+        cases = casesRes.data
+            .map(i => i.attributes ?? i)
+            .filter(c => c.isPublic);
+
+        const allCategoriesRes = await strapiClient.getCaseStudyCategories(locale);
+        allCategories = allCategoriesRes.data.map(i => i.attributes ?? i);
+    } catch (e) {
+        console.error("Error fetching category cases (CA):", e);
+    }
+}
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const canonicalPathES = `/casos-exito/${propEsSlug || slug}/`;
+const canonicalPathCA = `/ca/casos-exit/${slug}/`;
+const alternates = buildAlternates(canonicalPathES, canonicalPathCA, SITE_URL);
+
+// Preparar imagen
+const coverUrl = pageType === 'case-study' ? (getStrapiImageUrl(caseStudy.cover_image) || '/og-default.jpg') : '';
+const publishedDate = (pageType === 'case-study' && caseStudy.publishedAt) ? new Date(caseStudy.publishedAt).toLocaleDateString('ca-ES', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+---
+
+<BaseLayout
+  title={pageType === 'case-study' ? `${caseStudy.title} | Caso d'Èxit | Nova Marketing` : `${categoryData.name} | Casos d'Èxit | Nova Marketing`}
+  description={pageType === 'case-study' ? (caseStudy.metadescription || caseStudy.description) : `Projectes de gran impacte en el sector de ${categoryData.name.toLowerCase()}.`}
+  locale="ca"
+  alternates={alternates}
+>
+  {pageType === 'case-study' ? (
+    <>
+      <header class="relative min-h-[85vh] flex items-end pb-24 px-6 sm:px-12 overflow-hidden bg-zinc-950">
+        <!-- background image -->
+        <div class="absolute inset-0 z-0">
+            <img 
+              src={coverUrl} 
+              alt={caseStudy.title} 
+              class="w-full h-full object-cover scale-105 opacity-60"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent"></div>
+        </div>
+
+        <div class="max-w-6xl mx-auto w-full relative z-10 animate-fade-in-up">
+          <div class="flex flex-wrap items-center gap-4 mb-10">
+            <a href="/ca/casos-exit" class="text-white/60 hover:text-white text-[10px] font-black uppercase tracking-[0.3em] flex items-center gap-2 transition-all group/back">
+                <span class="transition-transform group-hover/back:-translate-x-1">←</span> TORNAR A CASOS
+            </a>
+            <span class="w-1 h-1 bg-white/20 rounded-full"></span>
+            {caseStudy.categories?.map(cat => (
+              <span class="px-3 py-1 text-[10px] tracking-widest font-black uppercase bg-accent text-white rounded-lg">
+                {(cat.attributes?.name || cat.name).toUpperCase()}
+              </span>
+            ))}
+            {publishedDate && (
+                <span class="text-white/60 text-xs font-medium">{publishedDate}</span>
+            )}
+          </div>
+          
+          <h1 class="text-5xl md:text-8xl font-black mb-12 leading-[0.95] tracking-tighter text-white max-w-4xl uppercase">
+            {caseStudy.title}
+          </h1>
+          
+          <div class="flex flex-wrap items-center gap-12 border-t border-white/10 pt-12">
+              {caseStudy.company && (
+                <div class="flex flex-col">
+                    <span class="text-white/40 text-[10px] font-black uppercase tracking-widest mb-1">Empresa</span>
+                    <span class="text-white font-bold text-2xl uppercase tracking-tighter">{caseStudy.company}</span>
+                </div>
+              )}
+              <div class="flex flex-col max-w-md">
+                    <span class="text-white/40 text-[10px] font-black uppercase tracking-widest mb-1">Objectiu complert</span>
+                    <p class="text-white/80 font-light text-sm italic">{caseStudy.description}</p>
+              </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="py-24 px-6 sm:px-12 bg-white relative">
+        <div class="max-w-4xl mx-auto">
+          <div class="prose prose-zinc prose-2xl max-w-none">
+            
+            {caseStudy.content && (
+                <div class="richedit-content">
+                    <div set:html={caseStudy.content} />
+                </div>
+            )}
+
+            <!-- Final CTA: Spectacular Premium Design -->
+            <div class="reveal mt-32 relative group overflow-hidden p-8 sm:p-14 rounded-[3rem] bg-zinc-950 border border-white/10 transition-all duration-700 hover:border-accent/40 hover:shadow-[0_0_80px_-20px_rgba(59,130,246,0.3)] max-w-5xl mx-auto text-center">
+                
+                <!-- Animated Glow Blobs (Background) -->
+                <div class="absolute -top-24 -right-24 w-80 h-80 bg-accent/20 rounded-full blur-[100px] group-hover:bg-accent/30 transition-all duration-1000"></div>
+                <div class="absolute -bottom-24 -left-24 w-80 h-80 bg-purple-600/10 rounded-full blur-[100px] group-hover:bg-purple-600/20 transition-all duration-1000"></div>
+                
+                <div class="relative z-10 flex flex-col items-center text-center gap-6 md:gap-10">
+                    <div class="w-full">
+                        <h4 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-white mb-4 leading-none tracking-tighter uppercase transition-transform duration-500 group-hover:scale-[1.01] lg:whitespace-nowrap">
+                            Vols que la teva empresa <span class="text-mktg-gradient">creixi igual</span>?
+                        </h4>
+                        <p class="text-white/60 font-light text-base md:text-lg max-w-2xl mx-auto">
+                            Explica'ns què tens en ment i quines necessitats tens. Nosaltres ens encarreguem de la resta.
+                        </p>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <button class="contact-modal-trigger relative group/btn flex items-center gap-6 px-14 py-7 bg-accent text-white rounded-3xl font-black uppercase tracking-widest text-[13px] overflow-hidden transition-all duration-500 hover:scale-105 hover:bg-white hover:text-black shadow-[0_20px_60px_rgba(59,130,246,0.3)] hover:shadow-[0_30px_80px_rgba(255,255,255,0.2)]">
+                            <span class="relative z-10">Començar Projecte</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="relative z-10 transition-transform duration-500 group-hover/btn:translate-x-3"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            
+                            <!-- Shine effect on hover -->
+                            <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover/btn:animate-shine"></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </>
+  ) : (
+    <>
+      <PageHeader
+        badge={`RESULTATS > ${categoryData.name.toUpperCase()}`}
+        title={`Casos d'èxit de<br/><span class="text-mktg-gradient">${categoryData.name}</span>`}
+        description={`Projectes de gran impacte en el sector de ${categoryData.name.toLowerCase()}.`}
+      />
+
+      <section class="pt-8 pb-16 px-6 sm:px-12 bg-white">
+        <div class="max-w-7xl mx-auto">
+          
+          <CategoryTabs 
+            categories={allCategories} 
+            currentCategory={slug} 
+            baseUrl="/ca/casos-exit"
+            locale="ca"
+          />
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6 mt-12">
+            {cases.map(cs => (
+              <SuccessCard caseStudy={cs} locale="ca" />
+            ))}
+          </div>
+
+          {cases.length === 0 && (
+            <div class="text-center py-40 border-2 border-dashed border-zinc-100 rounded-3xl">
+              <p class="text-zinc-400 font-light">Encara no hi ha casos d'èxit en aquesta secció.</p>
+            </div>
+          )}
+        </div>
+      </section>
+    </>
+  )}
+</BaseLayout>
+
+<style>
+    .animate-fade-in-up {
+        animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes shine {
+        100% { transform: translateX(100%); }
+    }
+    .animate-shine {
+        animation: shine 0.8s ease-in-out;
+    }
+
+    /* Estilos para el contenido enriquecido de Strapi */
+    .richedit-content :global(h2) {
+        font-size: 2.5rem; 
+        line-height: 1.1;
+        font-weight: 900;
+        margin-top: 5rem;
+        margin-bottom: 2rem;
+        color: black;
+        text-transform: uppercase;
+        letter-spacing: -0.02em;
+    }
+    .richedit-content :global(h3) {
+        font-size: 2rem;
+        line-height: 1.2;
+        font-weight: 800;
+        margin-top: 4rem;
+        margin-bottom: 1.5rem;
+        color: black;
+    }
+    .richedit-content :global(p) {
+        font-size: 1.25rem;
+        line-height: 2rem;
+        color: #3f3f46; /* zinc-700 */
+        margin-bottom: 2rem;
+        font-weight: 300;
+    }
+    .richedit-content :global(ul) {
+        list-style-type: none;
+        padding-left: 0;
+        margin-bottom: 3rem;
+    }
+    .richedit-content :global(li) {
+        padding-left: 1.5rem;
+        position: relative;
+        margin-bottom: 1rem;
+        font-size: 1.25rem;
+        font-weight: 300;
+        color: #3f3f46;
+    }
+    .richedit-content :global(li::before) {
+        content: "—";
+        position: absolute;
+        left: 0;
+        color: #f97316; /* orange-500 matching accent */
+        font-weight: 900;
+    }
+    .richedit-content :global(strong) {
+        color: black;
+        font-weight: 700;
+    }
+
+    .richedit-content :global(img) {
+        border-radius: 2rem;
+        margin: 4rem 0;
+        box-shadow: 0 40px 100px -20px rgba(0,0,0,0.15);
+    }
+</style>

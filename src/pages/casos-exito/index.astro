@@ -15,13 +15,18 @@ let categoriesWithCases = [];
 
 try {
   const casesRes = await strapiClient.getCaseStudies('es');
-  cases = casesRes.data.map(i => i.attributes ?? i);
+  // Solo mostramos los públicos
+  cases = casesRes.data
+    .map(i => i.attributes ?? i)
+    .filter(c => c.isPublic);
   
   const categoriesRes = await strapiClient.getCaseStudyCategories('es');
   const allCategories = categoriesRes.data.map(i => i.attributes ?? i);
-
   categoriesWithCases = allCategories.filter(cat => 
-    cases.some(cs => cs.category?.slug === cat.slug)
+    cases.some(cs => {
+       const catSlug = cat.slug || cat.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-');
+       return cs.categories?.some(c => (c.attributes?.slug || c.slug || c.name?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-')) === catSlug);
+    })
   );
 } catch (e) {
   console.error("DEBUG: Casos index error:", e);
@@ -36,11 +41,11 @@ try {
 >
   <PageHeader 
     badge="RESULTADOS"
-    title="Casos de <span class='text-mktg-gradient text-3xl sm:text-6xl md:text-8xl lg:text-9xl'>Éxito</span>"
+    title="Casos de <span class='text-mktg-gradient'>Éxito</span>"
     description="Cada proyecto es una oportunidad para superar expectativas y generar crecimiento real."
   />
 
-  <section class="py-20 px-6 sm:px-12 bg-white">
+  <section class="pt-8 pb-16 px-6 sm:px-12 bg-white">
     <div class="max-w-7xl mx-auto">
       
       <CategoryTabs 
@@ -50,7 +55,7 @@ try {
         locale="es"
       />
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
         {cases.map(cs => (
           <SuccessCard caseStudy={cs} locale="es" />
         ))}

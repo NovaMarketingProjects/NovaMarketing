@@ -10,7 +10,7 @@ const { categories, currentCategory = 'all', baseUrl, locale = 'es' } = Astro.pr
 const allLabel = locale === 'ca' ? 'Totes' : 'Todas';
 ---
 
-<div class="flex flex-wrap justify-center gap-3 sm:gap-4 mb-20 reveal">
+<div class="flex flex-wrap justify-center gap-3 sm:gap-4 mb-8 reveal">
   <a
     href={`${baseUrl}/`}
     class:list={[

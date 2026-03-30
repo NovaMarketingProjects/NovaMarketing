@@ -1,10 +1,12 @@
-/**
- * lib/strapi.ts
- * Cliente centralizado para la API de Strapi
- * Se usa SOLO en build time (getStaticPaths, Astro.props)
- */
-
+import { type Locale } from './i18n';
 const STRAPI_URL = import.meta.env.STRAPI_URL || 'http://localhost:1337';
+
+// Mapeo de locales internos → locales reales en Strapi
+// (es-ES funciona, pero CA en Strapi es 'ca', no 'ca-ES')
+const STRAPI_LOCALE: Record<Locale, string> = {
+  es: 'es-ES',
+  ca: 'ca',
+};
 const STRAPI_TOKEN = import.meta.env.STRAPI_TOKEN || '';
 
 // ─── Tipos base ───────────────────────────────────────────
@@ -119,17 +121,15 @@ export interface CaseStudy {
   id: number;
   title: string;
   slug: string;
-  clientName?: string;
-  clientLogo?: StrapiImage;
-  sector?: string;
-  excerpt?: string;
-  featuredImage?: StrapiImage;
-  results?: { metric: string; value: string; description?: string }[];
-  category?: CaseStudyCategory;
-  services?: Service[];
-  content?: ContentBlock[];
-  seo?: SeoFields;
+  company?: string;
+  description: string;
+  metadescription?: string;
+  cover_image?: StrapiImage;
+  categories?: CaseStudyCategory[];
+  content?: string;
+  isPublic: boolean;
   publishedAt?: string;
+  localizations?: { slug: string; locale: string }[];
 }
 
 export interface CaseStudyCategory {
@@ -208,39 +208,39 @@ export const strapiClient = {
     strapiRequest('/api/author-setting?populate=*'),
 
   // Servicios
-  getServices: (locale = 'es'): Promise<StrapiResponse<Service[]>> =>
-    strapiRequest(`/api/services?populate=deep&locale=${locale}&publicationState=live&sort=createdAt:asc`),
+  getServices: (locale: Locale = 'es'): Promise<StrapiResponse<Service[]>> =>
+    strapiRequest(`/api/services?populate=deep&locale=${STRAPI_LOCALE[locale]}&publicationState=live&sort=createdAt:asc`),
 
-  getService: (slug: string, locale = 'es'): Promise<StrapiResponse<Service[]>> =>
-    strapiRequest(`/api/services?filters[slug][$eq]=${slug}&populate=deep&locale=${locale}`),
+  getService: (slug: string, locale: Locale = 'es'): Promise<StrapiResponse<Service[]>> =>
+    strapiRequest(`/api/services?filters[slug][$eq]=${slug}&populate=deep&locale=${STRAPI_LOCALE[locale]}`),
 
   // Blog
-  getBlogPosts: (locale = 'es', options?: { category?: string; limit?: number }): Promise<StrapiResponse<BlogPost[]>> => {
-    let query = `/api/blog-posts?populate=*&locale=${locale}&publicationState=live&sort=publishedDate:desc`;
+  getBlogPosts: (locale: Locale = 'es', options?: { category?: string; limit?: number }): Promise<StrapiResponse<BlogPost[]>> => {
+    let query = `/api/blog-posts?populate=*&locale=${STRAPI_LOCALE[locale]}&publicationState=live&sort=publishedDate:desc`;
     if (options?.category) query += `&filters[category][slug][$eq]=${options.category}`;
     if (options?.limit) query += `&pagination[pageSize]=${options.limit}`;
     return strapiRequest(query);
   },
 
-  getBlogPost: (slug: string, locale = 'es'): Promise<StrapiResponse<BlogPost[]>> =>
-    strapiRequest(`/api/blog-posts?filters[slug][$eq]=${slug}&populate=deep&locale=${locale}`),
+  getBlogPost: (slug: string, locale: Locale = 'es'): Promise<StrapiResponse<BlogPost[]>> =>
+    strapiRequest(`/api/blog-posts?filters[slug][$eq]=${slug}&populate=deep&locale=${STRAPI_LOCALE[locale]}`),
 
-  getBlogCategories: (locale = 'es'): Promise<StrapiResponse<BlogCategory[]>> =>
-    strapiRequest(`/api/blog-categories?locale=${locale}&sort=name:asc`),
+  getBlogCategories: (locale: Locale = 'es'): Promise<StrapiResponse<BlogCategory[]>> =>
+    strapiRequest(`/api/blog-categories?locale=${STRAPI_LOCALE[locale]}&sort=name:asc`),
 
   // Casos de éxito
-  getCaseStudies: (locale = 'es', options?: { category?: string; limit?: number }): Promise<StrapiResponse<CaseStudy[]>> => {
-    let query = `/api/case-studies?populate=*&locale=${locale}&publicationState=live&sort=publishedAt:desc`;
-    if (options?.category) query += `&filters[category][slug][$eq]=${options.category}`;
+  getCaseStudies: (locale: Locale = 'es', options?: { category?: string; limit?: number }): Promise<StrapiResponse<CaseStudy[]>> => {
+    let query = `/api/case-studies?populate=*&locale=${STRAPI_LOCALE[locale]}&publicationState=live&sort=publishedAt:desc`;
+    if (options?.category) query += `&filters[categories][slug][$eq]=${options.category}`;
     if (options?.limit) query += `&pagination[pageSize]=${options.limit}`;
     return strapiRequest(query);
   },
 
-  getCaseStudy: (slug: string, locale = 'es'): Promise<StrapiResponse<CaseStudy[]>> =>
-    strapiRequest(`/api/case-studies?filters[slug][$eq]=${slug}&populate=deep&locale=${locale}`),
+  getCaseStudy: (slug: string, locale: Locale = 'es'): Promise<StrapiResponse<CaseStudy[]>> =>
+    strapiRequest(`/api/case-studies?filters[slug][$eq]=${slug}&populate=*&locale=${STRAPI_LOCALE[locale]}`),
 
-  getCaseStudyCategories: (locale = 'es'): Promise<StrapiResponse<CaseStudyCategory[]>> =>
-    strapiRequest(`/api/case-study-categories?locale=${locale}&sort=name:asc`),
+  getCaseStudyCategories: (locale: Locale = 'es'): Promise<StrapiResponse<CaseStudyCategory[]>> =>
+    strapiRequest(`/api/categories?locale=${STRAPI_LOCALE[locale]}&sort=name:asc`),
 
   // Redirecciones
   getRedirects: (): Promise<StrapiResponse<SeoRedirect[]>> =>
