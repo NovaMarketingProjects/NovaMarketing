@@ -70,7 +70,7 @@
       "inversedBy": "case_studies"
     },
     "content": {
-      "type": "richtext",
+      "type": "blocks",
       "required": false,
       "pluginOptions": {
         "i18n": {
