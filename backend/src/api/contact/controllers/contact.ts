@@ -94,9 +94,6 @@ export default {
           <p style="font-family:'Inter',Arial,sans-serif;font-size:15px;color:#3f3f46;line-height:1.6;margin:0;">${msg}</p>
         </td></tr>
       </table>` : ''}
-      <a href="https://novamarketing.es" style="display:inline-block;background:#09090b;color:#ffffff;font-family:'Montserrat',Arial Black,sans-serif;font-weight:900;font-size:11px;text-transform:uppercase;letter-spacing:0.15em;padding:16px 32px;text-decoration:none;border-radius:4px;">
-        VISITAR LA WEB →
-      </a>
     `;
 
     let adminError: string | null = null;
