@@ -4,7 +4,7 @@
  * Artículo individual del blog con diseño Cinematic Hero
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import BlockRenderer from '../../components/blocks/BlockRenderer.astro';
+import StrapiBlocks from '../../components/blocks/StrapiBlocks.astro';
 import { strapiClient } from '../../lib/strapi';
 import { buildAlternates } from '../../lib/i18n';
 import { articleSchema } from '../../lib/schema';
@@ -125,7 +125,7 @@ const coverUrl = getStrapiImageUrl(post.featuredImage) || '/og-default.jpg';
 
         <div class="blog-content">
             {post.content?.length > 0
-                ? <BlockRenderer blocks={post.content} />
+                ? <StrapiBlocks blocks={post.content} />
                 : <p class="text-zinc-500 italic">Contenido no disponible.</p>
             }
         </div>

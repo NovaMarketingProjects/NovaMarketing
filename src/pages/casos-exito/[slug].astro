@@ -4,6 +4,7 @@ import PageHeader from '../../components/blog/PageHeader.astro';
 import SuccessCard from '../../components/blog/SuccessCard.astro';
 import CategoryTabs from '../../components/blog/CategoryTabs.astro';
 import { strapiClient, getStrapiImageUrl } from '../../lib/strapi';
+import StrapiBlocks from '../../components/blocks/StrapiBlocks.astro';
 import { buildAlternates } from '../../lib/i18n';
 
 export async function getStaticPaths() {
@@ -146,9 +147,9 @@ const publishedDate = (pageType === 'case-study' && caseStudy.publishedAt) ? new
     <div class="max-w-4xl mx-auto">
       <div class="prose prose-zinc prose-2xl max-w-none">
         
-        {caseStudy.content && (
+        {caseStudy.content?.length > 0 && (
             <div class="richedit-content">
-                <div set:html={caseStudy.content} />
+                <StrapiBlocks blocks={caseStudy.content} />
             </div>
         )}
 

@@ -1,0 +1,74 @@
+---
+/**
+ * StrapiBlocks.astro
+ * Renderer para el editor visual de Strapi v5 (tipo "blocks").
+ * Convierte el JSON de bloques a HTML.
+ */
+interface Props {
+  blocks: any[];
+}
+
+const { blocks } = Astro.props;
+
+function renderInline(children: any[]): string {
+  if (!children) return '';
+  return children.map((child: any) => {
+    if (child.type === 'link') {
+      return `<a href="${child.url}" class="text-accent underline">${renderInline(child.children)}</a>`;
+    }
+    let text = child.text ?? '';
+    // Escape HTML entities
+    text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    if (child.bold) text = `<strong>${text}</strong>`;
+    if (child.italic) text = `<em>${text}</em>`;
+    if (child.underline) text = `<u>${text}</u>`;
+    if (child.strikethrough) text = `<s>${text}</s>`;
+    if (child.code) text = `<code class="bg-zinc-100 px-1 rounded text-sm font-mono">${text}</code>`;
+    return text;
+  }).join('');
+}
+
+function renderBlock(block: any): string {
+  switch (block.type) {
+    case 'paragraph':
+      return `<p>${renderInline(block.children)}</p>`;
+
+    case 'heading': {
+      const tag = `h${block.level}`;
+      return `<${tag}>${renderInline(block.children)}</${tag}>`;
+    }
+
+    case 'list': {
+      const tag = block.format === 'ordered' ? 'ol' : 'ul';
+      const items = block.children.map((item: any) =>
+        `<li>${renderInline(item.children)}</li>`
+      ).join('');
+      return `<${tag}>${items}</${tag}>`;
+    }
+
+    case 'image': {
+      const img = block.image;
+      const url = img?.url ?? '';
+      const alt = img?.alternativeText ?? '';
+      const caption = block.children?.[0]?.text;
+      const figcaption = caption ? `<figcaption class="text-center text-sm text-zinc-400 mt-3">${caption}</figcaption>` : '';
+      return `<figure><img src="${url}" alt="${alt}" loading="lazy" />${figcaption}</figure>`;
+    }
+
+    case 'quote':
+      return `<blockquote>${renderInline(block.children)}</blockquote>`;
+
+    case 'code': {
+      const code = block.children.map((c: any) => c.text ?? '').join('');
+      return `<pre><code>${code.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</code></pre>`;
+    }
+
+    default:
+      return '';
+  }
+}
+
+const html = blocks?.map(renderBlock).join('\n') ?? '';
+---
+
+<div set:html={html} />

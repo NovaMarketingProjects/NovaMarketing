@@ -104,7 +104,7 @@ export interface BlogPost {
   featuredImage?: StrapiImage;
   publishedDate?: string;
   updatedAt?: string;
-  content?: ContentBlock[];
+  content?: any[];
   seo?: SeoFields;
   category?: BlogCategory;
   publishedAt?: string;
@@ -126,7 +126,7 @@ export interface CaseStudy {
   metadescription?: string;
   cover_image?: StrapiImage;
   categories?: CaseStudyCategory[];
-  content?: string;
+  content?: any[];
   isPublic: boolean;
   publishedAt?: string;
   localizations?: { slug: string; locale: string }[];
