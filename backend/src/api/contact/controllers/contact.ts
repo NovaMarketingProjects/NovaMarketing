@@ -41,36 +41,69 @@ export default {
     `;
 
     // Email de confirmación al usuario
-    const confirmationHtml = `
-      <div style="font-family:sans-serif;max-width:600px;margin:0 auto;">
-        <div style="background:#000;padding:32px 40px;">
-          <h1 style="color:#fff;font-size:28px;font-weight:900;text-transform:uppercase;letter-spacing:-0.03em;margin:0;">
-            NOVA<span style="color:#f97316;">MARKETING</span>
-          </h1>
-        </div>
-        <div style="padding:40px;background:#fff;">
-          <h2 style="font-size:22px;font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;margin-bottom:16px;">
-            ¡Hemos recibido tu consulta!
+    const confirmationHtml = `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; padding:0; background:#f4f4f5; }
+  * { box-sizing:border-box; }
+</style>
+</head>
+<body>
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f5;padding:40px 0;">
+  <tr><td align="center">
+    <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
+
+      <!-- Header -->
+      <tr>
+        <td style="background:#000000;padding:32px 40px;">
+          <span style="font-family:'Montserrat',Arial Black,sans-serif;font-weight:900;font-size:26px;text-transform:uppercase;letter-spacing:-0.03em;color:#ffffff;line-height:1;">
+            nova.<span style="color:#f97316;">marketing</span>
+          </span>
+        </td>
+      </tr>
+
+      <!-- Body -->
+      <tr>
+        <td style="background:#ffffff;padding:48px 40px;">
+          <h2 style="font-family:'Montserrat',Arial Black,sans-serif;font-weight:900;font-size:26px;text-transform:uppercase;letter-spacing:-0.03em;color:#09090b;margin:0 0 20px 0;line-height:1.1;">
+            ¡HEMOS RECIBIDO<br>TU CONSULTA!
           </h2>
-          <p style="color:#71717a;font-size:16px;line-height:1.6;margin-bottom:24px;">
-            Hola <strong>${name}</strong>, gracias por contactar con nosotros.
+          <p style="font-family:'Inter',Arial,sans-serif;font-size:16px;color:#52525b;line-height:1.7;margin:0 0 32px 0;">
+            Hola <strong style="color:#09090b;">${name}</strong>, gracias por contactar con nosotros.<br>
             En breve uno de nuestros especialistas se pondrá en contacto contigo.
           </p>
-          <div style="background:#f4f4f5;border-radius:8px;padding:24px;margin-bottom:32px;">
-            <p style="margin:0;font-size:14px;color:#52525b;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;">Tu mensaje</p>
-            <p style="margin:0;color:#3f3f46;font-size:15px;line-height:1.6;">${msg || 'Sin mensaje adicional'}</p>
-          </div>
-          <a href="https://novamarketing.es" style="display:inline-block;background:#f97316;color:#fff;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;font-size:12px;padding:16px 32px;text-decoration:none;border-radius:4px;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f5;border-radius:8px;margin-bottom:36px;">
+            <tr>
+              <td style="padding:24px;">
+                <p style="font-family:'Montserrat',Arial Black,sans-serif;font-weight:900;font-size:10px;text-transform:uppercase;letter-spacing:0.15em;color:#71717a;margin:0 0 10px 0;">TU MENSAJE</p>
+                <p style="font-family:'Inter',Arial,sans-serif;font-size:15px;color:#3f3f46;line-height:1.6;margin:0;">${msg || 'Sin mensaje adicional'}</p>
+              </td>
+            </tr>
+          </table>
+          <a href="https://novamarketing.es" style="display:inline-block;background:#f97316;color:#ffffff;font-family:'Montserrat',Arial Black,sans-serif;font-weight:900;font-size:11px;text-transform:uppercase;letter-spacing:0.15em;padding:16px 32px;text-decoration:none;border-radius:4px;">
             VISITAR LA WEB →
           </a>
-        </div>
-        <div style="background:#f4f4f5;padding:24px 40px;">
-          <p style="margin:0;font-size:12px;color:#a1a1aa;">
-            © Nova Marketing · hola@novamarketing.es
+        </td>
+      </tr>
+
+      <!-- Footer -->
+      <tr>
+        <td style="background:#f4f4f5;padding:20px 40px;border-top:1px solid #e4e4e7;">
+          <p style="font-family:'Inter',Arial,sans-serif;font-size:12px;color:#a1a1aa;margin:0;">
+            © Nova Marketing · <a href="mailto:hola@novamarketing.es" style="color:#a1a1aa;text-decoration:none;">hola@novamarketing.es</a>
           </p>
-        </div>
-      </div>
-    `;
+        </td>
+      </tr>
+
+    </table>
+  </td></tr>
+</table>
+</body>
+</html>`;
 
     try {
       await Promise.all([
