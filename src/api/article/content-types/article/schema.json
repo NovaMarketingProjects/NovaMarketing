@@ -34,8 +34,10 @@
       "pluginOptions": { "i18n": { "localized": true } }
     },
     "author": {
-      "type": "string",
-      "pluginOptions": { "i18n": { "localized": false } }
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::author.author",
+      "inversedBy": "articles"
     },
     "categories": {
       "type": "relation",
