@@ -5,7 +5,17 @@
       "Bash(node -e \"const pkg = require\\(''./package.json''\\); console.log\\(''Astro:'', pkg.dependencies?.astro || pkg.devDependencies?.astro\\);\")",
       "Bash(npm run:*)",
       "Bash(taskkill /F /IM node.exe)",
-      "Bash(cmd /c \"taskkill /F /IM node.exe\")"
+      "Bash(cmd /c \"taskkill /F /IM node.exe\")",
+      "Bash(npm install:*)",
+      "Bash(node -e \"const crypto = require\\(''crypto''\\); console.log\\(''APP_KEYS='' + [1,2,3,4].map\\(\\(\\)=>crypto.randomBytes\\(16\\).toString\\(''base64''\\)\\).join\\('',''\\)\\); console.log\\(''API_TOKEN_SALT='' + crypto.randomBytes\\(32\\).toString\\(''base64''\\)\\); console.log\\(''ADMIN_JWT_SECRET='' + crypto.randomBytes\\(32\\).toString\\(''base64''\\)\\); console.log\\(''JWT_SECRET='' + crypto.randomBytes\\(32\\).toString\\(''base64''\\)\\); console.log\\(''TRANSFER_TOKEN_SALT='' + crypto.randomBytes\\(32\\).toString\\(''base64''\\)\\);\")",
+      "Bash(node_modules/.bin/strapi transfer:*)",
+      "Bash(node_modules/.bin/strapi build:*)",
+      "Bash(xargs grep:*)",
+      "Bash(grep -c contact-modal-trigger /c/Users/galos/.gemini/antigravity/scratch/buzzmarketing-web/src/pages/*.astro /c/Users/galos/.gemini/antigravity/scratch/buzzmarketing-web/src/pages/ca/*.astro)",
+      "Bash(for f:*)",
+      "Bash(do grep:*)",
+      "Bash(curl -X POST https://cms.novamarketing.es/api/contact -H \"Content-Type: application/json\" -d '{\"\"name\"\":\"\"Test\"\",\"\"email\"\":\"\"test@test.com\"\",\"\"msg\"\":\"\"Prueba\"\"}')",
+      "Bash(curl -X POST https://cms.novamarketing.es/api/contact -H \"Content-Type: application/json\" -H \"Origin: https://novamarketing.es\" -d '{\"\"\"\"name\"\"\"\":\"\"\"\"Test\"\"\"\",\"\"\"\"email\"\"\"\":\"\"\"\"test@test.com\"\"\"\",\"\"\"\"msg\"\"\"\":\"\"\"\"Prueba\"\"\"\"}' -v)"
     ]
   }
 }

@@ -108,6 +108,7 @@ export interface BlogPost {
   seo?: SeoFields;
   category?: BlogCategory;
   categories?: CaseStudyCategory[];
+  author?: Author;
   publishedAt?: string;
 }
 
@@ -128,6 +129,7 @@ export interface CaseStudy {
   cover_image?: StrapiImage;
   categories?: CaseStudyCategory[];
   page_blocks?: any[];
+  author?: Author;
   isPublic: boolean;
   publishedAt?: string;
   localizations?: { slug: string; locale: string }[];
@@ -146,6 +148,21 @@ export interface AuthorSettings {
   photo?: StrapiImage;
   twitterUrl?: string;
   linkedinUrl?: string;
+}
+
+export interface SocialLink {
+  network: 'instagram' | 'youtube' | 'linkedin' | 'twitter' | 'facebook' | 'tiktok' | 'website';
+  url: string;
+  label?: string;
+}
+
+export interface Author {
+  id: number;
+  name: string;
+  job_title?: string;
+  description?: string;
+  photo?: StrapiImage;
+  social_links?: SocialLink[];
 }
 
 export interface SeoRedirect {
@@ -204,9 +221,13 @@ export const strapiClient = {
   getGlobalSettings: (): Promise<StrapiResponse<GlobalSettings>> =>
     strapiRequest('/api/global-setting?populate=deep'),
 
-  // Author
+  // Author (singleton legacy)
   getAuthor: (): Promise<StrapiResponse<AuthorSettings>> =>
     strapiRequest('/api/author-setting?populate=*'),
+
+  // Authors (collection)
+  getAuthors: (): Promise<StrapiResponse<Author[]>> =>
+    strapiRequest('/api/authors?populate=*'),
 
   // Servicios
   getServices: (locale: Locale = 'es'): Promise<StrapiResponse<Service[]>> =>
@@ -217,7 +238,7 @@ export const strapiClient = {
 
   // Blog
   getBlogPosts: (locale: Locale = 'es', options?: { category?: string; limit?: number }): Promise<StrapiResponse<BlogPost[]>> => {
-    let query = `/api/blog-posts?populate=*&locale=${STRAPI_LOCALE[locale]}&publicationState=live&sort=publishedDate:desc`;
+    let query = `/api/blog-posts?populate=deep&locale=${STRAPI_LOCALE[locale]}&publicationState=live&sort=publishedDate:desc`;
     if (options?.category) query += `&filters[category][slug][$eq]=${options.category}`;
     if (options?.limit) query += `&pagination[pageSize]=${options.limit}`;
     return strapiRequest(query);
