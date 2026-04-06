@@ -245,7 +245,7 @@ export const strapiClient = {
   },
 
   getBlogPost: (slug: string, locale: Locale = 'es'): Promise<StrapiResponse<BlogPost[]>> =>
-    strapiRequest(`/api/blog-posts?filters[slug][$eq]=${slug}&populate=deep&locale=${STRAPI_LOCALE[locale]}`),
+    strapiRequest(`/api/blog-posts?filters[slug][$eq]=${slug}&populate[category]=*&populate[categories]=*&populate[featuredImage]=*&populate[author][populate]=photo,social_links&populate[page_blocks][populate]=*&populate[seo][populate]=*&locale=${STRAPI_LOCALE[locale]}`),
 
   getBlogCategories: (locale: Locale = 'es'): Promise<StrapiResponse<BlogCategory[]>> =>
     strapiRequest(`/api/blog-categories?locale=${STRAPI_LOCALE[locale]}&sort=name:asc`),
@@ -259,7 +259,7 @@ export const strapiClient = {
   },
 
   getCaseStudy: (slug: string, locale: Locale = 'es'): Promise<StrapiResponse<CaseStudy[]>> =>
-    strapiRequest(`/api/case-studies?filters[slug][$eq]=${slug}&populate=deep&locale=${STRAPI_LOCALE[locale]}`),
+    strapiRequest(`/api/case-studies?filters[slug][$eq]=${slug}&populate[categories]=*&populate[cover_image]=*&populate[author][populate]=photo,social_links&populate[page_blocks][populate]=*&locale=${STRAPI_LOCALE[locale]}`),
 
   getCaseStudyCategories: (locale: Locale = 'es'): Promise<StrapiResponse<CaseStudyCategory[]>> =>
     strapiRequest(`/api/categories?locale=${STRAPI_LOCALE[locale]}&sort=name:asc`),
