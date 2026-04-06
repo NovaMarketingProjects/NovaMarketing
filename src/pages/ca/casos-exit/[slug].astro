@@ -143,8 +143,8 @@ const publishedDate = (pageType === 'case-study' && caseStudy.publishedAt) ? new
 
       <main class="py-24 px-6 sm:px-12 bg-white relative">
         <div class="max-w-4xl mx-auto">
-          <div class="prose prose-zinc prose-2xl max-w-none">
-            
+          <div class="max-w-none">
+
             {caseStudy.page_blocks?.length > 0 && (
               <PageBlocks blocks={caseStudy.page_blocks} />
             )}
