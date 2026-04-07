@@ -13,7 +13,7 @@ try {
   const res = await strapiClient.getCaseStudies('ca');
   pageCases = res.data.map((i: any) => i.attributes ?? i).filter((c: any) => {
     const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase());
-    return cats.some((s: string) => s.includes('seo') || s.includes('marketing'));
+    return cats.some((s: string) => s.includes('consultoria'));
   });
 } catch {}
 
