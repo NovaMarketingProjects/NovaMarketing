@@ -1,25 +1,7 @@
-function sanitizeSlug(raw: string): string {
-  return raw
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[ñÑ]/g, 'n')
-    .replace(/[çÇ]/g, 'c')
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, '')
-    .trim()
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-');
-}
-
 export default {
   async beforeCreate(event: any) {
     const { data } = event.params;
-    if (data.slug) {
-      data.slug = sanitizeSlug(data.slug);
-    } else if (data.title) {
-      data.slug = sanitizeSlug(data.title);
-    }
-    // Autor por defecto: Sergio García
+    // Autor por defecto: Sergio García (solo si no está asignado)
     if (!data.author) {
       try {
         const authors = await (strapi.documents as any)('api::author.author').findMany({
@@ -33,10 +15,7 @@ export default {
       } catch {}
     }
   },
-  async beforeUpdate(event: any) {
-    const { data } = event.params;
-    if (data.slug) {
-      data.slug = sanitizeSlug(data.slug);
-    }
+  beforeUpdate() {
+    // No-op: slug is managed by Strapi's uid field natively
   },
 };
