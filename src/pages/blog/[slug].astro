@@ -28,7 +28,6 @@ export async function getStaticPaths() {
 }
 
 const { post }: { post: BlogPost } = Astro.props;
-const author: Author | undefined = post.author;
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const canonicalPath = `/blog/${post.slug}`;
 const canonicalUrl = `${SITE_URL}${canonicalPath}`;
@@ -42,6 +41,39 @@ function formatDate(dateStr?: string) {
 }
 
 const coverUrl = getStrapiImageUrl(post.featuredImage ?? (post as any).cover_image) || '/og-default.jpg';
+
+// Fetch author con foto (populate=* en /api/articles no popula campos anidados del autor)
+let author: Author | undefined = post.author;
+if (author) {
+  try {
+    const authorsRes = await strapiClient.getAuthors();
+    const found = (authorsRes.data ?? []).find((a: any) => {
+      const d = a.attributes ?? a;
+      return d.name === author!.name || a.id === author!.id;
+    });
+    if (found) author = found.attributes ?? found;
+  } catch {}
+}
+
+// Sidebar: últimos artículos
+let latestPosts: any[] = [];
+try {
+  const postsRes = await strapiClient.getBlogPosts('es', { limit: 6 });
+  latestPosts = (postsRes.data ?? [])
+    .map((i: any) => i.attributes ?? i)
+    .filter((p: any) => p.slug !== post.slug)
+    .slice(0, 5);
+} catch {}
+
+// CTA dinámico según categoría
+const categoryName = ((post.category?.name || (post as any).categories?.[0]?.name || '') as string).toLowerCase();
+const ctaTitle = categoryName.includes('seo') || categoryName.includes('consultor')
+  ? 'Auditoría SEO para tu web'
+  : categoryName.includes('ads') || categoryName.includes('google')
+  ? 'Auditoría de tu cuenta de Google Ads'
+  : categoryName.includes('diseño') || categoryName.includes('diseno') || categoryName.includes('web')
+  ? 'Presentación de diseño funcional para tu web'
+  : 'Auditoría para tu web';
 ---
 
 <BaseLayout
@@ -130,33 +162,59 @@ const coverUrl = getStrapiImageUrl(post.featuredImage ?? (post as any).cover_ima
         {author && <AuthorCard author={author} locale="es" />}
       </article>
 
-      <!-- Sidebar Minimalista -->
+      <!-- Sidebar -->
       <aside class="space-y-12">
         <div class="sticky top-32 space-y-12">
-            <!-- CTA Pro -->
-            <div class="bg-black p-10 rounded-[2.5rem] text-white">
-                <span class="inline-block px-3 py-1 bg-accent text-[9px] font-black tracking-widest rounded-full mb-6">GRATIS</span>
-                <h3 class="text-3xl font-black mb-4 leading-none uppercase">Auditoría SEO Express</h3>
-                <p class="text-white/50 font-light mb-8 text-sm">Analizamos 5 puntos clave de tu web que te están haciendo perder dinero hoy mismo.</p>
-                <a href="#contacto" class="block w-full text-center py-5 bg-white text-black text-[10px] font-black tracking-widest rounded-2xl hover:bg-accent hover:text-white transition-all">
-                    SOLICITAR AHORA
-                </a>
-            </div>
+          <!-- CTA dinámico -->
+          <div class="bg-black p-10 rounded-[2.5rem] text-white">
+            <span class="inline-block px-3 py-1 bg-accent text-[9px] font-black tracking-widest rounded-full mb-6">AUDITORÍA GRATUITA</span>
+            <h3 class="text-3xl font-black mb-4 leading-none uppercase">{ctaTitle}</h3>
+            <p class="text-white/50 font-light mb-8 text-sm">Analizamos 5 puntos clave de tu web que empieces a facturar más.</p>
+            <button class="contact-modal-trigger block w-full text-center py-5 bg-white text-black text-[10px] font-black tracking-widest rounded-2xl hover:bg-accent hover:text-white transition-all cursor-pointer">
+              SOLICITAR AHORA
+            </button>
+          </div>
 
-            <!-- Servicios -->
+          <!-- Servicios de marketing -->
+          <div class="px-4">
+            <h4 class="text-xs font-black tracking-[0.2em] uppercase text-zinc-400 mb-8">Servicios de marketing</h4>
+            <ul class="space-y-6">
+              {[
+                { label: 'Posicionamiento SEO', href: '/servicios/posicionamiento-seo' },
+                { label: 'Google Ads', href: '/servicios/google-ads' },
+                { label: 'Diseño de páginas web', href: '/servicios/diseno-paginas-web' },
+                { label: 'Consultoría de marketing', href: '/servicios/consultoria-marketing' },
+              ].map(s => (
+                <li>
+                  <a href={s.href} class="group flex items-center justify-between">
+                    <span class="text-xl font-black text-black group-hover:text-accent transition-colors uppercase tracking-tighter">{s.label}</span>
+                    <span class="text-accent opacity-0 group-hover:opacity-100 transition-all font-black">→</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Más noticias de marketing -->
+          {latestPosts.length > 0 && (
             <div class="px-4">
-                <h4 class="text-xs font-black tracking-[0.2em] uppercase text-zinc-400 mb-8">Soluciones Relacionadas</h4>
-                <ul class="space-y-6">
-                    {['Marketing de Contenidos', 'SEO Técnico', 'Estrategia Digital'].map(s => (
-                        <li>
-                            <a href="/servicios" class="group flex items-center justify-between">
-                                <span class="text-xl font-black text-black group-hover:text-accent transition-colors uppercase tracking-tighter">{s}</span>
-                                <span class="text-accent opacity-0 group-hover:opacity-100 transition-all font-black">→</span>
-                            </a>
-                        </li>
-                    ))}
-                </ul>
+              <h4 class="text-xs font-black tracking-[0.2em] uppercase text-zinc-400 mb-8">Más noticias de marketing</h4>
+              <ul class="space-y-6">
+                {latestPosts.map((p: any) => (
+                  <li>
+                    <a href={`/blog/${p.slug}`} class="group block">
+                      <span class="text-sm font-bold text-black group-hover:text-accent transition-colors leading-snug line-clamp-2">{p.title}</span>
+                      {(p.publishedDate || p.publishedAt) && (
+                        <span class="text-[10px] text-zinc-400 uppercase tracking-widest font-black mt-1 block">
+                          {new Date(p.publishedDate || p.publishedAt).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' })}
+                        </span>
+                      )}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
+          )}
         </div>
       </aside>
 

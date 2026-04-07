@@ -110,11 +110,13 @@ if (pageType === 'case-study') {
 
 // CTA dinámico según categoría del caso
 const caseCategories = (caseStudy?.categories ?? []).map((c: any) => (c.attributes?.name || c.name || '').toLowerCase());
-const ctaTitle = caseCategories.some((c: string) => c.includes('seo'))
-  ? 'Auditoría SEO'
+const ctaTitle = caseCategories.some((c: string) => c.includes('seo') || c.includes('consultor'))
+  ? 'Auditoría SEO para tu web'
   : caseCategories.some((c: string) => c.includes('ads') || c.includes('google'))
-  ? 'Auditoría de Google Ads'
-  : 'Auditamos tu página web';
+  ? 'Auditoría de tu cuenta de Google Ads'
+  : caseCategories.some((c: string) => c.includes('diseño') || c.includes('diseno') || c.includes('web'))
+  ? 'Presentación de diseño funcional para tu web'
+  : 'Auditoría para tu web';
 ---
 
 <BaseLayout
@@ -214,35 +216,38 @@ const ctaTitle = caseCategories.some((c: string) => c.includes('seo'))
         <div class="sticky top-32 space-y-12">
           <!-- CTA dinámico -->
           <div class="bg-black p-10 rounded-[2.5rem] text-white">
-            <span class="inline-block px-3 py-1 bg-accent text-[9px] font-black tracking-widest rounded-full mb-6">GRATIS</span>
+            <span class="inline-block px-3 py-1 bg-accent text-[9px] font-black tracking-widest rounded-full mb-6">AUDITORÍA GRATUITA</span>
             <h3 class="text-3xl font-black mb-4 leading-none uppercase">{ctaTitle}</h3>
-            <p class="text-white/50 font-light mb-8 text-sm">Analizamos 5 puntos clave de tu web para aumentar tu facturación.</p>
+            <p class="text-white/50 font-light mb-8 text-sm">Analizamos 5 puntos clave de tu web que empieces a facturar más.</p>
             <button class="contact-modal-trigger block w-full text-center py-5 bg-white text-black text-[10px] font-black tracking-widest rounded-2xl hover:bg-accent hover:text-white transition-all cursor-pointer">
               SOLICITAR AHORA
             </button>
           </div>
 
-          <!-- Servicios reales -->
-          {sidebarServices.length > 0 && (
-            <div class="px-4">
-              <h4 class="text-xs font-black tracking-[0.2em] uppercase text-zinc-400 mb-8">Soluciones Relacionadas</h4>
-              <ul class="space-y-6">
-                {sidebarServices.map((s: any) => (
-                  <li>
-                    <a href={`/servicios/${s.slug}`} class="group flex items-center justify-between">
-                      <span class="text-xl font-black text-black group-hover:text-accent transition-colors uppercase tracking-tighter">{s.title}</span>
-                      <span class="text-accent opacity-0 group-hover:opacity-100 transition-all font-black">→</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          <!-- Servicios de marketing -->
+          <div class="px-4">
+            <h4 class="text-xs font-black tracking-[0.2em] uppercase text-zinc-400 mb-8">Servicios de marketing</h4>
+            <ul class="space-y-6">
+              {[
+                { label: 'Posicionamiento SEO', href: '/servicios/posicionamiento-seo' },
+                { label: 'Google Ads', href: '/servicios/google-ads' },
+                { label: 'Diseño de páginas web', href: '/servicios/diseno-paginas-web' },
+                { label: 'Consultoría de marketing', href: '/servicios/consultoria-marketing' },
+              ].map(s => (
+                <li>
+                  <a href={s.href} class="group flex items-center justify-between">
+                    <span class="text-xl font-black text-black group-hover:text-accent transition-colors uppercase tracking-tighter">{s.label}</span>
+                    <span class="text-accent opacity-0 group-hover:opacity-100 transition-all font-black">→</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-          <!-- Últimos artículos del blog -->
+          <!-- Más noticias de marketing -->
           {latestPosts.length > 0 && (
             <div class="px-4">
-              <h4 class="text-xs font-black tracking-[0.2em] uppercase text-zinc-400 mb-8">Últimos Artículos</h4>
+              <h4 class="text-xs font-black tracking-[0.2em] uppercase text-zinc-400 mb-8">Más noticias de marketing</h4>
               <ul class="space-y-6">
                 {latestPosts.map((p: any) => (
                   <li>
