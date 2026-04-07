@@ -20,9 +20,7 @@ try {
   const categoriesRes = await strapiClient.getBlogCategories('es');
   const allCategories = categoriesRes.data.map(i => i.attributes ?? i);
 
-  categoriesWithPosts = allCategories.filter(cat => 
-    posts.some(post => post.category?.slug === cat.slug)
-  );
+  categoriesWithPosts = allCategories.filter(cat => !!cat.slug);
 } catch (e) {
   console.error("DEBUG: Blog index error:", e);
 }
