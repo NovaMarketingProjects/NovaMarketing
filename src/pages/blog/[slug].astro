@@ -14,12 +14,24 @@ import { getStrapiImageUrl } from '../../lib/strapi';
 
 export async function getStaticPaths() {
   try {
-    const res = await strapiClient.getBlogPosts('es');
-    return res.data.map((item: any) => {
+    const [resEs, resCa] = await Promise.all([
+      strapiClient.getBlogPosts('es'),
+      strapiClient.getBlogPosts('ca'),
+    ]);
+
+    // Mapa documentId → slug CA
+    const caSlugMap: Record<string, string> = {};
+    for (const item of resCa.data) {
+      const p = item.attributes ?? item;
+      if (item.documentId) caSlugMap[item.documentId] = p.slug;
+    }
+
+    return resEs.data.map((item: any) => {
       const post: BlogPost = item.attributes ?? item;
+      const caSlug = (item.documentId && caSlugMap[item.documentId]) || post.slug;
       return {
         params: { slug: post.slug },
-        props: { post },
+        props: { post, caSlug },
       };
     });
   } catch {
@@ -27,11 +39,11 @@ export async function getStaticPaths() {
   }
 }
 
-const { post }: { post: BlogPost } = Astro.props;
+const { post, caSlug }: { post: BlogPost; caSlug: string } = Astro.props;
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const canonicalPath = `/blog/${post.slug}`;
 const canonicalUrl = `${SITE_URL}${canonicalPath}`;
-const alternates = buildAlternates(canonicalPath, `/ca/blog/${post.slug}`, SITE_URL);
+const alternates = buildAlternates(canonicalPath, `/ca/blog/${caSlug}`, SITE_URL);
 
 const schemas: object[] = [];
 
