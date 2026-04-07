@@ -22,12 +22,7 @@ try {
   
   const categoriesRes = await strapiClient.getCaseStudyCategories('es');
   const allCategories = categoriesRes.data.map(i => i.attributes ?? i);
-  categoriesWithCases = allCategories.filter(cat => 
-    cases.some(cs => {
-       const catSlug = cat.slug || cat.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-');
-       return cs.categories?.some(c => (c.attributes?.slug || c.slug || c.name?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-')) === catSlug);
-    })
-  );
+  categoriesWithCases = allCategories.filter(cat => !!cat.slug);
 } catch (e) {
   console.error("DEBUG: Casos index error:", e);
 }
