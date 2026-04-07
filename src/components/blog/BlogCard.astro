@@ -12,35 +12,50 @@ const prefix = locale === 'ca' ? '/ca' : '';
 const blogUrl = `${prefix}/blog/${post.slug}/`;
 const imageUrl = getStrapiImageUrl(post.featuredImage ?? post.cover_image) || '/og-default.jpg';
 const category = post.category?.name || (post.categories?.[0] as any)?.name || (locale === 'ca' ? 'Sense categoria' : 'Sin categoría');
+const dateStr = post.publishedDate || post.publishedAt;
+const formattedDate = dateStr
+  ? new Date(dateStr).toLocaleDateString(locale === 'ca' ? 'ca' : 'es-ES', { day: 'numeric', month: 'short', year: 'numeric' })
+  : '';
 ---
 
-<a href={blogUrl} class="group bg-white border border-zinc-100/80 rounded-3xl overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 shadow-sm flex flex-col h-full">
+<a href={blogUrl} class="group bg-white border border-black/5 rounded-2xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-500 shadow-sm flex flex-col h-full relative">
   <!-- Image Container -->
-  <div class="relative aspect-[16/10] overflow-hidden">
-    <img 
-      src={imageUrl} 
+  <div class="relative aspect-[4/3] overflow-hidden">
+    <img
+      src={imageUrl}
       alt={post.title}
-      class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+      class="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
     />
-    <div class="absolute top-4 left-4">
-      <span class="bg-white/90 backdrop-blur-sm border border-black/5 px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-[0.2em] text-accent shadow-sm">
+    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
+
+    <div class="absolute top-3 left-3 z-10">
+      <span class="bg-white/95 backdrop-blur-sm border border-black/5 px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-[0.2em] text-accent shadow-md">
         {category}
       </span>
     </div>
+
+    {formattedDate && (
+      <div class="absolute bottom-3 left-3 z-10 bg-white/10 backdrop-blur-md rounded-lg px-3 py-1.5 flex items-center border border-white/20">
+        <span class="text-white font-black uppercase tracking-tighter text-[9px]">{formattedDate}</span>
+      </div>
+    )}
   </div>
 
-  <!-- Content -->
-  <div class="p-8 flex flex-col flex-1">
-    <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter text-zinc-900 mb-4 group-hover:text-accent transition-colors leading-[0.9]">
-      {post.title}
-    </h3>
-    
-    <p class="text-zinc-500 font-light text-sm line-clamp-3 mb-8 leading-relaxed">
-      {post.excerpt}
-    </p>
+  <!-- Content Section -->
+  <div class="p-5 flex flex-col flex-1 bg-white">
+    <div class="mb-3 flex-1">
+      <h2 class="text-sm font-black uppercase tracking-tight text-zinc-900 leading-tight group-hover:text-accent transition-colors line-clamp-2">
+        {post.title}
+      </h2>
+      {post.excerpt && (
+        <p class="text-zinc-500 font-light text-xs line-clamp-2 mt-2 leading-relaxed">
+          {post.excerpt}
+        </p>
+      )}
+    </div>
 
-    <div class="mt-auto pt-4 border-t border-zinc-50">
-      <span class="text-[9px] font-black tracking-widest text-accent flex items-center gap-1 group-hover:gap-2 transition-all">
+    <div class="flex items-center justify-between pt-3 border-t border-zinc-50">
+      <span class="text-[8px] font-black tracking-[0.25em] text-accent flex items-center gap-1.5 group-hover:gap-3 transition-all uppercase">
         {locale === 'ca' ? 'LLEGIR MÉS' : 'LEER MÁS'} <span class="text-sm">→</span>
       </span>
     </div>
