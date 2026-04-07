@@ -10,11 +10,11 @@ const { categories, currentCategory = 'all', baseUrl, locale = 'es' } = Astro.pr
 const allLabel = locale === 'ca' ? 'Totes' : 'Todas';
 ---
 
-<div class="flex flex-nowrap justify-center gap-2 mb-8 reveal overflow-x-auto max-w-3xl mx-auto pb-1">
+<div class="flex flex-wrap justify-center gap-2 mb-8 reveal py-2">
   <a
     href={`${baseUrl}/`}
     class:list={[
-      'px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] rounded-xl transition-all duration-300 border whitespace-nowrap flex-shrink-0',
+      'px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] rounded-xl transition-all duration-300 border whitespace-nowrap ',
       currentCategory === 'all'
         ? 'bg-accent border-accent text-white shadow-[0_8px_20px_rgba(255,107,0,0.2)]'
         : 'bg-white border-black/10 text-zinc-500 hover:border-black/20 hover:text-black hover:bg-zinc-50'
@@ -27,7 +27,7 @@ const allLabel = locale === 'ca' ? 'Totes' : 'Todas';
     <a
       href={`${baseUrl}/${cat.slug}/`}
       class:list={[
-        'px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] rounded-xl transition-all duration-300 border whitespace-nowrap flex-shrink-0',
+        'px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] rounded-xl transition-all duration-300 border whitespace-nowrap ',
         currentCategory === cat.slug
           ? 'bg-accent border-accent text-white shadow-[0_8px_20px_rgba(255,107,0,0.2)]'
           : 'bg-white border-black/10 text-zinc-500 hover:border-black/20 hover:text-black hover:bg-zinc-50'
