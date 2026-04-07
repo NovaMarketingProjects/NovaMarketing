@@ -52,14 +52,11 @@ if (author) {
   } catch {}
 }
 
-// Últims articles
+// Últims articles (sense filtrar l'actual perquè sempre hi hagi resultats)
 let latestPosts: any[] = [];
 try {
-  const postsRes = await strapiClient.getBlogPosts('ca', { limit: 6 });
-  latestPosts = (postsRes.data ?? [])
-    .map((i: any) => i.attributes ?? i)
-    .filter((p: any) => p.slug !== post.slug)
-    .slice(0, 5);
+  const postsRes = await strapiClient.getBlogPosts('ca', { limit: 5 });
+  latestPosts = (postsRes.data ?? []).map((i: any) => i.attributes ?? i);
 } catch {}
 
 // CTA dinàmic
@@ -116,9 +113,11 @@ const ctaTitle = categoryName.includes('seo') || categoryName.includes('consulto
             <div class="flex items-center gap-4">
                 {author.photo && (
                     <img
-                        src={getStrapiImageUrl(author.photo)}
+                        src={author.photo?.formats?.small?.url
+                          ? (author.photo.formats.small.url.startsWith('http') ? author.photo.formats.small.url : `${import.meta.env.STRAPI_URL || 'http://localhost:1337'}${author.photo.formats.small.url}`)
+                          : getStrapiImageUrl(author.photo)}
                         alt={author.name}
-                        class="w-14 h-14 rounded-full border-2 border-white/20 object-cover"
+                        class="w-16 h-16 rounded-full border-2 border-white/20 object-cover"
                     />
                 )}
                 <div>
@@ -175,7 +174,7 @@ const ctaTitle = categoryName.includes('seo') || categoryName.includes('consulto
               ].map(s => (
                 <li>
                   <a href={s.href} class="group flex items-center justify-between">
-                    <span class="text-xl font-black text-black group-hover:text-accent transition-colors uppercase tracking-tighter">{s.label}</span>
+                    <span class="text-sm font-bold text-black group-hover:text-accent transition-colors uppercase tracking-tight">{s.label}</span>
                     <span class="text-accent opacity-0 group-hover:opacity-100 transition-all font-black">→</span>
                   </a>
                 </li>
