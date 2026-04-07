@@ -209,8 +209,8 @@ const ctaTitle = caseCategories.some((c: string) => c.includes('seo') || c.inclu
           </article>
 
           <!-- Sidebar -->
-          <aside class="space-y-12">
-            <div class="sticky top-32 space-y-12">
+          <aside class="space-y-8">
+            <div class="sticky top-32 space-y-8">
               <!-- CTA dinàmic -->
               <div class="bg-black p-10 rounded-[2.5rem] text-white">
                 <span class="inline-block px-3 py-1 bg-accent text-[9px] font-black tracking-widest rounded-full mb-6">AUDITORIA GRATUÏTA</span>
@@ -223,8 +223,8 @@ const ctaTitle = caseCategories.some((c: string) => c.includes('seo') || c.inclu
 
               <!-- Serveis de màrqueting -->
               <div class="px-4">
-                <h4 class="text-xs font-black tracking-[0.2em] uppercase text-zinc-400 mb-8">Serveis de màrqueting</h4>
-                <ul class="space-y-6">
+                <h4 class="text-xs font-black tracking-[0.2em] uppercase text-zinc-400 mb-4">Serveis de màrqueting</h4>
+                <ul class="space-y-3">
                   {[
                     { label: 'Posicionament SEO', href: '/ca/agencia-seo-para-pymes/' },
                     { label: 'Google Ads', href: '/ca/agencia-sem-para-pymes/' },
@@ -244,8 +244,8 @@ const ctaTitle = caseCategories.some((c: string) => c.includes('seo') || c.inclu
               <!-- Més notícies de màrqueting -->
               {latestPosts.length > 0 && (
                 <div class="px-4">
-                  <h4 class="text-xs font-black tracking-[0.2em] uppercase text-zinc-400 mb-8">Més notícies de màrqueting</h4>
-                  <ul class="space-y-6">
+                  <h4 class="text-xs font-black tracking-[0.2em] uppercase text-zinc-400 mb-4">Més notícies de màrqueting</h4>
+                  <ul class="space-y-3">
                     {latestPosts.map((p: any) => (
                       <li>
                         <a href={`/ca/blog/${p.slug}`} class="group block">
