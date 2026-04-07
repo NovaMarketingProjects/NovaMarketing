@@ -49,10 +49,9 @@ const categoriesWithPosts = allCategories.filter(cat => !!cat.slug);
   locale="es"
   alternates={alternates}
 >
-  <PageHeader 
+  <PageHeader
     badge={`BLOG > ${categoryData.name.toUpperCase()}`}
     title={categoryData.name}
-    description={`Recursos y noticias especializadas en ${categoryData.name.toLowerCase()}.`}
   />
 
   <section class="py-20 px-6 sm:px-12 bg-white">

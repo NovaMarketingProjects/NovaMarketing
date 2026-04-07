@@ -1,7 +1,7 @@
 ---
 interface Props {
   title: string;
-  description: string;
+  description?: string;
   badge?: string;
 }
 
@@ -27,9 +27,11 @@ const { title, description, badge } = Astro.props;
               <Fragment set:html={title} />
           </h1>
           
-          <p class="text-sm sm:text-base text-zinc-500 font-light leading-relaxed max-w-xl mx-auto whitespace-normal text-balance">
+          {description && (
+            <p class="text-sm sm:text-base text-zinc-500 font-light leading-relaxed max-w-xl mx-auto whitespace-normal text-balance">
               {description}
-          </p>
+            </p>
+          )}
       </div>
   </div>
 </header>
