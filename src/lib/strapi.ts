@@ -101,6 +101,7 @@ export interface BlogPost {
   title: string;
   slug: string;
   excerpt?: string;
+  metadescription?: string;
   featuredImage?: StrapiImage;
   cover_image?: StrapiImage;
   publishedDate?: string;
