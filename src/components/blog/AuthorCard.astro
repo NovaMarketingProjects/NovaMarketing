@@ -44,7 +44,7 @@ const photoUrl = getStrapiImageUrl(author.photo);
     <div class="author-card__body">
       <div class="author-card__meta">
         <span class="author-card__label">{locale === 'ca' ? 'Escrit per' : 'Escrito por'}</span>
-        <h3 class="author-card__name">{author.name}</h3>
+        <div class="author-card__name">{author.name}</div>
         {author.job_title && (
           <span class="author-card__role">{author.job_title}</span>
         )}
