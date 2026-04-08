@@ -266,9 +266,8 @@ function embedUrl(url: string): string {
     padding-left: 1.75rem;
   }
 
-  /* Headers: sin margen izquierdo */
+  /* Headers: sin margen izquierdo (excepto h3 que necesita el gap de la barra azul) */
   .pb-space h2,
-  .pb-space h3,
   .pb-space h4,
   .pb-space h5,
   .pb-space h6 {
@@ -297,8 +296,9 @@ function embedUrl(url: string): string {
 
 .pb-html h3, .sb-content h3 {
   font-size: clamp(1.125rem, 2vw, 1.375rem);
-  padding-left: 0.875rem;
+  padding-left: 1.5rem;
   border-left: 3px solid #3b82f6;
+  color: #3b82f6;
 }
 
 .pb-html h4, .sb-content h4 {
@@ -408,7 +408,9 @@ function embedUrl(url: string): string {
 }
 
 .pb-html thead th,
-.sb-content thead th {
+.sb-content thead th,
+.pb-html table tr:first-child th,
+.sb-content table tr:first-child th {
   padding: 0.875rem 1.25rem;
   text-align: left;
   font-family: 'Montserrat', sans-serif;
@@ -417,6 +419,7 @@ function embedUrl(url: string): string {
   text-transform: uppercase;
   letter-spacing: 0.15em;
   color: #fff;
+  background: #09090b;
 }
 
 .pb-html tbody tr,
