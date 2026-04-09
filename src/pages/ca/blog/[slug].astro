@@ -208,8 +208,10 @@ const ctaTitle = categoryName.includes('seo') || categoryName.includes('consulto
             return (
               <a href={`/ca/blog/${p.slug}`} class="group block bg-white rounded-2xl border border-zinc-100 hover:border-accent/30 hover:shadow-sm transition-all overflow-hidden">
                 {imgUrl && (
-                  <div class="aspect-video overflow-hidden bg-zinc-100">
+                  <div class="relative aspect-video overflow-hidden bg-zinc-100">
                     <img src={imgUrl} alt={p.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                    <div class="absolute inset-0 bg-white/30 mix-blend-overlay"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-white/40 to-transparent"></div>
                   </div>
                 )}
                 <div class="p-5">
