@@ -44,7 +44,7 @@ const prefix = locale === 'ca' ? '/ca' : '';
             <!-- Brand -->
             <div>
                 <div class="group inline-block cursor-default mb-8">
-                    <span class="hover-animate-gradient text-3xl font-heading font-black tracking-tighter text-white">
+                    <span class="hover-animate-gradient text-6xl font-heading font-black tracking-tighter" style="color: white;">
                         nova.
                     </span>
                 </div>
@@ -54,25 +54,25 @@ const prefix = locale === 'ca' ? '/ca' : '';
             </div>
 
             <!-- Nav columns -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-16 uppercase text-[10px] font-black tracking-[0.3em] text-white">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-16 text-white">
 
                 <!-- Ciudades -->
-                <div class="flex flex-col gap-6">
-                    <span class="text-zinc-600">{t.explore}</span>
+                <div class="flex flex-col gap-5">
+                    <span class="text-[10px] font-black tracking-[0.3em] uppercase text-zinc-600">{t.explore}</span>
                     {t.cities.map(c => (
-                        <a href={c.href} class="hover:text-accent transition-colors normal-case font-bold tracking-normal text-[11px] text-zinc-300">
+                        <a href={c.href} class="hover:text-accent transition-colors text-sm font-medium text-zinc-300 leading-snug">
                             {c.label}
                         </a>
                     ))}
                 </div>
 
                 <!-- Legal -->
-                <div class="flex flex-col gap-6">
-                    <span class="text-zinc-600">{t.legal}</span>
-                    <a href={locale === 'ca' ? '/ca/avis-legal/' : '/aviso-legal/'} class="hover:text-accent transition-colors">{t.notice}</a>
-                    <a href={locale === 'ca' ? '/ca/privacitat/' : '/privacidad/'} class="hover:text-accent transition-colors">{t.privacy}</a>
-                    <a href={locale === 'ca' ? '/ca/cookies/' : '/cookies/'} class="hover:text-accent transition-colors">{t.cookies}</a>
-                    <a href={locale === 'ca' ? '/ca/termes-i-condicions/' : '/terminos-y-condiciones/'} class="hover:text-accent transition-colors">{t.terms}</a>
+                <div class="flex flex-col gap-5">
+                    <span class="text-[10px] font-black tracking-[0.3em] uppercase text-zinc-600">{t.legal}</span>
+                    <a href={locale === 'ca' ? '/ca/avis-legal/' : '/aviso-legal/'} class="hover:text-accent transition-colors text-sm font-medium text-zinc-300">{t.notice}</a>
+                    <a href={locale === 'ca' ? '/ca/privacitat/' : '/privacidad/'} class="hover:text-accent transition-colors text-sm font-medium text-zinc-300">{t.privacy}</a>
+                    <a href={locale === 'ca' ? '/ca/cookies/' : '/cookies/'} class="hover:text-accent transition-colors text-sm font-medium text-zinc-300">{t.cookies}</a>
+                    <a href={locale === 'ca' ? '/ca/termes-i-condicions/' : '/terminos-y-condiciones/'} class="hover:text-accent transition-colors text-sm font-medium text-zinc-300">{t.terms}</a>
                 </div>
 
             </div>
