@@ -6,6 +6,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PageBlocks from '../../../components/blocks/PageBlocks.astro';
 import AuthorCard from '../../../components/blog/AuthorCard.astro';
+import BlogCard from '../../../components/blog/BlogCard.astro';
 import { strapiClient } from '../../../lib/strapi';
 import { buildAlternates } from '../../../lib/i18n';
 import type { BlogPost, Author } from '../../../lib/strapi';
@@ -203,28 +204,9 @@ const ctaTitle = categoryName.includes('seo') || categoryName.includes('consulto
       <div class="max-w-7xl mx-auto">
         <div class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-8">Més notícies de màrqueting</div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {latestPosts.map((p: any) => {
-            const imgUrl = getStrapiImageUrl(p.featuredImage ?? p.cover_image);
-            return (
-              <a href={`/ca/blog/${p.slug}`} class="group block bg-white rounded-2xl border border-zinc-100 hover:border-accent/30 hover:shadow-sm transition-all overflow-hidden">
-                {imgUrl && (
-                  <div class="relative aspect-video overflow-hidden bg-zinc-100">
-                    <img src={imgUrl} alt={p.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
-                    <div class="absolute inset-0 bg-white/30 mix-blend-overlay"></div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-white/40 to-transparent"></div>
-                  </div>
-                )}
-                <div class="p-5">
-                  <div class="text-sm font-bold text-black group-hover:text-accent transition-colors leading-snug line-clamp-3 mb-3">{p.title}</div>
-                  {(p.publishedDate || p.publishedAt) && (
-                    <div class="text-[10px] text-zinc-400 uppercase tracking-widest font-black">
-                      {new Date(p.publishedDate || p.publishedAt).toLocaleDateString('ca', { day: 'numeric', month: 'short', year: 'numeric' })}
-                    </div>
-                  )}
-                </div>
-              </a>
-            );
-          })}
+          {latestPosts.map((p: any) => (
+            <BlogCard post={p} locale="ca" />
+          ))}
         </div>
       </div>
     </section>
