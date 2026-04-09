@@ -1,20 +1,28 @@
 "use strict";
-// import type { Core } from '@strapi/strapi';
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
-    /**
-     * An asynchronous register function that runs before
-     * your application is initialized.
-     *
-     * This gives you an opportunity to extend code.
-     */
-    register( /* { strapi }: { strapi: Core.Strapi } */) { },
-    /**
-     * An asynchronous bootstrap function that runs before
-     * your application gets started.
-     *
-     * This gives you an opportunity to set up your data model,
-     * run jobs, or perform some special logic.
-     */
-    bootstrap( /* { strapi }: { strapi: Core.Strapi } */) { },
+    register({ strapi }) { },
+    bootstrap({ strapi }) {
+        // Captura errores no manejados a nivel de proceso
+        process.on('unhandledRejection', (reason) => {
+            strapi.log.error('[UNHANDLED] ' + ((reason === null || reason === void 0 ? void 0 : reason.message) || String(reason)));
+            strapi.log.error('[UNHANDLED] stack: ' + ((reason === null || reason === void 0 ? void 0 : reason.stack) || ''));
+        });
+        // Hooks a nivel de BD para case-study (captura admin + API)
+        strapi.db.lifecycles.subscribe({
+            models: ['api::case-study.case-study'],
+            async beforeCreate(event) {
+                strapi.log.info('[CS:beforeCreate] locale=' + event.params?.data?.locale + ' slug=' + event.params?.data?.slug);
+            },
+            async afterCreate(event) {
+                strapi.log.info('[CS:afterCreate] id=' + event.result?.id + ' documentId=' + event.result?.documentId);
+            },
+            async beforeUpdate(event) {
+                strapi.log.info('[CS:beforeUpdate] locale=' + event.params?.data?.locale + ' where=' + JSON.stringify(event.params?.where));
+            },
+            async afterUpdate(event) {
+                strapi.log.info('[CS:afterUpdate] id=' + event.result?.id);
+            },
+        });
+    },
 };
