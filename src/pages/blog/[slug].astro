@@ -160,8 +160,8 @@ const ctaTitle = categoryName.includes('seo') || categoryName.includes('consulto
   </header>
 
   <main class="py-24 px-6 sm:px-12 bg-white relative">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_350px] gap-20">
-      
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-20">
+
       <!-- Contenido Principal -->
       <article class="max-w-none">
         {post.excerpt && (
@@ -179,63 +179,63 @@ const ctaTitle = categoryName.includes('seo') || categoryName.includes('consulto
       </article>
 
       <!-- Sidebar -->
-      <aside class="space-y-8">
-        <div class="sticky top-32 space-y-8">
+      <aside>
+        <div class="sticky top-32 flex flex-col gap-6">
           <!-- CTA dinámico -->
-          <div class="bg-black p-10 rounded-[2.5rem] text-white">
-            <span class="inline-block px-3 py-1 bg-accent text-[9px] font-black tracking-widest rounded-full mb-6">AUDITORÍA GRATUITA</span>
-            <div class="text-3xl font-black mb-4 leading-none uppercase">{ctaTitle}</div>
-            <p class="text-white/50 font-light mb-8 text-sm">Analizamos 5 puntos clave de tu web que empieces a facturar más.</p>
-            <button class="contact-modal-trigger block w-full text-center py-5 bg-white text-black text-[10px] font-black tracking-widest rounded-2xl hover:bg-accent hover:text-white transition-all cursor-pointer">
+          <div class="bg-black p-8 rounded-[2rem] text-white">
+            <span class="inline-block px-3 py-1 bg-accent text-[9px] font-black tracking-widest rounded-full mb-5">AUDITORÍA GRATUITA</span>
+            <div class="text-2xl font-black mb-3 leading-tight uppercase">{ctaTitle}</div>
+            <p class="text-white/50 font-light mb-7 text-sm leading-relaxed">Analizamos 5 puntos clave de tu web que empieces a facturar más.</p>
+            <button class="contact-modal-trigger block w-full text-center py-4 bg-white text-black text-[10px] font-black tracking-widest rounded-xl hover:bg-accent hover:text-white transition-all cursor-pointer">
               SOLICITAR AHORA
             </button>
           </div>
 
           <!-- Servicios de marketing -->
-          <div class="px-4">
-            <div class="text-xs font-black tracking-[0.2em] uppercase text-zinc-400 mb-4">Servicios de marketing</div>
-            <ul class="space-y-3">
+          <div class="rounded-[2rem] border border-zinc-100 bg-zinc-50 p-8">
+            <div class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-5">Servicios de marketing</div>
+            <ul class="flex flex-col gap-0">
               {[
                 { label: 'Posicionamiento SEO', href: '/agencia-seo-para-pymes/' },
                 { label: 'Google Ads', href: '/agencia-sem-para-pymes/' },
                 { label: 'Diseño de páginas web', href: '/diseno-web-para-pymes/' },
                 { label: 'Consultoría de marketing', href: '/consultoria-marketing-para-pymes/' },
               ].map(s => (
-                <li>
-                  <a href={s.href} class="group flex items-center justify-between">
-                    <span class="text-sm font-bold text-black group-hover:text-accent transition-colors uppercase tracking-tight">{s.label}</span>
-                    <span class="text-accent opacity-0 group-hover:opacity-100 transition-all font-black">→</span>
+                <li class="border-b border-zinc-200 last:border-0">
+                  <a href={s.href} class="group flex items-center justify-between py-3">
+                    <span class="text-sm font-bold text-zinc-700 group-hover:text-accent transition-colors uppercase tracking-tight">{s.label}</span>
+                    <span class="text-accent text-base font-black translate-x-0 group-hover:translate-x-1 transition-transform">→</span>
                   </a>
                 </li>
               ))}
             </ul>
           </div>
-
-          <!-- Más noticias de marketing -->
-          {latestPosts.length > 0 && (
-            <div class="px-4">
-              <div class="text-xs font-black tracking-[0.2em] uppercase text-zinc-400 mb-4">Más noticias de marketing</div>
-              <ul class="space-y-3">
-                {latestPosts.map((p: any) => (
-                  <li>
-                    <a href={`/blog/${p.slug}`} class="group block">
-                      <span class="text-sm font-bold text-black group-hover:text-accent transition-colors leading-snug line-clamp-2">{p.title}</span>
-                      {(p.publishedDate || p.publishedAt) && (
-                        <span class="text-[10px] text-zinc-400 uppercase tracking-widest font-black mt-1 block">
-                          {new Date(p.publishedDate || p.publishedAt).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' })}
-                        </span>
-                      )}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
         </div>
       </aside>
 
     </div>
   </main>
+
+  <!-- Más noticias de marketing -->
+  {latestPosts.length > 0 && (
+    <section class="py-16 px-6 sm:px-12 bg-zinc-50 border-t border-zinc-100">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-8">Más noticias de marketing</div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {latestPosts.map((p: any) => (
+            <a href={`/blog/${p.slug}`} class="group block p-6 bg-white rounded-2xl border border-zinc-100 hover:border-accent/30 hover:shadow-sm transition-all">
+              <div class="text-sm font-bold text-black group-hover:text-accent transition-colors leading-snug line-clamp-3 mb-3">{p.title}</div>
+              {(p.publishedDate || p.publishedAt) && (
+                <div class="text-[10px] text-zinc-400 uppercase tracking-widest font-black">
+                  {new Date(p.publishedDate || p.publishedAt).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' })}
+                </div>
+              )}
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 </BaseLayout>
 
 <style>
