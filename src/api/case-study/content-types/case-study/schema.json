@@ -76,8 +76,7 @@
       "inversedBy": "case_studies"
     },
     "slug": {
-      "type": "uid",
-      "targetField": "title",
+      "type": "string",
       "required": true,
       "unique": true,
       "pluginOptions": {
