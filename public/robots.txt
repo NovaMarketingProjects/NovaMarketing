@@ -13,6 +13,8 @@ Disallow: /backend/
 Disallow: /strapi/
 Disallow: /private/
 Disallow: /tmp/
+Disallow: /gracias
+Disallow: /ca/gracies
 Disallow: /search
 Disallow: *?search=
 Disallow: *?query=
