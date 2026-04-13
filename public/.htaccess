@@ -1,7 +1,11 @@
 # Nova Marketing - 301 Redirects & WWW Cleanup
 
-# Custom 404 pages
+# Custom 404 pages (ES + CA)
 ErrorDocument 404 /404.html
+RewriteCond %{REQUEST_URI} ^/ca/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ /ca/404.html [L,R=404]
 
 # Force Non-WWW
 RewriteEngine On
