@@ -1,4 +1,8 @@
 # Nova Marketing - 301 Redirects & WWW Cleanup
+
+# Custom 404 pages
+ErrorDocument 404 /404.html
+
 # Force Non-WWW
 RewriteEngine On
 RewriteCond %{HTTP_HOST} ^www\.novamarketing\.es [NC]
