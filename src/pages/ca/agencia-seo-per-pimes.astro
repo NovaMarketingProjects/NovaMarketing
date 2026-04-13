@@ -291,12 +291,13 @@ const benefits = [
                     Casos d'èxit de posicionament<br class="hidden md:inline" /> SEO en pimes
                 </h2>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {seoCases.map((cs: any, i: number) => {
+            <div class="cases-carousel relative overflow-hidden">
+              <div class="cases-track flex gap-6 transition-transform duration-500 ease-in-out">
+                {seoCases.map((cs: any) => {
                   const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
                   const caseUrl = cs.isPublic && cs.slug ? `/ca/casos-exit/${cs.slug}/` : null;
                   return (
-                    <div class="bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl reveal" style={`transition-delay: ${i * 80}ms`}>
+                    <div class="cases-slide flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
                       <div>
                         {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
                         <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 group-hover:text-accent transition-colors leading-tight">{cs.title}</h3>
@@ -310,6 +311,7 @@ const benefits = [
                     </div>
                   );
                 })}
+              </div>
             </div>
         </div>
     </section>
@@ -321,6 +323,34 @@ const benefits = [
         title="Preguntes sobre posicionament SEO <br /> que ens fan altres pimes"
     />
 
+  <script is:inline>
+    (function() {
+      function initCasesCarousel() {
+        var track = document.querySelector('.cases-track');
+        if (!track) return;
+        var slides = track.querySelectorAll('.cases-slide');
+        if (slides.length <= 4) return;
+        var current = 0;
+        var total = slides.length;
+        function getVisible() {
+          if (window.innerWidth >= 1024) return 4;
+          if (window.innerWidth >= 640) return 2;
+          return 1;
+        }
+        function next() {
+          var visible = getVisible();
+          var maxIndex = total - visible;
+          current = current >= maxIndex ? 0 : current + 1;
+          var slideWidth = slides[0].offsetWidth + 24;
+          track.style.transform = 'translateX(-' + (current * slideWidth) + 'px)';
+        }
+        var interval = setInterval(next, 5000);
+        document.addEventListener('astro:before-preparation', function() { clearInterval(interval); });
+      }
+      document.addEventListener('DOMContentLoaded', initCasesCarousel);
+      document.addEventListener('astro:page-load', initCasesCarousel);
+    })();
+  </script>
 </BaseLayout>
 
 <script is:inline>
