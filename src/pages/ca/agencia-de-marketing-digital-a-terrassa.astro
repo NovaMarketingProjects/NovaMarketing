@@ -140,23 +140,18 @@ const benefits = [
                 <div class="space-y-16 md:space-y-24 flex flex-col items-center">
                     {steps.map((step, index) => (
                         <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
-                            <div class="hidden md:block md:flex-1 text-right md:order-1">
-                                {index % 2 === 0 && (
-                                    <div class="md:pr-12">
-                                        <h4 class="text-xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{step.title}</h4>
-                                        <p class="text-sm text-zinc-500 font-light max-w-md ml-auto">{step.desc}</p>
-                                    </div>
-                                )}
+                            <div class:list={["flex-1 w-full", index % 2 === 0 ? "md:order-1 md:text-right" : "md:order-3 md:text-left"]}>
+                                <div class="p-8 sm:p-10 bg-zinc-50 border border-black/5 rounded-3xl hover:border-accent/10 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+                                    <h4 class="text-xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{index + 1}. {step.title}</h4>
+                                    <div class:list={["h-0.5 bg-accent w-full mb-4 opacity-80", index % 2 === 0 ? "md:ml-auto" : ""]}></div>
+                                    <p class:list={["text-sm text-zinc-500 font-light max-w-md", index % 2 === 0 ? "md:ml-auto" : ""]}>{step.desc}</p>
+                                    <div class="absolute -bottom-6 -right-5 text-8xl font-black text-black/[0.02] select-none z-0 group-hover:scale-105 transition-transform duration-500">0{index+1}</div>
+                                </div>
                             </div>
                             <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all">
                                 0{index + 1}
                             </div>
-                            <div class="flex-1 text-left md:order-3">
-                                <div class="md:pl-12">
-                                    <h4 class:list={["text-xl font-black uppercase tracking-tighter mb-2 text-zinc-900", index % 2 === 0 ? "md:hidden" : ""]}>{step.title}</h4>
-                                    <p class:list={["text-sm text-zinc-500 font-light max-w-md mr-auto", index % 2 === 0 ? "md:hidden" : ""]}>{step.desc}</p>
-                                </div>
-                            </div>
+                            <div class:list={["hidden md:block md:flex-1", index % 2 === 0 ? "md:order-3" : "md:order-1"]}></div>
                         </div>
                     ))}
                 </div>
