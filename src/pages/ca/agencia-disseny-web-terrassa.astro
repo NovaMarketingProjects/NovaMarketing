@@ -1,19 +1,71 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { buildAlternates } from '../../lib/i18n';
+import { strapiClient } from '../../lib/strapi';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-diseno-web-terrassa/', '/ca/agencia-disseny-web-terrassa/', SITE_URL);
 
 const faqItems = [
-    {
-        question: "¿Qué resultados puedo esperar de este servicio en Terrassa?",
-        answer: "Adaptamos cada estrategia a la realidad del mercado de Terrassa. Mediremos constantemente el retorno de inversión de tu proyecto para maximizar resultados."
-    },
-    {
-        question: "¿Por qué trabajar con un especialista local?",
-        answer: "Conocemos el tejido empresarial de la zona. Eso nos permite afinar estrategias, ya sea diseñando una web orientada directamente al tipo de clientes de Terrassa."
-    }
+  {
+    question: "Per què necessita la meva empresa de Terrassa una web professional?",
+    answer: "Terrassa és la segona ciutat més gran del Vallès Occidental i té un teixit industrial i comercial molt potent. Però moltes empreses del polígon de Can Parellada, del Vapor Nord o del centre encara no tenen una presència digital a l'altura del seu negoci. Una web professional et permet captar clients que cerquen els teus serveis a Google, abans que els trobin a la teva competència."
+  },
+  {
+    question: "Quant costa dissenyar una web per a una empresa de Terrassa?",
+    answer: "Una web corporativa per a una pime de Terrassa part des de 1.500€. Un e-commerce complet o una web amb funcionalitats avançades pot oscil·lar entre 3.000€ i 8.000€. Treballem amb empreses de tots els sectors de Terrassa: industrials del polígon de Can Parellada, comerços de la Rambla d'Ègara i del Mercat de la Independència, i despatxos professionals del centre. Adaptem cada projecte al pressupost real."
+  },
+  {
+    question: "Quin tipus de web necessita una empresa industrial de Terrassa?",
+    answer: "Les empreses industrials i B2B dels polígons de Terrassa —Vapor Nord, Can Parellada, Nord— necessiten webs que transmetin credibilitat, expliquin clarament els seus productes o serveis i generin sol·licituds de pressupost online. Una web ben dissenyada per al sector industrial de Terrassa pot multiplicar el nombre de contactes de qualitat que reps des de Google."
+  },
+  {
+    question: "Quant temps tarda dissenyar una web per a una pime de Terrassa?",
+    answer: "Un projecte web estàndard per a una pime de Terrassa dura entre 3 i 6 setmanes. Projectes més complexos, com botigues online o webs amb integració d'ERP per a empreses industrials del polígon de Can Parellada, poden requerir 8-12 setmanes. Sempre amb seguiment transparent i un Account Manager dedicat."
+  },
+  {
+    question: "Incloeu SEO en el disseny de la web per a Terrassa?",
+    answer: "Sí. Totes les webs que dissenyem per a empreses de Terrassa inclouen les bases SEO des del primer dia: estructura semàntica, velocitat, dades estructurades i continguts orientats a les cerques dels teus clients a Terrassa i el Vallès Occidental. Això et dóna un avantatge a Google des del llançament, tant al centre com als polígons."
+  },
+  {
+    question: "Dissenyeu botigues online per a comerços del centre de Terrassa o la Rambla d'Ègara?",
+    answer: "Sí. Dissenyem e-commerce per a comerços de Terrassa, tant del centre històric i la Rambla d'Ègara com de la zona del Mercat de la Independència. Integrem passarel·les de pagament, gestió de catàleg i experiències de compra mòbil optimitzades perquè la teva botiga online arribi a clients de tota la comarca del Vallès Occidental."
+  },
+  {
+    question: "Com us diferenciàreu d'altres agències de disseny web a Terrassa?",
+    answer: "Ens diferenciem per l'enfocament orientat a resultats i el coneixement local. No només entreguem una web bonica: dissenyem amb el mercat de Terrassa al cap, coneixem el teixit industrial dels polígons, el perfil del consumidor del centre i el ritme empresarial de la ciutat. Això ens permet crear webs que realment funcionen al mercat local."
+  },
+  {
+    question: "Podeu redissenyar la web actual de la meva empresa de Terrassa?",
+    answer: "Sí. Si tens una web que no genera resultats, analitzem l'experiència d'usuari i el rendiment per identificar els colls d'ampolla. Moltes empreses de Terrassa tenen webs antiquades que espanten els clients. Un redisseny enfocat en conversió pot transformar la teva web en una font real de negoci, tant per al sector industrial del Vapor Nord com per als serveis del centre."
+  },
+  {
+    question: "Teniu webs especials per al sector tèxtil i industrial de Terrassa?",
+    answer: "Sí. Terrassa té una rica tradició industrial, especialment en el sector tèxtil vinculat al Museu de la Ciència i de la Tècnica. Dissenyem webs per a empreses del sector tèxtil, de fabricació i serveis industrials que necessiten modernitzar la seva imatge digital i captar clients tant a la comarca com a nivell nacional o internacional."
+  },
+  {
+    question: "Funciona el disseny web per a empreses d'hostaleria i restauració de Terrassa?",
+    answer: "Sí. La zona del centre de Terrassa, Can Palet i el barri de Sant Pere tenen una oferta gastronòmica creixent. Dissenyem webs per a restaurants, bars i espais d'esdeveniments de Terrassa que volen captar reserves online directes, reduir la seva dependència de plataformes com TripAdvisor o TheFork i millorar la seva visibilitat a Google Maps."
+  }
+];
+
+let webCases: any[] = [];
+try {
+  const casesRes = await strapiClient.getCaseStudies('ca');
+  webCases = casesRes.data
+    .map((i: any) => i.attributes ?? i)
+    .filter((c: any) => {
+      const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase());
+      return cats.some((s: string) => s.includes('web') || s.includes('dise') || s.includes('disse'));
+    });
+} catch {}
+
+const steps = [
+  { title: "Anàlisi i Estratègia Web a Terrassa", desc: "Estudiem el teu negoci i el mercat local de Terrassa. Tant si estàs al polígon de Can Parellada, al centre històric o a la zona del Vapor Nord, dissenyem una estratègia web orientada a captar els clients que cerquen els teus serveis a la ciutat." },
+  { title: "Disseny UX Orientat a Conversió", desc: "Creem dissenys amb la solidesa industrial que caracteritza Terrassa: funcionals, sense ornaments innecessaris i orientats a convertir. Cada pantalla té un objectiu clar, com l'arquitectura modernista de la ciutat: elegant i eficient alhora." },
+  { title: "Desenvolupament i Maquetació", desc: "Construïm la teva web amb tecnologia moderna i segura, a l'altura de la tradició innovadora del sector tèxtil i industrial de Terrassa. Velocitat, estabilitat i escalabilitat perquè el teu negoci creixi online sense límits." },
+  { title: "Optimització SEO i Velocitat", desc: "Abans del llançament, auditem SEO tècnic, velocitat de càrrega i adaptació mòbil. La teva web estarà preparada per aparèixer a Google quan algú a Terrassa, el Mercat de la Independència, Can Palet o els polígons industrials cerqui el que vens." },
+  { title: "Llançament i Millora Contínua", desc: "El llançament és l'inici de la relació. Monitorem el comportament dels usuaris de Terrassa i optimitzem contínuament perquè la teva web generi més negoci cada mes, sense aturar-se." }
 ];
 
 const faqSchema = {
@@ -29,78 +81,408 @@ const faqSchema = {
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "serviceType": "Diseño Web para Pymes",
-  "name": "Diseño de Páginas Web y Tiendas Online en Terrassa",
+  "serviceType": "Agència de Disseny Web per a Pimes",
   "provider": {
     "@type": "ProfessionalService",
-    "@id": "https://novamarketing.es/#organization",
-    "name": "Nova Marketing",
-    "url": "https://novamarketing.es",
-    "image": "https://novamarketing.es/agencia-marketing-pymes-nova-marketing-logo.png",
-    "telephone": "+34644738270",
-    "priceRange": "€€",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Carrer de la Rutlla 25",
-      "addressLocality": "Terrassa",
-      "addressRegion": "Barcelona",
-      "postalCode": "08221",
-      "addressCountry": "ES"
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "reviewCount": "35"
-    }
+    "@id": "https://novamarketing.es/#organization"
   },
   "areaServed": {
     "@type": "City",
-    "name": "Terrassa"
+    "name": "Terrassa",
+    "sameAs": "https://www.wikidata.org/wiki/Q15270"
   },
-  "description": "Creem webs d\'alt rendiment per als negocis egarencs. Connecta digitalment amb la teva audiència a la velocitat de la innovació del Parc Audiovisual.",
-  "offers": { "@type": "Offer", "priceRange": "€€" }
+  "description": "Experts en disseny de pàgines web i desenvolupament orientat a conversió per a petites i mitjanes empreses a Terrassa. Webs modernes, ràpides i optimitzades per al teixit industrial i comercial de Terrassa.",
+  "offers": {
+    "@type": "Offer",
+    "priceRange": "€€"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "25"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Serveis de Disseny i Desenvolupament Web",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Disseny Web Corporatiu" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Desenvolupament de Botigues Online (E-commerce)" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Optimització de Velocitat i WPO" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Manteniment Web i Seguretat" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Redisseny i UX (Experiència d'Usuari)" } }
+    ]
+  }
 };
 ---
 
 <BaseLayout
   title="Agència de Disseny Web a Terrassa | Nova Marketing"
-  description="Creem webs d\'alt rendiment per als negocis egarencs. Connecta digitalment amb la teva audiència a la velocitat de la innovació del Parc Audiovisual."
+  description="Dissenyem pàgines web que converteixen per a empreses de Terrassa. Webs ràpides, orientades a resultats per al teixit industrial i comercial del Vallès. Sol·licita pressupost."
   locale="ca"
   alternates={alternates}
   schemas={[serviceSchema, faqSchema]}
 >
-    <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
-    <section class="min-h-[88vh] flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
-        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
-        <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
-        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
 
-        <div class="max-w-7xl mx-auto reveal relative z-10">
-            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-6 shadow-sm">
-                <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
-                Especialistes en Disseny Web
-            </span>
+  <!-- ═══ HERO ═══ -->
+  <section class="min-h-[88vh] flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+    <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+    <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+    <div class="max-w-7xl mx-auto reveal relative z-10">
+      <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-6 shadow-sm">
+        <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+        Especialistes en Disseny Web a Terrassa
+      </span>
+      <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] uppercase font-black tracking-tighter leading-[0.82] mb-8 text-zinc-900 flex flex-col items-center text-center">
+        <span>Agència de</span>
+        <span>Disseny Web a</span>
+        <span class="text-mktg-gradient px-4 overflow-visible inline-block">Terrassa</span>
+      </h1>
+      <p class="text-base sm:text-lg text-zinc-500 font-light leading-relaxed max-w-2xl mx-auto mb-12">
+        Dissenyem pàgines web que converteixen per a empreses de Terrassa. Des de les indústries del polígon de Can Parellada fins als comerços de la Rambla d'Ègara, creem webs modernes, ràpides i orientades a captar clients al Vallès Occidental.
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+        <button class="contact-modal-trigger btn-mktg-v5 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300 !py-5 !px-12 !text-[12px] !tracking-wider font-black w-full sm:w-auto">
+          SOL·LICITAR PRESSUPOST GRATIS
+        </button>
+      </div>
+    </div>
+  </section>
 
-            <h1 class="text-4xl sm:text-6xl md:text-6xl lg:text-[4.8rem] xl:text-[5.5rem] uppercase font-black tracking-tighter leading-[0.95] sm:leading-[0.9] mb-8 text-zinc-900 w-full text-center max-w-[85rem] mx-auto opacity-0 translate-y-4 animate-[fade-in-up_0.8s_ease-out_forwards]">
-                <span class="block lg:inline">Agència de Disseny Web a</span>
-                <span class="text-mktg-gradient inline-block px-1">Terrassa</span>
-            </h1>
+  <!-- ═══ LOGOS CLIENTS ═══ -->
+  <section class="py-12 border-b border-black/5 bg-zinc-50/40 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <p class="text-[9px] sm:text-[10px] uppercase font-black tracking-widest text-zinc-400 text-center mb-8">Pimes que ja estrenen web amb Nova</p>
+      <div class="overflow-hidden w-full relative [mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
+        <div id="logos-marquee-ca-ter" class="flex items-center gap-16 w-max animate-scroll-logo-ca-ter"></div>
+      </div>
+    </div>
+  </section>
+  <style>
+    @keyframes scrollMarqueeLogoCaTER { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .animate-scroll-logo-ca-ter { animation: scrollMarqueeLogoCaTER 60s linear infinite; }
+  </style>
+  <script is:inline>
+    (function() {
+      var logos = [
+        { src: "/clients/bermaq-cliente-novamarketing.webp", alt: "Bermaq" },
+        { src: "/clients/cb-lhospitalet-cliente-novamarketing.webp", alt: "CB l'Hospitalet" },
+        { src: "/clients/medhs-cliente-novamarketing.webp", alt: "MedHS" },
+        { src: "/clients/palacio-del-bebe-cliente-novamarketing.webp", alt: "Palacio del bebé" },
+        { src: "/clients/tagtio-cliente-novamarketing.webp", alt: "Tagtio" },
+        { src: "/clients/tejados-tapar-cliente-novamarketing.webp", alt: "Tejados Tapar" },
+        { src: "/clients/fastpoint-cliente-novamarketing.webp", alt: "FastPoint" },
+        { src: "/clients/mundeta-cliente-novamarketing.webp", alt: "Mundeta" },
+        { src: "/clients/tattoox-cliente-novamarketing.webp", alt: "TattooX" },
+        { src: "/clients/voltura-projects-cliente-novamarketing.webp", alt: "Voltura Projects" }
+      ];
+      var shuffled = logos.sort(function() { return Math.random() - 0.5; });
+      var full = shuffled.concat(shuffled, shuffled, shuffled);
+      var c = document.getElementById('logos-marquee-ca-ter');
+      if (c) c.innerHTML = full.map(function(l) { return '<img src="' + l.src + '" alt="' + l.alt + '" class="h-[50px] w-auto object-contain filter grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300 pointer-events-none" style="mix-blend-mode:multiply" />'; }).join('');
+    })();
+  </script>
 
-            <p class="text-base sm:text-lg text-zinc-500 font-light leading-relaxed max-w-2xl mx-auto mb-12">
-                Creem webs d\'alt rendiment per als negocis egarencs. Connecta digitalment amb la teva audiència a la velocitat de la innovació del Parc Audiovisual.
-            </p>
-
-            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-                <button class="contact-modal-trigger btn-mktg-v5 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300 !py-5 !px-12 !text-[12px] !tracking-wider font-black w-full sm:w-auto">
-                    SOL·LICITAR AUDITORIA GRATIS
-                </button>
+  <!-- ═══ EXPERTS EN DISSENY WEB A TERRASSA ═══ -->
+  <section class="py-20 sm:py-32 bg-zinc-50 border-b border-black/5 px-4 sm:px-6 relative overflow-hidden">
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_80%,transparent_100%)]"></div>
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16 sm:mb-24 reveal">
+        <h2 class="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.82]">
+          Experts en Disseny Web<br class="hidden sm:inline" /> a Terrassa
+        </h2>
+        <p class="text-zinc-500 font-light text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
+          No fem webs de plantilla. Dissenyem llocs web pensats per al teixit industrial, comercial i de serveis de Terrassa, orientats a captar el client real que cerca el teu negoci al Vallès.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+        {[
+          { title: "Webs per al Teixit Industrial de Terrassa", desc: "Les empreses dels polígons de Terrassa —Can Parellada, Vapor Nord, polígon Nord— necessiten webs que generin pressupostos i contactes B2B. Dissenyem amb aquest objectiu des del primer dia." },
+          { title: "Comerços i Serveis del Centre", desc: "Els negocis de la Rambla d'Ègara, el Mercat de la Independència i el centre històric de Terrassa mereixen una web tan acurada com l'entorn modernista en què treballen." },
+          { title: "Rendiment i Velocitat", desc: "Webs ràpides i optimitzades per a l'usuari mòbil de Terrassa. Una web lenta perd clients abans que llegeixin el primer paràgraf: nosaltres no ens permetem aquest luxe." },
+          { title: "SEO des del Disseny", desc: "Construïm estructura SEO des del codi perquè apareguis a Google quan algú a Terrassa, Can Palet o la zona de l'Ègara cerqui els teus serveis amb intenció real de contractar." }
+        ].map((s, i) => (
+          <div class="group flex flex-col justify-between p-8 sm:p-10 h-full bg-white rounded-3xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden reveal flex-1">
+            <div class="absolute inset-x-0 h-1 bottom-0 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
+            <div class="absolute -bottom-6 -right-4 text-9xl font-black text-black/2 group-hover:text-accent/[0.04] transition-all duration-500 select-none">0{i + 1}</div>
+            <div class="relative z-10 flex flex-col h-full justify-between">
+              <div>
+                <div class="p-3 bg-zinc-50 border border-black/5 w-fit rounded-xl mb-6 group-hover:bg-accent/5 transition-colors">
+                  <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                </div>
+                <h3 class="text-xl sm:text-2xl uppercase mb-3 tracking-tighter group-hover:text-accent font-black text-zinc-900 border-b border-zinc-100 pb-2 w-fit">{s.title}</h3>
+                <p class="text-xs sm:text-sm text-zinc-500 leading-relaxed font-light">{s.desc}</p>
+              </div>
             </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TIMELINE / PROCÉS ═══ -->
+  <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16 sm:mb-24 reveal">
+        <h2 class="text-2xl sm:text-5xl lg:text-7xl font-black tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.85]">
+          Com dissenyem la teva web a Terrassa
+        </h2>
+        <div class="text-zinc-500 w-[75%] mx-auto font-light text-sm sm:text-base leading-relaxed">
+          <p>Cada projecte web a Terrassa té un <strong>Account Manager dedicat</strong> que treballa amb el teu equip a cada fase. Un procés transparent, amb dates clares i resultats mesurables des del primer dia.</p>
         </div>
-    </section>
-<style>
-  @keyframes fade-in-up {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-</style>
+      </div>
+      <div id="timeline-container" class="relative timeline-container">
+        <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
+        <div class="progress-bar hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100" style="height: 0%;"></div>
+        <div class="space-y-16 md:space-y-24 flex flex-col items-center">
+          {steps.map((step, index) => (
+            <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal" style={`transition-delay: ${index * 100}ms`}>
+              <div class="hidden md:block md:flex-1 text-right md:order-1">
+                {index % 2 === 0 && (
+                  <div class="md:pr-12">
+                    <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{step.title}</h3>
+                    <p class="text-sm text-zinc-500 font-light max-w-md ml-auto">{step.desc}</p>
+                  </div>
+                )}
+              </div>
+              <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all duration-300">0{index + 1}</div>
+              <div class="flex-1 text-left md:order-3">
+                <div class="md:pl-12">
+                  <h3 class:list={["text-xl sm:text-2xl font-black uppercase tracking-tighter mb-2 text-zinc-900", index % 2 === 0 ? "md:hidden" : ""]}>{step.title}</h3>
+                  <p class:list={["text-sm text-zinc-500 font-light max-w-md mr-auto", index % 2 === 0 ? "md:hidden" : ""]}>{step.desc}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+  <style>
+    .timeline-container .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); }
+    .timeline-container .reveal.active { opacity: 1; transform: translateY(0); }
+  </style>
+  <script is:inline>
+    function initTimeline() {
+      var timeline = document.getElementById('timeline-container');
+      var progressBar = timeline && timeline.querySelector('.progress-bar');
+      function updateProgress() {
+        if (!timeline || !progressBar) return;
+        var rect = timeline.getBoundingClientRect();
+        var winHeight = window.innerHeight;
+        var topPassed = (winHeight / 2) - rect.top;
+        var percentage = Math.max(0, Math.min(100, (topPassed / rect.height) * 100));
+        progressBar.style.height = percentage + '%';
+        timeline.querySelectorAll('.node-circle').forEach(function(node) {
+          if (node.getBoundingClientRect().top < winHeight / 2) { node.classList.add('!border-accent', '!bg-accent', '!text-white'); }
+          else { node.classList.remove('!border-accent', '!bg-accent', '!text-white'); }
+        });
+      }
+      window.addEventListener('scroll', updateProgress);
+      document.addEventListener('astro:page-load', updateProgress);
+      updateProgress();
+    }
+    document.addEventListener('DOMContentLoaded', initTimeline);
+    document.addEventListener('astro:page-load', initTimeline);
+  </script>
+
+  <!-- ═══ CONSULTOR DISSENY WEB ═══ -->
+  <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
+    <div class="max-w-6xl mx-auto reveal">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+        <div class="md:col-span-5 relative group flex justify-center">
+          <div class="absolute inset-0 bg-accent/20 rounded-full blur-3xl opacity-30 group-hover:scale-105 transition-transform duration-500"></div>
+          <div class="relative w-full max-w-sm">
+            <div class="absolute -top-6 -left-6 w-24 h-24 bg-[radial-gradient(#000000_15%,transparent_15%)] bg-[length:12px_12px] opacity-20"></div>
+            <div class="overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] border-4 border-white">
+              <img src="/img/diseno-web-en-terrassa.webp" alt="Consultor de Disseny Web a Terrassa" class="w-full h-auto object-cover">
+            </div>
+            <div class="absolute -bottom-4 -right-4 backdrop-blur-md bg-black/90 text-white px-6 py-4 rounded-xl shadow-xl flex items-center gap-3 border border-white/10">
+              <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+              <div class="text-[10px] sm:text-xs font-black uppercase tracking-widest">Disseny Web Terrassa</div>
+            </div>
+          </div>
+        </div>
+        <div class="md:col-span-7 text-left">
+          <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.4em] text-accent mb-4 block">Disseny i Desenvolupament Web</span>
+          <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.85]">
+            Consultor de Disseny Web a Terrassa
+          </h2>
+          <p class="text-zinc-500 font-light text-base sm:text-lg leading-relaxed mb-8">Com a consultor especialitzat en disseny web per a empreses de Terrassa, creo llocs que connecten amb el teixit empresarial i comercial de la ciutat. Conec bé la realitat de Terrassa: les indústries de Can Parellada i el Vapor Nord, els comerços de la Rambla d'Ègara i el Mercat de la Independència, i els despatxos del centre històric que competa amb els edificis modernistes. Aquesta proximitat em permet dissenyar webs que parlen l'idioma del client terrassenc i generen resultats mesurables.</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="p-6 bg-zinc-50 border border-black/5 rounded-xl hover:bg-zinc-100 transition-colors">
+              <div class="text-sm font-black uppercase tracking-wider text-black mb-2">Webs per al sector industrial</div>
+              <p class="text-xs text-zinc-400 font-light">Orientades a generar pressupostos i contactes B2B a Terrassa.</p>
+            </div>
+            <div class="p-6 bg-zinc-50 border border-black/5 rounded-xl hover:bg-zinc-100 transition-colors">
+              <div class="text-sm font-black uppercase tracking-wider text-black mb-2">Coneixement del Vallès</div>
+              <p class="text-xs text-zinc-400 font-light">Disseny adaptat al perfil real del client de Terrassa.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ RENDIBILITAT + STATS + TESTIMONIS ═══ -->
+  <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16 sm:mb-24 reveal">
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+          Rendibilitat de la teva nova web a Terrassa
+        </h2>
+        <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+          Una web professional orientada a conversió és la inversió amb millor retorn per a empreses de Terrassa. Negocis del Vallès Occidental que han apostat pel disseny web de qualitat generen més clients, consoliden la seva imatge i redueixen la dependència del boca a boca.
+        </p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 reveal text-center">
+        <div class="p-8 bg-white rounded-2xl border border-black/5 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300"><div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">x3</div><div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Web optimitzada per x3 conversions</div></div>
+        <div class="p-8 bg-white rounded-2xl border border-black/5 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300"><div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">-50%</div><div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Taxa de Rebot</div></div>
+        <div class="p-8 bg-white rounded-2xl border border-black/5 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300"><div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">+85%</div><div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Velocitat de Càrrega</div></div>
+        <div class="p-8 bg-white rounded-2xl border border-black/5 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300"><div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">+120%</div><div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Leads des de la Web</div></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal">
+        <div class="bg-zinc-950 text-white p-10 rounded-2xl border border-zinc-800 flex flex-col justify-between group hover:shadow-2xl hover:border-zinc-700 transition-all">
+          <div>
+            <div class="flex items-center gap-1 mb-6 text-accent">★★★★★</div>
+            <p class="font-light text-lg leading-relaxed mb-8">"Tenim una empresa de fabricació al polígon de Can Parellada i amb la nova web que ens va fer Nova els clients de fora del Vallès ara ens troben a Google. Vam duplicar les sol·licituds de pressupost."</p>
+          </div>
+          <div>
+            <div class="font-black">Empresa de fabricació, Polígon Can Parellada, Terrassa</div>
+            <div class="text-[10px] text-zinc-500 uppercase tracking-widest mt-1">Sector: Fabricació industrial B2B</div>
+          </div>
+        </div>
+        <div class="bg-white p-10 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-xl hover:border-accent/10 hover:-translate-y-1 transition-all flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-1 mb-6 text-accent">★★★★★</div>
+            <p class="font-light text-zinc-600 text-lg leading-relaxed mb-8">"Som una clínica al centre de Terrassa i la nostra web antiga era un desastre al mòbil. Nova la va redissenyar i en dos mesos les cites online es van multiplicar per quatre."</p>
+          </div>
+          <div>
+            <div class="font-black text-zinc-900">Clínica fisioteràpia, centre de Terrassa</div>
+            <div class="text-[10px] text-zinc-400 uppercase tracking-widest mt-1">Sector: Salut i fisioteràpia</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CASOS D'ÈXIT ═══ -->
+  {webCases.length > 0 && (
+  <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6 overflow-hidden">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-12 reveal">
+        <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultats provats</span>
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
+          Casos d'èxit de Disseny Web<br class="hidden md:inline" /> a Terrassa
+        </h2>
+      </div>
+      <div class="cases-carousel relative overflow-hidden">
+        <div class="cases-track flex gap-6 transition-transform duration-500 ease-in-out">
+          {webCases.map((cs: any) => {
+            const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
+            const caseUrl = cs.isPublic && cs.slug ? `/casos-exito/${cs.slug}/` : null;
+            return (
+              <div class="cases-slide flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
+                <div>
+                  {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
+                  <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors leading-tight">
+                    {caseUrl ? (<a href={caseUrl} class="hover:text-accent transition-colors">{cs.title}</a>) : (<span class="group-hover:text-accent transition-colors">{cs.title}</span>)}
+                  </h3>
+                  <p class="text-xs text-zinc-500 font-light leading-relaxed">{cs.description}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  </section>
+  )}
+  <script is:inline>
+    function initCasesCarousel() {
+      var track = document.querySelector('.cases-track');
+      if (!track) return;
+      var slides = track.querySelectorAll('.cases-slide');
+      if (slides.length <= 4) return;
+      var current = 0;
+      var total = slides.length;
+      function getVisible() { return window.innerWidth >= 1024 ? 4 : window.innerWidth >= 640 ? 2 : 1; }
+      function next() {
+        var visible = getVisible();
+        current = current >= (total - visible) ? 0 : current + 1;
+        track.style.transform = 'translateX(-' + (current * (slides[0].offsetWidth + 24)) + 'px)';
+      }
+      var interval = setInterval(next, 5000);
+      document.addEventListener('astro:before-preparation', function() { clearInterval(interval); });
+    }
+    document.addEventListener('DOMContentLoaded', initCasesCarousel);
+    document.addEventListener('astro:page-load', initCasesCarousel);
+  </script>
+
+  <!-- ═══ ALTRES SERVEIS ═══ -->
+  <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tighter uppercase mb-4 text-zinc-900 leading-[0.85]">
+          Altres serveis de màrqueting<br class="hidden sm:inline" /> per a empreses de Terrassa
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 reveal">
+        <div class="p-8 bg-white border border-black/5 rounded-2xl hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 group">
+          <h3 class="font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors">
+            <a href="/ca/agencia-de-marketing-digital-a-terrassa" class="hover:text-accent transition-colors">Agència de màrqueting digital a Terrassa</a>
+          </h3>
+          <p class="text-xs text-zinc-500 font-light leading-relaxed">Estratègia digital integral per a empreses de Terrassa: SEO, SEM, xarxes socials i analítica web per créixer de forma sostinguda al Vallès.</p>
+        </div>
+        <div class="p-8 bg-white border border-black/5 rounded-2xl hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 group">
+          <h3 class="font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors">
+            <a href="/ca/agencia-google-ads-terrassa" class="hover:text-accent transition-colors">Agència de Google Ads a Terrassa</a>
+          </h3>
+          <p class="text-xs text-zinc-500 font-light leading-relaxed">Campanyes de Google Ads rendibles per a empreses de Terrassa. Resultats des del primer dia amb pressupost optimitzat per al mercat del Vallès.</p>
+        </div>
+        <div class="p-8 bg-white border border-black/5 rounded-2xl hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 group">
+          <h3 class="font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors">
+            <a href="/ca/agencia-seo-a-terrassa" class="hover:text-accent transition-colors">Agència de Posicionament SEO a Terrassa</a>
+          </h3>
+          <p class="text-xs text-zinc-500 font-light leading-relaxed">Posicionem la teva empresa a Google per captar clients a Terrassa i el Vallès Occidental. Estratègies SEO a mida per al mercat industrial i comercial local.</p>
+        </div>
+        <div class="p-8 bg-white border border-black/5 rounded-2xl hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 group">
+          <h3 class="font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors">
+            <a href="/ca/consultoria-marketing-per-pimes" class="hover:text-accent transition-colors">Consultoria de Màrqueting a Terrassa</a>
+          </h3>
+          <p class="text-xs text-zinc-500 font-light leading-relaxed">Consultoria de màrqueting per a pimes de Terrassa. Dissenyem el pla de màrqueting més rendible per al teu negoci al Vallès Occidental.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FAQ ═══ -->
+  <section class="py-20 sm:py-32 bg-white border-t border-black/5 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tighter uppercase mb-4 text-zinc-900 leading-[0.85]">
+          Preguntes sobre Disseny Web<br class="hidden sm:inline" /> d'empreses de Terrassa
+        </h2>
+      </div>
+      <div class="space-y-4 reveal">
+        {faqItems.map((item) => (
+          <details class="group bg-zinc-50 border border-zinc-100 rounded-2xl overflow-hidden">
+            <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-black text-sm sm:text-base uppercase tracking-tight text-zinc-900 hover:text-accent transition-colors">
+              {item.question}
+              <span class="ml-4 text-accent text-xl group-open:rotate-45 transition-transform duration-300 shrink-0">+</span>
+            </summary>
+            <div class="px-6 pb-6 text-sm text-zinc-500 font-light leading-relaxed">{item.answer}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <style>
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+
 </BaseLayout>

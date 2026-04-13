@@ -1,19 +1,71 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { buildAlternates } from '../../lib/i18n';
+import { strapiClient } from '../../lib/strapi';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-diseno-web-sant-cugat/', '/ca/agencia-disseny-web-sant-cugat/', SITE_URL);
 
 const faqItems = [
-    {
-        question: "¿Qué resultados puedo esperar de este servicio en Sant Cugat?",
-        answer: "Adaptamos cada estrategia a la realidad del mercado de Sant Cugat. Mediremos constantemente el retorno de inversión de tu proyecto para maximizar resultados."
-    },
-    {
-        question: "¿Por qué trabajar con un especialista local?",
-        answer: "Conocemos el tejido empresarial de la zona. Eso nos permite afinar estrategias, ya sea diseñando una web orientada directamente al tipo de clientes de Sant Cugat."
-    }
+  {
+    question: "Per què necessita una empresa de Sant Cugat una web professional?",
+    answer: "Sant Cugat té un dels teixits empresarials més dinàmics del Vallès Occidental, amb un perfil de client digital i exigent. Zones com Volpelleres, Can Sant Joan i la Rambla del Celler concentren empreses que competeixen en mercats altament digitalitzats. Sense una web professional i orientada a convertir, el teu negoci no apareix on els teus clients et cerquen a Google."
+  },
+  {
+    question: "Quant costa una pàgina web per a una empresa de Sant Cugat?",
+    answer: "El preu depèn de l'abast: una web corporativa per a una empresa de Sant Cugat part des de 1.500€, mentre que un e-commerce o una web amb integració de sistemes pot arribar a 8.000€ o més. Treballem amb startups de Volpelleres, consultores del centre i comerços de la Rambla del Celler, adaptant cada proposta al pressupost i els objectius de negoci reals."
+  },
+  {
+    question: "Quin tipus de web necessita una empresa de serveis a Sant Cugat?",
+    answer: "Les empreses de serveis de Sant Cugat —consultores, despatxos, agències tecnològiques de Can Magí o Can Sant Joan— necessiten webs que transmetin autoritat i professionalitat, generin confiança ràpidament i converteixin visites en sol·licituds de reunió o pressupost. El disseny ha de reflectir el nivell d'exigència del client de Sant Cugat."
+  },
+  {
+    question: "Quant temps tarda el disseny de la meva web a Sant Cugat?",
+    answer: "Un projecte web estàndard a Sant Cugat tarda entre 3 i 6 setmanes. Projectes més complexos, com webs corporatives per a empreses de tecnologia de Volpelleres o botigues online per a comerços de la Rambla del Celler, poden requerir 8-12 setmanes. Sempre amb un Account Manager dedicat que et manté informat a cada fase."
+  },
+  {
+    question: "Dissenyeu webs per a empreses tecnològiques del polígon de Can Sant Joan a Sant Cugat?",
+    answer: "Sí. Tenim experiència dissenyant webs per a empreses tecnològiques i de serveis professionals de Sant Cugat. Les zones empresarials de Can Sant Joan, Can Magí i Volpelleres concentren empreses que necessiten webs modernes, amb càrrega ultraràpida, disseny orientat a captació de talent i clients B2B, i presència digital que reflecteixi el seu nivell tecnològic."
+  },
+  {
+    question: "Incloeu SEO en el disseny de la web per a Sant Cugat?",
+    answer: "Sí. Totes les webs que dissenyem per a empreses de Sant Cugat inclouen les bases tècniques del SEO: estructura semàntica correcta, velocitat optimitzada, dades estructurades i continguts orientats a les cerques dels teus clients a Sant Cugat i el Vallès Occidental. Això et dóna visibilitat a Google des del primer dia del llançament."
+  },
+  {
+    question: "Podeu dissenyar una botiga online per a un comerç de la Rambla del Celler o el centre de Sant Cugat?",
+    answer: "Sí. Dissenyem e-commerce per a comerços de Sant Cugat amb integració de passarel·les de pagament, gestió d'estoc i experiències de compra optimitzades per a mòbil. El perfil del consumidor de Sant Cugat és digital i exigent: la botiga online ha d'estar a l'altura de les seves expectatives per convertir visites en vendes."
+  },
+  {
+    question: "Com us diferenciàreu d'altres agències de disseny web a Sant Cugat?",
+    answer: "La diferència és l'enfocament: dissenyem orientats a resultats de negoci, no només a l'estètica. Coneixem el perfil empresarial de Sant Cugat —des de les startups de Volpelleres fins als despatxos del centre vora el Monestir— i creem webs que connecten amb aquest tipus de client. A més, oferim seguiment post-llançament i optimització contínua."
+  },
+  {
+    question: "Podeu redissenyar la web actual de la meva empresa de Sant Cugat?",
+    answer: "Sí. Si la teva web actual no converteix, fem una anàlisi UX i de rendiment per identificar els punts de fuga. Moltes empreses de Sant Cugat tenen webs que existeixen però no generen resultats. Un redisseny orientat a conversió pot convertir la teva web en la principal font de leads del teu negoci, ja sigui a Can Sant Joan, Valldoreix o Les Planes."
+  },
+  {
+    question: "Treballeu amb comunitats residencials i empreses del sector immobiliari de Sant Cugat?",
+    answer: "Sí. Sant Cugat té un mercat immobiliari molt actiu, especialment a zones com La Floresta, Les Planes i Valldoreix. Dissenyem webs per a agències immobiliàries, promotores i comunitats de propietaris que necessiten captació de contactes online i presència professional al mercat digital del Vallès."
+  }
+];
+
+let webCases: any[] = [];
+try {
+  const casesRes = await strapiClient.getCaseStudies('ca');
+  webCases = casesRes.data
+    .map((i: any) => i.attributes ?? i)
+    .filter((c: any) => {
+      const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase());
+      return cats.some((s: string) => s.includes('web') || s.includes('dise') || s.includes('disse'));
+    });
+} catch {}
+
+const steps = [
+  { title: "Anàlisi i Estratègia Web a Sant Cugat", desc: "Estudiem el teu negoci i el perfil del teu client a Sant Cugat. Tant si estàs a la zona empresarial de Can Sant Joan com prop del Monestir, definim una arquitectura web orientada a resultats reals al mercat del Vallès Occidental." },
+  { title: "Disseny UX per al Client de Sant Cugat", desc: "Creem dissenys adaptats al perfil digital i exigent del client de Sant Cugat. L'experiència d'usuari és tan depurada com l'entorn empresarial de Volpelleres: neta, eficient i orientada a convertir cada visita." },
+  { title: "Desenvolupament i Maquetació", desc: "Construïm la teva web amb tecnologia d'alt rendiment, tan sòlida com el teixit empresarial de Can Magí. Cada línia de codi està pensada per a velocitat, seguretat i escalabilitat, amb la robustesa que demana el mercat digital de Sant Cugat." },
+  { title: "Optimització SEO i Velocitat", desc: "Auditem velocitat, SEO tècnic i rendiment mòbil abans del llançament. La teva web sortirà preparada per competir a Google i captar clients que cerquen els teus serveis a Sant Cugat, Valldoreix, Les Planes i tota la comarca." },
+  { title: "Llançament i Millora Contínua", desc: "Després del llançament, analitzem el comportament dels teus visitants i optimitzem contínuament. En un mercat tan competitiu com Sant Cugat, la millora contínua és el que separa una web que creix d'una que s'estanca." }
 ];
 
 const faqSchema = {
@@ -29,78 +81,408 @@ const faqSchema = {
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "serviceType": "Diseño Web para Pymes",
-  "name": "Diseño de Páginas Web y Tiendas Online en Sant Cugat",
+  "serviceType": "Agència de Disseny Web per a Pimes",
   "provider": {
     "@type": "ProfessionalService",
-    "@id": "https://novamarketing.es/#organization",
-    "name": "Nova Marketing",
-    "url": "https://novamarketing.es",
-    "image": "https://novamarketing.es/agencia-marketing-pymes-nova-marketing-logo.png",
-    "telephone": "+34644738270",
-    "priceRange": "€€",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Carrer de Francesc Moragas 12",
-      "addressLocality": "Sant Cugat",
-      "addressRegion": "Barcelona",
-      "postalCode": "08172",
-      "addressCountry": "ES"
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "reviewCount": "35"
-    }
+    "@id": "https://novamarketing.es/#organization"
   },
   "areaServed": {
     "@type": "City",
-    "name": "Sant Cugat"
+    "name": "Sant Cugat del Vallès",
+    "sameAs": "https://www.wikidata.org/wiki/Q183030"
   },
-  "description": "Dissenys web sofisticats i corporatius per a empreses i comerços de l\'entorn del Monestir i el Parc d\'Activitats Econòmiques de Can Sant Joan.",
-  "offers": { "@type": "Offer", "priceRange": "€€" }
+  "description": "Experts en disseny de pàgines web i desenvolupament orientat a conversió per a petites i mitjanes empreses a Sant Cugat. Webs modernes, ràpides i optimitzades per al perfil digital del client de Sant Cugat.",
+  "offers": {
+    "@type": "Offer",
+    "priceRange": "€€"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "28"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Serveis de Disseny i Desenvolupament Web",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Disseny Web Corporatiu" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Desenvolupament de Botigues Online (E-commerce)" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Optimització de Velocitat i WPO" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Manteniment Web i Seguretat" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Redisseny i UX (Experiència d'Usuari)" } }
+    ]
+  }
 };
 ---
 
 <BaseLayout
   title="Agència de Disseny Web a Sant Cugat | Nova Marketing"
-  description="Dissenys web sofisticats i corporatius per a empreses i comerços de l\'entorn del Monestir i el Parc d\'Activitats Econòmiques de Can Sant Joan."
+  description="Dissenyem pàgines web que converteixen per a empreses de Sant Cugat. Webs modernes, ràpides i orientades al perfil digital del client del Vallès. Sol·licita pressupost."
   locale="ca"
   alternates={alternates}
   schemas={[serviceSchema, faqSchema]}
 >
-    <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
-    <section class="min-h-[88vh] flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
-        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
-        <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
-        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
 
-        <div class="max-w-7xl mx-auto reveal relative z-10">
-            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-6 shadow-sm">
-                <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
-                Especialistes en Disseny Web
-            </span>
+  <!-- ═══ HERO ═══ -->
+  <section class="min-h-[88vh] flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+    <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+    <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+    <div class="max-w-7xl mx-auto reveal relative z-10">
+      <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-6 shadow-sm">
+        <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+        Especialistes en Disseny Web a Sant Cugat
+      </span>
+      <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] uppercase font-black tracking-tighter leading-[0.82] mb-8 text-zinc-900 flex flex-col items-center text-center">
+        <span>Agència de</span>
+        <span>Disseny Web a</span>
+        <span class="text-mktg-gradient px-4 overflow-visible inline-block">Sant Cugat</span>
+      </h1>
+      <p class="text-base sm:text-lg text-zinc-500 font-light leading-relaxed max-w-2xl mx-auto mb-12">
+        Dissenyem pàgines web que converteixen per a empreses de Sant Cugat. Des de les startups de Volpelleres fins als comerços de la Rambla del Celler, creem webs modernes, ràpides i orientades a l'exigent perfil digital del client de Sant Cugat.
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+        <button class="contact-modal-trigger btn-mktg-v5 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300 !py-5 !px-12 !text-[12px] !tracking-wider font-black w-full sm:w-auto">
+          SOL·LICITAR PRESSUPOST GRATIS
+        </button>
+      </div>
+    </div>
+  </section>
 
-            <h1 class="text-4xl sm:text-6xl md:text-6xl lg:text-[4.8rem] xl:text-[5.5rem] uppercase font-black tracking-tighter leading-[0.95] sm:leading-[0.9] mb-8 text-zinc-900 w-full text-center max-w-[85rem] mx-auto opacity-0 translate-y-4 animate-[fade-in-up_0.8s_ease-out_forwards]">
-                <span class="block lg:inline">Agència de Disseny Web a</span>
-                <span class="text-mktg-gradient inline-block px-1">Sant Cugat</span>
-            </h1>
+  <!-- ═══ LOGOS CLIENTS ═══ -->
+  <section class="py-12 border-b border-black/5 bg-zinc-50/40 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <p class="text-[9px] sm:text-[10px] uppercase font-black tracking-widest text-zinc-400 text-center mb-8">Pimes que ja estrenen web amb Nova</p>
+      <div class="overflow-hidden w-full relative [mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
+        <div id="logos-marquee-ca-sc" class="flex items-center gap-16 w-max animate-scroll-logo-ca-sc"></div>
+      </div>
+    </div>
+  </section>
+  <style>
+    @keyframes scrollMarqueeLogoCASC { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .animate-scroll-logo-ca-sc { animation: scrollMarqueeLogoCASC 60s linear infinite; }
+  </style>
+  <script is:inline>
+    (function() {
+      var logos = [
+        { src: "/clients/bermaq-cliente-novamarketing.webp", alt: "Bermaq" },
+        { src: "/clients/cb-lhospitalet-cliente-novamarketing.webp", alt: "CB l'Hospitalet" },
+        { src: "/clients/medhs-cliente-novamarketing.webp", alt: "MedHS" },
+        { src: "/clients/palacio-del-bebe-cliente-novamarketing.webp", alt: "Palacio del bebé" },
+        { src: "/clients/tagtio-cliente-novamarketing.webp", alt: "Tagtio" },
+        { src: "/clients/tejados-tapar-cliente-novamarketing.webp", alt: "Tejados Tapar" },
+        { src: "/clients/fastpoint-cliente-novamarketing.webp", alt: "FastPoint" },
+        { src: "/clients/mundeta-cliente-novamarketing.webp", alt: "Mundeta" },
+        { src: "/clients/tattoox-cliente-novamarketing.webp", alt: "TattooX" },
+        { src: "/clients/voltura-projects-cliente-novamarketing.webp", alt: "Voltura Projects" }
+      ];
+      var shuffled = logos.sort(function() { return Math.random() - 0.5; });
+      var full = shuffled.concat(shuffled, shuffled, shuffled);
+      var c = document.getElementById('logos-marquee-ca-sc');
+      if (c) c.innerHTML = full.map(function(l) { return '<img src="' + l.src + '" alt="' + l.alt + '" class="h-[50px] w-auto object-contain filter grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300 pointer-events-none" style="mix-blend-mode:multiply" />'; }).join('');
+    })();
+  </script>
 
-            <p class="text-base sm:text-lg text-zinc-500 font-light leading-relaxed max-w-2xl mx-auto mb-12">
-                Dissenys web sofisticats i corporatius per a empreses i comerços de l\'entorn del Monestir i el Parc d\'Activitats Econòmiques de Can Sant Joan.
-            </p>
-
-            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-                <button class="contact-modal-trigger btn-mktg-v5 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300 !py-5 !px-12 !text-[12px] !tracking-wider font-black w-full sm:w-auto">
-                    SOL·LICITAR AUDITORIA GRATIS
-                </button>
+  <!-- ═══ EXPERTS EN DISSENY WEB ═══ -->
+  <section class="py-20 sm:py-32 bg-zinc-50 border-b border-black/5 px-4 sm:px-6 relative overflow-hidden">
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_80%,transparent_100%)]"></div>
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16 sm:mb-24 reveal">
+        <h2 class="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.82]">
+          Experts en Disseny Web<br class="hidden sm:inline" /> a Sant Cugat
+        </h2>
+        <p class="text-zinc-500 font-light text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
+          No fem webs genèriques. Dissenyem llocs web per al mercat digital i exigent de Sant Cugat, pensats per captar el tipus de client que cerca el teu negoci a la comarca.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+        {[
+          { title: "Webs per al Perfil Digital de Sant Cugat", desc: "El client de Sant Cugat és digital, exigent i compara. Creem webs que superen les seves expectatives i converteixen visites en leads qualificats des del primer contacte." },
+          { title: "Disseny per a Empreses i Startups", desc: "Des de startups tecnològiques de Volpelleres fins a consultores del centre de Sant Cugat, dissenyem webs que reflecteixen el nivell professional de la teva empresa i atreuen el client adequat." },
+          { title: "Rendiment i Velocitat Premium", desc: "Webs ultraràpides i optimitzades per als estàndards més alts. A Sant Cugat, on l'usuari digital espera experiències fluides, una web lenta equival a perdre la venda." },
+          { title: "SEO i Visibilitat Local", desc: "Construïm la base SEO des del disseny perquè la teva empresa aparegui a Google quan algú cerca el teu servei a Sant Cugat, Valldoreix, Les Planes o Can Mates." }
+        ].map((s, i) => (
+          <div class="group flex flex-col justify-between p-8 sm:p-10 h-full bg-white rounded-3xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden reveal flex-1">
+            <div class="absolute inset-x-0 h-1 bottom-0 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
+            <div class="absolute -bottom-6 -right-4 text-9xl font-black text-black/2 group-hover:text-accent/[0.04] transition-all duration-500 select-none">0{i + 1}</div>
+            <div class="relative z-10 flex flex-col h-full justify-between">
+              <div>
+                <div class="p-3 bg-zinc-50 border border-black/5 w-fit rounded-xl mb-6 group-hover:bg-accent/5 transition-colors">
+                  <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                </div>
+                <h3 class="text-xl sm:text-2xl uppercase mb-3 tracking-tighter group-hover:text-accent font-black text-zinc-900 border-b border-zinc-100 pb-2 w-fit">{s.title}</h3>
+                <p class="text-xs sm:text-sm text-zinc-500 leading-relaxed font-light">{s.desc}</p>
+              </div>
             </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TIMELINE / PROCÉS ═══ -->
+  <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16 sm:mb-24 reveal">
+        <h2 class="text-2xl sm:text-5xl lg:text-7xl font-black tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.85]">
+          Com dissenyem la teva web a Sant Cugat
+        </h2>
+        <div class="text-zinc-500 w-[75%] mx-auto font-light text-sm sm:text-base leading-relaxed">
+          <p>Un procés transparent i orientat a resultats, amb un <strong>Account Manager dedicat</strong> que treballa amb el teu equip a cada fase. Des del briefing inicial fins a l'optimització post-llançament, la teva web a Sant Cugat sempre estarà en mans expertes.</p>
         </div>
-    </section>
-<style>
-  @keyframes fade-in-up {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-</style>
+      </div>
+      <div id="timeline-container" class="relative timeline-container">
+        <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
+        <div class="progress-bar hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100" style="height: 0%;"></div>
+        <div class="space-y-16 md:space-y-24 flex flex-col items-center">
+          {steps.map((step, index) => (
+            <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal" style={`transition-delay: ${index * 100}ms`}>
+              <div class="hidden md:block md:flex-1 text-right md:order-1">
+                {index % 2 === 0 && (
+                  <div class="md:pr-12">
+                    <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{step.title}</h3>
+                    <p class="text-sm text-zinc-500 font-light max-w-md ml-auto">{step.desc}</p>
+                  </div>
+                )}
+              </div>
+              <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all duration-300">0{index + 1}</div>
+              <div class="flex-1 text-left md:order-3">
+                <div class="md:pl-12">
+                  <h3 class:list={["text-xl sm:text-2xl font-black uppercase tracking-tighter mb-2 text-zinc-900", index % 2 === 0 ? "md:hidden" : ""]}>{step.title}</h3>
+                  <p class:list={["text-sm text-zinc-500 font-light max-w-md mr-auto", index % 2 === 0 ? "md:hidden" : ""]}>{step.desc}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+  <style>
+    .timeline-container .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); }
+    .timeline-container .reveal.active { opacity: 1; transform: translateY(0); }
+  </style>
+  <script is:inline>
+    function initTimeline() {
+      var timeline = document.getElementById('timeline-container');
+      var progressBar = timeline && timeline.querySelector('.progress-bar');
+      function updateProgress() {
+        if (!timeline || !progressBar) return;
+        var rect = timeline.getBoundingClientRect();
+        var winHeight = window.innerHeight;
+        var topPassed = (winHeight / 2) - rect.top;
+        var percentage = Math.max(0, Math.min(100, (topPassed / rect.height) * 100));
+        progressBar.style.height = percentage + '%';
+        timeline.querySelectorAll('.node-circle').forEach(function(node) {
+          if (node.getBoundingClientRect().top < winHeight / 2) { node.classList.add('!border-accent', '!bg-accent', '!text-white'); }
+          else { node.classList.remove('!border-accent', '!bg-accent', '!text-white'); }
+        });
+      }
+      window.addEventListener('scroll', updateProgress);
+      document.addEventListener('astro:page-load', updateProgress);
+      updateProgress();
+    }
+    document.addEventListener('DOMContentLoaded', initTimeline);
+    document.addEventListener('astro:page-load', initTimeline);
+  </script>
+
+  <!-- ═══ CONSULTOR DISSENY WEB ═══ -->
+  <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
+    <div class="max-w-6xl mx-auto reveal">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+        <div class="md:col-span-5 relative group flex justify-center">
+          <div class="absolute inset-0 bg-accent/20 rounded-full blur-3xl opacity-30 group-hover:scale-105 transition-transform duration-500"></div>
+          <div class="relative w-full max-w-sm">
+            <div class="absolute -top-6 -left-6 w-24 h-24 bg-[radial-gradient(#000000_15%,transparent_15%)] bg-[length:12px_12px] opacity-20"></div>
+            <div class="overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] border-4 border-white">
+              <img src="/img/diseno-web-en-sant-cugat.webp" alt="Consultor de Disseny Web a Sant Cugat" class="w-full h-auto object-cover">
+            </div>
+            <div class="absolute -bottom-4 -right-4 backdrop-blur-md bg-black/90 text-white px-6 py-4 rounded-xl shadow-xl flex items-center gap-3 border border-white/10">
+              <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+              <div class="text-[10px] sm:text-xs font-black uppercase tracking-widest">Disseny Web Sant Cugat</div>
+            </div>
+          </div>
+        </div>
+        <div class="md:col-span-7 text-left">
+          <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.4em] text-accent mb-4 block">Disseny i Desenvolupament Web</span>
+          <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.85]">
+            Consultor de Disseny Web a Sant Cugat
+          </h2>
+          <p class="text-zinc-500 font-light text-base sm:text-lg leading-relaxed mb-8">Com a consultor especialitzat en disseny web per a empreses de Sant Cugat, creo llocs que connecten amb el perfil digital i exigent del client d'aquesta ciutat. Conec bé l'ecosistema empresarial: les startups i empreses tecnològiques de Volpelleres i Can Sant Joan, els comerços i restaurants de la Rambla del Celler, els despatxos professionals del centre històric vora el Monestir. Aquest coneixement local em permet dissenyar webs que parlen l'idioma del teu client específic i converteixen visites en negoci real.</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="p-6 bg-zinc-50 border border-black/5 rounded-xl hover:bg-zinc-100 transition-colors">
+              <div class="text-sm font-black uppercase tracking-wider text-black mb-2">Webs d'alt rendiment</div>
+              <p class="text-xs text-zinc-400 font-light">Velocitat i disseny al nivell que exigeix el mercat de Sant Cugat.</p>
+            </div>
+            <div class="p-6 bg-zinc-50 border border-black/5 rounded-xl hover:bg-zinc-100 transition-colors">
+              <div class="text-sm font-black uppercase tracking-wider text-black mb-2">Perfil local del Vallès</div>
+              <p class="text-xs text-zinc-400 font-light">Disseny orientat al client real de Sant Cugat i el seu entorn.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ RENDIBILITAT + STATS + TESTIMONIS ═══ -->
+  <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16 sm:mb-24 reveal">
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+          Rendibilitat de la teva nova web a Sant Cugat
+        </h2>
+        <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+          Una web professional és la inversió amb millor retorn per a empreses de Sant Cugat. Negocis de la comarca que han apostat pel disseny orientat a conversió generen més clients, redueixen el cost d'adquisició i competeixen en igualtat amb els actors digitals més grans.
+        </p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 reveal text-center">
+        <div class="p-8 bg-white rounded-2xl border border-black/5 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300"><div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">x3</div><div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Web optimitzada per x3 conversions</div></div>
+        <div class="p-8 bg-white rounded-2xl border border-black/5 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300"><div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">-50%</div><div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Taxa de Rebot</div></div>
+        <div class="p-8 bg-white rounded-2xl border border-black/5 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300"><div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">+85%</div><div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Velocitat de Càrrega</div></div>
+        <div class="p-8 bg-white rounded-2xl border border-black/5 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300"><div class="text-4xl sm:text-5xl font-black text-accent mb-2 tracking-tighter">+120%</div><div class="text-xs text-zinc-400 font-black tracking-widest uppercase">Leads des de la Web</div></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal">
+        <div class="bg-zinc-950 text-white p-10 rounded-2xl border border-zinc-800 flex flex-col justify-between group hover:shadow-2xl hover:border-zinc-700 transition-all">
+          <div>
+            <div class="flex items-center gap-1 mb-6 text-accent">★★★★★</div>
+            <p class="font-light text-lg leading-relaxed mb-8">"Som una consultora tecnològica a Volpelleres i la nostra web anterior no reflectia el nostre nivell. Nova va crear una web que ens ha obert portes amb clients que abans ni ens coneixien."</p>
+          </div>
+          <div>
+            <div class="font-black">Consultora tecnològica, Volpelleres, Sant Cugat</div>
+            <div class="text-[10px] text-zinc-500 uppercase tracking-widest mt-1">Sector: Tecnologia i consultoria B2B</div>
+          </div>
+        </div>
+        <div class="bg-white p-10 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-xl hover:border-accent/10 hover:-translate-y-1 transition-all flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-1 mb-6 text-accent">★★★★★</div>
+            <p class="font-light text-zinc-600 text-lg leading-relaxed mb-8">"Tenim un restaurant a la Rambla del Celler i des que Nova ens va dissenyar la web rebem reserves online cada dia. El retorn va ser evident des del primer mes."</p>
+          </div>
+          <div>
+            <div class="font-black text-zinc-900">Restaurant, Rambla del Celler, Sant Cugat</div>
+            <div class="text-[10px] text-zinc-400 uppercase tracking-widest mt-1">Sector: Hostaleria i restauració</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CASOS D'ÈXIT ═══ -->
+  {webCases.length > 0 && (
+  <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6 overflow-hidden">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-12 reveal">
+        <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultats provats</span>
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
+          Casos d'èxit de Disseny Web<br class="hidden md:inline" /> a Sant Cugat
+        </h2>
+      </div>
+      <div class="cases-carousel relative overflow-hidden">
+        <div class="cases-track flex gap-6 transition-transform duration-500 ease-in-out">
+          {webCases.map((cs: any) => {
+            const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
+            const caseUrl = cs.isPublic && cs.slug ? `/casos-exito/${cs.slug}/` : null;
+            return (
+              <div class="cases-slide flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
+                <div>
+                  {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
+                  <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors leading-tight">
+                    {caseUrl ? (<a href={caseUrl} class="hover:text-accent transition-colors">{cs.title}</a>) : (<span class="group-hover:text-accent transition-colors">{cs.title}</span>)}
+                  </h3>
+                  <p class="text-xs text-zinc-500 font-light leading-relaxed">{cs.description}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  </section>
+  )}
+  <script is:inline>
+    function initCasesCarousel() {
+      var track = document.querySelector('.cases-track');
+      if (!track) return;
+      var slides = track.querySelectorAll('.cases-slide');
+      if (slides.length <= 4) return;
+      var current = 0;
+      var total = slides.length;
+      function getVisible() { return window.innerWidth >= 1024 ? 4 : window.innerWidth >= 640 ? 2 : 1; }
+      function next() {
+        var visible = getVisible();
+        current = current >= (total - visible) ? 0 : current + 1;
+        track.style.transform = 'translateX(-' + (current * (slides[0].offsetWidth + 24)) + 'px)';
+      }
+      var interval = setInterval(next, 5000);
+      document.addEventListener('astro:before-preparation', function() { clearInterval(interval); });
+    }
+    document.addEventListener('DOMContentLoaded', initCasesCarousel);
+    document.addEventListener('astro:page-load', initCasesCarousel);
+  </script>
+
+  <!-- ═══ ALTRES SERVEIS ═══ -->
+  <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tighter uppercase mb-4 text-zinc-900 leading-[0.85]">
+          Altres serveis de màrqueting<br class="hidden sm:inline" /> per a empreses de Sant Cugat
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 reveal">
+        <div class="p-8 bg-white border border-black/5 rounded-2xl hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 group">
+          <h3 class="font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors">
+            <a href="/ca/agencia-de-marketing-digital-a-sant-cugat" class="hover:text-accent transition-colors">Agència de màrqueting digital a Sant Cugat</a>
+          </h3>
+          <p class="text-xs text-zinc-500 font-light leading-relaxed">Estratègia digital integral per a empreses de Sant Cugat: SEO, SEM, xarxes socials i analítica web per créixer de forma sostinguda al Vallès.</p>
+        </div>
+        <div class="p-8 bg-white border border-black/5 rounded-2xl hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 group">
+          <h3 class="font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors">
+            <a href="/ca/agencia-google-ads-sant-cugat" class="hover:text-accent transition-colors">Agència de Google Ads a Sant Cugat</a>
+          </h3>
+          <p class="text-xs text-zinc-500 font-light leading-relaxed">Campanyes de Google Ads rendibles per a empreses de Sant Cugat. Resultats des del primer dia amb pressupost optimitzat per al mercat digital del Vallès.</p>
+        </div>
+        <div class="p-8 bg-white border border-black/5 rounded-2xl hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 group">
+          <h3 class="font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors">
+            <a href="/ca/agencia-seo-a-sant-cugat" class="hover:text-accent transition-colors">Agència de Posicionament SEO a Sant Cugat</a>
+          </h3>
+          <p class="text-xs text-zinc-500 font-light leading-relaxed">Posicionem la teva empresa a Google per captar clients a Sant Cugat i el Vallès Occidental. Estratègies SEO a mida per al mercat local.</p>
+        </div>
+        <div class="p-8 bg-white border border-black/5 rounded-2xl hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 group">
+          <h3 class="font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors">
+            <a href="/ca/consultoria-marketing-per-pimes" class="hover:text-accent transition-colors">Consultoria de Màrqueting a Sant Cugat</a>
+          </h3>
+          <p class="text-xs text-zinc-500 font-light leading-relaxed">Consultoria de màrqueting per a pimes de Sant Cugat. Dissenyem el pla de màrqueting més rendible per al teu negoci al Vallès Occidental.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FAQ ═══ -->
+  <section class="py-20 sm:py-32 bg-white border-t border-black/5 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tighter uppercase mb-4 text-zinc-900 leading-[0.85]">
+          Preguntes sobre Disseny Web<br class="hidden sm:inline" /> d'empreses de Sant Cugat
+        </h2>
+      </div>
+      <div class="space-y-4 reveal">
+        {faqItems.map((item) => (
+          <details class="group bg-zinc-50 border border-zinc-100 rounded-2xl overflow-hidden">
+            <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-black text-sm sm:text-base uppercase tracking-tight text-zinc-900 hover:text-accent transition-colors">
+              {item.question}
+              <span class="ml-4 text-accent text-xl group-open:rotate-45 transition-transform duration-300 shrink-0">+</span>
+            </summary>
+            <div class="px-6 pb-6 text-sm text-zinc-500 font-light leading-relaxed">{item.answer}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <style>
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+
 </BaseLayout>
