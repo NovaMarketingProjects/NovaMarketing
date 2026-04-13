@@ -1,9 +1,22 @@
 import type { APIRoute } from 'astro';
 
-// Redirige /sitemap.xml → /sitemap-index.xml (URL estándar para Google Search Console)
 export const GET: APIRoute = () => {
-  return new Response(null, {
-    status: 301,
-    headers: { Location: '/sitemap-index.xml' },
+  const site = 'https://novamarketing.es';
+  const now = new Date().toISOString();
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>${site}/sitemap-es.xml</loc>
+    <lastmod>${now}</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>${site}/sitemap-ca.xml</loc>
+    <lastmod>${now}</lastmod>
+  </sitemap>
+</sitemapindex>`;
+
+  return new Response(xml, {
+    headers: { 'Content-Type': 'application/xml; charset=utf-8' },
   });
 };

@@ -1,15 +1,10 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
-import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
   site: process.env.SITE_URL || 'https://novamarketing.es',
-  integrations: [
-    sitemap({
-      filter: (page) => !page.includes('/gracias') && !page.includes('/gracies')
-    })
-  ],
+  integrations: [],
   i18n: {
     defaultLocale: 'es',
     locales: ['es', 'ca'],
