@@ -82,7 +82,7 @@ const ctaTitle = categoryName.includes('seo') || categoryName.includes('consulto
 ---
 
 <BaseLayout
-  title={post.seo?.metaTitle || `${post.title} | Blog Nova Marketing`}
+  title={post.seo?.metaTitle || post.title}
   description={post.metadescription || post.seo?.metaDescription || post.excerpt || ''}
   canonical={canonicalUrl}
   locale="ca"
