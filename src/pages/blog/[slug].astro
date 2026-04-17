@@ -81,11 +81,29 @@ if (author) {
   } catch {}
 }
 
-// Sidebar: últimos artículos (sin filtrar el actual para que siempre haya resultados)
+// Posts de la misma categoría (máx 4, sin el actual)
+const categorySlug = post.category?.slug || (post.categories?.[0] as any)?.slug;
+const categoryLabel = post.category?.name || (post.categories?.[0] as any)?.name || '';
+let categoryPosts: any[] = [];
+if (categorySlug) {
+  try {
+    const res = await strapiClient.getBlogPosts('es', { category: categorySlug, limit: 5 });
+    categoryPosts = (res.data ?? [])
+      .map((i: any) => i.attributes ?? i)
+      .filter((p: any) => p.slug !== post.slug)
+      .slice(0, 4);
+  } catch {}
+}
+
+// Últimos 4 posts (sin el actual ni los que ya aparecen en categoría)
+const shownSlugs = new Set([post.slug, ...categoryPosts.map((p: any) => p.slug)]);
 let latestPosts: any[] = [];
 try {
-  const postsRes = await strapiClient.getBlogPosts('es', { limit: 5 });
-  latestPosts = (postsRes.data ?? []).map((i: any) => i.attributes ?? i);
+  const res = await strapiClient.getBlogPosts('es', { limit: 12 });
+  latestPosts = (res.data ?? [])
+    .map((i: any) => i.attributes ?? i)
+    .filter((p: any) => !shownSlugs.has(p.slug))
+    .slice(0, 4);
 } catch {}
 
 // CTA dinámico según categoría
@@ -252,11 +270,29 @@ const ctaTitle = categoryName.includes('seo') || categoryName.includes('consulto
     </div>
   </main>
 
-  <!-- Más noticias de marketing -->
+  <!-- Posts de la misma categoría -->
+  {categoryPosts.length > 0 && (
+    <section class="py-16 px-6 sm:px-12 bg-white border-t border-zinc-100">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-8">
+          Más sobre {categoryLabel}
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {categoryPosts.map((p: any) => (
+            <BlogCard post={p} locale="es" />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Últimas noticias (sin repetir) -->
   {latestPosts.length > 0 && (
     <section class="py-16 px-6 sm:px-12 bg-zinc-50 border-t border-zinc-100">
       <div class="max-w-7xl mx-auto">
-        <div class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-8">Más noticias de marketing</div>
+        <div class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-8">
+          Más noticias de marketing
+        </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {latestPosts.map((p: any) => (
             <BlogCard post={p} locale="es" />
