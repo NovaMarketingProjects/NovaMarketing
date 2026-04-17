@@ -21,9 +21,8 @@
       "pluginOptions": { "i18n": { "localized": true } }
     },
     "slug": {
-      "type": "string",
-      "required": true,
-      "unique": true,
+      "type": "uid",
+      "targetField": "title",
       "pluginOptions": { "i18n": { "localized": true } }
     },
     "excerpt": {

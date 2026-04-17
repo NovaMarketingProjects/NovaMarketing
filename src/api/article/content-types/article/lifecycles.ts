@@ -1,31 +1,35 @@
 /**
- * Sanitiza un slug: elimina acentos, ñ, ç, espacios y caracteres no ASCII.
- * Solo permite a-z, 0-9 y guiones.
+ * Convierte un texto en slug limpio:
+ * sin acentos, sin ñ/ç, todo minúsculas, solo a-z 0-9 y guiones.
  */
-function sanitizeSlug(raw: string): string {
+function toSlug(raw: string): string {
   return raw
-    .normalize('NFD')                          // descompone acentos: á → a + ́
-    .replace(/[\u0300-\u036f]/g, '')           // elimina diacríticos
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
     .replace(/[ñÑ]/g, 'n')
     .replace(/[çÇ]/g, 'c')
     .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, '')             // elimina símbolos
+    .replace(/[^a-z0-9\s-]/g, '')
     .trim()
-    .replace(/\s+/g, '-')                      // espacios → guiones
-    .replace(/-+/g, '-');                      // guiones múltiples → uno
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
 }
 
 /**
- * Lifecycle hook: asigna Sergio García como autor por defecto
- * y sanitiza el slug (sin acentos, ñ, ç ni espacios).
+ * Lifecycle hooks para artículos:
+ * - Auto-genera slug desde el título si está vacío
+ * - Sanitiza siempre el slug (sin acentos, ñ, ç)
+ * - Asigna Sergio García como autor por defecto
  */
 export default {
   async beforeCreate(event: any) {
     const { data } = event.params;
 
-    // Sanitizar slug
-    if (data.slug) {
-      data.slug = sanitizeSlug(data.slug);
+    // Generar slug desde título si no se proporcionó
+    if (!data.slug && data.title) {
+      data.slug = toSlug(data.title);
+    } else if (data.slug) {
+      data.slug = toSlug(data.slug);
     }
 
     // Autor por defecto
@@ -43,8 +47,12 @@ export default {
 
   async beforeUpdate(event: any) {
     const { data } = event.params;
-    if (data.slug) {
-      data.slug = sanitizeSlug(data.slug);
+
+    // Generar slug desde título si se borró
+    if (!data.slug && data.title) {
+      data.slug = toSlug(data.title);
+    } else if (data.slug) {
+      data.slug = toSlug(data.slug);
     }
   },
 };
