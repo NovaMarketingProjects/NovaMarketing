@@ -189,25 +189,26 @@ function embedUrl(url: string): string {
     {/* ── Timeline ── */}
     {block.__component === 'blocks.timeline' && block.steps?.length > 0 && (
       <div class="pb-timeline">
-        {block.title && (
-          <div class="pb-timeline__header">
-            <span class="pb-timeline__label">{block.title}</span>
-          </div>
-        )}
-        <ol class="pb-timeline__list">
-          {block.steps.map((step: any, i: number) => (
-            <li class="pb-timeline__item">
-              <div class="pb-timeline__num-wrap">
-                <span class="pb-timeline__num">{String(i + 1).padStart(2, '0')}</span>
-                {i < block.steps.length - 1 && <div class="pb-timeline__connector" />}
-              </div>
-              <div class="pb-timeline__body">
-                {step.title && <h4 class="pb-timeline__title">{step.title}</h4>}
-                {step.desc && <p class="pb-timeline__desc">{step.desc}</p>}
-              </div>
-            </li>
-          ))}
-        </ol>
+        {block.title && <p class="pb-timeline__label">{block.title}</p>}
+        <div class="pb-timeline__track">
+          <!-- línea vertical de fondo -->
+          <div class="pb-timeline__line-bg"></div>
+          <!-- línea de progreso (CSS) -->
+          <div class="pb-timeline__line-fill"></div>
+          <ol class="pb-timeline__list">
+            {block.steps.map((step: any, i: number) => (
+              <li class="pb-timeline__item">
+                <div class="pb-timeline__node">{String(i + 1).padStart(2, '0')}</div>
+                <div class="pb-timeline__card group">
+                  {step.title && <h4 class="pb-timeline__title">{String(i + 1)}. {step.title}</h4>}
+                  <div class="pb-timeline__accent-line"></div>
+                  {step.desc && <p class="pb-timeline__desc">{step.desc}</p>}
+                  <span class="pb-timeline__ghost">{String(i + 1).padStart(2, '0')}</span>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
       </div>
     )}
 
@@ -856,35 +857,50 @@ function embedUrl(url: string): string {
 .pb-gallery__item:hover .pb-gallery__img { transform: scale(1.05); }
 
 /* ── Timeline ── */
-.pb-timeline {
-  margin: 3rem 0;
-  background: #09090b;
-  border-radius: 2rem;
-  padding: 3rem 2.5rem;
-  border: 1px solid #1c1c1f;
-}
-
-.pb-timeline__header {
-  margin-bottom: 2.5rem;
-}
+.pb-timeline { margin: 3rem 0; }
 
 .pb-timeline__label {
   font-family: 'Montserrat', sans-serif;
   font-weight: 900;
-  font-size: 0.625rem;
+  font-size: 0.6875rem;
   text-transform: uppercase;
-  letter-spacing: 0.25em;
-  color: #3b82f6;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.625rem;
+  letter-spacing: 0.2em;
+  color: #71717a;
+  margin: 0 0 2.5rem 0;
 }
-.pb-timeline__label::before {
-  content: '';
-  display: inline-block;
-  width: 2rem;
-  height: 2px;
+
+.pb-timeline__track {
+  position: relative;
+}
+
+/* línea vertical gris de fondo */
+.pb-timeline__line-bg {
+  display: none;
+  position: absolute;
+  left: 1.375rem;
+  top: 1.5rem;
+  bottom: 1.5rem;
+  width: 1px;
+  background: #e4e4e7;
+}
+
+/* línea de progreso azul (crece con CSS scroll-driven o estática al 100%) */
+.pb-timeline__line-fill {
+  display: none;
+  position: absolute;
+  left: 1.375rem;
+  top: 1.5rem;
+  width: 1px;
+  height: 100%;
   background: #3b82f6;
+  transform-origin: top;
+  transform: scaleY(0);
+  transition: transform 0.6s ease;
+}
+
+@media (min-width: 768px) {
+  .pb-timeline__line-bg,
+  .pb-timeline__line-fill { display: block; }
 }
 
 .pb-timeline__list {
@@ -893,70 +909,77 @@ function embedUrl(url: string): string {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 1.5rem;
 }
 
 .pb-timeline__item {
-  display: grid;
-  grid-template-columns: 4.5rem 1fr;
-  gap: 1.75rem;
+  display: flex;
+  gap: 1.5rem;
   align-items: flex-start;
 }
 
-.pb-timeline__num-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-  flex-shrink: 0;
-}
-
-.pb-timeline__num {
-  width: 3.5rem;
-  height: 3.5rem;
+/* círculo con número */
+.pb-timeline__node {
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: 50%;
-  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-  color: #fff;
+  border: 2px solid #e4e4e7;
+  background: #fff;
+  color: #09090b;
   font-family: 'Montserrat', sans-serif;
   font-weight: 900;
-  font-size: 0.8125rem;
-  letter-spacing: 0.05em;
+  font-size: 0.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 0 0 4px rgba(59,130,246,0.15), 0 8px 24px rgba(59,130,246,0.25);
   position: relative;
   z-index: 1;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
 }
 
-.pb-timeline__connector {
-  width: 1px;
+.pb-timeline__item:hover .pb-timeline__node {
+  border-color: #3b82f6;
+  background: #3b82f6;
+  color: #fff;
+}
+
+/* tarjeta */
+.pb-timeline__card {
   flex: 1;
-  min-height: 2rem;
-  background: linear-gradient(to bottom, #3b82f6, #1e3a5f);
-  margin: 4px 0;
+  padding: 1.75rem 2rem;
+  background: #fafafa;
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
 }
 
-.pb-timeline__body {
-  padding: 0.5rem 0 2.5rem 0;
-  border-bottom: 1px solid #1c1c1f;
-}
-
-.pb-timeline__item:last-child .pb-timeline__body {
-  border-bottom: none;
-  padding-bottom: 0;
+.pb-timeline__card:hover {
+  border-color: rgba(59,130,246,0.15);
+  box-shadow: 0 20px 60px -10px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
 }
 
 .pb-timeline__title {
   font-family: 'Montserrat', sans-serif;
   font-weight: 900;
-  font-size: 1rem;
+  font-size: 1.0625rem;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
-  color: #fff;
-  margin: 0 0 0.625rem 0;
-  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: #09090b;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.2;
+}
+
+.pb-timeline__accent-line {
+  height: 2px;
+  width: 100%;
+  background: #3b82f6;
+  margin-bottom: 0.875rem;
+  opacity: 0.8;
 }
 
 .pb-timeline__desc {
@@ -965,30 +988,27 @@ function embedUrl(url: string): string {
   line-height: 1.7;
   margin: 0;
   font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  max-width: 36rem;
 }
 
-@media (min-width: 768px) {
-  .pb-timeline {
-    padding: 3.5rem 4rem;
-  }
-  .pb-timeline__list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0 3rem;
-  }
-  .pb-timeline__item {
-    grid-template-columns: 4rem 1fr;
-  }
-  .pb-timeline__body {
-    padding-bottom: 2.5rem;
-  }
-  /* Última fila: quitar border-bottom si el número de pasos es par */
-  .pb-timeline__item:nth-last-child(-n+2):nth-child(odd) ~ .pb-timeline__item .pb-timeline__body,
-  .pb-timeline__item:last-child .pb-timeline__body,
-  .pb-timeline__item:nth-last-child(2):nth-child(odd) .pb-timeline__body {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
+/* número fantasma decorativo */
+.pb-timeline__ghost {
+  position: absolute;
+  bottom: -0.75rem;
+  right: 0.75rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 5rem;
+  line-height: 1;
+  color: rgba(0,0,0,0.025);
+  pointer-events: none;
+  select: none;
+  transition: transform 0.5s;
+}
+
+.pb-timeline__card:hover .pb-timeline__ghost {
+  transform: scale(1.05);
 }
 
 /* ── Comparison ── */
