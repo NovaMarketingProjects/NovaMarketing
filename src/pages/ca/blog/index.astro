@@ -47,7 +47,7 @@ try {
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {posts.map(post => (
-          <div data-item data-cat={post.category?.slug || (post.categories as any)?.[0]?.slug || ''}>
+          <div data-item data-cats={[post.category?.slug, ...((post.categories as any[]) ?? []).map((c: any) => c?.slug)].filter(Boolean).join(' ')}>
             <BlogCard post={post} locale="ca" />
           </div>
         ))}
