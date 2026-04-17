@@ -76,11 +76,39 @@ try {
   if (found) author = found.attributes ?? found;
 } catch {}
 
-// Últims articles (sense filtrar l'actual perquè sempre hi hagi resultats)
+// Categories de l'article (combina post.category i post.categories sense duplicats)
+const allCats: { slug: string; name: string }[] = [];
+const seenCatSlugs = new Set<string>();
+for (const cat of [post.category, ...((post.categories as any[]) ?? [])]) {
+  const s = cat?.slug; const n = cat?.name;
+  if (s && n && !seenCatSlugs.has(s)) { seenCatSlugs.add(s); allCats.push({ slug: s, name: n }); }
+}
+
+// Una fila per categoria (màx 4 posts cadascuna, sense l'actual ni ja mostrats)
+const shownSlugs = new Set<string>([post.slug]);
+const categoryRows: { label: string; posts: any[] }[] = [];
+for (const cat of allCats) {
+  try {
+    const res = await strapiClient.getBlogPosts('ca', { category: cat.slug, limit: 8 });
+    const posts = (res.data ?? [])
+      .map((i: any) => i.attributes ?? i)
+      .filter((p: any) => !shownSlugs.has(p.slug))
+      .slice(0, 4);
+    if (posts.length > 0) {
+      posts.forEach((p: any) => shownSlugs.add(p.slug));
+      categoryRows.push({ label: cat.name, posts });
+    }
+  } catch {}
+}
+
+// Últims 4 posts (sense repetir cap ja mostrat)
 let latestPosts: any[] = [];
 try {
-  const postsRes = await strapiClient.getBlogPosts('ca', { limit: 5 });
-  latestPosts = (postsRes.data ?? []).map((i: any) => i.attributes ?? i);
+  const res = await strapiClient.getBlogPosts('ca', { limit: 16 });
+  latestPosts = (res.data ?? [])
+    .map((i: any) => i.attributes ?? i)
+    .filter((p: any) => !shownSlugs.has(p.slug))
+    .slice(0, 4);
 } catch {}
 
 // CTA dinàmic
@@ -233,9 +261,25 @@ const ctaTitle = categoryName.includes('seo') || categoryName.includes('consulto
     </div>
   </main>
 
-  <!-- Més notícies de màrqueting -->
+  <!-- Una secció per cada categoria de l'article -->
+  {categoryRows.map((row, i) => (
+    <section class={`py-16 px-6 sm:px-12 border-t border-zinc-100 ${i % 2 === 0 ? 'bg-white' : 'bg-zinc-50'}`}>
+      <div class="max-w-7xl mx-auto">
+        <div class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-8">
+          Més sobre {row.label}
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {row.posts.map((p: any) => (
+            <BlogCard post={p} locale="ca" />
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- Últimes notícies (sense repetir) -->
   {latestPosts.length > 0 && (
-    <section class="py-16 px-6 sm:px-12 bg-zinc-50 border-t border-zinc-100">
+    <section class={`py-16 px-6 sm:px-12 border-t border-zinc-100 ${categoryRows.length % 2 === 0 ? 'bg-zinc-50' : 'bg-white'}`}>
       <div class="max-w-7xl mx-auto">
         <div class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-8">Més notícies de màrqueting</div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
