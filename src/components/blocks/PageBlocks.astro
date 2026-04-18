@@ -349,7 +349,7 @@ function embedUrl(url: string): string {
 .pb-html ul,
 .sb-content ul {
   list-style: none;
-  padding: 0;
+  padding: 0 0 0 1.5rem;
   margin: 0 0 1.75rem 0;
 }
 
@@ -383,7 +383,7 @@ function embedUrl(url: string): string {
 .pb-html ol,
 .sb-content ol {
   list-style: none;
-  padding: 0;
+  padding: 0 0 0 1.5rem;
   margin: 0 0 1.75rem 0;
   counter-reset: ol-counter;
 }
@@ -419,12 +419,14 @@ function embedUrl(url: string): string {
 /* Tablas */
 .pb-html table,
 .sb-content table {
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   width: 100%;
   border-collapse: collapse;
   margin: 2rem 0 2.5rem 0;
   font-size: 0.9375rem;
   border-radius: 0.75rem;
-  overflow: hidden;
   box-shadow: 0 2px 20px rgba(0,0,0,0.06);
 }
 
