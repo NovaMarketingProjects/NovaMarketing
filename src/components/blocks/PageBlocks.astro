@@ -416,17 +416,22 @@ function embedUrl(url: string): string {
   color: #3b82f6;
 }
 
-/* Tablas */
-.pb-html table,
-.sb-content table {
-  display: block;
+/* Tablas — wrapper añadido por JS para scroll horizontal en mobile */
+.pb-table-wrap {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  margin: 2rem 0 2.5rem 0;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+}
+
+.pb-html table,
+.sb-content table {
   width: 100%;
   border-collapse: collapse;
-  margin: 2rem 0 2.5rem 0;
   font-size: 0.9375rem;
   border-radius: 0.75rem;
+  overflow: hidden;
   box-shadow: 0 2px 20px rgba(0,0,0,0.06);
 }
 
@@ -1144,4 +1149,21 @@ function initPbTimelines() {
 
 document.addEventListener('DOMContentLoaded', initPbTimelines);
 document.addEventListener('astro:page-load', initPbTimelines);
+
+// Wrap injected HTML tables for mobile scroll
+function wrapPbTables() {
+  document.querySelectorAll('.pb-html table, .pb-two-cols__col table, .pb-imgtext__body table').forEach((table) => {
+    if ((table.parentElement as HTMLElement)?.classList.contains('pb-table-wrap')) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'pb-table-wrap';
+    table.parentNode!.insertBefore(wrap, table);
+    wrap.appendChild(table);
+    // Remove margin from table since wrapper handles it
+    (table as HTMLElement).style.margin = '0';
+    (table as HTMLElement).style.boxShadow = 'none';
+    (table as HTMLElement).style.borderRadius = '0';
+  });
+}
+document.addEventListener('DOMContentLoaded', wrapPbTables);
+document.addEventListener('astro:page-load', wrapPbTables);
 </script>
