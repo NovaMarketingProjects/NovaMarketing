@@ -25,6 +25,15 @@
         }
       }
     },
+    "metatitle": {
+      "type": "string",
+      "required": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
     "company": {
       "type": "string",
       "pluginOptions": {

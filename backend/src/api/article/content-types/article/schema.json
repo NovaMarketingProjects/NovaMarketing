@@ -20,6 +20,11 @@
       "required": true,
       "pluginOptions": { "i18n": { "localized": true } }
     },
+    "metatitle": {
+      "type": "string",
+      "required": false,
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
     "slug": {
       "type": "uid",
       "targetField": "title",
