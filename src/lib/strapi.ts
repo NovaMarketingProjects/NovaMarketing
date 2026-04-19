@@ -99,6 +99,7 @@ export interface Service {
 export interface BlogPost {
   id: number;
   title: string;
+  metatitle?: string;
   slug: string;
   excerpt?: string;
   metadescription?: string;
@@ -124,6 +125,7 @@ export interface BlogCategory {
 export interface CaseStudy {
   id: number;
   title: string;
+  metatitle?: string;
   slug: string;
   company?: string;
   description: string;
