@@ -7,8 +7,8 @@ const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/consultoria-marketing-digital-sabadell/', '/ca/consultoria-marketing-digital-sabadell/', SITE_URL);
 
 const faqItems = [
-  { question: `Què és una consultoria de màrqueting digital a Sabadell?`, answer: `Una consultoria de màrqueting digital a Sabadell analitza la teva situació actual, identifica les oportunitats del mercat del Vallès Occidental i dissenya una estratègia concreta per augmentar les teves vendes. Abasta des de SEO i Google Ads fins a branding, xarxes socials i analítica web.` },
-  { question: `Quant costa la consultoria de màrqueting a Sabadell?`, answer: `El cost varia segons l'abast. Oferim una auditoria inicial gratuïta per a empreses de Sabadell amb la qual definim exactament què necessites. Treballem amb pressupostos adaptats a pimes del Vallès Occidental.` },
+  { question: `Què és una consultoria de marketing digital a Sabadell?`, answer: `Una consultoria de marketing digital a Sabadell analitza la teva situació actual, identifica les oportunitats del mercat del Vallès Occidental i dissenya una estratègia concreta per augmentar les teves vendes. Abasta des de SEO i Google Ads fins a branding, xarxes socials i analítica web.` },
+  { question: `Quant costa la consultoria de marketing a Sabadell?`, answer: `El cost varia segons l'abast. Oferim una auditoria inicial gratuïta per a empreses de Sabadell amb la qual definim exactament què necessites. Treballem amb pressupostos adaptats a pimes del Vallès Occidental.` },
   { question: `En quant de temps es veuen els resultats a Sabadell?`, answer: `Depèn del canal. Amb Google Ads els resultats són immediats. Amb SEO, entre 3 i 6 mesos. Amb continguts o branding, entre 6 i 12 mesos. Cada acció està mesurada i orientada a retorn real per a la teva pime a Sabadell.` },
   { question: `Treballeu amb pimes petites de Sabadell?`, answer: `Ens especialitzem en pimes del Vallès Occidental. Coneixem el teixit empresarial de Sabadell —des de negocis del centre i la Rambla fins a industrials de Can Roqueta i Can Feu— i adaptem l'estratègia al pressupost real de cada empresa.` },
   { question: `Puc contractar només l'auditoria sense compromís?`, answer: `Sí. L'auditoria inicial gratuïta no té cap compromís. Analitzem la teva web, la teva visibilitat a Google, els teus competidors a Sabadell i la teva estratègia actual. L'informe és teu independentment de si contractes els nostres serveis.` },
@@ -29,8 +29,8 @@ try {
 } catch {}
 
 const faqSchema = {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-    {"@type":"Question","name":"Què és una consultoria de màrqueting digital a Sabadell?","acceptedAnswer":{"@type":"Answer","text":"Una consultoria de màrqueting digital a Sabadell analitza la teva situació actual, identifica les oportunitats del mercat del Vallès Occidental i dissenya una estratègia concreta per augmentar les teves vendes. Abasta des de SEO i Google Ads fins a branding, xarxes socials i analítica web."}},
-    {"@type":"Question","name":"Quant costa la consultoria de màrqueting a Sabadell?","acceptedAnswer":{"@type":"Answer","text":"El cost varia segons l'abast. Oferim una auditoria inicial gratuïta per a empreses de Sabadell amb la qual definim exactament què necessites. Treballem amb pressupostos adaptats a pimes del Vallès Occidental."}},
+    {"@type":"Question","name":"Què és una consultoria de marketing digital a Sabadell?","acceptedAnswer":{"@type":"Answer","text":"Una consultoria de marketing digital a Sabadell analitza la teva situació actual, identifica les oportunitats del mercat del Vallès Occidental i dissenya una estratègia concreta per augmentar les teves vendes. Abasta des de SEO i Google Ads fins a branding, xarxes socials i analítica web."}},
+    {"@type":"Question","name":"Quant costa la consultoria de marketing a Sabadell?","acceptedAnswer":{"@type":"Answer","text":"El cost varia segons l'abast. Oferim una auditoria inicial gratuïta per a empreses de Sabadell amb la qual definim exactament què necessites. Treballem amb pressupostos adaptats a pimes del Vallès Occidental."}},
     {"@type":"Question","name":"En quant de temps es veuen els resultats a Sabadell?","acceptedAnswer":{"@type":"Answer","text":"Depèn del canal. Amb Google Ads els resultats són immediats. Amb SEO, entre 3 i 6 mesos. Amb continguts o branding, entre 6 i 12 mesos. Cada acció està mesurada i orientada a retorn real per a la teva pime a Sabadell."}},
     {"@type":"Question","name":"Treballeu amb pimes petites de Sabadell?","acceptedAnswer":{"@type":"Answer","text":"Ens especialitzem en pimes del Vallès Occidental. Coneixem el teixit empresarial de Sabadell —des de negocis del centre i la Rambla fins a industrials de Can Roqueta i Can Feu— i adaptem l'estratègia al pressupost real de cada empresa."}},
     {"@type":"Question","name":"Puc contractar només l'auditoria sense compromís?","acceptedAnswer":{"@type":"Answer","text":"Sí. L'auditoria inicial gratuïta no té cap compromís. Analitzem la teva web, la teva visibilitat a Google, els teus competidors a Sabadell i la teva estratègia actual. L'informe és teu independentment de si contractes els nostres serveis."}},
@@ -39,12 +39,12 @@ const faqSchema = {"@context":"https://schema.org","@type":"FAQPage","mainEntity
     {"@type":"Question","name":"Com diferencieu una bona consultoria d'una que no aporta valor?","acceptedAnswer":{"@type":"Answer","text":"Una bona consultoria a Sabadell parteix de dades reals, proposa accions concretes amb terminis i KPIs definits, i mesura el ROI de cada iniciativa. Desconfia de qui promet resultats sense analitzar-te abans."}}
   ]};
 
-const serviceSchema = {"@context":"https://schema.org","@type":"Service","serviceType":"Consultor de Marketing Digital para Pymes","provider":{"@type":"ProfessionalService","@id":"https://novamarketing.es/#organization","name":"Nova Marketing","image":"https://novamarketing.es/agencia-marketing-pymes-nova-marketing-logo.png","telephone":"+34644738270","priceRange":"€€","address":{"@type":"PostalAddress","streetAddress":"Carrer de Bilbao 1","addressLocality":"Sabadell","addressRegion":"Barcelona","postalCode":"08202","addressCountry":"ES"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"35"}},"areaServed":{"@type":"City","name":"Sabadell","sameAs":"https://www.wikidata.org/wiki/Q12258"},"description":"Consultoria de màrqueting digital a mida per a pimes de Sabadell i el Vallès Occidental. Auditoria, estratègia, implementació i mesura amb visió local.","offers":{"@type":"Offer","priceRange":"€€"},"hasOfferCatalog":{"@type":"OfferCatalog","name":"Servicios de Consultoría de Marketing Digital","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Auditoría 360 de Marketing Digital"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Plan Estratégico de Marketing"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Consultoría de Competencia Digital"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Asesoría en Transformación Digital"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Análisis de Datos y Dashboarding"}}]}};
+const serviceSchema = {"@context":"https://schema.org","@type":"Service","serviceType":"Consultor de Marketing Digital para Pymes","provider":{"@type":"ProfessionalService","@id":"https://novamarketing.es/#organization","name":"Nova Marketing","image":"https://novamarketing.es/agencia-marketing-pymes-nova-marketing-logo.png","telephone":"+34644738270","priceRange":"€€","address":{"@type":"PostalAddress","streetAddress":"Carrer de Bilbao 1","addressLocality":"Sabadell","addressRegion":"Barcelona","postalCode":"08202","addressCountry":"ES"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"35"}},"areaServed":{"@type":"City","name":"Sabadell","sameAs":"https://www.wikidata.org/wiki/Q12258"},"description":"Consultoria de marketing digital a mida per a pimes de Sabadell i el Vallès Occidental. Auditoria, estratègia, implementació i mesura amb visió local.","offers":{"@type":"Offer","priceRange":"€€"},"hasOfferCatalog":{"@type":"OfferCatalog","name":"Servicios de Consultoría de Marketing Digital","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Auditoría 360 de Marketing Digital"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Plan Estratégico de Marketing"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Consultoría de Competencia Digital"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Asesoría en Transformación Digital"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Análisis de Datos y Dashboarding"}}]}};
 ---
 
 <BaseLayout
-  title="Consultor de Màrqueting Digital a Sabadell | Nova Marketing"
-  description="Estratègies de màrqueting a mida per escalar les vendes de la teva pime a Sabadell i el Vallès. Auditoria gratuïta. Consultors especialitzats en el mercat local del Vallès Occidental."
+  title="Consultor de Marketing Digital a Sabadell | Nova Marketing"
+  description="Estratègies de marketing a mida per escalar les vendes de la teva pime a Sabadell i el Vallès. Auditoria gratuïta. Consultors especialitzats en el mercat local del Vallès Occidental."
   locale="ca"
   alternates={alternates}
   schemas={[serviceSchema, faqSchema]}
@@ -61,12 +61,12 @@ const serviceSchema = {"@context":"https://schema.org","@type":"Service","servic
         Especialistes en Estratègia Digital
       </span>
       <h1 class="text-3xl sm:text-5xl md:text-6xl lg:text-[4.2rem] xl:text-[4.8rem] uppercase font-black tracking-tighter leading-[0.95] sm:leading-[0.9] mb-8 text-zinc-900 w-full text-center max-w-[85rem] mx-auto opacity-0 translate-y-4 animate-[fade-in-up_0.8s_ease-out_forwards]">
-        <span class="block lg:inline">Consultor de Màrqueting</span>
+        <span class="block lg:inline">Consultor de Marketing</span>
                 <span class="block lg:inline">Digital a</span>
                 <span class="text-mktg-gradient inline-block px-1">Sabadell</span>
       </h1>
       <p class="text-base sm:text-lg text-zinc-500 font-light leading-relaxed max-w-2xl mx-auto mb-12">
-        Estratègies de màrqueting a mida per escalar les vendes de la teva pime al Vallès Occidental. Impulsem empreses des del cor de Sabadell amb visió estratègica real i sense fum.
+        Estratègies de marketing a mida per escalar les vendes de la teva pime al Vallès Occidental. Impulsem empreses des del cor de Sabadell amb visió estratègica real i sense fum.
       </p>
       <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
         <button class="contact-modal-trigger btn-mktg-v5 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300 !py-5 !px-12 !text-[12px] !tracking-wider font-black w-full sm:w-auto">
@@ -139,20 +139,20 @@ const serviceSchema = {"@context":"https://schema.org","@type":"Service","servic
           <div class="relative w-full max-w-sm">
             <div class="absolute -top-6 -left-6 w-24 h-24 bg-[radial-gradient(#000000_15%,transparent_15%)] bg-[length:12px_12px] opacity-20"></div>
             <div class="overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] border-4 border-white">
-              <img src="/img/consultor_marketing.webp" alt="Sergio García serà el teu consultor de màrqueting a Sabadell" class="w-full h-auto object-cover">
+              <img src="/img/consultor_marketing.webp" alt="Sergio García serà el teu consultor de marketing a Sabadell" class="w-full h-auto object-cover">
             </div>
             <div class="absolute -bottom-4 -right-4 backdrop-blur-md bg-black/90 text-white px-6 py-4 rounded-xl shadow-xl flex items-center gap-3 border border-white/10">
               <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-              <div class="text-[10px] sm:text-xs font-black uppercase tracking-widest">Consultoria de Màrqueting</div>
+              <div class="text-[10px] sm:text-xs font-black uppercase tracking-widest">Consultoria de Marketing</div>
             </div>
           </div>
         </div>
         <div class="md:col-span-7 text-left">
-          <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.4em] text-accent mb-4 block">Consultoria de Màrqueting</span>
+          <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.4em] text-accent mb-4 block">Consultoria de Marketing</span>
           <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.85]">
-            Sergio García serà el teu consultor de màrqueting a Sabadell
+            Sergio García serà el teu consultor de marketing a Sabadell
           </h2>
-          <p class="text-zinc-500 font-light text-base sm:text-lg leading-relaxed mb-8">Coneixem el teixit empresarial del Vallès Occidental de primera mà. Des de negocis del centre i la Rambla fins a industrials de Can Roqueta i Can Feu, dissenyem estratègies de màrqueting orientades al client local. No som una agència genèrica: som el teu equip d'estratègia amb oficina al Carrer de Bilbao.</p>
+          <p class="text-zinc-500 font-light text-base sm:text-lg leading-relaxed mb-8">Coneixem el teixit empresarial del Vallès Occidental de primera mà. Des de negocis del centre i la Rambla fins a industrials de Can Roqueta i Can Feu, dissenyem estratègies de marketing orientades al client local. No som una agència genèrica: som el teu equip d'estratègia amb oficina al Carrer de Bilbao.</p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div class="p-6 bg-zinc-50 border border-black/5 rounded-xl hover:bg-zinc-100 transition-colors">
               <div class="text-sm font-black uppercase tracking-wider text-black mb-2">Visió Local</div>
@@ -174,10 +174,10 @@ const serviceSchema = {"@context":"https://schema.org","@type":"Service","servic
     <div class="max-w-7xl mx-auto">
       <div class="text-center mb-16 sm:mb-24 reveal">
         <h2 class="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.82]">
-          Consultoria de Màrqueting integral per a pimes de Sabadell
+          Consultoria de Marketing integral per a pimes de Sabadell
         </h2>
         <p class="text-zinc-500 font-light text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
-          No et donem un manual genèric. Construïm amb tu un sistema de màrqueting que genera vendes recurrents per al teu negoci a Sabadell i el Vallès Occidental.
+          No et donem un manual genèric. Construïm amb tu un sistema de marketing que genera vendes recurrents per al teu negoci a Sabadell i el Vallès Occidental.
         </p>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
@@ -377,7 +377,7 @@ const serviceSchema = {"@context":"https://schema.org","@type":"Service","servic
       <div class="mb-12 reveal">
         <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultados probados</span>
         <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
-          Casos d'èxit de consultoria de màrqueting a Sabadell
+          Casos d'èxit de consultoria de marketing a Sabadell
         </h2>
       </div>
       <div class="cases-carousel relative overflow-hidden">
@@ -438,7 +438,7 @@ const serviceSchema = {"@context":"https://schema.org","@type":"Service","servic
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-16 reveal">
         <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tighter uppercase mb-4 text-zinc-900 leading-[0.85]">
-          Altres serveis de màrqueting per a empreses de Sabadell
+          Altres serveis de marketing per a empreses de Sabadell
         </h2>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 reveal">
@@ -462,7 +462,7 @@ const serviceSchema = {"@context":"https://schema.org","@type":"Service","servic
         </div>
         <div class="p-8 bg-white border border-black/5 rounded-2xl hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 group">
           <h3 class="font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors">
-            <a href="/ca/agencia-de-marketing-digital-en-sabadell/" class="hover:text-accent transition-colors">Màrqueting Digital a Sabadell</a>
+            <a href="/ca/agencia-de-marketing-digital-a-sabadell/" class="hover:text-accent transition-colors">Marketing Digital a Sabadell</a>
           </h3>
           <p class="text-xs text-zinc-500 font-light leading-relaxed">Estratègia digital integral per a pimes de Sabadell: SEO, Ads, xarxes socials i analítica per créixer de forma sostinguda.</p>
         </div>
@@ -475,20 +475,20 @@ const serviceSchema = {"@context":"https://schema.org","@type":"Service","servic
     <div class="max-w-4xl mx-auto">
       <div class="text-center mb-16 reveal">
         <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tighter uppercase mb-4 text-zinc-900 leading-[0.85]">
-          Preguntes sobre consultoria de màrqueting digital a Sabadell
+          Preguntes sobre consultoria de marketing digital a Sabadell
         </h2>
       </div>
       <div class="space-y-4 reveal">
         <details class="group bg-zinc-50 border border-zinc-100 rounded-2xl overflow-hidden">
           <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-black text-sm sm:text-base uppercase tracking-tight text-zinc-900 hover:text-accent transition-colors">
-            Què és una consultoria de màrqueting digital a Sabadell?
+            Què és una consultoria de marketing digital a Sabadell?
             <span class="ml-4 text-accent text-xl group-open:rotate-45 transition-transform duration-300 shrink-0">+</span>
           </summary>
-          <div class="px-6 pb-6 text-sm text-zinc-500 font-light leading-relaxed">Una consultoria de màrqueting digital a Sabadell analitza la teva situació actual, identifica les oportunitats del mercat del Vallès Occidental i dissenya una estratègia concreta per augmentar les teves vendes. Abasta des de SEO i Google Ads fins a branding, xarxes socials i analítica web.</div>
+          <div class="px-6 pb-6 text-sm text-zinc-500 font-light leading-relaxed">Una consultoria de marketing digital a Sabadell analitza la teva situació actual, identifica les oportunitats del mercat del Vallès Occidental i dissenya una estratègia concreta per augmentar les teves vendes. Abasta des de SEO i Google Ads fins a branding, xarxes socials i analítica web.</div>
         </details>
         <details class="group bg-zinc-50 border border-zinc-100 rounded-2xl overflow-hidden">
           <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-black text-sm sm:text-base uppercase tracking-tight text-zinc-900 hover:text-accent transition-colors">
-            Quant costa la consultoria de màrqueting a Sabadell?
+            Quant costa la consultoria de marketing a Sabadell?
             <span class="ml-4 text-accent text-xl group-open:rotate-45 transition-transform duration-300 shrink-0">+</span>
           </summary>
           <div class="px-6 pb-6 text-sm text-zinc-500 font-light leading-relaxed">El cost varia segons l'abast. Oferim una auditoria inicial gratuïta per a empreses de Sabadell amb la qual definim exactament què necessites. Treballem amb pressupostos adaptats a pimes del Vallès Occidental.</div>

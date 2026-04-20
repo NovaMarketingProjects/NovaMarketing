@@ -236,15 +236,15 @@ const ctaTitle = categoryName.includes('seo') || categoryName.includes('consulto
             </button>
           </div>
 
-          <!-- Serveis de màrqueting -->
+          <!-- Serveis de marketing -->
           <div class="rounded-[2rem] border border-zinc-100 bg-zinc-50 p-8">
-            <div class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-5">Serveis de màrqueting</div>
+            <div class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-5">Serveis de marketing</div>
             <ul class="flex flex-col gap-0">
               {[
                 { label: 'Posicionament SEO', href: '/ca/agencia-seo-per-pimes/' },
                 { label: 'Google Ads', href: '/ca/agencia-sem-per-pimes/' },
                 { label: 'Disseny de pàgines web', href: '/ca/disseny-web-per-pimes/' },
-                { label: 'Consultoria de màrqueting', href: '/ca/consultoria-marketing-per-pimes/' },
+                { label: 'Consultoria de marketing', href: '/ca/consultoria-marketing-per-pimes/' },
               ].map(s => (
                 <li class="border-b border-zinc-200 last:border-0">
                   <a href={s.href} class="group flex items-center justify-between py-3">
@@ -281,7 +281,7 @@ const ctaTitle = categoryName.includes('seo') || categoryName.includes('consulto
   {latestPosts.length > 0 && (
     <section class={`py-16 px-6 sm:px-12 border-t border-zinc-100 ${categoryRows.length % 2 === 0 ? 'bg-zinc-50' : 'bg-white'}`}>
       <div class="max-w-7xl mx-auto">
-        <div class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-8">Més notícies de màrqueting</div>
+        <div class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-8">Més notícies de marketing</div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {latestPosts.map((p: any) => (
             <BlogCard post={p} locale="ca" />
