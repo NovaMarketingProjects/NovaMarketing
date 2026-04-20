@@ -384,7 +384,7 @@ const serviceSchema = {"@context":"https://schema.org","@type":"Service","servic
         <div class="cases-track flex gap-6 transition-transform duration-500 ease-in-out">
           {consulCases.map((cs: any) => {
             const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
-            const caseUrl = cs.isPublic && cs.slug ? `/casos-exito/${cs.slug}/` : null;
+            const caseUrl = cs.isPublic && cs.slug ? `/ca/casos-exit/${cs.slug}/` : null;
             return (
               <div class="cases-slide flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
                 <div>
@@ -462,7 +462,7 @@ const serviceSchema = {"@context":"https://schema.org","@type":"Service","servic
         </div>
         <div class="p-8 bg-white border border-black/5 rounded-2xl hover:shadow-xl hover:-translate-y-1 hover:border-accent/10 transition-all duration-300 group">
           <h3 class="font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors">
-            <a href="/ca/agencia-de-marketing-digital-en-barcelona/" class="hover:text-accent transition-colors">Màrqueting Digital a Barcelona</a>
+            <a href="/ca/agencia-de-marketing-digital-a-barcelona/" class="hover:text-accent transition-colors">Màrqueting Digital a Barcelona</a>
           </h3>
           <p class="text-xs text-zinc-500 font-light leading-relaxed">Estratègia digital integral per a pimes de Barcelona: SEO, Ads, xarxes socials i analítica per créixer de forma sostinguda.</p>
         </div>
