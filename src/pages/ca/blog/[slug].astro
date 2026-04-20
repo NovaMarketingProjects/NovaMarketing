@@ -125,6 +125,7 @@ const ctaTitle = categoryName.includes('seo') || categoryName.includes('consulto
 <BaseLayout
   title={post.metatitle || post.seo?.metaTitle || post.title}
   description={post.metadescription || post.seo?.metaDescription || post.excerpt || ''}
+  ogDescription={post.metadescription || post.seo?.metaDescription || post.excerpt || ''}
   canonical={canonicalUrl}
   ogImage={coverUrl}
   locale="ca"

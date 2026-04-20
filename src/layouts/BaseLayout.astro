@@ -17,6 +17,7 @@ import type { SeoFields, GlobalSettings } from '../lib/strapi';
 interface Props {
   title: string;
   description: string;
+  ogDescription?: string;
   canonical?: string;
   ogImage?: string;
   noIndex?: boolean;
@@ -30,6 +31,7 @@ interface Props {
 const {
   title,
   description,
+  ogDescription,
   canonical,
   ogImage,
   noIndex = false,
@@ -69,6 +71,7 @@ const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
   <SeoHead
     title={seo?.metaTitle || title}
     description={seo?.metaDescription || description}
+    ogDescription={ogDescription}
     canonical={seo?.canonicalUrl || canonical}
     ogImage={seo?.ogImage ? `${SITE_URL}${seo.ogImage.url}` : ogImage}
     noIndex={seo?.noIndex ?? noIndex}

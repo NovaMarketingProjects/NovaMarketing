@@ -7,6 +7,7 @@
 interface Props {
   title: string;
   description: string;
+  ogDescription?: string;
   canonical?: string;
   ogImage?: string;
   noIndex?: boolean;
@@ -18,6 +19,7 @@ interface Props {
 const {
   title,
   description,
+  ogDescription,
   canonical,
   ogImage = '/og-default.jpg',
   noIndex = false,
@@ -25,6 +27,8 @@ const {
   alternates = [],
   siteUrl,
 } = Astro.props;
+
+const resolvedOgDescription = ogDescription || description;
 
 const cleanSiteUrl = siteUrl.replace(/\/+$/, '');
 const ogLocale = locale === 'ca' ? 'ca_ES' : 'es_ES';
@@ -56,7 +60,7 @@ const ogImageFull = ogImage.startsWith('http') ? ogImage : `${cleanSiteUrl}${ogI
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
 <meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
+<meta property="og:description" content={resolvedOgDescription} />
 <meta property="og:image" content={ogImageFull} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -67,7 +71,7 @@ const ogImageFull = ogImage.startsWith('http') ? ogImage : `${cleanSiteUrl}${ogI
 <!-- Twitter / X Card -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />
-<meta name="twitter:description" content={description} />
+<meta name="twitter:description" content={resolvedOgDescription} />
 <meta name="twitter:image" content={ogImageFull} />
 
 <!-- Hreflang -->

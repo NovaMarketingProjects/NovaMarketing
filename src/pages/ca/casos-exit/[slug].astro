@@ -132,6 +132,7 @@ const ctaTitle = caseCategories.some((c: string) => c.includes('seo') || c.inclu
 <BaseLayout
   title={pageType === 'case-study' ? (caseStudy.metatitle || `${caseStudy.title} | Caso d'Èxit | Nova Marketing`) : `${categoryData.name} | Casos d'Èxit | Nova Marketing`}
   description={pageType === 'case-study' ? (caseStudy.metadescription || caseStudy.description) : `Projectes de gran impacte en el sector de ${categoryData.name.toLowerCase()}.`}
+  ogDescription={pageType === 'case-study' ? (caseStudy.metadescription || caseStudy.description) : undefined}
   ogImage={coverUrl || undefined}
   locale="ca"
   alternates={alternates}
