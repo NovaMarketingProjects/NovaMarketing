@@ -7,15 +7,17 @@
 @import "tailwindcss";
 
 /* ─── LOCAL FONTS ─── */
+/* Preloaded in BaseLayout (critical): Inter-Regular, Montserrat-Black → font-display: swap */
+/* Secondary weights → font-display: optional (no layout shift, loaded silently) */
 @font-face { font-family: 'Inter'; src: url('/fonts/Inter-Regular.woff2') format('woff2'); font-weight: 300; font-display: swap; }
 @font-face { font-family: 'Inter'; src: url('/fonts/Inter-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
-@font-face { font-family: 'Inter'; src: url('/fonts/Inter-Medium.woff2') format('woff2'); font-weight: 500; font-display: swap; }
-@font-face { font-family: 'Inter'; src: url('/fonts/Inter-SemiBold.woff2') format('woff2'); font-weight: 600; font-display: swap; }
-@font-face { font-family: 'Inter'; src: url('/fonts/Inter-SemiBold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('/fonts/Inter-Medium.woff2') format('woff2'); font-weight: 500; font-display: optional; }
+@font-face { font-family: 'Inter'; src: url('/fonts/Inter-SemiBold.woff2') format('woff2'); font-weight: 600; font-display: optional; }
+@font-face { font-family: 'Inter'; src: url('/fonts/Inter-SemiBold.woff2') format('woff2'); font-weight: 700; font-display: optional; }
 
-@font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-SemiBold.woff2') format('woff2'); font-weight: 600; font-display: swap; }
-@font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
-@font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-ExtraBold.woff2') format('woff2'); font-weight: 800; font-display: swap; }
+@font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-SemiBold.woff2') format('woff2'); font-weight: 600; font-display: optional; }
+@font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-Bold.woff2') format('woff2'); font-weight: 700; font-display: optional; }
+@font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-ExtraBold.woff2') format('woff2'); font-weight: 800; font-display: optional; }
 @font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-Black.woff2') format('woff2'); font-weight: 900; font-display: swap; }
 
 /* ─── TAILWIND v4 THEME ─── */
