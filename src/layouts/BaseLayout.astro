@@ -85,6 +85,20 @@ const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
   ))}
 
   <link rel="icon" href="/agencia-marketing-pymes-nova-marketing-favicon.png" />
+
+  <script type="speculationrules" set:html={JSON.stringify({
+    prerender: [{
+      where: {
+        and: [
+          { href_matches: "/*" },
+          { not: { href_matches: "/logout" } },
+          { not: { selector_matches: "[rel~=nofollow]" } },
+          { not: { selector_matches: "[data-no-prerender]" } }
+        ]
+      },
+      eagerness: "moderate"
+    }]
+  })} />
 </head>
 
 <body class="bg-white text-black antialiased selection:bg-accent selection:text-white">
