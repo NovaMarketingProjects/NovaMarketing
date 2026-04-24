@@ -13,7 +13,7 @@ RewriteCond %{HTTP_HOST} ^www\.novamarketing\.es [NC]
 RewriteRule ^(.*)$ https://novamarketing.es/$1 [L,R=301]
 
 # Blog posts redirects
-Redirect 301 /las-redes-sociales-en-2024-analisis-del-estudio-de-iab-spain/ https://novamarketing.es
+Redirect 301 /las-redes-sociales-en-2024-analisis-del-estudio-de-iab-spain/ https://novamarketing.es/blog/mejores-herramientas-de-gestion-de-redes-sociales-para-pymes/
 
 # Localized redirection for success stories (ES/CA)
 # From /ca/casos-exito/ to /ca/casos-exit/
