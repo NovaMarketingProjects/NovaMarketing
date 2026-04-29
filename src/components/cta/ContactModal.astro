@@ -43,6 +43,20 @@ const t = {
 };
 ---
 
+<!-- Sending overlay -->
+<div id="contact-sending" class="fixed inset-0 z-[200] bg-white flex flex-col items-center justify-center hidden">
+  <div class="flex flex-col items-center gap-8 px-8 max-w-sm w-full text-center">
+    <div class="w-16 h-16 rounded-full border-4 border-zinc-100 border-t-accent animate-spin"></div>
+    <div>
+      <div class="text-2xl font-black uppercase tracking-tighter text-black mb-2">Enviando...</div>
+      <p class="text-zinc-400 font-light text-sm">Estamos procesando tu solicitud,<br>un momento por favor.</p>
+    </div>
+    <div class="w-full bg-zinc-100 rounded-full h-1 overflow-hidden">
+      <div id="contact-progress" class="h-full bg-accent rounded-full" style="width:0%;transition:width 0.4s ease"></div>
+    </div>
+  </div>
+</div>
+
 <!-- Modal Overlay -->
 <div id="contact-modal" class="fixed inset-0 z-[100] bg-black/40 backdrop-blur-md items-center justify-center p-4 transition-all duration-300 opacity-0 pointer-events-none hidden">
     <!-- Modal Dialog -->
@@ -149,15 +163,41 @@ const t = {
         }
     });
 
+    function showSendingOverlay() {
+        const overlay = document.getElementById('contact-sending');
+        const bar = document.getElementById('contact-progress');
+        if (!overlay || !bar) return;
+        overlay.classList.remove('hidden');
+        // Animate bar: quickly to 80%, then wait (real progress finishes it)
+        setTimeout(() => { bar.style.width = '40%'; }, 50);
+        setTimeout(() => { bar.style.width = '70%'; }, 600);
+        setTimeout(() => { bar.style.width = '85%'; }, 1800);
+    }
+
+    function completeSendingOverlay() {
+        const bar = document.getElementById('contact-progress');
+        if (bar) bar.style.width = '100%';
+    }
+
+    function hideSendingOverlay(showError: boolean, btn: HTMLButtonElement | null) {
+        const overlay = document.getElementById('contact-sending');
+        if (overlay) overlay.classList.add('hidden');
+        const bar = document.getElementById('contact-progress');
+        if (bar) bar.style.width = '0%';
+        if (showError && btn) {
+            btn.innerHTML = 'ERROR — INTÉNTALO DE NUEVO';
+            btn.disabled = false;
+            btn.style.background = '#ef4444';
+        }
+    }
+
     document.addEventListener('submit', async (e) => {
          const target = e.target as HTMLFormElement;
          if (target && target.id === 'desktop-modal-form') {
               e.preventDefault();
               const btn = target.querySelector('button') as HTMLButtonElement;
-              if (btn) {
-                  btn.innerHTML = 'ENVIANDO...';
-                  btn.disabled = true;
-              }
+              if (btn) { btn.disabled = true; }
+              showSendingOverlay();
               const data = { ...Object.fromEntries(new FormData(target)), source: window.location.href };
               try {
                   const res = await fetch('https://cms.novamarketing.es/api/contact', {
@@ -166,17 +206,16 @@ const t = {
                       body: JSON.stringify(data),
                   });
                   if (res.ok) {
-                      const isCA = window.location.pathname.startsWith('/ca');
-                      window.location.href = isCA ? '/ca/gracies/' : '/gracias/';
+                      completeSendingOverlay();
+                      setTimeout(() => {
+                          const isCA = window.location.pathname.startsWith('/ca');
+                          window.location.href = isCA ? '/ca/gracies/' : '/gracias/';
+                      }, 400);
                   } else {
                       throw new Error('Error');
                   }
               } catch {
-                  if (btn) {
-                      btn.innerHTML = 'ERROR — INTÉNTALO DE NUEVO';
-                      btn.disabled = false;
-                      btn.style.background = '#ef4444';
-                  }
+                  hideSendingOverlay(true, btn);
               }
          }
     });
