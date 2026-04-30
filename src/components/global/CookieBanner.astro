@@ -20,33 +20,48 @@ const copy = locale === 'ca'
     };
 ---
 
+<!-- Backdrop overlay -->
+<div
+  id="cookie-backdrop"
+  class="fixed inset-0 z-[299] bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-500"
+></div>
+
+<!-- Cookie banner — bottom-right card -->
 <div
   id="cookie-banner"
   role="dialog"
   aria-label="Aviso de cookies"
-  aria-live="polite"
-  class="fixed bottom-0 left-0 right-0 z-[300] bg-white border-t border-zinc-100 shadow-[0_-8px_40px_rgba(0,0,0,0.08)] translate-y-full transition-transform duration-500 ease-out"
+  aria-modal="true"
+  class="fixed bottom-6 right-6 z-[300] w-full max-w-sm bg-white shadow-[0_20px_60px_rgba(0,0,0,0.18)] translate-y-8 opacity-0 pointer-events-none transition-all duration-500 ease-out"
 >
-  <div class="max-w-6xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-    <p class="flex-1 text-sm text-zinc-500 leading-relaxed">
-      {copy.text}
-      {' '}
-      <a href={cookiesUrl} class="text-accent underline hover:text-black transition-colors font-medium">{copy.link}</a>.
-    </p>
-    <div class="flex gap-3 shrink-0">
-      <button
-        id="cookie-reject"
-        class="px-5 py-2.5 text-[10px] font-black uppercase tracking-widest border border-zinc-200 text-zinc-400 hover:border-black hover:text-black transition-all"
-      >
-        {copy.reject}
-      </button>
+  <div class="p-8 flex flex-col gap-6">
+
+    <!-- Header -->
+    <div>
+      <div class="text-xs font-black uppercase tracking-[0.3em] text-accent mb-3">🍪 Cookies</div>
+      <p class="text-sm text-zinc-500 leading-relaxed">
+        {copy.text}
+        {' '}
+        <a href={cookiesUrl} class="text-accent underline hover:text-black transition-colors font-medium">{copy.link}</a>.
+      </p>
+    </div>
+
+    <!-- Buttons -->
+    <div class="flex flex-col gap-3">
       <button
         id="cookie-accept"
-        class="px-5 py-2.5 text-[10px] font-black uppercase tracking-widest bg-black text-white hover:bg-accent transition-all"
+        class="w-full py-3.5 text-[10px] font-black uppercase tracking-widest bg-green-500 text-white hover:bg-green-600 transition-all"
       >
         {copy.accept}
       </button>
+      <button
+        id="cookie-reject"
+        class="w-full py-3.5 text-[10px] font-black uppercase tracking-widest border border-zinc-200 text-zinc-400 hover:border-zinc-400 hover:text-zinc-600 transition-all"
+      >
+        {copy.reject}
+      </button>
     </div>
+
   </div>
 </div>
 
@@ -64,14 +79,26 @@ const copy = locale === 'ca'
 
   function showBanner() {
     const banner = document.getElementById('cookie-banner');
-    if (!banner) return;
-    banner.classList.remove('translate-y-full');
+    const backdrop = document.getElementById('cookie-backdrop');
+    if (!banner || !backdrop) return;
+
+    backdrop.classList.remove('opacity-0', 'pointer-events-none');
+    backdrop.classList.add('opacity-100', 'pointer-events-auto');
+
+    banner.classList.remove('translate-y-8', 'opacity-0', 'pointer-events-none');
+    banner.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
   }
 
   function hideBanner() {
     const banner = document.getElementById('cookie-banner');
-    if (!banner) return;
-    banner.classList.add('translate-y-full');
+    const backdrop = document.getElementById('cookie-backdrop');
+    if (!banner || !backdrop) return;
+
+    backdrop.classList.remove('opacity-100', 'pointer-events-auto');
+    backdrop.classList.add('opacity-0', 'pointer-events-none');
+
+    banner.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
+    banner.classList.add('translate-y-8', 'opacity-0', 'pointer-events-none');
   }
 
   function init() {
