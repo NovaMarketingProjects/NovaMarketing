@@ -1,0 +1,105 @@
+---
+interface Props {
+  locale?: 'es' | 'ca';
+}
+const { locale = 'es' } = Astro.props;
+const cookiesUrl = locale === 'ca' ? '/ca/cookies/' : '/cookies/';
+
+const copy = locale === 'ca'
+  ? {
+      text: "Com a agència de màrqueting, seria molt estrany que no féssim servir cookies, oi? 😏 Les fem servir per analitzar el trànsit i millorar la teva experiència.",
+      link: 'Política de cookies',
+      accept: 'ACCEPTAR',
+      reject: 'REBUTJAR',
+    }
+  : {
+      text: 'Como agencia de marketing, sería muy raro que no usáramos cookies, ¿verdad? 😏 Las usamos para analizar el tráfico y mejorar tu experiencia.',
+      link: 'Política de cookies',
+      accept: 'ACEPTAR',
+      reject: 'RECHAZAR',
+    };
+---
+
+<div
+  id="cookie-banner"
+  role="dialog"
+  aria-label="Aviso de cookies"
+  aria-live="polite"
+  class="fixed bottom-0 left-0 right-0 z-[300] bg-white border-t border-zinc-100 shadow-[0_-8px_40px_rgba(0,0,0,0.08)] translate-y-full transition-transform duration-500 ease-out"
+>
+  <div class="max-w-6xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+    <p class="flex-1 text-sm text-zinc-500 leading-relaxed">
+      {copy.text}
+      {' '}
+      <a href={cookiesUrl} class="text-accent underline hover:text-black transition-colors font-medium">{copy.link}</a>.
+    </p>
+    <div class="flex gap-3 shrink-0">
+      <button
+        id="cookie-reject"
+        class="px-5 py-2.5 text-[10px] font-black uppercase tracking-widest border border-zinc-200 text-zinc-400 hover:border-black hover:text-black transition-all"
+      >
+        {copy.reject}
+      </button>
+      <button
+        id="cookie-accept"
+        class="px-5 py-2.5 text-[10px] font-black uppercase tracking-widest bg-black text-white hover:bg-accent transition-all"
+      >
+        {copy.accept}
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = 'cookie_consent';
+
+  function grantConsent() {
+    if (typeof (window as any).gtag === 'function') {
+      (window as any).gtag('consent', 'update', {
+        analytics_storage: 'granted',
+        ad_storage: 'granted',
+      });
+    }
+  }
+
+  function showBanner() {
+    const banner = document.getElementById('cookie-banner');
+    if (!banner) return;
+    banner.classList.remove('translate-y-full');
+  }
+
+  function hideBanner() {
+    const banner = document.getElementById('cookie-banner');
+    if (!banner) return;
+    banner.classList.add('translate-y-full');
+  }
+
+  function init() {
+    const consent = localStorage.getItem(STORAGE_KEY);
+
+    if (consent === 'accepted') {
+      grantConsent();
+      return;
+    }
+
+    if (consent === 'rejected') {
+      return;
+    }
+
+    setTimeout(showBanner, 1200);
+
+    document.getElementById('cookie-accept')?.addEventListener('click', () => {
+      localStorage.setItem(STORAGE_KEY, 'accepted');
+      grantConsent();
+      hideBanner();
+    });
+
+    document.getElementById('cookie-reject')?.addEventListener('click', () => {
+      localStorage.setItem(STORAGE_KEY, 'rejected');
+      hideBanner();
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+  document.addEventListener('astro:page-load', init);
+</script>
