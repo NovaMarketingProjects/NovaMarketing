@@ -132,7 +132,7 @@ h1, h2, h3, h4 {
 .btn-mktg-v5 {
   display: inline-block;
   padding: 1.2rem 3rem;
-  background-color: black;
+  background-color: #25D366;
   color: white;
   text-decoration: none;
   font-weight: 900;
@@ -143,7 +143,7 @@ h1, h2, h3, h4 {
 }
 
 .btn-mktg-v5:hover {
-  background-color: var(--color-accent);
+  background-color: #128C7E;
   transform: scale(1.05);
 }
 
