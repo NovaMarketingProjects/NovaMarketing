@@ -306,7 +306,7 @@ const homeSchema = {
                     <div class="min-w-[280px] sm:min-w-[320px] md:min-w-0 snap-center bg-white p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all reveal" style={`transition-delay: ${i * 100}ms`}>
                       <div>
                         {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
-                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">{cs.title}</h3>
+                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">{caseUrl ? <a href={caseUrl} class="hover:text-accent transition-colors">{cs.title}</a> : cs.title}</h3>
                         <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">{cs.description}</p>
                       </div>
                       {caseUrl && (
