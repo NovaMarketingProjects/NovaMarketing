@@ -53,10 +53,10 @@ const faqItems = [
 
 // Definicions de serveis en català
 const services = [
-    { title: 'Posicionament SEO',       href: '/ca/agencia-seo-per-pimes/',            icon: 'Search'      },
-    { title: 'Google Ads',              href: '/ca/agencia-sem-per-pimes/',            icon: 'TrendingUp'  },
-    { title: 'Disseny de pàgines web',  href: '/ca/disseny-web-per-pimes/',            icon: 'Settings'    },
-    { title: 'Consultoria de marketing',href: '/ca/consultoria-marketing-per-pimes/',  icon: 'Target'      },
+    { title: 'Posicionament SEO',       href: '/ca/agencia-seo-per-pimes/',           desc: 'Optimitzem la teva presència a Google perquè els clients de la teva zona et trobin abans que a la competència, multiplicant les teves visites de negoci.',                          icon: 'Search'      },
+    { title: 'Google Ads',              href: '/ca/agencia-sem-per-pimes/',           desc: "Campanyes de publicitat de pagament per clic (SEM) dissenyades per generar contactes qualificats i vendes immediates. L'impuls que la teva pyme necessita avui.",                  icon: 'TrendingUp'  },
+    { title: 'Disseny de pàgines web',  href: '/ca/disseny-web-per-pimes/',           desc: 'Llocs web desenvolupats a mida per a cada client. Atractius, ultraràpids i 100% enfocats a la conversió per convertir visites en clients finals.',                                 icon: 'Settings'    },
+    { title: 'Consultoria de marketing',href: '/ca/consultoria-marketing-per-pimes/', desc: "Estratègia contínua per optimitzar la teva inversió. T'ajudem a prendre les decisions empresarials correctes pel creixement del teu negoci.",                                     icon: 'Target'      },
 ];
 
 const icons: Record<string, any> = {
@@ -190,10 +190,10 @@ const homeSchema = {
                 </p>
                 
                 <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-6 mt-4">
-                    <a href="#servicios" class="btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    <a href="#servicios" class="btn-mktg-v5 !bg-transparent !text-black border-2 border-black/20 hover:border-black hover:!bg-zinc-50 shadow-none !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black hidden md:inline-flex justify-center items-center">
                         SERVEIS PER A PIMES
                     </a>
-                    <button class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] sm:!bg-transparent sm:!text-black border-2 border-black sm:border-black/10 hover:border-black hover:!bg-zinc-50 sm:shadow-none !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black cursor-pointer hidden md:inline-flex justify-center items-center">
+                    <button class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black cursor-pointer hidden md:inline-flex justify-center items-center">
                         PARLEM DEL TEU PROJECTE
                     </button>
                     <div class="md:hidden w-full sm:w-auto">
@@ -239,6 +239,7 @@ const homeSchema = {
                                 <h3 class="text-xl sm:text-2xl uppercase mb-4 tracking-tighter font-black text-zinc-900 border-b border-zinc-100 group-hover:border-accent/20 pb-2 w-fit">
                                     <a href={s.href} class="hover:text-accent transition-colors">{s.title}</a>
                                 </h3>
+                                <p class="text-xs sm:text-sm text-zinc-500 leading-relaxed font-light">{s.desc}</p>
                             </div>
 
                             <div class="mt-8 pt-6 border-t border-zinc-50 flex items-center justify-between">
