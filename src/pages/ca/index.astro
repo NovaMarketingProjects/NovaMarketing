@@ -53,26 +53,10 @@ const faqItems = [
 
 // Definicions de serveis en català
 const services = [
-    { 
-        title: 'Posicionament SEO', 
-        desc: 'Optimitzem la teva presència a Google perquè els clients de la teva zona et trobin abans que a la competència, multiplicant les teves visites de negoci.', 
-        icon: 'Search'
-    },
-    { 
-        title: 'Google Ads', 
-        desc: 'Campanyes de publicitat de pagament per clic (SEM) dissenyades per generar contactes qualificats i vendes immediates. L\'impuls que la teva pyme necessita avui.', 
-        icon: 'TrendingUp'
-    },
-    { 
-        title: 'Disseny de pàgines web', 
-        desc: 'Llocs web desenvolupats a mida per a cada client. Atractius, ultraràpids i 100% enfocats a la conversió per convertir visites en clients finals.', 
-        icon: 'Settings'
-    },
-    { 
-        title: 'Consultoria de marketing', 
-        desc: 'Estratègia contínua per optimitzar la teva inversió. T\'ajudem a prendre les decisions empresarials correctes pel creixement del teu negoci.', 
-        icon: 'Target'
-    },
+    { title: 'Posicionament SEO',       href: '/ca/agencia-seo-per-pimes/',            icon: 'Search'      },
+    { title: 'Google Ads',              href: '/ca/agencia-sem-per-pimes/',            icon: 'TrendingUp'  },
+    { title: 'Disseny de pàgines web',  href: '/ca/disseny-web-per-pimes/',            icon: 'Settings'    },
+    { title: 'Consultoria de marketing',href: '/ca/consultoria-marketing-per-pimes/',  icon: 'Target'      },
 ];
 
 const icons: Record<string, any> = {
@@ -206,8 +190,8 @@ const homeSchema = {
                 </p>
                 
                 <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-6 mt-4">
-                    <a href="#contact" class="btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                        ESTRATÈGIES PER A PIMES
+                    <a href="#servicios" class="btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                        SERVEIS PER A PIMES
                     </a>
                     <button class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] sm:!bg-transparent sm:!text-black border-2 border-black sm:border-black/10 hover:border-black hover:!bg-zinc-50 sm:shadow-none !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black cursor-pointer hidden md:inline-flex justify-center items-center">
                         PARLEM DEL TEU PROJECTE
@@ -225,16 +209,13 @@ const homeSchema = {
     </section>
 
     <!-- ═══ GRID: SERVEIS 360 ══════════════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50 border-y border-black/5 relative overflow-hidden px-4 sm:px-6">
+    <section id="servicios" class="py-20 sm:py-32 bg-zinc-50 border-y border-black/5 relative overflow-hidden px-4 sm:px-6">
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 sm:mb-24 gap-6 md:gap-12">
                 <div class="reveal">
                     <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Serveis de marketing per a pimes</span>
                     <h2 class="text-3xl sm:text-6xl lg:text-7xl uppercase font-black tracking-tighter mb-2">Marketing 360º</h2>
                 </div>
-                <p class="text-zinc-500 max-w-md font-light text-sm sm:text-base tracking-wide leading-relaxed reveal">
-                   Les millors estratègies de marketing per a pimes <br class="hidden md:inline" /> implementades pel teu departament de marketing.
-                </p>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
@@ -255,16 +236,15 @@ const homeSchema = {
                                         <Fragment set:html={icons[s.icon]} />
                                     </div>
                                 </div>
-                                <h3 class="text-xl sm:text-2xl uppercase mb-4 tracking-tighter group-hover:text-accent transition-colors font-black text-zinc-900 border-b border-zinc-100 group-hover:border-accent/20 pb-2 w-fit">
-                                    {s.title}
+                                <h3 class="text-xl sm:text-2xl uppercase mb-4 tracking-tighter font-black text-zinc-900 border-b border-zinc-100 group-hover:border-accent/20 pb-2 w-fit">
+                                    <a href={s.href} class="hover:text-accent transition-colors">{s.title}</a>
                                 </h3>
-                                <p class="text-xs sm:text-sm text-zinc-500 leading-relaxed font-light">{s.desc}</p>
                             </div>
 
                             <div class="mt-8 pt-6 border-t border-zinc-50 flex items-center justify-between">
-                                <span class="text-[9px] font-black tracking-widest text-accent flex items-center gap-1 group-hover:gap-2 transition-all">
-                                    SABER MÁS <span class="text-sm">→</span>
-                                </span>
+                                <a href={s.href} class="text-[9px] font-black tracking-widest text-accent flex items-center gap-1 group-hover:gap-2 transition-all">
+                                    SABER MÉS <span class="text-sm">→</span>
+                                </a>
                             </div>
                         </div>
                     </div>

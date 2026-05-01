@@ -52,26 +52,10 @@ const faqItems = [
 
 // Defined 4 standard service cards for SMEs
 const services = [
-    { 
-        title: 'Posicionamiento SEO', 
-        desc: 'Optimizamos tu presencia en Google para que los clientes de tu zona te encuentren antes que a la competencia, multiplicando tus visitas de negocio.', 
-        icon: 'Search'
-    },
-    { 
-        title: 'Google Ads', 
-        desc: 'Campañas de publicidad de pago por clic (SEM) diseñadas para generar contactos cualificados y ventas inmediatas. El impulso que tu pyme necesita hoy.', 
-        icon: 'TrendingUp'
-    },
-    { 
-        title: 'Diseño de páginas web', 
-        desc: 'Sitios web desarrollados a medida para cada cliente. Atractivos, ultrarrápidos y 100% enfocados a la conversión para convertir visitas en clientes finales.', 
-        icon: 'Settings'
-    },
-    { 
-        title: 'Consultoría de marketing', 
-        desc: 'Estrategia continua para optimizar tu inversión. Te ayudamos a tomar las decisiones empresariales correctas para el crecimiento de tu negocio.', 
-        icon: 'Target'
-    },
+    { title: 'Posicionamiento SEO',     href: '/agencia-seo-para-pymes/',              icon: 'Search'      },
+    { title: 'Google Ads',              href: '/agencia-sem-para-pymes/',              icon: 'TrendingUp'  },
+    { title: 'Diseño de páginas web',   href: '/diseno-web-para-pymes/',               icon: 'Settings'    },
+    { title: 'Consultoría de marketing',href: '/consultoria-marketing-para-pymes/',    icon: 'Target'      },
 ];
 
 const icons: Record<string, any> = {
@@ -205,8 +189,8 @@ const homeSchema = {
                 </p>
                 
                 <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-6 mt-4">
-                    <a href="#contact" class="btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                        ESTRATEGIAS PARA PYMES
+                    <a href="#servicios" class="btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                        SERVICIOS PARA PYMES
                     </a>
                     <button class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] sm:!bg-transparent sm:!text-black border-2 border-black sm:border-black/10 hover:border-black hover:!bg-zinc-50 sm:shadow-none !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black cursor-pointer hidden md:inline-flex justify-center items-center">
                         HABLEMOS DE TU PROYECTO
@@ -224,16 +208,13 @@ const homeSchema = {
     </section>
 
     <!-- ═══ GRID: SERVICIOS 360 (v6 Standard Grid) ════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50 border-y border-black/5 relative overflow-hidden px-4 sm:px-6">
+    <section id="servicios" class="py-20 sm:py-32 bg-zinc-50 border-y border-black/5 relative overflow-hidden px-4 sm:px-6">
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 sm:mb-24 gap-6 md:gap-12">
                 <div class="reveal">
                     <h2 class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Servicios de marketing para pymes</h2>
                     <p class="text-4xl sm:text-6xl lg:text-7xl uppercase tracking-tighter mb-2 font-[Montserrat] font-black" style="font-family: 'Montserrat', sans-serif; font-weight: 900;">Marketing 360º</p>
                 </div>
-                <p class="text-zinc-500 max-w-md font-light text-sm sm:text-base tracking-wide leading-relaxed reveal">
-                   Las mejores estrategias de marketing para pymes <br class="hidden md:inline" /> implementadas por tu departamento de marketing.
-                </p>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
@@ -254,16 +235,15 @@ const homeSchema = {
                                         <Fragment set:html={icons[s.icon]} />
                                     </div>
                                 </div>
-                                <h3 class="text-xl sm:text-2xl uppercase mb-4 tracking-tighter group-hover:text-accent transition-colors font-black text-zinc-900 border-b border-zinc-100 group-hover:border-accent/20 pb-2 w-fit">
-                                    {s.title}
+                                <h3 class="text-xl sm:text-2xl uppercase mb-4 tracking-tighter font-black text-zinc-900 border-b border-zinc-100 group-hover:border-accent/20 pb-2 w-fit">
+                                    <a href={s.href} class="hover:text-accent transition-colors">{s.title}</a>
                                 </h3>
-                                <p class="text-xs sm:text-sm text-zinc-500 leading-relaxed font-light">{s.desc}</p>
                             </div>
 
                             <div class="mt-8 pt-6 border-t border-zinc-50 flex items-center justify-between">
-                                <span class="text-[9px] font-black tracking-widest text-accent flex items-center gap-1 group-hover:gap-2 transition-all">
+                                <a href={s.href} class="text-[9px] font-black tracking-widest text-accent flex items-center gap-1 group-hover:gap-2 transition-all">
                                     SABER MÁS <span class="text-sm">→</span>
-                                </span>
+                                </a>
                             </div>
                         </div>
                     </div>
