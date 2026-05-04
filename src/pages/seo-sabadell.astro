@@ -11,18 +11,18 @@ try {
 const faqs = [
   {
     q: '¿En cuánto tiempo veré resultados?',
-    a: 'Los primeros movimientos en posiciones suelen verse entre el 2.º y 3.er mes. Los resultados consolidados —más tráfico orgánico y más contactos— llegan entre el 4.º y 6.º mes. El SEO es una inversión a medio-largo plazo con resultados acumulativos.',
+    a: 'Los primeros movimientos en posiciones suelen verse entre el 2.º y 3.er mes. Los resultados consolidados llegan entre el 4.º y 6.º mes. El SEO es una inversión a medio-largo plazo con resultados acumulativos.',
   },
   {
     q: '¿Qué incluye exactamente el servicio SEO en Sabadell?',
-    a: 'Auditoría técnica completa, investigación de palabras clave locales y de nicho, optimización on-page, link building de calidad, creación de contenido SEO, optimización de Google Business Profile y reportes mensuales con métricas reales.',
+    a: 'Auditoría técnica completa, investigación de palabras clave locales, optimización on-page, link building de calidad, creación de contenido SEO, optimización de Google Business Profile y reportes mensuales con métricas reales.',
   },
   {
-    q: '¿Necesito tener una web nueva o podéis trabajar con la que tengo?',
-    a: 'Trabajamos con tu web actual. La auditoría inicial nos indica qué aspectos técnicos hay que mejorar. Si la web tiene limitaciones graves, te lo decimos con claridad y podemos ayudarte también con el rediseño.',
+    q: '¿Necesito una web nueva o trabajáis con la que tengo?',
+    a: 'Trabajamos con tu web actual. La auditoría inicial indica qué aspectos técnicos mejorar. Si la web tiene limitaciones graves, te lo decimos con claridad y podemos ayudarte también con el rediseño.',
   },
   {
-    q: '¿Probé SEO antes y no funcionó, ¿por qué sería diferente ahora?',
+    q: 'Probé SEO antes y no funcionó. ¿Por qué sería diferente?',
     a: 'El 80% de los casos en que el SEO "no funcionó" se debe a estrategias genéricas, falta de constancia o técnicas desactualizadas. Nuestra metodología se basa en auditoría real, competencia local de Sabadell y seguimiento mensual con KPIs de negocio.',
   },
   {
@@ -31,7 +31,7 @@ const faqs = [
   },
   {
     q: '¿Cómo sé que estáis trabajando realmente?',
-    a: 'Cada mes recibes un informe detallado con posiciones, tráfico orgánico, conversiones y acciones realizadas. También tienes acceso a un panel de seguimiento y una reunión mensual de revisión.',
+    a: 'Cada mes recibes un informe detallado con posiciones, tráfico orgánico, conversiones y acciones realizadas. Tienes acceso a un panel de seguimiento y una reunión mensual de revisión.',
   },
 ];
 ---
@@ -41,6 +41,8 @@ const faqs = [
   description="Posicionamiento SEO para pymes en Sabadell. Auditoría gratuita, estrategia local y resultados medibles. Primera consulta sin compromiso."
   noIndex={true}
   locale="es"
+  hideHeader={true}
+  hideFooter={true}
 >
 
 <!-- ─── Sending overlay ─── -->
@@ -49,7 +51,7 @@ const faqs = [
     <div class="w-16 h-16 rounded-full border-4 border-zinc-100 border-t-accent animate-spin"></div>
     <div>
       <div class="text-2xl font-black uppercase tracking-tighter text-black mb-2">Enviando...</div>
-      <p class="text-zinc-400 font-light text-sm">Procesando tu solicitud,<br>un momento por favor.</p>
+      <p class="text-zinc-400 font-light text-sm">Procesando tu solicitud, un momento.</p>
     </div>
     <div class="w-full bg-zinc-100 rounded-full h-1 overflow-hidden">
       <div id="lp-progress" class="h-full bg-accent rounded-full" style="width:0%;transition:width 0.4s ease"></div>
@@ -57,35 +59,56 @@ const faqs = [
   </div>
 </div>
 
+<!-- ═══ NAV LANDING ═══════════════════════════════════════════════════ -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-black/5">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-6">
+    <a href="/" class="font-black text-2xl tracking-tighter leading-none flex-shrink-0">nova.</a>
+    <nav class="hidden lg:flex items-center gap-8">
+      {[
+        { href: '#problema', label: '¿Cuál es tu problema?' },
+        { href: '#seo-negocio', label: 'SEO que genera negocio' },
+        { href: '#metodo', label: 'Método nova.' },
+        { href: '#casos', label: 'Casos de éxito' },
+        { href: '#resultados', label: 'Resultados' },
+      ].map(l => (
+        <a href={l.href} class="text-[11px] font-black uppercase tracking-widest text-zinc-500 hover:text-accent transition-colors">
+          {l.label}
+        </a>
+      ))}
+    </nav>
+    <a href="#solicitar" class="btn-mktg-v5 !py-2.5 !px-6 !text-[10px] !tracking-[0.15em] flex-shrink-0">
+      AUDITORÍA GRATIS
+    </a>
+  </div>
+</header>
+
 <!-- ═══ HERO ═══════════════════════════════════════════════════════════ -->
-<section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden bg-white border-b border-black/5">
+<section class="pt-28 sm:pt-36 pb-16 sm:pb-24 px-4 sm:px-6 relative overflow-hidden bg-white border-b border-black/5">
   <!-- Background mesh -->
   <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_40%,#000_70%,transparent_100%)]"></div>
-  <!-- Glow orbs -->
   <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
-  <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+  <div class="absolute top-20 right-1/3 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
 
   <div class="max-w-7xl mx-auto">
-    <div class="grid lg:grid-cols-2 gap-16 lg:gap-20 items-start">
+    <div class="grid lg:grid-cols-[2fr_1fr] gap-12 lg:gap-16 items-start">
 
-      <!-- Copy -->
+      <!-- Copy: 66% -->
       <div class="reveal">
         <h2 class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
           <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
           Agencia SEO · Sabadell
         </h2>
 
-        <h1 class="text-4xl sm:text-6xl lg:text-7xl uppercase font-black tracking-tighter leading-[0.85] mb-6 text-zinc-900">
+        <h1 class="text-5xl sm:text-7xl lg:text-8xl uppercase font-black tracking-tighter leading-[0.85] mb-6 text-zinc-900">
           Tu empresa,<br>
-          en los primeros<br>
-          <span class="text-mktg-gradient">resultados<br>de Google</span>
+          <span class="text-mktg-gradient">en los primeros resultados de Google</span>
         </h1>
 
-        <p class="text-base sm:text-xl text-zinc-500 font-light leading-relaxed max-w-xl mb-10">
-          Posicionamiento SEO local para pymes en Sabadell. Más visitas orgánicas, más llamadas, más clientes — sin depender de la publicidad de pago.
+        <p class="text-base sm:text-xl text-zinc-500 font-light leading-relaxed max-w-2xl mb-8">
+          Posicionamiento SEO local para pymes en Sabadell. Más visitas orgánicas, más llamadas, más clientes sin depender de la publicidad de pago.
         </p>
 
-        <div class="flex flex-wrap gap-4 mb-12">
+        <div class="flex flex-wrap items-center gap-x-8 gap-y-3 mb-12">
           {[
             'Auditoría SEO gratuita',
             'Estrategia local Sabadell',
@@ -100,73 +123,60 @@ const faqs = [
           ))}
         </div>
 
-        <!-- Stats -->
-        <div class="flex items-center gap-8 pt-8 border-t border-zinc-100">
+        <div class="flex items-center gap-10 pt-8 border-t border-zinc-100">
           <div>
-            <div class="text-4xl font-black tracking-tighter text-zinc-900">+80</div>
+            <div class="text-4xl sm:text-5xl font-black tracking-tighter text-zinc-900">+80</div>
             <div class="text-[9px] font-black uppercase tracking-[0.2em] text-accent">pymes activas</div>
           </div>
           <div class="w-px h-10 bg-zinc-100"></div>
           <div>
-            <div class="text-4xl font-black tracking-tighter text-zinc-900">+340%</div>
+            <div class="text-4xl sm:text-5xl font-black tracking-tighter text-zinc-900">+340%</div>
             <div class="text-[9px] font-black uppercase tracking-[0.2em] text-accent">tráfico medio</div>
           </div>
           <div class="w-px h-10 bg-zinc-100 hidden sm:block"></div>
           <div class="hidden sm:block">
-            <div class="text-4xl font-black tracking-tighter text-zinc-900">8 años</div>
+            <div class="text-4xl sm:text-5xl font-black tracking-tighter text-zinc-900">8 años</div>
             <div class="text-[9px] font-black uppercase tracking-[0.2em] text-accent">en Sabadell</div>
           </div>
         </div>
       </div>
 
-      <!-- Form -->
-      <div id="solicitar" class="reveal bg-white p-8 sm:p-12 shadow-[0_40px_100px_rgba(0,0,0,0.08)] rounded-sm border border-black/5">
-        <span class="text-[10px] font-black uppercase tracking-[0.5em] text-accent mb-4 block">Solicita tu auditoría</span>
-        <div class="text-2xl sm:text-3xl font-black uppercase tracking-tighter mb-2">GRATIS Y SIN COMPROMISO</div>
-        <p class="text-zinc-500 font-light text-sm mb-8">
-          Analizamos tu web y te decimos exactamente qué hay que hacer para posicionar tu negocio en Sabadell.
-        </p>
+      <!-- Form: 33% -->
+      <div id="solicitar" class="reveal">
+        <div class="bg-white rounded-3xl border-2 border-black/8 shadow-[0_20px_60px_rgba(0,0,0,0.1)] p-8">
+          <span class="text-[9px] font-black uppercase tracking-[0.4em] text-accent block mb-1">Sin compromiso</span>
+          <div class="text-xl font-black uppercase tracking-tighter mb-5 leading-tight">Auditoría SEO<br>gratuita</div>
 
-        <form id="seo-sabadell-form" class="space-y-8">
-          <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
-            <div class="flex flex-col gap-3">
-              <label class="opacity-30">Nombre *</label>
-              <input type="text" name="name" required class="border-b border-black/10 py-2 focus:border-accent outline-none transition-colors" />
+          <form id="seo-sabadell-form" class="space-y-5">
+            <div class="flex flex-col gap-2">
+              <label class="text-[9px] font-black uppercase tracking-widest opacity-40">Nombre *</label>
+              <input type="text" name="name" required class="border-b-2 border-zinc-200 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm" />
             </div>
-            <div class="flex flex-col gap-3">
-              <label class="opacity-30">Email *</label>
-              <input type="email" name="email" required class="border-b border-black/10 py-2 focus:border-accent outline-none transition-colors" />
+            <div class="flex flex-col gap-2">
+              <label class="text-[9px] font-black uppercase tracking-widest opacity-40">Email *</label>
+              <input type="email" name="email" required class="border-b-2 border-zinc-200 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm" />
             </div>
-          </div>
-
-          <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
-            <div class="flex flex-col gap-3">
-              <label class="opacity-30">Teléfono</label>
-              <input type="tel" name="phone" class="border-b border-black/10 py-2 focus:border-accent outline-none transition-colors" />
+            <div class="flex flex-col gap-2">
+              <label class="text-[9px] font-black uppercase tracking-widest opacity-40">Teléfono</label>
+              <input type="tel" name="phone" class="border-b-2 border-zinc-200 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm" />
             </div>
-            <div class="flex flex-col gap-3">
-              <label class="opacity-30">Web de tu empresa</label>
-              <input type="text" name="url" placeholder="www.tuempresa.com" class="border-b border-black/10 py-2 focus:border-accent outline-none transition-colors" />
+            <div class="flex flex-col gap-2">
+              <label class="text-[9px] font-black uppercase tracking-widest opacity-40">Web de tu empresa</label>
+              <input type="text" name="url" placeholder="www.tuempresa.com" class="border-b-2 border-zinc-200 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm" />
             </div>
-          </div>
 
-          <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
-            <label class="opacity-30">¿Cuál es tu mayor reto? (opcional)</label>
-            <textarea name="msg" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none transition-colors"></textarea>
-          </div>
+            <div class="flex items-start gap-2 pt-1">
+              <input type="checkbox" id="lp-terms" name="terms" required class="mt-0.5 accent-accent flex-shrink-0" />
+              <label for="lp-terms" class="text-[10px] text-zinc-400 font-light cursor-pointer select-none leading-tight">
+                Acepto la <a href="/politica-de-privacidad/" class="underline hover:text-accent transition-colors">política de privacidad</a>.
+              </label>
+            </div>
 
-          <div class="flex items-start gap-2">
-            <input type="checkbox" id="lp-terms" name="terms" required class="mt-1 accent-accent" />
-            <label for="lp-terms" class="text-xs text-zinc-500 font-light cursor-pointer select-none">
-              Acepto la <a href="/politica-de-privacidad/" class="underline hover:text-accent transition-colors">política de privacidad</a> y los términos y condiciones.
-            </label>
-          </div>
-
-          <button type="submit" id="lp-submit-btn" class="w-full btn-mktg-v5 !py-6 shadow-[0_10px_30px_rgba(37,211,102,0.25)]">
-            RECIBIR MI AUDITORÍA GRATIS
-          </button>
-          <p class="text-[10px] text-zinc-400 text-center font-light tracking-wide">Respuesta en menos de 24 horas · Sin compromiso</p>
-        </form>
+            <button type="submit" id="lp-submit-btn" class="w-full btn-mktg-v5 !py-4 shadow-[0_8px_20px_rgba(37,211,102,0.3)]">
+              SOLICITAR AUDITORÍA →
+            </button>
+          </form>
+        </div>
       </div>
 
     </div>
@@ -174,7 +184,7 @@ const faqs = [
 </section>
 
 <!-- ═══ PROBLEMAS ══════════════════════════════════════════════════════ -->
-<section class="py-20 sm:py-32 bg-zinc-50 border-y border-black/5 px-4 sm:px-6 relative overflow-hidden">
+<section id="problema" class="py-20 sm:py-32 bg-zinc-50 border-y border-black/5 px-4 sm:px-6 relative overflow-hidden">
   <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_80%,transparent_100%)]"></div>
   <div class="max-w-7xl mx-auto relative z-10">
     <div class="text-center mb-16 sm:mb-24 reveal">
@@ -186,12 +196,12 @@ const faqs = [
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {[
-        { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`, title: 'No apareces en Google', desc: 'Buscas tu empresa o tus servicios en Google y no apareces ni en la primera página. Tus competidores sí están ahí.' },
-        { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>`, title: 'Tu web no genera clientes', desc: 'Tienes una web bonita pero no recibe visitas. El poco tráfico que llega no se convierte en contactos ni ventas.' },
-        { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`, title: 'Dependes de publicidad de pago', desc: 'Inviertes en Google Ads cada mes pero en cuanto paras, el tráfico desaparece. No tienes visibilidad orgánica propia.' },
-        { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`, title: 'No te encuentran en Sabadell', desc: 'Clientes potenciales cerca de ti buscan tus servicios pero acaban en la competencia porque no apareces localmente.' },
-        { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`, title: 'Probaste SEO y no funcionó', desc: 'Ya invertiste en SEO antes y no viste resultados. No sabes qué hicieron ni por qué no funcionó exactamente.' },
-        { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`, title: 'No tienes tiempo para gestionarlo', desc: 'Sabes que el SEO es importante pero llevar el negocio no te deja tiempo para aprender y aplicarlo correctamente.' },
+        { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`, title: 'No apareces en Google', desc: 'Buscas tu empresa en Google y no apareces ni en la primera página. Tus competidores sí están ahí.' },
+        { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>`, title: 'Tu web no genera clientes', desc: 'Tienes una web bonita pero no recibe visitas. El poco tráfico que llega no se convierte en contactos.' },
+        { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`, title: 'Dependes de publicidad de pago', desc: 'Inviertes en Google Ads cada mes pero en cuanto paras, el tráfico desaparece. Sin visibilidad propia.' },
+        { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`, title: 'No te encuentran en Sabadell', desc: 'Clientes potenciales cerca de ti buscan tus servicios pero acaban en la competencia.' },
+        { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`, title: 'Probaste SEO y no funcionó', desc: 'Ya invertiste en SEO antes y no viste resultados. No sabes qué hicieron ni por qué falló.' },
+        { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`, title: 'No tienes tiempo para gestionarlo', desc: 'Sabes que el SEO es importante pero llevar el negocio no te deja tiempo para aprenderlo.' },
       ].map((p, i) => (
         <div class="group p-8 sm:p-10 bg-white border border-zinc-100/60 rounded-3xl hover:border-accent/20 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden flex flex-col reveal" style={`transition-delay: ${i * 80}ms`}>
           <div class="absolute bottom-0 inset-x-0 h-1 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
@@ -206,16 +216,15 @@ const faqs = [
 
     <div class="mt-16 text-center reveal">
       <a href="#solicitar" class="btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)]">
-        QUIERO SOLUCIONARLO →
+        QUIERO SOLUCIONARLO
       </a>
     </div>
   </div>
 </section>
 
 <!-- ═══ MÉTODO ════════════════════════════════════════════════════════ -->
-<section class="py-20 sm:py-32 bg-accent px-4 sm:px-6">
+<section id="seo-negocio" class="py-20 sm:py-32 bg-accent px-4 sm:px-6">
   <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
-
     <div class="reveal text-white">
       <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 sm:mb-10 block opacity-70">Nuestro enfoque</span>
       <div class="text-4xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.82] mb-8 sm:mb-10">
@@ -248,12 +257,11 @@ const faqs = [
         </div>
       ))}
     </div>
-
   </div>
 </section>
 
 <!-- ═══ PROCESO ═══════════════════════════════════════════════════════ -->
-<section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
+<section id="metodo" class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
   <div class="absolute -top-40 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl opacity-20 animate-pulse"></div>
   <div class="max-w-7xl mx-auto">
     <div class="text-center mb-16 sm:mb-24 reveal">
@@ -268,16 +276,16 @@ const faqs = [
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {[
-        { step: '01', title: 'Auditoría gratuita', desc: 'Analizamos tu web y te enviamos un informe con los puntos de mejora más importantes. Sin coste, sin compromiso.' },
+        { step: '01', title: 'Auditoría gratuita', desc: 'Analizamos tu web y te enviamos un informe con los puntos de mejora más importantes. Sin coste ni compromiso.' },
         { step: '02', title: 'Propuesta personalizada', desc: 'Elaboramos una estrategia SEO adaptada a tu sector, competencia y presupuesto en Sabadell.' },
-        { step: '03', title: 'Onboarding y accesos', desc: 'Configuramos herramientas, accesos y establecemos los KPIs que vamos a seguir juntos desde el primer día.' },
+        { step: '03', title: 'Onboarding y accesos', desc: 'Configuramos herramientas, accesos y establecemos los KPIs que seguiremos juntos desde el primer día.' },
         { step: '04', title: 'Optimización técnica', desc: 'Corregimos los errores técnicos de tu web que impiden que Google la indexe y posicione correctamente.' },
         { step: '05', title: 'Contenido y posicionamiento', desc: 'Creamos y optimizamos páginas que responden a las búsquedas de tus clientes en Sabadell y zona.' },
         { step: '06', title: 'Seguimiento mensual', desc: 'Informe mensual con posiciones, tráfico y conversiones. Reunión de revisión incluida cada mes.' },
       ].map((p, i) => (
         <div class="group p-8 sm:p-10 bg-white border border-zinc-100/60 rounded-3xl hover:border-accent/20 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden flex flex-col reveal" style={`transition-delay: ${i * 80}ms`}>
           <div class="absolute bottom-0 inset-x-0 h-1 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
-          <div class="text-4xl font-black tracking-tighter text-black/5 group-hover:text-accent/10 transition-colors mb-4 select-none">{p.step}</div>
+          <div class="text-5xl font-black tracking-tighter text-black/5 group-hover:text-accent/10 transition-colors mb-4 select-none">{p.step}</div>
           <h3 class="text-lg sm:text-xl font-black uppercase tracking-tighter mb-3 text-zinc-900">{p.title}</h3>
           <p class="text-sm text-zinc-500 font-light leading-relaxed">{p.desc}</p>
         </div>
@@ -288,7 +296,7 @@ const faqs = [
 
 <!-- ═══ CASOS DE ÉXITO ═════════════════════════════════════════════════ -->
 {caseStudies.length > 0 && (
-<section class="py-20 sm:py-32 bg-zinc-50 border-y border-black/5 px-4 sm:px-6 relative overflow-hidden">
+<section id="casos" class="py-20 sm:py-32 bg-zinc-50 border-y border-black/5 px-4 sm:px-6 relative overflow-hidden">
   <div class="max-w-7xl mx-auto">
     <div class="mb-16 sm:mb-24 reveal">
       <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultados probados</span>
@@ -350,7 +358,7 @@ const faqs = [
 )}
 
 <!-- ═══ TABLA COMPARATIVA ══════════════════════════════════════════════ -->
-<section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
+<section id="resultados" class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
   <div class="absolute -bottom-40 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl opacity-10"></div>
   <div class="max-w-4xl mx-auto">
     <div class="text-center mb-16 sm:mb-24 reveal">
@@ -390,7 +398,7 @@ const faqs = [
 
     <div class="mt-12 text-center reveal">
       <a href="#solicitar" class="btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)]">
-        QUIERO POSICIONAR MI EMPRESA →
+        QUIERO POSICIONAR MI EMPRESA
       </a>
     </div>
   </div>
@@ -406,14 +414,10 @@ const faqs = [
       </h2>
     </div>
 
-    <div class="space-y-3 reveal" id="faq-list">
+    <div class="space-y-3 reveal">
       {faqs.map((faq, i) => (
         <div class="faq-item bg-white border border-zinc-100/60 rounded-3xl overflow-hidden hover:border-accent/20 transition-colors">
-          <button
-            class="faq-trigger w-full text-left px-8 py-6 flex items-center justify-between gap-4"
-            data-index={i}
-            aria-expanded="false"
-          >
+          <button class="faq-trigger w-full text-left px-8 py-6 flex items-center justify-between gap-4" aria-expanded="false">
             <span class="text-sm font-black uppercase tracking-tight text-zinc-900">{faq.q}</span>
             <div class="faq-icon-wrap w-8 h-8 rounded-full bg-zinc-50 border border-zinc-100 flex items-center justify-center flex-shrink-0 transition-all duration-300">
               <svg class="faq-icon w-4 h-4 text-zinc-400 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -433,20 +437,16 @@ const faqs = [
 <!-- ═══ CTA FINAL ══════════════════════════════════════════════════════ -->
 <section class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
   <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
-
     <div class="reveal text-white">
       <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 sm:mb-12 block opacity-70">SIN COMPROMISO</span>
       <div class="text-5xl sm:text-8xl font-black uppercase tracking-tighter leading-[0.82] mb-8 sm:mb-12">
         EMPIEZA<br>A CRECER<br>HOY
       </div>
-      <div class="space-y-6 text-base sm:text-xl">
-        <p class="font-light max-w-md opacity-80">Solicita tu auditoría SEO gratuita y te llamamos en menos de 24 horas para contarte exactamente qué podemos hacer por tu negocio en Sabadell.</p>
-        <ul class="text-[9px] sm:text-xs font-black tracking-widest space-y-3 uppercase opacity-90">
-          <li>→ AUDITORÍA TÉCNICA GRATIS</li>
-          <li>→ ANÁLISIS DE COMPETENCIA LOCAL</li>
-          <li>→ PROPUESTA DE KEYWORDS EN SABADELL</li>
-        </ul>
-      </div>
+      <ul class="text-[9px] sm:text-xs font-black tracking-widest space-y-3 uppercase opacity-90 text-white">
+        <li>→ AUDITORÍA TÉCNICA GRATIS</li>
+        <li>→ ANÁLISIS DE COMPETENCIA LOCAL</li>
+        <li>→ PROPUESTA DE KEYWORDS EN SABADELL</li>
+      </ul>
     </div>
 
     <div class="reveal">
@@ -482,9 +482,21 @@ const faqs = [
         </form>
       </div>
     </div>
-
   </div>
 </section>
+
+<!-- ─── Minimal footer ─── -->
+<footer class="py-8 bg-white border-t border-black/5">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <a href="/" class="font-black text-xl tracking-tighter text-black leading-none">nova.</a>
+    <div class="flex items-center gap-6 text-[10px] text-zinc-400 font-light">
+      <a href="/politica-de-privacidad/" class="hover:text-accent transition-colors uppercase tracking-widest font-black">Privacidad</a>
+      <a href="/aviso-legal/" class="hover:text-accent transition-colors uppercase tracking-widest font-black">Aviso legal</a>
+      <a href="/cookies/" class="hover:text-accent transition-colors uppercase tracking-widest font-black">Cookies</a>
+    </div>
+    <p class="text-[10px] text-zinc-400 font-light">&copy; {new Date().getFullYear()} Nova Marketing · Sabadell</p>
+  </div>
+</footer>
 
 </BaseLayout>
 
@@ -494,33 +506,32 @@ const faqs = [
     btn.addEventListener('click', () => {
       const item = btn.closest('.faq-item')!;
       const answer = item.querySelector('.faq-answer')!;
-      const icon = btn.querySelector('.faq-icon')!;
+      const icon = btn.querySelector('.faq-icon') as SVGElement | null;
       const wrap = btn.querySelector('.faq-icon-wrap')!;
       const isOpen = !answer.classList.contains('hidden');
 
       document.querySelectorAll('.faq-answer').forEach(a => a.classList.add('hidden'));
-      document.querySelectorAll('.faq-icon').forEach(i => i.classList.remove('rotate-45'));
+      document.querySelectorAll('.faq-icon').forEach(i => (i as SVGElement).style.transform = '');
       document.querySelectorAll('.faq-icon-wrap').forEach(w => {
         w.classList.remove('bg-accent', 'border-accent');
         w.classList.add('bg-zinc-50', 'border-zinc-100');
       });
+      document.querySelectorAll('.faq-icon svg, .faq-icon').forEach(i => (i as HTMLElement).style.color = '');
       document.querySelectorAll('.faq-trigger').forEach(b => b.setAttribute('aria-expanded', 'false'));
 
       if (!isOpen) {
         answer.classList.remove('hidden');
-        icon.classList.add('rotate-45');
+        if (icon) icon.style.transform = 'rotate(45deg)';
         wrap.classList.remove('bg-zinc-50', 'border-zinc-100');
         wrap.classList.add('bg-accent', 'border-accent');
-        (icon as SVGElement).style.color = 'white';
+        if (icon) icon.style.color = 'white';
         btn.setAttribute('aria-expanded', 'true');
-      } else {
-        (icon as SVGElement).style.color = '';
       }
     });
   });
 
-  // Form submission helper
-  async function handleFormSubmit(formId: string, btnId: string) {
+  // Form submission
+  async function handleForm(formId: string, btnId: string) {
     const form = document.getElementById(formId) as HTMLFormElement | null;
     const btn = document.getElementById(btnId) as HTMLButtonElement | null;
     const overlay = document.getElementById('lp-sending');
@@ -532,12 +543,10 @@ const faqs = [
       overlay?.classList.remove('hidden');
       if (bar) {
         setTimeout(() => { bar.style.width = '40%'; }, 50);
-        setTimeout(() => { bar.style.width = '70%'; }, 600);
-        setTimeout(() => { bar.style.width = '85%'; }, 1800);
+        setTimeout(() => { bar.style.width = '72%'; }, 700);
+        setTimeout(() => { bar.style.width = '88%'; }, 1800);
       }
-
       const data = { ...Object.fromEntries(new FormData(form)), source: window.location.href };
-
       try {
         const res = await fetch('https://cms.novamarketing.es/api/contact', {
           method: 'POST',
@@ -547,21 +556,19 @@ const faqs = [
         if (res.ok) {
           if (bar) bar.style.width = '100%';
           setTimeout(() => { window.location.href = '/gracias/'; }, 400);
-        } else {
-          throw new Error('Error');
-        }
+        } else { throw new Error(); }
       } catch {
         overlay?.classList.add('hidden');
         if (bar) bar.style.width = '0%';
         if (btn) {
           btn.disabled = false;
           btn.textContent = 'ERROR — INTÉNTALO DE NUEVO';
-          btn.style.background = '#ef4444';
+          (btn as HTMLElement).style.background = '#ef4444';
         }
       }
     });
   }
 
-  handleFormSubmit('seo-sabadell-form', 'lp-submit-btn');
-  handleFormSubmit('seo-sabadell-form-bottom', 'lp-submit-btn-2');
+  handleForm('seo-sabadell-form', 'lp-submit-btn');
+  handleForm('seo-sabadell-form-bottom', 'lp-submit-btn-2');
 </script>

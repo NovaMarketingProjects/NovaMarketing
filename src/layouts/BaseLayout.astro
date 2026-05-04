@@ -27,6 +27,8 @@ interface Props {
   seo?: SeoFields;
   schemas?: object[];
   settings?: GlobalSettings;
+  hideHeader?: boolean;
+  hideFooter?: boolean;
 }
 
 const {
@@ -41,6 +43,8 @@ const {
   seo,
   schemas = [],
   settings,
+  hideHeader = false,
+  hideFooter = false,
 } = Astro.props;
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
@@ -137,13 +141,13 @@ const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
   <canvas id="canvas-bg"></canvas>
   <div class="cursor-glow" id="cursor-glow"></div>
 
-  <Header locale={locale} alternates={alternates} settings={settings} />
+  {!hideHeader && <Header locale={locale} alternates={alternates} settings={settings} />}
 
   <main id="main-content">
     <slot />
   </main>
 
-  <Footer locale={locale} settings={settings} />
+  {!hideFooter && <Footer locale={locale} settings={settings} />}
 
   <CtaSticky locale={locale} settings={settings} />
   <ContactModal locale={locale} />
