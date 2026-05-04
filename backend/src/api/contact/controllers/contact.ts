@@ -138,7 +138,7 @@ export default {
       await transporter.sendMail({
         from: `"nova." <${SMTP_USER}>`,
         to: CONTACT_TO,
-        subject: `Nueva consulta de ${name}`,
+        subject: 'Nueva consulta en Nova Marketing',
         text: adminText,
         replyTo: email,
       });
