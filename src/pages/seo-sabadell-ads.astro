@@ -143,20 +143,30 @@ const faqs = [
           ))}
         </div>
 
-        <div class="flex items-center gap-8 pt-6 border-t border-zinc-100">
-          <div>
-            <div class="text-3xl sm:text-4xl font-black tracking-tighter text-zinc-900">+80</div>
-            <div class="text-[9px] font-black uppercase tracking-[0.2em] text-accent">pymes activas</div>
+        <!-- Urgency countdown banner -->
+        <div class="mt-6 bg-black rounded-2xl px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 relative overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-r from-accent/10 via-transparent to-purple-600/10 pointer-events-none"></div>
+          <div class="relative z-10">
+            <p class="text-[9px] font-black uppercase tracking-[0.3em] text-accent mb-0.5">Oferta limitada</p>
+            <p class="text-white font-black uppercase tracking-tight text-sm leading-tight">
+              Auditoría gratuita solo<br class="sm:hidden"> las próximas horas
+            </p>
           </div>
-          <div class="w-px h-8 bg-zinc-100"></div>
-          <div>
-            <div class="text-3xl sm:text-4xl font-black tracking-tighter text-zinc-900">+340%</div>
-            <div class="text-[9px] font-black uppercase tracking-[0.2em] text-accent">tráfico medio</div>
-          </div>
-          <div class="w-px h-8 bg-zinc-100 hidden sm:block"></div>
-          <div class="hidden sm:block">
-            <div class="text-3xl sm:text-4xl font-black tracking-tighter text-zinc-900">8 años</div>
-            <div class="text-[9px] font-black uppercase tracking-[0.2em] text-accent">en Sabadell</div>
+          <div class="relative z-10 flex items-center gap-2 flex-shrink-0">
+            <div class="flex flex-col items-center">
+              <div id="cd-hh" class="bg-white/10 border border-white/10 rounded-xl w-14 h-12 flex items-center justify-center text-xl font-black tracking-tighter text-white">--</div>
+              <span class="text-[7px] font-black uppercase tracking-[0.2em] text-zinc-500 mt-1">HH</span>
+            </div>
+            <span class="text-white/40 font-black text-xl pb-4">:</span>
+            <div class="flex flex-col items-center">
+              <div id="cd-mm" class="bg-white/10 border border-white/10 rounded-xl w-14 h-12 flex items-center justify-center text-xl font-black tracking-tighter text-white">--</div>
+              <span class="text-[7px] font-black uppercase tracking-[0.2em] text-zinc-500 mt-1">MM</span>
+            </div>
+            <span class="text-white/40 font-black text-xl pb-4">:</span>
+            <div class="flex flex-col items-center">
+              <div id="cd-ss" class="bg-white/10 border border-white/10 rounded-xl w-14 h-12 flex items-center justify-center text-xl font-black tracking-tighter text-white">--</div>
+              <span class="text-[7px] font-black uppercase tracking-[0.2em] text-zinc-500 mt-1">SS</span>
+            </div>
           </div>
         </div>
       </div>
@@ -595,4 +605,34 @@ const faqs = [
 
   handleForm('seo-sabadell-form', 'lp-submit-btn');
   handleForm('seo-sabadell-form-bottom', 'lp-submit-btn-2');
+
+  // Countdown — random 2-6h, persisted in localStorage
+  (function () {
+    const KEY = 'nova_seo_cd_end';
+    let endTs = parseInt(localStorage.getItem(KEY) || '0', 10);
+    if (!endTs || endTs <= Date.now()) {
+      const hoursRandom = 2 + Math.random() * 4; // 2–6 h
+      endTs = Date.now() + Math.round(hoursRandom * 3600 * 1000);
+      localStorage.setItem(KEY, String(endTs));
+    }
+
+    const hhEl = document.getElementById('cd-hh');
+    const mmEl = document.getElementById('cd-mm');
+    const ssEl = document.getElementById('cd-ss');
+    if (!hhEl || !mmEl || !ssEl) return;
+
+    function pad(n: number) { return String(n).padStart(2, '0'); }
+
+    function tick() {
+      const diff = Math.max(0, endTs - Date.now());
+      const h = Math.floor(diff / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      hhEl.textContent = pad(h);
+      mmEl.textContent = pad(m);
+      ssEl.textContent = pad(s);
+      if (diff > 0) requestAnimationFrame(tick);
+    }
+    tick();
+  })();
 </script>
