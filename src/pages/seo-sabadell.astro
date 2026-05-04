@@ -4,8 +4,20 @@ import { strapiClient, getStrapiImageUrl } from '../lib/strapi';
 
 let caseStudies: any[] = [];
 try {
-  const res = await strapiClient.getCaseStudies('es', { category: 'seo', limit: 3 });
-  caseStudies = res?.data?.map((i: any) => i.attributes ?? i) ?? [];
+  const res = await strapiClient.getCaseStudies('es', { limit: 50 });
+  const allCases = res?.data?.map((i: any) => i.attributes ?? i) ?? [];
+  const seoSlugs = ['seo', 'seo-local', 'consultoria-seo', 'posicionamiento-seo'];
+  caseStudies = allCases
+    .filter((cs: any) => {
+      if (!cs.slug) return false;
+      const cats: any[] = cs.categories || [];
+      return cats.some((c: any) => {
+        const name: string = (c.name || c.attributes?.name || '').toLowerCase();
+        const slug: string = (c.slug || c.attributes?.slug || '').toLowerCase();
+        return name.includes('seo') || seoSlugs.includes(slug);
+      });
+    })
+    .slice(0, 3);
 } catch (_) {}
 
 const faqs = [
@@ -100,7 +112,7 @@ const faqs = [
       <div class="reveal">
         <h2 class="inline-flex items-center gap-2 bg-accent/10 backdrop-blur-sm px-5 py-2.5 border border-accent/25 rounded-full text-accent text-[12px] font-black uppercase tracking-[0.25em] mb-6 shadow-sm">
           <span class="w-2 h-2 bg-accent rounded-full animate-ping"></span>
-          Agencia SEO · Sabadell
+          Agencia SEO en Sabadell
         </h2>
 
         <h1 class="text-4xl sm:text-6xl lg:text-7xl uppercase font-black tracking-tighter leading-[0.88] mb-5 text-zinc-900">
@@ -152,7 +164,8 @@ const faqs = [
       <!-- Form: 33% -->
       <div id="solicitar" class="reveal">
         <div class="bg-white rounded-3xl border-2 border-black/8 shadow-[0_20px_60px_rgba(0,0,0,0.1)] p-7">
-          <div class="text-2xl font-black uppercase tracking-tighter mb-5 leading-none">Auditoría SEO Gratuita</div>
+          <span class="text-[9px] font-black uppercase tracking-[0.4em] text-accent block mb-2">Sin compromiso</span>
+          <div class="text-2xl font-[900] uppercase tracking-tighter mb-5 leading-none">Auditoría SEO Gratuita</div>
 
           <form id="seo-sabadell-form" class="space-y-4">
             <div class="flex flex-col gap-1.5">
@@ -179,7 +192,7 @@ const faqs = [
             <div class="flex items-start gap-2 pt-1">
               <input type="checkbox" id="lp-terms" name="terms" required class="mt-0.5 accent-accent flex-shrink-0" />
               <label for="lp-terms" class="text-[10px] text-zinc-400 font-light cursor-pointer select-none leading-tight">
-                Acepto la <a href="/politica-de-privacidad/" class="underline hover:text-accent transition-colors">política de privacidad</a>.
+                Acepto la <a href="/privacidad/" class="underline hover:text-accent transition-colors">política de privacidad</a>.
               </label>
             </div>
 
@@ -484,7 +497,7 @@ const faqs = [
           <div class="flex items-start gap-2">
             <input type="checkbox" id="lp-terms-2" name="terms" required class="mt-1 accent-accent" />
             <label for="lp-terms-2" class="text-xs text-zinc-500 font-light cursor-pointer select-none">
-              Acepto la <a href="/politica-de-privacidad/" class="underline hover:text-accent transition-colors">política de privacidad</a>.
+              Acepto la <a href="/privacidad/" class="underline hover:text-accent transition-colors">política de privacidad</a>.
             </label>
           </div>
           <button type="submit" id="lp-submit-btn-2" class="w-full btn-mktg-v5 !py-6 sm:!py-8">
@@ -501,7 +514,7 @@ const faqs = [
   <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
     <a href="/" class="font-black text-xl tracking-tighter text-black leading-none">nova.</a>
     <div class="flex items-center gap-6 text-[10px] text-zinc-400 font-light">
-      <a href="/politica-de-privacidad/" class="hover:text-accent transition-colors uppercase tracking-widest font-black">Privacidad</a>
+      <a href="/privacidad/" class="hover:text-accent transition-colors uppercase tracking-widest font-black">Privacidad</a>
       <a href="/aviso-legal/" class="hover:text-accent transition-colors uppercase tracking-widest font-black">Aviso legal</a>
       <a href="/cookies/" class="hover:text-accent transition-colors uppercase tracking-widest font-black">Cookies</a>
     </div>
