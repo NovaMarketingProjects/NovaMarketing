@@ -60,10 +60,14 @@ const faqs = [
 </div>
 
 <!-- ═══ NAV LANDING ═══════════════════════════════════════════════════ -->
-<header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-black/5">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-6">
-    <a href="/" class="font-black text-2xl tracking-tighter leading-none flex-shrink-0">nova.</a>
-    <nav class="hidden lg:flex items-center gap-8">
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-black/5 py-2 sm:py-3 leading-none">
+  <div class="relative w-full px-6 sm:px-12 md:px-24 lg:px-32 xl:px-44 flex items-center justify-between h-12 md:h-14 gap-6">
+    <a href="/" class="flex items-center h-full flex-shrink-0">
+      <div class="text-[2.8rem] sm:text-[3rem] font-heading font-black tracking-tighter leading-none flex items-center -translate-y-0.5">
+        <span class="hover-animate-gradient">nova.</span>
+      </div>
+    </a>
+    <nav class="hidden lg:flex items-center gap-6 xl:gap-8">
       {[
         { href: '#problema', label: '¿Cuál es tu problema?' },
         { href: '#seo-negocio', label: 'SEO que genera negocio' },
@@ -71,44 +75,48 @@ const faqs = [
         { href: '#casos', label: 'Casos de éxito' },
         { href: '#resultados', label: 'Resultados' },
       ].map(l => (
-        <a href={l.href} class="text-[11px] font-black uppercase tracking-widest text-zinc-500 hover:text-accent transition-colors">
+        <a href={l.href} class="text-[11px] font-bold uppercase tracking-[0.15em] text-zinc-700 hover:text-accent transition-colors whitespace-nowrap">
           {l.label}
         </a>
       ))}
     </nav>
-    <a href="#solicitar" class="btn-mktg-v5 !py-2.5 !px-6 !text-[10px] !tracking-[0.15em] flex-shrink-0">
+    <a href="#solicitar" class="btn-mktg-v5 !py-3 !px-6 !text-[11px] font-black flex-shrink-0">
       AUDITORÍA GRATIS
     </a>
   </div>
 </header>
 
 <!-- ═══ HERO ═══════════════════════════════════════════════════════════ -->
-<section class="pt-28 sm:pt-36 pb-16 sm:pb-24 px-4 sm:px-6 relative overflow-hidden bg-white border-b border-black/5">
+<section class="min-h-[100dvh] flex items-center px-4 sm:px-6 relative overflow-hidden bg-white border-b border-black/5 pt-16 pb-8">
   <!-- Background mesh -->
   <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_40%,#000_70%,transparent_100%)]"></div>
   <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
   <div class="absolute top-20 right-1/3 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
 
-  <div class="max-w-7xl mx-auto">
-    <div class="grid lg:grid-cols-[2fr_1fr] gap-12 lg:gap-16 items-start">
+  <div class="max-w-7xl mx-auto w-full">
+    <div class="grid lg:grid-cols-[2fr_1fr] gap-10 lg:gap-14 items-center">
 
       <!-- Copy: 66% -->
       <div class="reveal">
-        <h2 class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
+        <h2 class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[10px] font-black uppercase tracking-[0.3em] mb-6 shadow-sm">
           <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
           Agencia SEO · Sabadell
         </h2>
 
-        <h1 class="text-5xl sm:text-7xl lg:text-8xl uppercase font-black tracking-tighter leading-[0.85] mb-6 text-zinc-900">
-          Tu empresa,<br>
-          <span class="text-mktg-gradient">en los primeros resultados de Google</span>
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl uppercase font-black tracking-tighter leading-[0.88] mb-5 text-zinc-900">
+          Aparece en el #1<br>
+          <span class="text-mktg-gradient">de Google</span>
         </h1>
 
-        <p class="text-base sm:text-xl text-zinc-500 font-light leading-relaxed max-w-2xl mb-8">
-          Posicionamiento SEO local para pymes en Sabadell. Más visitas orgánicas, más llamadas, más clientes sin depender de la publicidad de pago.
+        <p class="text-lg sm:text-2xl font-black uppercase tracking-tighter text-zinc-400 mb-5">
+          Auditoría gratuita de SEO
         </p>
 
-        <div class="flex flex-wrap items-center gap-x-8 gap-y-3 mb-12">
+        <p class="text-base text-zinc-500 font-light leading-relaxed max-w-xl mb-6">
+          Posicionamiento SEO local para pymes en Sabadell. Más visitas orgánicas, más llamadas y más clientes sin depender de la publicidad de pago.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-x-6 gap-y-2 mb-8">
           {[
             'Auditoría SEO gratuita',
             'Estrategia local Sabadell',
@@ -123,19 +131,19 @@ const faqs = [
           ))}
         </div>
 
-        <div class="flex items-center gap-10 pt-8 border-t border-zinc-100">
+        <div class="flex items-center gap-8 pt-6 border-t border-zinc-100">
           <div>
-            <div class="text-4xl sm:text-5xl font-black tracking-tighter text-zinc-900">+80</div>
+            <div class="text-3xl sm:text-4xl font-black tracking-tighter text-zinc-900">+80</div>
             <div class="text-[9px] font-black uppercase tracking-[0.2em] text-accent">pymes activas</div>
           </div>
-          <div class="w-px h-10 bg-zinc-100"></div>
+          <div class="w-px h-8 bg-zinc-100"></div>
           <div>
-            <div class="text-4xl sm:text-5xl font-black tracking-tighter text-zinc-900">+340%</div>
+            <div class="text-3xl sm:text-4xl font-black tracking-tighter text-zinc-900">+340%</div>
             <div class="text-[9px] font-black uppercase tracking-[0.2em] text-accent">tráfico medio</div>
           </div>
-          <div class="w-px h-10 bg-zinc-100 hidden sm:block"></div>
+          <div class="w-px h-8 bg-zinc-100 hidden sm:block"></div>
           <div class="hidden sm:block">
-            <div class="text-4xl sm:text-5xl font-black tracking-tighter text-zinc-900">8 años</div>
+            <div class="text-3xl sm:text-4xl font-black tracking-tighter text-zinc-900">8 años</div>
             <div class="text-[9px] font-black uppercase tracking-[0.2em] text-accent">en Sabadell</div>
           </div>
         </div>
@@ -143,24 +151,24 @@ const faqs = [
 
       <!-- Form: 33% -->
       <div id="solicitar" class="reveal">
-        <div class="bg-white rounded-3xl border-2 border-black/8 shadow-[0_20px_60px_rgba(0,0,0,0.1)] p-8">
+        <div class="bg-white rounded-3xl border-2 border-black/8 shadow-[0_20px_60px_rgba(0,0,0,0.1)] p-7">
           <span class="text-[9px] font-black uppercase tracking-[0.4em] text-accent block mb-1">Sin compromiso</span>
-          <div class="text-xl font-black uppercase tracking-tighter mb-5 leading-tight">Auditoría SEO<br>gratuita</div>
+          <div class="text-lg font-black uppercase tracking-tighter mb-5 leading-tight">Auditoría SEO<br>gratuita</div>
 
-          <form id="seo-sabadell-form" class="space-y-5">
-            <div class="flex flex-col gap-2">
+          <form id="seo-sabadell-form" class="space-y-4">
+            <div class="flex flex-col gap-1.5">
               <label class="text-[9px] font-black uppercase tracking-widest opacity-40">Nombre *</label>
               <input type="text" name="name" required class="border-b-2 border-zinc-200 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm" />
             </div>
-            <div class="flex flex-col gap-2">
+            <div class="flex flex-col gap-1.5">
               <label class="text-[9px] font-black uppercase tracking-widest opacity-40">Email *</label>
               <input type="email" name="email" required class="border-b-2 border-zinc-200 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm" />
             </div>
-            <div class="flex flex-col gap-2">
+            <div class="flex flex-col gap-1.5">
               <label class="text-[9px] font-black uppercase tracking-widest opacity-40">Teléfono</label>
               <input type="tel" name="phone" class="border-b-2 border-zinc-200 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm" />
             </div>
-            <div class="flex flex-col gap-2">
+            <div class="flex flex-col gap-1.5">
               <label class="text-[9px] font-black uppercase tracking-widest opacity-40">Web de tu empresa</label>
               <input type="text" name="url" placeholder="www.tuempresa.com" class="border-b-2 border-zinc-200 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm" />
             </div>
