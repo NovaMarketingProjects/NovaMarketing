@@ -144,28 +144,32 @@ const faqs = [
         </div>
 
         <!-- Urgency countdown banner -->
-        <div class="mt-6 bg-black rounded-2xl px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 relative overflow-hidden">
-          <div class="absolute inset-0 bg-gradient-to-r from-accent/10 via-transparent to-purple-600/10 pointer-events-none"></div>
-          <div class="relative z-10">
-            <p class="text-[9px] font-black uppercase tracking-[0.3em] text-accent mb-0.5">Oferta limitada</p>
-            <p class="text-white font-black uppercase tracking-tight text-sm leading-tight">
-              Auditoría gratuita solo<br class="sm:hidden"> las próximas horas
+        <div class="mt-6 bg-black rounded-2xl px-6 pt-5 pb-6 relative overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-br from-accent/10 via-transparent to-purple-600/10 pointer-events-none"></div>
+          <!-- Row 1: text -->
+          <div class="relative z-10 mb-4">
+            <p class="text-[9px] font-black uppercase tracking-[0.3em] text-accent mb-1">Oferta limitada</p>
+            <p class="text-white font-black uppercase tracking-tight text-base leading-tight">
+              Auditoría gratuita solo las próximas horas
             </p>
           </div>
-          <div class="relative z-10 flex items-center gap-2 flex-shrink-0">
-            <div class="flex flex-col items-center">
-              <div id="cd-hh" class="bg-white/10 border border-white/10 rounded-xl w-14 h-12 flex items-center justify-center text-xl font-black tracking-tighter text-white">--</div>
-              <span class="text-[7px] font-black uppercase tracking-[0.2em] text-zinc-500 mt-1">HH</span>
-            </div>
-            <span class="text-white/40 font-black text-xl pb-4">:</span>
-            <div class="flex flex-col items-center">
-              <div id="cd-mm" class="bg-white/10 border border-white/10 rounded-xl w-14 h-12 flex items-center justify-center text-xl font-black tracking-tighter text-white">--</div>
-              <span class="text-[7px] font-black uppercase tracking-[0.2em] text-zinc-500 mt-1">MM</span>
-            </div>
-            <span class="text-white/40 font-black text-xl pb-4">:</span>
-            <div class="flex flex-col items-center">
-              <div id="cd-ss" class="bg-white/10 border border-white/10 rounded-xl w-14 h-12 flex items-center justify-center text-xl font-black tracking-tighter text-white">--</div>
-              <span class="text-[7px] font-black uppercase tracking-[0.2em] text-zinc-500 mt-1">SS</span>
+          <!-- Row 2: countdown — 50% width -->
+          <div class="relative z-10 w-1/2">
+            <div class="flex items-center gap-2">
+              <div class="flex flex-col items-center flex-1">
+                <div id="cd-hh" class="bg-white/10 border border-white/15 rounded-xl w-full h-14 flex items-center justify-center text-3xl font-black tracking-tighter text-white">--</div>
+                <span class="text-[8px] font-black uppercase tracking-[0.2em] text-zinc-500 mt-1.5">HH</span>
+              </div>
+              <span class="text-white/30 font-black text-2xl pb-5">:</span>
+              <div class="flex flex-col items-center flex-1">
+                <div id="cd-mm" class="bg-white/10 border border-white/15 rounded-xl w-full h-14 flex items-center justify-center text-3xl font-black tracking-tighter text-white">--</div>
+                <span class="text-[8px] font-black uppercase tracking-[0.2em] text-zinc-500 mt-1.5">MM</span>
+              </div>
+              <span class="text-white/30 font-black text-2xl pb-5">:</span>
+              <div class="flex flex-col items-center flex-1">
+                <div id="cd-ss" class="bg-white/10 border border-white/15 rounded-xl w-full h-14 flex items-center justify-center text-3xl font-black tracking-tighter text-white">--</div>
+                <span class="text-[8px] font-black uppercase tracking-[0.2em] text-zinc-500 mt-1.5">SS</span>
+              </div>
             </div>
           </div>
         </div>
