@@ -98,8 +98,8 @@ const faqs = [
 
       <!-- Copy: 66% -->
       <div class="reveal">
-        <h2 class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[10px] font-black uppercase tracking-[0.3em] mb-6 shadow-sm">
-          <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+        <h2 class="inline-flex items-center gap-2 bg-accent/10 backdrop-blur-sm px-5 py-2.5 border border-accent/25 rounded-full text-accent text-[12px] font-black uppercase tracking-[0.25em] mb-6 shadow-sm">
+          <span class="w-2 h-2 bg-accent rounded-full animate-ping"></span>
           Agencia SEO · Sabadell
         </h2>
 
@@ -152,8 +152,7 @@ const faqs = [
       <!-- Form: 33% -->
       <div id="solicitar" class="reveal">
         <div class="bg-white rounded-3xl border-2 border-black/8 shadow-[0_20px_60px_rgba(0,0,0,0.1)] p-7">
-          <span class="text-[9px] font-black uppercase tracking-[0.4em] text-accent block mb-1">Sin compromiso</span>
-          <div class="text-lg font-black uppercase tracking-tighter mb-5 leading-tight">Auditoría SEO<br>gratuita</div>
+          <div class="text-2xl font-black uppercase tracking-tighter mb-5 leading-none">Auditoría SEO Gratuita</div>
 
           <form id="seo-sabadell-form" class="space-y-4">
             <div class="flex flex-col gap-1.5">
@@ -171,6 +170,10 @@ const faqs = [
             <div class="flex flex-col gap-1.5">
               <label class="text-[9px] font-black uppercase tracking-widest opacity-40">Web de tu empresa</label>
               <input type="text" name="url" placeholder="www.tuempresa.com" class="border-b-2 border-zinc-200 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm" />
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <label class="text-[9px] font-black uppercase tracking-widest opacity-40">Mensaje</label>
+              <textarea name="msg" rows="2" class="border-b-2 border-zinc-200 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm resize-none"></textarea>
             </div>
 
             <div class="flex items-start gap-2 pt-1">
@@ -223,9 +226,9 @@ const faqs = [
     </div>
 
     <div class="mt-16 text-center reveal">
-      <a href="#solicitar" class="btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)]">
+      <button class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)]">
         QUIERO SOLUCIONARLO
-      </a>
+      </button>
     </div>
   </div>
 </section>
@@ -405,9 +408,9 @@ const faqs = [
     </div>
 
     <div class="mt-12 text-center reveal">
-      <a href="#solicitar" class="btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)]">
+      <button class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)]">
         QUIERO POSICIONAR MI EMPRESA
-      </a>
+      </button>
     </div>
   </div>
 </section>
