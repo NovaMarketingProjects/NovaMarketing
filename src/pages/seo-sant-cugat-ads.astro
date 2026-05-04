@@ -109,7 +109,7 @@ const faqs = [
     <div class="grid lg:grid-cols-[2fr_1fr] gap-10 lg:gap-14 items-center">
 
       <!-- Copy: 66% -->
-      <div class="reveal order-2 lg:order-1">
+      <div class="reveal">
         <div class="flex justify-center lg:justify-start mb-6">
           <h2 class="inline-flex items-center gap-2 bg-accent/10 backdrop-blur-sm px-4 py-2 border border-accent/25 rounded-full text-accent text-[10px] sm:text-[12px] font-black uppercase tracking-[0.25em] shadow-sm">
             <span class="w-2 h-2 bg-accent rounded-full animate-ping"></span>
@@ -140,16 +140,25 @@ const faqs = [
           ))}
         </div>
 
-        <div class="mt-6 inline-flex items-center gap-3 border-l-4 border-accent pl-4">
-          <p class="font-black uppercase tracking-tight text-zinc-900 leading-tight" style="font-size:clamp(1.05rem, 4.5vw, 2rem);">
+        <!-- Mobile-only card — above claim -->
+        <div class="lg:hidden mb-6 bg-white rounded-3xl border-2 border-black/8 shadow-[0_20px_60px_rgba(0,0,0,0.1)] p-6">
+          <span class="text-[9px] font-black uppercase tracking-[0.4em] text-accent block mb-2">Sin compromiso</span>
+          <div class="text-xl font-black uppercase tracking-tighter mb-4 leading-tight" style="font-weight:900;">Si contactas hoy,<br>Auditoría SEO Gratuita</div>
+          <button class="contact-modal-trigger w-full btn-mktg-v5 !py-4 shadow-[0_8px_20px_rgba(37,211,102,0.3)]">
+            SOLICITAR AUDITORÍA →
+          </button>
+        </div>
+
+        <div class="inline-flex items-center gap-3 border-l-4 border-accent pl-4">
+          <p class="font-black uppercase tracking-tight text-zinc-900 leading-none whitespace-nowrap" style="font-size:clamp(0.75rem, 2.8vw, 2rem);">
             Somos la agencia SEO nº1 en Sant Cugat
           </p>
         </div>
 
       </div>
 
-      <!-- Form: 33% -->
-      <div id="solicitar" class="reveal order-1 lg:order-2">
+      <!-- Form: 33% — hidden on mobile -->
+      <div id="solicitar" class="reveal hidden lg:block">
         <div class="bg-white rounded-3xl border-2 border-black/8 shadow-[0_20px_60px_rgba(0,0,0,0.1)] p-7">
           <span class="text-[9px] font-black uppercase tracking-[0.4em] text-accent block mb-2">Sin compromiso</span>
           <div class="text-2xl font-black uppercase tracking-tighter mb-5 leading-tight" style="font-weight:900;">Si contactas hoy,<br>Auditoría SEO Gratuita</div>
