@@ -117,7 +117,7 @@ const faqs = [
 
         <h1 class="text-4xl sm:text-6xl lg:text-7xl uppercase font-black tracking-tighter leading-[0.88] mb-5 text-zinc-900">
           Aparece antes<br>
-          que tu competencia<br>
+          <span class="whitespace-nowrap">que tu competencia</span><br>
           <span class="text-mktg-gradient">en Google</span>
         </h1>
 
@@ -142,9 +142,11 @@ const faqs = [
           ))}
         </div>
 
-        <p class="text-sm font-black uppercase tracking-widest text-zinc-400 mt-6">
-          Somos la agencia SEO nº1 en Sabadell
-        </p>
+        <div class="mt-6 inline-flex items-center gap-3 border-l-4 border-accent pl-4">
+          <p class="text-lg sm:text-xl font-black uppercase tracking-tight text-zinc-900 leading-none">
+            Somos la agencia SEO nº1<br class="sm:hidden"> en Sabadell
+          </p>
+        </div>
 
       </div>
 
