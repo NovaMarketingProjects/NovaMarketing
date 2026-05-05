@@ -65,15 +65,20 @@ exports.default = {
             hour: '2-digit', minute: '2-digit',
         });
         const pageSource = source || ctx.request.headers['referer'] || '—';
-        const adminText = [
-            `Nombre:   ${name}`,
-            `Email:    ${email}`,
-            `Web:      ${url || '—'}`,
-            `Teléfono: ${phone || '—'}`,
-            `Mensaje:  ${msg || '—'}`,
-            `Página:   ${pageSource}`,
-            `Fecha:    ${now}`,
-        ].join('\n');
+        const internalBody = `
+      <h2 style="font-family:'Montserrat',Arial Black,sans-serif;font-weight:900;font-size:20px;text-transform:uppercase;letter-spacing:-0.02em;color:#09090b;margin:0 0 24px 0;">
+        Nueva consulta de contacto
+      </h2>
+      <table style="width:100%;border-collapse:collapse;font-family:'Inter',Arial,sans-serif;font-size:15px;">
+        <tr><td style="padding:10px 0;font-weight:700;color:#09090b;width:110px;border-bottom:1px solid #f4f4f5;">Nombre</td><td style="padding:10px 0;color:#3f3f46;border-bottom:1px solid #f4f4f5;">${name}</td></tr>
+        <tr><td style="padding:10px 0;font-weight:700;color:#09090b;border-bottom:1px solid #f4f4f5;">Email</td><td style="padding:10px 0;color:#3f3f46;border-bottom:1px solid #f4f4f5;">${email}</td></tr>
+        ${url ? `<tr><td style="padding:10px 0;font-weight:700;color:#09090b;border-bottom:1px solid #f4f4f5;">Web</td><td style="padding:10px 0;color:#3f3f46;border-bottom:1px solid #f4f4f5;">${url}</td></tr>` : ''}
+        ${phone ? `<tr><td style="padding:10px 0;font-weight:700;color:#09090b;border-bottom:1px solid #f4f4f5;">Telefono</td><td style="padding:10px 0;color:#3f3f46;border-bottom:1px solid #f4f4f5;">${phone}</td></tr>` : ''}
+        ${msg ? `<tr><td style="padding:10px 0;font-weight:700;color:#09090b;border-bottom:1px solid #f4f4f5;vertical-align:top;">Mensaje</td><td style="padding:10px 0;color:#3f3f46;line-height:1.6;border-bottom:1px solid #f4f4f5;">${msg}</td></tr>` : ''}
+        <tr><td style="padding:10px 0;font-weight:700;color:#09090b;border-bottom:1px solid #f4f4f5;">Pagina</td><td style="padding:10px 0;color:#3f3f46;border-bottom:1px solid #f4f4f5;">${pageSource}</td></tr>
+        <tr><td style="padding:10px 0;font-weight:700;color:#09090b;">Fecha</td><td style="padding:10px 0;color:#3f3f46;">${now}</td></tr>
+      </table>
+    `;
         const emailTemplate = (bodyContent) => `<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -128,7 +133,7 @@ exports.default = {
                 from: `"nova." <${SMTP_USER}>`,
                 to: CONTACT_TO,
                 subject: 'Nueva consulta en Nova Marketing',
-                text: adminText,
+                html: emailTemplate(internalBody),
                 replyTo: email,
             });
         }

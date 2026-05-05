@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { strapiClient, getStrapiImageUrl } from '../lib/strapi';
+import LogoMarquee from '../components/sections/LogoMarquee.astro';
 
 let caseStudies: any[] = [];
 try {
@@ -16,8 +17,7 @@ try {
         const slug: string = (c.slug || c.attributes?.slug || '').toLowerCase();
         return name.includes('seo') || seoSlugs.includes(slug);
       });
-    })
-    .slice(0, 3);
+    });
 } catch (_) {}
 
 const faqs = [
@@ -204,6 +204,8 @@ const faqs = [
     </p>
   </div>
 </section>
+
+<LogoMarquee />
 
 <!-- ═══ AUDITORÍA Y ESTRATEGIA ════════════════════════════════════════ -->
 <section id="auditoria" class="py-20 sm:py-32 bg-zinc-50 border-y border-black/5 px-4 sm:px-6 relative overflow-hidden">
@@ -481,53 +483,6 @@ const faqs = [
           </div>
         </a>
       ))}
-    </div>
-  </div>
-</section>
-
-<!-- ═══ TABLA COMPARATIVA ══════════════════════════════════════════════ -->
-<section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
-  <div class="absolute -bottom-40 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl opacity-10"></div>
-  <div class="max-w-4xl mx-auto">
-    <div class="text-center mb-16 sm:mb-24 reveal">
-      <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">La diferencia</span>
-      <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-black">
-        Con nova. vs sin SEO
-      </h2>
-    </div>
-
-    <div class="reveal overflow-x-auto rounded-3xl border border-zinc-100 shadow-sm bg-white">
-      <table class="w-full">
-        <thead>
-          <tr>
-            <th class="text-left px-6 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 bg-zinc-50 border-b border-zinc-100 w-1/2">Situación</th>
-            <th class="text-center px-6 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 bg-zinc-50 border-b border-zinc-100">Sin SEO</th>
-            <th class="text-center px-6 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-white bg-accent border-b border-accent w-1/4">Con nova.</th>
-          </tr>
-        </thead>
-        <tbody>
-          {[
-            ['Visibilidad en Google', '❌ Invisible', '✅ Top 3-10'],
-            ['Tráfico orgánico', '❌ Casi nulo', '✅ Crecimiento constante'],
-            ['Clientes desde Sabadell', '❌ Solo por referidos', '✅ Canal predecible'],
-            ['Dependencia de Ads', '❌ Alta y costosa', '✅ Mínima a largo plazo'],
-            ['Informes de resultados', '❌ Ninguno', '✅ Mensual y detallado'],
-            ['Ventaja competitiva', '❌ Nula ante rivales', '✅ Posición dominante'],
-          ].map(([item, without, withNova]) => (
-            <tr class="border-b border-zinc-50 last:border-0 hover:bg-zinc-50/50 transition-colors">
-              <td class="px-6 py-5 text-sm font-medium text-zinc-700">{item}</td>
-              <td class="px-6 py-5 text-center text-sm text-zinc-400 font-light">{without}</td>
-              <td class="px-6 py-5 text-center text-sm text-white font-medium bg-accent/95">{withNova}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-
-    <div class="mt-12 text-center reveal">
-      <button class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)]">
-        QUIERO POSICIONAR MI EMPRESA
-      </button>
     </div>
   </div>
 </section>

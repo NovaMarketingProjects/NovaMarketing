@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { strapiClient, getStrapiImageUrl } from '../lib/strapi';
+import LogoMarquee from '../components/sections/LogoMarquee.astro';
 
 let caseStudies: any[] = [];
 try {
@@ -16,41 +17,36 @@ try {
         const slug: string = (c.slug || c.attributes?.slug || '').toLowerCase();
         return name.includes('seo') || seoSlugs.includes(slug);
       });
-    })
-    .slice(0, 3);
+    });
 } catch (_) {}
 
 const faqs = [
   {
-    q: '¿En cuánto tiempo veré resultados?',
-    a: 'Los primeros movimientos en posiciones suelen verse entre el 2.º y 3.er mes. Los resultados consolidados llegan entre el 4.º y 6.º mes. El SEO es una inversión a medio-largo plazo con resultados acumulativos.',
+    q: '¿Por qué el SEO en Sant Cugat del Vallès es tan competitivo?',
+    a: 'Sant Cugat tiene una economía muy activa con empresas de servicios, tecnología y sector inmobiliario de alto valor. La proximidad a Barcelona y el elevado poder adquisitivo de sus residentes atrae a muchos negocios que compiten por los mismos clientes. Sin una estrategia SEO sólida, tu empresa queda invisible frente a competidores más visibles en Google.',
   },
   {
-    q: '¿Qué incluye exactamente el servicio SEO en Sant Cugat?',
-    a: 'Auditoría técnica completa, investigación de palabras clave locales, optimización on-page, link building de calidad, creación de contenido SEO, optimización de Google Business Profile y reportes mensuales con métricas reales.',
+    q: '¿Cómo trabajáis el SEO local para negocios en Can Magí y Mira-sol?',
+    a: 'Trabajamos por zonas y barrios dentro de Sant Cugat. Para negocios en Can Magí, Mira-sol o Valldoreix, creamos contenidos y optimizamos fichas locales que apuntan específicamente a esas áreas. El objetivo es que cuando alguien en esa zona busque un servicio como el tuyo, tu negocio aparezca primero.',
   },
   {
-    q: '¿Necesito una web nueva o trabajáis con la que tengo?',
-    a: 'Trabajamos con tu web actual. La auditoría inicial indica qué aspectos técnicos mejorar. Si la web tiene limitaciones graves, te lo decimos con claridad y podemos ayudarte también con el rediseño.',
+    q: '¿Cuánto tiempo tarda el SEO en dar resultados en Sant Cugat?',
+    a: 'En un mercado tan activo como Sant Cugat, los primeros movimientos en posiciones suelen verse en 3-4 meses. Para sectores muy competitivos como inmobiliario, clínicas o servicios profesionales, el horizonte se sitúa más cerca de 6 meses. La clave es que los resultados se acumulan y son sostenibles en el tiempo.',
   },
   {
-    q: 'Probé SEO antes y no funcionó. ¿Por qué sería diferente?',
-    a: 'El 80% de los casos en que el SEO "no funcionó" se debe a estrategias genéricas, falta de constancia o técnicas desactualizadas. Nuestra metodología se basa en auditoría real, competencia local de Sant Cugat y seguimiento mensual con KPIs de negocio.',
+    q: '¿El SEO es útil para empresas de la zona empresarial de Sant Cugat?',
+    a: 'Sin duda. La zona empresarial de Sant Cugat alberga decenas de empresas que buscan clientes y partners en Google. El SEO B2B en Sant Cugat te permite aparecer ante potenciales clientes cuando buscan tus servicios, generando leads de calidad sin depender exclusivamente de la publicidad de pago.',
   },
   {
-    q: '¿Cuál es el compromiso mínimo de permanencia?',
-    a: 'Trabajamos con contratos de 6 meses porque el SEO necesita tiempo para dar resultados medibles. Pasado ese período, la relación se renueva mes a mes.',
-  },
-  {
-    q: '¿Cómo sé que estáis trabajando realmente?',
-    a: 'Cada mes recibes un informe detallado con posiciones, tráfico orgánico, conversiones y acciones realizadas. Tienes acceso a un panel de seguimiento y una reunión mensual de revisión.',
+    q: '¿Trabajáis el SEO para clínicas, despachos y servicios profesionales en Sant Cugat?',
+    a: 'Sí, son algunos de nuestros clientes más habituales. En Sant Cugat hay una gran demanda de servicios de salud, asesoría fiscal, abogados y coaches. Diseñamos estrategias SEO específicas para cada sector profesional, cumpliendo con las directrices YMYL de Google y posicionando tu despacho o clínica por delante de la competencia.',
   },
 ];
 ---
 
 <BaseLayout
   title="Agencia SEO en Sant Cugat — Más visitas, más clientes | nova."
-  description="Posicionamiento SEO para pymes en Sant Cugat. Auditoría gratuita, estrategia local y resultados medibles. Primera consulta sin compromiso."
+  description="Posicionamos tu empresa en Google para captar clientes de alto valor en Sant Cugat del Vallès. Auditoría gratuita, estrategia local y resultados medibles."
   noIndex={true}
   locale="es"
   hideHeader={true}
@@ -81,11 +77,11 @@ const faqs = [
     </a>
     <nav class="hidden lg:flex items-center gap-6 xl:gap-8">
       {[
-        { href: '#problema', label: '¿Cuál es tu problema?' },
-        { href: '#seo-negocio', label: 'SEO que genera negocio' },
-        { href: '#metodo', label: 'Método nova.' },
-        { href: '#casos', label: 'Casos de éxito' },
+        { href: '#auditoria', label: 'Auditoría y estrategia' },
+        { href: '#metodo', label: 'Cómo trabajamos' },
         { href: '#resultados', label: 'Resultados' },
+        { href: '#casos', label: 'Casos de éxito' },
+        { href: '#faq', label: 'FAQ' },
       ].map(l => (
         <a href={l.href} class="text-[11px] font-bold uppercase tracking-[0.15em] text-zinc-700 hover:text-accent transition-colors whitespace-nowrap">
           {l.label}
@@ -155,12 +151,7 @@ const faqs = [
           <span class="text-[9px] font-black uppercase tracking-[0.4em] text-accent block mb-2">Sin compromiso</span>
           <div class="text-2xl font-black uppercase tracking-tighter mb-5 leading-tight" style="font-weight:900;">Si contactas hoy,<br>Auditoría SEO Gratuita</div>
 
-          <!-- Mobile CTA — opens modal -->
-          <button class="contact-modal-trigger sm:hidden w-full btn-mktg-v5 !py-4 shadow-[0_8px_20px_rgba(37,211,102,0.3)] mb-2">
-            SOLICITAR AUDITORÍA →
-          </button>
-
-          <form id="seo-sant-cugat-form" class="space-y-4 hidden sm:block">
+          <form id="seo-sant-cugat-form" class="space-y-4">
             <div class="flex flex-col gap-1.5">
               <label class="text-[9px] font-black uppercase tracking-widest opacity-40">Nombre *</label>
               <input type="text" name="name" required class="border-b-2 border-zinc-200 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm" />
@@ -214,55 +205,58 @@ const faqs = [
   </div>
 </section>
 
-<!-- ═══ PROBLEMAS ══════════════════════════════════════════════════════ -->
-<section id="problema" class="py-20 sm:py-32 bg-zinc-50 border-y border-black/5 px-4 sm:px-6 relative overflow-hidden">
+<LogoMarquee />
+
+<!-- ═══ AUDITORÍA Y ESTRATEGIA ════════════════════════════════════════ -->
+<section id="auditoria" class="py-20 sm:py-32 bg-zinc-50 border-y border-black/5 px-4 sm:px-6 relative overflow-hidden">
   <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_80%,transparent_100%)]"></div>
   <div class="max-w-7xl mx-auto relative z-10">
     <div class="text-center mb-16 sm:mb-24 reveal">
-      <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">El problema</span>
-      <h2 class="text-3xl sm:text-5xl lg:text-7xl uppercase tracking-tighter font-black mb-4">
-        ¿Te suena alguna<br class="hidden sm:inline" /> de estas situaciones?
+      <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Nuestro enfoque</span>
+      <h2 class="text-3xl sm:text-5xl lg:text-7xl uppercase tracking-tighter font-black mb-6">
+        Auditoría y Estrategia<br class="hidden sm:inline" /> SEO en Sant Cugat
       </h2>
+      <p class="text-zinc-500 font-light text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+        Sant Cugat tiene el perfil de cliente más exigente del Vallès. Diseñamos estrategias SEO para captar ese público de alto valor: profesionales, empresas tecnológicas y familias con alto poder adquisitivo.
+      </p>
     </div>
 
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid sm:grid-cols-2 gap-6">
       {[
-        { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`, title: 'No apareces en Google', desc: 'Buscas tu empresa en Google y no apareces ni en la primera página. Tus competidores sí están ahí.' },
-        { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>`, title: 'Tu web no genera clientes', desc: 'Tienes una web bonita pero no recibe visitas. El poco tráfico que llega no se convierte en contactos.' },
-        { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`, title: 'Dependes de publicidad de pago', desc: 'Inviertes en Google Ads cada mes pero en cuanto paras, el tráfico desaparece. Sin visibilidad propia.' },
-        { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`, title: 'No te encuentran en Sant Cugat', desc: 'Clientes potenciales cerca de ti buscan tus servicios pero acaban en la competencia.' },
-        { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`, title: 'Probaste SEO y no funcionó', desc: 'Ya invertiste en SEO antes y no viste resultados. No sabes qué hicieron ni por qué falló.' },
-        { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`, title: 'No tienes tiempo para gestionarlo', desc: 'Sabes que el SEO es importante pero llevar el negocio no te deja tiempo para aprenderlo.' },
+        { num: '01', title: 'Auditoría Técnica', desc: 'Detectamos qué frena tu visibilidad en Sant Cugat: errores de rastreo, velocidad web y problemas de indexación que hacen invisible tu negocio ante el cliente local.' },
+        { num: '02', title: 'Keywords de Alto Valor', desc: 'Analizamos las búsquedas de los usuarios de Can Magí, Mira-sol, Valldoreix y el Parc Tecnològic para posicionar términos con alta intención de compra y ticket elevado.' },
+        { num: '03', title: 'SEO On-Page', desc: 'Optimizamos contenidos que conectan con el perfil de cliente de Sant Cugat: exigente, informado y dispuesto a pagar por calidad y especialización.' },
+        { num: '04', title: 'Plan de Enlaces', desc: 'Construimos autoridad con enlaces de medios locales, colegios profesionales y directorios empresariales del Vallès que posicionan tu dominio como referente en Sant Cugat.' },
       ].map((p, i) => (
-        <div class="group p-8 sm:p-10 bg-white border border-zinc-100/60 rounded-3xl hover:border-accent/20 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden flex flex-col reveal" style={`transition-delay: ${i * 80}ms`}>
+        <div class="group p-8 sm:p-10 bg-white border border-zinc-100/60 rounded-3xl hover:border-accent/20 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden flex gap-6 reveal" style={`transition-delay: ${i * 80}ms`}>
           <div class="absolute bottom-0 inset-x-0 h-1 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
-          <div class="p-3 bg-zinc-50 border border-black/5 w-fit rounded-xl mb-6 group-hover:bg-accent/5 group-hover:border-accent/10 transition-colors">
-            <Fragment set:html={p.icon} />
+          <div class="text-4xl font-black tracking-tighter text-black/5 group-hover:text-accent/10 transition-colors select-none flex-shrink-0 leading-none mt-1">{p.num}</div>
+          <div>
+            <h3 class="text-lg sm:text-xl font-black uppercase tracking-tighter mb-3 text-zinc-900">{p.title}</h3>
+            <p class="text-sm text-zinc-500 font-light leading-relaxed">{p.desc}</p>
           </div>
-          <h3 class="text-lg sm:text-xl font-black uppercase tracking-tighter mb-3 text-zinc-900">{p.title}</h3>
-          <p class="text-sm text-zinc-500 font-light leading-relaxed">{p.desc}</p>
         </div>
       ))}
     </div>
 
     <div class="mt-16 text-center reveal">
       <button class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)]">
-        QUIERO SOLUCIONARLO
+        SOLICITAR AUDITORÍA GRATUITA
       </button>
     </div>
   </div>
 </section>
 
-<!-- ═══ MÉTODO ════════════════════════════════════════════════════════ -->
-<section id="seo-negocio" class="py-20 sm:py-32 bg-accent px-4 sm:px-6">
+<!-- ═══ CÓMO TRABAJAMOS ════════════════════════════════════════════════ -->
+<section id="metodo" class="py-20 sm:py-32 bg-accent px-4 sm:px-6">
   <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
     <div class="reveal text-white">
-      <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 sm:mb-10 block opacity-70">Nuestro enfoque</span>
+      <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 sm:mb-10 block opacity-70">El proceso</span>
       <div class="text-4xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.82] mb-8 sm:mb-10">
-        SEO que<br>genera<br>negocio
+        Cómo<br>trabajamos<br>el SEO
       </div>
       <p class="text-white/70 font-light text-base sm:text-xl max-w-md leading-relaxed mb-8">
-        Muchas agencias se obsesionan con posiciones. Nosotros nos obsesionamos con los resultados: más contactos, más ventas, más clientes en Sant Cugat.
+        El cliente de Sant Cugat investiga y compara. Contarás con un Account Manager dedicado que diseña estrategias a la altura de ese nivel de exigencia y te mantiene informado con métricas de negocio reales, no con vagas promesas.
       </p>
       <ul class="text-[9px] sm:text-xs font-black tracking-widest space-y-3 uppercase opacity-90 text-white">
         <li>→ AUDITORÍA TÉCNICA COMPLETA</li>
@@ -274,10 +268,11 @@ const faqs = [
 
     <div class="reveal space-y-4">
       {[
-        { num: '01', title: 'Auditoría técnica y de competencia', desc: 'Analizamos tu web desde cero y estudiamos qué están haciendo los primeros resultados de Google en tu sector y ciudad.' },
-        { num: '02', title: 'Estrategia de keywords local', desc: 'Identificamos las búsquedas exactas que hacen tus clientes potenciales en Sant Cugat y el Vallès Occidental.' },
-        { num: '03', title: 'Optimización técnica y de contenido', desc: 'Corregimos errores técnicos, optimizamos páginas existentes y creamos contenido que posiciona y convierte.' },
-        { num: '04', title: 'Autoridad y resultados medibles', desc: 'Conseguimos enlaces de calidad e informes mensuales con posiciones, tráfico y conversiones reales.' },
+        { num: '01', title: 'Auditoría SEO en Sant Cugat', desc: 'Analizamos tu presencia digital en el competitivo mercado de Sant Cugat del Vallès. Identificamos los puntos débiles técnicos y las oportunidades de posicionamiento frente a tu competencia local.' },
+        { num: '02', title: 'Keyword Research de Alto Valor', desc: 'Sant Cugat tiene un público de alto poder adquisitivo. Buscamos las keywords que usan los residentes y empresas de Can Magí, Mira-sol y la zona empresarial para encontrar servicios como el tuyo.' },
+        { num: '03', title: 'SEO On-Page Especializado', desc: 'Optimizamos tu web para posicionarte en Sant Cugat del Vallès con contenidos de calidad que conectan con el perfil de cliente local: exigente, informado y con capacidad de decisión.' },
+        { num: '04', title: 'Linkbuilding de Autoridad', desc: 'Construimos enlaces desde medios locales, directorios empresariales y webs de referencia del Vallès para aumentar la relevancia de tu dominio en las búsquedas de Sant Cugat.' },
+        { num: '05', title: 'SEO Local y Google Maps', desc: 'Optimizamos tu Google Business Profile para que aparezcas en el pack local de Sant Cugat cuando potenciales clientes buscan tus servicios en Valldoreix, Can Magí o el centre.' },
       ].map(s => (
         <div class="bg-white/10 backdrop-blur-sm p-6 sm:p-8 rounded-3xl border border-white/10 hover:bg-white/15 transition-colors flex gap-6 items-start">
           <div class="text-white/40 font-black text-lg tracking-tighter flex-shrink-0 w-8">{s.num}</div>
@@ -291,34 +286,108 @@ const faqs = [
   </div>
 </section>
 
-<!-- ═══ PROCESO ═══════════════════════════════════════════════════════ -->
-<section id="metodo" class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
+<!-- ═══ CONSULTOR SEO + STATS ══════════════════════════════════════════ -->
+<section id="resultados" class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
   <div class="absolute -top-40 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl opacity-20 animate-pulse"></div>
   <div class="max-w-7xl mx-auto">
-    <div class="text-center mb-16 sm:mb-24 reveal">
-      <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">El proceso</span>
-      <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-black mb-4">
-        Así trabajamos contigo
-      </h2>
-      <p class="text-zinc-500 font-light text-base sm:text-lg max-w-xl mx-auto">
-        Un proceso claro, sin sorpresas y con comunicación directa en todo momento.
-      </p>
+
+    <div class="grid md:grid-cols-2 gap-12 sm:gap-20 items-center mb-20 sm:mb-32">
+      <div class="reveal">
+        <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Estrategia SEO</span>
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-black mb-6">
+          Consultor de posicionamiento SEO en Sant Cugat
+        </h2>
+        <p class="text-zinc-500 font-light text-base sm:text-lg leading-relaxed mb-8">
+          Como consultor experto en SEO en Sant Cugat, diseño estrategias de posicionamiento orgánico para empresas y profesionales del Vallès que quieren captar clientes de alto valor. Conozco el mercado local —desde el Eix Comercial y el Parc Tecnològic hasta Valldoreix y la Rambla del Celler— y construyo visibilidad en Google orientada al perfil exigente del cliente de Sant Cugat.
+        </p>
+        <button class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)]">
+          QUIERO POSICIONAR MI EMPRESA
+        </button>
+      </div>
+      <div class="reveal space-y-4">
+        {[
+          { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>`, title: 'Cliente de Alto Valor', desc: 'SEO orientado al perfil exigente de Sant Cugat. Visibilidad que atrae clientes con capacidad de decisión.' },
+          { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`, title: 'SEO B2B y Profesional', desc: 'Clínicas, despachos y empresas tecnológicas del Parc Tecnològic. Visibilidad para decisores.' },
+          { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>`, title: 'Account Manager Dedicado', desc: 'Un consultor exclusivo para tu proyecto. Sin intermediarios, comunicación directa y respuesta rápida.' },
+          { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>`, title: 'Orientado a Conversión', desc: 'No optimizamos para tráfico vacío. Cada decisión está tomada para generar contactos y ventas reales.' },
+        ].map((f, i) => (
+          <div class="group p-6 bg-white border border-zinc-100/60 rounded-2xl hover:border-accent/20 hover:shadow-lg transition-all duration-300 flex gap-4 items-start reveal" style={`transition-delay: ${i * 80}ms`}>
+            <div class="p-2.5 bg-zinc-50 border border-black/5 rounded-xl flex-shrink-0 group-hover:bg-accent/5 group-hover:border-accent/10 transition-colors">
+              <Fragment set:html={f.icon} />
+            </div>
+            <div>
+              <h3 class="text-sm font-black uppercase tracking-tight mb-1 text-zinc-900">{f.title}</h3>
+              <p class="text-xs text-zinc-500 font-light leading-relaxed">{f.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
 
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Stats -->
+    <div class="reveal">
+      <div class="text-center mb-12">
+        <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Rentabilidad</span>
+        <h2 class="text-3xl sm:text-5xl uppercase tracking-tighter font-black">
+          Rentabilidad de trabajar el SEO en Sant Cugat
+        </h2>
+        <p class="text-zinc-500 font-light text-base sm:text-lg max-w-2xl mx-auto mt-4 leading-relaxed">
+          El SEO en Sant Cugat tiene un ROI especialmente elevado porque el ticket medio del cliente local es alto. Las empresas que posicionan bien en Google captan clientes de calidad que generan más margen y mayor fidelidad.
+        </p>
+      </div>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        {[
+          { value: '+70%', label: 'Tráfico Orgánico' },
+          { value: '-38%', label: 'Coste por Lead' },
+          { value: 'x3.8', label: 'ROI a 12 Meses' },
+          { value: '+60%', label: 'Posiciones Top 3' },
+        ].map((stat, i) => (
+          <div class="group p-8 bg-white border border-zinc-100/60 rounded-3xl hover:border-accent/20 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center reveal" style={`transition-delay: ${i * 80}ms`}>
+            <div class="text-4xl sm:text-5xl font-black tracking-tighter text-accent mb-2">{stat.value}</div>
+            <div class="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIOS ════════════════════════════════════════════════════ -->
+<section class="py-20 sm:py-32 bg-zinc-50 border-y border-black/5 px-4 sm:px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16 sm:mb-20 reveal">
+      <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Clientes reales</span>
+      <h2 class="text-3xl sm:text-5xl uppercase tracking-tighter font-black">
+        Lo que dicen nuestros<br class="hidden sm:inline" /> clientes en Sant Cugat
+      </h2>
+    </div>
+    <div class="grid md:grid-cols-2 gap-6">
       {[
-        { step: '01', title: 'Auditoría gratuita', desc: 'Analizamos tu web y te enviamos un informe con los puntos de mejora más importantes. Sin coste ni compromiso.' },
-        { step: '02', title: 'Propuesta personalizada', desc: 'Elaboramos una estrategia SEO adaptada a tu sector, competencia y presupuesto en Sant Cugat.' },
-        { step: '03', title: 'Onboarding y accesos', desc: 'Configuramos herramientas, accesos y establecemos los KPIs que seguiremos juntos desde el primer día.' },
-        { step: '04', title: 'Optimización técnica', desc: 'Corregimos los errores técnicos de tu web que impiden que Google la indexe y posicione correctamente.' },
-        { step: '05', title: 'Contenido y posicionamiento', desc: 'Creamos y optimizamos páginas que responden a las búsquedas de tus clientes en Sant Cugat y zona.' },
-        { step: '06', title: 'Seguimiento mensual', desc: 'Informe mensual con posiciones, tráfico y conversiones. Reunión de revisión incluida cada mes.' },
-      ].map((p, i) => (
-        <div class="group p-8 sm:p-10 bg-white border border-zinc-100/60 rounded-3xl hover:border-accent/20 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden flex flex-col reveal" style={`transition-delay: ${i * 80}ms`}>
-          <div class="absolute bottom-0 inset-x-0 h-1 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
-          <div class="text-5xl font-black tracking-tighter text-black/5 group-hover:text-accent/10 transition-colors mb-4 select-none">{p.step}</div>
-          <h3 class="text-lg sm:text-xl font-black uppercase tracking-tighter mb-3 text-zinc-900">{p.title}</h3>
-          <p class="text-sm text-zinc-500 font-light leading-relaxed">{p.desc}</p>
+        {
+          stars: 5,
+          text: 'Nuestra clínica del Eix Comercial de Sant Cugat duplicó las consultas orgánicas desde Google en 5 meses. Nova entiende que el cliente de Sant Cugat busca calidad y especialización antes que precio.',
+          author: 'Clínica especializada, Eix Comercial de Sant Cugat',
+          sector: 'Salud',
+        },
+        {
+          stars: 5,
+          text: 'El SEO B2B que Nova diseñó para nuestra empresa de software del Parc Tecnològic nos posiciona para búsquedas de decisores. Recibimos demos cualificadas cada semana desde Google.',
+          author: 'Software B2B, Parc Tecnològic de Sant Cugat',
+          sector: 'Tecnología B2B',
+        },
+      ].map((t, i) => (
+        <div class="bg-white border border-zinc-100/60 rounded-3xl p-8 sm:p-10 flex flex-col gap-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 reveal" style={`transition-delay: ${i * 100}ms`}>
+          <div class="flex gap-1">
+            {Array.from({ length: t.stars }).map(() => (
+              <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            ))}
+          </div>
+          <p class="text-zinc-700 font-light text-base leading-relaxed flex-1">"{t.text}"</p>
+          <div class="border-t border-zinc-100 pt-4">
+            <div class="text-xs font-black uppercase tracking-tight text-zinc-900">{t.author}</div>
+            <div class="text-[10px] font-black uppercase tracking-[0.2em] text-accent mt-1">{t.sector}</div>
+          </div>
         </div>
       ))}
     </div>
@@ -327,12 +396,12 @@ const faqs = [
 
 <!-- ═══ CASOS DE ÉXITO ═════════════════════════════════════════════════ -->
 {caseStudies.length > 0 && (
-<section id="casos" class="py-20 sm:py-32 bg-zinc-50 border-y border-black/5 px-4 sm:px-6 relative overflow-hidden">
+<section id="casos" class="py-20 sm:py-32 bg-white border-b border-black/5 px-4 sm:px-6 relative overflow-hidden">
   <div class="max-w-7xl mx-auto">
     <div class="mb-16 sm:mb-24 reveal">
       <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultados probados</span>
       <h2 class="text-3xl sm:text-5xl lg:text-7xl uppercase tracking-tighter font-black mb-2">
-        Casos de éxito SEO<br class="hidden md:inline" /> de pymes reales
+        Casos de éxito de posicionamiento<br class="hidden md:inline" /> SEO en Sant Cugat
       </h2>
     </div>
 
@@ -388,60 +457,42 @@ const faqs = [
 </section>
 )}
 
-<!-- ═══ TABLA COMPARATIVA ══════════════════════════════════════════════ -->
-<section id="resultados" class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
-  <div class="absolute -bottom-40 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl opacity-10"></div>
-  <div class="max-w-4xl mx-auto">
-    <div class="text-center mb-16 sm:mb-24 reveal">
-      <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">La diferencia</span>
-      <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-black">
-        Con nova. vs sin SEO
+<!-- ═══ OTROS SERVICIOS ════════════════════════════════════════════════ -->
+<section class="py-20 sm:py-32 bg-zinc-50 border-y border-black/5 px-4 sm:px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16 sm:mb-20 reveal">
+      <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Marketing digital</span>
+      <h2 class="text-3xl sm:text-5xl uppercase tracking-tighter font-black">
+        Otros servicios de marketing<br class="hidden sm:inline" /> para empresas de Sant Cugat
       </h2>
     </div>
-
-    <div class="reveal overflow-x-auto rounded-3xl border border-zinc-100 shadow-sm bg-white">
-      <table class="w-full">
-        <thead>
-          <tr>
-            <th class="text-left px-6 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 bg-zinc-50 border-b border-zinc-100 w-1/2">Situación</th>
-            <th class="text-center px-6 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 bg-zinc-50 border-b border-zinc-100">Sin SEO</th>
-            <th class="text-center px-6 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-white bg-accent border-b border-accent w-1/4">Con nova.</th>
-          </tr>
-        </thead>
-        <tbody>
-          {[
-            ['Visibilidad en Google', '❌ Invisible', '✅ Top 3-10'],
-            ['Tráfico orgánico', '❌ Casi nulo', '✅ Crecimiento constante'],
-            ['Clientes desde Sant Cugat', '❌ Solo por referidos', '✅ Canal predecible'],
-            ['Dependencia de Ads', '❌ Alta y costosa', '✅ Mínima a largo plazo'],
-            ['Informes de resultados', '❌ Ninguno', '✅ Mensual y detallado'],
-            ['Ventaja competitiva', '❌ Nula ante rivales', '✅ Posición dominante'],
-          ].map(([item, without, withNova]) => (
-            <tr class="border-b border-zinc-50 last:border-0 hover:bg-zinc-50/50 transition-colors">
-              <td class="px-6 py-5 text-sm font-medium text-zinc-700">{item}</td>
-              <td class="px-6 py-5 text-center text-sm text-zinc-400 font-light">{without}</td>
-              <td class="px-6 py-5 text-center text-sm text-white font-medium bg-accent/95">{withNova}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-
-    <div class="mt-12 text-center reveal">
-      <button class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)]">
-        QUIERO POSICIONAR MI EMPRESA
-      </button>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {[
+        { href: '/agencia-de-marketing-digital-en-sant-cugat/', title: 'Agencia de Marketing Digital en Sant Cugat', desc: 'Estrategia digital integral para empresas de Sant Cugat: SEO, SEM, redes sociales y analítica orientada al cliente de alto valor del Vallès.' },
+        { href: '/agencia-google-ads-sant-cugat/', title: 'Agencia de Google Ads en Sant Cugat', desc: 'Campañas de Google Ads para captar clientes de alto valor en Sant Cugat. Visibilidad inmediata y presupuesto optimizado para el Parc Tecnològic y el Eix Comercial.' },
+        { href: '/diseno-web-para-pymes/', title: 'Agencia de Diseño Web en Sant Cugat', desc: 'Diseñamos webs profesionales para empresas de Sant Cugat orientadas a captar el cliente exigente que espera calidad y especialización.' },
+        { href: '/consultoria-marketing-para-pymes/', title: 'Consultoría de Marketing en Sant Cugat', desc: 'Consultoría de marketing para pymes y profesionales de Sant Cugat. Diseñamos el plan de crecimiento más rentable para el mercado del Vallès.' },
+      ].map((s, i) => (
+        <a href={s.href} class="group p-8 bg-white border border-zinc-100/60 rounded-3xl hover:border-accent/20 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden flex flex-col reveal" style={`transition-delay: ${i * 80}ms`}>
+          <div class="absolute bottom-0 inset-x-0 h-1 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
+          <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900 mb-3 group-hover:text-accent transition-colors leading-tight">{s.title}</h3>
+          <p class="text-xs text-zinc-500 font-light leading-relaxed flex-1">{s.desc}</p>
+          <div class="mt-4 text-[8px] font-black tracking-[0.25em] text-accent flex items-center gap-1.5 group-hover:gap-3 transition-all uppercase">
+            SABER MÁS <span class="text-sm">→</span>
+          </div>
+        </a>
+      ))}
     </div>
   </div>
 </section>
 
 <!-- ═══ FAQ ════════════════════════════════════════════════════════════ -->
-<section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6">
+<section id="faq" class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6">
   <div class="max-w-4xl mx-auto">
     <div class="text-center mb-16 sm:mb-20 reveal">
       <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">FAQ</span>
       <h2 class="text-3xl sm:text-5xl uppercase tracking-tighter font-black">
-        Lo que nos preguntan<br class="hidden sm:inline" /> antes de empezar
+        Preguntas sobre posicionamiento<br class="hidden sm:inline" /> SEO en Sant Cugat
       </h2>
     </div>
 
@@ -547,7 +598,6 @@ const faqs = [
         w.classList.remove('bg-accent', 'border-accent');
         w.classList.add('bg-zinc-50', 'border-zinc-100');
       });
-      document.querySelectorAll('.faq-icon svg, .faq-icon').forEach(i => (i as HTMLElement).style.color = '');
       document.querySelectorAll('.faq-trigger').forEach(b => b.setAttribute('aria-expanded', 'false'));
 
       if (!isOpen) {
