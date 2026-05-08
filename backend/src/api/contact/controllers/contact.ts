@@ -1,14 +1,5 @@
-﻿import { Context } from 'koa';
+import { Context } from 'koa';
 import nodemailer from 'nodemailer';
-
-// Strip accents and non-ASCII for admin email (á→a, é→e, ñ→n, ü→u, ç→c, ¡→'', ¿→'')
-function sanitize(str: string | undefined | null): string {
-  if (!str) return '';
-  return str
-    .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
-    .replace(/[̀-ͯ]/g, '');
-}
 
 function buildTransporter() {
   return nodemailer.createTransport({
@@ -23,7 +14,6 @@ function buildTransporter() {
 }
 
 export default {
-  // GET /api/contact/test — smoke-test SMTP without a real form submission
   async test(ctx: Context) {
     const SMTP_USER = process.env.SMTP_USER || '';
     const CONTACT_TO = process.env.CONTACT_TO || 'hola@novamarketing.es';
@@ -49,7 +39,7 @@ export default {
         from: `"nova. test" <${SMTP_USER}>`,
         to: CONTACT_TO,
         subject: '[TEST] SMTP contact form check',
-        text: 'Si recibes este email el SMTP funciona correctamente.',
+        text: 'Test OK',
       });
     } catch (err: any) {
       ctx.status = 500;
@@ -72,10 +62,45 @@ export default {
 
     const SMTP_USER = process.env.SMTP_USER || '';
     const CONTACT_TO = process.env.CONTACT_TO || 'hola@novamarketing.es';
-
     const transporter = buildTransporter();
 
-    const emailTemplate = (bodyContent: string) => `<!DOCTYPE html>
+    const now = new Date().toLocaleString('en-GB', {
+      timeZone: 'Europe/Madrid',
+      day: '2-digit', month: '2-digit', year: 'numeric',
+      hour: '2-digit', minute: '2-digit',
+    });
+    const pageSource = source || (ctx.request.headers['referer'] as string) || '-';
+
+    const adminText = [
+      'NUEVA CONSULTA - Nova Marketing',
+      '================================',
+      `Nombre:   ${name}`,
+      `Email:    ${email}`,
+      url   ? `Web:      ${url}`   : null,
+      phone ? `Telefono: ${phone}` : null,
+      msg   ? `Mensaje:  ${msg}`   : null,
+      `Pagina:   ${pageSource}`,
+      `Fecha:    ${now}`,
+    ].filter(Boolean).join('\n');
+
+    // Admin notification — plain text, no encoding issues
+    try {
+      await transporter.sendMail({
+        from: `"nova." <${SMTP_USER}>`,
+        to: CONTACT_TO,
+        subject: 'Nueva consulta en Nova Marketing',
+        text: adminText,
+        replyTo: email,
+      });
+    } catch (err: any) {
+      console.error('[Contact] Admin email error:', err.message);
+      ctx.status = 500;
+      ctx.body = { error: 'Failed to send admin notification', detail: err.message };
+      return;
+    }
+
+    // User confirmation — HTML, best-effort
+    const confirmationHtml = `<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -93,7 +118,19 @@ export default {
       </tr>
       <tr>
         <td style="background:#ffffff;padding:48px 40px;">
-          ${bodyContent}
+          <h2 style="font-family:'Montserrat',Arial Black,sans-serif;font-weight:900;font-size:26px;text-transform:uppercase;letter-spacing:-0.03em;color:#09090b;margin:0 0 20px 0;line-height:1.1;">
+            &#161;Hemos recibido<br>tu consulta!
+          </h2>
+          <p style="font-family:'Inter',Arial,sans-serif;font-size:16px;color:#52525b;line-height:1.7;margin:0 0 32px 0;">
+            Hola <strong style="color:#09090b;">${name}</strong>, gracias por contactar con nosotros.<br>
+            Nos pondremos en contacto contigo en menos de <strong style="color:#09090b;">24 horas</strong>.
+          </p>
+          ${msg ? `<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f5;border-radius:6px;margin-bottom:36px;">
+            <tr><td style="padding:20px 24px;">
+              <p style="font-family:'Montserrat',Arial Black,sans-serif;font-weight:900;font-size:9px;text-transform:uppercase;letter-spacing:0.2em;color:#71717a;margin:0 0 8px 0;">Tu mensaje</p>
+              <p style="font-family:'Inter',Arial,sans-serif;font-size:15px;color:#3f3f46;line-height:1.6;margin:0;">${msg}</p>
+            </td></tr>
+          </table>` : ''}
         </td>
       </tr>
       <tr>
@@ -109,72 +146,12 @@ export default {
 </body>
 </html>`;
 
-    const now = new Date().toLocaleString('en-GB', {
-      timeZone: 'Europe/Madrid',
-      day: '2-digit', month: '2-digit', year: 'numeric',
-      hour: '2-digit', minute: '2-digit',
-    });
-    const pageSource = sanitize(source || (ctx.request.headers['referer'] as string) || '-');
-
-    const sName = sanitize(name);
-    const sPhone = sanitize(phone);
-    const sMsg = sanitize(msg);
-    const sUrl = sanitize(url);
-
-    const internalBody = `
-      <h2 style="font-family:'Montserrat',Arial Black,sans-serif;font-weight:900;font-size:20px;text-transform:uppercase;letter-spacing:-0.02em;color:#09090b;margin:0 0 24px 0;">
-        Nueva consulta de contacto
-      </h2>
-      <table style="width:100%;border-collapse:collapse;font-family:'Inter',Arial,sans-serif;font-size:15px;">
-        <tr><td style="padding:10px 0;font-weight:700;color:#09090b;width:110px;border-bottom:1px solid #f4f4f5;">Nombre</td><td style="padding:10px 0;color:#3f3f46;border-bottom:1px solid #f4f4f5;">${sName}</td></tr>
-        <tr><td style="padding:10px 0;font-weight:700;color:#09090b;border-bottom:1px solid #f4f4f5;">Email</td><td style="padding:10px 0;color:#3f3f46;border-bottom:1px solid #f4f4f5;">${email}</td></tr>
-        ${sUrl ? `<tr><td style="padding:10px 0;font-weight:700;color:#09090b;border-bottom:1px solid #f4f4f5;">Web</td><td style="padding:10px 0;color:#3f3f46;border-bottom:1px solid #f4f4f5;">${sUrl}</td></tr>` : ''}
-        ${sPhone ? `<tr><td style="padding:10px 0;font-weight:700;color:#09090b;border-bottom:1px solid #f4f4f5;">Telefono</td><td style="padding:10px 0;color:#3f3f46;border-bottom:1px solid #f4f4f5;">${sPhone}</td></tr>` : ''}
-        ${sMsg ? `<tr><td style="padding:10px 0;font-weight:700;color:#09090b;border-bottom:1px solid #f4f4f5;vertical-align:top;">Mensaje</td><td style="padding:10px 0;color:#3f3f46;line-height:1.6;border-bottom:1px solid #f4f4f5;">${sMsg}</td></tr>` : ''}
-        <tr><td style="padding:10px 0;font-weight:700;color:#09090b;border-bottom:1px solid #f4f4f5;">Pagina</td><td style="padding:10px 0;color:#3f3f46;border-bottom:1px solid #f4f4f5;">${pageSource}</td></tr>
-        <tr><td style="padding:10px 0;font-weight:700;color:#09090b;">Fecha</td><td style="padding:10px 0;color:#3f3f46;">${now}</td></tr>
-      </table>
-    `;
-
-    const confirmationBody = `
-      <h2 style="font-family:'Montserrat',Arial Black,sans-serif;font-weight:900;font-size:26px;text-transform:uppercase;letter-spacing:-0.03em;color:#09090b;margin:0 0 20px 0;line-height:1.1;">
-        &#161;Hemos recibido<br>tu consulta!
-      </h2>
-      <p style="font-family:'Inter',Arial,sans-serif;font-size:16px;color:#52525b;line-height:1.7;margin:0 0 32px 0;">
-        Hola <strong style="color:#09090b;">${name}</strong>, gracias por contactar con nosotros.<br>
-        Nos pondremos en contacto contigo en menos de <strong style="color:#09090b;">24 horas</strong>.
-      </p>
-      ${msg ? `<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f5;border-radius:6px;margin-bottom:36px;">
-        <tr><td style="padding:20px 24px;">
-          <p style="font-family:'Montserrat',Arial Black,sans-serif;font-weight:900;font-size:9px;text-transform:uppercase;letter-spacing:0.2em;color:#71717a;margin:0 0 8px 0;">Tu mensaje</p>
-          <p style="font-family:'Inter',Arial,sans-serif;font-size:15px;color:#3f3f46;line-height:1.6;margin:0;">${msg}</p>
-        </td></tr>
-      </table>` : ''}
-    `;
-
-    // Admin notification — mandatory: fail the request if this doesn't send
-    try {
-      await transporter.sendMail({
-        from: `"nova." <${SMTP_USER}>`,
-        to: CONTACT_TO,
-        subject: 'Nueva consulta en Nova Marketing',
-        html: emailTemplate(internalBody),
-        replyTo: email,
-      });
-    } catch (err: any) {
-      console.error('[Contact] Admin email error:', err.message);
-      ctx.status = 500;
-      ctx.body = { error: 'Failed to send admin notification', detail: err.message };
-      return;
-    }
-
-    // User confirmation — best-effort, don't fail the request if this fails
     try {
       await transporter.sendMail({
         from: `"nova." <${SMTP_USER}>`,
         to: email,
         subject: '¡Hemos recibido tu consulta! - nova.',
-        html: emailTemplate(confirmationBody),
+        html: confirmationHtml,
       });
     } catch (err: any) {
       console.error('[Contact] User confirmation email error:', err.message);
