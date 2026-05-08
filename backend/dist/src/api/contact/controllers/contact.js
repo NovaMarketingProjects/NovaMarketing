@@ -4,6 +4,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const nodemailer_1 = __importDefault(require("nodemailer"));
+function sanitize(str) {
+    if (!str) return '';
+    return str
+        .normalize('NFD')
+        .replace(/[̀-ͯ]/g, '')
+        .replace(/[^\x20-\x7E\n\r\t]/g, '');
+}
 function buildTransporter() {
     return nodemailer_1.default.createTransport({
         host: process.env.SMTP_HOST || 'smtp.hostinger.com',
@@ -59,22 +66,26 @@ exports.default = {
         const SMTP_USER = process.env.SMTP_USER || '';
         const CONTACT_TO = process.env.CONTACT_TO || 'hola@novamarketing.es';
         const transporter = buildTransporter();
-        const now = new Date().toLocaleString('es-ES', {
+        const now = new Date().toLocaleString('en-GB', {
             timeZone: 'Europe/Madrid',
             day: '2-digit', month: '2-digit', year: 'numeric',
             hour: '2-digit', minute: '2-digit',
         });
-        const pageSource = source || ctx.request.headers['referer'] || '—';
+        const pageSource = sanitize(source || ctx.request.headers['referer'] || '-');
+        const sName = sanitize(name);
+        const sPhone = sanitize(phone);
+        const sMsg = sanitize(msg);
+        const sUrl = sanitize(url);
         const internalBody = `
       <h2 style="font-family:'Montserrat',Arial Black,sans-serif;font-weight:900;font-size:20px;text-transform:uppercase;letter-spacing:-0.02em;color:#09090b;margin:0 0 24px 0;">
         Nueva consulta de contacto
       </h2>
       <table style="width:100%;border-collapse:collapse;font-family:'Inter',Arial,sans-serif;font-size:15px;">
-        <tr><td style="padding:10px 0;font-weight:700;color:#09090b;width:110px;border-bottom:1px solid #f4f4f5;">Nombre</td><td style="padding:10px 0;color:#3f3f46;border-bottom:1px solid #f4f4f5;">${name}</td></tr>
+        <tr><td style="padding:10px 0;font-weight:700;color:#09090b;width:110px;border-bottom:1px solid #f4f4f5;">Nombre</td><td style="padding:10px 0;color:#3f3f46;border-bottom:1px solid #f4f4f5;">${sName}</td></tr>
         <tr><td style="padding:10px 0;font-weight:700;color:#09090b;border-bottom:1px solid #f4f4f5;">Email</td><td style="padding:10px 0;color:#3f3f46;border-bottom:1px solid #f4f4f5;">${email}</td></tr>
-        ${url ? `<tr><td style="padding:10px 0;font-weight:700;color:#09090b;border-bottom:1px solid #f4f4f5;">Web</td><td style="padding:10px 0;color:#3f3f46;border-bottom:1px solid #f4f4f5;">${url}</td></tr>` : ''}
-        ${phone ? `<tr><td style="padding:10px 0;font-weight:700;color:#09090b;border-bottom:1px solid #f4f4f5;">Telefono</td><td style="padding:10px 0;color:#3f3f46;border-bottom:1px solid #f4f4f5;">${phone}</td></tr>` : ''}
-        ${msg ? `<tr><td style="padding:10px 0;font-weight:700;color:#09090b;border-bottom:1px solid #f4f4f5;vertical-align:top;">Mensaje</td><td style="padding:10px 0;color:#3f3f46;line-height:1.6;border-bottom:1px solid #f4f4f5;">${msg}</td></tr>` : ''}
+        ${sUrl ? `<tr><td style="padding:10px 0;font-weight:700;color:#09090b;border-bottom:1px solid #f4f4f5;">Web</td><td style="padding:10px 0;color:#3f3f46;border-bottom:1px solid #f4f4f5;">${sUrl}</td></tr>` : ''}
+        ${sPhone ? `<tr><td style="padding:10px 0;font-weight:700;color:#09090b;border-bottom:1px solid #f4f4f5;">Telefono</td><td style="padding:10px 0;color:#3f3f46;border-bottom:1px solid #f4f4f5;">${sPhone}</td></tr>` : ''}
+        ${sMsg ? `<tr><td style="padding:10px 0;font-weight:700;color:#09090b;border-bottom:1px solid #f4f4f5;vertical-align:top;">Mensaje</td><td style="padding:10px 0;color:#3f3f46;line-height:1.6;border-bottom:1px solid #f4f4f5;">${sMsg}</td></tr>` : ''}
         <tr><td style="padding:10px 0;font-weight:700;color:#09090b;border-bottom:1px solid #f4f4f5;">Pagina</td><td style="padding:10px 0;color:#3f3f46;border-bottom:1px solid #f4f4f5;">${pageSource}</td></tr>
         <tr><td style="padding:10px 0;font-weight:700;color:#09090b;">Fecha</td><td style="padding:10px 0;color:#3f3f46;">${now}</td></tr>
       </table>
@@ -103,7 +114,7 @@ exports.default = {
       <tr>
         <td style="background:#f4f4f5;padding:20px 40px;border-top:1px solid #e4e4e7;">
           <p style="font-family:'Inter',Arial,sans-serif;font-size:12px;color:#a1a1aa;margin:0;">
-            © Nova Marketing &middot; <a href="mailto:hola@novamarketing.es" style="color:#a1a1aa;text-decoration:none;">hola@novamarketing.es</a>
+            &copy; Nova Marketing &middot; <a href="mailto:hola@novamarketing.es" style="color:#a1a1aa;text-decoration:none;">hola@novamarketing.es</a>
           </p>
         </td>
       </tr>
@@ -114,7 +125,7 @@ exports.default = {
 </html>`;
         const confirmationBody = `
       <h2 style="font-family:'Montserrat',Arial Black,sans-serif;font-weight:900;font-size:26px;text-transform:uppercase;letter-spacing:-0.03em;color:#09090b;margin:0 0 20px 0;line-height:1.1;">
-        ¡Hemos recibido<br>tu consulta!
+        &#161;Hemos recibido<br>tu consulta!
       </h2>
       <p style="font-family:'Inter',Arial,sans-serif;font-size:16px;color:#52525b;line-height:1.7;margin:0 0 32px 0;">
         Hola <strong style="color:#09090b;">${name}</strong>, gracias por contactar con nosotros.<br>
@@ -127,7 +138,7 @@ exports.default = {
         </td></tr>
       </table>` : ''}
     `;
-        // Admin notification — plain text, mandatory
+        // Admin notification — mandatory: fail the request if this doesn't send
         try {
             await transporter.sendMail({
                 from: `"nova." <${SMTP_USER}>`,
@@ -143,12 +154,12 @@ exports.default = {
             ctx.body = { error: 'Failed to send admin notification', detail: err.message };
             return;
         }
-        // User confirmation — HTML, best-effort
+        // User confirmation — best-effort, don't fail the request if this fails
         try {
             await transporter.sendMail({
                 from: `"nova." <${SMTP_USER}>`,
                 to: email,
-                subject: '¡Hemos recibido tu consulta! - nova.',
+                subject: '&#161;Hemos recibido tu consulta! - nova.',
                 html: emailTemplate(confirmationBody),
             });
         }
