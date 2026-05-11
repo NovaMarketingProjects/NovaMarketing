@@ -1,0 +1,535 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LogoMarquee from '../components/sections/LogoMarquee.astro';
+
+const faqs = [
+  {
+    q: '¿Qué pasa si quiero cancelar?',
+    a: 'Puedes cancelar cuando quieras con 30 días de preaviso. La web es tuya: te entregamos todos los archivos y el dominio sin coste adicional.',
+  },
+  {
+    q: '¿El hosting está incluido en los 80€?',
+    a: 'Sí. El precio mensual incluye hosting de calidad, certificado SSL, copias de seguridad diarias y mantenimiento técnico. Sin costes ocultos.',
+  },
+  {
+    q: '¿Cuánto tiempo tarda en estar lista la web?',
+    a: 'Entre 10 y 15 días hábiles desde que apruebas el diseño. Para proyectos con muchas páginas o tiendas online, el plazo puede ser algo mayor.',
+  },
+  {
+    q: '¿Puedo añadir una tienda online?',
+    a: 'Sí. Podemos desarrollar tu tienda online en Sabadell con un precio mensual adaptado al proyecto. Consúltanos sin compromiso.',
+  },
+  {
+    q: '¿El SEO está realmente incluido?',
+    a: 'Incluimos la optimización técnica SEO: estructura de URLs, velocidad, metadatos y etiquetas correctas. El trabajo de contenidos y posicionamiento avanzado es un servicio adicional.',
+  },
+];
+---
+
+<BaseLayout
+  title="Diseño Web para Pymes en Sabadell por 80€/mes | nova."
+  description="Webs profesionales para pymes de Sabadell desde 80€ al mes. Diseño a medida, optimizado para SEO, mantenimiento incluido. Sin pago inicial."
+  noIndex={true}
+  locale="es"
+  hideHeader={true}
+  hideFooter={true}
+>
+
+<!-- ─── Sending overlay ─── -->
+<div id="lp-sending" class="fixed inset-0 z-[200] bg-white flex flex-col items-center justify-center hidden">
+  <div class="flex flex-col items-center gap-8 px-8 max-w-sm w-full text-center">
+    <div class="w-16 h-16 rounded-full border-4 border-zinc-100 border-t-accent animate-spin"></div>
+    <div>
+      <div class="text-2xl font-black uppercase tracking-tighter text-black mb-2">Enviando...</div>
+      <p class="text-zinc-400 font-light text-sm">Procesando tu solicitud, un momento.</p>
+    </div>
+    <div class="w-full bg-zinc-100 rounded-full h-1 overflow-hidden">
+      <div id="lp-progress" class="h-full bg-accent rounded-full" style="width:0%;transition:width 0.4s ease"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ NAV LANDING ═══════════════════════════════════════════════════ -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-black/5 py-2 sm:py-3 leading-none">
+  <div class="relative w-full px-6 sm:px-12 md:px-24 lg:px-32 xl:px-44 flex items-center justify-between h-12 md:h-14 gap-6">
+    <a href="/" class="flex items-center h-full flex-shrink-0">
+      <div class="text-[2.8rem] sm:text-[3rem] font-heading font-black tracking-tighter leading-none flex items-center -translate-y-0.5">
+        <span class="hover-animate-gradient">nova.</span>
+      </div>
+    </a>
+    <nav class="hidden lg:flex items-center gap-6 xl:gap-8">
+      {[
+        { href: '#incluye', label: 'Qué incluye' },
+        { href: '#proceso', label: 'Cómo trabajamos' },
+        { href: '#resultados', label: 'Resultados' },
+        { href: '#faq', label: 'FAQ' },
+      ].map(l => (
+        <a href={l.href} class="text-[11px] font-bold uppercase tracking-[0.15em] text-zinc-700 hover:text-accent transition-colors whitespace-nowrap">
+          {l.label}
+        </a>
+      ))}
+    </nav>
+    <a href="#solicitar" class="btn-mktg-v5 !py-3 !px-6 !text-[11px] font-black flex-shrink-0">
+      SOLICITAR PRESUPUESTO
+    </a>
+  </div>
+</header>
+
+<!-- ═══ HERO ═══════════════════════════════════════════════════════════ -->
+<section class="min-h-[100dvh] flex items-center px-4 sm:px-6 relative overflow-hidden bg-white border-b border-black/5 pt-16 pb-[220px] sm:pb-10">
+  <!-- Background mesh -->
+  <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_40%,#000_70%,transparent_100%)]"></div>
+  <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+  <div class="absolute top-20 right-1/3 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+
+  <div class="max-w-7xl mx-auto w-full">
+    <div class="grid lg:grid-cols-[2fr_1fr] gap-10 lg:gap-14 items-center">
+
+      <!-- Copy: 66% -->
+      <div class="reveal">
+        <div class="flex justify-center lg:justify-start mb-8">
+          <h2 class="inline-flex items-center gap-2 bg-accent/10 backdrop-blur-sm px-4 py-2 border border-accent/25 rounded-full text-accent text-[10px] sm:text-[12px] font-black uppercase tracking-[0.25em] shadow-sm">
+            <span class="w-2 h-2 bg-accent rounded-full animate-ping"></span>
+            Diseño Web en Sabadell
+          </h2>
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl lg:text-7xl uppercase font-black tracking-tighter leading-[0.9] mb-8 lg:mb-10 text-zinc-900 text-center sm:text-left">
+          Tu web por<br>
+          <span class="text-mktg-gradient">80€ al mes</span>
+        </h1>
+
+        <div class="flex flex-col gap-3 mb-8 lg:mb-12">
+          {[
+            'Sin pago inicial',
+            'Diseño profesional incluido',
+            'Mantenimiento incluido',
+          ].map(item => (
+            <span class="inline-flex items-center gap-3 text-sm font-black uppercase tracking-widest text-zinc-800">
+              <span class="w-7 h-7 bg-accent/10 border border-accent/20 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg class="w-3.5 h-3.5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                </svg>
+              </span>
+              {item}
+            </span>
+          ))}
+        </div>
+
+        <!-- Desktop claim (inline flow) -->
+        <div class="hidden sm:inline-flex items-center gap-3 border-l-4 border-accent pl-4">
+          <p class="font-black uppercase tracking-tight text-zinc-900 leading-none" style="font-size:clamp(0.95rem, 2.8vw, 2rem);">
+            Webs que convierten visitas en clientes
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Form: 33% — hidden on mobile -->
+      <div id="solicitar" class="reveal hidden lg:block">
+        <div class="bg-white rounded-3xl border-2 border-black/8 shadow-[0_20px_60px_rgba(0,0,0,0.1)] p-7">
+          <span class="text-[9px] font-black uppercase tracking-[0.4em] text-accent block mb-2">Sin compromiso</span>
+          <div class="text-2xl font-black uppercase tracking-tighter mb-5 leading-tight" style="font-weight:900;">Tu web lista en menos de 15 días</div>
+
+          <form id="web-sabadell-form" class="space-y-4">
+            <div class="flex flex-col gap-1.5">
+              <label class="text-[9px] font-black uppercase tracking-widest opacity-40">Nombre *</label>
+              <input type="text" name="name" required class="border-b-2 border-zinc-200 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm" />
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <label class="text-[9px] font-black uppercase tracking-widest opacity-40">Email *</label>
+              <input type="email" name="email" required class="border-b-2 border-zinc-200 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm" />
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <label class="text-[9px] font-black uppercase tracking-widest opacity-40">Teléfono</label>
+              <input type="tel" name="phone" class="border-b-2 border-zinc-200 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm" />
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <label class="text-[9px] font-black uppercase tracking-widest opacity-40">Web actual (opcional)</label>
+              <input type="text" name="url" placeholder="www.tuempresa.com" class="border-b-2 border-zinc-200 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm" />
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <label class="text-[9px] font-black uppercase tracking-widest opacity-40">Mensaje</label>
+              <textarea name="msg" rows="2" class="border-b-2 border-zinc-200 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm resize-none"></textarea>
+            </div>
+
+            <div class="flex items-start gap-2 pt-1">
+              <input type="checkbox" id="lp-terms" name="terms" required class="mt-0.5 accent-accent flex-shrink-0" />
+              <label for="lp-terms" class="text-[10px] text-zinc-400 font-light cursor-pointer select-none leading-tight">
+                Acepto la <a href="/privacidad/" class="underline hover:text-accent transition-colors">política de privacidad</a>.
+              </label>
+            </div>
+
+            <button type="submit" id="lp-submit-btn" class="w-full btn-mktg-v5 !py-4 shadow-[0_8px_20px_rgba(37,211,102,0.3)]">
+              QUIERO MI WEB →
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Mobile: tarjeta + claim fijados al fondo del hero -->
+  <div class="sm:hidden absolute bottom-4 left-4 right-4 flex flex-col gap-5">
+    <div class="bg-white rounded-3xl border-2 border-black/8 shadow-[0_20px_60px_rgba(0,0,0,0.1)] p-6">
+      <span class="text-[9px] font-black uppercase tracking-[0.4em] text-accent block mb-2">Sin compromiso</span>
+      <div class="text-xl font-black uppercase tracking-tighter mb-4 leading-tight" style="font-weight:900;">Tu web lista en menos de 15 días</div>
+      <button class="contact-modal-trigger w-full btn-mktg-v5 !py-4 shadow-[0_8px_20px_rgba(37,211,102,0.3)]">
+        QUIERO MI WEB →
+      </button>
+    </div>
+    <p class="font-black uppercase tracking-tight text-zinc-900 leading-none text-center" style="font-size:0.95rem;">
+      Webs que convierten visitas en clientes
+    </p>
+  </div>
+</section>
+
+<LogoMarquee />
+
+<!-- ═══ QUÉ INCLUYE ════════════════════════════════════════════════════ -->
+<section id="incluye" class="py-20 sm:py-32 bg-zinc-50 border-y border-black/5 px-4 sm:px-6 relative overflow-hidden">
+  <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_80%,transparent_100%)]"></div>
+  <div class="max-w-7xl mx-auto relative z-10">
+    <div class="text-center mb-16 sm:mb-24 reveal">
+      <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Nuestro servicio</span>
+      <h2 class="text-3xl sm:text-5xl lg:text-7xl uppercase tracking-tighter font-black mb-6">
+        Todo lo que incluye<br class="hidden sm:inline" /> tu web por 80€/mes
+      </h2>
+      <p class="text-zinc-500 font-light text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+        Sin sorpresas ni costes ocultos. Un precio fijo mensual que cubre todo lo que necesita tu web para funcionar y crecer en Sabadell.
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 gap-6">
+      {[
+        { num: '01', title: 'Diseño a medida', desc: 'Diseño profesional adaptado a tu marca y sector. Nada de plantillas genéricas: tu web refleja la identidad de tu empresa.' },
+        { num: '02', title: 'Optimizado para SEO', desc: 'Estructura técnica, velocidad y etiquetas optimizadas para que Google posicione tu web desde el primer día.' },
+        { num: '03', title: 'Velocidad y Core Web Vitals', desc: 'Webs ultrarrápidas con puntuación verde en Google PageSpeed. Más velocidad = más conversiones y mejor posición en Google.' },
+        { num: '04', title: 'Mantenimiento incluido', desc: 'Actualizaciones, seguridad, hosting y soporte técnico incluidos en los 80€/mes. Sin costes sorpresa.' },
+      ].map((p, i) => (
+        <div class="group p-8 sm:p-10 bg-white border border-zinc-100/60 rounded-3xl hover:border-accent/20 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden flex gap-6 reveal" style={`transition-delay: ${i * 80}ms`}>
+          <div class="absolute bottom-0 inset-x-0 h-1 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
+          <div class="text-4xl font-black tracking-tighter text-black/5 group-hover:text-accent/10 transition-colors select-none flex-shrink-0 leading-none mt-1">{p.num}</div>
+          <div>
+            <h3 class="text-lg sm:text-xl font-black uppercase tracking-tighter mb-3 text-zinc-900">{p.title}</h3>
+            <p class="text-sm text-zinc-500 font-light leading-relaxed">{p.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-16 text-center reveal">
+      <button class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)]">
+        SOLICITAR PRESUPUESTO
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CÓMO TRABAJAMOS ════════════════════════════════════════════════ -->
+<section id="proceso" class="py-20 sm:py-32 bg-accent px-4 sm:px-6">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
+    <div class="reveal text-white">
+      <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 sm:mb-10 block opacity-70">El proceso</span>
+      <div class="text-4xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.82] mb-8 sm:mb-10">
+        Cómo<br>hacemos<br>tu web
+      </div>
+      <p class="text-white/70 font-light text-base sm:text-xl max-w-md leading-relaxed mb-8">
+        Un proceso claro y transparente para que tu web esté lista en tiempo récord. Sin tecnicismos, sin sorpresas, con resultados reales para tu negocio en Sabadell.
+      </p>
+      <ul class="text-[9px] sm:text-xs font-black tracking-widest space-y-3 uppercase opacity-90 text-white">
+        <li>→ DISEÑO PERSONALIZADO</li>
+        <li>→ DESARROLLO PROPIO</li>
+        <li>→ OPTIMIZACIÓN SEO</li>
+        <li>→ ENTREGA EN 15 DÍAS</li>
+      </ul>
+    </div>
+
+    <div class="reveal space-y-4">
+      {[
+        { num: '01', title: 'Reunión de Briefing', desc: 'Analizamos tu negocio, sector y competencia en Sabadell para diseñar una web que convierta visitas en clientes reales.' },
+        { num: '02', title: 'Diseño y Maquetación', desc: 'Creamos el diseño adaptado a tu marca. Revisas y apruebas antes de continuar. Sin sorpresas.' },
+        { num: '03', title: 'Desarrollo y Optimización', desc: 'Desarrollamos la web con código propio optimizado para velocidad, SEO y conversión. Responsive en todos los dispositivos.' },
+        { num: '04', title: 'Publicación y Seguimiento', desc: 'Lanzamos tu web y hacemos seguimiento del rendimiento. Si algo no funciona, lo corregimos sin coste adicional.' },
+      ].map(s => (
+        <div class="bg-white/10 backdrop-blur-sm p-6 sm:p-8 rounded-3xl border border-white/10 hover:bg-white/15 transition-colors flex gap-6 items-start">
+          <div class="text-white/40 font-black text-lg tracking-tighter flex-shrink-0 w-8">{s.num}</div>
+          <div>
+            <h3 class="text-sm font-black uppercase tracking-tight text-white mb-1">{s.title}</h3>
+            <p class="text-white/60 font-light text-sm leading-relaxed">{s.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══ POR QUÉ ELEGIRNOS + STATS ══════════════════════════════════════ -->
+<section id="resultados" class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
+  <div class="absolute -top-40 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl opacity-20 animate-pulse"></div>
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Copy -->
+    <div class="grid md:grid-cols-2 gap-12 sm:gap-20 items-center mb-20 sm:mb-32">
+      <div class="reveal">
+        <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Diseño web Sabadell</span>
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-black mb-6">
+          Tu web como herramienta de ventas en Sabadell
+        </h2>
+        <p class="text-zinc-500 font-light text-base sm:text-lg leading-relaxed mb-8">
+          No hacemos webs bonitas que no venden. Cada decisión de diseño y desarrollo está orientada a convertir visitas en clientes reales para tu negocio en Sabadell. Código propio, velocidad máxima y estructura pensada para Google desde el primer día.
+        </p>
+        <button class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)]">
+          QUIERO MI WEB POR 80€
+        </button>
+      </div>
+      <div class="reveal space-y-4">
+        {[
+          { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>`, title: 'Desarrollo Propio', desc: 'Código limpio y optimizado, sin plugins innecesarios que ralenticen tu web o creen vulnerabilidades de seguridad.' },
+          { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>`, title: 'SEO desde el Día 1', desc: 'Estructura técnica y contenidos optimizados para que Google empiece a posicionarte desde el momento del lanzamiento.' },
+          { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>`, title: 'Velocidad Máxima', desc: 'Core Web Vitals en verde garantizados. Una web rápida convierte hasta 3 veces más que una lenta.' },
+          { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg>`, title: 'Sin Permanencia', desc: 'Sin contratos de larga duración. Mes a mes, porque confiamos en que querrás quedarte por los resultados.' },
+        ].map((f, i) => (
+          <div class="group p-6 bg-white border border-zinc-100/60 rounded-2xl hover:border-accent/20 hover:shadow-lg transition-all duration-300 flex gap-4 items-start reveal" style={`transition-delay: ${i * 80}ms`}>
+            <div class="p-2.5 bg-zinc-50 border border-black/5 rounded-xl flex-shrink-0 group-hover:bg-accent/5 group-hover:border-accent/10 transition-colors">
+              <Fragment set:html={f.icon} />
+            </div>
+            <div>
+              <h3 class="text-sm font-black uppercase tracking-tight mb-1 text-zinc-900">{f.title}</h3>
+              <p class="text-xs text-zinc-500 font-light leading-relaxed">{f.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="reveal">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        {[
+          { value: '80€/mes', label: 'Precio fijo todo incluido' },
+          { value: '<15 días', label: 'De briefing a lanzamiento' },
+          { value: '+180%', label: 'Más contactos vs web antigua' },
+          { value: '100%', label: 'Responsive en todos los dispositivos' },
+        ].map((stat, i) => (
+          <div class="group p-8 bg-white border border-zinc-100/60 rounded-3xl hover:border-accent/20 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center reveal" style={`transition-delay: ${i * 80}ms`}>
+            <div class="text-3xl sm:text-4xl font-black tracking-tighter text-accent mb-2">{stat.value}</div>
+            <div class="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIOS ════════════════════════════════════════════════════ -->
+<section class="py-20 sm:py-32 bg-zinc-50 border-y border-black/5 px-4 sm:px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16 sm:mb-20 reveal">
+      <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Clientes reales</span>
+      <h2 class="text-3xl sm:text-5xl uppercase tracking-tighter font-black">
+        Lo que dicen nuestros<br class="hidden sm:inline" /> clientes en Sabadell
+      </h2>
+    </div>
+    <div class="grid md:grid-cols-2 gap-6">
+      {[
+        {
+          stars: 5,
+          text: 'Teníamos una web anticuada que no nos traía ningún cliente. Con Nova la renovamos por 80€ al mes y en 3 meses ya recibíamos consultas desde Google.',
+          author: 'Clínica dental, centre de Sabadell',
+          sector: 'Salud',
+        },
+        {
+          stars: 5,
+          text: 'El precio mensual es lo mejor. Sabes exactamente lo que pagas y la web funciona sola. Nos han traído más presupuestos en 6 meses que en los últimos 2 años.',
+          author: 'Empresa de servicios, Polígon de Can Roqueta',
+          sector: 'Servicios B2B',
+        },
+      ].map((t, i) => (
+        <div class="bg-white border border-zinc-100/60 rounded-3xl p-8 sm:p-10 flex flex-col gap-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 reveal" style={`transition-delay: ${i * 100}ms`}>
+          <div class="flex gap-1">
+            {Array.from({ length: t.stars }).map(() => (
+              <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            ))}
+          </div>
+          <p class="text-zinc-700 font-light text-base leading-relaxed flex-1">"{t.text}"</p>
+          <div class="border-t border-zinc-100 pt-4">
+            <div class="text-xs font-black uppercase tracking-tight text-zinc-900">{t.author}</div>
+            <div class="text-[10px] font-black uppercase tracking-[0.2em] text-accent mt-1">{t.sector}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ════════════════════════════════════════════════════════════ -->
+<section id="faq" class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-16 sm:mb-20 reveal">
+      <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">FAQ</span>
+      <h2 class="text-3xl sm:text-5xl uppercase tracking-tighter font-black">
+        Preguntas sobre diseño web<br class="hidden sm:inline" /> en Sabadell
+      </h2>
+    </div>
+
+    <div class="space-y-3 reveal">
+      {faqs.map((faq, i) => (
+        <div class="faq-item bg-white border border-zinc-100/60 rounded-3xl overflow-hidden hover:border-accent/20 transition-colors">
+          <button class="faq-trigger w-full text-left px-8 py-6 flex items-center justify-between gap-4" aria-expanded="false">
+            <span class="text-sm font-black uppercase tracking-tight text-zinc-900">{faq.q}</span>
+            <div class="faq-icon-wrap w-8 h-8 rounded-full bg-zinc-50 border border-zinc-100 flex items-center justify-center flex-shrink-0 transition-all duration-300">
+              <svg class="faq-icon w-4 h-4 text-zinc-400 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v14M5 12h14"/>
+              </svg>
+            </div>
+          </button>
+          <div class="faq-answer hidden px-8 pb-6">
+            <p class="text-zinc-500 font-light text-sm leading-relaxed">{faq.a}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA FINAL ══════════════════════════════════════════════════════ -->
+<section class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
+    <div class="reveal text-white">
+      <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 sm:mb-12 block opacity-70">SIN COMPROMISO</span>
+      <div class="text-5xl sm:text-8xl font-black uppercase tracking-tighter leading-[0.82] mb-8 sm:mb-12">
+        EMPIEZA<br>HOY
+      </div>
+      <ul class="text-[9px] sm:text-xs font-black tracking-widest space-y-3 uppercase opacity-90 text-white">
+        <li>→ SIN PAGO INICIAL</li>
+        <li>→ WEB LISTA EN 15 DÍAS</li>
+        <li>→ 80€/MES TODO INCLUIDO</li>
+      </ul>
+    </div>
+
+    <div class="reveal">
+      <div class="bg-white p-8 sm:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.15)] rounded-sm">
+        <form id="web-sabadell-form-bottom" class="space-y-8 sm:space-y-10">
+          <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
+            <div class="flex flex-col gap-3">
+              <label class="opacity-30">Nombre *</label>
+              <input type="text" name="name" required class="border-b border-black/10 py-2 focus:border-accent outline-none transition-colors" />
+            </div>
+            <div class="flex flex-col gap-3">
+              <label class="opacity-30">Web actual (URL)</label>
+              <input type="text" name="url" class="border-b border-black/10 py-2 focus:border-accent outline-none transition-colors" />
+            </div>
+          </div>
+          <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+            <label class="opacity-30">Email *</label>
+            <input type="email" name="email" required class="border-b border-black/10 py-2 focus:border-accent outline-none transition-colors" />
+          </div>
+          <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+            <label class="opacity-30">Cuéntanos sobre tu proyecto</label>
+            <textarea name="msg" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none transition-colors"></textarea>
+          </div>
+          <div class="flex items-start gap-2">
+            <input type="checkbox" id="lp-terms-2" name="terms" required class="mt-1 accent-accent" />
+            <label for="lp-terms-2" class="text-xs text-zinc-500 font-light cursor-pointer select-none">
+              Acepto la <a href="/privacidad/" class="underline hover:text-accent transition-colors">política de privacidad</a>.
+            </label>
+          </div>
+          <button type="submit" id="lp-submit-btn-2" class="w-full btn-mktg-v5 !py-6 sm:!py-8">
+            QUIERO MI WEB POR 80€
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Minimal footer ─── -->
+<footer class="py-8 bg-white border-t border-black/5">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <a href="/" class="font-black text-xl tracking-tighter text-black leading-none">nova.</a>
+    <div class="flex items-center gap-6 text-[10px] text-zinc-400 font-light">
+      <a href="/privacidad/" class="hover:text-accent transition-colors uppercase tracking-widest font-black">Privacidad</a>
+      <a href="/aviso-legal/" class="hover:text-accent transition-colors uppercase tracking-widest font-black">Aviso legal</a>
+      <a href="/cookies/" class="hover:text-accent transition-colors uppercase tracking-widest font-black">Cookies</a>
+    </div>
+    <p class="text-[10px] text-zinc-400 font-light">&copy; {new Date().getFullYear()} Nova Marketing · Sabadell</p>
+  </div>
+</footer>
+
+</BaseLayout>
+
+<script>
+  // FAQ accordion
+  document.querySelectorAll('.faq-trigger').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item')!;
+      const answer = item.querySelector('.faq-answer')!;
+      const icon = btn.querySelector('.faq-icon') as SVGElement | null;
+      const wrap = btn.querySelector('.faq-icon-wrap')!;
+      const isOpen = !answer.classList.contains('hidden');
+
+      document.querySelectorAll('.faq-answer').forEach(a => a.classList.add('hidden'));
+      document.querySelectorAll('.faq-icon').forEach(i => (i as SVGElement).style.transform = '');
+      document.querySelectorAll('.faq-icon-wrap').forEach(w => {
+        w.classList.remove('bg-accent', 'border-accent');
+        w.classList.add('bg-zinc-50', 'border-zinc-100');
+      });
+      document.querySelectorAll('.faq-icon svg, .faq-icon').forEach(i => (i as HTMLElement).style.color = '');
+      document.querySelectorAll('.faq-trigger').forEach(b => b.setAttribute('aria-expanded', 'false'));
+
+      if (!isOpen) {
+        answer.classList.remove('hidden');
+        if (icon) icon.style.transform = 'rotate(45deg)';
+        wrap.classList.remove('bg-zinc-50', 'border-zinc-100');
+        wrap.classList.add('bg-accent', 'border-accent');
+        if (icon) icon.style.color = 'white';
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  // Form submission
+  async function handleForm(formId: string, btnId: string) {
+    const form = document.getElementById(formId) as HTMLFormElement | null;
+    const btn = document.getElementById(btnId) as HTMLButtonElement | null;
+    const overlay = document.getElementById('lp-sending');
+    const bar = document.getElementById('lp-progress');
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (btn) btn.disabled = true;
+      overlay?.classList.remove('hidden');
+      if (bar) {
+        setTimeout(() => { bar.style.width = '40%'; }, 50);
+        setTimeout(() => { bar.style.width = '72%'; }, 700);
+        setTimeout(() => { bar.style.width = '88%'; }, 1800);
+      }
+      const data = { ...Object.fromEntries(new FormData(form)), source: window.location.href };
+      try {
+        const res = await fetch('https://cms.novamarketing.es/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        if (res.ok) {
+          if (bar) bar.style.width = '100%';
+          setTimeout(() => { window.location.href = '/gracias/'; }, 400);
+        } else { throw new Error(); }
+      } catch {
+        overlay?.classList.add('hidden');
+        if (bar) bar.style.width = '0%';
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = 'ERROR — INTÉNTALO DE NUEVO';
+          (btn as HTMLElement).style.background = '#ef4444';
+        }
+      }
+    });
+  }
+
+  handleForm('web-sabadell-form', 'lp-submit-btn');
+  handleForm('web-sabadell-form-bottom', 'lp-submit-btn-2');
+</script>
