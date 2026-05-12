@@ -191,10 +191,22 @@ const t = {
         }
     }
 
+    document.addEventListener('input', (e) => {
+        const input = e.target as HTMLInputElement;
+        if (input.name === 'url') input.setCustomValidity('');
+    });
+
     document.addEventListener('submit', async (e) => {
          const target = e.target as HTMLFormElement;
          if (target && target.id === 'desktop-modal-form') {
               e.preventDefault();
+              const urlInput = target.querySelector<HTMLInputElement>('[name="url"]');
+              if (urlInput && urlInput.value.trim() && !/\.[a-zA-Z]{2,}/.test(urlInput.value.trim())) {
+                urlInput.setCustomValidity('Introduce una URL válida, por ejemplo: miempresa.com');
+                urlInput.reportValidity();
+                return;
+              }
+              if (urlInput) urlInput.setCustomValidity('');
               const btn = target.querySelector('button') as HTMLButtonElement;
               if (btn) { btn.disabled = true; }
               showSendingOverlay();

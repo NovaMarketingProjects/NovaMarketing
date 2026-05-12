@@ -618,8 +618,18 @@ const faqs = [
     const overlay = document.getElementById('lp-sending');
     const bar = document.getElementById('lp-progress');
 
+    form?.querySelector<HTMLInputElement>('[name="url"]')?.addEventListener('input', (e) => {
+      (e.target as HTMLInputElement).setCustomValidity('');
+    });
     form?.addEventListener('submit', async (e) => {
       e.preventDefault();
+      const urlInput = form.querySelector<HTMLInputElement>('[name="url"]');
+      if (urlInput && urlInput.value.trim() && !/\.[a-zA-Z]{2,}/.test(urlInput.value.trim())) {
+        urlInput.setCustomValidity('Introduce una URL válida, por ejemplo: miempresa.com');
+        urlInput.reportValidity();
+        return;
+      }
+      if (urlInput) urlInput.setCustomValidity('');
       if (btn) btn.disabled = true;
       overlay?.classList.remove('hidden');
       if (bar) {

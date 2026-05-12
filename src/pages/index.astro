@@ -394,9 +394,20 @@ const homeSchema = {
 </BaseLayout>
 
 <script>
+    document.querySelector<HTMLInputElement>('#contact-form [name="url"]')?.addEventListener('input', (e) => {
+        (e.target as HTMLInputElement).setCustomValidity('');
+    });
+
     document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
         e.preventDefault();
         const form = e.target as HTMLFormElement;
+        const urlInput = form.querySelector<HTMLInputElement>('[name="url"]');
+        if (urlInput && urlInput.value.trim() && !/\.[a-zA-Z]{2,}/.test(urlInput.value.trim())) {
+            urlInput.setCustomValidity('Introduce una URL válida, por ejemplo: miempresa.com');
+            urlInput.reportValidity();
+            return;
+        }
+        if (urlInput) urlInput.setCustomValidity('');
         const btn = form.querySelector('button') as HTMLButtonElement;
         if (btn) { btn.innerHTML = 'ENVIANDO...'; btn.disabled = true; }
         const data = Object.fromEntries(new FormData(form));
