@@ -119,13 +119,36 @@ h1, h2, h3, h4 {
   transition: opacity 0.3s;
 }
 
-/* Reveal Animation */
+/* ═════════════════════════════════════════════════════════════ */
+/* VISIBILITY & ANIMATIONS - Ensure all content is visible without JS */
+/* ═════════════════════════════════════════════════════════════ */
+
+/* Default: all elements visible */
 .reveal {
-  opacity: 0;
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  visibility: visible !important;
+  display: auto !important;
 }
 
 .reveal.active {
   animation: reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Timeline specific */
+.timeline-container .reveal {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.timeline-container .reveal.active {
+  animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Category tabs & headers */
+.cat-btn, [class*="reveal"] {
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 /* Buttons */
