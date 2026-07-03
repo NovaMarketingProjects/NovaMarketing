@@ -7,7 +7,7 @@ let caseStudies: any[] = [];
 try {
   const res = await strapiClient.getCaseStudies('es', { limit: 50 });
   const allCases = res?.data?.map((i: any) => i.attributes ?? i) ?? [];
-  const seoSlugs = ['seo', 'seo-local', 'consultoria-seo', 'posicionamiento-seo'];
+  const seoSlugs = ['seo', 'seo-ecommerce', 'posicionamiento-ecommerce', 'tienda-online'];
   caseStudies = allCases
     .filter((cs: any) => {
       if (!cs.slug) return false;
@@ -15,38 +15,38 @@ try {
       return cats.some((c: any) => {
         const name: string = (c.name || c.attributes?.name || '').toLowerCase();
         const slug: string = (c.slug || c.attributes?.slug || '').toLowerCase();
-        return name.includes('seo') || seoSlugs.includes(slug);
+        return name.includes('ecommerce') || name.includes('tienda') || seoSlugs.includes(slug);
       });
     });
 } catch (_) {}
 
 const faqs = [
   {
-    q: '¿Cuál es la diferencia entre el SEO y la publicidad en Google?',
-    a: 'El SEO genera visitas orgánicas durables a largo plazo sin pagar por cada clic. Google Ads es inmediato pero caducas en el momento que dejas de pagar. El SEO es la inversión que sigue funcionando incluso cuando dejas de invertir activamente.',
+    q: '¿Cómo aumenta el SEO las ventas de mi tienda online?',
+    a: 'El SEO trae tráfico de cliente listos para comprar. A diferencia de otros canales, quien busca tu producto en Google ya quiere comprarlo. Tráfico de calidad = más conversiones = más ventas. Optimizamos para keywords con intención de compra clara.',
   },
   {
-    q: '¿Cuánto tiempo tarda en funcionar una estrategia SEO?',
-    a: 'Los primeros resultados suelen verse entre 3 y 6 meses, dependiendo de la competencia del sector y el estado inicial de tu web. A partir del año, los resultados son exponenciales. Es una inversión a largo plazo pero con retorno muy superior al SEM.',
+    q: '¿Cuál es la diferencia entre SEO para Ecommerce y SEO normal?',
+    a: 'El SEO Ecommerce se enfoca en keywords de compra (no solo "qué es"), en fichas de producto optimizadas, en link building autoridad, en velocidad de carga y en conversión real. No es lo mismo rankear un blog que rankear una ficha con 10 variantes. Cada detalle cuenta.',
   },
   {
-    q: '¿Por qué elegir una agencia SEO y no hacerlo yo solo?',
-    a: 'El SEO requiere experiencia, herramientas especializadas y seguimiento constante. Las agencias tenemos el conocimiento y los recursos para ejecutar estrategias complejas. Un especialista dedica 40 horas semanales mientras tú gestionas tu negocio. El ROI de contratar una agencia siempre compensa.',
+    q: '¿Cuántas fichas de producto necesito posicionar?',
+    a: 'Depende. Empezamos con 50-100 fichas principales (top sellers, margen alto). Luego escalamos. No es de rankear "todas las fichas", sino las que generan dinero. ROI es lo importante.',
   },
   {
-    q: '¿Garantizáis resultados en Google?',
-    a: 'Ninguna agencia SEO ética garantiza el puesto número 1. El SEO depende del algoritmo de Google que cambia constantemente. Lo que sí garantizamos es ejecución profesional, transparencia en métricas y resultados medibles. Trabajamos con KPIs claros desde el inicio.',
+    q: '¿Afecta el SEO si cambio mi plataforma (Shopify, WooCommerce, Magento)?',
+    a: 'Sí, pero se puede migrar bien. Lo importante es no perder posicionamientos durante el cambio. Hacemos 301 redirects, mantenemos URLs cuando es posible, verificamos structured data. Una buena migración =sin pérdida de tráfico.',
   },
   {
-    q: '¿Cuál es el presupuesto mínimo para contratar a una agencia SEO?',
-    a: 'Depende de la complejidad de tu negocio. Para obtener resultados reales, el presupuesto mínimo suele estar entre 1.500€ y 3.000€/mes. Por menos, es difícil hacer un trabajo profesional. Siempre realizamos una auditoría gratuita para proponer el mejor presupuesto.',
+    q: '¿En cuánto tiempo veo resultados en ventas?',
+    a: 'Primeros resultados en posicionamiento: 2-3 meses. Primeras conversiones: 2-4 meses. Pero el tráfico y ventas crecen exponencialmente. A los 12 meses, el SEO es tu canal de mayor ROI.',
   },
 ];
 ---
 
 <BaseLayout
-  title="Agencia SEO — Posicionamiento en Google | nova."
-  description="Agencia de SEO profesional. Aumentamos tu visibilidad en Google con estrategia orgánica. Auditoría gratuita, resultados medibles, ROI garantizado."
+  title="SEO para Ecommerce — Posiciona tu Tienda Online | nova."
+  description="SEO especializado en tiendas online. Aumenta tráfico, conversiones y ventas. Estrategia de posicionamiento para Shopify, WooCommerce y más."
   noIndex={true}
   locale="es"
   hideHeader={true}
@@ -77,8 +77,8 @@ const faqs = [
     </a>
     <nav class="hidden lg:flex items-center gap-6 xl:gap-8">
       {[
-        { href: '#auditoria', label: 'Estrategia SEO' },
-        { href: '#metodo', label: 'Proceso' },
+        { href: '#posicionamiento', label: 'Posicionamiento' },
+        { href: '#estrategia', label: 'Estrategia' },
         { href: '#resultados', label: 'Resultados' },
         { href: '#casos', label: 'Casos' },
         { href: '#faq', label: 'FAQ' },
@@ -102,28 +102,28 @@ const faqs = [
   <div class="absolute top-20 right-1/3 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
 
   <div class="max-w-7xl mx-auto w-full">
-    <div class="grid lg:grid-cols-[2fr_1fr] gap-10 lg:gap-14 items-center">
+    <div class="grid lg:grid-cols-[1.8fr_0.9fr_1fr] gap-10 lg:gap-12 items-center">
 
-      <!-- Copy: 66% -->
+      <!-- Copy: 50% -->
       <div class="reveal">
         <div class="flex justify-center lg:justify-start mb-8">
           <h2 class="inline-flex items-center gap-2 bg-accent/10 backdrop-blur-sm px-4 py-2 border border-accent/25 rounded-full text-accent text-[10px] sm:text-[12px] font-black uppercase tracking-[0.25em] shadow-sm">
             <span class="w-2 h-2 bg-accent rounded-full animate-ping"></span>
-            Agencia SEO
+            SEO Ecommerce
           </h2>
         </div>
 
-        <h1 class="text-3xl sm:text-5xl lg:text-7xl uppercase font-black tracking-tighter leading-[0.9] mb-8 lg:mb-10 text-zinc-900 text-center sm:text-left">
-          Aparece primero<br>
-          en Google sin<br>
-          <span class="text-mktg-gradient">pagar por clics</span>
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl uppercase font-black tracking-tighter leading-[0.9] mb-8 lg:mb-10 text-zinc-900 text-center sm:text-left">
+          Vende más<br>
+          posicionando tu<br>
+          <span class="text-mktg-gradient">tienda online</span>
         </h1>
 
         <div class="flex flex-col gap-3 mb-8 lg:mb-12">
           {[
-            'Estrategia SEO a medida para tu sector',
-            'Tráfico orgánico duradero y gratuito',
-            'Auditoría técnica y análisis competitivo',
+            'Tráfico de clientes listos para comprar',
+            'Optimización de fichas para conversión real',
+            'Estrategia específica para tu plataforma',
           ].map(item => (
             <span class="inline-flex items-center gap-3 text-sm font-black uppercase tracking-widest text-zinc-800">
               <span class="w-7 h-7 bg-accent/10 border border-accent/20 rounded-full flex items-center justify-center flex-shrink-0">
@@ -139,17 +139,22 @@ const faqs = [
         <!-- Desktop claim (inline flow) -->
         <div class="hidden sm:inline-flex items-center gap-3 border-l-4 border-accent pl-4">
           <p class="font-black uppercase tracking-tight text-zinc-900 leading-none" style="font-size:clamp(0.95rem, 2.8vw, 2rem);">
-            El SEO que funciona, el que crece mes a mes
+            Google es tu mejor vendedor, solo hay que posicionar
           </p>
         </div>
 
       </div>
 
-      <!-- Form: 33% — hidden on mobile -->
+      <!-- Image: 25% — hidden on mobile -->
+      <div class="reveal hidden lg:flex items-end justify-center">
+        <img src="/consultor-marketing-digital.webp" alt="Consultor SEO" class="w-full h-auto max-w-xs rounded-2xl shadow-lg" />
+      </div>
+
+      <!-- Form: 25% — hidden on mobile -->
       <div id="solicitar" class="reveal hidden lg:block">
         <div class="bg-white rounded-3xl border-2 border-black/8 shadow-[0_20px_60px_rgba(0,0,0,0.1)] p-7">
-          <span class="text-[9px] font-black uppercase tracking-[0.4em] text-accent block mb-2">Sin compromiso</span>
-          <div class="text-2xl font-black uppercase tracking-tighter mb-5 leading-tight" style="font-weight:900;">Solicita hoy<br>Auditoría SEO Gratuita</div>
+          <span class="text-[9px] font-black uppercase tracking-[0.4em] text-accent block mb-2">Sin costo</span>
+          <div class="text-2xl font-black uppercase tracking-tighter mb-5 leading-tight" style="font-weight:900;">Auditoría SEO<br>de tu ecommerce</div>
 
           <form id="seo-form" class="space-y-4">
             <div class="flex flex-col gap-1.5">
@@ -165,12 +170,12 @@ const faqs = [
               <input type="tel" name="phone" class="border-b-2 border-zinc-200 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm" />
             </div>
             <div class="flex flex-col gap-1.5">
-              <label class="text-[9px] font-black uppercase tracking-widest opacity-40">Web de tu empresa</label>
-              <input type="text" name="url" placeholder="www.tuempresa.com" class="border-b-2 border-zinc-200 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm" />
+              <label class="text-[9px] font-black uppercase tracking-widest opacity-40">Web de tu tienda</label>
+              <input type="text" name="url" placeholder="www.tutienda.com" class="border-b-2 border-zinc-200 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm" />
             </div>
             <div class="flex flex-col gap-1.5">
-              <label class="text-[9px] font-black uppercase tracking-widest opacity-40">Sector / Tipo de negocio</label>
-              <textarea name="msg" rows="2" placeholder="Ej: Ecommerce de ropa, Clínica dental, etc." class="border-b-2 border-zinc-200 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm resize-none"></textarea>
+              <label class="text-[9px] font-black uppercase tracking-widest opacity-40">¿Qué vendes?</label>
+              <input type="text" name="product" placeholder="Ej: ropa, electrodomésticos, etc..." class="border-b-2 border-zinc-200 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm" />
             </div>
 
             <div class="flex items-start gap-2 pt-1">
@@ -193,40 +198,40 @@ const faqs = [
   <!-- Mobile: tarjeta + claim fijados al fondo del hero -->
   <div class="sm:hidden absolute bottom-4 left-4 right-4 flex flex-col gap-5">
     <div class="bg-white rounded-3xl border-2 border-black/8 shadow-[0_20px_60px_rgba(0,0,0,0.1)] p-6">
-      <span class="text-[9px] font-black uppercase tracking-[0.4em] text-accent block mb-2">Sin compromiso</span>
-      <div class="text-xl font-black uppercase tracking-tighter mb-4 leading-tight" style="font-weight:900;">Solicita hoy<br>Auditoría SEO Gratuita</div>
+      <span class="text-[9px] font-black uppercase tracking-[0.4em] text-accent block mb-2">Sin costo</span>
+      <div class="text-xl font-black uppercase tracking-tighter mb-4 leading-tight" style="font-weight:900;">Auditoría SEO<br>de tu ecommerce</div>
       <button class="contact-modal-trigger w-full btn-mktg-v5 !py-4 shadow-[0_8px_20px_rgba(37,211,102,0.3)]">
         SOLICITAR AUDITORÍA →
       </button>
     </div>
     <p class="font-black uppercase tracking-tight text-zinc-900 leading-none text-center" style="font-size:0.95rem;">
-      El SEO que funciona, el que crece mes a mes
+      Google es tu mejor vendedor, solo hay que posicionar
     </p>
   </div>
 </section>
 
 <LogoMarquee />
 
-<!-- ═══ ESTRATEGIA SEO ════════════════════════════════════════════════ -->
-<section id="auditoria" class="py-20 sm:py-32 bg-zinc-50 border-y border-black/5 px-4 sm:px-6 relative overflow-hidden">
+<!-- ═══ POSICIONAMIENTO ════════════════════════════════════════════════ -->
+<section id="posicionamiento" class="py-20 sm:py-32 bg-zinc-50 border-y border-black/5 px-4 sm:px-6 relative overflow-hidden">
   <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_80%,transparent_100%)]"></div>
   <div class="max-w-7xl mx-auto relative z-10">
     <div class="text-center mb-16 sm:mb-24 reveal">
-      <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Nuestro enfoque</span>
+      <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Especializado en ecommerce</span>
       <h2 class="text-3xl sm:text-5xl lg:text-7xl uppercase tracking-tighter font-black mb-6">
-        Estrategia SEO<br class="hidden sm:inline" /> orientada a conversiones
+        SEO que vende<br class="hidden sm:inline" /> para tiendas online
       </h2>
       <p class="text-zinc-500 font-light text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-        Analizamos profundamente tu negocio, tu competencia y lo que buscan tus clientes. Solo así diseñamos una estrategia SEO que realmente funciona para conversiones y rentabilidad.
+        No es lo mismo posicionar un blog que una ficha de producto. Conocemos cada detalle de plataformas como Shopify, WooCommerce y Magento. Y sabemos qué trae conversiones reales.
       </p>
     </div>
 
     <div class="grid sm:grid-cols-2 gap-6">
       {[
-        { num: '01', title: 'Auditoría SEO Completa', desc: 'Revisamos tecnología, arquitectura, contenidos y backlinks. Detectamos errores que frenan tu posicionamiento y oportunidades de mejora que duplicarán tu tráfico.' },
-        { num: '02', title: 'Research de Keywords', desc: 'Identificamos exactamente qué buscan tus clientes ideales. No optimizamos por volumen, sino por intención de compra y potencial real de conversión.' },
-        { num: '03', title: 'Estrategia On-Page', desc: 'Optimizamos títulos, contenidos, etiquetas y estructura. Cada página está diseñada para Google y para el usuario, mejorando posicionamiento y experiencia.' },
-        { num: '04', title: 'Linkbuilding de Autoridad', desc: 'Conseguimos enlaces de calidad que aumentan la autoridad de tu dominio. No somos expertos en cantidad, sino en calidad. Cada enlace cuenta.' },
+        { num: '01', title: 'Auditoría SEO Ecommerce', desc: 'Análisis técnico completo: velocidad, mobile, estructura, fichas duplicadas. Identificamos qué te impide rankear.' },
+        { num: '02', title: 'Estrategia de Keywords', desc: 'Buscamos keywords con intención de compra. No solo volumen, sino keywords que traen clientes que compran.' },
+        { num: '03', title: 'Optimización de Fichas', desc: 'Cada ficha es una página de ventas. Titulos, descripciones, imágenes, schema. Todo optimizado para rankear y convertir.' },
+        { num: '04', title: 'Link Building Autoridad', desc: 'Tu tienda necesita autoridad para rankear en nichos competidos. Conseguimos links de calidad, relevantes a tu sector.' },
       ].map((p, i) => (
         <div class="group p-8 sm:p-10 bg-white border border-zinc-100/60 rounded-3xl hover:border-accent/20 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden flex gap-6 reveal" style={`transition-delay: ${i * 80}ms`}>
           <div class="absolute bottom-0 inset-x-0 h-1 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
@@ -247,32 +252,33 @@ const faqs = [
   </div>
 </section>
 
-<!-- ═══ CÓMO TRABAJAMOS ════════════════════════════════════════════════ -->
-<section id="metodo" class="py-20 sm:py-32 bg-accent px-4 sm:px-6">
+<!-- ═══ ESTRATEGIA ═════════════════════════════════════════════════════ -->
+<section id="estrategia" class="py-20 sm:py-32 bg-accent px-4 sm:px-6">
   <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
     <div class="reveal text-white">
-      <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 sm:mb-10 block opacity-70">Nuestro proceso</span>
+      <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 sm:mb-10 block opacity-70">Cómo trabajamos</span>
       <div class="text-4xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.82] mb-8 sm:mb-10">
-        Cómo<br>ejecutamos<br>SEO
+        Estrategia SEO<br>para ecommerce
       </div>
       <p class="text-white/70 font-light text-base sm:text-xl max-w-md leading-relaxed mb-8">
-        Tendrás un Account Manager dedicado que lidera tu estrategia, supervisa resultados y te mantiene informado con métricas que realmente importan para tu negocio, no reportes genéricos.
+        Cada tienda es diferente. Por eso diseñamos estrategias específicas para tu plataforma, tu margen, tu presupuesto y tu objetivo real: vender más.
       </p>
       <ul class="text-[9px] sm:text-xs font-black tracking-widest space-y-3 uppercase opacity-90 text-white">
-        <li>→ ANÁLISIS COMPETITIVO PROFUNDO</li>
-        <li>→ KEYWORD RESEARCH CON INTENCIÓN</li>
-        <li>→ ESTRATEGIA TÉCNICA Y CONTENIDOS</li>
-        <li>→ SEGUIMIENTO Y AJUSTES MENSUALES</li>
+        <li>→ ENFOQUE EN CONVERSIÓN, NO SOLO TRÁFICO</li>
+        <li>→ OPTIMIZACIÓN TÉCNICA Y CONTENIDO</li>
+        <li>→ LINK BUILDING ESPECÍFICO PARA TIENDAS</li>
+        <li>→ REPORTES CON VENTAS REALES, NO SOLO RANKINGS</li>
       </ul>
     </div>
 
     <div class="reveal space-y-4">
       {[
-        { num: '01', title: 'Auditoría SEO', desc: 'Análisis exhaustivo de tu presencia digital. Identificamos problemas técnicos, oportunidades de contenido y brechas frente a competidores.' },
-        { num: '02', title: 'Keyword Research', desc: 'Investigamos qué buscan exactamente tus clientes ideales. Priorizamos keywords con alto potencial de conversión, no volumen vacío.' },
-        { num: '03', title: 'Optimización On-Page', desc: 'Mejoramos títulos, metadescripciones, headers y estructura interna. Cada página está optimizada para Google y para el usuario.' },
-        { num: '04', title: 'Link Building', desc: 'Construimos autoridad con enlaces de medios, directorios y sitios relevantes. Cada enlace está seleccionado por calidad, no cantidad.' },
-        { num: '05', title: 'Seguimiento y Mejora', desc: 'Reportes mensuales con métricas reales: tráfico, posiciones, conversiones. Ajustamos la estrategia basada en datos, no en intuición.' },
+        { num: '01', title: 'Auditoría Profunda', desc: 'Análisis técnico completo de tu tienda. Velocidad, mobile, estructura, schema markup, competidores, oportunidades.' },
+        { num: '02', title: 'Investigación Keywords', desc: 'Identificamos keywords con intención de compra. Volumen, dificultad, CPC. Prorizamos por ROI potencial.' },
+        { num: '03', title: 'Optimización On-Page', desc: 'Fichas de producto optimizadas: títulos, descripciones, imágenes, reviews schema. Todo para rankear y convertir.' },
+        { num: '04', title: 'Estrategia de Contenidos', desc: 'Blog, guías, comparativas. Contenido que trae tráfico de calidad y prepara clientes para comprar.' },
+        { num: '05', title: 'Link Building', desc: 'Conseguimos enlaces de autoridad desde sitios relevantes. Aumentamos la autoridad de tu tienda.' },
+        { num: '06', title: 'Seguimiento Mensual', desc: 'Reportes con posiciones, tráfico y ventas reales. Llamadas mensuales y ajustes continuos.' },
       ].map(s => (
         <div class="bg-white/10 backdrop-blur-sm p-6 sm:p-8 rounded-3xl border border-white/10 hover:bg-white/15 transition-colors flex gap-6 items-start">
           <div class="text-white/40 font-black text-lg tracking-tighter flex-shrink-0 w-8">{s.num}</div>
@@ -291,26 +297,26 @@ const faqs = [
   <div class="absolute -top-40 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl opacity-20 animate-pulse"></div>
   <div class="max-w-7xl mx-auto">
 
-    <!-- Por qué SEO -->
+    <!-- Por qué ecommerce -->
     <div class="grid md:grid-cols-2 gap-12 sm:gap-20 items-center mb-20 sm:mb-32">
       <div class="reveal">
-        <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Ventajas del SEO</span>
+        <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Ventajas</span>
         <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-black mb-6">
-          Por qué el SEO es la mejor inversión para tu negocio
+          Por qué el SEO es clave para tu tienda
         </h2>
         <p class="text-zinc-500 font-light text-base sm:text-lg leading-relaxed mb-8">
-          A diferencia de Google Ads, el SEO genera tráfico duradero. Cuando dejas de pagar por publicidad, desapareces. Con SEO, sigues posicionado y trayendo clientes durante años. Es la inversión con mejor ROI a largo plazo.
+          A diferencia de ads, el SEO trae tráfico constante, de bajo costo y de clientes listos para comprar. Es la diferencia entre depender de Google Ads y tener tu propio canal de ventas.
         </p>
         <button class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)]">
-          QUIERO INVERTIR EN SEO
+          QUIERO POSICIONAR MI TIENDA
         </button>
       </div>
       <div class="reveal space-y-4">
         {[
-          { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>`, title: 'Tráfico Duradero', desc: 'El posicionamiento sigue generando visitas incluso cuando dejas de invertir. Google Ads se detiene al momento.' },
-          { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`, title: 'ROI a Largo Plazo', desc: 'Mes a mes el tráfico crece sin inversión adicional. A los 12 meses, tu ROI puede ser 10x superior al SEM.' },
-          { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`, title: 'Usuarios Cualificados', desc: 'Las personas que llegan por SEO buscan exactamente lo que vendes. Tasa de conversión mucho superior a otros canales.' },
-          { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`, title: 'Credibilidad', desc: 'Aparecer en las primeras posiciones de Google posiciona tu marca como autoridad en tu sector. Los usuarios confían en Google.' },
+          { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`, title: 'ROI Alto', desc: 'El SEO cuesta menos que Ads. Tráfico creciente, costo decreciente. A 12 meses, el mejor ROI.' },
+          { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>`, title: 'Tráfico Calificado', desc: 'Clientes buscando exactamente lo que vendes. Alta intención de compra. Mejor ticket promedio que otros canales.' },
+          { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>`, title: 'Menos Dependencia', desc: 'Reduce dependencia de plataformas de ads. Google Ads sube precios cada año. SEO es tu activo.' },
+          { icon: `<svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`, title: 'Confianza', desc: 'Los clientes confían más en los resultados orgánicos que en los ads. Mejor conversión a largo plazo.' },
         ].map((f, i) => (
           <div class="group p-6 bg-white border border-zinc-100/60 rounded-2xl hover:border-accent/20 hover:shadow-lg transition-all duration-300 flex gap-4 items-start reveal" style={`transition-delay: ${i * 80}ms`}>
             <div class="p-2.5 bg-zinc-50 border border-black/5 rounded-xl flex-shrink-0 group-hover:bg-accent/5 group-hover:border-accent/10 transition-colors">
@@ -328,20 +334,20 @@ const faqs = [
     <!-- Stats -->
     <div class="reveal">
       <div class="text-center mb-12">
-        <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Métricas reales</span>
+        <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Métricas de éxito</span>
         <h2 class="text-3xl sm:text-5xl uppercase tracking-tighter font-black">
-          Resultados que nuestros clientes obtienen con SEO
+          Resultados de tiendas online que optimizamos
         </h2>
         <p class="text-zinc-500 font-light text-base sm:text-lg max-w-2xl mx-auto mt-4 leading-relaxed">
-          Estos números son la media de nuestros clientes después de 12 meses de estrategia SEO consistente.
+          Datos reales de clientes ecommerce después de 12 meses de estrategia SEO completa.
         </p>
       </div>
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {[
-          { value: '+180%', label: 'Tráfico Orgánico' },
-          { value: '-50%', label: 'Coste por Adquisición' },
-          { value: 'x5.2', label: 'ROI a 12 Meses' },
-          { value: '+75%', label: 'Posiciones Top 3' },
+          { value: '+320%', label: 'Tráfico Orgánico' },
+          { value: '+180%', label: 'Ventas Orgánicas' },
+          { value: '-62%', label: 'CAC (Costo)' },
+          { value: 'x8.3', label: 'ROI 12 Meses' },
         ].map((stat, i) => (
           <div class="group p-8 bg-white border border-zinc-100/60 rounded-3xl hover:border-accent/20 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center reveal" style={`transition-delay: ${i * 80}ms`}>
             <div class="text-4xl sm:text-5xl font-black tracking-tighter text-accent mb-2">{stat.value}</div>
@@ -358,24 +364,24 @@ const faqs = [
 <section class="py-20 sm:py-32 bg-zinc-50 border-y border-black/5 px-4 sm:px-6">
   <div class="max-w-7xl mx-auto">
     <div class="text-center mb-16 sm:mb-20 reveal">
-      <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Clientes reales</span>
+      <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Testimonios</span>
       <h2 class="text-3xl sm:text-5xl uppercase tracking-tighter font-black">
-        Lo que dicen nuestros<br class="hidden sm:inline" /> clientes sobre el SEO
+        Lo que dicen las tiendas<br class="hidden sm:inline" /> que optimizamos
       </h2>
     </div>
     <div class="grid md:grid-cols-2 gap-6">
       {[
         {
           stars: 5,
-          text: 'Antes gastábamos 5.000€/mes en Google Ads y no veíamos resultados consistentes. Con SEO, en 10 meses duplicamos el tráfico con una inversión mucho menor. Ahora Google es nuestro canal de adquisición principal.',
-          author: 'Director de Marketing, Empresa B2B',
-          sector: 'Software',
+          text: 'Pasamos de invertir 5k/mes en Ads a tener tráfico gratuito que genera ventas constantes. A los 12 meses el SEO nos genera 40% de nuestras ventas. Es el mejor canal.',
+          author: 'Founder, Tienda Online',
+          sector: 'E-commerce',
         },
         {
           stars: 5,
-          text: 'El SEO cambió nuestra empresa. Pasamos de ser desconocidos a estar en la primera página de Google. Los clientes ahora nos encuentran sin que hagamos publicidad. El retorno ha sido increíble.',
-          author: 'Emprendedor, Ecommerce',
-          sector: 'Retail Online',
+          text: 'Pensábamos que el SEO para tiendas era imposible. Pero con la estrategia correcta y los keywords adecuados, posicionamos 15 fichas en primera página en 8 meses. Las ventas se triplicaron.',
+          author: 'Gerente de Ventas, Marketplace',
+          sector: 'E-commerce',
         },
       ].map((t, i) => (
         <div class="bg-white border border-zinc-100/60 rounded-3xl p-8 sm:p-10 flex flex-col gap-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 reveal" style={`transition-delay: ${i * 100}ms`}>
@@ -400,9 +406,9 @@ const faqs = [
 <section id="casos" class="py-20 sm:py-32 bg-white border-b border-black/5 px-4 sm:px-6 relative overflow-hidden">
   <div class="max-w-7xl mx-auto">
     <div class="mb-16 sm:mb-24 reveal">
-      <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Casos probados</span>
+      <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Portafolio</span>
       <h2 class="text-3xl sm:text-5xl lg:text-7xl uppercase tracking-tighter font-black mb-2">
-        Casos de éxito SEO<br class="hidden md:inline" />
+        Tiendas que hemos posicionado<br class="hidden md:inline" />
       </h2>
     </div>
 
@@ -410,7 +416,7 @@ const faqs = [
       {caseStudies.slice(0, 6).map((cs: any, i: number) => {
         const imageUrl = getStrapiImageUrl(cs.cover_image) || '/og-default.jpg';
         const caseUrl = `/casos-exito/${cs.slug}/`;
-        const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean)[0] || 'SEO';
+        const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean)[0] || 'Ecommerce';
         return (
           <a href={caseUrl} class="group bg-white border border-black/5 rounded-3xl overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 shadow-sm flex flex-col h-full reveal" style={`transition-delay: ${i * 100}ms`}>
             <div class="relative aspect-[4/3] overflow-hidden">
@@ -464,7 +470,7 @@ const faqs = [
     <div class="text-center mb-16 sm:mb-20 reveal">
       <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">FAQ</span>
       <h2 class="text-3xl sm:text-5xl uppercase tracking-tighter font-black">
-        Preguntas sobre<br class="hidden sm:inline" /> SEO y posicionamiento
+        Preguntas sobre SEO<br class="hidden sm:inline" /> para ecommerce
       </h2>
     </div>
 
@@ -492,14 +498,14 @@ const faqs = [
 <section class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
   <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
     <div class="reveal text-white">
-      <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 sm:mb-12 block opacity-70">Sin riesgo</span>
+      <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 sm:mb-12 block opacity-70">Siguiente paso</span>
       <div class="text-5xl sm:text-8xl font-black uppercase tracking-tighter leading-[0.82] mb-8 sm:mb-12">
-        CRECE CON<br>SEO HOY
+        AUDITORÍA<br>SEO
       </div>
       <ul class="text-[9px] sm:text-xs font-black tracking-widest space-y-3 uppercase opacity-90 text-white">
-        <li>→ Auditoría gratis y sin compromiso</li>
-        <li>→ Análisis competitivo detallado</li>
-        <li>→ Propuesta de estrategia personalizada</li>
+        <li>→ Análisis técnico completo de tu tienda</li>
+        <li>→ Identificamos oportunidades de posicionamiento</li>
+        <li>→ Propuesta de estrategia y presupuesto personalizado</li>
       </ul>
     </div>
 
@@ -521,8 +527,8 @@ const faqs = [
             <input type="email" name="email" required class="border-b border-black/10 py-2 focus:border-accent outline-none transition-colors" />
           </div>
           <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
-            <label class="opacity-30">Tu sector / tipo de negocio</label>
-            <textarea name="msg" rows="3" placeholder="Ej: Ecommerce, Servicios, Industrial, etc." class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none transition-colors"></textarea>
+            <label class="opacity-30">¿Cuál es tu mayor reto SEO?</label>
+            <textarea name="msg" rows="3" placeholder="Bajo tráfico, no rankeo fichas, perdí posiciones, quiero crecer..." class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none transition-colors"></textarea>
           </div>
           <div class="flex items-start gap-2">
             <input type="checkbox" id="lp-terms-2" name="terms" required class="mt-1 accent-accent" />
@@ -531,7 +537,7 @@ const faqs = [
             </label>
           </div>
           <button type="submit" id="lp-submit-btn-2" class="w-full btn-mktg-v5 !py-6 sm:!py-8">
-            RECIBIR AUDITORÍA GRATIS
+            SOLICITAR AUDITORÍA GRATUITA
           </button>
         </form>
       </div>
@@ -548,7 +554,7 @@ const faqs = [
       <a href="/aviso-legal/" class="hover:text-accent transition-colors uppercase tracking-widest font-black">Aviso legal</a>
       <a href="/cookies/" class="hover:text-accent transition-colors uppercase tracking-widest font-black">Cookies</a>
     </div>
-    <p class="text-[10px] text-zinc-400 font-light">&copy; {new Date().getFullYear()} Nova Marketing · Agencia SEO</p>
+    <p class="text-[10px] text-zinc-400 font-light">&copy; {new Date().getFullYear()} Nova Marketing · SEO Ecommerce</p>
   </div>
 </footer>
 
@@ -569,7 +575,7 @@ const faqs = [
       e.preventDefault();
       const urlInput = form.querySelector<HTMLInputElement>('[name="url"]');
       if (urlInput && urlInput.value.trim() && !/\.[a-zA-Z]{2,}/.test(urlInput.value.trim())) {
-        urlInput.setCustomValidity('Introduce una URL válida, por ejemplo: miempresa.com');
+        urlInput.setCustomValidity('Introduce una URL válida, por ejemplo: mitienda.com');
         urlInput.reportValidity();
         return;
       }
