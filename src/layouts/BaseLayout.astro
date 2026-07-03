@@ -114,7 +114,9 @@ const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
     <SchemaOrg schema={schema} />
   ))}
 
-  <link rel="icon" href="/agencia-marketing-pymes-nova-marketing-favicon.png" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="144x144" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
 
   <script type="speculationrules" set:html={JSON.stringify({
     prerender: [{
