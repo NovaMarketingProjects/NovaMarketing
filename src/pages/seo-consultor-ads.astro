@@ -101,31 +101,44 @@ const faqs = [
   <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
   <div class="absolute top-20 right-1/3 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
 
-  <div class="max-w-7xl mx-auto w-full">
-    <div class="grid lg:grid-cols-[1.8fr_0.9fr_1fr] gap-10 lg:gap-12 items-center">
+  <!-- Consultant image: anchored to the very bottom-right of the hero, flush with the edge -->
+  <div class="hidden lg:block absolute bottom-0 right-[-8%] h-[82%] z-[1] pointer-events-none select-none">
+    <img src="/consultor-marketing-digital.webp" alt="Sergio Galo's - Fundador & Consultor SEO" class="h-full w-auto object-contain object-bottom" />
+  </div>
 
-      <!-- Copy: 50% -->
+  <!-- Name card: elemento propio por encima de todo (z-[3] > grid z-[2]) -->
+  <div class="hidden lg:block absolute bottom-[14%] right-[12%] bg-white rounded-xl px-5 py-3 shadow-[0_10px_30px_rgba(0,0,0,0.15)] z-[3]">
+    <div class="text-sm font-black text-zinc-900 leading-tight">Sergio Galo's</div>
+    <div class="text-[11px] font-bold text-accent leading-tight mt-0.5">Fundador & Consultor SEO</div>
+  </div>
+
+  <div class="w-full relative z-[2]">
+    <div class="grid lg:grid-cols-[1.5fr_1fr_0.55fr] gap-8 lg:gap-10 items-center px-6 lg:px-12 xl:px-20 max-w-[1700px] mx-auto">
+
+      <!-- Copy: Left Column -->
       <div class="reveal">
-        <div class="flex justify-center lg:justify-start mb-8">
-          <h2 class="inline-flex items-center gap-2 bg-accent/10 backdrop-blur-sm px-4 py-2 border border-accent/25 rounded-full text-accent text-[10px] sm:text-[12px] font-black uppercase tracking-[0.25em] shadow-sm">
+        <div class="flex justify-center lg:justify-start mb-6">
+          <h2 class="inline-flex items-center gap-2 bg-accent/10 backdrop-blur-sm px-4 py-2 border border-accent/25 rounded-full text-accent text-[10px] sm:text-[11px] font-black uppercase tracking-[0.25em] shadow-sm">
             <span class="w-2 h-2 bg-accent rounded-full animate-ping"></span>
             Consultor SEO
           </h2>
         </div>
 
-        <h1 class="text-3xl sm:text-5xl lg:text-6xl uppercase font-black tracking-tighter leading-[0.9] mb-8 lg:mb-10 text-zinc-900 text-center sm:text-left">
-          Tu SEO con<br>
-          acceso directo,<br>
-          <span class="text-mktg-gradient">sin intermediarios</span>
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl uppercase font-black tracking-tighter leading-[0.9] mb-6 lg:mb-8 text-zinc-900 text-center sm:text-left">
+          Un consultor<br><span class="text-mktg-gradient">SEO</span> para hacer<br>crecer tu negocio
         </h1>
 
-        <div class="flex flex-col gap-3 mb-8 lg:mb-12">
+        <p class="text-zinc-500 font-light text-base sm:text-lg lg:text-xl leading-relaxed mb-8 lg:mb-10 text-center sm:text-left max-w-xl">
+          Consulta gratuita con el consultor que ejecutará tu estrategia: diagnóstico claro, decisiones rápidas y resultados medibles.
+        </p>
+
+        <div class="flex flex-col gap-3 mb-8 lg:mb-10">
           {[
-            'Consultor dedicado exclusivamente a tu proyecto',
-            'Comunicación directa, decisiones rápidas',
-            'Estrategia personalizada, no plantillas genéricas',
+            'Consulta SEO gratuita',
+            'Acceso directo al especialista',
+            'Estrategia personalizada, sin plantillas',
           ].map(item => (
-            <span class="inline-flex items-center gap-3 text-sm font-black uppercase tracking-widest text-zinc-800">
+            <span class="inline-flex items-center gap-3 text-sm lg:text-base font-black uppercase tracking-widest text-zinc-800">
               <span class="w-7 h-7 bg-accent/10 border border-accent/20 rounded-full flex items-center justify-center flex-shrink-0">
                 <svg class="w-3.5 h-3.5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
@@ -136,76 +149,74 @@ const faqs = [
           ))}
         </div>
 
-        <!-- Desktop claim (inline flow) -->
-        <div class="hidden sm:inline-flex items-center gap-3 border-l-4 border-accent pl-4">
-          <p class="font-black uppercase tracking-tight text-zinc-900 leading-none" style="font-size:clamp(0.95rem, 2.8vw, 2rem);">
-            Un especialista que te entiende, que ejecuta, que responde
+        <!-- Desktop claim -->
+        <div class="hidden sm:inline-flex items-start gap-3 border-l-4 border-accent pl-4">
+          <p class="font-black uppercase tracking-tight text-zinc-900 leading-tight text-base lg:text-xl">
+            Un consultor que te entiende, ejecuta y responde
           </p>
         </div>
 
       </div>
 
-      <!-- Image: 25% — hidden on mobile -->
-      <div class="reveal hidden lg:flex items-end justify-center">
-        <img src="/consultor-marketing-digital.webp" alt="Consultor SEO" class="w-full h-auto max-w-xs rounded-2xl shadow-lg" />
-      </div>
-
-      <!-- Form: 25% — hidden on mobile -->
+      <!-- Form: Center Column, slightly overlapping the image -->
       <div id="solicitar" class="reveal hidden lg:block">
-        <div class="bg-white rounded-3xl border-2 border-black/8 shadow-[0_20px_60px_rgba(0,0,0,0.1)] p-7">
-          <span class="text-[9px] font-black uppercase tracking-[0.4em] text-accent block mb-2">Sin costo</span>
-          <div class="text-2xl font-black uppercase tracking-tighter mb-5 leading-tight" style="font-weight:900;">Agenda una consulta<br>gratuita</div>
+        <div class="bg-white rounded-3xl shadow-[0_25px_60px_-10px_rgba(0,0,0,0.18)] p-8">
+          <span class="text-[8px] font-black uppercase tracking-[0.4em] text-accent block mb-3">Sin costo</span>
+          <div class="text-xl font-black uppercase tracking-tighter mb-6 leading-tight" style="font-weight:900;">Si contactas hoy,<br>Consulta SEO Gratuita</div>
 
           <form id="seo-form" class="space-y-4">
             <div class="flex flex-col gap-1.5">
-              <label class="text-[9px] font-black uppercase tracking-widest opacity-40">Nombre *</label>
-              <input type="text" name="name" required class="border-b-2 border-zinc-200 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm" />
+              <label class="text-[8px] font-black uppercase tracking-widest opacity-40">Nombre *</label>
+              <input type="text" name="name" required class="border-b border-zinc-300 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm" />
             </div>
             <div class="flex flex-col gap-1.5">
-              <label class="text-[9px] font-black uppercase tracking-widest opacity-40">Email *</label>
-              <input type="email" name="email" required class="border-b-2 border-zinc-200 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm" />
+              <label class="text-[8px] font-black uppercase tracking-widest opacity-40">Email *</label>
+              <input type="email" name="email" required class="border-b border-zinc-300 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm" />
             </div>
             <div class="flex flex-col gap-1.5">
-              <label class="text-[9px] font-black uppercase tracking-widest opacity-40">Teléfono</label>
-              <input type="tel" name="phone" class="border-b-2 border-zinc-200 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm" />
+              <label class="text-[8px] font-black uppercase tracking-widest opacity-40">Teléfono</label>
+              <input type="tel" name="phone" class="border-b border-zinc-300 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm" />
             </div>
             <div class="flex flex-col gap-1.5">
-              <label class="text-[9px] font-black uppercase tracking-widest opacity-40">Web de tu empresa</label>
-              <input type="text" name="url" placeholder="www.tuempresa.com" class="border-b-2 border-zinc-200 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm" />
+              <label class="text-[8px] font-black uppercase tracking-widest opacity-40">Web de tu empresa</label>
+              <input type="text" name="url" placeholder="www.tuempresa.com" class="border-b border-zinc-300 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm placeholder:text-zinc-300" />
             </div>
             <div class="flex flex-col gap-1.5">
-              <label class="text-[9px] font-black uppercase tracking-widest opacity-40">¿Cuál es tu mayor reto con SEO?</label>
-              <textarea name="msg" rows="2" placeholder="Bajo tráfico, no rankeo bien, competencia me supera..." class="border-b-2 border-zinc-200 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm resize-none"></textarea>
+              <label class="text-[8px] font-black uppercase tracking-widest opacity-40">Mensaje</label>
+              <textarea name="msg" rows="2" class="border-b border-zinc-300 py-2 focus:border-accent outline-none transition-colors bg-transparent text-sm resize-none"></textarea>
             </div>
 
-            <div class="flex items-start gap-2 pt-1">
+            <div class="flex items-start gap-2 pt-2">
               <input type="checkbox" id="lp-terms" name="terms" required class="mt-0.5 accent-accent flex-shrink-0" />
-              <label for="lp-terms" class="text-[10px] text-zinc-400 font-light cursor-pointer select-none leading-tight">
+              <label for="lp-terms" class="text-[8px] text-zinc-500 font-light cursor-pointer select-none leading-tight">
                 Acepto la <a href="/privacidad/" class="underline hover:text-accent transition-colors">política de privacidad</a>.
               </label>
             </div>
 
-            <button type="submit" id="lp-submit-btn" class="w-full btn-mktg-v5 !py-4 shadow-[0_8px_20px_rgba(37,211,102,0.3)]">
-              AGENDAR CONSULTA →
+            <button type="submit" id="lp-submit-btn" class="w-full btn-mktg-v5 !py-3 text-sm shadow-[0_15px_35px_rgba(37,211,102,0.25)] hover:shadow-[0_20px_45px_rgba(37,211,102,0.3)] transition-shadow">
+              Quiero mi consulta gratis →
             </button>
           </form>
         </div>
       </div>
+
+      <!-- Spacer: reserved for the absolutely-positioned consultant image -->
+      <div class="hidden lg:block" aria-hidden="true"></div>
 
     </div>
   </div>
 
   <!-- Mobile: tarjeta + claim fijados al fondo del hero -->
   <div class="sm:hidden absolute bottom-4 left-4 right-4 flex flex-col gap-5">
-    <div class="bg-white rounded-3xl border-2 border-black/8 shadow-[0_20px_60px_rgba(0,0,0,0.1)] p-6">
-      <span class="text-[9px] font-black uppercase tracking-[0.4em] text-accent block mb-2">Sin costo</span>
-      <div class="text-xl font-black uppercase tracking-tighter mb-4 leading-tight" style="font-weight:900;">Agenda una consulta<br>gratuita</div>
-      <button class="contact-modal-trigger w-full btn-mktg-v5 !py-4 shadow-[0_8px_20px_rgba(37,211,102,0.3)]">
-        AGENDAR CONSULTA →
+    <div class="bg-white rounded-3xl border border-black/5 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.15)] p-6">
+      <span class="text-[8px] font-black uppercase tracking-[0.4em] text-accent block mb-2">Sin costo</span>
+      <div class="text-lg font-black uppercase tracking-tighter mb-4 leading-tight" style="font-weight:900;">Si contactas hoy,<br>Consulta SEO Gratuita</div>
+      <button class="contact-modal-trigger w-full btn-mktg-v5 !py-3 text-sm shadow-[0_15px_35px_rgba(37,211,102,0.25)]">
+        Quiero mi consulta gratis →
       </button>
     </div>
-    <p class="font-black uppercase tracking-tight text-zinc-900 leading-none text-center" style="font-size:0.95rem;">
-      Un especialista que te entiende, que ejecuta, que responde
+    <p class="font-black uppercase tracking-tight text-zinc-900 leading-none text-center text-xs">
+      Un consultor que te entiende, ejecuta y responde
     </p>
   </div>
 </section>

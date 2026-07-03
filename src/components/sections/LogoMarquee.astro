@@ -44,11 +44,13 @@
             { src: "/clients/voltura-projects-cliente-novamarketing.webp", alt: "Voltura Projects" }
         ];
 
-        const shuffledLogos = logos.sort(() => Math.random() - 0.5);
-        const fullList = [...shuffledLogos, ...shuffledLogos, ...shuffledLogos, ...shuffledLogos];
+        // Dos copias exactas de la lista: la animación se desplaza -50%,
+        // de modo que la segunda copia entra justo cuando sale la primera.
+        const fullList = [...logos, ...logos];
         const container = document.getElementById('logos-marquee');
-        if (container) {
-            container.innerHTML = fullList.map(item => 
+        if (container && container.dataset.loaded !== 'true') {
+            container.dataset.loaded = 'true';
+            container.innerHTML = fullList.map(item =>
                 `<img src="${item.src}" alt="${item.alt}" class="h-[50px] w-auto object-contain filter grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300 pointer-events-none" style="mix-blend-mode:multiply" />`
             ).join('');
         }
