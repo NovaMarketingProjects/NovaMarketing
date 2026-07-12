@@ -125,6 +125,7 @@ const ctaTitle = categoryName.includes('seo') || categoryName.includes('consulto
   : categoryName.includes('diseño') || categoryName.includes('diseno') || categoryName.includes('web')
   ? 'Presentación de diseño funcional para tu web'
   : 'Auditoría para tu web';
+const authorDisplayName = author?.name?.trim().toLowerCase().startsWith('sergio gar') ? "Sergio Galo's" : author?.name;
 ---
 
 <BaseLayout
@@ -178,12 +179,12 @@ const ctaTitle = categoryName.includes('seo') || categoryName.includes('consulto
                         src={author.photo?.formats?.small?.url
                           ? (author.photo.formats.small.url.startsWith('http') ? author.photo.formats.small.url : `${import.meta.env.STRAPI_URL || 'http://localhost:1337'}${author.photo.formats.small.url}`)
                           : getStrapiImageUrl(author.photo)}
-                        alt={author.name}
+                        alt={authorDisplayName}
                         class="w-16 h-16 rounded-full border-2 border-white/20 object-cover"
                     />
                 )}
                 <div>
-                   <div class="text-white font-bold text-lg leading-none mb-1">{author.name}</div>
+                   <div class="text-white font-bold text-lg leading-none mb-1">{authorDisplayName}</div>
                    <div class="text-white/40 text-[10px] font-black uppercase tracking-widest">{author.job_title || 'Equipo Nova'}</div>
                 </div>
             </div>

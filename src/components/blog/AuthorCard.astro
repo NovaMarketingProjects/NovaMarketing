@@ -20,6 +20,9 @@ const SOCIAL_ICONS: Record<string, string> = {
 };
 
 const photoUrl = getStrapiImageUrl(author.photo);
+
+// El CMS aún devuelve "Sergio García"; la marca pública es "Sergio Galo's"
+const displayName = author.name?.trim().toLowerCase().startsWith('sergio gar') ? "Sergio Galo's" : author.name;
 ---
 
 <div class="author-card">
@@ -28,7 +31,7 @@ const photoUrl = getStrapiImageUrl(author.photo);
     {photoUrl ? (
       <img
         src={photoUrl}
-        alt={author.name}
+        alt={displayName}
         class="author-card__photo"
         width="96"
         height="96"
@@ -44,7 +47,7 @@ const photoUrl = getStrapiImageUrl(author.photo);
     <div class="author-card__body">
       <div class="author-card__meta">
         <span class="author-card__label">{locale === 'ca' ? 'Escrit per' : 'Escrito por'}</span>
-        <div class="author-card__name">{author.name}</div>
+        <div class="author-card__name">{displayName}</div>
         {author.job_title && (
           <span class="author-card__role">{author.job_title}</span>
         )}

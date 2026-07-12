@@ -73,23 +73,185 @@ const phoneClean = phone.replace(/\s/g, '');
   document.addEventListener('astro:page-load', initStickyBar);
 </script>
 
-<!-- Pop-up WhatsApp Desktop -->
-<div class="hidden md:block fixed bottom-6 right-6 z-50">
-  <div class="group relative">
-    <div class="absolute bottom-full right-0 mb-3 bg-white text-black text-[10px] font-black uppercase py-2 px-4 rounded-sm shadow-[0_10px_30px_rgba(0,0,0,0.1)] border border-black/5 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none tracking-widest">
-       ¿Hablamos?
+<!-- Widget de chat WhatsApp Desktop -->
+<div id="wa-widget" class="hidden md:block fixed bottom-6 right-6 z-50">
+
+  <!-- Tarjeta expandida (oculta por defecto) — estilo chat de WhatsApp -->
+  <div id="wa-card" class="hidden absolute bottom-0 right-0 w-[300px] rounded-[18px] shadow-[0_8px_40px_rgba(0,0,0,0.22)] overflow-hidden">
+
+    <!-- Header verde WhatsApp -->
+    <div class="bg-[#075E54] px-[1.1rem] pt-4 pb-[0.9rem] flex items-center gap-[0.9rem] relative">
+      <button id="wa-close" class="absolute top-2.5 right-2.5 w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 text-white/80 flex items-center justify-center transition-colors" aria-label={locale === 'ca' ? 'Tancar' : 'Cerrar'}>
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <div class="relative flex-shrink-0">
+        <div class="w-[60px] h-[60px] rounded-full overflow-hidden border-2 border-white/25">
+          <img src="/sergio-avatar-120.webp" alt="Sergio Galo's" class="w-full h-full object-cover" loading="lazy" width="120" height="120" />
+        </div>
+        <span class="absolute bottom-[2px] right-[2px] w-[13px] h-[13px] bg-[#25D366] rounded-full border-2 border-[#075E54] z-[1]"></span>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-[0.35rem] mb-[0.15rem]">
+          <svg class="w-[15px] h-[15px]" fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <span class="text-[0.6rem] text-white/70 font-bold tracking-[0.07em] uppercase">WhatsApp</span>
+        </div>
+        <div class="text-white font-bold text-base leading-tight">Sergio Galo's</div>
+        <div class="text-white/75 text-[0.73rem] mt-[0.1rem]">CEO de Nova Marketing</div>
+        <div class="flex items-center gap-[0.3rem] mt-[0.3rem]">
+          <span class="w-[7px] h-[7px] bg-[#25D366] rounded-full flex-shrink-0"></span>
+          <span class="text-[#25D366] text-[0.72rem] font-semibold">{locale === 'ca' ? 'En línia' : 'En línea'}</span>
+        </div>
+      </div>
     </div>
-    <a
-      href={`https://wa.me/${whatsapp}?text=Hola, me gustaría más información sobre vuestros servicios.`}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="w-14 h-14 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-full flex items-center justify-center shadow-lg transition-transform hover:scale-110 duration-300"
-      aria-label="Contactar por WhatsApp"
-    >
-      <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+
+    <!-- Zona de chat (scroll interno) -->
+    <div id="wa-chat" class="bg-[#ECE5DD] px-[0.9rem] py-[0.85rem] max-h-[190px] overflow-y-auto space-y-2 scroll-smooth">
+      {[
+        locale === 'ca' ? "👋 Hola! Soc Sergio Galo's" : "👋 ¡Hola! Soy Sergio Galo's",
+        locale === 'ca' ? "Tens dubtes sobre el teu projecte? Pregunta'm i et responc de seguida" : '¿Tienes dudas sobre tu proyecto? Pregúntame y te respondo enseguida',
+      ].map((msg, i) => (
+        <div class="wa-msg hidden bg-white rounded-[0_10px_10px_10px] px-[0.85rem] py-[0.5rem] text-[0.83rem] text-[#333] max-w-[88%] shadow-[0_1px_2px_rgba(0,0,0,0.1)] leading-snug relative" data-step={i}>
+          {i === 0 && <span class="absolute top-0 -left-[7px] w-0 h-0 border-t-[8px] border-t-white border-l-[8px] border-l-transparent"></span>}
+          {msg}
+          <span class="float-right text-[0.6rem] text-[#aaa] ml-2 mt-[0.55em] leading-none select-none">{locale === 'ca' ? 'ara' : 'ahora'}</span>
+        </div>
+      ))}
+    </div>
+
+    <!-- Barra de input -->
+    <form id="wa-form" class="bg-[#F0F0F0] px-[0.8rem] py-[0.65rem] flex items-center gap-[0.6rem] border-t border-[#ddd]">
+      <input
+        id="wa-input"
+        type="text"
+        placeholder={locale === 'ca' ? 'Escriu la teva pregunta...' : 'Escribe tu pregunta...'}
+        class="flex-1 bg-white rounded-[24px] px-[0.95rem] py-2 text-[0.83rem] text-[#333] border border-[#e0e0e0] outline-none min-w-0 placeholder:text-zinc-400"
+        autocomplete="off"
+      />
+      <button type="submit" class="w-10 h-10 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-full flex items-center justify-center flex-shrink-0 transition-colors shadow-[0_2px_6px_rgba(37,211,102,0.4)]" aria-label={locale === 'ca' ? 'Enviar per WhatsApp' : 'Enviar por WhatsApp'}>
+        <svg class="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
+    </form>
+  </div>
+
+  <!-- Botón colapsado: foto + badge WhatsApp -->
+  <button id="wa-open" class="relative block w-14 h-14 rounded-full shadow-lg hover:scale-110 transition-transform duration-300 focus:outline-none" aria-label={locale === 'ca' ? "Parla amb Sergio Galo's" : "Habla con Sergio Galo's"}>
+    <span class="block w-full h-full rounded-full overflow-hidden border-2 border-white">
+      <img src="/sergio-avatar-120.webp" alt="Sergio Galo's" class="w-full h-full object-cover" loading="lazy" width="120" height="120" />
+    </span>
+    <span class="absolute -bottom-1 -right-1 w-6 h-6 bg-[#25D366] rounded-full flex items-center justify-center border-2 border-white">
+      <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
       </svg>
-    </a>
-  </div>
+    </span>
+  </button>
 </div>
+
+<script is:inline define:vars={{ whatsapp }}>
+  function initWaWidget() {
+    const card = document.getElementById('wa-card');
+    const openBtn = document.getElementById('wa-open');
+    const closeBtn = document.getElementById('wa-close');
+    const form = document.getElementById('wa-form');
+    const input = document.getElementById('wa-input');
+    if (!card || !openBtn || card.dataset.init === 'true') return;
+    card.dataset.init = 'true';
+
+    let userClosed = false;
+    let sequenceStarted = false;
+
+    // Tono tipo notificación de WhatsApp (sintetizado; el audio real es propietario).
+    // Los navegadores bloquean audio hasta la primera interacción del usuario.
+    function playPop() {
+      try {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (!window.__waAudioCtx) window.__waAudioCtx = new Ctx();
+        const ctx = window.__waAudioCtx;
+        if (ctx.state === 'suspended') { ctx.resume(); }
+        const t0 = ctx.currentTime;
+        [[880, 0], [1174.7, 0.09]].forEach(([freq, delay]) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.value = freq;
+          gain.gain.setValueAtTime(0, t0 + delay);
+          gain.gain.linearRampToValueAtTime(0.18, t0 + delay + 0.015);
+          gain.gain.exponentialRampToValueAtTime(0.0001, t0 + delay + 0.22);
+          osc.connect(gain).connect(ctx.destination);
+          osc.start(t0 + delay);
+          osc.stop(t0 + delay + 0.25);
+        });
+      } catch (_) {}
+    }
+
+    function startChatSequence() {
+      if (sequenceStarted) return;
+      sequenceStarted = true;
+      const chat = document.getElementById('wa-chat');
+      const msgs = card.querySelectorAll('.wa-msg');
+      const show = (i) => {
+        msgs[i]?.classList.remove('hidden');
+        if (chat) chat.scrollTop = chat.scrollHeight;
+        playPop();
+      };
+      show(0);
+      setTimeout(() => {
+        show(1);
+        try { sessionStorage.setItem('waSeqDone', '1'); } catch (_) {}
+      }, 2000);
+    }
+
+    // Restaurar mensajes ya mostrados sin animación ni sonido
+    function restoreChat() {
+      sequenceStarted = true;
+      const chat = document.getElementById('wa-chat');
+      card.querySelectorAll('.wa-msg').forEach(m => m.classList.remove('hidden'));
+      if (chat) chat.scrollTop = chat.scrollHeight;
+    }
+
+    function openCard(focus) {
+      card.classList.remove('hidden');
+      openBtn.classList.add('invisible');
+      startChatSequence();
+      try { sessionStorage.setItem('waClosed', '0'); } catch (_) {}
+      if (focus) input?.focus();
+    }
+    openBtn.addEventListener('click', () => openCard(true));
+    closeBtn?.addEventListener('click', () => {
+      userClosed = true;
+      card.classList.add('hidden');
+      openBtn.classList.remove('invisible');
+      try { sessionStorage.setItem('waClosed', '1'); } catch (_) {}
+    });
+
+    // Estado persistente durante la sesión: no reabrir un chat nuevo en cada URL
+    let seqDone = false, wasClosed = false;
+    try {
+      seqDone = sessionStorage.getItem('waSeqDone') === '1';
+      wasClosed = sessionStorage.getItem('waClosed') === '1';
+    } catch (_) {}
+
+    if (seqDone) {
+      restoreChat();
+      if (!wasClosed) {
+        card.classList.remove('hidden');
+        openBtn.classList.add('invisible');
+      }
+    } else {
+      // Primera vez en la sesión: apertura automática a los 5s
+      setTimeout(() => {
+        if (!userClosed) openCard(false);
+      }, 5000);
+    }
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const msg = (input?.value || '').trim() || 'Hola, me gustaría más información sobre vuestros servicios.';
+      window.open(`https://wa.me/${whatsapp}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
+    });
+  }
+  document.addEventListener('DOMContentLoaded', initWaWidget);
+  document.addEventListener('astro:page-load', initWaWidget);
+  initWaWidget();
+</script>
 
