@@ -4,6 +4,7 @@ import { buildAlternates } from '../lib/i18n';
 import { localAgencySchema } from '../lib/schema';
 import LogoMarquee from '../components/sections/LogoMarquee.astro';
 import FaqHome from '../components/sections/FaqHome.astro';
+import GoogleReviews from '../components/global/GoogleReviews.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-de-marketing-digital-en-terrassa/', '/ca/agencia-de-marketing-digital-a-terrassa/', SITE_URL);
@@ -86,7 +87,7 @@ const pageSchema = localAgencySchema({
                 <span class="lg:whitespace-nowrap">Digital en Terrassa</span>
             </h1>
             <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
-                En nova ayudamos a PYMEs y autónomos de Terrassa a captar clientes con SEO, Google Ads y diseño web. Estrategia a medida, precios claros y resultados que se miden en ventas, no en likes.
+                En nova ayudamos a PYMEs y autónomos de Terrassa a captar clientes con SEO, Google Ads y diseño web. Estrategia a medida, precios claros y resultados que se miden en ventas.
             </p>
             <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
                 {['Sin permanencias', 'Trato directo con el consultor', 'Informes de negocio'].map(item => (
@@ -604,11 +605,14 @@ const pageSchema = localAgencySchema({
 
             <!-- Imagen: más grande, desbordando por la derecha -->
             <div class="reveal lg:-mr-[12%] xl:-mr-[18%]">
-                <img src="/agencia-seo-geo-en-barcelona.webp" alt="Nova Marketing, agencia de marketing digital recomendada por la IA en Terrassa" class="w-full h-auto" loading="lazy" />
+                <img src="/agencia-de-marketing-digital-para-pymes-terrassa.webp" alt="Nova Marketing, agencia de marketing digital recomendada por la IA en Terrassa" class="w-full h-auto" loading="lazy" />
             </div>
 
         </div>
     </section>
+
+    <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
+    <GoogleReviews locale="es" />
 
     <!-- ═══ DÓNDE TRABAJAMOS ═══════════════════════════════════════ -->
     <section class="py-20 sm:py-28 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">

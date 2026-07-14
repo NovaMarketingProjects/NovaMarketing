@@ -186,7 +186,8 @@ export function localAgencySchema(opts: {
       {
         '@type': ['LocalBusiness', 'ProfessionalService'],
         '@id': lbId,
-        name: t(`Nova Marketing - Agencia de Marketing Digital en ${cityName}`, `Nova Marketing - Agència de Marketing Digital a ${cityName}`),
+        // Debe coincidir exactamente con el nombre de la ficha de Google Business Profile
+        name: `Nova Marketing | Agencia de marketing digital en ${cityName}`,
         description,
         url: pageUrl,
         image: { '@id': logoId },
@@ -241,9 +242,11 @@ export function localAgencySchema(opts: {
           },
         ],
         areaServed: areaServed.map(name =>
-          ['Vallès Occidental', 'Cataluña', 'Catalunya'].includes(name)
-            ? { '@type': 'AdministrativeArea', name }
-            : { '@type': 'City', name }
+          ['España', 'Espanya'].includes(name)
+            ? { '@type': 'Country', name }
+            : ['Vallès Occidental', 'Cataluña', 'Catalunya'].includes(name)
+              ? { '@type': 'AdministrativeArea', name }
+              : { '@type': 'City', name }
         ),
         knowsLanguage: ['es', 'ca', 'en'],
         sameAs,
@@ -274,12 +277,13 @@ export function localAgencySchema(opts: {
             name: t('Inicio', 'Inici'),
             item: lang === 'ca' ? `${SITE_URL}/ca/` : `${SITE_URL}/`,
           },
-          {
+          // En la home el breadcrumb solo tiene un nivel
+          ...(pageUrl === `${SITE_URL}/` || pageUrl === `${SITE_URL}/ca/` ? [] : [{
             '@type': 'ListItem',
             position: 2,
             name: t(`Agencia de marketing digital en ${cityName}`, `Agència de marketing digital a ${cityName}`),
             item: pageUrl,
-          },
+          }]),
         ],
       },
       {

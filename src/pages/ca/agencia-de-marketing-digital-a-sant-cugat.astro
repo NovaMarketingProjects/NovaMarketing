@@ -4,6 +4,7 @@ import { buildAlternates } from '../../lib/i18n';
 import { localAgencySchema } from '../../lib/schema';
 import LogoMarquee from '../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../components/sections/FaqHome.astro';
+import GoogleReviews from '../../components/global/GoogleReviews.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-de-marketing-digital-en-sant-cugat/', '/ca/agencia-de-marketing-digital-a-sant-cugat/', SITE_URL);
@@ -101,7 +102,7 @@ const pageSchema = localAgencySchema({
                 <span class="lg:whitespace-nowrap">Digital a Sant Cugat</span>
             </h1>
             <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
-                A nova ajudem pimes i autònoms de Sant Cugat a captar clients amb SEO, Google Ads i disseny web. Estratègia a mida, preus clars i resultats que es mesuren en vendes, no en likes.
+                A nova ajudem pimes i autònoms de Sant Cugat a captar clients amb SEO, Google Ads i disseny web. Estratègia a mida, preus clars i resultats que es mesuren en vendes.
             </p>
             <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
                 {['Sense permanències', 'Tracte directe amb el consultor', 'Informes de negoci'].map(item => (
@@ -606,11 +607,14 @@ const pageSchema = localAgencySchema({
 
             <!-- Imatge: més gran, desbordant per la dreta -->
             <div class="reveal lg:-mr-[12%] xl:-mr-[18%]">
-                <img src="/agencia-seo-geo-en-barcelona.webp" alt="Nova Marketing, agència de marketing digital recomanada per la IA a Sant Cugat" class="w-full h-auto" loading="lazy" />
+                <img src="/agencia-de-marketing-digital-per-a-pimes-sant-cugat.webp" alt="Nova Marketing, agència de marketing digital recomanada per la IA a Sant Cugat" class="w-full h-auto" loading="lazy" />
             </div>
 
         </div>
     </section>
+
+    <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
+    <GoogleReviews locale="ca" />
 
     <!-- ═══ ON TREBALLEM ═══════════════════════════════════════════ -->
     <section class="py-20 sm:py-28 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">

@@ -4,6 +4,7 @@ import { buildAlternates } from '../../lib/i18n';
 import { localAgencySchema } from '../../lib/schema';
 import LogoMarquee from '../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../components/sections/FaqHome.astro';
+import GoogleReviews from '../../components/global/GoogleReviews.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-de-marketing-digital-en-barcelona/', '/ca/agencia-de-marketing-digital-a-barcelona/', SITE_URL);
@@ -70,7 +71,7 @@ const pageSchema = localAgencySchema({
   datePublished: '2025-06-09',
   dateModified: '2026-07-14',
   streetAddress: 'Carrer del General Mendoza, 10',
-  hasMap: 'https://maps.app.goo.gl/W1rhQ5gM1YkiqVHY9',
+  hasMap: 'https://maps.app.goo.gl/9fbB12UcK32bgjj89',
   aggregateRating: { ratingValue: '5.0', reviewCount: '7' },
   reviews: [
     { author: "이진만", date: '2026-05-14', body: "Como guía turístico, buscaba algo que me ayudara a diferenciarme, y hablé con Sergio de Nova Marketing y ha hecho un trabajo excepcional. 👍👍👍 La ilustración que han diseñado para mi marca es increíble y me va a ayudar muchísimo a posicionar" },
@@ -111,7 +112,7 @@ const pageSchema = localAgencySchema({
                 <span class="lg:whitespace-nowrap">Digital a Barcelona</span>
             </h1>
             <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
-                A nova ajudem pimes i autònoms de Barcelona a captar clients amb SEO, Google Ads i disseny web. Estratègia a mida, preus clars i resultats que es mesuren en vendes, no en likes.
+                A nova ajudem pimes i autònoms de Barcelona a captar clients amb SEO, Google Ads i disseny web. Estratègia a mida, preus clars i resultats que es mesuren en vendes.
             </p>
             <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
                 {['Sense permanències', 'Tracte directe amb el consultor', 'Informes de negoci'].map(item => (
@@ -621,6 +622,9 @@ const pageSchema = localAgencySchema({
 
         </div>
     </section>
+
+    <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
+    <GoogleReviews locale="ca" />
 
     <!-- ═══ ON TREBALLEM ═══════════════════════════════════════════ -->
     <section class="py-20 sm:py-28 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
