@@ -3,11 +3,14 @@
 interface Props {
   title?: string;
   items: { question: string; answer: string }[];
+  /** Desactivar cuando la página ya incluye FAQPage en su propio @graph */
+  emitSchema?: boolean;
 }
 
 const {
     title = 'Preguntas frecuentes',
-    items = []
+    items = [],
+    emitSchema = true
 } = Astro.props;
 
 // Schema FAQ format
@@ -25,7 +28,7 @@ const faqSchema = {
 };
 ---
 
-<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+{emitSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
 
 <section class="py-24 sm:py-32 bg-white relative overflow-hidden px-4 sm:px-6">
     <!-- Subtle Background Element -->

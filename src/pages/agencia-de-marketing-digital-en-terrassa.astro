@@ -1,30 +1,70 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { buildAlternates } from '../lib/i18n';
+import { localAgencySchema } from '../lib/schema';
 import LogoMarquee from '../components/sections/LogoMarquee.astro';
+import FaqHome from '../components/sections/FaqHome.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-de-marketing-digital-en-terrassa/', '/ca/agencia-de-marketing-digital-a-terrassa/', SITE_URL);
 
 const steps = [
-  { title: "Diagnóstico Industrial", desc: "Auditamos tu presencia frente al ecosistema de pymes y naves de Terrassa y la comarca." },
-  { title: "Plan de Digitalización", desc: "Trazamos la transición de tu negocio tradicional hacia flujos de captación digital rentables." },
-  { title: "Optimización B2B/B2C", desc: "Focalizamos los esfuerzos en canales de alta conversión para rentabilizar tu inversión local." }
+  { title: "Diagnóstico Local", desc: "Auditamos tu web, tu visibilidad actual y tu competencia directa en Terrassa y el área metropolitana. Detectamos fugas de tráfico, keywords rentables sin explotar y oportunidades de venta que tu competencia ya está capturando." },
+  { title: "Estrategia Documentada", desc: "Recibes una hoja de ruta por escrito: qué canales usar, qué keywords atacar, qué inversión necesita cada fase y qué resultados esperar en 3, 6 y 12 meses. Sabes en qué se invierte cada euro antes de invertirlo." },
+  { title: "Ejecución Multicanal", desc: "Coordinamos SEO, Google Ads, contenidos y analítica para que la inversión genere leads de calidad desde el primer mes. Ads acelera el corto plazo mientras el SEO construye tu activo a medio plazo." },
+  { title: "Medición Sin Humo", desc: "Configuramos la analítica para atribuir cada lead a su canal. En el informe mensual verás llamadas, formularios y ventas generadas, no métricas de vanidad. Reunión mensual con el consultor para revisar números." },
+  { title: "Optimización Continua", desc: "Exprimimos cada euro adaptando campañas y contenidos a los picos de demanda de Terrassa: estacionalidad del sector, cambios de algoritmo y movimientos de tu competencia." }
 ];
 
-const benefits = [
-  { title: "Tradición y Futuro", desc: "Ayudamos a pymes de Terrassa a adaptar su legado industrial a la era de la captación digital." },
-  { title: "Dominio de Zona", desc: "Posicionamos tu empresa para ser el referente de servicios o suministros en el Vallès Occidental." },
-  { title: "Trasparencia Total", desc: "Métricas exactas de los contactos generados (llamadas, formularios) directo a tu bandeja de entrada." }
+const districts = [
+  { title: "Centro y Vapor Gran", desc: "El eje comercial de Terrassa: retail, clínicas y despachos compitiendo por las mismas búsquedas. Aquí el posicionamiento se gana con una ficha de Google impecable, reseñas gestionadas y SEO local quirúrgico." },
+  { title: "Ca n'Aurell, Sant Pere y barrios residenciales", desc: "Barrios de negocio de proximidad donde el cliente busca \"cerca de mí\" desde el móvil. Trabajamos el pack local completo: ficha optimizada, landings por zona y anuncios geolocalizados a pocos minutos de tu local." },
+  { title: "Polígonos industriales de Terrassa", desc: "Can Parellada, Els Bellots y el resto de polígonos concentran la industria B2B egarense. Sus clientes también buscan proveedores en Google: posicionamos keywords técnicas que traen presupuestos, no visitas." },
 ];
+
+const criteria = [
+  { title: "Pide casos de éxito verificables en Terrassa", desc: "Un muro de logos no demuestra nada. Pide casos de negocios de Terrassa con datos concretos: qué keyword local, qué posición alcanzó, en cuánto tiempo y con qué inversión. Una agencia que trabaja el mercado de Terrassa debería poder enseñarte resultados en tu ciudad, o incluso en tu sector. Si no pueden enseñarte ni uno, sigue buscando." },
+  { title: "Pregunta quién llevará tu cuenta", desc: "En muchas agencias de Terrassa vende un director y ejecuta un junior con 30 cuentas. Exige conocer a la persona que trabajará tu proyecto antes de firmar, y pregunta si podrás reunirte con ella cara a cara: en nova las reuniones con clientes de Terrassa y el Vallès Occidental pueden ser presenciales." },
+  { title: "Exige propiedad de tus activos", desc: "La web, la cuenta de Google Ads, la ficha de Google Business Profile y la analítica deben estar a tu nombre. Es más habitual de lo que parece: PYMEs de Terrassa que llevan años pagando y descubren al querer cambiar de agencia que no son dueñas ni de su propio dominio. Si la agencia retiene tus activos, no estás contratando un servicio: estás firmando una dependencia." },
+  { title: "Desconfía de quien garantiza la posición 1 en Google en Terrassa", desc: "Nadie puede garantizar la posición 1 en Google, y menos en un mercado tan disputado como el de Terrassa, donde cada keyword local la pelean decenas de competidores. Quien lo promete, o miente o usa técnicas que acabarán penalizando tu web. Lo serio es garantizar método, transparencia y trabajo verificable." },
+  { title: "Revisa qué mide el informe mensual", desc: "Si el informe habla de impresiones y alcance pero no de llamadas, formularios y ventas de clientes de Terrassa, la agencia está midiendo su actividad, no tu negocio. El posicionamiento local en Terrassa se mide en visitas a tu ficha, rutas a tu local y presupuestos solicitados, no en likes." },
+  { title: "Huye de las agencias de marketing con permanencias largas", desc: "Una permanencia de 12 meses protege a la agencia, no a ti. Con tanta oferta de agencias de marketing digital al alcance, el trabajo bien hecho retiene clientes sin necesidad de contratos que los aten. Por eso en nova trabajamos mes a mes." },
+  { title: "Conocimiento del negocio local", desc: "No es lo mismo posicionar una clínica del centro que una industria del polígono o un ecommerce que vende a toda España. Una agencia que conoce el mercado de Terrassa sabe qué busca el cliente de cada zona, qué competencia hay en cada sector y qué keywords locales convierten. Pregunta qué sabe la agencia de tu barrio, de tu sector y de tu cliente antes de firmar." }
+];
+
+const faqs = [
+  { question: "¿Cuánto cuesta una agencia de marketing digital en Terrassa?", answer: "Depende mucho de los servicios que necesites y de si es un proyecto puntual o un trabajo recurrente. No cuesta lo mismo una auditoría o el lanzamiento de una web que una estrategia mensual de posicionamiento y captación. Por eso en nova no trabajamos con tarifas genéricas sino con presupuestos cerrados a medida: antes de firmar sabes exactamente qué se hace, quién lo hace y qué resultado se persigue." },
+  { question: "¿Qué incluye una estrategia de marketing digital para una PYME en Terrassa?", answer: "Incluye una auditoría inicial, una hoja de ruta documentada y la ejecución y medición mensual de cada acción. Analizamos tu situación actual y tu competencia en Terrassa, definimos qué canales usar, qué inversión necesita cada fase y qué resultados esperar a 3, 6 y 12 meses. No aplicamos plantillas: cada sector y cada zona de Terrassa compite de forma distinta." },
+  { question: "¿Quién llevará mi cuenta?", answer: "Tu cuenta la lleva directamente Sergio Galo's, consultor de marketing digital en Terrassa y fundador de Nova Marketing. Sin gestores junior ni intermediarios: la persona que diseña tu estrategia es la misma que la ejecuta y la que te responde en la reunión mensual." },
+  { question: "¿Cuánto tardaré en ver resultados?", answer: "Hay acciones que generan clientes en semanas y otras que consolidan resultados entre el sexto y el duodécimo mes. El plazo exacto depende del punto de partida de tu negocio y de la competencia de tu sector en Terrassa. En la hoja de ruta inicial te decimos qué esperar en cada fase, con plazos realistas y sin promesas de humo." },
+  { question: "¿Cómo medís los resultados de la estrategia?", answer: "Medimos leads y ventas: cada llamada, formulario o pedido queda atribuido a su canal de origen. Configuramos la analítica desde el primer día y en el informe mensual ves resultados de negocio, no métricas de vanidad. Además tienes acceso total a tus cuentas y herramientas: los datos son tuyos." },
+  { question: "¿Trabajáis con permanencia?", answer: "No, trabajamos mes a mes. Si el servicio no te aporta valor, puedes cancelarlo cuando quieras. Nuestra permanencia real es el resultado que ves en los informes cada mes." },
+  { question: "¿Atendéis solo a empresas de Terrassa?", answer: "No: nuestra sede está en Barcelona y trabajamos en todo el Vallès Occidental y su área de influencia. Con clientes de Terrassa y la comarca las reuniones pueden ser presenciales, y con empresas del resto de España trabajamos por videollamada con el mismo nivel de seguimiento." }
+];
+
+
+const pageSchema = localAgencySchema({
+  pageUrl: `${SITE_URL}/agencia-de-marketing-digital-en-terrassa/`,
+  lang: 'es',
+  cityName: 'Terrassa',
+  postalCode: '08221',
+  geo: { lat: 41.5633, lng: 2.0087 },
+  areaServed: ["Terrassa","Sabadell","Sant Cugat del Vallès","Barcelona","Vallès Occidental"],
+  title: "Marketing Digital en Terrassa | Nova Marketing",
+  description: "Estrategias de crecimiento digital para pymes en Terrassa. SEO, Google Ads y Diseño Web enfocados a captar clientes y competir en el mercado actual.",
+  datePublished: '2025-06-09',
+  dateModified: '2026-07-14',
+  faqs,
+});
 
 ---
 
 <BaseLayout
   title="Marketing Digital en Terrassa | Nova Marketing"
-  description="Impulso digital para pymes en Terrassa. Estrategias de SEO, Google Ads y Diseño Web enfocadas al patrimonio industrial del Vallès Occidental."
+  description="Estrategias de crecimiento digital para pymes en Terrassa. SEO, Google Ads y Diseño Web enfocados a captar clientes y competir en el mercado actual."
   locale="es"
   alternates={alternates}
+  schemas={[pageSchema]}
 >
 
     <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
@@ -42,15 +82,25 @@ const benefits = [
                 Impulso Digital para Pymes
             </span>
             <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
-                <span class="lg:whitespace-nowrap">Agencia de Marketing</span>
+                <span class="lg:whitespace-nowrap">Agencia de Marketing </span>
                 <span class="lg:whitespace-nowrap">Digital en Terrassa</span>
             </h1>
-            <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-10">
-                Alineamos el legado industrial de Terrassa con estrategias de marketing digital de vanguardia para escalar pymes y autónomos.
+            <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
+                En nova ayudamos a PYMEs y autónomos de Terrassa a captar clientes con SEO, Google Ads y diseño web. Estrategia a medida, precios claros y resultados que se miden en ventas, no en likes.
             </p>
+            <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
+                {['Sin permanencias', 'Trato directo con el consultor', 'Informes de negocio'].map(item => (
+                    <span class="inline-flex items-center gap-2 text-[11px] sm:text-xs font-black uppercase tracking-widest text-zinc-700">
+                        <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        {item}
+                    </span>
+                ))}
+            </div>
             <div class="flex justify-center mt-4">
                 <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                    SOLICITAR PLAN DE ACCIÓN
+                    HABLEMOS DE TU NEGOCIO
                 </a>
             </div>
         </div>
@@ -58,78 +108,106 @@ const benefits = [
 
     <LogoMarquee />
 
+    <!-- ═══ INTRO: QUIÉNES SOMOS ═══════════════════════════════════════════ -->
+    <section class="py-16 sm:py-24 bg-white px-4 sm:px-6 border-b border-black/5">
+        <div class="max-w-6xl mx-auto reveal grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-16 items-center">
+            <div>
+                <p class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4">¿Qué es Nova?</p>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    La agencia de marketing digital para tu pyme en Terrassa
+                </h2>
+                <div class="space-y-6 text-zinc-600 font-light text-base sm:text-lg leading-relaxed">
+                    <p>
+                        <strong class="font-semibold text-zinc-900">Nova Marketing es una agencia de marketing digital especializada en PYMEs</strong> que opera en Terrassa y el Vallès Occidental, con servicios de posicionamiento SEO, Google Ads, diseño web y consultoría de marketing.
+                    </p>
+                    <p>
+                        Nuestro enfoque es distinto: trabajamos con un número limitado de clientes, cada cuenta la lleva directamente el consultor fundador y toda la estrategia se orienta a una sola métrica que importa: <strong class="font-semibold text-zinc-900">cuántos clientes nuevos genera tu inversión cada mes</strong>.
+                    </p>
+                </div>
+            </div>
+            <div class="hidden md:block">
+                <img src="/consultor-marketing-digital.webp" alt="Sergio Galo's - Consultor de marketing digital en Terrassa" class="w-full h-auto" loading="lazy" />
+            </div>
+        </div>
+    </section>
+
     <!-- ═══ SECCIÓN 1: SERVICIOS ═══════════════════════════════════════════ -->
     <section class="py-20 sm:py-32 bg-zinc-50 border-b border-black/5 px-4 sm:px-6">
         <div class="max-w-7xl mx-auto text-center reveal">
-            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-16 text-zinc-900 leading-[0.9]">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Qué hacemos</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
                 Servicios de Marketing Online en Terrassa
             </h2>
-            
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-16">
+                Cuatro servicios, un mismo objetivo: que tu empresa aparezca donde buscan tus clientes en Terrassa y convierta ese tráfico en facturación.
+            </p>
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
                 <!-- SEO -->
                 <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
         <!-- Hover Gradient Overlay -->
         <div class="absolute inset-x-0 h-1 bottom-0 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
-                                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
                         <a href="/agencia-seo-en-terrassa/" class="hover:text-accent transition-colors">Agencia de Posicionamiento SEO en Terrassa</a>
                     </h3>
                     <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        Consigue que tu empresa en Terrassa encabece las búsquedas de Google. Optimizamos tu ficha de Google Business Profile y estructura web para desbancar a la competencia en el núcleo urbano y zonas industriales.
+                        Aparece en los primeros resultados de Google cuando tus clientes buscan tus servicios en Terrassa. Optimizamos tu ficha de Google Business Profile, tu web y tus contenidos para dominar las búsquedas locales de tu sector, desde el centro hasta toda la comarca.
                     </p>
-                    <a href="#contacto" class="contact-modal-trigger text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
+                    <a href="/agencia-seo-en-terrassa/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
                 </div>
 
                 <!-- Google Ads -->
                 <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
         <!-- Hover Gradient Overlay -->
         <div class="absolute inset-x-0 h-1 bottom-0 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
-                                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
                         <a href="/agencia-google-ads-terrassa/" class="hover:text-accent transition-colors">Agencia de Google Ads en Terrassa</a>
                     </h3>
                     <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        Anuncios hiperrentables para captar clientes en minutos. Diseñamos campañas de búsqueda segmentadas en Terrassa para autónomos y pymes que necesitan llamadas cualificadas de inmediato.
+                        Anuncios hipersegmentados para captar clientes desde la primera semana. No tires el dinero en clics vacíos: dirigimos tus campañas a usuarios de Terrassa con intención real de compra y optimizamos el CPC para maximizar el retorno de cada euro invertido.
                     </p>
-                    <a href="#contacto" class="contact-modal-trigger text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
+                    <a href="/agencia-google-ads-terrassa/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
                 </div>
 
                 <!-- Diseño Web -->
                 <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
         <!-- Hover Gradient Overlay -->
         <div class="absolute inset-x-0 h-1 bottom-0 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
-                                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
                         <a href="/agencia-diseno-web-terrassa/" class="hover:text-accent transition-colors">Agencia de Diseño Web en Terrassa</a>
                     </h3>
                     <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        Diseñamos la oficina digital que tu marca merece en Terrassa. Páginas web ultra rápidas, optimizadas para móvil y programadas específicamente para convertir cada visita en un formulario de presupuesto.
+                        Diseñamos el escaparate digital 24/7 que tu empresa necesita: páginas web ultrarrápidas, adaptadas a móvil y 100% enfocadas a la conversión, con la autoridad que exige un mercado tan exigente como el del Vallès.
                     </p>
-                    <a href="#contacto" class="contact-modal-trigger text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
+                    <a href="/agencia-diseno-web-terrassa/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
                 </div>
 
                 <!-- Consultoría -->
                 <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
         <!-- Hover Gradient Overlay -->
         <div class="absolute inset-x-0 h-1 bottom-0 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
-                                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
                         <a href="/consultoria-marketing-digital-terrassa/" class="hover:text-accent transition-colors">Consultoría de Marketing en Terrassa</a>
                     </h3>
                     <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        ¿Inversiones en marketing sin resultados? Auditamos tu empresa y naves en Terrassa para optimizar el embudo de ventas, definir canales idóneos y potenciar tu plan de marketing sin fugas.
+                        ¿Tu marketing no da resultados? Auditamos tus procesos de captación, detectamos dónde se pierde el presupuesto y trazamos una hoja de ruta con embudos de venta sólidos para escalar tu negocio en Terrassa.
                     </p>
-                    <a href="#contacto" class="contact-modal-trigger text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
+                    <a href="/consultoria-marketing-digital-terrassa/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ═══ SECCIÓN 2: COMO TRABAJAMOS -->
+    <!-- ═══ SECCIÓN 2: COMO TRABAJAMOS ════════════════════════════ -->
     <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
         <div class="max-w-5xl mx-auto">
             <div class="text-center mb-16 sm:mb-24 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Cómo trabajamos</span>
                 <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Estrategias de Crecimiento para Pymes en Terrassa
+                    Estrategias de marketing digital para PYMEs en Terrassa
                 </h2>
-                <p class="text-zinc-500 w-[75%] mx-auto font-light text-sm sm:text-base leading-relaxed">
-                    Estructuramos tu expansión digital combinando herencia empresarial y flujos de atracción de clientes modernos.
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Una metodología probada en más de 20 proyectos para que compitas con garantías en el mercado de Terrassa, paso a paso y sin humo.
                 </p>
             </div>
 
@@ -142,7 +220,7 @@ const benefits = [
                         <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
                             <div class:list={["flex-1 w-full", index % 2 === 0 ? "md:order-1 md:text-right" : "md:order-3 md:text-left"]}>
                                 <div class="p-8 sm:p-10 bg-zinc-50 border border-black/5 rounded-3xl hover:border-accent/10 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
-                                    <h4 class="text-xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{index + 1}. {step.title}</h4>
+                                    <h3 class="text-xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{index + 1}. {step.title}</h3>
                                     <div class:list={["h-0.5 bg-accent w-full mb-4 opacity-80", index % 2 === 0 ? "md:ml-auto" : ""]}></div>
                                     <p class:list={["text-sm text-zinc-500 font-light max-w-md", index % 2 === 0 ? "md:ml-auto" : ""]}>{step.desc}</p>
                                     <div class="absolute -bottom-6 -right-5 text-8xl font-black text-black/[0.02] select-none z-0 group-hover:scale-105 transition-transform duration-500">0{index+1}</div>
@@ -159,28 +237,303 @@ const benefits = [
         </div>
     </section>
 
-    <!-- ═══ SECCIÓN 3: BENEFICIOS ══════════════════════════════════ -->
+    <!-- ═══ AUDITORÍA DE MARKETING ═════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-[6fr_4fr] gap-12 lg:gap-16 items-start">
+
+            <!-- Cabecera: ancho completo -->
+            <div class="reveal lg:col-span-2">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Punto de partida</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
+                    Auditoría de marketing digital para PYMEs en Terrassa
+                </h2>
+            </div>
+
+            <!-- Texto: izquierda -->
+            <div class="reveal">
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed mb-8">
+                    <p>
+                        Antes de proponerte nada, auditamos. Si tu web no aparece en Google, si tus campañas no rinden o si el tráfico no convierte, siempre hay una causa concreta, y casi nunca es la que te habían contado.
+                    </p>
+                    <p>
+                        Nuestra <strong class="font-semibold text-zinc-900">auditoría de marketing digital en Terrassa</strong> revisa tu situación real y la de tu competencia, y termina con un plan de acción priorizado: qué arreglar primero, qué impacto tiene y cuánto esfuerzo cuesta.
+                    </p>
+                    <p>
+                        A diferencia de las auditorías automáticas que generan un PDF con cien errores irrelevantes, aquí cada punto lo revisa un consultor que conoce el mercado de Terrassa. El resultado no es un listado técnico: es un diagnóstico de negocio que entiende cualquier gerente de PYME, con cifras de tu sector y de tu zona.
+                    </p>
+                    <p>
+                        Si ya trabajas con otra agencia, la auditoría también sirve como segunda opinión independiente: sabrás si tu inversión actual en marketing está bien dirigida o si estás pagando por actividad que no genera clientes.
+                    </p>
+                </div>
+                <ul class="space-y-3">
+                    {[
+                        'Salud técnica de tu web: indexación, velocidad y Core Web Vitals',
+                        'Visibilidad actual en Google y en buscadores con IA',
+                        'Análisis de tu competencia directa en Terrassa',
+                        'Revisión de campañas activas y del gasto que no rinde',
+                        'Puntos de fuga en la conversión de tu web',
+                        'Plan de acción priorizado por impacto real',
+                    ].map(item => (
+                        <li class="flex items-start gap-3 text-sm text-zinc-700 font-light">
+                            <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            {item}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
+            <!-- Tarjetas: columna derecha (40%) -->
+            <div class="reveal flex flex-col gap-4">
+                <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black text-zinc-900 mb-1">Análisis completo de tu presencia digital</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed">Web, posicionamiento SEO, ficha de Google Business Profile, campañas y analítica. Revisamos cada canal con datos reales, no con impresiones, para saber exactamente desde dónde partes.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black text-zinc-900 mb-1">Plan de acción priorizado</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed">No una lista infinita de tareas: un plan ordenado por impacto y esfuerzo. Sabrás qué arreglar la primera semana, qué puede esperar y qué no merece ni un euro.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2"/><circle cx="12" cy="12" r="5" stroke-width="2"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black text-zinc-900 mb-1">Enfoque estratégico local</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed">Detectamos oportunidades reales de crecimiento en tu zona y tu sector de Terrassa: keywords locales sin explotar, huecos frente a tu competencia y canales que aún no aprovechas.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black text-zinc-900 mb-1">Auditoría de campañas y presupuesto</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed">Revisamos tus campañas de Google Ads activas: qué keywords queman presupuesto sin convertir, qué segmentaciones sobran y cuánto podrías ahorrar con la misma inversión.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black text-zinc-900 mb-1">Benchmark de tu competencia en Terrassa</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed">Comparamos tu visibilidad con la de tus tres competidores directos: qué keywords les traen clientes, dónde invierten y qué puedes copiar o hacer mejor que ellos.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══ SECTORES ═══════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-14 sm:mb-20 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Experiencia sectorial</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Marketing Digital para tu Sector en Terrassa
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    No es lo mismo captar un paciente que un cliente industrial. Trabajamos con sectores donde ya sabemos qué funciona y qué es tirar el dinero.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
+                {[
+                    { icon: '🛒', title: 'Agencia de marketing para ecommerce', desc: 'Arquitectura de categorías, fichas optimizadas, feed de Shopping y CRO. El SEO de producto y las campañas bien estructuradas se retroalimentan para vender más.' },
+                    { icon: '🏠', title: 'Agencia de marketing para inmobiliarias', desc: 'Captación de propietarios y compradores en un mercado carísimo. Landings por zona, SEO local por barrio y campañas que filtran curiosos de clientes reales.' },
+                    { icon: '🍽️', title: 'Agencia de marketing para restaurantes', desc: 'Aquí manda la ficha de Google y las reseñas. Trabajamos el pack local completo para que aparezcas cuando alguien busca dónde comer cerca, y llenar mesas entre semana.' },
+                    { icon: '🧠', title: 'Agencia de marketing para psicólogos', desc: 'El paciente busca confianza antes que precio. Contenido con autoridad clínica, SEO local por especialidad y campañas discretas que respetan la sensibilidad del sector.' },
+                    { icon: '🌿', title: 'Agencia de marketing para terapeutas', desc: 'Un sector con mucha competencia genérica y poca especializada. Posicionamos tu consulta por terapia y zona, con contenido que educa y convierte visitas en primeras sesiones.' },
+                    { icon: '🦷', title: 'Agencia de marketing para dentistas', desc: 'Sector saturado en Terrassa y con alta exigencia de E-E-A-T. Ganan quienes combinan SEO local impecable, reseñas gestionadas y contenido clínico con autoridad real.' },
+                    { icon: '💪', title: 'Agencia de marketing para gimnasios', desc: 'Captación estacional con picos en enero y septiembre. Campañas geolocalizadas a pocos minutos del centro, ofertas de prueba y retención medida con datos.' },
+                    { icon: '🏗️', title: 'Agencia de marketing para constructoras', desc: 'Competencia local feroz y leads de valor alto. El pack ganador es ficha de Google impecable, landings por zona y campañas geolocalizadas que traen presupuestos, no visitas.' },
+                    { icon: '⚖️', title: 'Agencia de marketing para abogados', desc: 'Búsquedas de altísima intención y CPCs de los más caros de Google. La clave está en captar la consulta con contenido que resuelve la duda legal concreta antes que la competencia.' },
+                    { icon: '🏨', title: 'Agencia de marketing para hoteles', desc: 'Reducir la dependencia de las OTAs es el objetivo: SEO para reserva directa, ficha optimizada, campañas de marca y estrategia de precios visible en Google Hotels.' },
+                    { icon: '🏭', title: 'Agencia de marketing para B2B', desc: 'Ciclos de venta largos y pocos decisores. Aquí no importa el volumen: importa aparecer en las diez búsquedas técnicas que hace el responsable de compras.' },
+                    { icon: '🎓', title: 'Agencia de marketing para escuelas', desc: 'Captación estacional con picos claros. La estrategia combina contenido informacional todo el año con inversión agresiva en la ventana de matriculación.' },
+                ].map(s => (
+                    <div class="bg-white border border-black/5 rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <div class="text-3xl mb-4">{s.icon}</div>
+                        <h3 class="text-base uppercase tracking-tight text-zinc-900 mb-3 leading-tight" style="font-family:'Montserrat',sans-serif;font-weight:600;">
+                            {s.title}
+                            <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1" style="font-weight:600;">en Terrassa</span>
+                        </h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed">{s.desc}</p>
+                    </div>
+                ))}
+            </div>
+
+            <div class="mt-14 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    QUIERO CRECER EN MI SECTOR
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CITA ══════════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-zinc-950 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <blockquote class="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.15] mb-8">
+                “Si ya has pagado a una agencia de marketing en Terrassa y lo único que ha recibido tu PYME han sido informes bonitos, no necesitas otra agencia. Necesitas nova.”
+            </blockquote>
+            <p class="text-sm text-zinc-400 font-light mb-10">Sergio Galo's · Consultor de marketing digital en Terrassa</p>
+            <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                HABLEMOS DE TU NEGOCIO
+            </a>
+        </div>
+    </section>
+
+    <!-- ═══ SECCIÓN 3: DISTRITOS ══════════════════════════════════ -->
     <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 relative overflow-hidden border-t border-black/5">
         <!-- Deco meshes -->
         <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_80%,transparent_100%)]"></div>
         <div class="absolute -top-40 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl opacity-20 animate-pulse"></div>
         <div class="absolute -bottom-40 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl opacity-10"></div>
-        <div class="max-w-7xl mx-auto">
+        <div class="max-w-7xl mx-auto relative z-10">
             <div class="text-center mb-16 sm:mb-24 reveal">
                 <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-4 text-zinc-900 leading-[0.9]">
-                    Especialistas en Marketing Digital en Terrassa
+                    Marketing Digital en Todas las Zonas de Terrassa
                 </h2>
-                <p class="text-zinc-500 w-[75%] mx-auto font-light text-sm sm:text-base">Dominamos el tejido de proximidad para asegurar que tu PIME destaque.</p>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Terrassa no es un solo mercado: cada zona tiene su competencia, su tipo de cliente y su forma de buscar en Google. Adaptamos la estrategia a la zona donde compite tu negocio.
+                </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {benefits.map((benefit) => (
-                    <div class="group p-8 border border-black/5 bg-white rounded-sm hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {districts.map((d) => (
+                    <div class="group p-8 border border-black/5 bg-white rounded-2xl hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal">
                         <div class="h-1 bg-black w-12 group-hover:w-full transition-all duration-500 mb-6"></div>
-                        <h4 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">{benefit.title}</h4>
-                        <p class="text-sm text-zinc-500 font-light leading-relaxed">{benefit.desc}</p>
+                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">{d.title}</h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed">{d.desc}</p>
                     </div>
                 ))}
+                <div class="group p-8 border border-black/5 bg-white rounded-2xl hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal">
+                    <div class="h-1 bg-black w-12 group-hover:w-full transition-all duration-500 mb-6"></div>
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">Vallès Occidental y Barcelona</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">
+                        Muchos de tus clientes buscan desde fuera de la ciudad. Cubrimos toda la comarca y el área de Barcelona con estrategias locales propias en <a href="/agencia-de-marketing-digital-en-sabadell/" class="underline hover:text-accent transition-colors">Sabadell</a>, <a href="/agencia-de-marketing-digital-en-sant-cugat/" class="underline hover:text-accent transition-colors">Sant Cugat</a> y <a href="/agencia-de-marketing-digital-en-barcelona/" class="underline hover:text-accent transition-colors">Barcelona</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SECCIÓN: POR QUÉ NOVA (COMPARATIVA) ════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Por qué nova</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Qué diferencia a nova de otra agencia de marketing digital
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Nova Marketing quiere ser el departamento de marketing que tu empresa necesita. Tener ese departamento en plantilla implica sueldos, herramientas y meses de curva de aprendizaje. Con nova tienes esa capacidad desde el primer día, pagando solo por el trabajo que tu negocio necesita cada mes.
+                </p>
+            </div>
+
+            <div class="reveal overflow-x-auto rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
+                <table class="w-full min-w-[640px] text-left border-collapse bg-white">
+                    <thead>
+                        <tr class="bg-black text-white">
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Criterio</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Otras agencias</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Nova</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-zinc-100">
+                        {[
+                            { c: "Quién será tu contacto", o: "Gestor junior con 20-30 cuentas", n: "Sergio Galo's" },
+                            { c: "Estrategia", o: "Plantillas estandarizadas", n: "Hoja de ruta a medida por escrito" },
+                            { c: "Velocidad de respuesta", o: "Tickets y semanas de espera", n: "Línea directa con quien decide" },
+                            { c: "Permanencia", o: "6-12 meses habituales", n: "Mes a mes, sin permanencia" },
+                            { c: "Conocimiento del negocio local", o: "Estrategias genéricas para cualquier ciudad", n: "Especialización en Terrassa y el Vallès Occidental" },
+                            { c: "Visibilidad en IA (GEO)", o: "Solo SEO tradicional en Google", n: "Optimización para aparecer en ChatGPT, Claude y Perplexity" },
+                            { c: "Transparencia de precios", o: "Presupuestos opacos con extras sorpresa", n: "Precio cerrado por escrito antes de empezar" },
+                        ].map(row => (
+                            <tr class="hover:bg-zinc-50/50 transition-colors">
+                                <td class="px-6 py-5 text-sm font-bold text-zinc-900">{row.c}</td>
+                                <td class="px-6 py-5 text-sm text-zinc-500 font-light">{row.o}</td>
+                                <td class="px-6 py-5 text-sm font-bold text-accent">{row.n}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="text-xs sm:text-sm text-zinc-400 font-light leading-relaxed mt-6 reveal">
+                Un departamento de marketing externo elimina costes fijos de contratación, herramientas y formación, y te da acceso a experiencia senior sin proceso de selección ni periodo de adaptación.
+            </p>
+        </div>
+    </section>
+
+    <!-- ═══ SECCIÓN 4: CÓMO ELEGIR AGENCIA ═════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-12 sm:mb-16 reveal text-center">
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Cómo Elegir Agencia de Marketing Digital en Terrassa
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    En Terrassa y su comarca hay decenas de agencias, y en Barcelona cientos más. La mayoría de PYMEs elige mal la primera vez. Estos son los siete criterios que deberías exigir a cualquier agencia, incluida la nuestra:
+                </p>
+            </div>
+
+            <div class="divide-y divide-zinc-100 reveal">
+                {criteria.map((c, i) => (
+                    <div class="py-6 sm:py-8 flex gap-6 sm:gap-8 items-start">
+                        <div class="text-2xl sm:text-3xl font-black tracking-tighter text-accent flex-shrink-0 w-10 leading-none">0{i + 1}</div>
+                        <div>
+                            <h3 class="text-base sm:text-lg font-black uppercase tracking-tight text-zinc-900 mb-2">{c.title}</h3>
+                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.desc}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SECCIÓN 5: QUIÉN ESTÁ DETRÁS ═══════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto reveal">
+            <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] grid md:grid-cols-[280px_1fr] gap-8 sm:gap-12 items-center">
+                <div class="rounded-2xl overflow-hidden bg-zinc-100">
+                    <img src="/consultor-marketing-digital.webp" alt="Sergio Galo's - Consultor de marketing digital en Terrassa" class="w-full h-full object-cover object-top" loading="lazy" />
+                </div>
+                <div>
+                    <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Quién está detrás</span>
+                    <h2 class="text-2xl sm:text-4xl font-black tracking-tighter uppercase text-zinc-900 leading-[0.95] mb-6">
+                        Sergio Galo's <br>
+                        <span class="text-lg sm:text-2xl">Tu consultor de marketing en Terrassa</span>
+                    </h2>
+                    <div class="space-y-4 text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
+                        <p>
+                            Soy <strong class="font-semibold text-zinc-900">Sergio Galo's</strong>, consultor de marketing digital y SEO en Terrassa y fundador de Nova Marketing. Llevo años posicionando PYMEs de Terrassa y el Vallès Occidental en algunos de los sectores más competitivos del mercado de Terrassa: industria B2B, salud, ecommerce y servicios profesionales.
+                        </p>
+                        <p>
+                            Cuando contratas marketing digital en Terrassa con nova hablas siempre conmigo: yo hago la auditoría SEO, yo diseño la estrategia de posicionamiento y campañas de Google Ads, y yo respondo en la reunión mensual. Sin capas comerciales ni gestores que cambian cada trimestre.
+                        </p>
+                    </div>
+                    <a href="https://www.linkedin.com/company/nova-marketing-pymes/" target="_blank" rel="noopener" class="inline-block mt-6 text-[12px] font-black tracking-widest text-accent hover:underline">
+                        Ver perfil en LinkedIn →
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -188,9 +541,9 @@ const benefits = [
     <!-- ═══ SECCIÓN 4: CASOS ══════════════════════════════════════ -->
     <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
         <div class="max-w-7xl mx-auto">
-            <div class="mb-16 sm:mb-24 reveal text-center md:text-left">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultados Locales</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-7xl uppercase tracking-tighter font-extrabold mb-2 text-zinc-900 leading-[0.9]">
+            <div class="mb-16 sm:mb-24 reveal text-center">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultados Reales</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-2 text-zinc-900 leading-[0.9]">
                     Proyectos y Casos de Éxito en Terrassa
                 </h2>
             </div>
@@ -199,8 +552,8 @@ const benefits = [
                 <div class="bg-zinc-50 p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all">
                     <div>
                         <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">SEO Local</span>
-                        <h4 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">Taller Reparación</h4>
-                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Posicionado al mapa de Google atrayendo clientes diarios del núcleo de Terrassa.</p>
+                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">Clínica Dental</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Posicionada en el Top 3 para tratamiento estrella en menos de 4 meses multiplicando las citas en zonas de alta demanda.</p>
                     </div>
                     <div class="text-2xl font-black tracking-tighter text-black mt-4">Top 3 Google</div>
                 </div>
@@ -208,23 +561,79 @@ const benefits = [
                 <div class="bg-zinc-50 p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all">
                     <div>
                         <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">Google Ads</span>
-                        <h4 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">Suministros Industriales</h4>
-                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Puesta a punto de campañas bajando el coste de adquisición un 35% mensual.</p>
+                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">SaaS Tecnológico</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Alineación de campañas con reducción del CPC en un 35% y aumento de registros B2B enfocados a parques de innovación.</p>
                     </div>
-                    <div class="text-2xl font-black tracking-tighter text-black mt-4">-35% CPA</div>
+                    <div class="text-2xl font-black tracking-tighter text-black mt-4">-35% CPC</div>
                 </div>
 
                 <div class="bg-zinc-50 p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all">
                     <div>
                         <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">Diseño Web</span>
-                        <h4 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">Gabinete Jurídico</h4>
-                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Rediseño enfocado a presupuesto con subida del 50% en contactos de valor.</p>
+                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">E-commerce Moda</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Rediseño enfocado a la conversión con una subida registrada del 45% en ticket medio de clientes de la zona centro.</p>
                     </div>
-                    <div class="text-2xl font-black tracking-tighter text-black mt-4">+50% Leads</div>
+                    <div class="text-2xl font-black tracking-tighter text-black mt-4">+45% Ventas</div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- ═══ RECOMENDADOS POR LA IA ═════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+            <!-- Texto -->
+            <div class="reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Nos avala la IA</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    La agencia de marketing que recomienda la IA en Terrassa
+                </h2>
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed">
+                    <p>
+                        Cuando alguien pregunta por una <strong class="font-semibold text-zinc-900">agencia de marketing digital para PYMEs en Terrassa</strong> a ChatGPT, Gemini o Claude, nova aparece entre las agencias recomendadas.
+                    </p>
+                    <p>
+                        A los asistentes de IA no les puedes comprar un anuncio para salir primero. Recomiendan lo que encuentran: casos reales publicados, una forma de trabajar transparente, una especialización clara y clientes que hablan de nosotros.
+                    </p>
+                    <p>
+                        Pruébalo tú mismo: abre ChatGPT y pregúntale qué agencia de marketing te recomienda para tu PYME en Terrassa. Si te sale nova, ya sabes dónde estamos.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Imagen: más grande, desbordando por la derecha -->
+            <div class="reveal lg:-mr-[12%] xl:-mr-[18%]">
+                <img src="/agencia-seo-geo-en-barcelona.webp" alt="Nova Marketing, agencia de marketing digital recomendada por la IA en Terrassa" class="w-full h-auto" loading="lazy" />
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══ DÓNDE TRABAJAMOS ═══════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Dónde trabajamos</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Sede en Barcelona, clientes en toda España
+            </h2>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
+                Nuestra base está en Barcelona y la mayoría de proyectos son de la ciudad y su área metropolitana, donde nos reunimos presencialmente. Pero trabajamos con empresas de toda España con el mismo nivel de seguimiento, por videollamada.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-3">
+                <a href="/agencia-de-marketing-digital-en-barcelona/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Barcelona</a>
+                <a href="/agencia-de-marketing-digital-en-sabadell/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Sabadell</a>
+                <a href="/agencia-de-marketing-digital-en-sant-cugat/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Sant Cugat</a>
+                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">Terrassa</span>
+                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">Badalona</span>
+                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">L'Hospitalet</span>
+                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">Resto de España</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ FAQS ════════════════════════════════════════════════ -->
+    <FaqHome title="Preguntas sobre nuestra agencia de marketing en Terrassa" items={faqs} emitSchema={false} />
 
     <!-- ═══ CONTACTO ════════════════════════════════════════════ -->
     <section id="contacto" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
@@ -234,7 +643,7 @@ const benefits = [
                 <h2 class="text-5xl sm:text-7xl font-black uppercase tracking-tighter leading-[0.8] mb-8">
                    IMPULSA <br>TU NEGOCIO <br>EN TERRASSA
                 </h2>
-                <p class="font-light max-w-md text-base sm:text-xl">Consúltame y te daré una hoja de ruta tradicional o industrial para tu empresa en Terrassa.</p>
+                <p class="font-light max-w-md text-base sm:text-xl">Consúltame y te daré una hoja de ruta a medida para tu empresa en Terrassa.</p>
             </div>
 
             <div class="reveal">

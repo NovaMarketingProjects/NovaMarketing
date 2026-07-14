@@ -1,30 +1,85 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { buildAlternates } from '../../lib/i18n';
+import { localAgencySchema } from '../../lib/schema';
 import LogoMarquee from '../../components/sections/LogoMarquee.astro';
+import FaqHome from '../../components/sections/FaqHome.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-de-marketing-digital-en-sant-cugat/', '/ca/agencia-de-marketing-digital-a-sant-cugat/', SITE_URL);
 
 const steps = [
-  { title: "Auditoria Tecnològica", desc: "Analitzem el teu entorn digital i els teus competidors en l'ecosistema corporatiu de Sant Cugat." },
-  { title: "Estratègia Premium", desc: "Dissenyem un pla enfocat al valor afegit, ideal per a les startups i centres d'innovació locals." },
-  { title: "Escalabilitat", desc: "Optimitzem el rendiment de cada canal per assegurar leads B2B i corporatius d'alta qualitat." }
+  { title: "Diagnòstic Local", desc: "Auditem la teva web, la teva visibilitat actual i la teva competència directa a Sant Cugat i l'àrea metropolitana. Detectem fugues de trànsit, keywords rendibles sense explotar i oportunitats de venda que la teva competència ja està capturant." },
+  { title: "Estratègia Documentada", desc: "Reps un full de ruta per escrit: quins canals fer servir, quines keywords atacar, quina inversió necessita cada fase i quins resultats esperar en 3, 6 i 12 mesos. Saps en què s'inverteix cada euro abans d'invertir-lo." },
+  { title: "Execució Multicanal", desc: "Coordinem SEO, Google Ads, continguts i analítica perquè la inversió generi leads de qualitat des del primer mes. Ads accelera el curt termini mentre el SEO construeix el teu actiu a mitjà termini." },
+  { title: "Mesura Sense Fum", desc: "Configurem l'analítica per atribuir cada lead al seu canal. A l'informe mensual veuràs trucades, formularis i vendes generades, no mètriques de vanitat. Reunió mensual amb el consultor per revisar números." },
+  { title: "Optimització Contínua", desc: "Espremem cada euro adaptant campanyes i continguts als pics de demanda de Sant Cugat: estacionalitat del sector, canvis d'algoritme i moviments de la teva competència." }
 ];
 
-const benefits = [
-  { title: "Enfocament Corporatiu", desc: "Parlem l'idioma de la innovació per a empreses que operan als parcs empresarials de Sant Cugat." },
-  { title: "Posicionament Premium", desc: "No només et fem visible. Construïm una autoritat de marca que ressoni amb el perfil de client local." },
-  { title: "Informes de Rendiment", desc: "Dades exactes de conversió, cost d'adquisició (CPA) i retorn d'inversió en temps real." }
+const districts = [
+  { title: "Centre i Estació", desc: "L'eix comercial de Sant Cugat, amb un client de renda alta i expectatives exigents. Aquí guanyen els negocis amb una presència digital cuidada: web impecable, ressenyes excel·lents i un posicionament local dominant." },
+  { title: "Mira-sol, Valldoreix i La Floresta", desc: "Zones residencials on el client busca serveis \"a prop meu\" des del mòbil, de reformes a salut o educació. Pack local complet: fitxa optimitzada, landings per zona i anuncis geolocalitzats." },
+  { title: "Can Sant Joan i el parc empresarial", desc: "Sant Cugat concentra seus corporatives i empreses tecnològiques. Per vendre a aquest teixit B2B cal aparèixer a les cerques tècniques del decisor, amb contingut que demostri autoritat real." },
 ];
+
+const criteria = [
+  { title: "Demana casos d'èxit verificables a Sant Cugat", desc: "Un mur de logos no demostra res. Demana casos de negocis de Sant Cugat amb dades concretes: quina keyword local, quina posició va assolir, en quant de temps i amb quina inversió. Una agència que treballa el mercat de Sant Cugat hauria de poder ensenyar-te resultats a la teva ciutat, o fins i tot al teu sector. Si no poden ensenyar-te'n ni un, segueix buscant." },
+  { title: "Pregunta qui portarà el teu compte", desc: "En moltes agències de Sant Cugat ven un director i executa un júnior amb 30 comptes. Exigeix conèixer la persona que treballarà el teu projecte abans de signar, i pregunta si podràs reunir-te amb ella cara a cara: a nova les reunions amb clients de Sant Cugat i el Vallès Occidental poden ser presencials." },
+  { title: "Exigeix la propietat dels teus actius", desc: "La web, el compte de Google Ads, la fitxa de Google Business Profile i l'analítica han d'estar al teu nom. És més habitual del que sembla: pimes de Sant Cugat que porten anys pagant i descobreixen en voler canviar d'agència que no són propietàries ni del seu propi domini. Si l'agència reté els teus actius, no estàs contractant un servei: estàs signant una dependència." },
+  { title: "Desconfia de qui garanteix la posició 1 a Google a Sant Cugat", desc: "Ningú pot garantir la posició 1 a Google, i menys en un mercat tan disputat com el de Sant Cugat, on cada keyword local la lluiten desenes de competidors. Qui ho promet, o menteix o fa servir tècniques que acabaran penalitzant la teva web. El que és seriós és garantir mètode, transparència i feina verificable." },
+  { title: "Revisa què mesura l'informe mensual", desc: "Si l'informe parla d'impressions i abast però no de trucades, formularis i vendes de clients de Sant Cugat, l'agència està mesurant la seva activitat, no el teu negoci. El posicionament local a Sant Cugat es mesura en visites a la teva fitxa, rutes al teu local i pressupostos sol·licitats, no en likes." },
+  { title: "Fuig de les agències de marketing amb permanències llargues", desc: "Una permanència de 12 mesos protegeix l'agència, no a tu. Amb tanta oferta d'agències de marketing digital a l'abast, la feina ben feta reté clients sense necessitat de contractes que els lliguin. Per això a nova treballem mes a mes." },
+  { title: "Coneixement del negoci local", desc: "No és el mateix posicionar una clínica del centre que una indústria del polígon o un ecommerce que ven a tota Espanya. Una agència que coneix el mercat de Sant Cugat sap què busca el client de cada zona, quina competència hi ha a cada sector i quines keywords locals converteixen. Pregunta què sap l'agència del teu barri, del teu sector i del teu client abans de signar." }
+];
+
+const sectors = [
+  { icon: '🛒', title: 'Agència de marketing per a ecommerce', desc: "Arquitectura de categories, fitxes optimitzades, feed de Shopping i CRO. El SEO de producte i les campanyes ben estructurades es retroalimenten per vendre més." },
+  { icon: '🏠', title: 'Agència de marketing per a immobiliàries', desc: "Captació de propietaris i compradors en un mercat caríssim. Landings per zona, SEO local per barri i campanyes que filtren curiosos de clients reals." },
+  { icon: '🍽️', title: 'Agència de marketing per a restaurants', desc: "Aquí mana la fitxa de Google i les ressenyes. Treballem el pack local complet perquè apareguis quan algú busca on menjar a prop, i omplir taules entre setmana." },
+  { icon: '🧠', title: 'Agència de marketing per a psicòlegs', desc: "El pacient busca confiança abans que preu. Contingut amb autoritat clínica, SEO local per especialitat i campanyes discretes que respecten la sensibilitat del sector." },
+  { icon: '🌿', title: 'Agència de marketing per a terapeutes', desc: "Un sector amb molta competència genèrica i poca especialitzada. Posicionem la teva consulta per teràpia i zona, amb contingut que educa i converteix visites en primeres sessions." },
+  { icon: '🦷', title: 'Agència de marketing per a dentistes', desc: "Sector saturat a Sant Cugat i amb alta exigència d'E-E-A-T. Guanyen els qui combinen SEO local impecable, ressenyes gestionades i contingut clínic amb autoritat real." },
+  { icon: '💪', title: 'Agència de marketing per a gimnasos', desc: "Captació estacional amb pics al gener i al setembre. Campanyes geolocalitzades a pocs minuts del centre, ofertes de prova i retenció mesurada amb dades." },
+  { icon: '🏗️', title: 'Agència de marketing per a constructores', desc: "Competència local ferotge i leads de valor alt. El pack guanyador és fitxa de Google impecable, landings per zona i campanyes geolocalitzades que porten pressupostos, no visites." },
+  { icon: '⚖️', title: 'Agència de marketing per a advocats', desc: "Cerques d'altíssima intenció i CPCs dels més cars de Google. La clau està a captar la consulta amb contingut que resol el dubte legal concret abans que la competència." },
+  { icon: '🏨', title: 'Agència de marketing per a hotels', desc: "Reduir la dependència de les OTAs és l'objectiu: SEO per a reserva directa, fitxa optimitzada, campanyes de marca i estratègia de preus visible a Google Hotels." },
+  { icon: '🏭', title: 'Agència de marketing per a B2B', desc: "Cicles de venda llargs i pocs decisors. Aquí no importa el volum: importa aparèixer a les deu cerques tècniques que fa el responsable de compres." },
+  { icon: '🎓', title: 'Agència de marketing per a escoles', desc: "Captació estacional amb pics clars. L'estratègia combina contingut informacional tot l'any amb inversió agressiva a la finestra de matriculació." },
+];
+
+const faqs = [
+  { question: "Quant costa una agència de marketing digital a Sant Cugat?", answer: "Depèn molt dels serveis que necessitis i de si és un projecte puntual o una feina recurrent. No costa el mateix una auditoria o el llançament d'una web que una estratègia mensual de posicionament i captació. Per això a nova no treballem amb tarifes genèriques sinó amb pressupostos tancats a mida: abans de signar saps exactament què es fa, qui ho fa i quin resultat es persegueix." },
+  { question: "Què inclou una estratègia de marketing digital per a una pime a Sant Cugat?", answer: "Inclou una auditoria inicial, un full de ruta documentat i l'execució i mesura mensual de cada acció. Analitzem la teva situació actual i la teva competència a Sant Cugat, definim quins canals fer servir, quina inversió necessita cada fase i quins resultats esperar a 3, 6 i 12 mesos. No apliquem plantilles: cada sector i cada zona de Sant Cugat competeix de manera diferent." },
+  { question: "Qui portarà el meu compte?", answer: "El teu compte el porta directament Sergio Galo's, consultor de marketing digital a Sant Cugat i fundador de Nova Marketing. Sense gestors júnior ni intermediaris: la persona que dissenya la teva estratègia és la mateixa que l'executa i la que et respon a la reunió mensual." },
+  { question: "Quant trigaré a veure resultats?", answer: "Hi ha accions que generen clients en setmanes i d'altres que consoliden resultats entre el sisè i el dotzè mes. El termini exacte depèn del punt de partida del teu negoci i de la competència del teu sector a Sant Cugat. Al full de ruta inicial et diem què esperar a cada fase, amb terminis realistes i sense promeses de fum." },
+  { question: "Com mesureu els resultats de l'estratègia?", answer: "Mesurem leads i vendes: cada trucada, formulari o comanda queda atribuïda al seu canal d'origen. Configurem l'analítica des del primer dia i a l'informe mensual veus resultats de negoci, no mètriques de vanitat. A més tens accés total als teus comptes i eines: les dades són teves." },
+  { question: "Treballeu amb permanència?", answer: "No, treballem mes a mes. Si el servei no t'aporta valor, pots cancel·lar-lo quan vulguis. La nostra permanència real és el resultat que veus als informes cada mes." },
+  { question: "Ateneu només empreses de Sant Cugat?", answer: "No: la nostra seu és a Barcelona i treballem a tot el Vallès Occidental i la seva àrea d'influència. Amb clients de Sant Cugat i la comarca les reunions poden ser presencials, i amb empreses de la resta d'Espanya treballem per videotrucada amb el mateix nivell de seguiment." }
+];
+
+
+const pageSchema = localAgencySchema({
+  pageUrl: `${SITE_URL}/ca/agencia-de-marketing-digital-a-sant-cugat/`,
+  lang: 'ca',
+  cityName: 'Sant Cugat',
+  postalCode: '08172',
+  geo: { lat: 41.4736, lng: 2.0861 },
+  areaServed: ["Sant Cugat del Vallès","Sabadell","Terrassa","Barcelona","Vallès Occidental"],
+  title: "Marketing Digital a Sant Cugat | Nova Marketing",
+  description: "Estratègies de creixement digital per a pimes a Sant Cugat. SEO, Google Ads i Disseny Web enfocats a captar clients i competir al mercat actual.",
+  datePublished: '2025-06-09',
+  dateModified: '2026-07-14',
+  faqs,
+});
 
 ---
 
 <BaseLayout
   title="Marketing Digital a Sant Cugat | Nova Marketing"
-  description="Estratègies de creixement digital per a empreses i startups a Sant Cugat. Especialistes en SEO, Google Ads i Disseny Web amb enfocament premium."
+  description="Estratègies de creixement digital per a pimes a Sant Cugat. SEO, Google Ads i Disseny Web enfocats a captar clients i competir al mercat actual."
   locale="ca"
   alternates={alternates}
+  schemas={[pageSchema]}
 >
 
     <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
@@ -39,18 +94,28 @@ const benefits = [
         <div class="max-w-5xl mx-auto reveal">
             <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
                 <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
-                Estratègies d'Alt Rendiment
+                Impuls Digital per a Pimes
             </span>
             <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
-                <span class="lg:whitespace-nowrap">Agència de Marketing</span>
+                <span class="lg:whitespace-nowrap">Agència de Marketing </span>
                 <span class="lg:whitespace-nowrap">Digital a Sant Cugat</span>
             </h1>
-            <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-10">
-                Impulsem el creixement de startups, corporacions i pimes a Sant Cugat amb un marketing digital enfocat al valor i alta conversió.
+            <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
+                A nova ajudem pimes i autònoms de Sant Cugat a captar clients amb SEO, Google Ads i disseny web. Estratègia a mida, preus clars i resultats que es mesuren en vendes, no en likes.
             </p>
+            <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
+                {['Sense permanències', 'Tracte directe amb el consultor', 'Informes de negoci'].map(item => (
+                    <span class="inline-flex items-center gap-2 text-[11px] sm:text-xs font-black uppercase tracking-widest text-zinc-700">
+                        <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        {item}
+                    </span>
+                ))}
+            </div>
             <div class="flex justify-center mt-4">
                 <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                    SOL·LICITAR PLA DE CREIXEMENT
+                    PARLEM DEL TEU NEGOCI
                 </a>
             </div>
         </div>
@@ -58,91 +123,119 @@ const benefits = [
 
     <LogoMarquee />
 
-    <!-- ═══ SECCIÓN 1: SERVICIOS ═══════════════════════════════════════════ -->
+    <!-- ═══ INTRO: QUI SOM ═════════════════════════════════════════════════ -->
+    <section class="py-16 sm:py-24 bg-white px-4 sm:px-6 border-b border-black/5">
+        <div class="max-w-6xl mx-auto reveal grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-16 items-center">
+            <div>
+                <p class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4">Què és Nova?</p>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    L'agència de marketing digital per a la teva pime a Sant Cugat
+                </h2>
+                <div class="space-y-6 text-zinc-600 font-light text-base sm:text-lg leading-relaxed">
+                    <p>
+                        <strong class="font-semibold text-zinc-900">Nova Marketing és una agència de marketing digital especialitzada en pimes</strong> que opera a Sant Cugat i el Vallès Occidental, amb serveis de posicionament SEO, Google Ads, disseny web i consultoria de marketing.
+                    </p>
+                    <p>
+                        El nostre enfocament és diferent: treballem amb un nombre limitat de clients, cada compte el porta directament el consultor fundador i tota l'estratègia s'orienta a una sola mètrica que importa: <strong class="font-semibold text-zinc-900">quants clients nous genera la teva inversió cada mes</strong>.
+                    </p>
+                </div>
+            </div>
+            <div class="hidden md:block">
+                <img src="/consultor-marketing-digital.webp" alt="Sergio Galo's - Consultor de marketing digital a Sant Cugat" class="w-full h-auto" loading="lazy" />
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SECCIÓ 1: SERVEIS ══════════════════════════════════════════════ -->
     <section class="py-20 sm:py-32 bg-zinc-50 border-b border-black/5 px-4 sm:px-6">
         <div class="max-w-7xl mx-auto text-center reveal">
-            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-16 text-zinc-900 leading-[0.9]">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Què fem</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
                 Serveis de Marketing Online a Sant Cugat
             </h2>
-            
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-16">
+                Quatre serveis, un mateix objectiu: que la teva empresa aparegui on busquen els teus clients a Sant Cugat i converteixi aquest trànsit en facturació.
+            </p>
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
                 <!-- SEO -->
                 <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
         <!-- Hover Gradient Overlay -->
         <div class="absolute inset-x-0 h-1 bottom-0 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
-                                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
                         <a href="/ca/agencia-seo-a-sant-cugat/" class="hover:text-accent transition-colors">Agència de Posicionament SEO a Sant Cugat</a>
                     </h3>
                     <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        Apareix a Google davant cerques d'alta intenció de compra a Sant Cugat. Optimitzem la teva arquitectura web i paraules clau per captar el trànsit qualificat que el teu servei d'alt valor necessita.
+                        Apareix als primers resultats de Google quan els teus clients busquen els teus serveis a Sant Cugat. Optimitzem la teva fitxa de Google Business Profile, la teva web i els teus continguts per dominar les cerques locals del teu sector, des del centre fins a tota la comarca.
                     </p>
-                    <a href="#contacto" class="contact-modal-trigger text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
+                    <a href="/ca/agencia-seo-a-sant-cugat/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
                 </div>
 
                 <!-- Google Ads -->
                 <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
         <!-- Hover Gradient Overlay -->
         <div class="absolute inset-x-0 h-1 bottom-0 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
-                                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
                         <a href="/ca/agencia-google-ads-sant-cugat/" class="hover:text-accent transition-colors">Agència de Google Ads a Sant Cugat</a>
                     </h3>
                     <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        Anuncis hipersegmentats per a l'ecosistema startup i de Parc Empresarial. Gestionem campanyes que minimitzen el cost d'adquisició (CPA) i maximitzen els resultats comercials B2B i B2C.
+                        Anuncis hipersegmentats per captar clients des de la primera setmana. No llancis els diners en clics buits: dirigim les teves campanyes a usuaris de Sant Cugat amb intenció real de compra i optimitzem el CPC per maximitzar el retorn de cada euro invertit.
                     </p>
-                    <a href="#contacto" class="contact-modal-trigger text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
+                    <a href="/ca/agencia-google-ads-sant-cugat/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
                 </div>
 
                 <!-- Disseny Web -->
                 <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
         <!-- Hover Gradient Overlay -->
         <div class="absolute inset-x-0 h-1 bottom-0 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
-                                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
                         <a href="/ca/agencia-disseny-web-sant-cugat/" class="hover:text-accent transition-colors">Agència de Disseny Web a Sant Cugat</a>
                     </h3>
                     <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        Creem interfícies web que projecten la professionalitat que els teus clients a Sant Cugat exigeixen. Llocs ultra ràpids, nets i programats 100% per guiar l'usuari directe a la venda o formulari.
+                        Dissenyem l'aparador digital 24/7 que la teva empresa necessita: pàgines web ultraràpides, adaptades a mòbil i 100% enfocades a la conversió, amb l'autoritat que exigeix un mercat tan exigent com el del Vallès.
                     </p>
-                    <a href="#contacto" class="contact-modal-trigger text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
+                    <a href="/ca/agencia-disseny-web-sant-cugat/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
                 </div>
 
-                <!-- Consultoría -->
+                <!-- Consultoria -->
                 <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
         <!-- Hover Gradient Overlay -->
         <div class="absolute inset-x-0 h-1 bottom-0 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
-                                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
                         <a href="/ca/consultoria-marketing-digital-sant-cugat/" class="hover:text-accent transition-colors">Consultoria de Marketing a Sant Cugat</a>
                     </h3>
                     <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        Auditem el teu embut de vendes actual. Tracem plans estructurats per optimitzar el teu pressupost i integrar fluxos d'atracció que resolguin els teus objectius comercials a Sant Cugat.
+                        El teu marketing no dona resultats? Auditem els teus processos de captació, detectem on es perd el pressupost i tracem un full de ruta amb embuts de venda sòlids per escalar el teu negoci a Sant Cugat.
                     </p>
-                    <a href="#contacto" class="contact-modal-trigger text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
+                    <a href="/ca/consultoria-marketing-digital-sant-cugat/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ═══ SECCIÓN 2: COMO TRABAJAMOS ════════════════════════════ -->
+    <!-- ═══ SECCIÓ 2: COM TREBALLEM ═══════════════════════════════ -->
     <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
         <div class="max-w-5xl mx-auto">
             <div class="text-center mb-16 sm:mb-24 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Com treballem</span>
                 <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Estratègies de Creixement per a Pymes a Sant Cugat
+                    Estratègies de marketing digital per a pimes a Sant Cugat
                 </h2>
-                <p class="text-zinc-500 w-[75%] mx-auto font-light text-sm sm:text-base leading-relaxed">
-                    Estructurem la teva expansió digital combinant tracció de trànsit i optimització de conversió corporativa.
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Una metodologia provada en més de 20 projectes perquè competeixis amb garanties al mercat de Sant Cugat, pas a pas i sense fum.
                 </p>
             </div>
 
             <div id="timeline-container" class="relative">
                 <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
                 <div id="progress-bar" class="hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100" style="height: 0%;"></div>
-                
+
                 <div class="space-y-16 md:space-y-24 flex flex-col items-center">
                     {steps.map((step, index) => (
                         <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
                             <div class:list={["flex-1 w-full", index % 2 === 0 ? "md:order-1 md:text-right" : "md:order-3 md:text-left"]}>
                                 <div class="p-8 sm:p-10 bg-zinc-50 border border-black/5 rounded-3xl hover:border-accent/10 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
-                                    <h4 class="text-xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{index + 1}. {step.title}</h4>
+                                    <h3 class="text-xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{index + 1}. {step.title}</h3>
                                     <div class:list={["h-0.5 bg-accent w-full mb-4 opacity-80", index % 2 === 0 ? "md:ml-auto" : ""]}></div>
                                     <p class:list={["text-sm text-zinc-500 font-light max-w-md", index % 2 === 0 ? "md:ml-auto" : ""]}>{step.desc}</p>
                                     <div class="absolute -bottom-6 -right-5 text-8xl font-black text-black/[0.02] select-none z-0 group-hover:scale-105 transition-transform duration-500">0{index+1}</div>
@@ -159,38 +252,300 @@ const benefits = [
         </div>
     </section>
 
-    <!-- ═══ SECCIÓN 3: BENEFICIOS ══════════════════════════════════ -->
+    <!-- ═══ AUDITORIA DE MARKETING ═════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-[6fr_4fr] gap-12 lg:gap-16 items-start">
+
+            <!-- Capçalera: ample complet -->
+            <div class="reveal lg:col-span-2">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Punt de partida</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
+                    Auditoria de marketing digital per a pimes a Sant Cugat
+                </h2>
+            </div>
+
+            <!-- Text: esquerra -->
+            <div class="reveal">
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed mb-8">
+                    <p>
+                        Abans de proposar-te res, auditem. Si la teva web no apareix a Google, si les teves campanyes no rendeixen o si el trànsit no converteix, sempre hi ha una causa concreta, i gairebé mai és la que t'havien explicat.
+                    </p>
+                    <p>
+                        La nostra <strong class="font-semibold text-zinc-900">auditoria de marketing digital a Sant Cugat</strong> revisa la teva situació real i la de la teva competència, i acaba amb un pla d'acció prioritzat: què arreglar primer, quin impacte té i quant esforç costa.
+                    </p>
+                    <p>
+                        A diferència de les auditories automàtiques que generen un PDF amb cent errors irrellevants, aquí cada punt el revisa un consultor que coneix el mercat de Sant Cugat. El resultat no és un llistat tècnic: és un diagnòstic de negoci que entén qualsevol gerent de pime, amb xifres del teu sector i de la teva zona.
+                    </p>
+                    <p>
+                        Si ja treballes amb una altra agència, l'auditoria també serveix com a segona opinió independent: sabràs si la teva inversió actual en marketing està ben dirigida o si estàs pagant per activitat que no genera clients.
+                    </p>
+                </div>
+                <ul class="space-y-3">
+                    {[
+                        'Salut tècnica de la teva web: indexació, velocitat i Core Web Vitals',
+                        'Visibilitat actual a Google i als cercadors amb IA',
+                        'Anàlisi de la teva competència directa a Sant Cugat',
+                        'Revisió de campanyes actives i de la despesa que no rendeix',
+                        'Punts de fuga en la conversió de la teva web',
+                        "Pla d'acció prioritzat per impacte real",
+                    ].map(item => (
+                        <li class="flex items-start gap-3 text-sm text-zinc-700 font-light">
+                            <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            {item}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
+            <!-- Targetes: columna dreta (40%) -->
+            <div class="reveal flex flex-col gap-4">
+                <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black text-zinc-900 mb-1">Anàlisi completa de la teva presència digital</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed">Web, posicionament SEO, fitxa de Google Business Profile, campanyes i analítica. Revisem cada canal amb dades reals, no amb impressions, per saber exactament des d'on parteixes.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black text-zinc-900 mb-1">Pla d'acció prioritzat</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed">No una llista infinita de tasques: un pla ordenat per impacte i esforç. Sabràs què arreglar la primera setmana, què pot esperar i què no mereix ni un euro.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2"/><circle cx="12" cy="12" r="5" stroke-width="2"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black text-zinc-900 mb-1">Enfocament estratègic local</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed">Detectem oportunitats reals de creixement a la teva zona i el teu sector de Sant Cugat: keywords locals sense explotar, buits davant la teva competència i canals que encara no aprofites.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black text-zinc-900 mb-1">Auditoria de campanyes i pressupost</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed">Revisem les teves campanyes de Google Ads actives: quines keywords cremen pressupost sense convertir, quines segmentacions sobren i quant podries estalviar amb la mateixa inversió.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black text-zinc-900 mb-1">Benchmark de la teva competència a Sant Cugat</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed">Comparem la teva visibilitat amb la dels teus tres competidors directes: quines keywords els porten clients, on inverteixen i què pots copiar o fer millor que ells.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══ SECTORS ═══════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-14 sm:mb-20 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Experiència sectorial</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Marketing Digital per al teu Sector a Sant Cugat
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    No és el mateix captar un pacient que un client industrial. Treballem amb sectors on ja sabem què funciona i què és llençar els diners.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
+                {sectors.map(s => (
+                    <div class="bg-white border border-black/5 rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <div class="text-3xl mb-4">{s.icon}</div>
+                        <h3 class="text-base uppercase tracking-tight text-zinc-900 mb-3 leading-tight" style="font-family:'Montserrat',sans-serif;font-weight:600;">
+                            {s.title}
+                            <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1" style="font-weight:600;">a Sant Cugat</span>
+                        </h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed">{s.desc}</p>
+                    </div>
+                ))}
+            </div>
+
+            <div class="mt-14 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    VULL CRÉIXER EN EL MEU SECTOR
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CITA ══════════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-zinc-950 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <blockquote class="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.15] mb-8">
+                “Si ja has pagat a una agència de marketing a Sant Cugat i l'únic que ha rebut la teva pime han estat informes bonics, no necessites una altra agència. Necessites nova.”
+            </blockquote>
+            <p class="text-sm text-zinc-400 font-light mb-10">Sergio Galo's · Consultor de marketing digital a Sant Cugat</p>
+            <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                PARLEM DEL TEU NEGOCI
+            </a>
+        </div>
+    </section>
+
+    <!-- ═══ SECCIÓ 3: DISTRICTES ══════════════════════════════════ -->
     <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 relative overflow-hidden border-t border-black/5">
         <!-- Deco meshes -->
         <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_80%,transparent_100%)]"></div>
         <div class="absolute -top-40 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl opacity-20 animate-pulse"></div>
         <div class="absolute -bottom-40 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl opacity-10"></div>
-        <div class="max-w-7xl mx-auto">
+        <div class="max-w-7xl mx-auto relative z-10">
             <div class="text-center mb-16 sm:mb-24 reveal">
                 <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-4 text-zinc-900 leading-[0.9]">
-                    Especialistes en Marketing Digital a Sant Cugat
+                    Marketing Digital a Totes les Zones de Sant Cugat
                 </h2>
-                <p class="text-zinc-500 w-[75%] mx-auto font-light text-sm sm:text-base">Dominem l'entorn corporatiu per assegurar que la teva marca destaqui.</p>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Sant Cugat no és un sol mercat: cada zona té la seva competència, el seu tipus de client i la seva manera de buscar a Google. Adaptem l'estratègia a la zona on competeix el teu negoci.
+                </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {benefits.map((benefit) => (
-                    <div class="group p-8 border border-black/5 bg-white rounded-sm hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {districts.map((d) => (
+                    <div class="group p-8 border border-black/5 bg-white rounded-2xl hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal">
                         <div class="h-1 bg-black w-12 group-hover:w-full transition-all duration-500 mb-6"></div>
-                        <h4 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">{benefit.title}</h4>
-                        <p class="text-sm text-zinc-500 font-light leading-relaxed">{benefit.desc}</p>
+                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">{d.title}</h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed">{d.desc}</p>
+                    </div>
+                ))}
+                <div class="group p-8 border border-black/5 bg-white rounded-2xl hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal">
+                    <div class="h-1 bg-black w-12 group-hover:w-full transition-all duration-500 mb-6"></div>
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">Vallès Occidental i Barcelona</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">
+                        Molts dels teus clients busquen des de fora de la ciutat. Cobrim tota la comarca i l'àrea de Barcelona amb estratègies locals pròpies a <a href="/ca/agencia-de-marketing-digital-a-sabadell/" class="underline hover:text-accent transition-colors">Sabadell</a>, <a href="/ca/agencia-de-marketing-digital-a-terrassa/" class="underline hover:text-accent transition-colors">Terrassa</a> i <a href="/ca/agencia-de-marketing-digital-a-barcelona/" class="underline hover:text-accent transition-colors">Barcelona</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SECCIÓ: PER QUÈ NOVA (COMPARATIVA) ═════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Per què nova</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Què diferencia nova d'una altra agència de marketing digital
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Nova Marketing vol ser el departament de marketing que la teva empresa necessita. Tenir aquest departament en plantilla implica sous, eines i mesos de corba d'aprenentatge. Amb nova tens aquesta capacitat des del primer dia, pagant només per la feina que el teu negoci necessita cada mes.
+                </p>
+            </div>
+
+            <div class="reveal overflow-x-auto rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
+                <table class="w-full min-w-[640px] text-left border-collapse bg-white">
+                    <thead>
+                        <tr class="bg-black text-white">
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Criteri</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Altres agències</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Nova</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-zinc-100">
+                        {[
+                            { c: "Qui serà el teu contacte", o: "Gestor júnior amb 20-30 comptes", n: "Sergio Galo's" },
+                            { c: "Estratègia", o: "Plantilles estandarditzades", n: "Full de ruta a mida per escrit" },
+                            { c: "Velocitat de resposta", o: "Tiquets i setmanes d'espera", n: "Línia directa amb qui decideix" },
+                            { c: "Permanència", o: "6-12 mesos habituals", n: "Mes a mes, sense permanència" },
+                            { c: "Coneixement del negoci local", o: "Estratègies genèriques per a qualsevol ciutat", n: "Especialització a Sant Cugat i el Vallès Occidental" },
+                            { c: "Visibilitat en IA (GEO)", o: "Només SEO tradicional a Google", n: "Optimització per aparèixer a ChatGPT, Claude i Perplexity" },
+                            { c: "Transparència de preus", o: "Pressupostos opacs amb extres sorpresa", n: "Preu tancat per escrit abans de començar" },
+                        ].map(row => (
+                            <tr class="hover:bg-zinc-50/50 transition-colors">
+                                <td class="px-6 py-5 text-sm font-bold text-zinc-900">{row.c}</td>
+                                <td class="px-6 py-5 text-sm text-zinc-500 font-light">{row.o}</td>
+                                <td class="px-6 py-5 text-sm font-bold text-accent">{row.n}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="text-xs sm:text-sm text-zinc-400 font-light leading-relaxed mt-6 reveal">
+                Un departament de marketing extern elimina costos fixos de contractació, eines i formació, i et dona accés a experiència sènior sense procés de selecció ni període d'adaptació.
+            </p>
+        </div>
+    </section>
+
+    <!-- ═══ SECCIÓ 4: COM TRIAR AGÈNCIA ════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-12 sm:mb-16 reveal text-center">
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Com Triar Agència de Marketing Digital a Sant Cugat
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    A Sant Cugat i la seva comarca hi ha desenes d'agències, i a Barcelona centenars més. La majoria de pimes tria malament la primera vegada. Aquests són els set criteris que hauries d'exigir a qualsevol agència, inclosa la nostra:
+                </p>
+            </div>
+
+            <div class="divide-y divide-zinc-100 reveal">
+                {criteria.map((c, i) => (
+                    <div class="py-6 sm:py-8 flex gap-6 sm:gap-8 items-start">
+                        <div class="text-2xl sm:text-3xl font-black tracking-tighter text-accent flex-shrink-0 w-10 leading-none">0{i + 1}</div>
+                        <div>
+                            <h3 class="text-base sm:text-lg font-black uppercase tracking-tight text-zinc-900 mb-2">{c.title}</h3>
+                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.desc}</p>
+                        </div>
                     </div>
                 ))}
             </div>
         </div>
     </section>
 
-    <!-- ═══ SECCIÓN 4: CASOS ══════════════════════════════════════ -->
+    <!-- ═══ SECCIÓ 5: QUI HI HA DARRERE ════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto reveal">
+            <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] grid md:grid-cols-[280px_1fr] gap-8 sm:gap-12 items-center">
+                <div class="rounded-2xl overflow-hidden bg-zinc-100">
+                    <img src="/consultor-marketing-digital.webp" alt="Sergio Galo's - Consultor de marketing digital a Sant Cugat" class="w-full h-full object-cover object-top" loading="lazy" />
+                </div>
+                <div>
+                    <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Qui hi ha darrere</span>
+                    <h2 class="text-2xl sm:text-4xl font-black tracking-tighter uppercase text-zinc-900 leading-[0.95] mb-6">
+                        Sergio Galo's <br>
+                        <span class="text-lg sm:text-2xl">El teu consultor de marketing a Sant Cugat</span>
+                    </h2>
+                    <div class="space-y-4 text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
+                        <p>
+                            Soc <strong class="font-semibold text-zinc-900">Sergio Galo's</strong>, consultor de marketing digital i SEO a Sant Cugat i fundador de Nova Marketing. Porto anys posicionant pimes de Sant Cugat i el Vallès Occidental en alguns dels sectors més competitius del mercat de Sant Cugat: indústria B2B, salut, ecommerce i serveis professionals.
+                        </p>
+                        <p>
+                            Quan contractes marketing digital a Sant Cugat amb nova parles sempre amb mi: jo faig l'auditoria SEO, jo dissenyo l'estratègia de posicionament i campanyes de Google Ads, i jo responc a la reunió mensual. Sense capes comercials ni gestors que canvien cada trimestre.
+                        </p>
+                    </div>
+                    <a href="https://www.linkedin.com/company/nova-marketing-pymes/" target="_blank" rel="noopener" class="inline-block mt-6 text-[12px] font-black tracking-widest text-accent hover:underline">
+                        Veure perfil a LinkedIn →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SECCIÓ: CASOS ══════════════════════════════════════════ -->
     <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
         <div class="max-w-7xl mx-auto">
-            <div class="mb-16 sm:mb-24 reveal text-center md:text-left">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Èxit Corporatiu</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-7xl uppercase tracking-tighter font-extrabold mb-2 text-zinc-900 leading-[0.9]">
+            <div class="mb-16 sm:mb-24 reveal text-center">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultats Reals</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-2 text-zinc-900 leading-[0.9]">
                     Projectes i Casos d'Èxit a Sant Cugat
                 </h2>
             </div>
@@ -199,34 +554,90 @@ const benefits = [
                 <div class="bg-zinc-50 p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all">
                     <div>
                         <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">SEO Local</span>
-                        <h4 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">StartUp Tecnològica</h4>
-                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Acondicionament SEO per captar trànsit internacional i local augmentant els leads SaaS.</p>
+                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">Clínica Dental</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Posicionada al Top 3 per a tractament estrella en menys de 4 mesos multiplicant les cites en zones d'alta demanda.</p>
                     </div>
-                    <div class="text-2xl font-black tracking-tighter text-black mt-4">+200% Trànsit</div>
+                    <div class="text-2xl font-black tracking-tighter text-black mt-4">Top 3 Google</div>
                 </div>
 
                 <div class="bg-zinc-50 p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all">
                     <div>
                         <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">Google Ads</span>
-                        <h4 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">Consultora B2B</h4>
-                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Redisseny de clústers de paraules clau baixant el cost d'adquisició un 40% mensual.</p>
+                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">SaaS Tecnològica</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Alineació de campanyes amb reducció del CPC en un 35% i augment de registres B2B enfocats a parcs d'innovació.</p>
                     </div>
-                    <div class="text-2xl font-black tracking-tighter text-black mt-4">-40% CPA</div>
+                    <div class="text-2xl font-black tracking-tighter text-black mt-4">-35% CPC</div>
                 </div>
 
                 <div class="bg-zinc-50 p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all">
                     <div>
                         <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">Disseny Web</span>
-                        <h4 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">Centre Negocis Premium</h4>
-                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Redisseny ultra ràpid enfocat a reserva de sales i captació corporativa optimitzat.</p>
+                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">E-commerce Moda</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Redisseny enfocat a la conversió amb una pujada registrada del 45% en tiquet mitjà de clients de la zona centre.</p>
                     </div>
-                    <div class="text-2xl font-black tracking-tighter text-black mt-4">+60% Leads</div>
+                    <div class="text-2xl font-black tracking-tighter text-black mt-4">+45% Vendes</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ═══ CONTACTO ════════════════════════════════════════════ -->
+    <!-- ═══ RECOMANATS PER LA IA ═══════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+            <!-- Text -->
+            <div class="reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Ens avala la IA</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    L'agència de marketing que recomana la IA a Sant Cugat
+                </h2>
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed">
+                    <p>
+                        Quan algú pregunta per una <strong class="font-semibold text-zinc-900">agència de marketing digital per a pimes a Sant Cugat</strong> a ChatGPT, Gemini o Claude, nova apareix entre les agències recomanades.
+                    </p>
+                    <p>
+                        Als assistents d'IA no els pots comprar un anunci per sortir primer. Recomanen el que troben: casos reals publicats, una manera de treballar transparent, una especialització clara i clients que parlen de nosaltres.
+                    </p>
+                    <p>
+                        Prova-ho tu mateix: obre ChatGPT i pregunta-li quina agència de marketing et recomana per a la teva pime a Sant Cugat. Si et surt nova, ja saps on som.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Imatge: més gran, desbordant per la dreta -->
+            <div class="reveal lg:-mr-[12%] xl:-mr-[18%]">
+                <img src="/agencia-seo-geo-en-barcelona.webp" alt="Nova Marketing, agència de marketing digital recomanada per la IA a Sant Cugat" class="w-full h-auto" loading="lazy" />
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══ ON TREBALLEM ═══════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">On treballem</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Seu a Barcelona, clients a tota Espanya
+            </h2>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
+                La nostra base és a Barcelona i la majoria de projectes són de la ciutat i la seva àrea metropolitana, on ens reunim presencialment. Però treballem amb empreses de tota Espanya amb el mateix nivell de seguiment, per videotrucada.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-3">
+                <a href="/ca/agencia-de-marketing-digital-a-barcelona/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Barcelona</a>
+                <a href="/ca/agencia-de-marketing-digital-a-sabadell/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Sabadell</a>
+                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">Sant Cugat</span>
+                <a href="/ca/agencia-de-marketing-digital-a-terrassa/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Terrassa</a>
+                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">Badalona</span>
+                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">L'Hospitalet</span>
+                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">Resta d'Espanya</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ FAQS ════════════════════════════════════════════════ -->
+    <FaqHome title="Preguntes sobre la nostra agència de marketing a Sant Cugat" items={faqs} emitSchema={false} />
+
+    <!-- ═══ CONTACTE ════════════════════════════════════════════ -->
     <section id="contacto" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
         <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
             <div class="reveal text-white">
@@ -234,7 +645,7 @@ const benefits = [
                 <h2 class="text-5xl sm:text-7xl font-black uppercase tracking-tighter leading-[0.8] mb-8">
                    IMPULSA <br>EL TEU NEGOCI <br>A SANT CUGAT
                 </h2>
-                <p class="font-light max-w-md text-base sm:text-xl">Consulta'm i et donaré un full de ruta corporativa per a la teva empresa a Sant Cugat.</p>
+                <p class="font-light max-w-md text-base sm:text-xl">Consulta'm i et donaré un full de ruta a mida per a la teva empresa a Sant Cugat.</p>
             </div>
 
             <div class="reveal">
@@ -243,7 +654,7 @@ const benefits = [
                         <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
                             <div class="flex flex-col gap-3">
                                 <label class="opacity-30">NOM</label>
-                                <input type="text" name="name" aria-label="Nombre" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                                <input type="text" name="name" aria-label="Nom" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
                             </div>
                             <div class="flex flex-col gap-3">
                                 <label class="opacity-30">TELÈFON</label>
@@ -252,13 +663,13 @@ const benefits = [
                         </div>
                         <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
                             <label class="opacity-30">EMAIL PROFESSIONAL</label>
-                            <input type="email" name="email" aria-label="Correo electrónico" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            <input type="email" name="email" aria-label="Correu electrònic" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
                         </div>
                         <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
                             <label class="opacity-30">CONSULTA</label>
-                            <textarea name="msg" aria-label="Mensaje" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="Quin és el teu objectiu comercial a Sant Cugat?"></textarea>
+                            <textarea name="msg" aria-label="Missatge" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="Quin és el teu objectiu comercial a Sant Cugat?"></textarea>
                         </div>
-                        <button type="submit" class="w-full btn-mktg-v5 !py-6">DESPEGAR EL MEU PROJECTE</button>
+                        <button type="submit" class="w-full btn-mktg-v5 !py-6">ENLAIRAR EL MEU PROJECTE</button>
                     </form>
                 </div>
             </div>
@@ -272,7 +683,7 @@ const benefits = [
         e.preventDefault();
         const form = e.target;
         const btn = form.querySelector('button');
-        if (btn) { btn.innerHTML = 'ENVIANDO...'; btn.disabled = true; }
+        if (btn) { btn.innerHTML = 'ENVIANT...'; btn.disabled = true; }
         const data = Object.fromEntries(new FormData(form));
         try {
             const res = await fetch('https://cms.novamarketing.es/api/contact', {

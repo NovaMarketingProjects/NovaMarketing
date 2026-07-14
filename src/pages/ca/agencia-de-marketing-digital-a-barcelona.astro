@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { buildAlternates } from '../../lib/i18n';
+import { localAgencySchema } from '../../lib/schema';
 import LogoMarquee from '../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../components/sections/FaqHome.astro';
 
@@ -31,6 +32,21 @@ const criteria = [
   { title: "Coneixement del negoci local", desc: "No és el mateix posicionar una clínica a l'Eixample que una indústria al Vallès o un ecommerce que ven a tota Espanya. Una agència que coneix el mercat de Barcelona sap què busca el client de cada zona, quina competència hi ha a cada sector i quines keywords locals converteixen. Pregunta què sap l'agència del teu barri, del teu sector i del teu client abans de signar." }
 ];
 
+const sectors = [
+  { icon: '🛒', title: 'Agència de marketing per a ecommerce', desc: "Arquitectura de categories, fitxes optimitzades, feed de Shopping i CRO. El SEO de producte i les campanyes ben estructurades es retroalimenten per vendre més." },
+  { icon: '🏠', title: 'Agència de marketing per a immobiliàries', desc: "Captació de propietaris i compradors en un mercat caríssim. Landings per zona, SEO local per barri i campanyes que filtren curiosos de clients reals." },
+  { icon: '🍽️', title: 'Agència de marketing per a restaurants', desc: "Aquí mana la fitxa de Google i les ressenyes. Treballem el pack local complet perquè apareguis quan algú busca on menjar a prop, i omplir taules entre setmana." },
+  { icon: '🧠', title: 'Agència de marketing per a psicòlegs', desc: "El pacient busca confiança abans que preu. Contingut amb autoritat clínica, SEO local per especialitat i campanyes discretes que respecten la sensibilitat del sector." },
+  { icon: '🌿', title: 'Agència de marketing per a terapeutes', desc: "Un sector amb molta competència genèrica i poca especialitzada. Posicionem la teva consulta per teràpia i zona, amb contingut que educa i converteix visites en primeres sessions." },
+  { icon: '🦷', title: 'Agència de marketing per a dentistes', desc: "Sector saturat a Barcelona i amb alta exigència d'E-E-A-T. Guanyen els qui combinen SEO local impecable, ressenyes gestionades i contingut clínic amb autoritat real." },
+  { icon: '💪', title: 'Agència de marketing per a gimnasos', desc: "Captació estacional amb pics al gener i al setembre. Campanyes geolocalitzades a pocs minuts del centre, ofertes de prova i retenció mesurada amb dades." },
+  { icon: '🏗️', title: 'Agència de marketing per a constructores', desc: "Competència local ferotge i leads de valor alt. El pack guanyador és fitxa de Google impecable, landings per zona i campanyes geolocalitzades que porten pressupostos, no visites." },
+  { icon: '⚖️', title: 'Agència de marketing per a advocats', desc: "Cerques d'altíssima intenció i CPCs dels més cars de Google. La clau està a captar la consulta amb contingut que resol el dubte legal concret abans que la competència." },
+  { icon: '🏨', title: 'Agència de marketing per a hotels', desc: "Reduir la dependència de les OTAs és l'objectiu: SEO per a reserva directa, fitxa optimitzada, campanyes de marca i estratègia de preus visible a Google Hotels." },
+  { icon: '🏭', title: 'Agència de marketing per a B2B', desc: "Cicles de venda llargs i pocs decisors. Aquí no importa el volum: importa aparèixer a les deu cerques tècniques que fa el responsable de compres." },
+  { icon: '🎓', title: 'Agència de marketing per a escoles', desc: "Captació estacional amb pics clars. L'estratègia combina contingut informacional tot l'any amb inversió agressiva a la finestra de matriculació." },
+];
+
 const faqs = [
   { question: "Quant costa una agència de marketing digital a Barcelona?", answer: "Depèn molt dels serveis que necessitis i de si és un projecte puntual o una feina recurrent. No costa el mateix una auditoria o el llançament d'una web que una estratègia mensual de posicionament i captació. Per això a nova no treballem amb tarifes genèriques sinó amb pressupostos tancats a mida: abans de signar saps exactament què es fa, qui ho fa i quin resultat es persegueix." },
   { question: "Què inclou una estratègia de marketing digital per a una pime a Barcelona?", answer: "Inclou una auditoria inicial, un full de ruta documentat i l'execució i mesura mensual de cada acció. Analitzem la teva situació actual i la teva competència a Barcelona, definim quins canals fer servir, quina inversió necessita cada fase i quins resultats esperar a 3, 6 i 12 mesos. No apliquem plantilles: cada sector i cada zona de Barcelona competeix de manera diferent." },
@@ -41,6 +57,31 @@ const faqs = [
   { question: "Ateneu només empreses de Barcelona ciutat?", answer: "No: tenim la seu a Barcelona, però treballem amb clients a tota Espanya. La major part dels nostres projectes són a Barcelona i la seva àrea metropolitana (Sabadell, Sant Cugat, Terrassa), on les reunions poden ser presencials, i amb la resta de clients treballem per videotrucada amb el mateix nivell de seguiment." }
 ];
 
+
+const pageSchema = localAgencySchema({
+  pageUrl: `${SITE_URL}/ca/agencia-de-marketing-digital-a-barcelona/`,
+  lang: 'ca',
+  cityName: 'Barcelona',
+  postalCode: '08035',
+  geo: { lat: 41.4114, lng: 2.1526 },
+  areaServed: ["Barcelona","Sabadell","Sant Cugat del Vallès","Terrassa","Vallès Occidental"],
+  title: "Marketing Digital a Barcelona | Nova Marketing",
+  description: "Estratègies de creixement digital per a pimes a Barcelona. SEO, Google Ads i Disseny Web enfocats a captar clients i competir al mercat actual.",
+  datePublished: '2025-06-09',
+  dateModified: '2026-07-14',
+  streetAddress: 'Carrer del General Mendoza, 10',
+  hasMap: 'https://maps.app.goo.gl/W1rhQ5gM1YkiqVHY9',
+  aggregateRating: { ratingValue: '5.0', reviewCount: '7' },
+  reviews: [
+    { author: "이진만", date: '2026-05-14', body: "Como guía turístico, buscaba algo que me ayudara a diferenciarme, y hablé con Sergio de Nova Marketing y ha hecho un trabajo excepcional. 👍👍👍 La ilustración que han diseñado para mi marca es increíble y me va a ayudar muchísimo a posicionar" },
+    { author: "Cristina Oliver", date: '2026-05-14', body: "Totalmente recomendados para cualquier pyme. Sergio no se limita a darte consejos analiza tu mercado para mejorar tu posicionamiento SEO. En mi caso necesitaba posicionar en un entorno muy competitivo y Nova Marketing trazó el plan perfecto. Una agencia de marketing que realmente se implica en el éxito de sus clientes." },
+    { author: "Alba Delgado Arau", date: '2025-08-14', body: "Tenemos un club de gimnasia artística y nos han ayudado con nuestra estrategia de marketing digital que teníamos un poquito olvidada." },
+    { author: "Jesús Antonio García", date: '2025-07-14', body: "Excelente servicio de SEO y el trato siempre ds muy cercano. Recomendados al 100%" },
+    { author: "Ester Guillen", date: '2022-07-14', body: "Llegamos un par de meses trabajando juntos y al principio solo cogimos el pack SEM pero segurament contamos una auditoría completa con vosotros. Profesionales y muy recomendable." },
+  ],
+  faqs,
+});
+
 ---
 
 <BaseLayout
@@ -48,6 +89,7 @@ const faqs = [
   description="Estratègies de creixement digital per a pimes a Barcelona. SEO, Google Ads i Disseny Web enfocats a captar clients i competir al mercat actual."
   locale="ca"
   alternates={alternates}
+  schemas={[pageSchema]}
 >
 
     <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
@@ -68,9 +110,19 @@ const faqs = [
                 <span class="lg:whitespace-nowrap">Agència de Marketing </span>
                 <span class="lg:whitespace-nowrap">Digital a Barcelona</span>
             </h1>
-            <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-10">
+            <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
                 A nova ajudem pimes i autònoms de Barcelona a captar clients amb SEO, Google Ads i disseny web. Estratègia a mida, preus clars i resultats que es mesuren en vendes, no en likes.
             </p>
+            <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
+                {['Sense permanències', 'Tracte directe amb el consultor', 'Informes de negoci'].map(item => (
+                    <span class="inline-flex items-center gap-2 text-[11px] sm:text-xs font-black uppercase tracking-widest text-zinc-700">
+                        <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        {item}
+                    </span>
+                ))}
+            </div>
             <div class="flex justify-center mt-4">
                 <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
                     PARLEM DEL TEU NEGOCI
@@ -83,13 +135,24 @@ const faqs = [
 
     <!-- ═══ INTRO: QUI SOM ═════════════════════════════════════════════════ -->
     <section class="py-16 sm:py-24 bg-white px-4 sm:px-6 border-b border-black/5">
-        <div class="max-w-3xl mx-auto reveal space-y-6 text-zinc-600 font-light text-base sm:text-lg leading-relaxed">
-            <p>
-                <strong class="font-semibold text-zinc-900">Nova Marketing és una agència de marketing digital especialitzada en pimes</strong> que opera a Barcelona i la seva àrea metropolitana, amb serveis de posicionament SEO, Google Ads, disseny web i consultoria de marketing.
-            </p>
-            <p>
-                El nostre enfocament és diferent: treballem amb un nombre limitat de clients, cada compte el porta directament el consultor fundador i tota l'estratègia s'orienta a una sola mètrica que importa: <strong class="font-semibold text-zinc-900">quants clients nous genera la teva inversió cada mes</strong>.
-            </p>
+        <div class="max-w-6xl mx-auto reveal grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-16 items-center">
+            <div>
+                <p class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4">Què és Nova?</p>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    L'agència de marketing digital per a la teva pime a Barcelona
+                </h2>
+                <div class="space-y-6 text-zinc-600 font-light text-base sm:text-lg leading-relaxed">
+                    <p>
+                        <strong class="font-semibold text-zinc-900">Nova Marketing és una agència de marketing digital especialitzada en pimes</strong> que opera a Barcelona i la seva àrea metropolitana, amb serveis de posicionament SEO, Google Ads, disseny web i consultoria de marketing.
+                    </p>
+                    <p>
+                        El nostre enfocament és diferent: treballem amb un nombre limitat de clients, cada compte el porta directament el consultor fundador i tota l'estratègia s'orienta a una sola mètrica que importa: <strong class="font-semibold text-zinc-900">quants clients nous genera la teva inversió cada mes</strong>.
+                    </p>
+                </div>
+            </div>
+            <div class="hidden md:block">
+                <img src="/consultor-marketing-digital.webp" alt="Sergio Galo's - Consultor de marketing digital a Barcelona" class="w-full h-auto" loading="lazy" />
+            </div>
         </div>
     </section>
 
@@ -196,6 +259,156 @@ const faqs = [
                     ))}
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- ═══ AUDITORIA DE MARKETING ═════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-[6fr_4fr] gap-12 lg:gap-16 items-start">
+
+            <!-- Capçalera: ample complet -->
+            <div class="reveal lg:col-span-2">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Punt de partida</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
+                    Auditoria de marketing digital per a pimes a la Ciutat Comtal
+                </h2>
+            </div>
+
+            <!-- Text: esquerra -->
+            <div class="reveal">
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed mb-8">
+                    <p>
+                        Abans de proposar-te res, auditem. Si la teva web no apareix a Google, si les teves campanyes no rendeixen o si el trànsit no converteix, sempre hi ha una causa concreta, i gairebé mai és la que t'havien explicat.
+                    </p>
+                    <p>
+                        La nostra <strong class="font-semibold text-zinc-900">auditoria de marketing digital a Barcelona</strong> revisa la teva situació real i la de la teva competència, i acaba amb un pla d'acció prioritzat: què arreglar primer, quin impacte té i quant esforç costa.
+                    </p>
+                    <p>
+                        A diferència de les auditories automàtiques que generen un PDF amb cent errors irrellevants, aquí cada punt el revisa un consultor que coneix el mercat barceloní. El resultat no és un llistat tècnic: és un diagnòstic de negoci que entén qualsevol gerent de pime, amb xifres del teu sector i de la teva zona.
+                    </p>
+                    <p>
+                        Si ja treballes amb una altra agència, l'auditoria també serveix com a segona opinió independent: sabràs si la teva inversió actual en marketing està ben dirigida o si estàs pagant per activitat que no genera clients.
+                    </p>
+                </div>
+                <ul class="space-y-3">
+                    {[
+                        'Salut tècnica de la teva web: indexació, velocitat i Core Web Vitals',
+                        'Visibilitat actual a Google i als cercadors amb IA',
+                        'Anàlisi de la teva competència directa a Barcelona',
+                        'Revisió de campanyes actives i de la despesa que no rendeix',
+                        'Punts de fuga en la conversió de la teva web',
+                        "Pla d'acció prioritzat per impacte real",
+                    ].map(item => (
+                        <li class="flex items-start gap-3 text-sm text-zinc-700 font-light">
+                            <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            {item}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
+            <!-- Targetes: columna dreta (40%) -->
+            <div class="reveal flex flex-col gap-4">
+                <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black text-zinc-900 mb-1">Anàlisi completa de la teva presència digital</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed">Web, posicionament SEO, fitxa de Google Business Profile, campanyes i analítica. Revisem cada canal amb dades reals, no amb impressions, per saber exactament des d'on parteixes.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black text-zinc-900 mb-1">Pla d'acció prioritzat</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed">No una llista infinita de tasques: un pla ordenat per impacte i esforç. Sabràs què arreglar la primera setmana, què pot esperar i què no mereix ni un euro.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2"/><circle cx="12" cy="12" r="5" stroke-width="2"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black text-zinc-900 mb-1">Enfocament estratègic local</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed">Detectem oportunitats reals de creixement a la teva zona i el teu sector de Barcelona: keywords locals sense explotar, buits davant la teva competència i canals que encara no aprofites.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black text-zinc-900 mb-1">Auditoria de campanyes i pressupost</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed">Revisem les teves campanyes de Google Ads actives: quines keywords cremen pressupost sense convertir, quines segmentacions sobren i quant podries estalviar amb la mateixa inversió.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black text-zinc-900 mb-1">Benchmark de la teva competència a Barcelona</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed">Comparem la teva visibilitat amb la dels teus tres competidors directes: quines keywords els porten clients, on inverteixen i què pots copiar o fer millor que ells.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══ SECTORS ═══════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-14 sm:mb-20 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Experiència sectorial</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Marketing Digital per al teu Sector a Barcelona
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    No és el mateix captar un pacient que un client industrial. Treballem amb sectors on ja sabem què funciona i què és llençar els diners.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
+                {sectors.map(s => (
+                    <div class="bg-white border border-black/5 rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <div class="text-3xl mb-4">{s.icon}</div>
+                        <h3 class="text-base uppercase tracking-tight text-zinc-900 mb-3 leading-tight" style="font-family:'Montserrat',sans-serif;font-weight:600;">
+                            {s.title}
+                            <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1" style="font-weight:600;">a Barcelona</span>
+                        </h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed">{s.desc}</p>
+                    </div>
+                ))}
+            </div>
+
+            <div class="mt-14 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    VULL CRÉIXER EN EL MEU SECTOR
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CITA ══════════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-zinc-950 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <blockquote class="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.15] mb-8">
+                “Si ja has pagat a una agència de marketing a Barcelona i l'únic que ha rebut la teva pime han estat informes bonics, no necessites una altra agència. Necessites nova.”
+            </blockquote>
+            <p class="text-sm text-zinc-400 font-light mb-10">Sergio Galo's · Consultor de marketing digital a Barcelona</p>
+            <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                PARLEM DEL TEU NEGOCI
+            </a>
         </div>
     </section>
 
@@ -378,8 +591,61 @@ const faqs = [
         </div>
     </section>
 
+    <!-- ═══ RECOMANATS PER LA IA ═══════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+            <!-- Text -->
+            <div class="reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Ens avala la IA</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    L'agència de marketing que recomana la IA a Barcelona
+                </h2>
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed">
+                    <p>
+                        Quan algú pregunta per una <strong class="font-semibold text-zinc-900">agència de marketing digital per a pimes a Barcelona</strong> a ChatGPT, Gemini o Claude, nova apareix entre les agències recomanades.
+                    </p>
+                    <p>
+                        Als assistents d'IA no els pots comprar un anunci per sortir primer. Recomanen el que troben: casos reals publicats, una manera de treballar transparent, una especialització clara i clients que parlen de nosaltres.
+                    </p>
+                    <p>
+                        Prova-ho tu mateix: obre ChatGPT i pregunta-li quina agència de marketing et recomana per a la teva pime a Barcelona. Si et surt nova, ja saps on som.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Imatge: més gran, desbordant per la dreta -->
+            <div class="reveal lg:-mr-[12%] xl:-mr-[18%]">
+                <img src="/agencia-seo-geo-en-barcelona.webp" alt="Nova Marketing, agència de marketing digital recomanada per la IA a Barcelona" class="w-full h-auto" loading="lazy" />
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══ ON TREBALLEM ═══════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">On treballem</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Seu a Barcelona, clients a tota Espanya
+            </h2>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
+                La nostra base és a Barcelona i la majoria de projectes són de la ciutat i la seva àrea metropolitana, on ens reunim presencialment. Però treballem amb empreses de tota Espanya amb el mateix nivell de seguiment, per videotrucada.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-3">
+                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">Barcelona</span>
+                <a href="/ca/agencia-de-marketing-digital-a-sabadell/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Sabadell</a>
+                <a href="/ca/agencia-de-marketing-digital-a-sant-cugat/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Sant Cugat</a>
+                <a href="/ca/agencia-de-marketing-digital-a-terrassa/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Terrassa</a>
+                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">Badalona</span>
+                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">L'Hospitalet</span>
+                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">Resta d'Espanya</span>
+            </div>
+        </div>
+    </section>
+
     <!-- ═══ FAQS ════════════════════════════════════════════════ -->
-    <FaqHome title="Preguntes sobre la nostra agència de marketing a Barcelona" items={faqs} />
+    <FaqHome title="Preguntes sobre la nostra agència de marketing a Barcelona" items={faqs} emitSchema={false} />
 
     <!-- ═══ CONTACTE ════════════════════════════════════════════ -->
     <section id="contacto" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
