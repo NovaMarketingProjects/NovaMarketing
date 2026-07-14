@@ -2,12 +2,19 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { buildAlternates } from '../lib/i18n';
 import { localAgencySchema } from '../lib/schema';
+import { strapiClient } from '../lib/strapi';
 import LogoMarquee from '../components/sections/LogoMarquee.astro';
 import FaqHome from '../components/sections/FaqHome.astro';
 import GoogleReviews from '../components/global/GoogleReviews.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-de-marketing-digital-en-terrassa/', '/ca/agencia-de-marketing-digital-a-terrassa/', SITE_URL);
+
+let allCases: any[] = [];
+try {
+  const casesRes = await strapiClient.getCaseStudies('es');
+  allCases = casesRes.data.map((i: any) => i.attributes ?? i);
+} catch {}
 
 const steps = [
   { title: "Diagnóstico Local", desc: "Auditamos tu web, tu visibilidad actual y tu competencia directa en Terrassa y el área metropolitana. Detectamos fugas de tráfico, keywords rentables sin explotar y oportunidades de venta que tu competencia ya está capturando." },
@@ -539,46 +546,68 @@ const pageSchema = localAgencySchema({
         </div>
     </section>
 
-    <!-- ═══ SECCIÓN 4: CASOS ══════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden border-b border-black/5">
-        <div class="max-w-7xl mx-auto">
-            <div class="mb-16 sm:mb-24 reveal text-center">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultados Reales</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-2 text-zinc-900 leading-[0.9]">
-                    Proyectos y Casos de Éxito en Terrassa
-                </h2>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
-                <div class="bg-zinc-50 p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all">
-                    <div>
-                        <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">SEO Local</span>
-                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">Clínica Dental</h3>
-                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Posicionada en el Top 3 para tratamiento estrella en menos de 4 meses multiplicando las citas en zonas de alta demanda.</p>
-                    </div>
-                    <div class="text-2xl font-black tracking-tighter text-black mt-4">Top 3 Google</div>
-                </div>
-
-                <div class="bg-zinc-50 p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all">
-                    <div>
-                        <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">Google Ads</span>
-                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">SaaS Tecnológico</h3>
-                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Alineación de campañas con reducción del CPC en un 35% y aumento de registros B2B enfocados a parques de innovación.</p>
-                    </div>
-                    <div class="text-2xl font-black tracking-tighter text-black mt-4">-35% CPC</div>
-                </div>
-
-                <div class="bg-zinc-50 p-8 border border-black/5 flex flex-col justify-between h-full group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all">
-                    <div>
-                        <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">Diseño Web</span>
-                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 group-hover:text-accent transition-colors">E-commerce Moda</h3>
-                        <p class="text-xs text-zinc-500 font-light leading-relaxed mb-6">Rediseño enfocado a la conversión con una subida registrada del 45% en ticket medio de clientes de la zona centro.</p>
-                    </div>
-                    <div class="text-2xl font-black tracking-tighter text-black mt-4">+45% Ventas</div>
-                </div>
-            </div>
+    <!-- ═══ CASOS DE ÉXITO (CMS) ═══════════════════════════════════ -->
+    {allCases.length > 0 && (
+    <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6 overflow-hidden">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-12 reveal">
+          <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultados probados</span>
+          <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
+            Casos de éxito de marketing digital<br class="hidden md:inline" /> en Terrassa
+          </h2>
         </div>
+        <div class="cases-carousel relative overflow-hidden">
+          <div class="cases-track flex gap-6 transition-transform duration-500 ease-in-out">
+            {allCases.map((cs: any) => {
+              const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
+              const caseUrl = cs.isPublic && cs.slug ? `/casos-exito/${cs.slug}/` : null;
+              return (
+                <div class="cases-slide flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
+                  <div>
+                    {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
+                    <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors leading-tight">
+                      {caseUrl ? (
+                        <a href={caseUrl} class="hover:text-accent transition-colors">{cs.title}</a>
+                      ) : (
+                        <span class="group-hover:text-accent transition-colors">{cs.title}</span>
+                      )}
+                    </h3>
+                    <p class="text-xs text-zinc-500 font-light leading-relaxed">{cs.description}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
     </section>
+    )}
+    <script is:inline>
+      function initCasesCarousel() {
+        const track = document.querySelector('.cases-track');
+        if (!track) return;
+        const slides = track.querySelectorAll('.cases-slide');
+        if (slides.length <= 4) return;
+        let current = 0;
+        const total = slides.length;
+        function getVisible() {
+          if (window.innerWidth >= 1024) return 4;
+          if (window.innerWidth >= 640) return 2;
+          return 1;
+        }
+        function next() {
+          const visible = getVisible();
+          const maxIndex = total - visible;
+          current = current >= maxIndex ? 0 : current + 1;
+          const slideWidth = slides[0].offsetWidth + 24;
+          track.style.transform = `translateX(-${current * slideWidth}px)`;
+        }
+        const interval = setInterval(next, 5000);
+        document.addEventListener('astro:before-preparation', () => clearInterval(interval));
+      }
+      document.addEventListener('DOMContentLoaded', initCasesCarousel);
+      document.addEventListener('astro:page-load', initCasesCarousel);
+    </script>
 
     <!-- ═══ RECOMENDADOS POR LA IA ═════════════════════════════════ -->
     <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5 overflow-hidden">
