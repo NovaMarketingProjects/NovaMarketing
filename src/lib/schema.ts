@@ -93,8 +93,9 @@ export function localAgencySchema(opts: {
   hasMap?: string;               // URL de la ficha de Google Business Profile
   aggregateRating?: { ratingValue: string; reviewCount: string }; // datos reales de GBP
   reviews?: { author: string; date: string; body: string }[];     // reseñas literales de GBP (todas 5★)
+  breadcrumbName?: string;       // nombre del segundo nivel del breadcrumb (por defecto "Agencia de marketing digital en {city}")
 }) {
-  const { pageUrl, lang, cityName, postalCode, geo, areaServed, title, description, datePublished, dateModified, faqs, streetAddress, hasMap, aggregateRating, reviews } = opts;
+  const { pageUrl, lang, cityName, postalCode, geo, areaServed, title, description, datePublished, dateModified, faqs, streetAddress, hasMap, aggregateRating, reviews, breadcrumbName } = opts;
   const orgId = `${SITE_URL}/#organization`;
   const personId = `${SITE_URL}/#sergio-garcia`;
   const logoId = `${SITE_URL}/#logo`;
@@ -281,7 +282,7 @@ export function localAgencySchema(opts: {
           ...(pageUrl === `${SITE_URL}/` || pageUrl === `${SITE_URL}/ca/` ? [] : [{
             '@type': 'ListItem',
             position: 2,
-            name: t(`Agencia de marketing digital en ${cityName}`, `Agència de marketing digital a ${cityName}`),
+            name: breadcrumbName || t(`Agencia de marketing digital en ${cityName}`, `Agència de marketing digital a ${cityName}`),
             item: pageUrl,
           }]),
         ],

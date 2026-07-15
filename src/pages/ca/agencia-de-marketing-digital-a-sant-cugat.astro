@@ -56,13 +56,13 @@ const sectors = [
 ];
 
 const faqs = [
-  { question: "Quant costa una agència de marketing digital a Sant Cugat?", answer: "Depèn molt dels serveis que necessitis i de si és un projecte puntual o una feina recurrent. No costa el mateix una auditoria o el llançament d'una web que una estratègia mensual de posicionament i captació. Per això a nova no treballem amb tarifes genèriques sinó amb pressupostos tancats a mida: abans de signar saps exactament què es fa, qui ho fa i quin resultat es persegueix." },
-  { question: "Què inclou una estratègia de marketing digital per a una pime a Sant Cugat?", answer: "Inclou una auditoria inicial, un full de ruta documentat i l'execució i mesura mensual de cada acció. Analitzem la teva situació actual i la teva competència a Sant Cugat, definim quins canals fer servir, quina inversió necessita cada fase i quins resultats esperar a 3, 6 i 12 mesos. No apliquem plantilles: cada sector i cada zona de Sant Cugat competeix de manera diferent." },
-  { question: "Qui portarà el meu compte?", answer: "El teu compte el porta directament Sergio Galo's, consultor de marketing digital a Sant Cugat i fundador de Nova Marketing. Sense gestors júnior ni intermediaris: la persona que dissenya la teva estratègia és la mateixa que l'executa i la que et respon a la reunió mensual." },
-  { question: "Quant trigaré a veure resultats?", answer: "Hi ha accions que generen clients en setmanes i d'altres que consoliden resultats entre el sisè i el dotzè mes. El termini exacte depèn del punt de partida del teu negoci i de la competència del teu sector a Sant Cugat. Al full de ruta inicial et diem què esperar a cada fase, amb terminis realistes i sense promeses de fum." },
-  { question: "Com mesureu els resultats de l'estratègia?", answer: "Mesurem leads i vendes: cada trucada, formulari o comanda queda atribuïda al seu canal d'origen. Configurem l'analítica des del primer dia i a l'informe mensual veus resultats de negoci, no mètriques de vanitat. A més tens accés total als teus comptes i eines: les dades són teves." },
+  { question: "Quant costa una agència de marketing digital a Sant Cugat?", answer: "Depèn del servei i del punt de partida, però en un mercat amb el poder adquisitiu de Sant Cugat el que és car no és l'agència sinó ser invisible per a un client que compara molt abans de decidir. Treballem amb pressupostos tancats a mida i sense sorpreses: saps el preu exacte abans de signar." },
+  { question: "Funciona el marketing digital per a negocis de proximitat a Mira-sol o Valldoreix?", answer: "Molt bé, perquè el client residencial d'aquestes zones busca gairebé tot des del mòbil amb intenció immediata: reformes, salut, educació, restauració. El pack de SEO local, fitxa de Google optimitzada i campanyes geolocalitzades és la via més directa per captar-lo." },
+  { question: "Treballeu amb empreses del parc empresarial de Sant Cugat?", answer: "Sí. Sant Cugat concentra seus corporatives i empreses tecnològiques amb decisors que investiguen els proveïdors a fons abans de contactar. Per a aquest perfil treballem contingut amb autoritat tècnica, SEO B2B i campanyes segmentades a càrrecs concrets, no a públic general." },
+  { question: "El client de Sant Cugat exigeix un enfocament diferent?", answer: "Sí, i convé assumir-ho des del principi: és un client informat, amb expectatives altes i que compara. Una web mediocre o una fitxa amb tres ressenyes et descarten abans que puguis parlar. Per això aquí cuidem especialment la presència de marca, les ressenyes i el contingut." },
+  { question: "Podem reunir-nos en persona?", answer: "Sí. Amb els clients de Sant Cugat i de la resta del Vallès Occidental les reunions poden ser presencials, a la teva oficina o on et vagi millor. També treballem per videotrucada amb el mateix nivell de seguiment si ho prefereixes." },
+  { question: "Com mesureu els resultats de l'estratègia?", answer: "Mesurem leads i vendes: trucades, formularis, reserves i pressupostos sol·licitats, cadascun atribuït al seu canal. A l'informe mensual veus resultats de negoci, no mètriques de vanitat, i les dades i els comptes són sempre teus." },
   { question: "Treballeu amb permanència?", answer: "No, treballem mes a mes. Si el servei no t'aporta valor, pots cancel·lar-lo quan vulguis. La nostra permanència real és el resultat que veus als informes cada mes." },
-  { question: "Ateneu només empreses de Sant Cugat?", answer: "No: la nostra seu és a Barcelona i treballem a tot el Vallès Occidental i la seva àrea d'influència. Amb clients de Sant Cugat i la comarca les reunions poden ser presencials, i amb empreses de la resta d'Espanya treballem per videotrucada amb el mateix nivell de seguiment." }
 ];
 
 
@@ -236,7 +236,7 @@ const pageSchema = localAgencySchema({
 
             <div id="timeline-container" class="relative">
                 <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
-                <div id="progress-bar" class="hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100" style="height: 0%;"></div>
+                <div id="progress-bar" class="hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100"></div>
 
                 <div class="space-y-16 md:space-y-24 flex flex-col items-center">
                     {steps.map((step, index) => (
@@ -380,9 +380,9 @@ const pageSchema = localAgencySchema({
                 {sectors.map(s => (
                     <div class="bg-white border border-black/5 rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                         <div class="text-3xl mb-4">{s.icon}</div>
-                        <h3 class="text-base uppercase tracking-tight text-zinc-900 mb-3 leading-tight" style="font-family:'Montserrat',sans-serif;font-weight:600;">
+                        <h3 class="text-base uppercase tracking-tight text-zinc-900 mb-3 leading-tight font-montserrat-semibold">
                             {s.title}
-                            <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1" style="font-weight:600;">a Sant Cugat</span>
+                            <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1 font-semibold">a Sant Cugat</span>
                         </h3>
                         <p class="text-sm text-zinc-500 font-light leading-relaxed">{s.desc}</p>
                     </div>
@@ -463,8 +463,8 @@ const pageSchema = localAgencySchema({
                     <thead>
                         <tr class="bg-black text-white">
                             <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Criteri</th>
-                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Altres agències</th>
                             <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Nova</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Altres agències</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-zinc-100">
@@ -479,8 +479,8 @@ const pageSchema = localAgencySchema({
                         ].map(row => (
                             <tr class="hover:bg-zinc-50/50 transition-colors">
                                 <td class="px-6 py-5 text-sm font-bold text-zinc-900">{row.c}</td>
-                                <td class="px-6 py-5 text-sm text-zinc-500 font-light">{row.o}</td>
                                 <td class="px-6 py-5 text-sm font-bold text-accent">{row.n}</td>
+                                <td class="px-6 py-5 text-sm text-zinc-500 font-light">{row.o}</td>
                             </tr>
                         ))}
                     </tbody>

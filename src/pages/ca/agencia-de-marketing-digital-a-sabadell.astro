@@ -56,13 +56,13 @@ const sectors = [
 ];
 
 const faqs = [
-  { question: "Quant costa una agència de marketing digital a Sabadell?", answer: "Depèn molt dels serveis que necessitis i de si és un projecte puntual o una feina recurrent. No costa el mateix una auditoria o el llançament d'una web que una estratègia mensual de posicionament i captació. Per això a nova no treballem amb tarifes genèriques sinó amb pressupostos tancats a mida: abans de signar saps exactament què es fa, qui ho fa i quin resultat es persegueix." },
-  { question: "Què inclou una estratègia de marketing digital per a una pime a Sabadell?", answer: "Inclou una auditoria inicial, un full de ruta documentat i l'execució i mesura mensual de cada acció. Analitzem la teva situació actual i la teva competència a Sabadell, definim quins canals fer servir, quina inversió necessita cada fase i quins resultats esperar a 3, 6 i 12 mesos. No apliquem plantilles: cada sector i cada zona de Sabadell competeix de manera diferent." },
-  { question: "Qui portarà el meu compte?", answer: "El teu compte el porta directament Sergio Galo's, consultor de marketing digital a Sabadell i fundador de Nova Marketing. Sense gestors júnior ni intermediaris: la persona que dissenya la teva estratègia és la mateixa que l'executa i la que et respon a la reunió mensual." },
-  { question: "Quant trigaré a veure resultats?", answer: "Hi ha accions que generen clients en setmanes i d'altres que consoliden resultats entre el sisè i el dotzè mes. El termini exacte depèn del punt de partida del teu negoci i de la competència del teu sector a Sabadell. Al full de ruta inicial et diem què esperar a cada fase, amb terminis realistes i sense promeses de fum." },
-  { question: "Com mesureu els resultats de l'estratègia?", answer: "Mesurem leads i vendes: cada trucada, formulari o comanda queda atribuïda al seu canal d'origen. Configurem l'analítica des del primer dia i a l'informe mensual veus resultats de negoci, no mètriques de vanitat. A més tens accés total als teus comptes i eines: les dades són teves." },
+  { question: "Quant costa una agència de marketing digital a Sabadell?", answer: "Depèn dels serveis i de si és un projecte puntual o recurrent, però treballar amb una agència de Sabadell sol ser més ajustat que fer-ho amb una de Barcelona ciutat amb els mateixos resultats. A nova treballem amb pressupostos tancats a mida: abans de signar saps exactament què es fa, qui ho fa i quin resultat es persegueix." },
+  { question: "Quins canals funcionen millor per a una pime de Sabadell?", answer: "Depèn del teu client. Per al comerç i els serveis del centre i la Rambla, el SEO local i la fitxa de Google Business Profile són la palanca més rendible. Per a la indústria dels polígons, funcionen millor el SEO tècnic B2B i les campanyes segmentades a responsables de compres. L'auditoria inicial et diu on invertir primer." },
+  { question: "Treballeu amb la indústria dels polígons de Sabadell?", answer: "Sí, és un dels nostres perfils habituals. Les empreses B2B de Can Roqueta, Sant Pau de Riu-sec i la resta del Vallès tenen clients que també busquen proveïdors a Google. Posicionem keywords tècniques que generen pressupostos i contractes, no només visites." },
+  { question: "Podem reunir-nos en persona a Sabadell?", answer: "Sí. La nostra oficina és al Carrer de Bilbao, 1, a Sabadell, així que les reunions poden ser presencials tant a la nostra oficina com al teu negoci, a qualsevol punt de la ciutat o del Vallès Occidental." },
+  { question: "Quant trigaré a veure resultats a Sabadell?", answer: "En un mercat de competència mitjana com Sabadell, les campanyes de pagament generen clients en setmanes i el SEO local sol donar els primers resultats entre el tercer i el sisè mes. Al full de ruta inicial et diem què esperar a cada fase, amb terminis realistes." },
+  { question: "Com mesureu els resultats de l'estratègia?", answer: "Mesurem el que li importa a un negoci de Sabadell: trucades, formularis, rutes fins al teu local des de Google Maps i pressupostos sol·licitats. Cada lead queda atribuït al seu canal i ho veus en un informe mensual de negoci, amb reunió inclosa." },
   { question: "Treballeu amb permanència?", answer: "No, treballem mes a mes. Si el servei no t'aporta valor, pots cancel·lar-lo quan vulguis. La nostra permanència real és el resultat que veus als informes cada mes." },
-  { question: "Ateneu només empreses de Sabadell?", answer: "No: la nostra seu és a Barcelona i treballem a tot el Vallès Occidental i la seva àrea d'influència. Amb clients de Sabadell i la comarca les reunions poden ser presencials, i amb empreses de la resta d'Espanya treballem per videotrucada amb el mateix nivell de seguiment." }
 ];
 
 
@@ -247,7 +247,7 @@ const pageSchema = localAgencySchema({
 
             <div id="timeline-container" class="relative">
                 <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
-                <div id="progress-bar" class="hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100" style="height: 0%;"></div>
+                <div id="progress-bar" class="hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100"></div>
 
                 <div class="space-y-16 md:space-y-24 flex flex-col items-center">
                     {steps.map((step, index) => (
@@ -391,9 +391,9 @@ const pageSchema = localAgencySchema({
                 {sectors.map(s => (
                     <div class="bg-white border border-black/5 rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                         <div class="text-3xl mb-4">{s.icon}</div>
-                        <h3 class="text-base uppercase tracking-tight text-zinc-900 mb-3 leading-tight" style="font-family:'Montserrat',sans-serif;font-weight:600;">
+                        <h3 class="text-base uppercase tracking-tight text-zinc-900 mb-3 leading-tight font-montserrat-semibold">
                             {s.title}
-                            <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1" style="font-weight:600;">a Sabadell</span>
+                            <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1 font-semibold">a Sabadell</span>
                         </h3>
                         <p class="text-sm text-zinc-500 font-light leading-relaxed">{s.desc}</p>
                     </div>
@@ -474,8 +474,8 @@ const pageSchema = localAgencySchema({
                     <thead>
                         <tr class="bg-black text-white">
                             <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Criteri</th>
-                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Altres agències</th>
                             <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Nova</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Altres agències</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-zinc-100">
@@ -490,8 +490,8 @@ const pageSchema = localAgencySchema({
                         ].map(row => (
                             <tr class="hover:bg-zinc-50/50 transition-colors">
                                 <td class="px-6 py-5 text-sm font-bold text-zinc-900">{row.c}</td>
-                                <td class="px-6 py-5 text-sm text-zinc-500 font-light">{row.o}</td>
                                 <td class="px-6 py-5 text-sm font-bold text-accent">{row.n}</td>
+                                <td class="px-6 py-5 text-sm text-zinc-500 font-light">{row.o}</td>
                             </tr>
                         ))}
                     </tbody>

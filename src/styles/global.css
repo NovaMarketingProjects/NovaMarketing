@@ -201,3 +201,13 @@ h1, h2, h3, h4 {
   background-clip: text;
   animation: gradient-move 3s linear infinite;
 }
+/* ─── Utilidades extraídas de estilos inline ─────────────── */
+.font-montserrat-semibold {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+/* Estado inicial de las barras de progreso animadas por JS */
+#progress-bar { height: 0%; }
+#lp-progress,
+#contact-progress { width: 0%; transition: width 0.4s ease; }

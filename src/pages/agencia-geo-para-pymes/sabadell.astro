@@ -1,0 +1,962 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { localAgencySchema } from '../../lib/schema';
+import { strapiClient } from '../../lib/strapi';
+import LogoMarquee from '../../components/sections/LogoMarquee.astro';
+import FaqHome from '../../components/sections/FaqHome.astro';
+import GoogleReviews from '../../components/global/GoogleReviews.astro';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+
+let allCases: any[] = [];
+try {
+  const casesRes = await strapiClient.getCaseStudies('es');
+  allCases = casesRes.data.map((i: any) => i.attributes ?? i);
+} catch {}
+
+const steps = [
+  { title: "Visibilidad en IA de tu negocio en Sabadell", desc: "Preguntamos a ChatGPT, Gemini, Claude y Perplexity lo mismo que preguntarían tus clientes. Medimos si apareces, cómo te describen y a qué competidores recomiendan antes que a ti. Ese es tu punto de partida real." },
+  { title: "Estrategia GEO documentada para el Vallès", desc: "Recibes una hoja de ruta por escrito. Qué preguntas de cliente atacar, qué contenido crear, qué señales de autoridad reforzar y qué resultados esperar en 3, 6 y 12 meses. Sabes en qué se invierte cada euro antes de invertirlo." },
+  { title: "Contenido optimizado para motores generativos", desc: "Reestructuramos tu contenido para que la IA pueda citarlo. Respuestas directas, datos verificables, marcado estructurado y una entidad de marca coherente en toda la web. Lo que no se puede citar no se recomienda." },
+  { title: "Autoridad local y citabilidad", desc: "Los modelos de IA recomiendan lo que encuentran en fuentes fiables. Menciones en medios, reseñas, directorios y contenido experto. Construimos esas señales para que tu empresa sea la respuesta y no una opción más." },
+  { title: "Medición de menciones mes a mes", desc: "Monitorizamos mes a mes tus menciones en ChatGPT, Gemini, Perplexity y Google AI Overviews. En el informe ves en qué preguntas apareces, cómo evolucionas frente a tu competencia y qué toca ajustar." }
+];
+
+const criteria = [
+  { title: "Pide resultados verificables en la IA", desc: "Cualquiera puede llamarse experto en GEO porque es una disciplina nueva. Pide una demostración en directo. Que pregunten a ChatGPT o Perplexity por sus propios clientes y te enseñen dónde aparecen. Si no pueden enseñarte ni un caso, sigue buscando." },
+  { title: "Pregunta quién llevará tu cuenta", desc: "En muchas agencias vende un director y ejecuta un junior con 30 cuentas. Exige conocer a la persona que trabajará tu proyecto antes de firmar. En nova hablas siempre con el consultor que ejecuta tu estrategia GEO, presencialmente o por videollamada." },
+  { title: "Exige propiedad de tus activos", desc: "La web, el contenido, los datos estructurados y la analítica deben estar a tu nombre. Si la agencia retiene tus activos no estás contratando un servicio de posicionamiento GEO, estás firmando una dependencia." },
+  { title: "Desconfía de quien garantiza aparecer en ChatGPT", desc: "Nadie controla qué responde un modelo de IA. No hay anuncios que comprar ni posiciones garantizadas. Quien te promete aparecer siempre en las respuestas de la IA, miente. Lo serio es garantizar método, señales medibles y trabajo verificable." },
+  { title: "Revisa qué mide el informe mensual", desc: "Si el informe no incluye en qué preguntas apareces, cómo te describe la IA y qué menciones has ganado, la agencia está midiendo su actividad y no tu visibilidad. El GEO se mide en menciones, citas y clientes que llegan diciendo que los ha enviado ChatGPT." },
+  { title: "Huye de las permanencias largas", desc: "Una permanencia de 12 meses protege a la agencia, no a ti. El trabajo bien hecho retiene clientes sin necesidad de contratos que los aten. Por eso en nova trabajamos mes a mes." },
+  { title: "Que combine GEO con SEO", desc: "El GEO no sustituye al SEO, se alimenta de él. Los modelos de IA citan contenido que ya es visible, estructurado y con autoridad. Una consultoría GEO que ignora tu posicionamiento en Google está construyendo sobre arena." }
+];
+
+const faqs = [
+  { question: "¿Qué es el GEO y para qué le sirve a un negocio de Sabadell?", answer: "El GEO (Generative Engine Optimization) hace que los asistentes de IA como ChatGPT, Gemini o Perplexity recomienden tu empresa cuando alguien pregunta por un servicio en Sabadell. Cada vez más vecinos y empresas de la ciudad preguntan a la IA antes que a Google, y quien aparece en esa respuesta se lleva al cliente." },
+  { question: "¿La industria del Vallès puede salir en las respuestas de la IA?", answer: "Sí, y con ventaja. Los responsables de compras ya validan proveedores preguntando a la IA, y casi ninguna empresa industrial de los polígonos trabaja todavía su visibilidad. Con fichas técnicas citables y señales de autoridad, ser el proveedor que recomienda ChatGPT es más alcanzable aquí que en sectores saturados." },
+  { question: "¿Cuánto cuesta el posicionamiento GEO en Sabadell?", answer: "La auditoría GEO cuesta 1.800 euros y los planes mensuales van desde 400 euros al mes. Trabajamos con presupuesto cerrado por escrito y sin permanencias. Antes de empezar sabes exactamente qué se hace y qué resultado se persigue." },
+  { question: "¿Cuánto se tarda en aparecer en la IA?", answer: "Cuando ya existe una base de contenido y reseñas, los primeros cambios pueden verse en semanas. Partiendo de cero, lo habitual es empezar a ganar menciones entre el tercer y el sexto mes. Al ser Sabadell un mercado donde casi nadie hace GEO, la ventana de oportunidad es grande." },
+  { question: "¿Cómo medís las menciones en la IA?", answer: "Con un panel de preguntas reales que haría un cliente de Sabadell, lanzadas cada mes a ChatGPT, Gemini, Claude y Perplexity. Registramos si apareces, cómo te describe cada modelo y frente a qué competidores, y lo ves en un informe mensual de negocio." },
+  { question: "¿Sirve el GEO si mi cliente es del centro o de los barrios?", answer: "Sí. Las preguntas con intención local, como qué dentista o qué reformista recomiendan cerca del centro de Sabadell, son de las más frecuentes en la IA. Trabajamos la ficha de Google, las reseñas y las señales locales para que la respuesta seas tú." },
+  { question: "¿El GEO sustituye al SEO local que ya hago?", answer: "No, lo aprovecha. La IA se alimenta del contenido visible y con autoridad que construye el SEO, así que todo lo que ya tengas posicionado suma. Integramos las dos disciplinas en una sola estrategia para que cada acción cuente en Google y en la IA a la vez." },
+];
+
+const sectors = [
+  { icon: '🛒', title: 'GEO para ecommerce', desc: 'Cuando alguien pregunta a la IA qué producto comprar, quien aparece en la respuesta se lleva la venta. Optimizamos fichas, comparativas y reseñas para que tu tienda sea la recomendada.' },
+  { icon: '🏠', title: 'GEO para inmobiliarias', desc: 'Los compradores ya preguntan a ChatGPT por agencias de confianza en su zona. Construimos la autoridad y las señales locales para que la IA te ponga en la respuesta.' },
+  { icon: '🍽️', title: 'GEO para restaurantes', desc: 'La pregunta de dónde comer bien cerca ya se le hace a la IA. Reseñas, ficha impecable y contenido citable para que tu restaurante salga en la recomendación.' },
+  { icon: '🧠', title: 'GEO para psicólogos', desc: 'Las consultas de salud mental empiezan cada vez más en un chat de IA. Contenido con autoridad clínica y señales de confianza para que la IA derive pacientes a tu consulta.' },
+  { icon: '🌿', title: 'GEO para terapeutas', desc: 'Un sector donde casi nadie trabaja el posicionamiento en IA todavía: ser el primero de tu especialidad en tu zona es más fácil que en Google. Aprovecha la ventana.' },
+  { icon: '🦷', title: 'GEO para dentistas', desc: 'Qué dentista me recomiendas en mi ciudad es una pregunta diaria en ChatGPT. Autoridad clínica, reseñas y entidad bien definida para ser la respuesta.' },
+  { icon: '💪', title: 'GEO para gimnasios', desc: 'La IA compara gimnasios por reseñas, servicios y cercanía. Optimizamos esas señales para que te recomiende a ti en enero... y el resto del año.' },
+  { icon: '🏗️', title: 'GEO para constructoras', desc: 'Leads de valor alto que ya validan proveedores preguntando a la IA. Casos documentados y autoridad verificable para entrar en la lista corta.' },
+  { icon: '⚖️', title: 'GEO para abogados', desc: 'Las dudas legales son de las consultas más frecuentes en la IA. Quien resuelve la duda con autoridad se lleva la consulta. Contenido citable por especialidad.' },
+  { icon: '🏨', title: 'GEO para hoteles', desc: 'Los viajeros planifican con ChatGPT y Perplexity. Señales de marca, reseñas y contenido estructurado para aparecer en el itinerario antes que las OTAs.' },
+  { icon: '🏭', title: 'GEO para B2B', desc: 'El responsable de compras pregunta a la IA por proveedores antes de buscar en Google. Fichas técnicas citables y autoridad sectorial para estar en esa respuesta.' },
+  { icon: '🎓', title: 'GEO para escuelas', desc: 'Las familias comparan centros preguntando a la IA. Proyecto educativo bien explicado, reseñas y datos estructurados para salir en la comparativa.' },
+];
+
+const pageSchema = localAgencySchema({
+  pageUrl: `${SITE_URL}/agencia-geo-para-pymes/sabadell/`,
+  lang: 'es',
+  cityName: 'Sabadell',
+  postalCode: '08202',
+  geo: { lat: 41.5463, lng: 2.1086 },
+  areaServed: ["Sabadell", "Vallès Occidental", "Barcelona", "España"],
+  title: "Agencia GEO en Sabadell | Posicionamiento en IA para PYMEs",
+  description: "Agencia GEO en Sabadell. Posicionamiento en IA (GEO/AEO) para que ChatGPT, Gemini, Perplexity y Google AI Overviews recomienden tu empresa a los clientes de Sabadell y su comarca.",
+  datePublished: '2026-07-15',
+  dateModified: '2026-07-15',
+  streetAddress: 'Carrer de Bilbao, 1',
+  hasMap: 'https://maps.app.goo.gl/ETtzpajqEucNf22D7',
+  aggregateRating: { ratingValue: '5.0', reviewCount: '16' },
+  breadcrumbName: 'Agencia GEO en Sabadell',
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Agencia GEO en Sabadell | Posicionamiento en IA para PYMEs"
+  description="Agencia GEO en Sabadell. Posicionamiento en IA (GEO/AEO) para que ChatGPT, Gemini, Perplexity y Google AI Overviews recomienden tu empresa a los clientes de Sabadell y su comarca."
+  locale="es"
+  schemas={[pageSchema]}
+>
+
+    <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
+    <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
+        <!-- Background Grid Mesh -->
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+
+        <!-- Glow Orbs -->
+        <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+
+        <div class="max-w-5xl mx-auto reveal">
+            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
+                <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+                Optimización para Motores Generativos
+            </span>
+            <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
+                <span class="lg:whitespace-nowrap">Agencia GEO </span>
+                <span class="lg:whitespace-nowrap">Posicionamiento </span>
+                <span class="lg:whitespace-nowrap text-mktg-gradient">en IA en Sabadell</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
+                Haz que ChatGPT, Gemini, Claude y Perplexity recomienden tu empresa. Servicio de posicionamiento GEO para PYMEs de Sabadell con estrategia a medida, precios claros y resultados que se miden en menciones y clientes.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
+                {['Sin permanencias', 'Trato directo con el consultor', 'Informes de negocio'].map(item => (
+                    <span class="inline-flex items-center gap-2 text-[11px] sm:text-xs font-black uppercase tracking-widest text-zinc-700">
+                        <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        {item}
+                    </span>
+                ))}
+            </div>
+            <div class="flex justify-center mt-4">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    HABLEMOS DE TU NEGOCIO
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <LogoMarquee />
+
+    <!-- ═══ INTRO: QUÉ ES EL GEO ═══════════════════════════════════════════ -->
+    <section class="py-16 sm:py-24 bg-white px-4 sm:px-6 border-b border-black/5">
+        <div class="max-w-6xl mx-auto reveal grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-16 items-center">
+            <div>
+                <p class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4">¿Qué es el GEO?</p>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    La agencia de posicionamiento en IA para tu pyme en Sabadell
+                </h2>
+                <div class="space-y-6 text-zinc-600 font-light text-base sm:text-lg leading-relaxed">
+                    <p>
+                        <strong class="font-semibold text-zinc-900">El GEO (Generative Engine Optimization) es la optimización para motores generativos</strong>. Es el conjunto de técnicas que hacen que los asistentes de IA como ChatGPT, Gemini, Claude, Perplexity o Google AI Overviews mencionen y recomienden tu empresa en sus respuestas. También lo verás llamado AEO, answer engine optimization.
+                    </p>
+                    <p>
+                        Cada día más clientes ya no buscan en Google. Le preguntan directamente a la IA qué empresa contratar. Nova es una <strong class="font-semibold text-zinc-900">agencia GEO especializada en PYMEs</strong>: trabajamos con un número limitado de clientes, cada cuenta la lleva directamente el consultor fundador y toda la estrategia se orienta a una sola métrica que importa. <strong class="font-semibold text-zinc-900">Que la IA recomiende tu negocio antes que a tu competencia</strong>.
+                    </p>
+                </div>
+            </div>
+            <div class="hidden md:block">
+                <img src="/consultor-marketing-digital.webp" alt="Sergio Galo's, experto en GEO y posicionamiento en IA" class="w-full h-auto" loading="lazy" />
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SERVICIOS GEO ══════════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50 border-b border-black/5 px-4 sm:px-6">
+        <div class="max-w-7xl mx-auto text-center reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Qué hacemos</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Servicio de posicionamiento GEO para PYMEs en Sabadell
+            </h2>
+            <div class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-16 space-y-4">
+                <p>
+                    El <strong class="font-semibold text-zinc-700">posicionamiento GEO</strong> no es una sola tarea, es un sistema. Estas son las nueve piezas que trabajamos para que tu pyme pase de ser invisible para la IA a ser la empresa que aparece en sus respuestas.
+                </p>
+                <p>
+                    Cada pieza se activa según lo que diga tu auditoría. No pagas por un paquete cerrado de acciones, pagas por las que tu negocio necesita.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-left">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"><svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></div>
+                        <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900">Auditoría GEO en Sabadell</h3>
+                    </div>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">Radiografía de tu visibilidad en ChatGPT, Gemini, Claude y Perplexity antes de tocar nada.</p>
+                </div>
+                <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-left">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"><svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg></div>
+                        <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900">Entidad de marca para negocios del Vallès</h3>
+                    </div>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">Hacemos que la IA entienda sin dudas quién eres, qué haces y dónde. Una sola identidad en toda la red.</p>
+                </div>
+                <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-left">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"><svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6M9 8h2m8-3v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2h6l4 4z"/></svg></div>
+                        <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900">Contenido citable para el cliente sabadellense</h3>
+                    </div>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">Páginas pensadas para que un modelo las extraiga y las cite al responder las preguntas de tus clientes.</p>
+                </div>
+                <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-left">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"><svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg></div>
+                        <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900">Datos estructurados de tu negocio local</h3>
+                    </div>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">Traducimos tu negocio al lenguaje que leen las máquinas con marcado schema en toda la web.</p>
+                </div>
+                <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-left">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"><svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.3 6.7 19l1-5.8L3.5 9.2l5.9-.9L12 3z"/></svg></div>
+                        <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900">Menciones y reseñas que pesan en Sabadell</h3>
+                    </div>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">Trabajamos las fuentes en las que confía la IA. Medios, directorios y reseñas que avalan tu marca.</p>
+                </div>
+                <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-left">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"><svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg></div>
+                        <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900">GEO local para el centro y los barrios</h3>
+                    </div>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">Para negocios con clientes cerca. Que la IA te recomiende cuando alguien pregunta por tu servicio en tu zona.</p>
+                </div>
+                <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-left">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"><svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z"/></svg></div>
+                        <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900">Monitorización de menciones de tu marca</h3>
+                    </div>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">Seguimiento mensual de qué responde cada modelo sobre tu marca y sobre tu competencia.</p>
+                </div>
+                <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-left">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"><svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M13.828 10.172a4 4 0 010 5.656l-3 3a4 4 0 01-5.656-5.656l1.5-1.5m7.328-1.672a4 4 0 000-5.656 4 4 0 00-5.656 0l-1.5 1.5"/></svg></div>
+                        <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900">SEO más GEO en el mercado del Vallès</h3>
+                    </div>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">Una sola estrategia que posiciona en Google y en la IA a la vez. Cada acción suma en los dos frentes.</p>
+                </div>
+                <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-left">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"><svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+                        <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900">Respuestas de IA para búsquedas de Sabadell</h3>
+                    </div>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">Preparamos tu contenido para Google AI Overviews y los buscadores con IA. La meta es ser la respuesta.</p>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    HABLEMOS DE TU NEGOCIO
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ ESTRATEGIA GEO ════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16 sm:mb-24 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Cómo trabajamos</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Estrategia GEO para posicionar tu pyme de Sabadell en la IA
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Una metodología documentada para pasar de ser invisible para la IA a ser la empresa que recomienda, paso a paso y sin humo.
+                </p>
+            </div>
+
+            <div id="timeline-container" class="relative">
+                <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
+                <div id="progress-bar" class="hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100"></div>
+
+                <div class="space-y-16 md:space-y-24 flex flex-col items-center">
+                    {steps.map((step, index) => (
+                        <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
+                            <div class:list={["flex-1 w-full", index % 2 === 0 ? "md:order-1 md:text-right" : "md:order-3 md:text-left"]}>
+                                <div class="p-8 sm:p-10 bg-zinc-50 border border-black/5 rounded-3xl hover:border-accent/10 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+                                    <h3 class="text-xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{index + 1}. {step.title}</h3>
+                                    <div class:list={["h-0.5 bg-accent w-full mb-4 opacity-80", index % 2 === 0 ? "md:ml-auto" : ""]}></div>
+                                    <p class:list={["text-sm text-zinc-500 font-light max-w-md", index % 2 === 0 ? "md:ml-auto" : ""]}>{step.desc}</p>
+                                    <div class="absolute -bottom-6 -right-5 text-8xl font-black text-black/[0.02] select-none z-0 group-hover:scale-105 transition-transform duration-500">0{index+1}</div>
+                                </div>
+                            </div>
+                            <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all">
+                                0{index + 1}
+                            </div>
+                            <div class:list={["hidden md:block md:flex-1", index % 2 === 0 ? "md:order-3" : "md:order-1"]}></div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ AUDITORÍA DE VISIBILIDAD EN IA ═════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-[6fr_4fr] gap-12 lg:gap-16 items-start">
+
+            <!-- Cabecera: ancho completo -->
+            <div class="reveal lg:col-span-2">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Punto de partida</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
+                    Auditoría de posicionamiento en IA para tu PYME de Sabadell
+                </h2>
+            </div>
+
+            <!-- Texto: izquierda -->
+            <div class="reveal">
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed mb-8">
+                    <p>
+                        Antes de proponerte nada, auditamos. ¿Sabes qué responde ChatGPT cuando alguien pregunta por un negocio como el tuyo? ¿Sales en Google AI Overviews? ¿A quién recomienda Perplexity antes que a ti? Casi ninguna pyme lo sabe, y ahí empieza todo.
+                    </p>
+                    <p>
+                        Nuestra <strong class="font-semibold text-zinc-900">auditoría de posicionamiento en IA</strong> mide tu visibilidad real en los principales motores generativos con un panel de preguntas que tus clientes hacen de verdad, y termina con un plan de acción priorizado. Qué arreglar primero, qué impacto tiene y cuánto esfuerzo cuesta.
+                    </p>
+                    <p>
+                        A diferencia de los informes automáticos, aquí cada respuesta la analiza un consultor experto en GEO que entiende por qué la IA cita a unos y a otros no. El resultado no es un listado técnico, es un diagnóstico de negocio que entiende cualquier gerente de PYME.
+                    </p>
+                    <p>
+                        Si ya inviertes en SEO o en publicidad, la auditoría también te dice cuánto de ese trabajo está sirviendo (o no) para tu visibilidad en la IA, y qué falta para convertirlo en menciones.
+                    </p>
+                </div>
+                <ul class="space-y-3">
+                    {[
+                        'Visibilidad actual en ChatGPT, Gemini, Claude y Perplexity',
+                        'Presencia en Google AI Overviews para tus búsquedas clave',
+                        'Análisis de tu entidad de marca y datos estructurados',
+                        'Qué competidores recomienda la IA y por qué',
+                        'Citabilidad de tu contenido actual',
+                        'Plan de acción GEO priorizado por impacto real',
+                    ].map(item => (
+                        <li class="flex items-start gap-3 text-sm text-zinc-700 font-light">
+                            <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            {item}
+                        </li>
+                    ))}
+                </ul>
+                <div class="mt-16">
+                    <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                        QUIERO MI AUDITORÍA GEO
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tarjetas: columna derecha (40%) -->
+            <div class="reveal flex flex-col gap-4">
+                <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black text-zinc-900 mb-1">Test real con preguntas de Sabadell</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed">Preguntamos a ChatGPT, Gemini, Claude y Perplexity lo mismo que preguntaría tu cliente, y documentamos cada respuesta con capturas y fecha.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black text-zinc-900 mb-1">Plan de acción priorizado</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed">No una lista infinita de tareas, sino un plan ordenado por impacto y esfuerzo. Sabrás qué señales trabajar la primera semana y qué no merece ni un euro.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2"/><circle cx="12" cy="12" r="5" stroke-width="2"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black text-zinc-900 mb-1">Entidad de marca local</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed">Revisamos cómo te entiende la IA. Datos estructurados, coherencia entre tu web y lo que dice internet de ti, y qué huecos confunden a los modelos.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black text-zinc-900 mb-1">Contenido citable de tu web</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed">Detectamos qué páginas tuyas puede citar la IA tal cual están, cuáles necesitan reestructurarse y qué contenido falta para responder las preguntas de tu cliente.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black text-zinc-900 mb-1">Benchmark con tus competidores del Vallès</h3>
+                        <p class="text-xs text-zinc-500 font-light leading-relaxed">Comparamos tu visibilidad en IA con la de tus tres competidores directos. Qué señales tienen ellos que tú no y qué puedes copiar o hacer mejor.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══ QUÉ INCLUYE LA AUDITORÍA GEO ═══════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Paso a paso</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
+                    Qué incluye la auditoría GEO de nova
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch reveal">
+                <div class="flex items-center gap-4 lg:gap-6">
+                    
+                    <div class="bg-white border border-black/5 rounded-2xl p-8 shadow-[0_15px_40px_rgba(0,0,0,0.06)] flex-1 text-center h-full">
+                        <div class="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto mb-4 text-accent font-black text-lg">1</div>
+                        <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3">Radiografía de tu visibilidad en Sabadell</h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed">Lanzamos las preguntas que haría tu cliente a ChatGPT, Gemini, Claude y Perplexity y guardamos cada respuesta tal cual la da el modelo, con su fecha.</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4 lg:gap-6">
+                    <div class="hidden lg:flex text-3xl text-accent font-black select-none">→</div>
+                    <div class="bg-white border border-black/5 rounded-2xl p-8 shadow-[0_15px_40px_rgba(0,0,0,0.06)] flex-1 text-center h-full">
+                        <div class="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto mb-4 text-accent font-black text-lg">2</div>
+                        <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3">Diagnóstico GEO de tu marca</h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed">Cruzamos esas respuestas con tu web, tu entidad de marca y tus señales de autoridad para explicar qué hace que la IA te ignore o te cite.</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4 lg:gap-6">
+                    <div class="hidden lg:flex text-3xl text-accent font-black select-none">→</div>
+                    <div class="bg-white border border-black/5 rounded-2xl p-8 shadow-[0_15px_40px_rgba(0,0,0,0.06)] flex-1 text-center h-full">
+                        <div class="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto mb-4 text-accent font-black text-lg">3</div>
+                        <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3">Hoja de ruta para ser la respuesta</h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed">Cierras la auditoría con un documento de acciones ordenadas por impacto y una videollamada donde repasamos cada punto contigo.</p>
+                    </div>
+                </div>
+            </div>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto text-center mt-16 reveal">
+                Nuestra auditoría GEO es el primer paso de cualquier estrategia de posicionamiento en IA. Analiza cómo te ven hoy ChatGPT, Gemini, Claude y Perplexity, explica por qué los motores generativos recomiendan a tu competencia y te deja una hoja de ruta clara para empezar a aparecer en las respuestas de la inteligencia artificial. Es la misma auditoría de visibilidad en IA con la que arrancan todos nuestros planes de GEO para pymes, y también puedes contratarla suelta como segunda opinión. Sin tecnicismos innecesarios. Sales sabiendo dónde estás y qué hacer a continuación.
+            </p>
+            <div class="mt-12 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    QUIERO MI AUDITORÍA GEO
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PRECIOS GEO ════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Tarifas claras</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Precios de posicionamiento GEO para IA en Sabadell
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto">
+                    Tarifas orientativas y sin letra pequeña. El precio de una agencia GEO varía según el tamaño de tu web, la competencia de tu sector y tu punto de partida en la IA, así que antes de empezar recibes un presupuesto cerrado por escrito. Si te preguntas cuánto cuesta el posicionamiento en IA, estos son nuestros rangos reales. El coste no lleva sorpresas ni permanencias.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-10 flex flex-col shadow-[0_15px_40px_rgba(0,0,0,0.06)] hover:shadow-xl transition-shadow duration-300 reveal">
+                    <h3 class="leading-tight mb-2">
+                        <span class="block text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-1">Precio </span>
+                        <span class="block text-xl font-black uppercase tracking-tight text-zinc-900">Auditoría GEO en Sabadell</span>
+                    </h3>
+                    <div class="text-lg font-bold text-zinc-900">1.800€</div>
+                    <div class="text-[10px] text-zinc-400 font-light mt-1 mb-6">* Precio sin IVA</div>
+                    <div class="text-xs text-zinc-500 font-light mb-8 space-y-1.5">
+                        <div>Entrega en 3 a 4 semanas</div>
+                        <div>Para cualquier pyme que quiera saber dónde está</div>
+                    </div>
+                    <div class="text-xs font-black uppercase tracking-widest text-zinc-400 pb-3 border-b border-zinc-100">Qué incluye</div>
+                    <ul class="divide-y divide-zinc-100 flex-1">
+                        <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Sesión inicial de objetivos</span></li>
+                        <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Test en ChatGPT, Gemini y Perplexity</span></li>
+                        <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Presencia en Google AI Overviews</span></li>
+                        <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Entidad y datos estructurados</span></li>
+                        <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Diagnóstico de contenido citable</span></li>
+                        <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Comparativa con 3 competidores</span></li>
+                        <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Acciones ordenadas por impacto</span></li>
+                        <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Videollamada de entrega</span></li>
+                    </ul>
+                    <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 !py-4 !text-[11px] !tracking-widest font-black mt-10 text-center">
+                        Quiero auditar mi visibilidad
+                    </a>
+                </div>
+                <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-10 flex flex-col shadow-[0_15px_40px_rgba(0,0,0,0.06)] hover:shadow-xl transition-shadow duration-300 reveal">
+                    <h3 class="leading-tight mb-2">
+                        <span class="block text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-1">Precio </span>
+                        <span class="block text-xl font-black uppercase tracking-tight text-zinc-900">GEO PYME en Sabadell</span>
+                    </h3>
+                    <div class="text-lg font-bold text-zinc-900">desde 400€ / mes</div>
+                    <div class="text-[10px] text-zinc-400 font-light mt-1 mb-6">* Precio sin IVA</div>
+                    <div class="text-xs text-zinc-500 font-light mb-8 space-y-1.5">
+                        <div>Primeras menciones en unos 3 meses</div>
+                        <div>Para negocios locales y pequeñas empresas</div>
+                    </div>
+                    <div class="text-xs font-black uppercase tracking-widest text-zinc-400 pb-3 border-b border-zinc-100">Qué incluye</div>
+                    <ul class="divide-y divide-zinc-100 flex-1">
+                        <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Auditoría GEO inicial</span></li>
+                        <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Panel mensual de preguntas</span></li>
+                        <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Contenido citable</span></li>
+                        <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Marcado schema al día</span></li>
+                        <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Ficha de Google para la IA</span></li>
+                        <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Reseñas y señales de confianza</span></li>
+                        <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Informe mensual de menciones</span></li>
+                        <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Línea directa con el consultor</span></li>
+                        <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Sin permanencia</span></li>
+                    </ul>
+                    <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 !py-4 !text-[11px] !tracking-widest font-black mt-10 text-center">
+                        Quiero salir en la IA
+                    </a>
+                </div>
+                <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-10 flex flex-col shadow-[0_15px_40px_rgba(0,0,0,0.06)] hover:shadow-xl transition-shadow duration-300 reveal">
+                    <h3 class="leading-tight mb-2">
+                        <span class="block text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-1">Precio </span>
+                        <span class="block text-xl font-black uppercase tracking-tight text-zinc-900">GEO Big Pyme en Sabadell</span>
+                    </h3>
+                    <div class="text-lg font-bold text-zinc-900">desde 900€ / mes</div>
+                    <div class="text-[10px] text-zinc-400 font-light mt-1 mb-6">* Precio sin IVA</div>
+                    <div class="text-xs text-zinc-500 font-light mb-8 space-y-1.5">
+                        <div>Primeras menciones en unos 2 meses</div>
+                        <div>Para medianas empresas y sectores competidos</div>
+                    </div>
+                    <div class="text-xs font-black uppercase tracking-widest text-zinc-400 pb-3 border-b border-zinc-100">Qué incluye</div>
+                    <ul class="divide-y divide-zinc-100 flex-1">
+                        <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Todo el plan GEO PYME</span></li>
+                        <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Estrategia SEO y GEO conjunta</span></li>
+                        <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Contenido experto firmado</span></li>
+                        <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Menciones en medios</span></li>
+                        <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Seguimiento en todos los modelos</span></li>
+                        <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Cobertura multisede</span></li>
+                        <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Reunión mensual de negocio</span></li>
+                        <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Objetivo, ser la respuesta de la IA</span></li>
+                    </ul>
+                    <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 !py-4 !text-[11px] !tracking-widest font-black mt-10 text-center">
+                        Quiero posicionar mi empresa
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SECTORES ═══════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-14 sm:mb-20 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Experiencia sectorial</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Posicionamiento GEO para tu sector en Sabadell
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Cada sector se pregunta distinto a la IA. Trabajamos con sectores donde ya sabemos qué señales hacen que los modelos recomienden a uno y no a otro.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
+                {sectors.map(s => (
+                    <div class="bg-white border border-black/5 rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <div class="text-3xl mb-4">{s.icon}</div>
+                        <h3 class="text-base uppercase tracking-tight text-zinc-900 mb-3 leading-tight font-montserrat-semibold">
+                            {s.title}
+                            <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1 font-semibold">en Sabadell</span>
+                        </h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed">{s.desc}</p>
+                    </div>
+                ))}
+            </div>
+
+            <div class="mt-14 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    QUIERO SALIR EN LA IA
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ ZONAS ═════════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 relative overflow-hidden border-t border-black/5">
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_80%,transparent_100%)]"></div>
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-16 sm:mb-24 reveal">
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-4 text-zinc-900 leading-[0.9]">
+                    GEO local en todas las zonas de Sabadell
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Sabadell no es un solo mercado. Cada zona tiene su competencia y su forma de preguntar a la IA. Adaptamos las señales locales a la zona donde compite tu negocio.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="group p-8 border border-black/5 bg-white rounded-2xl hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal">
+                    <div class="h-1 bg-black w-12 group-hover:w-full transition-all duration-500 mb-6"></div>
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">Centro y la Rambla</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">El corazón comercial de Sabadell. Tiendas, clínicas y despachos compitiendo por las mismas recomendaciones. Aquí la IA decide con la ficha de Google, las reseñas y la coherencia de tu marca en internet.</p>
+                </div>
+                <div class="group p-8 border border-black/5 bg-white rounded-2xl hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal">
+                    <div class="h-1 bg-black w-12 group-hover:w-full transition-all duration-500 mb-6"></div>
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">Creu Alta, Gràcia y Ca n'Oriac</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">Barrios de negocio de proximidad donde el cliente pregunta a la IA por servicios cerca de casa. Trabajamos las señales locales completas para que la respuesta seas tú.</p>
+                </div>
+                <div class="group p-8 border border-black/5 bg-white rounded-2xl hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal">
+                    <div class="h-1 bg-black w-12 group-hover:w-full transition-all duration-500 mb-6"></div>
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">Polígonos industriales de Sabadell</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">Can Roqueta, Sant Pau de Riu-sec y el resto de polígonos concentran la industria B2B de la ciudad. Sus compradores ya validan proveedores preguntando a la IA. Fichas técnicas citables para estar en esa respuesta.</p>
+                </div>
+                <div class="group p-8 border border-black/5 bg-white rounded-2xl hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal">
+                    <div class="h-1 bg-black w-12 group-hover:w-full transition-all duration-500 mb-6"></div>
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">Vallès Occidental y Barcelona</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">
+                        Muchos de tus clientes preguntan a la IA desde fuera de la ciudad. Cubrimos toda la comarca y el área de Barcelona con posicionamiento GEO propio en <a href="/agencia-geo-para-pymes/terrassa/" class="underline hover:text-accent transition-colors">Terrassa</a>, <a href="/agencia-geo-para-pymes/sant-cugat/" class="underline hover:text-accent transition-colors">Sant Cugat</a> y <a href="/agencia-geo-para-pymes/barcelona/" class="underline hover:text-accent transition-colors">Barcelona</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CITA ══════════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-zinc-950 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <blockquote class="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.15] mb-8">
+                “Cada día, clientes de Sabadell preguntan a la IA qué empresa contratar. Si ChatGPT no te menciona, la venta se la lleva otro. No necesitas más anuncios. Necesitas GEO.”
+            </blockquote>
+            <p class="text-sm text-zinc-400 font-light mb-10">Sergio Galo's · Experto en GEO y posicionamiento en IA</p>
+            <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                HABLEMOS DE TU NEGOCIO
+            </a>
+        </div>
+    </section>
+
+    <!-- ═══ POR QUÉ NOVA (COMPARATIVA) ═════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Por qué nova</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Qué diferencia a nova de otra agencia GEO en Sabadell
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    El GEO es una disciplina nueva y está llena de humo. Nosotros la trabajamos como todo lo demás, con método, transparencia y resultados que se pueden verificar preguntándole a la propia IA.
+                </p>
+            </div>
+
+            <div class="reveal overflow-x-auto rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
+                <table class="w-full min-w-[640px] text-left border-collapse bg-white">
+                    <thead>
+                        <tr class="bg-black text-white">
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Criterio</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Nova</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Otras agencias</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-zinc-100">
+                        {[
+                            { c: "Quién será tu contacto", o: "Gestor junior con 20-30 cuentas", n: "Sergio Galo's" },
+                            { c: "Estrategia", o: "Plantillas estandarizadas", n: "Hoja de ruta GEO a medida por escrito" },
+                            { c: "Velocidad de respuesta", o: "Tickets y semanas de espera", n: "Línea directa con quien decide" },
+                            { c: "Permanencia", o: "6-12 meses habituales", n: "Mes a mes, sin permanencia" },
+                            { c: "Especialización", o: "GEO como extra improvisado del SEO", n: "GEO + SEO integrados con método propio" },
+                            { c: "Resultados verificables", o: "Promesas que no se pueden comprobar", n: "Pregunta a ChatGPT por nuestros clientes" },
+                            { c: "Transparencia de precios", o: "Presupuestos opacos con extras sorpresa", n: "Precio cerrado por escrito antes de empezar" },
+                        ].map(row => (
+                            <tr class="hover:bg-zinc-50/50 transition-colors">
+                                <td class="px-6 py-5 text-sm font-bold text-zinc-900">{row.c}</td>
+                                <td class="px-6 py-5 text-sm font-bold text-accent">{row.n}</td>
+                                <td class="px-6 py-5 text-sm text-zinc-500 font-light">{row.o}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="text-xs sm:text-sm text-zinc-400 font-light leading-relaxed mt-6 reveal">
+                Un consultor GEO externo te da acceso a una disciplina que aún no enseña casi nadie, sin contratar un perfil que hoy es prácticamente imposible de encontrar en el mercado laboral.
+            </p>
+        </div>
+    </section>
+
+    <!-- ═══ CÓMO ELEGIR AGENCIA GEO ════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-12 sm:mb-16 reveal text-center">
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Cómo contratar un servicio GEO en Sabadell sin que te vendan humo
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    El posicionamiento en IA está de moda y han aparecido cientos de "expertos en GEO" de la noche a la mañana. Estos son los siete criterios que deberías exigir a cualquier agencia o consultoría GEO, incluida la nuestra.
+                </p>
+            </div>
+
+            <div class="divide-y divide-zinc-100 reveal">
+                {criteria.map((c, i) => (
+                    <div class="py-6 sm:py-8 flex gap-6 sm:gap-8 items-start">
+                        <div class="text-2xl sm:text-3xl font-black tracking-tighter text-accent flex-shrink-0 w-10 leading-none">0{i + 1}</div>
+                        <div>
+                            <h3 class="text-base sm:text-lg font-black uppercase tracking-tight text-zinc-900 mb-2">{c.title}</h3>
+                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.desc}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ QUIÉN ESTÁ DETRÁS ═══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto reveal">
+            <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] grid md:grid-cols-[280px_1fr] gap-8 sm:gap-12 items-center">
+                <div class="rounded-2xl overflow-hidden bg-zinc-100">
+                    <img src="/consultor-marketing-digital.webp" alt="Sergio Galo's - Experto en GEO y posicionamiento en IA" class="w-full h-full object-cover object-top" loading="lazy" />
+                </div>
+                <div>
+                    <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Quién está detrás</span>
+                    <h2 class="text-2xl sm:text-4xl font-black tracking-tighter uppercase text-zinc-900 leading-[0.95] mb-6">
+                        Sergio Galo's <br>
+                        <span class="text-lg sm:text-2xl">Tu experto en GEO y posicionamiento en IA</span>
+                    </h2>
+                    <div class="space-y-4 text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
+                        <p>
+                            Soy <strong class="font-semibold text-zinc-900">Sergio Galo's</strong>, consultor de marketing digital, SEO y GEO, y fundador de Nova Marketing. Llevo años posicionando PYMEs en Google, y desde que los asistentes de IA cambiaron la forma de buscar, aplico ese mismo método para que también aparezcan en las respuestas de ChatGPT, Gemini y Perplexity.
+                        </p>
+                        <p>
+                            Cuando contratas posicionamiento GEO con nova hablas siempre conmigo. Yo hago la auditoría de visibilidad en IA, yo diseño la estrategia y yo respondo en la reunión mensual. Sin capas comerciales ni gestores que cambian cada trimestre.
+                        </p>
+                    </div>
+                    <a href="https://www.linkedin.com/company/nova-marketing-pymes/" target="_blank" rel="noopener" class="inline-block mt-6 text-[12px] font-black tracking-widest text-accent hover:underline">
+                        Ver perfil en LinkedIn →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CASOS DE ÉXITO (CMS) ═══════════════════════════════════ -->
+    {allCases.length > 0 && (
+    <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6 overflow-hidden">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-12 reveal">
+          <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultados probados</span>
+          <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
+            Casos de éxito de marketing digital<br class="hidden md:inline" /> en Sabadell
+          </h2>
+        </div>
+        <div class="cases-carousel relative overflow-hidden">
+          <div class="cases-track flex gap-6 transition-transform duration-500 ease-in-out">
+            {allCases.map((cs: any) => {
+              const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
+              const caseUrl = cs.isPublic && cs.slug ? `/casos-exito/${cs.slug}/` : null;
+              return (
+                <div class="cases-slide flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
+                  <div>
+                    {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
+                    <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors leading-tight">
+                      {caseUrl ? (
+                        <a href={caseUrl} class="hover:text-accent transition-colors">{cs.title}</a>
+                      ) : (
+                        <span class="group-hover:text-accent transition-colors">{cs.title}</span>
+                      )}
+                    </h3>
+                    <p class="text-xs text-zinc-500 font-light leading-relaxed">{cs.description}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+    )}
+    <script is:inline>
+      function initCasesCarousel() {
+        const track = document.querySelector('.cases-track');
+        if (!track) return;
+        const slides = track.querySelectorAll('.cases-slide');
+        if (slides.length <= 4) return;
+        let current = 0;
+        const total = slides.length;
+        function getVisible() {
+          if (window.innerWidth >= 1024) return 4;
+          if (window.innerWidth >= 640) return 2;
+          return 1;
+        }
+        function next() {
+          const visible = getVisible();
+          const maxIndex = total - visible;
+          current = current >= maxIndex ? 0 : current + 1;
+          const slideWidth = slides[0].offsetWidth + 24;
+          track.style.transform = `translateX(-${current * slideWidth}px)`;
+        }
+        const interval = setInterval(next, 5000);
+        document.addEventListener('astro:before-preparation', () => clearInterval(interval));
+      }
+      document.addEventListener('DOMContentLoaded', initCasesCarousel);
+      document.addEventListener('astro:page-load', initCasesCarousel);
+    </script>
+
+    <!-- ═══ RECOMENDADOS POR LA IA ═════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+            <!-- Texto -->
+            <div class="reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Nos avala la IA</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    La agencia GEO que recomienda la propia IA
+                </h2>
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed">
+                    <p>
+                        Cuando alguien pregunta por una <strong class="font-semibold text-zinc-900">agencia de marketing digital para PYMEs</strong> a ChatGPT, Gemini o Claude, nova aparece entre las agencias recomendadas. Es la mejor prueba de que nuestro método GEO funciona, porque lo aplicamos primero en nosotros mismos.
+                    </p>
+                    <p>
+                        A los asistentes de IA no les puedes comprar un anuncio para salir primero. Recomiendan lo que encuentran. Casos reales publicados, una forma de trabajar transparente, una especialización clara y clientes que hablan de nosotros.
+                    </p>
+                    <p>
+                        Pruébalo tú mismo. Abre ChatGPT y pregúntale qué agencia de marketing te recomienda para tu PYME. Si te sale nova, ya sabes quién puede hacer lo mismo por tu negocio.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Imagen: más grande, desbordando por la derecha -->
+            <div class="reveal lg:-mr-[12%] xl:-mr-[18%]">
+                <img src="/agencia-seo-geo-en-barcelona.webp" alt="Nova Marketing, agencia GEO recomendada por la IA" class="w-full h-auto" loading="lazy" />
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══ CONSEJOS GEO ═══════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Consejos aplicables hoy</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Cómo mejorar la presencia de tu pyme en la IA
+            </h2>
+            <p class="text-zinc-500 font-light text-base leading-relaxed mb-10">
+                Si todavía no estás listo para contratar una agencia GEO, empieza por aquí. Son acciones que cualquier pyme puede aplicar por su cuenta y que ya mejoran cómo te ve la inteligencia artificial.
+            </p>
+            <ul class="space-y-6">
+                {[
+                    { lead: 'Completa tu ficha de Google al 100%.', text: 'La IA lee tus reseñas, categorías, horarios y fotos para decidir si te recomienda. Es la señal local más rentable y es gratis.' },
+                    { lead: 'Responde en tu web las preguntas reales de tus clientes.', text: 'Cada respuesta clara y directa es contenido que un modelo puede citar. Una página por cada pregunta frecuente.' },
+                    { lead: 'Cuida la coherencia de tu marca en internet.', text: 'Mismo nombre, misma dirección y misma descripción en web, redes y directorios. Las incoherencias confunden a los modelos y restan confianza.' },
+                    { lead: 'Pregunta a la IA por tu negocio cada mes.', text: 'Abre ChatGPT o Perplexity y pregunta lo que preguntaría tu cliente. Sabrás si apareces, cómo te describe y si algo cambia.' },
+                ].map(tip => (
+                    <li class="flex items-start gap-4">
+                        <svg class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        <p class="text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
+                            <strong class="font-bold text-zinc-900">{tip.lead}</strong> {tip.text}
+                        </p>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </section>
+
+    <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
+    <GoogleReviews locale="es" />
+
+    <!-- ═══ DÓNDE TRABAJAMOS ═══════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Dónde trabajamos</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Sede en Barcelona, clientes en toda España
+            </h2>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
+                Nuestra base está en Barcelona y la mayoría de proyectos son de la ciudad y su área metropolitana, donde nos reunimos presencialmente. Pero el posicionamiento en IA no entiende de kilómetros. Trabajamos con PYMEs de toda España por videollamada con el mismo nivel de seguimiento.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-3">
+                <a href="/agencia-de-marketing-digital-en-barcelona/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Barcelona</a>
+                <a href="/agencia-de-marketing-digital-en-sabadell/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Sabadell</a>
+                <a href="/agencia-de-marketing-digital-en-sant-cugat/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Sant Cugat</a>
+                <a href="/agencia-de-marketing-digital-en-terrassa/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Terrassa</a>
+                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">Badalona</span>
+                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">L'Hospitalet</span>
+                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">Resto de España</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ FAQS ════════════════════════════════════════════════ -->
+    <FaqHome title="Preguntas sobre el posicionamiento GEO en IA" items={faqs} emitSchema={false} />
+
+    <!-- ═══ CONTACTO ════════════════════════════════════════════ -->
+    <section id="contacto" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
+            <div class="reveal text-white">
+                <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">CRECIMIENTO GARANTIZADO</span>
+                <h2 class="text-5xl sm:text-7xl font-black uppercase tracking-tighter leading-[0.8] mb-8">
+                   SAL EN LAS <br>RESPUESTAS <br>DE LA IA
+                </h2>
+                <p class="font-light max-w-md text-base sm:text-xl">Consúltame y te diré qué responde hoy la IA sobre tu negocio, y cómo cambiarlo.</p>
+            </div>
+
+            <div class="reveal">
+                <div class="bg-white p-8 sm:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
+                    <form class="space-y-8" id="contact-form">
+                        <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
+                            <div class="flex flex-col gap-3">
+                                <label class="opacity-30">NOMBRE</label>
+                                <input type="text" name="name" aria-label="Nombre" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                            <div class="flex flex-col gap-3">
+                                <label class="opacity-30">TELÉFONO</label>
+                                <input type="tel" name="phone" class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">EMAIL PROFESIONAL</label>
+                            <input type="email" name="email" aria-label="Correo electrónico" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                        </div>
+                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">CONSULTA</label>
+                            <textarea name="msg" aria-label="Mensaje" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="¿Qué quieres que responda la IA sobre tu negocio?"></textarea>
+                        </div>
+                        <button type="submit" class="w-full btn-mktg-v5 !py-6">QUIERO SALIR EN LA IA</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</BaseLayout>
+
+<script>
+    document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const btn = form.querySelector('button');
+        if (btn) { btn.innerHTML = 'ENVIANDO...'; btn.disabled = true; }
+        const data = Object.fromEntries(new FormData(form));
+        try {
+            const res = await fetch('https://cms.novamarketing.es/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            if (res.ok) {
+                window.location.href = '/gracias/';
+            } else { throw new Error(); }
+        } catch {
+            if (btn) { btn.innerHTML = 'ERROR — INTÉNTALO DE NUEVO'; btn.disabled = false; btn.style.background = '#ef4444'; }
+        }
+    });
+function initTimeline() {
+        const progressBar = document.getElementById('progress-bar');
+        const timeline = document.getElementById('timeline-container');
+        if (!progressBar || !timeline) return;
+
+        function updateProgress() {
+            const rect = timeline.getBoundingClientRect();
+            const winHeight = window.innerHeight;
+            const topPassed = (winHeight / 2) - rect.top;
+            let percentage = (topPassed / rect.height) * 100;
+            percentage = Math.max(0, Math.min(100, percentage));
+            progressBar.style.height = `${percentage}%`;
+
+            const nodes = timeline.querySelectorAll('.node-circle');
+            nodes.forEach((node) => {
+                const nodeTop = node.getBoundingClientRect().top;
+                if (nodeTop < winHeight / 2) {
+                    node.classList.add('!border-accent', '!bg-accent', '!text-white');
+                } else {
+                    node.classList.remove('!border-accent', '!bg-accent', '!text-white');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        document.addEventListener('astro:page-load', updateProgress);
+        updateProgress();
+    }
+    document.addEventListener('DOMContentLoaded', initTimeline);
+    document.addEventListener('astro:page-load', initTimeline);
+</script>
