@@ -1,14 +1,14 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { buildAlternates } from '../lib/i18n';
-import { localAgencySchema } from '../lib/schema';
-import { strapiClient } from '../lib/strapi';
-import LogoMarquee from '../components/sections/LogoMarquee.astro';
-import FaqHome from '../components/sections/FaqHome.astro';
-import GoogleReviews from '../components/global/GoogleReviews.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { buildAlternates } from '../../lib/i18n';
+import { localAgencySchema } from '../../lib/schema';
+import { strapiClient } from '../../lib/strapi';
+import LogoMarquee from '../../components/sections/LogoMarquee.astro';
+import FaqHome from '../../components/sections/FaqHome.astro';
+import GoogleReviews from '../../components/global/GoogleReviews.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
-const alternates = buildAlternates('/agencia-seo-para-pymes/', '/ca/agencia-seo-per-pimes/', SITE_URL);
+const alternates = buildAlternates('/agencia-seo-para-pymes/sant-cugat/', '/ca/agencia-seo-per-pimes/sant-cugat/', SITE_URL);
 
 let allCases: any[] = [];
 try {
@@ -17,11 +17,11 @@ try {
 } catch {}
 
 const steps = [
-  { title: "Auditoría SEO Completa", desc: "Analizamos tu web, tu visibilidad actual en Google y tu competencia directa. Detectamos errores técnicos, keywords rentables sin explotar y oportunidades de venta que tu competencia ya está capturando. Ese es tu punto de partida real." },
-  { title: "Estrategia SEO Documentada", desc: "Recibes una hoja de ruta por escrito. Qué keywords atacar, qué contenido crear, qué arreglar en tu web y qué resultados esperar en 3, 6 y 12 meses. Sabes en qué se invierte cada euro antes de invertirlo." },
-  { title: "Optimización Técnica y Contenidos", desc: "Arreglamos lo que impide a Google entender tu web y creamos el contenido que posiciona. Velocidad, indexación, arquitectura, páginas de servicio y artículos pensados para atraer clientes, no solo visitas." },
-  { title: "Autoridad y Enlaces", desc: "Google posiciona a quien considera una referencia. Conseguimos enlaces de medios y directorios relevantes de tu sector que aumentan la autoridad de tu dominio y empujan tus posiciones." },
-  { title: "Medición y Ajuste Continuo", desc: "Monitorizamos mes a mes tus posiciones, tu tráfico y tus leads. En el informe ves qué keywords suben, cuántos clientes llegan desde Google y qué toca ajustar el mes siguiente." }
+  { title: "Auditoría SEO de tu empresa en Sant Cugat", desc: "Analizamos tu web, tu visibilidad actual en Google y tu competencia directa. Detectamos errores técnicos, keywords rentables sin explotar y oportunidades de venta que tu competencia ya está capturando. Ese es tu punto de partida real." },
+  { title: "Hoja de ruta SEO documentada", desc: "Recibes una hoja de ruta por escrito. Qué keywords atacar, qué contenido crear, qué arreglar en tu web y qué resultados esperar en 3, 6 y 12 meses. Sabes en qué se invierte cada euro antes de invertirlo." },
+  { title: "Optimización técnica y contenidos", desc: "Arreglamos lo que impide a Google entender tu web y creamos el contenido que posiciona. Velocidad, indexación, arquitectura, páginas de servicio y artículos pensados para atraer clientes, no solo visitas." },
+  { title: "Autoridad corporativa y enlaces", desc: "Google posiciona a quien considera una referencia. Conseguimos enlaces de medios y directorios relevantes de tu sector que aumentan la autoridad de tu dominio y empujan tus posiciones." },
+  { title: "Medición y ajuste continuo", desc: "Monitorizamos mes a mes tus posiciones, tu tráfico y tus leads. En el informe ves qué keywords suben, cuántos clientes llegan desde Google y qué toca ajustar el mes siguiente." }
 ];
 
 const criteria = [
@@ -35,13 +35,13 @@ const criteria = [
 ];
 
 const faqs = [
-  { question: "¿Qué incluye el servicio de una agencia SEO para PYMEs?", answer: "Incluye una auditoría inicial, una estrategia documentada y la ejecución y medición mensual de cada acción. Optimización técnica de la web, keyword research, creación de contenidos, link building, SEO local con la ficha de Google y un informe mensual con posiciones, tráfico y leads. No aplicamos plantillas, cada sector compite de forma distinta." },
-  { question: "¿Cuánto cuesta una agencia SEO para PYMEs?", answer: "La auditoría SEO cuesta 1.800 euros y los planes mensuales van desde 400 euros al mes para pymes y desde 900 euros al mes para empresas medianas o sectores muy competidos. Trabajamos con presupuestos cerrados a medida. Antes de firmar sabes exactamente qué se hace, quién lo hace y qué resultado se persigue." },
-  { question: "¿Cuánto tarda el SEO en dar resultados?", answer: "Los primeros movimientos de posiciones suelen verse entre el segundo y el tercer mes, y los resultados consolidados entre el sexto y el duodécimo. El plazo exacto depende de tu punto de partida y de la competencia de tu sector. En la hoja de ruta inicial te decimos qué esperar en cada fase, con plazos realistas y sin promesas de humo." },
-  { question: "¿Podéis garantizar la primera posición en Google?", answer: "No, y quien te lo garantice te está mintiendo. El algoritmo de Google cambia constantemente y nadie lo controla. Lo que sí garantizamos es método, transparencia y trabajo verificable. Cada mes ves en el informe qué se ha hecho, qué posiciones han cambiado y cuántos clientes han llegado desde Google." },
-  { question: "¿Qué es el SEO local y lo necesito?", answer: "El SEO local hace que aparezcas cuando alguien busca tu servicio cerca de ti, tanto en los resultados de Google como en el mapa. Si tus clientes están en tu ciudad o tu comarca, es la palanca más rentable. Incluye optimizar tu ficha de Google Business Profile, las reseñas y el contenido local de tu web." },
-  { question: "¿Cómo medís los resultados del SEO?", answer: "Medimos leads y ventas, no solo posiciones. Cada llamada, formulario o pedido queda atribuido a su canal de origen. Configuramos la analítica desde el primer día y en el informe mensual ves resultados de negocio. Además tienes acceso total a tus cuentas y herramientas, los datos son tuyos." },
-  { question: "¿Trabajáis con permanencia?", answer: "No, trabajamos mes a mes. Si el servicio no te aporta valor, puedes cancelarlo cuando quieras. Nuestra permanencia real es el resultado que ves en los informes cada mes." }
+  { question: "¿Cuánto cuesta el posicionamiento SEO en Sant Cugat?", answer: "La auditoría SEO cuesta 1.800 euros y los planes mensuales van desde 400 euros al mes. En un mercado con el poder adquisitivo de Sant Cugat, lo caro no es el SEO sino ser invisible para un cliente que compara mucho antes de decidir. Presupuesto cerrado por escrito y sin permanencias." },
+  { question: "¿Funciona el SEO para negocios de proximidad en Mira-sol o Valldoreix?", answer: "Muy bien, porque el cliente residencial de estas zonas busca casi todo desde el móvil con intención inmediata. El pack de SEO local, ficha de Google optimizada y landings por zona es la vía más directa para captarlo." },
+  { question: "¿Hacéis SEO para empresas del parque empresarial?", answer: "Sí. Sant Cugat concentra sedes corporativas y tecnológicas cuyos decisores investigan a los proveedores en Google antes de contactar. Trabajamos contenido con autoridad técnica y keywords B2B segmentadas a cargos concretos." },
+  { question: "¿El cliente de Sant Cugat exige algo distinto en SEO?", answer: "Sí. Es un cliente informado, con expectativas altas y que compara. Una web lenta o una ficha con tres reseñas te descartan antes de que puedas hablar. Por eso aquí cuidamos especialmente la técnica, las reseñas y el contenido." },
+  { question: "¿Cuánto tarda el SEO en Sant Cugat?", answer: "Los primeros movimientos suelen verse entre el segundo y el tercer mes, y los resultados consolidados entre el sexto y el duodécimo, según la competencia de tu sector. En la hoja de ruta inicial te decimos qué esperar en cada fase." },
+  { question: "¿Cómo medís los resultados?", answer: "Medimos leads y ventas. Llamadas, formularios, reservas y presupuestos solicitados, cada uno atribuido a su keyword. En el informe mensual ves resultados de negocio y los datos son siempre tuyos." },
+  { question: "¿Trabajáis con permanencia?", answer: "No, trabajamos mes a mes. Si el servicio no te aporta valor, puedes cancelarlo cuando quieras. Nuestra permanencia real es el resultado que ves en los informes cada mes." },
 ];
 
 const sectors = [
@@ -60,27 +60,24 @@ const sectors = [
 ];
 
 const pageSchema = localAgencySchema({
-  pageUrl: `${SITE_URL}/agencia-seo-para-pymes/`,
+  pageUrl: `${SITE_URL}/agencia-seo-para-pymes/sant-cugat/`,
   lang: 'es',
-  cityName: 'Barcelona',
-  postalCode: '08035',
-  geo: { lat: 41.4114, lng: 2.1526 },
-  areaServed: ["España", "Barcelona", "Sabadell", "Sant Cugat del Vallès", "Terrassa", "Vallès Occidental"],
-  title: "Agencia SEO para PYMEs | Posicionamiento en Google | Nova Marketing",
-  description: "Agencia de posicionamiento SEO especializada en PYMEs. Aparece en Google cuando tus clientes buscan tu servicio y convierte esas búsquedas en ventas. Sin permanencias y con informes de negocio.",
+  cityName: 'Sant Cugat',
+  postalCode: '08172',
+  geo: { lat: 41.4736, lng: 2.0861 },
+  areaServed: ["Sant Cugat del Vallès", "Vallès Occidental", "Barcelona", "España"],
+  title: "Agencia SEO en Sant Cugat | Posicionamiento en Google para PYMEs",
+  description: "Agencia SEO en Sant Cugat especializada en PYMEs. Aparece en Google cuando los clientes de Sant Cugat buscan tu servicio y convierte esas búsquedas en ventas. Sin permanencias.",
   datePublished: '2026-07-15',
   dateModified: '2026-07-15',
-  streetAddress: 'Carrer del General Mendoza, 10',
-  hasMap: 'https://maps.app.goo.gl/9fbB12UcK32bgjj89',
-  aggregateRating: { ratingValue: '5.0', reviewCount: '7' },
-  breadcrumbName: 'Agencia SEO para PYMEs',
+  breadcrumbName: 'Agencia SEO en Sant Cugat',
   faqs,
 });
 ---
 
 <BaseLayout
-  title="Agencia SEO para PYMEs | Posicionamiento en Google | Nova Marketing"
-  description="Agencia de posicionamiento SEO especializada en PYMEs. Aparece en Google cuando tus clientes buscan tu servicio y convierte esas búsquedas en ventas. Sin permanencias y con informes de negocio."
+  title="Agencia SEO en Sant Cugat | Posicionamiento en Google para PYMEs"
+  description="Agencia SEO en Sant Cugat especializada en PYMEs. Aparece en Google cuando los clientes de Sant Cugat buscan tu servicio y convierte esas búsquedas en ventas. Sin permanencias."
   locale="es"
   alternates={alternates}
   schemas={[pageSchema]}
@@ -100,10 +97,10 @@ const pageSchema = localAgencySchema({
             <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
                 <span class="lg:whitespace-nowrap">Agencia SEO </span>
                 <span class="lg:whitespace-nowrap">Posicionamiento </span>
-                <span class="lg:whitespace-nowrap text-mktg-gradient">en Google</span>
+                <span class="lg:whitespace-nowrap text-mktg-gradient">en Google en Sant Cugat</span>
             </h1>
             <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
-                Aparece cuando tus clientes buscan tu servicio en Google. Servicio de posicionamiento SEO para PYMEs con estrategia a medida, precios claros y resultados que se miden en ventas.
+                Aparece cuando tus clientes buscan tu servicio en Google. Servicio de posicionamiento SEO para PYMEs de Sant Cugat con estrategia a medida, precios claros y resultados que se miden en ventas.
             </p>
             <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
                 {['Sin permanencias', 'Trato directo con el consultor', 'Informes de negocio'].map(item => (
@@ -131,14 +128,14 @@ const pageSchema = localAgencySchema({
             <div>
                 <p class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4">¿Por qué SEO?</p>
                 <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
-                    La agencia de posicionamiento SEO para tu pyme
+                    La agencia de posicionamiento SEO para tu pyme en Sant Cugat
                 </h2>
                 <div class="space-y-6 text-zinc-600 font-light text-base sm:text-lg leading-relaxed">
                     <p>
                         <strong class="font-semibold text-zinc-900">El SEO es el canal que sigue trayendo clientes cuando dejas de pagar por anuncios</strong>. Cada búsqueda de tu servicio en Google es un cliente con intención de compra, y quien aparece primero se lo lleva. A diferencia de la publicidad, el posicionamiento es un activo que se acumula mes a mes.
                     </p>
                     <p>
-                        Nova es una <strong class="font-semibold text-zinc-900">agencia SEO especializada en PYMEs</strong>. Trabajamos con un número limitado de clientes, cada cuenta la lleva directamente el consultor fundador y toda la estrategia se orienta a una sola métrica que importa. <strong class="font-semibold text-zinc-900">Cuántos clientes nuevos llegan desde Google cada mes</strong>.
+                        Nova es una <strong class="font-semibold text-zinc-900">agencia SEO especializada en PYMEs</strong> que trabaja con negocios de Sant Cugat y toda su comarca. Trabajamos con un número limitado de clientes, cada cuenta la lleva directamente el consultor fundador y toda la estrategia se orienta a una sola métrica que importa. <strong class="font-semibold text-zinc-900">Cuántos clientes nuevos llegan desde Google cada mes</strong>.
                     </p>
                 </div>
             </div>
@@ -153,7 +150,7 @@ const pageSchema = localAgencySchema({
         <div class="max-w-7xl mx-auto text-center reveal">
             <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Qué hacemos</span>
             <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Servicio de posicionamiento SEO para PYMEs
+                Servicio de posicionamiento SEO para PYMEs en Sant Cugat
             </h2>
             <div class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-16 space-y-4">
                 <p>
@@ -166,15 +163,15 @@ const pageSchema = localAgencySchema({
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[
-                    { icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z', t: 'Auditoría SEO', d: 'Radiografía técnica, de contenido y de autoridad de tu web antes de tocar nada. El punto de partida de cualquier estrategia.' },
-                    { icon: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4', t: 'SEO técnico', d: 'Velocidad, indexación, Core Web Vitals y arquitectura. Que Google pueda rastrear y entender tu sitio sin fricciones.' },
-                    { icon: 'M12 3a9 9 0 100 18 9 9 0 000-18zm0 5a4 4 0 100 8 4 4 0 000-8z', t: 'Keyword research', d: 'Identificamos qué buscan tus clientes potenciales, con qué volumen y qué oportunidades están sin cubrir en tu sector.' },
-                    { icon: 'M9 12h6m-6 4h6M9 8h2m8-3v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2h6l4 4z', t: 'Contenidos SEO', d: 'Creamos y optimizamos el contenido que posiciona. Páginas de servicio, artículos y arquitectura editorial pensada para vender.' },
-                    { icon: 'M13.828 10.172a4 4 0 010 5.656l-3 3a4 4 0 01-5.656-5.656l1.5-1.5m7.328-1.672a4 4 0 000-5.656 4 4 0 00-5.656 0l-1.5 1.5', t: 'Link building', d: 'Conseguimos enlaces de calidad en medios relevantes para aumentar la autoridad de tu dominio de forma orgánica y sostenida.' },
-                    { icon: 'M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z', t: 'SEO local', d: 'Posicionamos tu negocio en Google Maps y en las búsquedas de tu zona. Imprescindible si tus clientes están cerca de ti.' },
-                    { icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z', t: 'Analítica y medición', d: 'Configuramos GA4 y Search Console para atribuir cada lead a su keyword. Decisiones con datos, no con intuiciones.' },
+                    { icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z', t: 'Auditoría SEO en Sant Cugat', d: 'Radiografía técnica, de contenido y de autoridad de tu web antes de tocar nada. El punto de partida de cualquier estrategia.' },
+                    { icon: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4', t: 'SEO técnico impecable', d: 'Velocidad, indexación, Core Web Vitals y arquitectura. Que Google pueda rastrear y entender tu sitio sin fricciones.' },
+                    { icon: 'M12 3a9 9 0 100 18 9 9 0 000-18zm0 5a4 4 0 100 8 4 4 0 000-8z', t: 'Keywords de un cliente exigente', d: 'Identificamos qué buscan tus clientes potenciales, con qué volumen y qué oportunidades están sin cubrir en tu sector.' },
+                    { icon: 'M9 12h6m-6 4h6M9 8h2m8-3v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2h6l4 4z', t: 'Contenidos a la altura de Sant Cugat', d: 'Creamos y optimizamos el contenido que posiciona. Páginas de servicio, artículos y arquitectura editorial pensada para vender.' },
+                    { icon: 'M13.828 10.172a4 4 0 010 5.656l-3 3a4 4 0 01-5.656-5.656l1.5-1.5m7.328-1.672a4 4 0 000-5.656 4 4 0 00-5.656 0l-1.5 1.5', t: 'Enlaces y autoridad corporativa', d: 'Conseguimos enlaces de calidad en medios relevantes para aumentar la autoridad de tu dominio de forma orgánica y sostenida.' },
+                    { icon: 'M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z', t: 'SEO local para Mira-sol y el centro', d: 'Posicionamos tu negocio en Google Maps y en las búsquedas de tu zona. Imprescindible si tus clientes están cerca de ti.' },
+                    { icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z', t: 'Analítica de leads y reservas', d: 'Configuramos GA4 y Search Console para atribuir cada lead a su keyword. Decisiones con datos, no con intuiciones.' },
                     { icon: 'M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z', t: 'SEO más GEO', d: 'Cada vez más clientes preguntan a la IA en vez de buscar en Google. Integramos posicionamiento en Google y en la IA en una sola estrategia.' },
-                    { icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15', t: 'Migraciones SEO', d: 'Cambios de dominio, rediseños o saltos de plataforma sin perder el posicionamiento que tanto ha costado conseguir.' },
+                    { icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15', t: 'Migraciones sin perder posiciones', d: 'Cambios de dominio, rediseños o saltos de plataforma sin perder el posicionamiento que tanto ha costado conseguir.' },
                 ].map(c => (
                     <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-left">
                         <div class="flex items-center gap-3 mb-3">
@@ -202,7 +199,7 @@ const pageSchema = localAgencySchema({
             <div class="text-center mb-16 sm:mb-24 reveal">
                 <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Cómo trabajamos</span>
                 <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Estrategia SEO para posicionar tu pyme en Google
+                    Estrategia SEO para posicionar tu pyme de Sant Cugat en Google
                 </h2>
                 <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
                     Una metodología documentada para pasar de ser invisible en Google a captar clientes desde el buscador, paso a paso y sin humo.
@@ -242,7 +239,7 @@ const pageSchema = localAgencySchema({
             <div class="reveal lg:col-span-2">
                 <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Punto de partida</span>
                 <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
-                    Auditoría de posicionamiento SEO para tu PYME
+                    Auditoría de posicionamiento SEO para tu PYME de Sant Cugat
                 </h2>
             </div>
 
@@ -288,10 +285,10 @@ const pageSchema = localAgencySchema({
             <div class="reveal flex flex-col gap-4">
                 {[
                     { bg: 'bg-purple-100', color: 'text-purple-600', icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z', t: 'Revisión técnica completa', d: 'Indexación, velocidad, Core Web Vitals, errores de rastreo y arquitectura. Todo lo que impide a Google entender tu web, documentado.' },
-                    { bg: 'bg-green-100', color: 'text-green-600', icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6', t: 'Plan de acción priorizado', d: 'No una lista infinita de tareas, sino un plan ordenado por impacto y esfuerzo. Sabrás qué arreglar la primera semana y qué no merece ni un euro.' },
-                    { bg: 'bg-purple-100', color: 'text-purple-600', icon: 'M12 3a9 9 0 100 18 9 9 0 000-18zm0 5a4 4 0 100 8 4 4 0 000-8z', t: 'Keywords con intención de compra', d: 'Identificamos las búsquedas que hacen tus clientes cuando quieren contratar, no solo las de más volumen. Tráfico que convierte.' },
+                    { bg: 'bg-green-100', color: 'text-green-600', icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6', t: 'Plan de acción por impacto', d: 'No una lista infinita de tareas, sino un plan ordenado por impacto y esfuerzo. Sabrás qué arreglar la primera semana y qué no merece ni un euro.' },
+                    { bg: 'bg-purple-100', color: 'text-purple-600', icon: 'M12 3a9 9 0 100 18 9 9 0 000-18zm0 5a4 4 0 100 8 4 4 0 000-8z', t: 'Keywords de un cliente que compara', d: 'Identificamos las búsquedas que hacen tus clientes cuando quieren contratar, no solo las de más volumen. Tráfico que convierte.' },
                     { bg: 'bg-amber-100', color: 'text-amber-600', icon: 'M9 12h6m-6 4h6M9 8h2m8-3v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2h6l4 4z', t: 'Auditoría de contenidos', d: 'Detectamos qué páginas posicionan, cuáles canibalizan keywords entre sí y qué contenido falta para cubrir las búsquedas de tu cliente.' },
-                    { bg: 'bg-blue-100', color: 'text-blue-600', icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z', t: 'Benchmark frente a tu competencia', d: 'Comparamos tu visibilidad con la de tus tres competidores directos. Qué keywords les traen clientes y qué puedes copiar o hacer mejor.' },
+                    { bg: 'bg-blue-100', color: 'text-blue-600', icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z', t: 'Benchmark con tus competidores directos', d: 'Comparamos tu visibilidad con la de tus tres competidores directos. Qué keywords les traen clientes y qué puedes copiar o hacer mejor.' },
                 ].map(card => (
                     <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
                         <div class:list={["w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0", card.bg]}>
@@ -319,9 +316,9 @@ const pageSchema = localAgencySchema({
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch reveal">
                 {[
-                    { n: '1', t: 'Radiografía de tu visibilidad en Google', d: 'Analizamos en qué posición sales para las búsquedas que hacen tus clientes, qué tráfico recibes y qué keywords se está llevando tu competencia.' },
+                    { n: '1', t: 'Radiografía de tu visibilidad en Sant Cugat', d: 'Analizamos en qué posición sales para las búsquedas que hacen tus clientes, qué tráfico recibes y qué keywords se está llevando tu competencia.' },
                     { n: '2', t: 'Diagnóstico técnico y de contenidos', d: 'Cruzamos los datos con la salud técnica de tu web y tu contenido para explicar exactamente qué te está frenando en el buscador.' },
-                    { n: '3', t: 'Hoja de ruta para posicionar', d: 'Cierras la auditoría con un documento de acciones ordenadas por impacto y una videollamada donde repasamos cada punto contigo.' },
+                    { n: '3', t: 'Hoja de ruta para posicionar en Sant Cugat', d: 'Cierras la auditoría con un documento de acciones ordenadas por impacto y una videollamada donde repasamos cada punto contigo.' },
                 ].map((st, i) => (
                     <div class="flex items-center gap-4 lg:gap-6">
                         {i > 0 && <div class="hidden lg:flex text-3xl text-accent font-black select-none">→</div>}
@@ -350,7 +347,7 @@ const pageSchema = localAgencySchema({
             <div class="text-center mb-12 sm:mb-16 reveal">
                 <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Tarifas claras</span>
                 <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Precios de posicionamiento SEO para PYMEs
+                    Precios de posicionamiento SEO en Sant Cugat
                 </h2>
                 <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto">
                     Tarifas orientativas y sin letra pequeña. El precio de una agencia SEO varía según el tamaño de tu web, la competencia de tu sector y tu punto de partida en Google, así que antes de empezar recibes un presupuesto cerrado por escrito. Si te preguntas cuánto cuesta el posicionamiento SEO, estos son nuestros rangos reales. El coste no lleva sorpresas ni permanencias.
@@ -359,9 +356,9 @@ const pageSchema = localAgencySchema({
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
                 {[
-                    { small: 'Precio', name: 'Auditoría SEO', price: '1.800€', meta: ['Entrega en 3 a 4 semanas', 'Para cualquier pyme que quiera saber dónde está'], items: ['Sesión inicial de objetivos', 'Revisión técnica completa', 'Posiciones y visibilidad actual', 'Keyword research de tu sector', 'Auditoría de contenidos', 'Comparativa con 3 competidores', 'Acciones ordenadas por impacto', 'Videollamada de entrega'], cta: 'Quiero auditar mi web' },
-                    { small: 'Precio', name: 'SEO PYME', price: 'desde 400€ / mes', meta: ['Primeros movimientos en unos 3 meses', 'Para negocios locales y pequeñas empresas'], items: ['Auditoría SEO inicial', 'Optimización técnica continua', 'Contenidos que posicionan', 'SEO local y ficha de Google', 'Enlazado interno optimizado', 'Reseñas y señales de confianza', 'Informe mensual de posiciones y leads', 'Línea directa con el consultor', 'Sin permanencia'], cta: 'Quiero posicionar mi web' },
-                    { small: 'Precio', name: 'SEO Big Pyme', price: 'desde 900€ / mes', meta: ['Primeros movimientos en unos 2 meses', 'Para empresas medianas y sectores competidos'], items: ['Todo el plan SEO PYME', 'Estrategia SEO y GEO conjunta', 'Redacción profesional ampliada', 'Link building en medios', 'Optimización de más de 100 URL', 'Cobertura multisede o internacional', 'Reunión mensual de negocio', 'Objetivo, primeras posiciones'], cta: 'Quiero posicionar mi empresa' },
+                    { small: 'Precio', name: 'Auditoría SEO en Sant Cugat', price: '1.800€', meta: ['Entrega en 3 a 4 semanas', 'Para cualquier pyme que quiera saber dónde está'], items: ['Sesión inicial de objetivos', 'Revisión técnica completa', 'Posiciones y visibilidad actual', 'Keyword research de tu sector', 'Auditoría de contenidos', 'Comparativa con 3 competidores', 'Acciones ordenadas por impacto', 'Videollamada de entrega'], cta: 'Quiero auditar mi web' },
+                    { small: 'Precio', name: 'SEO PYME en Sant Cugat', price: 'desde 400€ / mes', meta: ['Primeros movimientos en unos 3 meses', 'Para negocios locales y pequeñas empresas'], items: ['Auditoría SEO inicial', 'Optimización técnica continua', 'Contenidos que posicionan', 'SEO local y ficha de Google', 'Enlazado interno optimizado', 'Reseñas y señales de confianza', 'Informe mensual de posiciones y leads', 'Línea directa con el consultor', 'Sin permanencia'], cta: 'Quiero posicionar mi web' },
+                    { small: 'Precio', name: 'SEO Big Pyme en Sant Cugat', price: 'desde 900€ / mes', meta: ['Primeros movimientos en unos 2 meses', 'Para empresas medianas y sectores competidos'], items: ['Todo el plan SEO PYME', 'Estrategia SEO y GEO conjunta', 'Redacción profesional ampliada', 'Link building en medios', 'Optimización de más de 100 URL', 'Cobertura multisede o internacional', 'Reunión mensual de negocio', 'Objetivo, primeras posiciones'], cta: 'Quiero posicionar mi empresa' },
                 ].map(p => (
                     <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-10 flex flex-col shadow-[0_15px_40px_rgba(0,0,0,0.06)] hover:shadow-xl transition-shadow duration-300 reveal">
                         <h3 class="leading-tight mb-2">
@@ -397,7 +394,7 @@ const pageSchema = localAgencySchema({
             <div class="text-center mb-14 sm:mb-20 reveal">
                 <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Experiencia sectorial</span>
                 <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Posicionamiento SEO para tu sector
+                    Posicionamiento SEO para tu sector en Sant Cugat
                 </h2>
                 <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
                     Cada sector se busca distinto en Google. Trabajamos con sectores donde ya sabemos qué keywords convierten y qué es tirar el dinero.
@@ -410,6 +407,7 @@ const pageSchema = localAgencySchema({
                         <div class="text-3xl mb-4">{s.icon}</div>
                         <h3 class="text-base uppercase tracking-tight text-zinc-900 mb-3 leading-tight font-montserrat-semibold">
                             {s.title}
+                            <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1 font-semibold">en Sant Cugat</span>
                         </h3>
                         <p class="text-sm text-zinc-500 font-light leading-relaxed">{s.desc}</p>
                     </div>
@@ -424,11 +422,51 @@ const pageSchema = localAgencySchema({
         </div>
     </section>
 
+    <!-- ═══ ZONAS ═════════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 relative overflow-hidden border-t border-black/5">
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_80%,transparent_100%)]"></div>
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-16 sm:mb-24 reveal">
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-4 text-zinc-900 leading-[0.9]">
+                    SEO local en todas las zonas de Sant Cugat
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Sant Cugat no es un solo mercado. Cada zona tiene su competencia y su forma de buscar en Google. Adaptamos las keywords y las señales locales a la zona donde compite tu negocio.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="group p-8 border border-black/5 bg-white rounded-2xl hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal">
+                    <div class="h-1 bg-black w-12 group-hover:w-full transition-all duration-500 mb-6"></div>
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">Centro y Estación</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">El eje comercial de Sant Cugat, con un cliente de renta alta que compara mucho antes de decidir. Aquí ganan los negocios con reseñas excelentes, web impecable y posicionamiento local dominante.</p>
+                </div>
+                <div class="group p-8 border border-black/5 bg-white rounded-2xl hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal">
+                    <div class="h-1 bg-black w-12 group-hover:w-full transition-all duration-500 mb-6"></div>
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">Mira-sol, Valldoreix y La Floresta</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">Zonas residenciales donde el cliente busca servicios desde el móvil con intención inmediata, de reformas a salud o educación. Pack local completo con ficha optimizada y landings por zona.</p>
+                </div>
+                <div class="group p-8 border border-black/5 bg-white rounded-2xl hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal">
+                    <div class="h-1 bg-black w-12 group-hover:w-full transition-all duration-500 mb-6"></div>
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">Can Sant Joan y el parque empresarial</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">Sant Cugat concentra sedes corporativas y empresas tecnológicas. Sus decisores investigan a los proveedores en Google antes de contactar. Contenido con autoridad técnica y SEO B2B.</p>
+                </div>
+                <div class="group p-8 border border-black/5 bg-white rounded-2xl hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal">
+                    <div class="h-1 bg-black w-12 group-hover:w-full transition-all duration-500 mb-6"></div>
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">Vallès Occidental y Barcelona</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">
+                        Muchos de tus clientes buscan desde fuera de la ciudad. Cubrimos toda la comarca con posicionamiento SEO propio en <a href="/agencia-seo-para-pymes/sabadell/" class="underline hover:text-accent transition-colors">Sabadell</a>, <a href="/agencia-seo-para-pymes/terrassa/" class="underline hover:text-accent transition-colors">Terrassa</a> y <a href="/agencia-seo-para-pymes/barcelona/" class="underline hover:text-accent transition-colors">Barcelona</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ═══ CITA ══════════════════════════════════════════════════ -->
     <section class="py-20 sm:py-28 bg-zinc-950 px-4 sm:px-6">
         <div class="max-w-4xl mx-auto text-center reveal">
             <blockquote class="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.15] mb-8">
-                “Cada día tus clientes buscan tu servicio en Google. Si no apareces, la venta se la lleva otro. No necesitas más anuncios. Necesitas posicionarte.”
+                “Cada día, clientes de Sant Cugat buscan tu servicio en Google. Si no apareces, la venta se la lleva otro. No necesitas más anuncios. Necesitas posicionarte.”
             </blockquote>
             <p class="text-sm text-zinc-400 font-light mb-10">Sergio Galo's · Consultor SEO para PYMEs</p>
             <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
@@ -443,7 +481,7 @@ const pageSchema = localAgencySchema({
             <div class="text-center mb-12 sm:mb-16 reveal">
                 <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Por qué nova</span>
                 <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Qué diferencia a nova de otra agencia SEO
+                    Qué diferencia a nova de otra agencia SEO en Sant Cugat
                 </h2>
                 <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
                     El SEO está lleno de informes bonitos que no traen clientes. Nosotros lo trabajamos con método, transparencia y resultados que se ven en tu caja, no solo en las gráficas.
@@ -490,7 +528,7 @@ const pageSchema = localAgencySchema({
         <div class="max-w-4xl mx-auto">
             <div class="mb-12 sm:mb-16 reveal text-center">
                 <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Cómo contratar una agencia SEO sin que te vendan humo
+                    Cómo contratar una agencia SEO en Sant Cugat sin que te vendan humo
                 </h2>
                 <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
                     Hay cientos de agencias SEO y la mayoría de PYMEs elige mal la primera vez. Estos son los siete criterios que deberías exigir a cualquier agencia, incluida la nuestra.
@@ -547,7 +585,7 @@ const pageSchema = localAgencySchema({
         <div class="mb-12 reveal">
           <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultados probados</span>
           <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
-            Casos de éxito de posicionamiento<br class="hidden md:inline" /> SEO para PYMEs
+            Casos de éxito de posicionamiento<br class="hidden md:inline" /> SEO en Sant Cugat
           </h2>
         </div>
         <div class="cases-carousel relative overflow-hidden">
@@ -626,7 +664,7 @@ const pageSchema = localAgencySchema({
             </div>
 
             <div class="reveal lg:-mr-[12%] xl:-mr-[18%]">
-                <img src="/agencia-seo-para-pymes.webp" alt="Nova Marketing, agencia SEO para PYMEs recomendada por la IA" class="w-full h-auto" loading="lazy" />
+                <img src="/agencia-seo-para-pymes-sant-cugat.webp" alt="Nova Marketing, agencia SEO en Sant Cugat recomendada por la IA" class="w-full h-auto" loading="lazy" />
             </div>
 
         </div>

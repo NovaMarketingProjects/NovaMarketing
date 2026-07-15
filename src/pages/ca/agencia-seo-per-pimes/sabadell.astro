@@ -1,14 +1,14 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { buildAlternates } from '../../lib/i18n';
-import { localAgencySchema } from '../../lib/schema';
-import { strapiClient } from '../../lib/strapi';
-import LogoMarquee from '../../components/sections/LogoMarquee.astro';
-import FaqHome from '../../components/sections/FaqHome.astro';
-import GoogleReviews from '../../components/global/GoogleReviews.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { buildAlternates } from '../../../lib/i18n';
+import { localAgencySchema } from '../../../lib/schema';
+import { strapiClient } from '../../../lib/strapi';
+import LogoMarquee from '../../../components/sections/LogoMarquee.astro';
+import FaqHome from '../../../components/sections/FaqHome.astro';
+import GoogleReviews from '../../../components/global/GoogleReviews.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
-const alternates = buildAlternates('/agencia-seo-para-pymes/', '/ca/agencia-seo-per-pimes/', SITE_URL);
+const alternates = buildAlternates('/agencia-seo-para-pymes/sabadell/', '/ca/agencia-seo-per-pimes/sabadell/', SITE_URL);
 
 let allCases: any[] = [];
 try {
@@ -17,11 +17,11 @@ try {
 } catch {}
 
 const steps = [
-  { title: "Auditoria SEO Completa", desc: "Analitzem la teva web, la teva visibilitat actual a Google i la teva competència directa. Detectem errors tècnics, keywords rendibles sense explotar i oportunitats de venda que la teva competència ja està capturant. Aquest és el teu punt de partida real." },
-  { title: "Estratègia SEO Documentada", desc: "Reps un full de ruta per escrit. Quines keywords atacar, quin contingut crear, què arreglar a la teva web i quins resultats esperar en 3, 6 i 12 mesos. Saps en què s'inverteix cada euro abans d'invertir-lo." },
-  { title: "Optimització Tècnica i Continguts", desc: "Arreglem el que impedeix a Google entendre la teva web i creem el contingut que posiciona. Velocitat, indexació, arquitectura, pàgines de servei i articles pensats per atraure clients, no només visites." },
-  { title: "Autoritat i Enllaços", desc: "Google posiciona qui considera una referència. Aconseguim enllaços de mitjans i directoris rellevants del teu sector que augmenten l'autoritat del teu domini i empenyen les teves posicions." },
-  { title: "Mesura i Ajust Continu", desc: "Monitoritzem mes a mes les teves posicions, el teu trànsit i els teus leads. A l'informe veus quines keywords pugen, quants clients arriben des de Google i què toca ajustar el mes següent." }
+  { title: "Auditoria SEO del teu negoci a Sabadell", desc: "Analitzem la teva web, la teva visibilitat actual a Google i la teva competència directa. Detectem errors tècnics, keywords rendibles sense explotar i oportunitats de venda que la teva competència ja està capturant. Aquest és el teu punt de partida real." },
+  { title: "Estratègia documentada per al Vallès", desc: "Reps un full de ruta per escrit. Quines keywords atacar, quin contingut crear, què arreglar a la teva web i quins resultats esperar en 3, 6 i 12 mesos. Saps en què s'inverteix cada euro abans d'invertir-lo." },
+  { title: "Optimització tècnica i continguts", desc: "Arreglem el que impedeix a Google entendre la teva web i creem el contingut que posiciona. Velocitat, indexació, arquitectura, pàgines de servei i articles pensats per atraure clients, no només visites." },
+  { title: "Autoritat local i enllaços", desc: "Google posiciona qui considera una referència. Aconseguim enllaços de mitjans i directoris rellevants del teu sector que augmenten l'autoritat del teu domini i empenyen les teves posicions." },
+  { title: "Mesura de leads mes a mes", desc: "Monitoritzem mes a mes les teves posicions, el teu trànsit i els teus leads. A l'informe veus quines keywords pugen, quants clients arriben des de Google i què toca ajustar el mes següent." }
 ];
 
 const criteria = [
@@ -35,13 +35,13 @@ const criteria = [
 ];
 
 const faqs = [
-  { question: "Què inclou el servei d'una agència SEO per a pimes?", answer: "Inclou una auditoria inicial, una estratègia documentada i l'execució i mesura mensual de cada acció. Optimització tècnica de la web, keyword research, creació de continguts, link building, SEO local amb la fitxa de Google i un informe mensual amb posicions, trànsit i leads. No apliquem plantilles, cada sector competeix de manera diferent." },
-  { question: "Quant costa una agència SEO per a pimes?", answer: "L'auditoria SEO costa 1.800 euros i els plans mensuals van des de 400 euros al mes per a pimes i des de 900 euros al mes per a empreses mitjanes o sectors molt competits. Treballem amb pressupostos tancats a mida. Abans de signar saps exactament què es fa, qui ho fa i quin resultat es persegueix." },
-  { question: "Quant triga el SEO a donar resultats?", answer: "Els primers moviments de posicions solen veure's entre el segon i el tercer mes, i els resultats consolidats entre el sisè i el dotzè. El termini exacte depèn del teu punt de partida i de la competència del teu sector. Al full de ruta inicial et diem què esperar a cada fase, amb terminis realistes i sense promeses de fum." },
-  { question: "Podeu garantir la primera posició a Google?", answer: "No, i qui t'ho garanteixi t'està mentint. L'algoritme de Google canvia constantment i ningú el controla. El que sí garantim és mètode, transparència i feina verificable. Cada mes veus a l'informe què s'ha fet, quines posicions han canviat i quants clients han arribat des de Google." },
-  { question: "Què és el SEO local i el necessito?", answer: "El SEO local fa que apareguis quan algú busca el teu servei a prop teu, tant als resultats de Google com al mapa. Si els teus clients són a la teva ciutat o la teva comarca, és la palanca més rendible. Inclou optimitzar la teva fitxa de Google Business Profile, les ressenyes i el contingut local de la teva web." },
-  { question: "Com mesureu els resultats del SEO?", answer: "Mesurem leads i vendes, no només posicions. Cada trucada, formulari o comanda queda atribuïda al seu canal d'origen. Configurem l'analítica des del primer dia i a l'informe mensual veus resultats de negoci. A més tens accés total als teus comptes i eines, les dades són teves." },
-  { question: "Treballeu amb permanència?", answer: "No, treballem mes a mes. Si el servei no t'aporta valor, pots cancel·lar-lo quan vulguis. La nostra permanència real és el resultat que veus als informes cada mes." }
+  { question: "Quant costa el posicionament SEO a Sabadell?", answer: "L'auditoria SEO costa 1.800 euros i els plans mensuals van des de 400 euros al mes. Treballar amb una agència SEO de Sabadell sol sortir més ajustat que fer-ho amb una de Barcelona ciutat amb els mateixos resultats. Pressupost tancat per escrit i sense permanències." },
+  { question: "Quines keywords funcionen per a una pime de Sabadell?", answer: "Depèn del teu client. Per al comerç i els serveis del centre manen les cerques locals amb intenció immediata. Per a la indústria dels polígons funcionen les keywords tècniques B2B que fan els responsables de compres. L'auditoria et diu exactament quines atacar primer." },
+  { question: "Feu SEO per a la indústria dels polígons?", answer: "Sí, és un dels nostres perfils habituals. Les empreses B2B de Can Roqueta, Sant Pau de Riu-sec i la resta del Vallès tenen clients que busquen proveïdors a Google. Posicionem keywords tècniques que generen pressupostos i contractes, no només visites." },
+  { question: "Podem reunir-nos en persona a Sabadell?", answer: "Sí. La nostra oficina és al Carrer de Bilbao, 1, a Sabadell, així que les reunions poden ser presencials tant a la nostra oficina com al teu negoci, a qualsevol punt de la ciutat o del Vallès Occidental." },
+  { question: "Quant triga el SEO a Sabadell?", answer: "En un mercat de competència mitjana com Sabadell, els primers moviments solen veure's entre el segon i el tercer mes, i els resultats consolidats entre el sisè i el dotzè. Al full de ruta inicial et diem què esperar a cada fase." },
+  { question: "Com mesureu els resultats?", answer: "Mesurem el que li importa a un negoci de Sabadell. Trucades, formularis, rutes fins al teu local des de Google Maps i pressupostos sol·licitats, cadascun atribuït a la seva keyword. Informe mensual de negoci amb reunió inclosa." },
+  { question: "Treballeu amb permanència?", answer: "No, treballem mes a mes. Si el servei no t'aporta valor, pots cancel·lar-lo quan vulguis. La nostra permanència real és el resultat que veus als informes cada mes." },
 ];
 
 const sectors = [
@@ -60,27 +60,27 @@ const sectors = [
 ];
 
 const pageSchema = localAgencySchema({
-  pageUrl: `${SITE_URL}/ca/agencia-seo-per-pimes/`,
+  pageUrl: `${SITE_URL}/ca/agencia-seo-per-pimes/sabadell/`,
   lang: 'ca',
-  cityName: 'Barcelona',
-  postalCode: '08035',
-  geo: { lat: 41.4114, lng: 2.1526 },
-  areaServed: ["España", "Barcelona", "Sabadell", "Sant Cugat del Vallès", "Terrassa", "Vallès Occidental"],
-  title: "Agència SEO per a Pimes | Posicionament a Google | Nova Marketing",
-  description: "Agència de posicionament SEO especialitzada en pimes. Apareix a Google quan els teus clients busquen el teu servei i converteix aquestes cerques en vendes. Sense permanències i amb informes de negoci.",
+  cityName: 'Sabadell',
+  postalCode: '08202',
+  geo: { lat: 41.5463, lng: 2.1086 },
+  areaServed: ["Sabadell", "Vallès Occidental", "Barcelona", "España"],
+  title: "Agència SEO a Sabadell | Posicionament a Google per a Pimes",
+  description: "Agència SEO a Sabadell especialitzada en pimes. Apareix a Google quan els clients de Sabadell busquen el teu servei i converteix aquestes cerques en vendes. Sense permanències.",
   datePublished: '2026-07-15',
   dateModified: '2026-07-15',
-  streetAddress: 'Carrer del General Mendoza, 10',
-  hasMap: 'https://maps.app.goo.gl/9fbB12UcK32bgjj89',
-  aggregateRating: { ratingValue: '5.0', reviewCount: '7' },
-  breadcrumbName: 'Agència SEO per a pimes',
+  streetAddress: 'Carrer de Bilbao, 1',
+  hasMap: 'https://maps.app.goo.gl/ETtzpajqEucNf22D7',
+  aggregateRating: { ratingValue: '5.0', reviewCount: '16' },
+  breadcrumbName: 'Agència SEO a Sabadell',
   faqs,
 });
 ---
 
 <BaseLayout
-  title="Agència SEO per a Pimes | Posicionament a Google | Nova Marketing"
-  description="Agència de posicionament SEO especialitzada en pimes. Apareix a Google quan els teus clients busquen el teu servei i converteix aquestes cerques en vendes. Sense permanències i amb informes de negoci."
+  title="Agència SEO a Sabadell | Posicionament a Google per a Pimes"
+  description="Agència SEO a Sabadell especialitzada en pimes. Apareix a Google quan els clients de Sabadell busquen el teu servei i converteix aquestes cerques en vendes. Sense permanències."
   locale="ca"
   alternates={alternates}
   schemas={[pageSchema]}
@@ -100,10 +100,10 @@ const pageSchema = localAgencySchema({
             <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
                 <span class="lg:whitespace-nowrap">Agència SEO </span>
                 <span class="lg:whitespace-nowrap">Posicionament </span>
-                <span class="lg:whitespace-nowrap text-mktg-gradient">a Google</span>
+                <span class="lg:whitespace-nowrap text-mktg-gradient">a Google a Sabadell</span>
             </h1>
             <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
-                Apareix quan els teus clients busquen el teu servei a Google. Servei de posicionament SEO per a pimes amb estratègia a mida, preus clars i resultats que es mesuren en vendes.
+                Apareix quan els teus clients busquen el teu servei a Google. Servei de posicionament SEO per a pimes de Sabadell amb estratègia a mida, preus clars i resultats que es mesuren en vendes.
             </p>
             <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
                 {['Sense permanències', 'Tracte directe amb el consultor', 'Informes de negoci'].map(item => (
@@ -131,14 +131,14 @@ const pageSchema = localAgencySchema({
             <div>
                 <p class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4">Per què SEO?</p>
                 <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
-                    L'agència de posicionament SEO per a la teva pime
+                    L'agència de posicionament SEO per a la teva pime a Sabadell
                 </h2>
                 <div class="space-y-6 text-zinc-600 font-light text-base sm:text-lg leading-relaxed">
                     <p>
                         <strong class="font-semibold text-zinc-900">El SEO és el canal que segueix portant clients quan deixes de pagar per anuncis</strong>. Cada cerca del teu servei a Google és un client amb intenció de compra, i qui apareix primer se l'emporta. A diferència de la publicitat, el posicionament és un actiu que s'acumula mes a mes.
                     </p>
                     <p>
-                        Nova és una <strong class="font-semibold text-zinc-900">agència SEO especialitzada en pimes</strong>. Treballem amb un nombre limitat de clients, cada compte el porta directament el consultor fundador i tota l'estratègia s'orienta a una sola mètrica que importa. <strong class="font-semibold text-zinc-900">Quants clients nous arriben des de Google cada mes</strong>.
+                        Nova és una <strong class="font-semibold text-zinc-900">agència SEO especialitzada en pimes</strong> que treballa amb negocis de Sabadell i tota la seva comarca. Treballem amb un nombre limitat de clients, cada compte el porta directament el consultor fundador i tota l'estratègia s'orienta a una sola mètrica que importa. <strong class="font-semibold text-zinc-900">Quants clients nous arriben des de Google cada mes</strong>.
                     </p>
                 </div>
             </div>
@@ -153,7 +153,7 @@ const pageSchema = localAgencySchema({
         <div class="max-w-7xl mx-auto text-center reveal">
             <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Què fem</span>
             <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Servei de posicionament SEO per a pimes
+                Servei de posicionament SEO per a pimes a Sabadell
             </h2>
             <div class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-16 space-y-4">
                 <p>
@@ -166,15 +166,15 @@ const pageSchema = localAgencySchema({
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[
-                    { icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z', t: 'Auditoria SEO', d: 'Radiografia tècnica, de contingut i d\'autoritat de la teva web abans de tocar res. El punt de partida de qualsevol estratègia.' },
-                    { icon: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4', t: 'SEO tècnic', d: 'Velocitat, indexació, Core Web Vitals i arquitectura. Que Google pugui rastrejar i entendre el teu lloc sense friccions.' },
-                    { icon: 'M12 3a9 9 0 100 18 9 9 0 000-18zm0 5a4 4 0 100 8 4 4 0 000-8z', t: 'Keyword research', d: 'Identifiquem què busquen els teus clients potencials, amb quin volum i quines oportunitats estan sense cobrir al teu sector.' },
-                    { icon: 'M9 12h6m-6 4h6M9 8h2m8-3v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2h6l4 4z', t: 'Continguts SEO', d: 'Creem i optimitzem el contingut que posiciona. Pàgines de servei, articles i arquitectura editorial pensada per vendre.' },
-                    { icon: 'M13.828 10.172a4 4 0 010 5.656l-3 3a4 4 0 01-5.656-5.656l1.5-1.5m7.328-1.672a4 4 0 000-5.656 4 4 0 00-5.656 0l-1.5 1.5', t: 'Link building', d: 'Aconseguim enllaços de qualitat en mitjans rellevants per augmentar l\'autoritat del teu domini de manera orgànica i sostinguda.' },
-                    { icon: 'M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z', t: 'SEO local', d: 'Posicionem el teu negoci a Google Maps i a les cerques de la teva zona. Imprescindible si els teus clients són a prop teu.' },
-                    { icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z', t: 'Analítica i mesura', d: 'Configurem GA4 i Search Console per atribuir cada lead a la seva keyword. Decisions amb dades, no amb intuïcions.' },
+                    { icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z', t: 'Auditoria SEO a Sabadell', d: 'Radiografia tècnica, de contingut i d\'autoritat de la teva web abans de tocar res. El punt de partida de qualsevol estratègia.' },
+                    { icon: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4', t: 'SEO tècnic per a la teva web', d: 'Velocitat, indexació, Core Web Vitals i arquitectura. Que Google pugui rastrejar i entendre el teu lloc sense friccions.' },
+                    { icon: 'M12 3a9 9 0 100 18 9 9 0 000-18zm0 5a4 4 0 100 8 4 4 0 000-8z', t: 'Keywords que busquen al Vallès', d: 'Identifiquem què busquen els teus clients potencials, amb quin volum i quines oportunitats estan sense cobrir al teu sector.' },
+                    { icon: 'M9 12h6m-6 4h6M9 8h2m8-3v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2h6l4 4z', t: 'Continguts per al client sabadellenc', d: 'Creem i optimitzem el contingut que posiciona. Pàgines de servei, articles i arquitectura editorial pensada per vendre.' },
+                    { icon: 'M13.828 10.172a4 4 0 010 5.656l-3 3a4 4 0 01-5.656-5.656l1.5-1.5m7.328-1.672a4 4 0 000-5.656 4 4 0 00-5.656 0l-1.5 1.5', t: 'Enllaços en mitjans del Vallès', d: 'Aconseguim enllaços de qualitat en mitjans rellevants per augmentar l\'autoritat del teu domini de manera orgànica i sostinguda.' },
+                    { icon: 'M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z', t: 'SEO local per al centre i els barris', d: 'Posicionem el teu negoci a Google Maps i a les cerques de la teva zona. Imprescindible si els teus clients són a prop teu.' },
+                    { icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z', t: 'Analítica de leads i trucades', d: 'Configurem GA4 i Search Console per atribuir cada lead a la seva keyword. Decisions amb dades, no amb intuïcions.' },
                     { icon: 'M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z', t: 'SEO més GEO', d: 'Cada cop més clients pregunten a la IA en lloc de buscar a Google. Integrem posicionament a Google i a la IA en una sola estratègia.' },
-                    { icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15', t: 'Migracions SEO', d: 'Canvis de domini, redissenys o salts de plataforma sense perdre el posicionament que tant ha costat aconseguir.' },
+                    { icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15', t: 'Migracions sense perdre posicions', d: 'Canvis de domini, redissenys o salts de plataforma sense perdre el posicionament que tant ha costat aconseguir.' },
                 ].map(c => (
                     <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-left">
                         <div class="flex items-center gap-3 mb-3">
@@ -202,7 +202,7 @@ const pageSchema = localAgencySchema({
             <div class="text-center mb-16 sm:mb-24 reveal">
                 <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Com treballem</span>
                 <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Estratègia SEO per posicionar la teva pime a Google
+                    Estratègia SEO per posicionar la teva pime de Sabadell a Google
                 </h2>
                 <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
                     Una metodologia documentada per passar de ser invisible a Google a captar clients des del cercador, pas a pas i sense fum.
@@ -242,7 +242,7 @@ const pageSchema = localAgencySchema({
             <div class="reveal lg:col-span-2">
                 <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Punt de partida</span>
                 <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
-                    Auditoria de posicionament SEO per a la teva pime
+                    Auditoria de posicionament SEO per a la teva pime de Sabadell
                 </h2>
             </div>
 
@@ -289,9 +289,9 @@ const pageSchema = localAgencySchema({
                 {[
                     { bg: 'bg-purple-100', color: 'text-purple-600', icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z', t: 'Revisió tècnica completa', d: 'Indexació, velocitat, Core Web Vitals, errors de rastreig i arquitectura. Tot el que impedeix a Google entendre la teva web, documentat.' },
                     { bg: 'bg-green-100', color: 'text-green-600', icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6', t: "Pla d'acció prioritzat", d: 'No una llista infinita de tasques, sinó un pla ordenat per impacte i esforç. Sabràs què arreglar la primera setmana i què no mereix ni un euro.' },
-                    { bg: 'bg-purple-100', color: 'text-purple-600', icon: 'M12 3a9 9 0 100 18 9 9 0 000-18zm0 5a4 4 0 100 8 4 4 0 000-8z', t: 'Keywords amb intenció de compra', d: 'Identifiquem les cerques que fan els teus clients quan volen contractar, no només les de més volum. Trànsit que converteix.' },
+                    { bg: 'bg-purple-100', color: 'text-purple-600', icon: 'M12 3a9 9 0 100 18 9 9 0 000-18zm0 5a4 4 0 100 8 4 4 0 000-8z', t: 'Keywords que converteixen a Sabadell', d: 'Identifiquem les cerques que fan els teus clients quan volen contractar, no només les de més volum. Trànsit que converteix.' },
                     { bg: 'bg-amber-100', color: 'text-amber-600', icon: 'M9 12h6m-6 4h6M9 8h2m8-3v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2h6l4 4z', t: 'Auditoria de continguts', d: 'Detectem quines pàgines posicionen, quines canibalitzen keywords entre si i quin contingut falta per cobrir les cerques del teu client.' },
-                    { bg: 'bg-blue-100', color: 'text-blue-600', icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z', t: 'Benchmark davant la teva competència', d: 'Comparem la teva visibilitat amb la dels teus tres competidors directes. Quines keywords els porten clients i què pots copiar o fer millor.' },
+                    { bg: 'bg-blue-100', color: 'text-blue-600', icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z', t: 'Benchmark amb els teus competidors del Vallès', d: 'Comparem la teva visibilitat amb la dels teus tres competidors directes. Quines keywords els porten clients i què pots copiar o fer millor.' },
                 ].map(card => (
                     <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
                         <div class:list={["w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0", card.bg]}>
@@ -319,9 +319,9 @@ const pageSchema = localAgencySchema({
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch reveal">
                 {[
-                    { n: '1', t: 'Radiografia de la teva visibilitat a Google', d: 'Analitzem en quina posició surts per a les cerques que fan els teus clients, quin trànsit reps i quines keywords s\'està emportant la teva competència.' },
+                    { n: '1', t: 'Radiografia de la teva visibilitat a Sabadell', d: 'Analitzem en quina posició surts per a les cerques que fan els teus clients, quin trànsit reps i quines keywords s\'està emportant la teva competència.' },
                     { n: '2', t: 'Diagnòstic tècnic i de continguts', d: 'Creuem les dades amb la salut tècnica de la teva web i el teu contingut per explicar exactament què t\'està frenant al cercador.' },
-                    { n: '3', t: 'Full de ruta per posicionar', d: 'Tanques l\'auditoria amb un document d\'accions ordenades per impacte i una videotrucada on repassem cada punt amb tu.' },
+                    { n: '3', t: 'Full de ruta per posicionar a Sabadell', d: 'Tanques l\'auditoria amb un document d\'accions ordenades per impacte i una videotrucada on repassem cada punt amb tu.' },
                 ].map((st, i) => (
                     <div class="flex items-center gap-4 lg:gap-6">
                         {i > 0 && <div class="hidden lg:flex text-3xl text-accent font-black select-none">→</div>}
@@ -350,7 +350,7 @@ const pageSchema = localAgencySchema({
             <div class="text-center mb-12 sm:mb-16 reveal">
                 <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Tarifes clares</span>
                 <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Preus de posicionament SEO per a pimes
+                    Preus de posicionament SEO a Sabadell
                 </h2>
                 <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto">
                     Tarifes orientatives i sense lletra petita. El preu d'una agència SEO varia segons la mida de la teva web, la competència del teu sector i el teu punt de partida a Google, així que abans de començar reps un pressupost tancat per escrit. Si et preguntes quant costa el posicionament SEO, aquests són els nostres rangs reals. El cost no porta sorpreses ni permanències.
@@ -359,9 +359,9 @@ const pageSchema = localAgencySchema({
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
                 {[
-                    { small: 'Preu', name: 'Auditoria SEO', price: '1.800€', meta: ['Lliurament en 3 a 4 setmanes', 'Per a qualsevol pime que vulgui saber on és'], items: ['Sessió inicial d\'objectius', 'Revisió tècnica completa', 'Posicions i visibilitat actual', 'Keyword research del teu sector', 'Auditoria de continguts', 'Comparativa amb 3 competidors', 'Accions ordenades per impacte', 'Videotrucada de lliurament'], cta: 'Vull auditar la meva web' },
-                    { small: 'Preu', name: 'SEO PIME', price: 'des de 400€ / mes', meta: ['Primers moviments en uns 3 mesos', 'Per a negocis locals i petites empreses'], items: ['Auditoria SEO inicial', 'Optimització tècnica contínua', 'Continguts que posicionen', 'SEO local i fitxa de Google', 'Enllaçat intern optimitzat', 'Ressenyes i senyals de confiança', 'Informe mensual de posicions i leads', 'Línia directa amb el consultor', 'Sense permanència'], cta: 'Vull posicionar la meva web' },
-                    { small: 'Preu', name: 'SEO Big Pime', price: 'des de 900€ / mes', meta: ['Primers moviments en uns 2 mesos', 'Per a empreses mitjanes i sectors competits'], items: ['Tot el pla SEO PIME', 'Estratègia SEO i GEO conjunta', 'Redacció professional ampliada', 'Link building en mitjans', 'Optimització de més de 100 URL', 'Cobertura multiseu o internacional', 'Reunió mensual de negoci', 'Objectiu, primeres posicions'], cta: 'Vull posicionar la meva empresa' },
+                    { small: 'Preu', name: 'Auditoria SEO a Sabadell', price: '1.800€', meta: ['Lliurament en 3 a 4 setmanes', 'Per a qualsevol pime que vulgui saber on és'], items: ['Sessió inicial d\'objectius', 'Revisió tècnica completa', 'Posicions i visibilitat actual', 'Keyword research del teu sector', 'Auditoria de continguts', 'Comparativa amb 3 competidors', 'Accions ordenades per impacte', 'Videotrucada de lliurament'], cta: 'Vull auditar la meva web' },
+                    { small: 'Preu', name: 'SEO PIME a Sabadell', price: 'des de 400€ / mes', meta: ['Primers moviments en uns 3 mesos', 'Per a negocis locals i petites empreses'], items: ['Auditoria SEO inicial', 'Optimització tècnica contínua', 'Continguts que posicionen', 'SEO local i fitxa de Google', 'Enllaçat intern optimitzat', 'Ressenyes i senyals de confiança', 'Informe mensual de posicions i leads', 'Línia directa amb el consultor', 'Sense permanència'], cta: 'Vull posicionar la meva web' },
+                    { small: 'Preu', name: 'SEO Big Pime a Sabadell', price: 'des de 900€ / mes', meta: ['Primers moviments en uns 2 mesos', 'Per a empreses mitjanes i sectors competits'], items: ['Tot el pla SEO PIME', 'Estratègia SEO i GEO conjunta', 'Redacció professional ampliada', 'Link building en mitjans', 'Optimització de més de 100 URL', 'Cobertura multiseu o internacional', 'Reunió mensual de negoci', 'Objectiu, primeres posicions'], cta: 'Vull posicionar la meva empresa' },
                 ].map(p => (
                     <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-10 flex flex-col shadow-[0_15px_40px_rgba(0,0,0,0.06)] hover:shadow-xl transition-shadow duration-300 reveal">
                         <h3 class="leading-tight mb-2">
@@ -397,7 +397,7 @@ const pageSchema = localAgencySchema({
             <div class="text-center mb-14 sm:mb-20 reveal">
                 <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Experiència sectorial</span>
                 <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Posicionament SEO per al teu sector
+                    Posicionament SEO per al teu sector a Sabadell
                 </h2>
                 <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
                     Cada sector es busca diferent a Google. Treballem amb sectors on ja sabem quines keywords converteixen i què és llençar els diners.
@@ -410,6 +410,7 @@ const pageSchema = localAgencySchema({
                         <div class="text-3xl mb-4">{s.icon}</div>
                         <h3 class="text-base uppercase tracking-tight text-zinc-900 mb-3 leading-tight font-montserrat-semibold">
                             {s.title}
+                            <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1 font-semibold">a Sabadell</span>
                         </h3>
                         <p class="text-sm text-zinc-500 font-light leading-relaxed">{s.desc}</p>
                     </div>
@@ -424,11 +425,51 @@ const pageSchema = localAgencySchema({
         </div>
     </section>
 
+    <!-- ═══ ZONAS ═════════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 relative overflow-hidden border-t border-black/5">
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_80%,transparent_100%)]"></div>
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-16 sm:mb-24 reveal">
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-4 text-zinc-900 leading-[0.9]">
+                    SEO local a totes les zones de Sabadell
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Sabadell no és un sol mercat. Cada zona té la seva competència i la seva manera de buscar a Google. Adaptem les keywords i els senyals locals a la zona on competeix el teu negoci.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="group p-8 border border-black/5 bg-white rounded-2xl hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal">
+                    <div class="h-1 bg-black w-12 group-hover:w-full transition-all duration-500 mb-6"></div>
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">Centre i la Rambla</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">El cor comercial de Sabadell. Botigues, clíniques i despatxos competint per les mateixes cerques locals. Aquí el posicionament es guanya amb una fitxa de Google impecable, ressenyes gestionades i SEO local quirúrgic.</p>
+                </div>
+                <div class="group p-8 border border-black/5 bg-white rounded-2xl hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal">
+                    <div class="h-1 bg-black w-12 group-hover:w-full transition-all duration-500 mb-6"></div>
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">Creu Alta, Gràcia i Ca n'Oriac</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">Barris de negoci de proximitat on el client busca des del mòbil amb intenció immediata. Treballem el pack local complet amb fitxa optimitzada, landings per zona i contingut local.</p>
+                </div>
+                <div class="group p-8 border border-black/5 bg-white rounded-2xl hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal">
+                    <div class="h-1 bg-black w-12 group-hover:w-full transition-all duration-500 mb-6"></div>
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">Polígons industrials de Sabadell</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">Can Roqueta, Sant Pau de Riu-sec i la resta de polígons concentren la indústria B2B de la ciutat. Els seus clients busquen proveïdors a Google amb keywords tècniques que porten pressupostos, no visites.</p>
+                </div>
+                <div class="group p-8 border border-black/5 bg-white rounded-2xl hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal">
+                    <div class="h-1 bg-black w-12 group-hover:w-full transition-all duration-500 mb-6"></div>
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">Vallès Occidental i Barcelona</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">
+                        Molts dels teus clients busquen des de fora de la ciutat. Cobrim tota la comarca amb posicionament SEO propi a <a href="/ca/agencia-seo-per-pimes/terrassa/" class="underline hover:text-accent transition-colors">Terrassa</a>, <a href="/ca/agencia-seo-per-pimes/sant-cugat/" class="underline hover:text-accent transition-colors">Sant Cugat</a> i <a href="/ca/agencia-seo-per-pimes/barcelona/" class="underline hover:text-accent transition-colors">Barcelona</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ═══ CITA ══════════════════════════════════════════════════ -->
     <section class="py-20 sm:py-28 bg-zinc-950 px-4 sm:px-6">
         <div class="max-w-4xl mx-auto text-center reveal">
             <blockquote class="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.15] mb-8">
-                “Cada dia els teus clients busquen el teu servei a Google. Si no apareixes, la venda se l'emporta un altre. No necessites més anuncis. Necessites posicionar-te.”
+                “Cada dia, clients de Sabadell busquen el teu servei a Google. Si no apareixes, la venda se l'emporta un altre. No necessites més anuncis. Necessites posicionar-te.”
             </blockquote>
             <p class="text-sm text-zinc-400 font-light mb-10">Sergio Galo's · Consultor SEO per a pimes</p>
             <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
@@ -443,7 +484,7 @@ const pageSchema = localAgencySchema({
             <div class="text-center mb-12 sm:mb-16 reveal">
                 <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Per què nova</span>
                 <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Què diferencia nova d'una altra agència SEO
+                    Què diferencia nova d'una altra agència SEO a Sabadell
                 </h2>
                 <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
                     El SEO està ple d'informes bonics que no porten clients. Nosaltres el treballem amb mètode, transparència i resultats que es veuen a la teva caixa, no només a les gràfiques.
@@ -490,7 +531,7 @@ const pageSchema = localAgencySchema({
         <div class="max-w-4xl mx-auto">
             <div class="mb-12 sm:mb-16 reveal text-center">
                 <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Com contractar una agència SEO sense que et venguin fum
+                    Com contractar una agència SEO a Sabadell sense que et venguin fum
                 </h2>
                 <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
                     Hi ha centenars d'agències SEO i la majoria de pimes tria malament la primera vegada. Aquests són els set criteris que hauries d'exigir a qualsevol agència, inclosa la nostra.
@@ -547,7 +588,7 @@ const pageSchema = localAgencySchema({
         <div class="mb-12 reveal">
           <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultats provats</span>
           <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
-            Casos d'èxit de posicionament<br class="hidden md:inline" /> SEO per a pimes
+            Casos d'èxit de posicionament<br class="hidden md:inline" /> SEO a Sabadell
           </h2>
         </div>
         <div class="cases-carousel relative overflow-hidden">
@@ -626,7 +667,7 @@ const pageSchema = localAgencySchema({
             </div>
 
             <div class="reveal lg:-mr-[12%] xl:-mr-[18%]">
-                <img src="/agencia-seo-per-pimes.webp" alt="Nova Marketing, agència SEO per a pimes recomanada per la IA" class="w-full h-auto" loading="lazy" />
+                <img src="/agencia-seo-per-pimes-sabadell.webp" alt="Nova Marketing, agència SEO a Sabadell recomanada per la IA" class="w-full h-auto" loading="lazy" />
             </div>
 
         </div>

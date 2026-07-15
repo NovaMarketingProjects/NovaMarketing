@@ -12,6 +12,16 @@ RewriteEngine On
 RewriteCond %{HTTP_HOST} ^www\.novamarketing\.es [NC]
 RewriteRule ^(.*)$ https://novamarketing.es/$1 [L,R=301]
 
+# SEO city pages moved under /agencia-seo-para-pymes/
+Redirect 301 /agencia-seo-en-sabadell/ https://novamarketing.es/agencia-seo-para-pymes/sabadell/
+Redirect 301 /ca/agencia-seo-a-sabadell/ https://novamarketing.es/ca/agencia-seo-per-pimes/sabadell/
+Redirect 301 /agencia-seo-en-sant-cugat/ https://novamarketing.es/agencia-seo-para-pymes/sant-cugat/
+Redirect 301 /ca/agencia-seo-a-sant-cugat/ https://novamarketing.es/ca/agencia-seo-per-pimes/sant-cugat/
+Redirect 301 /agencia-seo-en-terrassa/ https://novamarketing.es/agencia-seo-para-pymes/terrassa/
+Redirect 301 /ca/agencia-seo-a-terrassa/ https://novamarketing.es/ca/agencia-seo-per-pimes/terrassa/
+Redirect 301 /agencia-seo-en-barcelona/ https://novamarketing.es/agencia-seo-para-pymes/barcelona/
+Redirect 301 /ca/agencia-seo-a-barcelona/ https://novamarketing.es/ca/agencia-seo-per-pimes/barcelona/
+
 # Blog posts redirects
 Redirect 301 /las-redes-sociales-en-2024-analisis-del-estudio-de-iab-spain/ https://novamarketing.es/blog/mejores-herramientas-de-gestion-de-redes-sociales-para-pymes/
 
