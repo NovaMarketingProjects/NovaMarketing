@@ -20,10 +20,19 @@ const STATIC_PAGES: { ca: string; es: string; priority: string; changefreq: stri
   { ca: '/ca/agencia-seo-per-pimes/sabadell/',                         priority: '0.7', changefreq: 'monthly', es: '/agencia-seo-para-pymes/sabadell/'                      },
   { ca: '/ca/agencia-seo-per-pimes/sant-cugat/',                       priority: '0.7', changefreq: 'monthly', es: '/agencia-seo-para-pymes/sant-cugat/'                    },
   { ca: '/ca/agencia-seo-per-pimes/terrassa/',                         priority: '0.7', changefreq: 'monthly', es: '/agencia-seo-para-pymes/terrassa/'                      },
-  { ca: '/ca/agencia-google-ads-barcelona/',                   priority: '0.7', changefreq: 'monthly', es: '/agencia-google-ads-barcelona/'                 },
-  { ca: '/ca/agencia-google-ads-sabadell/',                    priority: '0.7', changefreq: 'monthly', es: '/agencia-google-ads-sabadell/'                  },
-  { ca: '/ca/agencia-google-ads-sant-cugat/',                  priority: '0.7', changefreq: 'monthly', es: '/agencia-google-ads-sant-cugat/'                },
-  { ca: '/ca/agencia-google-ads-terrassa/',                    priority: '0.7', changefreq: 'monthly', es: '/agencia-google-ads-terrassa/'                  },
+  { ca: '/ca/agencia-sem-per-pimes/barcelona/',                   priority: '0.7', changefreq: 'monthly', es: '/agencia-sem-para-pymes/barcelona/'                 },
+  { ca: '/ca/agencia-sem-per-pimes/sabadell/',                    priority: '0.7', changefreq: 'monthly', es: '/agencia-sem-para-pymes/sabadell/'                  },
+  { ca: '/ca/agencia-sem-per-pimes/sant-cugat/',                  priority: '0.7', changefreq: 'monthly', es: '/agencia-sem-para-pymes/sant-cugat/'                },
+  { ca: '/ca/agencia-sem-per-pimes/terrassa/',                    priority: '0.7', changefreq: 'monthly', es: '/agencia-sem-para-pymes/terrassa/'                  },
+  { es: '/agencia-geo-para-pymes/', ca: '/ca/agencia-geo-per-pimes/', priority: '0.9', changefreq: 'monthly' },
+  { es: '/agencia-geo-para-pymes/barcelona/', ca: '/ca/agencia-geo-per-pimes/barcelona/', priority: '0.7', changefreq: 'monthly' },
+  { es: '/diseno-web-para-pymes/barcelona/', ca: '/ca/disseny-web-per-pimes/barcelona/', priority: '0.7', changefreq: 'monthly' },
+  { es: '/agencia-geo-para-pymes/sabadell/', ca: '/ca/agencia-geo-per-pimes/sabadell/', priority: '0.7', changefreq: 'monthly' },
+  { es: '/diseno-web-para-pymes/sabadell/', ca: '/ca/disseny-web-per-pimes/sabadell/', priority: '0.7', changefreq: 'monthly' },
+  { es: '/agencia-geo-para-pymes/sant-cugat/', ca: '/ca/agencia-geo-per-pimes/sant-cugat/', priority: '0.7', changefreq: 'monthly' },
+  { es: '/diseno-web-para-pymes/sant-cugat/', ca: '/ca/disseny-web-per-pimes/sant-cugat/', priority: '0.7', changefreq: 'monthly' },
+  { es: '/agencia-geo-para-pymes/terrassa/', ca: '/ca/agencia-geo-per-pimes/terrassa/', priority: '0.7', changefreq: 'monthly' },
+  { es: '/diseno-web-para-pymes/terrassa/', ca: '/ca/disseny-web-per-pimes/terrassa/', priority: '0.7', changefreq: 'monthly' },
 ];
 
 function e(str: string): string {

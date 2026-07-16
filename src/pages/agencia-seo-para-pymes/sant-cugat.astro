@@ -13,7 +13,10 @@ const alternates = buildAlternates('/agencia-seo-para-pymes/sant-cugat/', '/ca/a
 let allCases: any[] = [];
 try {
   const casesRes = await strapiClient.getCaseStudies('es');
-  allCases = casesRes.data.map((i: any) => i.attributes ?? i);
+  allCases = casesRes.data.map((i: any) => i.attributes ?? i).filter((c: any) => {
+    const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase());
+    return cats.some((s: string) => s.includes('seo'));
+  });
 } catch {}
 
 const steps = [
@@ -140,7 +143,7 @@ const pageSchema = localAgencySchema({
                 </div>
             </div>
             <div class="hidden md:block">
-                <img src="/consultor-marketing-digital.webp" alt="Sergio Galo's, consultor SEO para PYMEs" class="w-full h-auto" loading="lazy" />
+                <img src="/sergio-galos-agencia-seo-para-pymes-sant-cugat.webp" alt="Sergio Galo's, consultor SEO para PYMEs en Sant Cugat" class="w-full h-auto" loading="lazy" />
             </div>
         </div>
     </section>
@@ -554,7 +557,7 @@ const pageSchema = localAgencySchema({
         <div class="max-w-5xl mx-auto reveal">
             <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] grid md:grid-cols-[280px_1fr] gap-8 sm:gap-12 items-center">
                 <div class="rounded-2xl overflow-hidden bg-zinc-100">
-                    <img src="/consultor-marketing-digital.webp" alt="Sergio Galo's, consultor SEO para PYMEs" class="w-full h-full object-cover object-top" loading="lazy" />
+                    <img src="/sergio-galos-agencia-seo-para-pymes-sant-cugat.webp" alt="Sergio Galo's, consultor SEO para PYMEs en Sant Cugat" class="w-full h-full object-cover object-top" loading="lazy" />
                 </div>
                 <div>
                     <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Quién está detrás</span>

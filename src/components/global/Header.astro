@@ -23,7 +23,8 @@ const t = {
     casos: 'Casos de éxito',
     contactar: 'CONTACTAR',
     services: [
-      { href: '/agencia-seo-para-pymes/', label: 'Posicionamiento SEO' },
+      { href: '/agencia-seo-para-pymes/', label: 'Posicionamiento SEO en Google' },
+      { href: '/agencia-geo-para-pymes/', label: 'Posicionamiento GEO en IA' },
       { href: '/agencia-sem-para-pymes/', label: 'Google Ads' },
       { href: '/diseno-web-para-pymes/', label: 'Diseño de Páginas Web' },
       { href: '/consultoria-marketing-para-pymes/', label: 'Consultoría de Marketing' },
@@ -36,7 +37,8 @@ const t = {
     casos: 'Casos d\'èxit',
     contactar: 'CONTACTAR',
     services: [
-      { href: '/ca/agencia-seo-per-pimes/', label: 'Posicionament SEO' },
+      { href: '/ca/agencia-seo-per-pimes/', label: 'Posicionament SEO a Google' },
+      { href: '/ca/agencia-geo-per-pimes/', label: 'Posicionament GEO en IA' },
       { href: '/ca/agencia-sem-per-pimes/', label: 'Google Ads' },
       { href: '/ca/disseny-web-per-pimes/', label: 'Disseny de Pàgines Web' },
       { href: '/ca/consultoria-marketing-per-pimes/', label: 'Consultoria de Marketing' },
@@ -75,7 +77,7 @@ const currentPath = Astro.url.pathname;
           <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:rotate-180 transition-transform"><polyline points="6 9 12 15 18 9"></polyline></svg>
         </button>
 
-        <div class="absolute top-8 left-1/2 -translate-x-1/2 w-52 bg-white border border-black/5 shadow-lg rounded-md invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-200 mt-2 p-1.5 flex flex-col gap-0.5 z-50">
+        <div class="absolute top-8 left-1/2 -translate-x-1/2 w-max min-w-52 bg-white border border-black/5 shadow-lg rounded-md invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-200 mt-2 p-1.5 flex flex-col gap-0.5 z-50">
           {services.map(s => (
             <a href={s.href} class="text-[11px] uppercase font-bold tracking-wider text-zinc-600 hover:text-accent hover:bg-zinc-50 px-3 py-2 rounded transition-colors whitespace-nowrap">
               {s.label}

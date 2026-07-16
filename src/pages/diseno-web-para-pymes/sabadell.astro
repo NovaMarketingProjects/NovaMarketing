@@ -1,0 +1,826 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { buildAlternates } from '../../lib/i18n';
+import { localAgencySchema } from '../../lib/schema';
+import { strapiClient } from '../../lib/strapi';
+import LogoMarquee from '../../components/sections/LogoMarquee.astro';
+import FaqHome from '../../components/sections/FaqHome.astro';
+import GoogleReviews from '../../components/global/GoogleReviews.astro';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const alternates = buildAlternates('/diseno-web-para-pymes/sabadell/', '/ca/disseny-web-per-pimes/sabadell/', SITE_URL);
+
+let allCases: any[] = [];
+try {
+  const casesRes = await strapiClient.getCaseStudies('es');
+  allCases = casesRes.data.map((i: any) => i.attributes ?? i).filter((c: any) => {
+    const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase());
+    return cats.some((s: string) => s === 'diseno-web');
+  });
+} catch {}
+
+const steps = [
+  { title: "Briefing con tu negocio de Sabadell", desc: "Antes de diseñar nada, entendemos tu negocio. Qué vendes, a quién, qué hace tu competencia y qué tiene que conseguir la web. Una web sin objetivo es un folleto caro. La tuya nace con una misión concreta, convertir visitas en clientes." },
+  { title: "Arquitectura y contenidos para el Vallès", desc: "Definimos qué páginas necesita tu web, cómo se organizan y qué dice cada una. La estructura se piensa para el usuario y para Google a la vez, con las keywords de tu sector integradas desde el primer boceto." },
+  { title: "Diseño y desarrollo", desc: "Diseñamos una web que transmite confianza en tres segundos y la desarrollamos con código limpio y rápido. Adaptada a móvil desde el primer píxel, porque ahí está la mayoría de tus visitas." },
+  { title: "SEO técnico y velocidad", desc: "Cada web sale optimizada de serie. Core Web Vitals en verde, datos estructurados, indexación correcta y tiempos de carga que no espantan ni a tus clientes ni a Google. Lo que otros venden como extra, aquí es el estándar." },
+  { title: "Lanzamiento y mantenimiento", desc: "Publicamos, medimos y no desaparecemos. Analítica configurada desde el día uno, copias de seguridad, actualizaciones y soporte directo. Tu web es un activo vivo que mejora cada mes, no un proyecto que se entrega y se olvida." }
+];
+
+const criteria = [
+  { title: "Pide webs reales que pueda visitar", desc: "Un portfolio de capturas bonitas no demuestra nada. Pide direcciones de webs vivas, entra desde el móvil y comprueba cómo cargan. Una agencia de diseño web seria debería poder enseñarte proyectos de negocios como el tuyo funcionando hoy." },
+  { title: "Pregunta quién hará tu web", desc: "En muchas agencias vende un comercial y ejecuta una plantilla comprada. Exige saber quién diseña, quién desarrolla y con quién hablarás durante el proyecto. En nova hablas siempre con el consultor que lleva tu proyecto." },
+  { title: "Exige la propiedad de tu web y tu dominio", desc: "El dominio, el hosting, la web y sus contenidos deben estar a tu nombre. Hay pymes que llevan años pagando y descubren al querer cambiar de agencia que no son dueñas ni de su propio dominio. Eso no es un servicio, es una dependencia." },
+  { title: "Desconfía de las webs a 300 euros", desc: "Una web tirada de precio suele ser una plantilla clonada, lenta y sin ningún trabajo de SEO. La acabas pagando dos veces, la segunda cuando alguien tiene que rehacerla para que funcione. Lo barato en diseño web es lo que no genera clientes." },
+  { title: "Revisa qué pasa después del lanzamiento", desc: "Una web sin mantenimiento envejece mal. Actualizaciones, seguridad, copias y pequeños cambios forman parte del servicio. Pregunta qué incluye el soporte y cuánto cuesta cada cambio antes de firmar, no después." },
+  { title: "Huye de las permanencias largas", desc: "Una permanencia de 24 meses protege a la agencia, no a ti. El trabajo bien hecho retiene clientes sin contratos que los aten. Por eso en nova trabajamos sin permanencias." },
+  { title: "Que la web nazca preparada para SEO y para la IA", desc: "Una web bonita que Google no entiende es invisible. Y cada vez más clientes preguntan a ChatGPT antes de buscar. Exige datos estructurados, contenido citable y velocidad de serie. Nosotros diseñamos cada web para posicionar en Google y en la IA desde el primer día." }
+];
+
+const faqs = [
+  { question: "¿Cuánto cuesta una página web en Sabadell?", answer: "Una landing page para campañas parte de 400 euros, una web a medida desde 120 euros al mes en 12 cuotas y una tienda online desde 130 euros al mes en 12 cuotas. Presupuesto cerrado por escrito antes de empezar, sin sorpresas ni permanencias." },
+  { question: "¿Hacéis webs para el comercio y los servicios del centro?", answer: "Sí, es uno de nuestros perfiles habituales. Para un negocio del centro o de la Rambla la web debe cargar rápida desde el móvil, mostrar reseñas y facilitar la llamada o la reserva en un toque. Ese es el estándar con el que diseñamos." },
+  { question: "¿Y para la industria de los polígonos?", answer: "También. Las empresas B2B de Can Roqueta o Sant Pau de Riu-sec necesitan webs con fichas técnicas claras, casos documentados y formularios que generen presupuestos. Diseñamos pensando en el responsable de compras que compara proveedores." },
+  { question: "¿Podemos reunirnos en persona en Sabadell?", answer: "Sí. Nuestra oficina está en el Carrer de Bilbao, 1, en Sabadell, así que las reuniones del proyecto pueden ser presenciales, tanto en nuestra oficina como en tu negocio, en cualquier punto de la ciudad o del Vallès." },
+  { question: "¿Cuánto se tarda en tener la web lista?", answer: "Una web corporativa suele estar lista en 3 a 5 semanas y una tienda online en 6 a 8, contando desde que recibimos los contenidos. En el briefing inicial te damos un calendario con fechas concretas." },
+  { question: "¿La web incluye SEO para posicionar en Sabadell?", answer: "Toda web que sale de nova incluye la base SEO de serie, con las búsquedas locales de Sabadell y el Vallès integradas en la estructura y los textos. Si después quieres competir por posiciones, nuestro servicio de SEO continúa desde esa base." },
+  { question: "¿La web y el dominio serán míos?", answer: "Sí, siempre. El dominio se registra a tu nombre, los contenidos son tuyos y tienes acceso completo a todo. Si algún día dejas de trabajar con nosotros, te llevas tu web entera." },
+];
+
+const sectors = [
+  { icon: '🛒', title: 'Diseño web para ecommerce', desc: 'Tiendas online rápidas, con fichas que venden y un proceso de compra sin fricciones. El diseño trabaja para el carrito, no contra él.' },
+  { icon: '🏠', title: 'Diseño web para inmobiliarias', desc: 'Buscadores de propiedades claros, fichas con la información que decide y formularios que convierten visitas en visitas al piso.' },
+  { icon: '🍽️', title: 'Diseño web para restaurantes', desc: 'Carta legible desde el móvil, reservas en dos toques y una web conectada con tu ficha de Google. El comensal decide en segundos.' },
+  { icon: '🧠', title: 'Diseño web para psicólogos', desc: 'El paciente busca confianza antes que precio. Webs serenas, con autoridad clínica y una primera cita a un clic de distancia.' },
+  { icon: '🌿', title: 'Diseño web para terapeutas', desc: 'Tu web es tu consulta antes de la consulta. Diseño que transmite lo que haces y contenido que convierte dudas en primeras visitas.' },
+  { icon: '🦷', title: 'Diseño web para dentistas', desc: 'Sector saturado donde la web decide. Casos reales, reseñas visibles y cita online para convertir la búsqueda en paciente.' },
+  { icon: '💪', title: 'Diseño web para gimnasios', desc: 'Horarios claros, tarifas sin letra pequeña y alta online. Una web que llena clases en enero y las mantiene el resto del año.' },
+  { icon: '🏗️', title: 'Diseño web para constructoras', desc: 'Proyectos documentados con fotos reales y formularios que filtran curiosos. La web que convierte visitas en presupuestos.' },
+  { icon: '⚖️', title: 'Diseño web para abogados', desc: 'Autoridad y claridad. Webs por especialidad que resuelven la duda legal del cliente y lo llevan a la consulta.' },
+  { icon: '🏨', title: 'Diseño web para hoteles', desc: 'Reserva directa sin depender de las OTAs. Webs con motor de reservas, fotos que venden y velocidad de carga impecable.' },
+  { icon: '🏭', title: 'Diseño web para B2B', desc: 'Fichas técnicas descargables, casos de éxito y formularios pensados para el responsable de compras. Webs que generan presupuestos.' },
+  { icon: '🎓', title: 'Diseño web para escuelas', desc: 'Proyecto educativo bien contado, visitas al centro a un clic y matrícula online. La web que las familias comparan antes de decidir.' },
+];
+
+const pageSchema = localAgencySchema({
+  pageUrl: `${SITE_URL}/diseno-web-para-pymes/sabadell/`,
+  lang: 'es',
+  cityName: 'Sabadell',
+  postalCode: '08202',
+  geo: { lat: 41.5463, lng: 2.1086 },
+  areaServed: ["Sabadell", "Vallès Occidental", "Barcelona", "España"],
+  title: "Diseño Web en Sabadell | Páginas Web que Venden para PYMEs",
+  description: "Agencia de diseño web en Sabadell para PYMEs. Webs corporativas, landings y tiendas online rápidas, optimizadas para Google y pensadas para convertir visitas en clientes.",
+  datePublished: '2026-07-16',
+  dateModified: '2026-07-16',
+  streetAddress: 'Carrer de Bilbao, 1',
+  hasMap: 'https://maps.app.goo.gl/ETtzpajqEucNf22D7',
+  aggregateRating: { ratingValue: '5.0', reviewCount: '16' },
+  breadcrumbName: 'Diseño Web en Sabadell',
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Diseño Web en Sabadell | Páginas Web que Venden para PYMEs"
+  description="Agencia de diseño web en Sabadell para PYMEs. Webs corporativas, landings y tiendas online rápidas, optimizadas para Google y pensadas para convertir visitas en clientes."
+  locale="es"
+  alternates={alternates}
+  schemas={[pageSchema]}
+>
+
+    <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
+    <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+        <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+
+        <div class="max-w-5xl mx-auto reveal">
+            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
+                <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+                Diseño Web para Pymes
+            </span>
+            <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
+                <span class="lg:whitespace-nowrap">Diseño Páginas Web </span>
+                <span class="lg:whitespace-nowrap text-mktg-gradient">en Sabadell</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
+                Tu web es tu mejor comercial o tu peor enemigo. Diseñamos páginas web para PYMEs de Sabadell rápidas, optimizadas para Google y pensadas para convertir visitas en clientes.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
+                {['Sin permanencias', 'La web y el dominio son tuyos', 'SEO incluido de serie'].map(item => (
+                    <span class="inline-flex items-center gap-2 text-[11px] sm:text-xs font-black uppercase tracking-widest text-zinc-700">
+                        <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        {item}
+                    </span>
+                ))}
+            </div>
+            <div class="flex justify-center mt-4">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    HABLEMOS DE TU NEGOCIO
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <LogoMarquee />
+
+    <!-- ═══ INTRO: POR QUÉ TU WEB ═══════════════════════════════════════ -->
+    <section class="py-16 sm:py-24 bg-white px-4 sm:px-6 border-b border-black/5">
+        <div class="max-w-6xl mx-auto reveal grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-16 items-center">
+            <div>
+                <p class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4">¿Por qué tu web importa?</p>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    La agencia de diseño web para tu pyme en Sabadell
+                </h2>
+                <div class="space-y-6 text-zinc-600 font-light text-base sm:text-lg leading-relaxed">
+                    <p>
+                        <strong class="font-semibold text-zinc-900">Tu web trabaja las 24 horas, la pregunta es si trabaja a favor o en contra</strong>. Antes de llamarte, tu cliente te ha buscado, ha entrado en tu página desde el móvil y ha decidido en segundos si eres de fiar. Una web lenta o anticuada le manda directo a tu competencia.
+                    </p>
+                    <p>
+                        Nova es una <strong class="font-semibold text-zinc-900">agencia de diseño web especializada en PYMEs</strong> que trabaja con negocios de Sabadell y toda su comarca. No hacemos webs para ganar premios de diseño, las hacemos con un objetivo medible. <strong class="font-semibold text-zinc-900">Que cada visita tenga la máxima probabilidad de convertirse en un cliente</strong>.
+                    </p>
+                </div>
+            </div>
+            <div class="hidden md:block">
+                <img src="/sergio-galos-diseno-web-para-pymes-sabadell.webp" alt="Sergio Galo's, consultor de diseño web para PYMEs en Sabadell" class="w-full h-auto" loading="lazy" />
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SERVICIOS WEB ══════════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50 border-b border-black/5 px-4 sm:px-6">
+        <div class="max-w-7xl mx-auto text-center reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Qué hacemos</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Servicio de diseño web para PYMEs en Sabadell
+            </h2>
+            <div class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-16 space-y-4">
+                <p>
+                    Una <strong class="font-semibold text-zinc-700">página web que vende</strong> no es solo diseño, es un sistema. Estas son las nueve piezas que trabajamos para que tu web deje de ser una tarjeta de visita y se convierta en tu mejor canal de captación.
+                </p>
+                <p>
+                    Cada pieza se activa según lo que necesite tu proyecto. No pagas por un paquete cerrado de acciones, pagas por las que tu negocio necesita.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[
+                    { icon: 'M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z', t: 'Webs corporativas en Sabadell', d: 'La web de empresa que presenta tu negocio, transmite confianza y convierte. Estructura pensada para el cliente y para Google.' },
+                    { icon: 'M13 10V3L4 14h7v7l9-11h-7z', t: 'Landing pages para tus campañas', d: 'Páginas de aterrizaje para tus campañas con un solo objetivo. Que el clic acabe en llamada o formulario, sin distracciones.' },
+                    { icon: 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z', t: 'Tiendas online', d: 'Ecommerce rápido con fichas optimizadas, pasarela de pago fiable y un proceso de compra que no pierde carritos por el camino.' },
+                    { icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15', t: 'Rediseño sin perder posiciones', d: 'Renovamos webs anticuadas sin perder el posicionamiento conseguido. Migración cuidada, redirecciones y mejora medible.' },
+                    { icon: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4', t: 'WordPress y a medida', d: 'WordPress cuando necesitas autonomía para editar y desarrollo a medida cuando velocidad y SEO son críticos. El criterio manda.' },
+                    { icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6', t: 'Velocidad y Core Web Vitals', d: 'Webs que cargan en verde. La velocidad decide si el visitante se queda y es factor de posicionamiento en Google.' },
+                    { icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z', t: 'SEO local desde el diseño', d: 'Arquitectura, keywords, datos estructurados e indexación integrados desde el primer boceto, no parcheados después.' },
+                    { icon: 'M9 12h6m-6 4h6M9 8h2m8-3v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2h6l4 4z', t: 'Textos para el cliente del Vallès', d: 'Redactamos los contenidos de tu web orientados a lo que busca tu cliente. El diseño atrae y el texto convierte.' },
+                    { icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z', t: 'Mantenimiento y soporte cercano', d: 'Actualizaciones, seguridad, copias diarias y cambios sin esperas. Tu web siempre al día y tú a lo tuyo, tu negocio.' },
+                ].map(c => (
+                    <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-left">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d={c.icon}/></svg>
+                            </div>
+                            <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900">{c.t}</h3>
+                        </div>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.d}</p>
+                    </div>
+                ))}
+            </div>
+
+            <div class="mt-12 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    HABLEMOS DE TU NEGOCIO
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ METODOLOGÍA WEB ════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16 sm:mb-24 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Cómo trabajamos</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Así creamos la web que convierte visitas en clientes en Sabadell
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Una metodología documentada para pasar de una web que solo existe a una web que vende, paso a paso y sin humo.
+                </p>
+            </div>
+
+            <div id="timeline-container" class="relative">
+                <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
+                <div id="progress-bar" class="hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100"></div>
+
+                <div class="space-y-16 md:space-y-24 flex flex-col items-center">
+                    {steps.map((step, index) => (
+                        <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
+                            <div class:list={["flex-1 w-full", index % 2 === 0 ? "md:order-1 md:text-right" : "md:order-3 md:text-left"]}>
+                                <div class="p-8 sm:p-10 bg-zinc-50 border border-black/5 rounded-3xl hover:border-accent/10 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+                                    <h3 class="text-xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{index + 1}. {step.title}</h3>
+                                    <div class:list={["h-0.5 bg-accent w-full mb-4 opacity-80", index % 2 === 0 ? "md:ml-auto" : ""]}></div>
+                                    <p class:list={["text-sm text-zinc-500 font-light max-w-md", index % 2 === 0 ? "md:ml-auto" : ""]}>{step.desc}</p>
+                                    <div class="absolute -bottom-6 -right-5 text-8xl font-black text-black/[0.02] select-none z-0 group-hover:scale-105 transition-transform duration-500">0{index+1}</div>
+                                </div>
+                            </div>
+                            <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all">
+                                0{index + 1}
+                            </div>
+                            <div class:list={["hidden md:block md:flex-1", index % 2 === 0 ? "md:order-3" : "md:order-1"]}></div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ AUDITORÍA WEB ═════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-[6fr_4fr] gap-12 lg:gap-16 items-start">
+
+            <div class="reveal lg:col-span-2">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Punto de partida</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
+                    Auditoría web gratuita para tu PYME de Sabadell
+                </h2>
+            </div>
+
+            <div class="reveal">
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed mb-8">
+                    <p>
+                        Antes de proponerte nada, revisamos lo que ya tienes. ¿Sabes cuántos segundos tarda tu web en cargar desde un móvil? ¿Cuántas visitas recibe y cuántas acaban en un contacto? Casi ninguna pyme lo sabe con datos, y ahí empieza todo.
+                    </p>
+                    <p>
+                        Nuestra <strong class="font-semibold text-zinc-900">auditoría web gratuita</strong> revisa tu página actual con ojos de cliente y de consultor. Velocidad, diseño, textos, SEO y conversión, y termina con un diagnóstico claro. Qué conservar, qué mejorar y qué está costándote clientes cada semana.
+                    </p>
+                    <p>
+                        A diferencia de los análisis automáticos que generan un PDF con cien avisos irrelevantes, aquí tu web la revisa un consultor senior con años de experiencia en pymes. El resultado no es un listado técnico, es un diagnóstico de negocio que entiende cualquier gerente.
+                    </p>
+                    <p>
+                        Si estás pensando en renovar tu web o te la está haciendo otra agencia, la auditoría también sirve como segunda opinión independiente antes de invertir.
+                    </p>
+                </div>
+                <ul class="space-y-3">
+                    {[
+                        'Velocidad de carga y Core Web Vitals desde el móvil',
+                        'Primera impresión y confianza que transmite el diseño',
+                        'Textos y llamadas a la acción que convierten o espantan',
+                        'Salud SEO con indexación y visibilidad en Google',
+                        'Puntos de fuga en el camino de la visita al contacto',
+                        'Diagnóstico priorizado con lo que más impacto tiene',
+                    ].map(item => (
+                        <li class="flex items-start gap-3 text-sm text-zinc-700 font-light">
+                            <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            {item}
+                        </li>
+                    ))}
+                </ul>
+                <div class="mt-16">
+                    <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                        QUIERO MI AUDITORÍA WEB GRATIS
+                    </a>
+                </div>
+            </div>
+
+            <div class="reveal flex flex-col gap-4">
+                {[
+                    { bg: 'bg-purple-100', color: 'text-purple-600', icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6', t: 'Test de velocidad real', d: 'Medimos cuánto tarda tu web desde un móvil con conexión normal, que es como llega tu cliente. Cada segundo de más son ventas de menos.' },
+                    { bg: 'bg-green-100', color: 'text-green-600', icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z', t: 'Revisión con ojos de cliente sabadellense', d: 'Entramos en tu web como lo haría alguien que no te conoce. Qué entiende en tres segundos, qué le genera dudas y por qué se va sin contactar.' },
+                    { bg: 'bg-purple-100', color: 'text-purple-600', icon: 'M12 3a9 9 0 100 18 9 9 0 000-18zm0 5a4 4 0 100 8 4 4 0 000-8z', t: 'Salud SEO de tu web', d: 'Comprobamos si Google entiende tu página, qué keywords trabaja y qué visibilidad estás dejando escapar frente a tu competencia.' },
+                    { bg: 'bg-amber-100', color: 'text-amber-600', icon: 'M9 12h6m-6 4h6M9 8h2m8-3v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2h6l4 4z', t: 'Análisis de conversión', d: 'Revisamos formularios, botones y llamadas a la acción. Detectamos dónde pierde clientes tu web y qué cambio tendría más impacto.' },
+                    { bg: 'bg-blue-100', color: 'text-blue-600', icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z', t: 'Comparativa con tus competidores del Vallès', d: 'Ponemos tu web al lado de la de tus tres competidores directos. Qué hacen mejor, qué haces mejor tú y dónde está la oportunidad.' },
+                ].map(card => (
+                    <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                        <div class:list={["w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0", card.bg]}>
+                            <svg class:list={["w-5 h-5", card.color]} fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d={card.icon}/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-black text-zinc-900 mb-1">{card.t}</h3>
+                            <p class="text-xs text-zinc-500 font-light leading-relaxed">{card.d}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══ QUÉ INCLUYE LA AUDITORÍA WEB ═══════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Paso a paso</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
+                    Qué incluye la auditoría web de nova
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch reveal">
+                {[
+                    { n: '1', t: 'Radiografía de tu web actual', d: 'Analizamos velocidad, diseño, contenidos y SEO de tu página tal y como la ve hoy tu cliente y como la ve Google.' },
+                    { n: '2', t: 'Diagnóstico de conversión en tu mercado', d: 'Cruzamos los datos con el recorrido real del usuario para explicar exactamente dónde y por qué tu web pierde clientes.' },
+                    { n: '3', t: 'Hoja de ruta con presupuesto cerrado', d: 'Cierras la auditoría con un diagnóstico claro, la propuesta que más te conviene y un presupuesto cerrado por escrito. Sin compromiso.' },
+                ].map((st, i) => (
+                    <div class="flex items-center gap-4 lg:gap-6">
+                        {i > 0 && <div class="hidden lg:flex text-3xl text-accent font-black select-none">→</div>}
+                        <div class="bg-white border border-black/5 rounded-2xl p-8 shadow-[0_15px_40px_rgba(0,0,0,0.06)] flex-1 text-center h-full">
+                            <div class="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto mb-4 text-accent font-black text-lg">{st.n}</div>
+                            <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3">{st.t}</h3>
+                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{st.d}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto text-center mt-16 reveal">
+                Nuestra auditoría web es el primer paso de cualquier proyecto de diseño o rediseño. Analiza cómo funciona hoy tu página, explica por qué no genera los clientes que debería y te deja claro qué opción te conviene, mejorar lo que tienes o empezar de cero. Es gratuita y sin compromiso, porque preferimos que decidas con datos y no con promesas. Sin tecnicismos innecesarios. Sales sabiendo dónde estás y qué hacer a continuación.
+            </p>
+            <div class="mt-12 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    QUIERO MI AUDITORÍA WEB GRATIS
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PRECIOS WEB ════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Tarifas claras</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Precios de diseño web en Sabadell
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto">
+                    Tarifas orientativas y sin letra pequeña. El precio de una web depende de su tamaño, sus funcionalidades y el contenido que haya que crear, así que antes de empezar recibes un presupuesto cerrado por escrito. Si te preguntas cuánto cuesta una página web para tu pyme, estos son nuestros rangos reales. El coste no lleva sorpresas ni permanencias.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                {[
+                    { small: 'Precio', name: 'Landing page en Sabadell', price: 'desde 400€', note: '', meta: ['Lista en 1 a 2 semanas', 'Para campañas de Google Ads y redes que necesitan convertir'], items: ['Página de aterrizaje enfocada a convertir', 'Diseño adaptado a tu campaña', 'Textos orientados a la acción', 'Formulario y llamada a un toque', 'Velocidad optimizada', 'Medición de conversiones', 'Adaptada a móvil', 'Entrega llave en mano'], cta: 'Quiero mi landing page' },
+                    { small: 'Precio', name: 'Web a medida en Sabadell', price: 'desde 120€ / mes', note: 'en 12 cuotas', meta: ['Entrega en 3 a 5 semanas', 'Para pymes que quieren una web propia y exclusiva'], items: ['Briefing de negocio y objetivos', 'Arquitectura y keywords', 'Diseño exclusivo para tu marca', 'Desarrollo rápido y limpio', 'Redacción de contenidos', 'SEO técnico completo', 'Analítica configurada', 'Formación para editarla', 'La web es tuya al 100%'], cta: 'Quiero mi web a medida' },
+                    { small: 'Precio', name: 'Tienda online en Sabadell', price: 'desde 130€ / mes', note: 'en 12 cuotas', meta: ['Entrega en 6 a 8 semanas', 'Para negocios que quieren vender online de verdad'], items: ['Todo lo de la web a medida', 'Catálogo y fichas de producto', 'Pasarela de pago segura', 'Proceso de compra optimizado', 'Envíos e impuestos configurados', 'SEO de producto y categoría', 'Emails transaccionales', 'Formación para gestionarla', 'Preparada para campañas'], cta: 'Quiero vender online' },
+                ].map(p => (
+                    <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-10 flex flex-col shadow-[0_15px_40px_rgba(0,0,0,0.06)] hover:shadow-xl transition-shadow duration-300 reveal">
+                        <h3 class="leading-tight mb-2">
+                            <span class="block text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-1">{p.small} </span>
+                            <span class="block text-xl font-black uppercase tracking-tight text-zinc-900">{p.name}</span>
+                        </h3>
+                        <div class="text-lg font-bold text-zinc-900">{p.price}</div>
+                        {p.note && <div class="text-[10px] text-zinc-400 font-light">{p.note}</div>}
+                        <div class="text-[10px] text-zinc-400 font-light mt-1 mb-6">* Precio sin IVA</div>
+                        <div class="text-xs text-zinc-500 font-light mb-8 space-y-1.5">
+                            {p.meta.map(m => <div>{m}</div>)}
+                        </div>
+                        <div class="text-xs font-black uppercase tracking-widest text-zinc-400 pb-3 border-b border-zinc-100">Qué incluye</div>
+                        <ul class="divide-y divide-zinc-100 flex-1">
+                            {p.items.map(item => (
+                                <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light">
+                                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 !py-4 !text-[11px] !tracking-widest font-black mt-10 text-center">
+                            {p.cta}
+                        </a>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SECTORES ═══════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-14 sm:mb-20 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Experiencia sectorial</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Diseño web para tu sector en Sabadell
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Cada sector convierte distinto. Trabajamos con sectores donde ya sabemos qué estructura, qué contenidos y qué llamadas a la acción funcionan.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
+                {sectors.map(s => (
+                    <div class="bg-white border border-black/5 rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <div class="text-3xl mb-4">{s.icon}</div>
+                        <h3 class="text-base uppercase tracking-tight text-zinc-900 mb-3 leading-tight font-montserrat-semibold">
+                            {s.title}
+                            <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1 font-semibold">en Sabadell</span>
+                        </h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed">{s.desc}</p>
+                    </div>
+                ))}
+            </div>
+
+            <div class="mt-14 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    QUIERO UNA WEB QUE VENDA
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ ZONAS ═════════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 relative overflow-hidden border-t border-black/5">
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_80%,transparent_100%)]"></div>
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-16 sm:mb-24 reveal">
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-4 text-zinc-900 leading-[0.9]">
+                    Diseño web en todas las zonas de Sabadell
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Sabadell no es un solo mercado. Cada zona tiene su tipo de cliente y su forma de comprar. Diseñamos la web pensando en la zona donde compite tu negocio.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="group p-8 border border-black/5 bg-white rounded-2xl hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal">
+                    <div class="h-1 bg-black w-12 group-hover:w-full transition-all duration-500 mb-6"></div>
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">Centro y la Rambla</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">El corazón comercial de Sabadell. Tiendas, clínicas y despachos donde la web decide la primera visita. Diseño que transmite confianza en segundos y facilita la llamada o la reserva desde el móvil.</p>
+                </div>
+                <div class="group p-8 border border-black/5 bg-white rounded-2xl hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal">
+                    <div class="h-1 bg-black w-12 group-hover:w-full transition-all duration-500 mb-6"></div>
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">Creu Alta, Gràcia y Ca n'Oriac</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">Barrios de negocio de proximidad donde el cliente llega desde el móvil buscando resolver ya. Webs rápidas con el teléfono a un toque y la información que decide en la primera pantalla.</p>
+                </div>
+                <div class="group p-8 border border-black/5 bg-white rounded-2xl hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal">
+                    <div class="h-1 bg-black w-12 group-hover:w-full transition-all duration-500 mb-6"></div>
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">Polígonos industriales de Sabadell</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">Can Roqueta, Sant Pau de Riu-sec y el resto de polígonos concentran la industria B2B. Webs con fichas técnicas, casos documentados y formularios que convierten visitas en presupuestos industriales.</p>
+                </div>
+                <div class="group p-8 border border-black/5 bg-white rounded-2xl hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal">
+                    <div class="h-1 bg-black w-12 group-hover:w-full transition-all duration-500 mb-6"></div>
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">Vallès Occidental y Barcelona</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">
+                        Muchos de tus clientes llegan desde fuera de la ciudad. Cubrimos toda la comarca con servicio de diseño web propio en <a href="/diseno-web-para-pymes/terrassa/" class="underline hover:text-accent transition-colors">Terrassa</a>, <a href="/diseno-web-para-pymes/sant-cugat/" class="underline hover:text-accent transition-colors">Sant Cugat</a> y <a href="/diseno-web-para-pymes/barcelona/" class="underline hover:text-accent transition-colors">Barcelona</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CITA ══════════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-zinc-950 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <blockquote class="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.15] mb-8">
+                “Tu cliente de Sabadell visita tu web antes de llamarte. En esos segundos decide si eres de fiar o sigue buscando. No necesitas una web más bonita. Necesitas una web que venda.”
+            </blockquote>
+            <p class="text-sm text-zinc-400 font-light mb-10">Sergio Galo's · Consultor de diseño web para PYMEs</p>
+            <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                HABLEMOS DE TU NEGOCIO
+            </a>
+        </div>
+    </section>
+
+    <!-- ═══ POR QUÉ NOVA (COMPARATIVA) ═════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Por qué nova</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Qué diferencia a nova de otra agencia de diseño web en Sabadell
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    El diseño web está lleno de plantillas clonadas y proyectos abandonados tras el lanzamiento. Nosotros lo trabajamos con método, transparencia y resultados que se ven en tu caja, no solo en la pantalla.
+                </p>
+            </div>
+
+            <div class="reveal overflow-x-auto rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
+                <table class="w-full min-w-[640px] text-left border-collapse bg-white">
+                    <thead>
+                        <tr class="bg-black text-white">
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Criterio</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Nova</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Otras agencias</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-zinc-100">
+                        {[
+                            { c: "Quién será tu contacto", o: "Gestor junior con 20-30 proyectos", n: "Sergio Galo's" },
+                            { c: "Enfoque del diseño", o: "Web bonita como objetivo final", n: "Web pensada para convertir visitas en clientes" },
+                            { c: "Propiedad de la web", o: "Dominio y web a nombre de la agencia", n: "Todo a tu nombre desde el día uno" },
+                            { c: "SEO", o: "Extra que se cobra aparte o se ignora", n: "Incluido de serie en cada web" },
+                            { c: "Después del lanzamiento", o: "Proyecto entregado y adiós", n: "Mantenimiento, soporte y mejora continua" },
+                            { c: "Especialización", o: "De multinacionales a autónomos, todo vale", n: "Cien por cien enfocados en PYMEs" },
+                            { c: "Transparencia de precios", o: "Presupuestos opacos con extras sorpresa", n: "Precio cerrado por escrito antes de empezar" },
+                        ].map(row => (
+                            <tr class="hover:bg-zinc-50/50 transition-colors">
+                                <td class="px-6 py-5 text-sm font-bold text-zinc-900">{row.c}</td>
+                                <td class="px-6 py-5 text-sm font-bold text-accent">{row.n}</td>
+                                <td class="px-6 py-5 text-sm text-zinc-500 font-light">{row.o}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="text-xs sm:text-sm text-zinc-400 font-light leading-relaxed mt-6 reveal">
+                Una agencia de diseño web externa te da acceso a experiencia senior sin los costes fijos de contratar un perfil propio, sin proceso de selección y sin periodo de adaptación.
+            </p>
+        </div>
+    </section>
+
+    <!-- ═══ CÓMO ELEGIR AGENCIA WEB ════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-12 sm:mb-16 reveal text-center">
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Cómo contratar una agencia de diseño web en Sabadell sin que te vendan humo
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Hay cientos de agencias de diseño web y la mayoría de PYMEs elige mal la primera vez. Estos son los siete criterios que deberías exigir a cualquier agencia, incluida la nuestra.
+                </p>
+            </div>
+
+            <div class="divide-y divide-zinc-100 reveal">
+                {criteria.map((c, i) => (
+                    <div class="py-6 sm:py-8 flex gap-6 sm:gap-8 items-start">
+                        <div class="text-2xl sm:text-3xl font-black tracking-tighter text-accent flex-shrink-0 w-10 leading-none">0{i + 1}</div>
+                        <div>
+                            <h3 class="text-base sm:text-lg font-black uppercase tracking-tight text-zinc-900 mb-2">{c.title}</h3>
+                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.desc}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ QUIÉN ESTÁ DETRÁS ═══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto reveal">
+            <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] grid md:grid-cols-[280px_1fr] gap-8 sm:gap-12 items-center">
+                <div class="rounded-2xl overflow-hidden bg-zinc-100">
+                    <img src="/sergio-galos-diseno-web-para-pymes-sabadell.webp" alt="Sergio Galo's, consultor de diseño web para PYMEs en Sabadell" class="w-full h-full object-cover object-top" loading="lazy" />
+                </div>
+                <div>
+                    <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Quién está detrás</span>
+                    <h2 class="text-2xl sm:text-4xl font-black tracking-tighter uppercase text-zinc-900 leading-[0.95] mb-6">
+                        Sergio Galo's <br>
+                        <span class="text-lg sm:text-2xl">Tu consultor de diseño web para PYMEs</span>
+                    </h2>
+                    <div class="space-y-4 text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
+                        <p>
+                            Soy <strong class="font-semibold text-zinc-900">Sergio Galo's</strong>, consultor de marketing digital y fundador de Nova Marketing. Llevo años creando webs que venden para PYMEs de algunos de los sectores más competitivos, desde industria B2B y salud hasta ecommerce y servicios profesionales.
+                        </p>
+                        <p>
+                            Cuando contratas tu web con nova hablas siempre conmigo. Yo hago la auditoría, yo superviso el diseño y yo respondo cuando necesitas un cambio. Sin capas comerciales ni gestores que cambian cada trimestre.
+                        </p>
+                    </div>
+                    <a href="https://www.linkedin.com/company/nova-marketing-pymes/" target="_blank" rel="noopener" class="inline-block mt-6 text-[12px] font-black tracking-widest text-accent hover:underline">
+                        Ver perfil en LinkedIn →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CASOS DE ÉXITO (CMS) ═══════════════════════════════════ -->
+    {allCases.length > 0 && (
+    <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6 overflow-hidden">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-12 reveal">
+          <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultados probados</span>
+          <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
+            Casos de éxito de diseño web<br class="hidden md:inline" /> en Sabadell
+          </h2>
+        </div>
+        <div class="cases-carousel relative overflow-hidden">
+          <div class="cases-track flex gap-6 transition-transform duration-500 ease-in-out">
+            {allCases.map((cs: any) => {
+              const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
+              const caseUrl = cs.isPublic && cs.slug ? `/casos-exito/${cs.slug}/` : null;
+              return (
+                <div class="cases-slide flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
+                  <div>
+                    {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
+                    <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors leading-tight">
+                      {caseUrl ? (
+                        <a href={caseUrl} class="hover:text-accent transition-colors">{cs.title}</a>
+                      ) : (
+                        <span class="group-hover:text-accent transition-colors">{cs.title}</span>
+                      )}
+                    </h3>
+                    <p class="text-xs text-zinc-500 font-light leading-relaxed">{cs.description}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+    )}
+    <script is:inline>
+      function initCasesCarousel() {
+        const track = document.querySelector('.cases-track');
+        if (!track) return;
+        const slides = track.querySelectorAll('.cases-slide');
+        if (slides.length <= 4) return;
+        let current = 0;
+        const total = slides.length;
+        function getVisible() {
+          if (window.innerWidth >= 1024) return 4;
+          if (window.innerWidth >= 640) return 2;
+          return 1;
+        }
+        function next() {
+          const visible = getVisible();
+          const maxIndex = total - visible;
+          current = current >= maxIndex ? 0 : current + 1;
+          const slideWidth = slides[0].offsetWidth + 24;
+          track.style.transform = `translateX(-${current * slideWidth}px)`;
+        }
+        const interval = setInterval(next, 5000);
+        document.addEventListener('astro:before-preparation', () => clearInterval(interval));
+      }
+      document.addEventListener('DOMContentLoaded', initCasesCarousel);
+      document.addEventListener('astro:page-load', initCasesCarousel);
+    </script>
+
+    <!-- ═══ RECOMENDADOS POR LA IA ═════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+            <div class="reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Nos avala la IA</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    La agencia de diseño web que recomienda la IA
+                </h2>
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed">
+                    <p>
+                        Cuando alguien pregunta por una <strong class="font-semibold text-zinc-900">agencia de diseño web para PYMEs</strong> a ChatGPT, Gemini o Claude, nova aparece entre las agencias recomendadas. Es la mejor prueba de que nuestras webs funcionan, porque lo aplicamos primero en la nuestra.
+                    </p>
+                    <p>
+                        A los asistentes de IA no les puedes comprar un anuncio para salir primero. Recomiendan lo que encuentran. Casos reales publicados, webs vivas que pueden analizar, una especialización clara y clientes que hablan de nosotros.
+                    </p>
+                    <p>
+                        Pruébalo tú mismo. Abre ChatGPT y pregúntale qué agencia de diseño web te recomienda para tu PYME. Si te sale nova, ya sabes quién puede hacer lo mismo por tu negocio.
+                    </p>
+                </div>
+            </div>
+
+            <div class="reveal flex justify-center">
+                <img src="/diseno-web-para-pymes-sabadell.webp" alt="Nova Marketing, agencia de diseño web en Sabadell recomendada por la IA" class="w-full max-w-sm lg:max-w-md h-auto" loading="lazy" />
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══ CONSEJOS WEB ═══════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Consejos aplicables hoy</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Cómo mejorar tu web esta semana
+            </h2>
+            <p class="text-zinc-500 font-light text-base leading-relaxed mb-10">
+                Si todavía no estás listo para renovar tu web, empieza por aquí. Son acciones que cualquier pyme puede aplicar por su cuenta y que ya mueven la aguja.
+            </p>
+            <ul class="space-y-6">
+                {[
+                    { lead: 'Abre tu web desde el móvil con datos.', text: 'Nada de wifi de oficina. Si tarda más de tres segundos o hay que hacer zoom para leer, ya sabes por dónde se van tus clientes.' },
+                    { lead: 'Pon el teléfono visible y clicable.', text: 'En móvil, tu número debe llamar con un toque. Cada paso extra entre la visita y la llamada son clientes que se pierden.' },
+                    { lead: 'Revisa tu primera pantalla.', text: 'Sin hacer scroll, tu web debe responder tres preguntas. Qué haces, para quién y qué tiene que hacer el visitante ahora. Si no, la visita se va.' },
+                    { lead: 'Quita el texto que habla de ti y no del cliente.', text: 'Menos años de experiencia y misión y visión, más respuestas a lo que tu cliente busca. El visitante quiere saber qué gana él, no quién eres tú.' },
+                ].map(tip => (
+                    <li class="flex items-start gap-4">
+                        <svg class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        <p class="text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
+                            <strong class="font-bold text-zinc-900">{tip.lead}</strong> {tip.text}
+                        </p>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </section>
+
+    <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
+    <GoogleReviews locale="es" />
+
+    <!-- ═══ DÓNDE TRABAJAMOS ═══════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Dónde trabajamos</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Sede en Barcelona, clientes en toda España
+            </h2>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
+                Nuestra base está en Barcelona y la mayoría de proyectos son de la ciudad y su área metropolitana, donde nos reunimos presencialmente. Pero el diseño web no entiende de kilómetros. Trabajamos con PYMEs de toda España por videollamada con el mismo nivel de seguimiento.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-3">
+                <a href="/diseno-web-para-pymes/barcelona/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Barcelona</a>
+                <a href="/diseno-web-para-pymes/sabadell/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Sabadell</a>
+                <a href="/diseno-web-para-pymes/sant-cugat/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Sant Cugat</a>
+                <a href="/diseno-web-para-pymes/terrassa/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Terrassa</a>
+                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">Badalona</span>
+                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">L'Hospitalet</span>
+                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">Resto de España</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ FAQS ════════════════════════════════════════════════ -->
+    <FaqHome title="Preguntas sobre nuestro diseño web para PYMEs" items={faqs} emitSchema={false} />
+
+    <!-- ═══ CONTACTO ════════════════════════════════════════════ -->
+    <section id="contacto" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
+            <div class="reveal text-white">
+                <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">CRECIMIENTO GARANTIZADO</span>
+                <h2 class="text-5xl sm:text-7xl font-black uppercase tracking-tighter leading-[0.8] mb-8">
+                   UNA WEB <br>QUE VENDE
+                </h2>
+                <p class="font-light max-w-md text-base sm:text-xl">Consúltame y te diré qué le pasa hoy a tu web, y cómo convertirla en tu mejor comercial.</p>
+            </div>
+
+            <div class="reveal">
+                <div class="bg-white p-8 sm:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
+                    <form class="space-y-8" id="contact-form">
+                        <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
+                            <div class="flex flex-col gap-3">
+                                <label class="opacity-30">NOMBRE</label>
+                                <input type="text" name="name" aria-label="Nombre" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                            <div class="flex flex-col gap-3">
+                                <label class="opacity-30">TELÉFONO</label>
+                                <input type="tel" name="phone" class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">EMAIL PROFESIONAL</label>
+                            <input type="email" name="email" aria-label="Correo electrónico" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                        </div>
+                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">CONSULTA</label>
+                            <textarea name="msg" aria-label="Mensaje" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="¿Qué necesita tu web?"></textarea>
+                        </div>
+                        <button type="submit" class="w-full btn-mktg-v5 !py-6">QUIERO MI NUEVA WEB</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</BaseLayout>
+
+<script>
+    document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const btn = form.querySelector('button');
+        if (btn) { btn.innerHTML = 'ENVIANDO...'; btn.disabled = true; }
+        const data = Object.fromEntries(new FormData(form));
+        try {
+            const res = await fetch('https://cms.novamarketing.es/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            if (res.ok) {
+                window.location.href = '/gracias/';
+            } else { throw new Error(); }
+        } catch {
+            if (btn) { btn.innerHTML = 'ERROR — INTÉNTALO DE NUEVO'; btn.disabled = false; btn.style.background = '#ef4444'; }
+        }
+    });
+function initTimeline() {
+        const progressBar = document.getElementById('progress-bar');
+        const timeline = document.getElementById('timeline-container');
+        if (!progressBar || !timeline) return;
+
+        function updateProgress() {
+            const rect = timeline.getBoundingClientRect();
+            const winHeight = window.innerHeight;
+            const topPassed = (winHeight / 2) - rect.top;
+            let percentage = (topPassed / rect.height) * 100;
+            percentage = Math.max(0, Math.min(100, percentage));
+            progressBar.style.height = `${percentage}%`;
+
+            const nodes = timeline.querySelectorAll('.node-circle');
+            nodes.forEach((node) => {
+                const nodeTop = node.getBoundingClientRect().top;
+                if (nodeTop < winHeight / 2) {
+                    node.classList.add('!border-accent', '!bg-accent', '!text-white');
+                } else {
+                    node.classList.remove('!border-accent', '!bg-accent', '!text-white');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        document.addEventListener('astro:page-load', updateProgress);
+        updateProgress();
+    }
+    document.addEventListener('DOMContentLoaded', initTimeline);
+    document.addEventListener('astro:page-load', initTimeline);
+</script>

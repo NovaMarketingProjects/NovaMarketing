@@ -1,0 +1,826 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { buildAlternates } from '../../lib/i18n';
+import { localAgencySchema } from '../../lib/schema';
+import { strapiClient } from '../../lib/strapi';
+import LogoMarquee from '../../components/sections/LogoMarquee.astro';
+import FaqHome from '../../components/sections/FaqHome.astro';
+import GoogleReviews from '../../components/global/GoogleReviews.astro';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const alternates = buildAlternates('/agencia-sem-para-pymes/sabadell/', '/ca/agencia-sem-per-pimes/sabadell/', SITE_URL);
+
+let allCases: any[] = [];
+try {
+  const casesRes = await strapiClient.getCaseStudies('es');
+  allCases = casesRes.data.map((i: any) => i.attributes ?? i).filter((c: any) => {
+    const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase());
+    return cats.some((s: string) => s.includes('google-ads'));
+  });
+} catch {}
+
+const steps = [
+  { title: "Auditoría de tu cuenta y del mercado de Sabadell", desc: "Analizamos tu cuenta de Google Ads si ya tienes una, tu web y lo que hace tu competencia en los anuncios. Detectamos presupuesto desperdiciado, búsquedas que no convierten y oportunidades que nadie está pujando. Ese es tu punto de partida real." },
+  { title: "Estrategia de campañas para el Vallès", desc: "Recibes un plan por escrito. Qué campañas lanzar, qué búsquedas atacar, qué presupuesto necesitas y qué coste por cliente es razonable en tu sector. Sabes en qué se invierte cada euro antes de invertirlo." },
+  { title: "Estructura, anuncios y landings", desc: "Montamos las campañas con una estructura limpia, redactamos anuncios que responden a lo que busca tu cliente y preparamos la página de destino para convertir ese clic en un contacto. El anuncio trae la visita, la landing cierra el lead." },
+  { title: "Optimización de pujas por zona", desc: "Revisamos las campañas cada semana. Cortamos las búsquedas que gastan sin vender, subimos la puja donde hay negocio y ajustamos horarios, zonas y dispositivos para que cada euro trabaje donde convierte." },
+  { title: "Medición de leads mes a mes", desc: "Monitorizamos mes a mes tus leads, tu coste por contacto y tu retorno. En el informe ves cuántos clientes llegan desde los anuncios, cuánto cuesta cada uno y qué campañas merecen más presupuesto el mes siguiente." }
+];
+
+const criteria = [
+  { title: "Pide casos de éxito verificables", desc: "Un muro de logos no demuestra nada. Pide casos con datos concretos. Qué inversión, qué coste por lead, cuántos clientes generó y en cuánto tiempo. Una agencia de Google Ads seria debería poder enseñarte resultados de negocios como el tuyo. Si no pueden enseñarte ni uno, sigue buscando." },
+  { title: "Pregunta quién llevará tu cuenta", desc: "En muchas agencias vende un director y ejecuta un junior con 30 cuentas. Exige conocer a la persona que gestionará tus campañas antes de firmar. En nova hablas siempre con el consultor que optimiza tu cuenta, presencialmente o por videollamada." },
+  { title: "Exige que la cuenta de Google Ads sea tuya", desc: "La cuenta, el historial de datos y el píxel de conversión deben estar a tu nombre. Muchas agencias crean la cuenta bajo su propiedad y al irte pierdes todo el aprendizaje acumulado y empiezas de cero. Eso no es un servicio, es un secuestro de datos." },
+  { title: "Desconfía de quien cobra un porcentaje opaco de tu inversión", desc: "Si la agencia gana más cuanto más gastas, su incentivo es que gastes más, no que vendas más. Exige saber exactamente cuánto pagas de gestión y cuánto va a Google. En nova el fee es fijo y el cien por cien de tu presupuesto publicitario va a tus anuncios." },
+  { title: "Revisa qué mide el informe mensual", desc: "Si el informe habla de impresiones y clics pero no de llamadas, formularios y ventas, la agencia está midiendo su actividad y no tu negocio. Las campañas de una pyme se miden en clientes nuevos y en lo que cuesta conseguir cada uno." },
+  { title: "Huye de las permanencias largas", desc: "Una permanencia de 12 meses protege a la agencia, no a ti. En Google Ads los resultados se ven en semanas, así que no hay excusa para atarte un año. Por eso en nova trabajamos mes a mes." },
+  { title: "Que no dependa todo de pagar", desc: "Google Ads trae clientes desde el primer día, pero cuando paras la inversión paran los leads. Una buena agencia te ayuda a usar los datos de las campañas para construir también SEO y visibilidad en la IA. Nosotros integramos los tres canales en una sola estrategia." }
+];
+
+const faqs = [
+  { question: "¿Cuánto cuesta una agencia de Google Ads en Sabadell?", answer: "La auditoría de tu cuenta cuesta 900 euros y la gestión mensual empieza en 150 euros al mes con fee fijo, sin porcentajes sobre tu inversión. A eso se suma tu presupuesto publicitario, que va íntegro a Google y recomendamos que parta de entre 300 y 500 euros al mes. Presupuesto cerrado por escrito y sin permanencias." },
+  { question: "¿Qué campañas funcionan para un comercio del centro de Sabadell?", answer: "Campañas locales con radio ajustado a la ciudad, extensiones de llamada y de ubicación conectadas con tu ficha de Google y anuncios activos en tu horario de apertura. El cliente del centro busca desde el móvil y decide en minutos, así que la landing debe cargar rápida y facilitar la llamada." },
+  { question: "¿Hacéis Google Ads para la industria de los polígonos?", answer: "Sí, es uno de nuestros perfiles habituales. Las empresas B2B de Can Roqueta, Sant Pau de Riu-sec y el resto del Vallès tienen clientes que buscan proveedores con términos muy técnicos. Son búsquedas de poco volumen y CPC bajo que traen presupuestos industriales, no tráfico curioso." },
+  { question: "¿Podemos reunirnos en persona en Sabadell?", answer: "Sí. Nuestra oficina está en el Carrer de Bilbao, 1, en Sabadell, así que las reuniones pueden ser presenciales tanto en nuestra oficina como en tu negocio, en cualquier punto de la ciudad o del Vallès Occidental." },
+  { question: "¿Cuánto tarda Google Ads en dar resultados en Sabadell?", answer: "Es el canal más rápido que existe. Las campañas pueden estar mostrando anuncios en cuestión de días y los primeros leads suelen llegar las primeras semanas. El algoritmo necesita entre uno y dos meses de datos para optimizar del todo, y ahí el coste por cliente empieza a bajar de verdad." },
+  { question: "¿Cómo medís los resultados?", answer: "Medimos lo que le importa a un negocio de Sabadell. Llamadas, formularios, rutas hasta tu local y presupuestos solicitados, cada uno atribuido a su campaña y su búsqueda. Informe mensual de negocio con reunión incluida y la cuenta siempre a tu nombre." },
+  { question: "¿Trabajáis con permanencia?", answer: "No, trabajamos mes a mes. Si el servicio no te aporta valor, puedes cancelarlo cuando quieras. Nuestra permanencia real es el resultado que ves en los informes cada mes." },
+];
+
+const sectors = [
+  { icon: '🛒', title: 'Google Ads para ecommerce', desc: 'Shopping y Performance Max con feed optimizado. Que tu producto salga con foto y precio justo cuando alguien busca comprarlo.' },
+  { icon: '🏠', title: 'Google Ads para inmobiliarias', desc: 'Captación de propietarios y compradores con campañas por zona y anuncios que filtran curiosos antes del clic.' },
+  { icon: '🍽️', title: 'Google Ads para restaurantes', desc: 'Campañas locales que aparecen cuando alguien busca dónde comer cerca, conectadas con tu ficha de Google y las reservas.' },
+  { icon: '🧠', title: 'Google Ads para psicólogos', desc: 'El paciente busca ayuda con urgencia y elige entre lo primero que ve. Anuncios por especialidad que convierten búsquedas en primeras visitas.' },
+  { icon: '🌿', title: 'Google Ads para terapeutas', desc: 'Clics caros si compites en genérico. Campañas por terapia y zona que pagan solo por las búsquedas que traen pacientes.' },
+  { icon: '🦷', title: 'Google Ads para dentistas', desc: 'Uno de los CPCs más caros del mercado. Aquí gana quien mejor filtra las búsquedas y mejor convierte la landing, no quien más gasta.' },
+  { icon: '💪', title: 'Google Ads para gimnasios', desc: 'Campañas estacionales con picos en enero y septiembre. Promociones locales que llenan clases sin quemar presupuesto el resto del año.' },
+  { icon: '🏗️', title: 'Google Ads para constructoras', desc: 'Leads de valor alto y mucha competencia local. Campañas por servicio y zona con anuncios que traen presupuestos, no curiosos.' },
+  { icon: '⚖️', title: 'Google Ads para abogados', desc: 'Búsquedas de altísima intención con los clics más caros de Google. Estructura quirúrgica para pagar solo por los casos que te interesan.' },
+  { icon: '🏨', title: 'Google Ads para hoteles', desc: 'Campañas de marca para frenar a las OTAs y captar la reserva directa, más visibilidad en Google Hotels.' },
+  { icon: '🏭', title: 'Google Ads para B2B', desc: 'Pocos decisores y ciclos largos. Campañas de búsqueda técnica y remarketing que acompañan al responsable de compras hasta el contacto.' },
+  { icon: '🎓', title: 'Google Ads para escuelas', desc: 'Captación concentrada en la ventana de matriculación. Campañas que aprietan cuando las familias deciden y descansan el resto del año.' },
+];
+
+const pageSchema = localAgencySchema({
+  pageUrl: `${SITE_URL}/agencia-sem-para-pymes/sabadell/`,
+  lang: 'es',
+  cityName: 'Sabadell',
+  postalCode: '08202',
+  geo: { lat: 41.5463, lng: 2.1086 },
+  areaServed: ["Sabadell", "Vallès Occidental", "Barcelona", "España"],
+  title: "Agencia de Google Ads en Sabadell | Publicidad en Google para PYMEs",
+  description: "Agencia de Google Ads en Sabadell para PYMEs. Campañas con fee fijo, la cuenta a tu nombre y resultados medidos en leads y ventas. Sin permanencias.",
+  datePublished: '2026-07-15',
+  dateModified: '2026-07-15',
+  streetAddress: 'Carrer de Bilbao, 1',
+  hasMap: 'https://maps.app.goo.gl/ETtzpajqEucNf22D7',
+  aggregateRating: { ratingValue: '5.0', reviewCount: '16' },
+  breadcrumbName: 'Agencia de Google Ads en Sabadell',
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Agencia de Google Ads en Sabadell | Publicidad en Google para PYMEs"
+  description="Agencia de Google Ads en Sabadell para PYMEs. Campañas con fee fijo, la cuenta a tu nombre y resultados medidos en leads y ventas. Sin permanencias."
+  locale="es"
+  alternates={alternates}
+  schemas={[pageSchema]}
+>
+
+    <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
+    <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+        <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+
+        <div class="max-w-5xl mx-auto reveal">
+            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
+                <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+                Publicidad en Google para Pymes
+            </span>
+            <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
+                <span class="lg:whitespace-nowrap">Agencia SEM </span>
+                <span class="lg:whitespace-nowrap">Google Ads </span>
+                <span class="lg:whitespace-nowrap text-mktg-gradient">en Sabadell</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
+                Aparece hoy mismo cuando tus clientes buscan tu servicio en Google. Campañas de Google Ads para PYMEs de Sabadell con fee fijo, la cuenta a tu nombre y resultados que se miden en ventas.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
+                {['Sin permanencias', 'Fee fijo sin porcentajes', 'La cuenta es tuya'].map(item => (
+                    <span class="inline-flex items-center gap-2 text-[11px] sm:text-xs font-black uppercase tracking-widest text-zinc-700">
+                        <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        {item}
+                    </span>
+                ))}
+            </div>
+            <div class="flex justify-center mt-4">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    HABLEMOS DE TU NEGOCIO
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <LogoMarquee />
+
+    <!-- ═══ INTRO: POR QUÉ GOOGLE ADS ═════════════════════════════════════ -->
+    <section class="py-16 sm:py-24 bg-white px-4 sm:px-6 border-b border-black/5">
+        <div class="max-w-6xl mx-auto reveal grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-16 items-center">
+            <div>
+                <p class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4">¿Por qué Google Ads?</p>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    La agencia de Google Ads para tu pyme en Sabadell
+                </h2>
+                <div class="space-y-6 text-zinc-600 font-light text-base sm:text-lg leading-relaxed">
+                    <p>
+                        <strong class="font-semibold text-zinc-900">Google Ads es el canal más rápido para conseguir clientes</strong>. Mientras el SEO tarda meses en posicionar, un anuncio bien montado aparece hoy delante de quien está buscando tu servicio con la cartera en la mano. La cuestión no es si funciona, es cuánto pagas por cada clic y qué haces con él.
+                    </p>
+                    <p>
+                        Nova es una <strong class="font-semibold text-zinc-900">agencia SEM especializada en PYMEs</strong> que trabaja con negocios de Sabadell y toda su comarca. Trabajamos con un número limitado de clientes, cada cuenta la lleva directamente el consultor fundador y toda la gestión se orienta a una sola métrica que importa. <strong class="font-semibold text-zinc-900">Cuánto te cuesta conseguir cada cliente nuevo desde los anuncios</strong>.
+                    </p>
+                </div>
+            </div>
+            <div class="hidden md:block">
+                <img src="/sergio-galos-agencia-sem-para-pymes-sabadell.webp" alt="Sergio Galo's, consultor de Google Ads para PYMEs en Sabadell" class="w-full h-auto" loading="lazy" />
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SERVICIOS SEM ══════════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50 border-b border-black/5 px-4 sm:px-6">
+        <div class="max-w-7xl mx-auto text-center reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Qué hacemos</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Servicio de Google Ads para PYMEs en Sabadell
+            </h2>
+            <div class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-16 space-y-4">
+                <p>
+                    Gestionar <strong class="font-semibold text-zinc-700">Google Ads</strong> no es activar una campaña y dejarla correr, es un sistema. Estas son las nueve piezas que trabajamos para que cada euro de tu presupuesto vuelva convertido en clientes.
+                </p>
+                <p>
+                    Cada pieza se activa según lo que diga tu auditoría. No pagas por un paquete cerrado de acciones, pagas por las que tu negocio necesita.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[
+                    { icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z', t: 'Auditoría de Google Ads en Sabadell', d: 'Radiografía de tu cuenta, tu presupuesto y tu competencia antes de tocar nada. El punto de partida de cualquier estrategia de anuncios.' },
+                    { icon: 'M12 3a9 9 0 100 18 9 9 0 000-18zm0 5a4 4 0 100 8 4 4 0 000-8z', t: 'Campañas para búsquedas del Vallès', d: 'Anuncios de texto que aparecen justo cuando alguien busca tu servicio. El corazón de la captación de leads para una pyme.' },
+                    { icon: 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z', t: 'Google Shopping', d: 'Tus productos con foto y precio en los resultados de compra. Feed optimizado para que el clic llegue ya medio convencido.' },
+                    { icon: 'M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z', t: 'Display y YouTube', d: 'Anuncios visuales y de vídeo para dar a conocer tu marca a quien todavía no te busca, con segmentación fina y sin quemar presupuesto.' },
+                    { icon: 'M13 10V3L4 14h7v7l9-11h-7z', t: 'Performance Max', d: 'La campaña automatizada de Google, bien alimentada y bien vigilada. Potente con datos buenos, un agujero de presupuesto sin ellos.' },
+                    { icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15', t: 'Remarketing al cliente sabadellense', d: 'Volvemos a impactar a quien visitó tu web y no contactó. Los leads más baratos suelen estar en la segunda visita.' },
+                    { icon: 'M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z', t: 'Landings que convierten en leads', d: 'El anuncio trae la visita y la landing la convierte. Optimizamos la página de destino para que el clic acabe en formulario o llamada.' },
+                    { icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z', t: 'Medición de llamadas y formularios', d: 'Configuramos las conversiones y GA4 para atribuir cada lead a su campaña y su búsqueda. Decisiones con datos, no con intuiciones.' },
+                    { icon: 'M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z', t: 'Google Ads más SEO', d: 'Los datos de tus campañas revelan qué búsquedas venden. Los usamos para construir SEO y que cada vez dependas menos de pagar.' },
+                ].map(c => (
+                    <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-left">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d={c.icon}/></svg>
+                            </div>
+                            <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900">{c.t}</h3>
+                        </div>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.d}</p>
+                    </div>
+                ))}
+            </div>
+
+            <div class="mt-12 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    HABLEMOS DE TU NEGOCIO
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ ESTRATEGIA SEM ════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16 sm:mb-24 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Cómo trabajamos</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Estrategia de Google Ads para captar clientes en Sabadell
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Una metodología documentada para convertir tu presupuesto publicitario en leads y ventas, paso a paso y sin humo.
+                </p>
+            </div>
+
+            <div id="timeline-container" class="relative">
+                <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
+                <div id="progress-bar" class="hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100"></div>
+
+                <div class="space-y-16 md:space-y-24 flex flex-col items-center">
+                    {steps.map((step, index) => (
+                        <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
+                            <div class:list={["flex-1 w-full", index % 2 === 0 ? "md:order-1 md:text-right" : "md:order-3 md:text-left"]}>
+                                <div class="p-8 sm:p-10 bg-zinc-50 border border-black/5 rounded-3xl hover:border-accent/10 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+                                    <h3 class="text-xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{index + 1}. {step.title}</h3>
+                                    <div class:list={["h-0.5 bg-accent w-full mb-4 opacity-80", index % 2 === 0 ? "md:ml-auto" : ""]}></div>
+                                    <p class:list={["text-sm text-zinc-500 font-light max-w-md", index % 2 === 0 ? "md:ml-auto" : ""]}>{step.desc}</p>
+                                    <div class="absolute -bottom-6 -right-5 text-8xl font-black text-black/[0.02] select-none z-0 group-hover:scale-105 transition-transform duration-500">0{index+1}</div>
+                                </div>
+                            </div>
+                            <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all">
+                                0{index + 1}
+                            </div>
+                            <div class:list={["hidden md:block md:flex-1", index % 2 === 0 ? "md:order-3" : "md:order-1"]}></div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ AUDITORÍA GOOGLE ADS ═════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-[6fr_4fr] gap-12 lg:gap-16 items-start">
+
+            <div class="reveal lg:col-span-2">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Punto de partida</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
+                    Auditoría de Google Ads para tu PYME de Sabadell
+                </h2>
+            </div>
+
+            <div class="reveal">
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed mb-8">
+                    <p>
+                        Antes de proponerte nada, auditamos. ¿Sabes cuánto te cuesta cada lead que llega de tus anuncios? ¿Qué búsquedas te traen clientes y cuáles solo gastan presupuesto? Casi ninguna pyme lo sabe con datos, y ahí empieza todo.
+                    </p>
+                    <p>
+                        Nuestra <strong class="font-semibold text-zinc-900">auditoría de Google Ads</strong> revisa tu cuenta campaña a campaña, mide qué parte de tu inversión está trabajando y qué parte se pierde en búsquedas que nunca comprarán, y termina con un plan de acción priorizado. Qué cortar primero, qué impacto tiene y cuánto puedes ahorrar.
+                    </p>
+                    <p>
+                        A diferencia de las revisiones automáticas que generan un PDF con recomendaciones genéricas de Google, aquí cada punto lo revisa un consultor senior con años de experiencia en pymes. El resultado no es un listado técnico, es un diagnóstico de negocio que entiende cualquier gerente.
+                    </p>
+                    <p>
+                        Si ya trabajas con otra agencia, la auditoría también sirve como segunda opinión independiente. Sabrás si tu inversión actual en publicidad está bien dirigida o si estás pagando por clics que no generan clientes.
+                    </p>
+                </div>
+                <ul class="space-y-3">
+                    {[
+                        'Estructura de la cuenta y calidad de las campañas',
+                        'Términos de búsqueda que gastan sin convertir',
+                        'Análisis de los anuncios de tu competencia',
+                        'Búsquedas rentables que aún no atacas',
+                        'Puntos de fuga en la landing que recibe los clics',
+                        'Plan de acción priorizado por ahorro e impacto',
+                    ].map(item => (
+                        <li class="flex items-start gap-3 text-sm text-zinc-700 font-light">
+                            <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            {item}
+                        </li>
+                    ))}
+                </ul>
+                <div class="mt-16">
+                    <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                        QUIERO MI AUDITORÍA DE GOOGLE ADS
+                    </a>
+                </div>
+            </div>
+
+            <div class="reveal flex flex-col gap-4">
+                {[
+                    { bg: 'bg-purple-100', color: 'text-purple-600', icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z', t: 'Revisión completa de la cuenta', d: 'Estructura, campañas, grupos de anuncios, pujas y configuración. Todo lo que encarece tus clics, documentado.' },
+                    { bg: 'bg-green-100', color: 'text-green-600', icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6', t: 'Plan de acción por ahorro', d: 'No una lista infinita de tareas, sino un plan ordenado por ahorro e impacto. Sabrás qué cortar la primera semana y dónde reinvertir ese dinero.' },
+                    { bg: 'bg-purple-100', color: 'text-purple-600', icon: 'M12 3a9 9 0 100 18 9 9 0 000-18zm0 5a4 4 0 100 8 4 4 0 000-8z', t: 'Búsquedas que convierten en Sabadell', d: 'Identificamos las búsquedas que hacen tus clientes cuando quieren contratar y las separamos de las que solo consumen presupuesto.' },
+                    { bg: 'bg-amber-100', color: 'text-amber-600', icon: 'M9 12h6m-6 4h6M9 8h2m8-3v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2h6l4 4z', t: 'Auditoría de anuncios y landings', d: 'Revisamos qué anuncios convierten, cuáles queman presupuesto y si la página que recibe el clic está preparada para convertirlo en lead.' },
+                    { bg: 'bg-blue-100', color: 'text-blue-600', icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z', t: 'Benchmark con tus competidores del Vallès', d: 'Comparamos tus anuncios con los de tus tres competidores directos. Qué prometen, dónde pujan y qué puedes hacer mejor.' },
+                ].map(card => (
+                    <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                        <div class:list={["w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0", card.bg]}>
+                            <svg class:list={["w-5 h-5", card.color]} fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d={card.icon}/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-black text-zinc-900 mb-1">{card.t}</h3>
+                            <p class="text-xs text-zinc-500 font-light leading-relaxed">{card.d}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══ QUÉ INCLUYE LA AUDITORÍA GOOGLE ADS ═══════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Paso a paso</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
+                    Qué incluye la auditoría de Google Ads de nova
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch reveal">
+                {[
+                    { n: '1', t: 'Radiografía de tu inversión en Sabadell', d: 'Analizamos cuánto inviertes, qué campañas traen leads, cuánto cuesta cada uno y qué parte del presupuesto se pierde en búsquedas sin intención.' },
+                    { n: '2', t: 'Diagnóstico de anuncios y landings', d: 'Cruzamos los datos de la cuenta con tus anuncios y tu página de destino para explicar exactamente qué está encareciendo cada cliente.' },
+                    { n: '3', t: 'Hoja de ruta para rentabilizar tus campañas', d: 'Cierras la auditoría con un documento de acciones ordenadas por ahorro e impacto y una videollamada donde repasamos cada punto contigo.' },
+                ].map((st, i) => (
+                    <div class="flex items-center gap-4 lg:gap-6">
+                        {i > 0 && <div class="hidden lg:flex text-3xl text-accent font-black select-none">→</div>}
+                        <div class="bg-white border border-black/5 rounded-2xl p-8 shadow-[0_15px_40px_rgba(0,0,0,0.06)] flex-1 text-center h-full">
+                            <div class="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto mb-4 text-accent font-black text-lg">{st.n}</div>
+                            <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3">{st.t}</h3>
+                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{st.d}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto text-center mt-16 reveal">
+                Nuestra auditoría de Google Ads es el primer paso de cualquier estrategia de publicidad en el buscador. Analiza cómo está trabajando hoy tu presupuesto, explica por qué tu competencia consigue leads más baratos que tú y te deja una hoja de ruta clara para dejar de desperdiciar inversión. Es la misma auditoría con la que arrancan todos nuestros planes de Google Ads para pymes, y también puedes contratarla suelta como segunda opinión. Sin tecnicismos innecesarios. Sales sabiendo dónde va tu dinero y qué hacer a continuación.
+            </p>
+            <div class="mt-12 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    QUIERO MI AUDITORÍA DE GOOGLE ADS
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PRECIOS SEM ════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Tarifas claras</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Precios de Google Ads en Sabadell
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto">
+                    Tarifas orientativas y sin letra pequeña. Cobramos un fee de gestión fijo, sin porcentajes sobre tu inversión, así que el cien por cien de tu presupuesto publicitario va directo a Google. Antes de empezar recibes un presupuesto cerrado por escrito con el fee, el presupuesto recomendado y el coste por cliente esperable en tu sector. El coste no lleva sorpresas ni permanencias.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                {[
+                    { small: 'Precio', name: 'Auditoría Google Ads en Sabadell', price: '900€', meta: ['Entrega en 1 a 2 semanas', 'Para cualquier pyme que ya invierte en anuncios'], items: ['Sesión inicial de objetivos', 'Revisión completa de la cuenta', 'Términos de búsqueda que desperdician', 'Análisis de anuncios y pujas', 'Auditoría de la landing de destino', 'Comparativa con 3 competidores', 'Acciones ordenadas por ahorro', 'Videollamada de entrega'], cta: 'Quiero auditar mi cuenta' },
+                    { small: 'Precio', name: 'Google Ads PYME en Sabadell', price: 'desde 150€ / mes', meta: ['Más tu presupuesto publicitario, que va íntegro a Google', 'Para negocios locales y pequeñas empresas'], items: ['Configuración inicial de la cuenta', 'Campañas de búsqueda a medida', 'Redacción de anuncios', 'Medición de conversiones', 'Revisión semanal de términos', 'Optimización de pujas y zonas', 'Informe mensual de leads y costes', 'Línea directa con el consultor', 'Sin permanencia'], cta: 'Quiero lanzar mis campañas' },
+                    { small: 'Precio', name: 'Google Ads Big Pyme en Sabadell', price: 'desde 400€ / mes', meta: ['Para cuentas con más inversión y varias líneas de negocio', 'Para empresas medianas y sectores competidos'], items: ['Todo el plan Google Ads PYME', 'Shopping y Performance Max', 'Display, YouTube y remarketing', 'Optimización de landings y CRO', 'Estrategia conjunta con SEO', 'Cobertura multisede o internacional', 'Reunión mensual de negocio', 'Objetivo, bajar el coste por cliente'], cta: 'Quiero escalar mis campañas' },
+                ].map(p => (
+                    <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-10 flex flex-col shadow-[0_15px_40px_rgba(0,0,0,0.06)] hover:shadow-xl transition-shadow duration-300 reveal">
+                        <h3 class="leading-tight mb-2">
+                            <span class="block text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-1">{p.small} </span>
+                            <span class="block text-xl font-black uppercase tracking-tight text-zinc-900">{p.name}</span>
+                        </h3>
+                        <div class="text-lg font-bold text-zinc-900">{p.price}</div>
+                        <div class="text-[10px] text-zinc-400 font-light mt-1 mb-6">* Precio sin IVA</div>
+                        <div class="text-xs text-zinc-500 font-light mb-8 space-y-1.5">
+                            {p.meta.map(m => <div>{m}</div>)}
+                        </div>
+                        <div class="text-xs font-black uppercase tracking-widest text-zinc-400 pb-3 border-b border-zinc-100">Qué incluye</div>
+                        <ul class="divide-y divide-zinc-100 flex-1">
+                            {p.items.map(item => (
+                                <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light">
+                                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 !py-4 !text-[11px] !tracking-widest font-black mt-10 text-center">
+                            {p.cta}
+                        </a>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SECTORES ═══════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-14 sm:mb-20 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Experiencia sectorial</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Google Ads para tu sector en Sabadell
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Cada sector puja distinto en Google. Trabajamos con sectores donde ya sabemos qué búsquedas convierten y qué es tirar el presupuesto.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
+                {sectors.map(s => (
+                    <div class="bg-white border border-black/5 rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <div class="text-3xl mb-4">{s.icon}</div>
+                        <h3 class="text-base uppercase tracking-tight text-zinc-900 mb-3 leading-tight font-montserrat-semibold">
+                            {s.title}
+                            <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1 font-semibold">en Sabadell</span>
+                        </h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed">{s.desc}</p>
+                    </div>
+                ))}
+            </div>
+
+            <div class="mt-14 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    QUIERO ANUNCIARME EN GOOGLE
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ ZONAS ═════════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 relative overflow-hidden border-t border-black/5">
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_80%,transparent_100%)]"></div>
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-16 sm:mb-24 reveal">
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-4 text-zinc-900 leading-[0.9]">
+                    Google Ads en todas las zonas de Sabadell
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Sabadell no es un solo mercado. Cada zona tiene su competencia, sus CPCs y su forma de buscar en Google. Ajustamos las campañas, las pujas y los anuncios a la zona donde compite tu negocio.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="group p-8 border border-black/5 bg-white rounded-2xl hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal">
+                    <div class="h-1 bg-black w-12 group-hover:w-full transition-all duration-500 mb-6"></div>
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">Centro y la Rambla</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">El corazón comercial de Sabadell. Tiendas, clínicas y despachos pujando por las mismas búsquedas locales. Aquí ganan las campañas con segmentación por barrio, anuncios con reseñas y una landing que convierte el clic en visita.</p>
+                </div>
+                <div class="group p-8 border border-black/5 bg-white rounded-2xl hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal">
+                    <div class="h-1 bg-black w-12 group-hover:w-full transition-all duration-500 mb-6"></div>
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">Creu Alta, Gràcia y Ca n'Oriac</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">Barrios de negocio de proximidad donde el cliente busca desde el móvil y llama al momento. Campañas locales con extensión de llamada, radio ajustado y horarios de anuncio que coinciden con tu apertura.</p>
+                </div>
+                <div class="group p-8 border border-black/5 bg-white rounded-2xl hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal">
+                    <div class="h-1 bg-black w-12 group-hover:w-full transition-all duration-500 mb-6"></div>
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">Polígonos industriales de Sabadell</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">Can Roqueta, Sant Pau de Riu-sec y el resto de polígonos concentran la industria B2B de la ciudad. Sus clientes buscan proveedores con términos técnicos de CPC bajo que traen presupuestos, no clics curiosos.</p>
+                </div>
+                <div class="group p-8 border border-black/5 bg-white rounded-2xl hover:border-black/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500 reveal">
+                    <div class="h-1 bg-black w-12 group-hover:w-full transition-all duration-500 mb-6"></div>
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">Vallès Occidental y Barcelona</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">
+                        Muchos de tus clientes buscan desde fuera de la ciudad. Cubrimos toda la comarca con campañas de Google Ads propias en <a href="/agencia-sem-para-pymes/terrassa/" class="underline hover:text-accent transition-colors">Terrassa</a>, <a href="/agencia-sem-para-pymes/sant-cugat/" class="underline hover:text-accent transition-colors">Sant Cugat</a> y <a href="/agencia-sem-para-pymes/barcelona/" class="underline hover:text-accent transition-colors">Barcelona</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CITA ══════════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-zinc-950 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <blockquote class="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.15] mb-8">
+                “Cada día, clientes de Sabadell buscan tu servicio en Google. Con Google Ads puedes aparecer ahí mañana mismo. La cuestión es cuánto pagas por cada clic y qué haces con él.”
+            </blockquote>
+            <p class="text-sm text-zinc-400 font-light mb-10">Sergio Galo's · Consultor de Google Ads para PYMEs</p>
+            <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                HABLEMOS DE TU NEGOCIO
+            </a>
+        </div>
+    </section>
+
+    <!-- ═══ POR QUÉ NOVA (COMPARATIVA) ═════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Por qué nova</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Qué diferencia a nova de otra agencia SEM en Sabadell
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Google Ads está lleno de cuentas mal gestionadas que queman presupuesto en silencio. Nosotros lo trabajamos con método, transparencia y resultados que se ven en tu caja, no solo en las gráficas.
+                </p>
+            </div>
+
+            <div class="reveal overflow-x-auto rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
+                <table class="w-full min-w-[640px] text-left border-collapse bg-white">
+                    <thead>
+                        <tr class="bg-black text-white">
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Criterio</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Nova</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Otras agencias</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-zinc-100">
+                        {[
+                            { c: "Quién será tu contacto", o: "Gestor junior con 20-30 cuentas", n: "Sergio Galo's" },
+                            { c: "Modelo de cobro", o: "Porcentaje de tu inversión publicitaria", n: "Fee fijo, el 100% de tu presupuesto va a Google" },
+                            { c: "Propiedad de la cuenta", o: "Cuenta a nombre de la agencia", n: "La cuenta y los datos son tuyos desde el día uno" },
+                            { c: "Velocidad de respuesta", o: "Tickets y semanas de espera", n: "Línea directa con quien decide" },
+                            { c: "Permanencia", o: "6-12 meses habituales", n: "Mes a mes, sin permanencia" },
+                            { c: "Especialización", o: "De multinacionales a autónomos, todo vale", n: "Cien por cien enfocados en PYMEs" },
+                            { c: "Transparencia de precios", o: "Presupuestos opacos con extras sorpresa", n: "Precio cerrado por escrito antes de empezar" },
+                        ].map(row => (
+                            <tr class="hover:bg-zinc-50/50 transition-colors">
+                                <td class="px-6 py-5 text-sm font-bold text-zinc-900">{row.c}</td>
+                                <td class="px-6 py-5 text-sm font-bold text-accent">{row.n}</td>
+                                <td class="px-6 py-5 text-sm text-zinc-500 font-light">{row.o}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="text-xs sm:text-sm text-zinc-400 font-light leading-relaxed mt-6 reveal">
+                Un consultor de Google Ads externo te da acceso a experiencia senior sin los costes fijos de contratar un perfil propio, sin proceso de selección y sin periodo de adaptación.
+            </p>
+        </div>
+    </section>
+
+    <!-- ═══ CÓMO ELEGIR AGENCIA SEM ════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-12 sm:mb-16 reveal text-center">
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Cómo contratar una agencia de Google Ads en Sabadell sin que te vendan humo
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Hay cientos de agencias SEM y la mayoría de PYMEs elige mal la primera vez. Estos son los siete criterios que deberías exigir a cualquier agencia, incluida la nuestra.
+                </p>
+            </div>
+
+            <div class="divide-y divide-zinc-100 reveal">
+                {criteria.map((c, i) => (
+                    <div class="py-6 sm:py-8 flex gap-6 sm:gap-8 items-start">
+                        <div class="text-2xl sm:text-3xl font-black tracking-tighter text-accent flex-shrink-0 w-10 leading-none">0{i + 1}</div>
+                        <div>
+                            <h3 class="text-base sm:text-lg font-black uppercase tracking-tight text-zinc-900 mb-2">{c.title}</h3>
+                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.desc}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ QUIÉN ESTÁ DETRÁS ═══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto reveal">
+            <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] grid md:grid-cols-[280px_1fr] gap-8 sm:gap-12 items-center">
+                <div class="rounded-2xl overflow-hidden bg-zinc-100">
+                    <img src="/sergio-galos-agencia-sem-para-pymes-sabadell.webp" alt="Sergio Galo's, consultor de Google Ads para PYMEs en Sabadell" class="w-full h-full object-cover object-top" loading="lazy" />
+                </div>
+                <div>
+                    <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Quién está detrás</span>
+                    <h2 class="text-2xl sm:text-4xl font-black tracking-tighter uppercase text-zinc-900 leading-[0.95] mb-6">
+                        Sergio Galo's <br>
+                        <span class="text-lg sm:text-2xl">Tu consultor de Google Ads para PYMEs</span>
+                    </h2>
+                    <div class="space-y-4 text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
+                        <p>
+                            Soy <strong class="font-semibold text-zinc-900">Sergio Galo's</strong>, consultor de marketing digital y fundador de Nova Marketing. Llevo años gestionando campañas de Google Ads para PYMEs en algunos de los sectores más competitivos, desde industria B2B y salud hasta ecommerce y servicios profesionales.
+                        </p>
+                        <p>
+                            Cuando contratas Google Ads con nova hablas siempre conmigo. Yo hago la auditoría, yo monto las campañas y yo respondo en la reunión mensual. Sin capas comerciales ni gestores que cambian cada trimestre.
+                        </p>
+                    </div>
+                    <a href="https://www.linkedin.com/company/nova-marketing-pymes/" target="_blank" rel="noopener" class="inline-block mt-6 text-[12px] font-black tracking-widest text-accent hover:underline">
+                        Ver perfil en LinkedIn →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CASOS DE ÉXITO (CMS) ═══════════════════════════════════ -->
+    {allCases.length > 0 && (
+    <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6 overflow-hidden">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-12 reveal">
+          <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultados probados</span>
+          <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
+            Casos de éxito de Google Ads<br class="hidden md:inline" /> en Sabadell
+          </h2>
+        </div>
+        <div class="cases-carousel relative overflow-hidden">
+          <div class="cases-track flex gap-6 transition-transform duration-500 ease-in-out">
+            {allCases.map((cs: any) => {
+              const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
+              const caseUrl = cs.isPublic && cs.slug ? `/casos-exito/${cs.slug}/` : null;
+              return (
+                <div class="cases-slide flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
+                  <div>
+                    {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
+                    <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors leading-tight">
+                      {caseUrl ? (
+                        <a href={caseUrl} class="hover:text-accent transition-colors">{cs.title}</a>
+                      ) : (
+                        <span class="group-hover:text-accent transition-colors">{cs.title}</span>
+                      )}
+                    </h3>
+                    <p class="text-xs text-zinc-500 font-light leading-relaxed">{cs.description}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+    )}
+    <script is:inline>
+      function initCasesCarousel() {
+        const track = document.querySelector('.cases-track');
+        if (!track) return;
+        const slides = track.querySelectorAll('.cases-slide');
+        if (slides.length <= 4) return;
+        let current = 0;
+        const total = slides.length;
+        function getVisible() {
+          if (window.innerWidth >= 1024) return 4;
+          if (window.innerWidth >= 640) return 2;
+          return 1;
+        }
+        function next() {
+          const visible = getVisible();
+          const maxIndex = total - visible;
+          current = current >= maxIndex ? 0 : current + 1;
+          const slideWidth = slides[0].offsetWidth + 24;
+          track.style.transform = `translateX(-${current * slideWidth}px)`;
+        }
+        const interval = setInterval(next, 5000);
+        document.addEventListener('astro:before-preparation', () => clearInterval(interval));
+      }
+      document.addEventListener('DOMContentLoaded', initCasesCarousel);
+      document.addEventListener('astro:page-load', initCasesCarousel);
+    </script>
+
+    <!-- ═══ RECOMENDADOS POR LA IA ═════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+            <div class="reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Nos avala la IA</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    La agencia de Google Ads que recomienda la IA
+                </h2>
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed">
+                    <p>
+                        Cuando alguien pregunta por una <strong class="font-semibold text-zinc-900">agencia de Google Ads para PYMEs</strong> a ChatGPT, Gemini o Claude, nova aparece entre las agencias recomendadas. Es la mejor prueba de que sabemos generar visibilidad, porque lo aplicamos primero en nosotros mismos.
+                    </p>
+                    <p>
+                        A los asistentes de IA no les puedes comprar un anuncio para salir primero. Recomiendan lo que encuentran. Casos reales publicados, una forma de trabajar transparente, una especialización clara y clientes que hablan de nosotros.
+                    </p>
+                    <p>
+                        Pruébalo tú mismo. Abre ChatGPT y pregúntale qué agencia de Google Ads te recomienda para tu PYME. Si te sale nova, ya sabes quién puede hacer lo mismo por tu negocio.
+                    </p>
+                </div>
+            </div>
+
+            <div class="reveal flex justify-center">
+                <img src="/agencia-sem-para-pymes-sabadell.webp" alt="Nova Marketing, agencia de Google Ads en Sabadell recomendada por la IA" class="w-full max-w-sm lg:max-w-md h-auto" loading="lazy" />
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══ CONSEJOS GOOGLE ADS ═══════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Consejos aplicables hoy</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Cómo mejorar tus campañas de Google Ads esta semana
+            </h2>
+            <p class="text-zinc-500 font-light text-base leading-relaxed mb-10">
+                Si todavía no estás listo para contratar una agencia SEM, empieza por aquí. Son acciones que cualquier pyme puede aplicar por su cuenta y que ya reducen el presupuesto desperdiciado.
+            </p>
+            <ul class="space-y-6">
+                {[
+                    { lead: 'Revisa el informe de términos de búsqueda.', text: 'Ahí ves las búsquedas reales que activan tus anuncios. Añade como negativa toda la que no tenga intención de compra. Es la fuga de presupuesto más común.' },
+                    { lead: 'Configura bien las conversiones.', text: 'Si Google no sabe qué es un lead para ti, optimiza hacia clics baratos que no venden. Marca llamadas y formularios antes de tocar nada más.' },
+                    { lead: 'No envíes el tráfico a la home.', text: 'Cada campaña merece una página de destino que hable exactamente de lo que promete el anuncio. La home dispersa y la landing convierte.' },
+                    { lead: 'Ajusta horarios y ubicaciones.', text: 'Si tu negocio atiende en tu comarca y en horario laboral, no pagues clics de madrugada ni de otras provincias. Dos ajustes que ahorran desde el primer día.' },
+                ].map(tip => (
+                    <li class="flex items-start gap-4">
+                        <svg class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        <p class="text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
+                            <strong class="font-bold text-zinc-900">{tip.lead}</strong> {tip.text}
+                        </p>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </section>
+
+    <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
+    <GoogleReviews locale="es" />
+
+    <!-- ═══ DÓNDE TRABAJAMOS ═══════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Dónde trabajamos</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Sede en Barcelona, clientes en toda España
+            </h2>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
+                Nuestra base está en Barcelona y la mayoría de proyectos son de la ciudad y su área metropolitana, donde nos reunimos presencialmente. Pero las campañas de Google Ads no entienden de kilómetros. Trabajamos con PYMEs de toda España por videollamada con el mismo nivel de seguimiento.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-3">
+                <a href="/agencia-sem-para-pymes/barcelona/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Barcelona</a>
+                <a href="/agencia-sem-para-pymes/sabadell/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Sabadell</a>
+                <a href="/agencia-sem-para-pymes/sant-cugat/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Sant Cugat</a>
+                <a href="/agencia-sem-para-pymes/terrassa/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Terrassa</a>
+                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">Badalona</span>
+                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">L'Hospitalet</span>
+                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">Resto de España</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ FAQS ════════════════════════════════════════════════ -->
+    <FaqHome title="Preguntas sobre nuestra agencia de Google Ads para PYMEs" items={faqs} emitSchema={false} />
+
+    <!-- ═══ CONTACTO ════════════════════════════════════════════ -->
+    <section id="contacto" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
+            <div class="reveal text-white">
+                <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">CRECIMIENTO GARANTIZADO</span>
+                <h2 class="text-5xl sm:text-7xl font-black uppercase tracking-tighter leading-[0.8] mb-8">
+                   APARECE HOY <br>EN GOOGLE
+                </h2>
+                <p class="font-light max-w-md text-base sm:text-xl">Consúltame y te diré cuánto costaría cada cliente en tu sector, y cómo bajarlo.</p>
+            </div>
+
+            <div class="reveal">
+                <div class="bg-white p-8 sm:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
+                    <form class="space-y-8" id="contact-form">
+                        <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
+                            <div class="flex flex-col gap-3">
+                                <label class="opacity-30">NOMBRE</label>
+                                <input type="text" name="name" aria-label="Nombre" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                            <div class="flex flex-col gap-3">
+                                <label class="opacity-30">TELÉFONO</label>
+                                <input type="tel" name="phone" class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">EMAIL PROFESIONAL</label>
+                            <input type="email" name="email" aria-label="Correo electrónico" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                        </div>
+                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">CONSULTA</label>
+                            <textarea name="msg" aria-label="Mensaje" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="¿Qué quieres anunciar en Google?"></textarea>
+                        </div>
+                        <button type="submit" class="w-full btn-mktg-v5 !py-6">QUIERO LANZAR MIS CAMPAÑAS</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</BaseLayout>
+
+<script>
+    document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const btn = form.querySelector('button');
+        if (btn) { btn.innerHTML = 'ENVIANDO...'; btn.disabled = true; }
+        const data = Object.fromEntries(new FormData(form));
+        try {
+            const res = await fetch('https://cms.novamarketing.es/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            if (res.ok) {
+                window.location.href = '/gracias/';
+            } else { throw new Error(); }
+        } catch {
+            if (btn) { btn.innerHTML = 'ERROR — INTÉNTALO DE NUEVO'; btn.disabled = false; btn.style.background = '#ef4444'; }
+        }
+    });
+function initTimeline() {
+        const progressBar = document.getElementById('progress-bar');
+        const timeline = document.getElementById('timeline-container');
+        if (!progressBar || !timeline) return;
+
+        function updateProgress() {
+            const rect = timeline.getBoundingClientRect();
+            const winHeight = window.innerHeight;
+            const topPassed = (winHeight / 2) - rect.top;
+            let percentage = (topPassed / rect.height) * 100;
+            percentage = Math.max(0, Math.min(100, percentage));
+            progressBar.style.height = `${percentage}%`;
+
+            const nodes = timeline.querySelectorAll('.node-circle');
+            nodes.forEach((node) => {
+                const nodeTop = node.getBoundingClientRect().top;
+                if (nodeTop < winHeight / 2) {
+                    node.classList.add('!border-accent', '!bg-accent', '!text-white');
+                } else {
+                    node.classList.remove('!border-accent', '!bg-accent', '!text-white');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        document.addEventListener('astro:page-load', updateProgress);
+        updateProgress();
+    }
+    document.addEventListener('DOMContentLoaded', initTimeline);
+    document.addEventListener('astro:page-load', initTimeline);
+</script>

@@ -22,6 +22,34 @@ Redirect 301 /ca/agencia-seo-a-terrassa/ https://novamarketing.es/ca/agencia-seo
 Redirect 301 /agencia-seo-en-barcelona/ https://novamarketing.es/agencia-seo-para-pymes/barcelona/
 Redirect 301 /ca/agencia-seo-a-barcelona/ https://novamarketing.es/ca/agencia-seo-per-pimes/barcelona/
 
+# Google Ads city pages moved under /agencia-sem-para-pymes/
+Redirect 301 /agencia-google-ads-sabadell/ https://novamarketing.es/agencia-sem-para-pymes/sabadell/
+Redirect 301 /ca/agencia-google-ads-sabadell/ https://novamarketing.es/ca/agencia-sem-per-pimes/sabadell/
+Redirect 301 /agencia-google-ads-sant-cugat/ https://novamarketing.es/agencia-sem-para-pymes/sant-cugat/
+Redirect 301 /ca/agencia-google-ads-sant-cugat/ https://novamarketing.es/ca/agencia-sem-per-pimes/sant-cugat/
+Redirect 301 /agencia-google-ads-terrassa/ https://novamarketing.es/agencia-sem-para-pymes/terrassa/
+Redirect 301 /ca/agencia-google-ads-terrassa/ https://novamarketing.es/ca/agencia-sem-per-pimes/terrassa/
+Redirect 301 /agencia-google-ads-barcelona/ https://novamarketing.es/agencia-sem-para-pymes/barcelona/
+Redirect 301 /ca/agencia-google-ads-barcelona/ https://novamarketing.es/ca/agencia-sem-per-pimes/barcelona/
+
+# Web design city pages moved under /diseno-web-para-pymes/
+Redirect 301 /agencia-diseno-web-sabadell/ https://novamarketing.es/diseno-web-para-pymes/sabadell/
+Redirect 301 /ca/agencia-disseny-web-sabadell/ https://novamarketing.es/ca/disseny-web-per-pimes/sabadell/
+Redirect 301 /agencia-diseno-web-sant-cugat/ https://novamarketing.es/diseno-web-para-pymes/sant-cugat/
+Redirect 301 /ca/agencia-disseny-web-sant-cugat/ https://novamarketing.es/ca/disseny-web-per-pimes/sant-cugat/
+Redirect 301 /agencia-diseno-web-terrassa/ https://novamarketing.es/diseno-web-para-pymes/terrassa/
+Redirect 301 /ca/agencia-disseny-web-terrassa/ https://novamarketing.es/ca/disseny-web-per-pimes/terrassa/
+Redirect 301 /agencia-diseno-web-barcelona/ https://novamarketing.es/diseno-web-para-pymes/barcelona/
+Redirect 301 /ca/agencia-disseny-web-barcelona/ https://novamarketing.es/ca/disseny-web-per-pimes/barcelona/
+Redirect 301 /diseno-web-para-pymes-sabadell/ https://novamarketing.es/diseno-web-para-pymes/sabadell/
+Redirect 301 /ca/disseny-web-per-pimes-sabadell/ https://novamarketing.es/ca/disseny-web-per-pimes/sabadell/
+Redirect 301 /diseno-web-para-pymes-sant-cugat/ https://novamarketing.es/diseno-web-para-pymes/sant-cugat/
+Redirect 301 /ca/disseny-web-per-pimes-sant-cugat/ https://novamarketing.es/ca/disseny-web-per-pimes/sant-cugat/
+Redirect 301 /diseno-web-para-pymes-terrassa/ https://novamarketing.es/diseno-web-para-pymes/terrassa/
+Redirect 301 /ca/disseny-web-per-pimes-terrassa/ https://novamarketing.es/ca/disseny-web-per-pimes/terrassa/
+Redirect 301 /diseno-web-para-pymes-barcelona/ https://novamarketing.es/diseno-web-para-pymes/barcelona/
+Redirect 301 /ca/disseny-web-per-pimes-barcelona/ https://novamarketing.es/ca/disseny-web-per-pimes/barcelona/
+
 # Blog posts redirects
 Redirect 301 /las-redes-sociales-en-2024-analisis-del-estudio-de-iab-spain/ https://novamarketing.es/blog/mejores-herramientas-de-gestion-de-redes-sociales-para-pymes/
 
