@@ -3,3 +3,38 @@
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
   Referrer-Policy: strict-origin-when-cross-origin
+
+# ── Caché ────────────────────────────────────────────────────────────────
+# Assets con hash de Astro: 1 año e inmutables (el nombre cambia en cada build)
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Fuentes: 1 año inmutable
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+/*.woff
+  Cache-Control: public, max-age=31536000, immutable
+
+# JS y CSS (content-hashed por Astro): 1 año inmutable
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
+/*.mjs
+  Cache-Control: public, max-age=31536000, immutable
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+# Imágenes (nombre fijo, se pueden reemplazar): 30 días
+/*.webp
+  Cache-Control: public, max-age=2592000
+/*.avif
+  Cache-Control: public, max-age=2592000
+/*.jpg
+  Cache-Control: public, max-age=2592000
+/*.jpeg
+  Cache-Control: public, max-age=2592000
+/*.png
+  Cache-Control: public, max-age=2592000
+/*.svg
+  Cache-Control: public, max-age=2592000
+/*.ico
+  Cache-Control: public, max-age=2592000
