@@ -104,9 +104,9 @@ RewriteRule ^sitemap\.xml$ /sitemap-index.xml [L,R=301]
   <FilesMatch "\.(webp|jpg|jpeg|png|gif|svg|ico|avif)$">
     Header set Cache-Control "public, max-age=2592000"
   </FilesMatch>
-  # HTML: always revalidate
+  # HTML: caché corta con revalidación
   <FilesMatch "\.html$">
-    Header set Cache-Control "public, max-age=0, must-revalidate"
+    Header set Cache-Control "public, max-age=3600, must-revalidate"
   </FilesMatch>
 </IfModule>
 
@@ -121,7 +121,7 @@ RewriteRule ^sitemap\.xml$ /sitemap-index.xml [L,R=301]
   ExpiresByType image/png                 "access plus 1 month"
   ExpiresByType image/svg+xml             "access plus 1 month"
   ExpiresByType image/avif                "access plus 1 month"
-  ExpiresByType text/html                 "access plus 0 seconds"
+  ExpiresByType text/html                 "access plus 1 hour"
 </IfModule>
 
 # ── Compression ────────────────────────────────────────────────────────────────
