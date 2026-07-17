@@ -242,8 +242,14 @@ const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
     /* Init Core */
     function init() {
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-        initParticles();
-        initCursorGlow();
+        // Efectos visuales no críticos: se difieren a tiempo de inactividad para
+        // evitar reflows forzados durante la carga inicial (leen tamaño del viewport).
+        const runVisuals = () => { initParticles(); initCursorGlow(); };
+        if ('requestIdleCallback' in window) {
+            (window as any).requestIdleCallback(runVisuals, { timeout: 1500 });
+        } else {
+            setTimeout(runVisuals, 200);
+        }
     }
 
     document.addEventListener('DOMContentLoaded', init);
