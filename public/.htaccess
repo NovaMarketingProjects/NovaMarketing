@@ -50,6 +50,18 @@ Redirect 301 /ca/disseny-web-per-pimes-terrassa/ https://novamarketing.es/ca/dis
 Redirect 301 /diseno-web-para-pymes-barcelona/ https://novamarketing.es/diseno-web-para-pymes/barcelona/
 Redirect 301 /ca/disseny-web-per-pimes-barcelona/ https://novamarketing.es/ca/disseny-web-per-pimes/barcelona/
 
+# Consultoria pages removed
+Redirect 301 /consultoria-marketing-para-pymes/ https://novamarketing.es/
+Redirect 301 /ca/consultoria-marketing-per-pimes/ https://novamarketing.es/ca/
+Redirect 301 /consultoria-marketing-digital-barcelona/ https://novamarketing.es/agencia-de-marketing-digital-en-barcelona/
+Redirect 301 /ca/consultoria-marketing-digital-barcelona/ https://novamarketing.es/ca/agencia-de-marketing-digital-a-barcelona/
+Redirect 301 /consultoria-marketing-digital-sabadell/ https://novamarketing.es/agencia-de-marketing-digital-en-sabadell/
+Redirect 301 /ca/consultoria-marketing-digital-sabadell/ https://novamarketing.es/ca/agencia-de-marketing-digital-a-sabadell/
+Redirect 301 /consultoria-marketing-digital-sant-cugat/ https://novamarketing.es/agencia-de-marketing-digital-en-sant-cugat/
+Redirect 301 /ca/consultoria-marketing-digital-sant-cugat/ https://novamarketing.es/ca/agencia-de-marketing-digital-a-sant-cugat/
+Redirect 301 /consultoria-marketing-digital-terrassa/ https://novamarketing.es/agencia-de-marketing-digital-en-terrassa/
+Redirect 301 /ca/consultoria-marketing-digital-terrassa/ https://novamarketing.es/ca/agencia-de-marketing-digital-a-terrassa/
+
 # Blog posts redirects
 Redirect 301 /las-redes-sociales-en-2024-analisis-del-estudio-de-iab-spain/ https://novamarketing.es/blog/mejores-herramientas-de-gestion-de-redes-sociales-para-pymes/
 
@@ -64,6 +76,18 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 # Sitemap Redirect (from sitemap.xml to sitemap-index.xml)
 RewriteRule ^sitemap\.xml$ /sitemap-index.xml [L,R=301]
+
+# ── Security Headers ───────────────────────────────────────────────────────────
+<IfModule mod_headers.c>
+  # HTTPS obligatorio durante 1 año (el sitio y el CMS ya sirven por HTTPS)
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  # Impide que el navegador adivine el tipo MIME (MIME sniffing)
+  Header always set X-Content-Type-Options "nosniff"
+  # Impide que otras webs embeban el sitio en un iframe (clickjacking)
+  Header always set X-Frame-Options "SAMEORIGIN"
+  # Envía menos información de referencia a terceros
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
 
 # ── Cache Control ──────────────────────────────────────────────────────────────
 # Astro hashes CSS/JS filenames on each build → safe to cache 1 year

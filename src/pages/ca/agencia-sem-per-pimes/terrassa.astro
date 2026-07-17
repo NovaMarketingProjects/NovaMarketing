@@ -5,6 +5,7 @@ import { localAgencySchema } from '../../../lib/schema';
 import { strapiClient } from '../../../lib/strapi';
 import LogoMarquee from '../../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../../components/sections/FaqHome.astro';
+import CityPills from '../../../components/global/CityPills.astro';
 import GoogleReviews from '../../../components/global/GoogleReviews.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
@@ -48,9 +49,9 @@ const faqs = [
 ];
 
 const sectors = [
-  { icon: '🛒', title: 'Google Ads per a ecommerce', desc: 'Shopping i Performance Max amb feed optimitzat. Que el teu producte surti amb foto i preu just quan algú busca comprar-lo.' },
-  { icon: '🏠', title: 'Google Ads per a immobiliàries', desc: 'Captació de propietaris i compradors amb campanyes per zona i anuncis que filtren curiosos abans del clic.' },
-  { icon: '🍽️', title: 'Google Ads per a restaurants', desc: 'Campanyes locals que apareixen quan algú busca on menjar a prop, connectades amb la teva fitxa de Google i les reserves.' },
+  { icon: '🛒', title: 'Google Ads per a ecommerce', href: '/ca/agencia-ecommerce/google-ads/', desc: 'Shopping i Performance Max amb feed optimitzat. Que el teu producte surti amb foto i preu just quan algú busca comprar-lo.' },
+  { icon: '🏠', title: 'Google Ads per a immobiliàries', href: '/ca/agencia-inmobiliarias/google-ads/', desc: 'Captació de propietaris i compradors amb campanyes per zona i anuncis que filtren curiosos abans del clic.' },
+  { icon: '🍽️', title: 'Google Ads per a restaurants', href: '/ca/agencia-restaurantes/google-ads/', desc: 'Campanyes locals que apareixen quan algú busca on menjar a prop, connectades amb la teva fitxa de Google i les reserves.' },
   { icon: '🧠', title: 'Google Ads per a psicòlegs', desc: 'El pacient busca ajuda amb urgència i tria entre el primer que veu. Anuncis per especialitat que converteixen cerques en primeres visites.' },
   { icon: '🌿', title: 'Google Ads per a terapeutes', desc: 'Clics cars si competeixes en genèric. Campanyes per teràpia i zona que paguen només per les cerques que porten pacients.' },
   { icon: '🦷', title: 'Google Ads per a dentistes', desc: 'Un dels CPCs més cars del mercat. Aquí guanya qui millor filtra les cerques i millor converteix la landing, no qui més gasta.' },
@@ -99,7 +100,6 @@ const pageSchema = localAgencySchema({
             </span>
             <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
                 <span class="lg:whitespace-nowrap">Agència SEM </span>
-                <span class="lg:whitespace-nowrap">Google Ads </span>
                 <span class="lg:whitespace-nowrap text-mktg-gradient">a Terrassa</span>
             </h1>
             <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
@@ -143,7 +143,7 @@ const pageSchema = localAgencySchema({
                 </div>
             </div>
             <div class="hidden md:block">
-                <img src="/sergio-galos-agencia-sem-per-pimes-terrassa.webp" alt="Sergio Galo's, consultor de Google Ads per a pimes a Terrassa" class="w-full h-auto" loading="lazy" />
+                <img src="/sergio-galos-agencia-sem-per-pimes-terrassa.webp" alt="Sergio Galo's, consultor de Google Ads per a pimes a Terrassa" title="Sergio Galo's, consultor de Google Ads per a pimes a Terrassa" class="w-full h-auto" loading="lazy" />
             </div>
         </div>
     </section>
@@ -409,7 +409,7 @@ const pageSchema = localAgencySchema({
                     <div class="bg-white border border-black/5 rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                         <div class="text-3xl mb-4">{s.icon}</div>
                         <h3 class="text-base uppercase tracking-tight text-zinc-900 mb-3 leading-tight font-montserrat-semibold">
-                            {s.title}
+                            {s.href ? <a href={s.href} class="hover:text-accent transition-colors">{s.title}</a> : s.title}
                             <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1 font-semibold">a Terrassa</span>
                         </h3>
                         <p class="text-sm text-zinc-500 font-light leading-relaxed">{s.desc}</p>
@@ -557,7 +557,7 @@ const pageSchema = localAgencySchema({
         <div class="max-w-5xl mx-auto reveal">
             <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] grid md:grid-cols-[280px_1fr] gap-8 sm:gap-12 items-center">
                 <div class="rounded-2xl overflow-hidden bg-zinc-100">
-                    <img src="/sergio-galos-agencia-sem-per-pimes-terrassa.webp" alt="Sergio Galo's, consultor de Google Ads per a pimes a Terrassa" class="w-full h-full object-cover object-top" loading="lazy" />
+                    <img src="/sergio-galos-agencia-sem-per-pimes-terrassa.webp" alt="Sergio Galo's, consultor de Google Ads per a pimes a Terrassa" title="Sergio Galo's, consultor de Google Ads per a pimes a Terrassa" class="w-full h-full object-cover object-top" loading="lazy" />
                 </div>
                 <div>
                     <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Qui hi ha al darrere</span>
@@ -667,7 +667,7 @@ const pageSchema = localAgencySchema({
             </div>
 
             <div class="reveal flex justify-center">
-                <img src="/agencia-sem-per-pimes-terrassa.webp" alt="Nova Marketing, agència de Google Ads a Terrassa recomanada per la IA" class="w-full max-w-sm lg:max-w-md h-auto" loading="lazy" />
+                <img src="/agencia-sem-per-pimes-terrassa.webp" alt="Nova Marketing, agència de Google Ads a Terrassa recomanada per la IA" title="Nova Marketing, agència de Google Ads a Terrassa recomanada per la IA" class="w-full max-w-sm lg:max-w-md h-auto" loading="lazy" />
             </div>
 
         </div>
@@ -702,10 +702,63 @@ const pageSchema = localAgencySchema({
     </section>
 
     <!-- ═══ RESSENYES GOOGLE ═════════════════════════════════════════ -->
-    <GoogleReviews locale="ca" />
+    <GoogleReviews locale="ca" title="El que diuen els nostres clients sobre les campanyes de Google Ads de Nova" />
 
-    <!-- ═══ ON TREBALLEM ═══════════════════════════════════════ -->
+    <!-- ═══ SERVICIOS COMPLEMENTARIOS ═══════════════════════════════ -->
     <section class="py-20 sm:py-28 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Més enllà del SEM</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Serveis complementaris de la nostra agència SEM a Terrassa
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    La teva captació funciona millor quan tot el màrqueting empeny en la mateixa direcció. Aquests són els serveis que la complementen.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal">
+                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
+                        <a href="/ca/agencia-de-marketing-digital-a-terrassa/" class="hover:text-accent transition-colors">Agència de Màrqueting Digital a Terrassa</a>
+                    </h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
+                        L'estratègia completa. Combinem SEO, publicitat, web i visibilitat en IA en un sol pla orientat que la teva pime guanyi clients cada mes.
+                    </p>
+                    <a href="/ca/agencia-de-marketing-digital-a-terrassa/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
+                </div>
+                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
+                        <a href="/ca/agencia-seo-per-pimes/terrassa/" class="hover:text-accent transition-colors">Agència SEO a Terrassa</a>
+                    </h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
+                        Apareix a Google quan els teus clients busquen el teu servei. Posicionament orgànic que s'acumula mes a mes i redueix la teva dependència de pagar per cada clic.
+                    </p>
+                    <a href="/ca/agencia-seo-per-pimes/terrassa/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
+                </div>
+                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
+                        <a href="/ca/disseny-web-per-pimes/terrassa/" class="hover:text-accent transition-colors">Disseny Web a Terrassa</a>
+                    </h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
+                        Una web ràpida, adaptada a mòbil i enfocada a convertir en clients cada visita que arriba de les teves campanyes i el teu posicionament.
+                    </p>
+                    <a href="/ca/disseny-web-per-pimes/terrassa/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
+                </div>
+                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
+                        <a href="/ca/agencia-geo-per-pimes/terrassa/" class="hover:text-accent transition-colors">Agència GEO a Terrassa</a>
+                    </h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
+                        Els teus clients ja pregunten a ChatGPT i Gemini quina empresa contractar. Treballem el teu posicionament GEO perquè la IA recomani el teu negoci.
+                    </p>
+                    <a href="/ca/agencia-geo-per-pimes/terrassa/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ DÓNDE TRABAJAMOS ═══════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
         <div class="max-w-4xl mx-auto text-center reveal">
             <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">On treballem</span>
             <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
@@ -714,15 +767,7 @@ const pageSchema = localAgencySchema({
             <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
                 La nostra base és a Barcelona i la majoria de projectes són de la ciutat i la seva àrea metropolitana, on ens reunim presencialment. Però les campanyes de Google Ads no entenen de quilòmetres. Treballem amb pimes de tot Espanya per videotrucada amb el mateix nivell de seguiment.
             </p>
-            <div class="flex flex-wrap items-center justify-center gap-3">
-                <a href="/ca/agencia-sem-per-pimes/barcelona/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Barcelona</a>
-                <a href="/ca/agencia-sem-per-pimes/sabadell/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Sabadell</a>
-                <a href="/ca/agencia-sem-per-pimes/sant-cugat/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Sant Cugat</a>
-                <a href="/ca/agencia-sem-per-pimes/terrassa/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Terrassa</a>
-                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">Badalona</span>
-                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">L'Hospitalet</span>
-                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">Resta d'Espanya</span>
-            </div>
+            <CityPills base="/ca/agencia-sem-per-pimes/" lang="ca" />
         </div>
     </section>
 

@@ -1,0 +1,533 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { buildAlternates } from '../../../lib/i18n';
+import { localAgencySchema } from '../../../lib/schema';
+import { strapiClient } from '../../../lib/strapi';
+import LogoMarquee from '../../../components/sections/LogoMarquee.astro';
+import FaqHome from '../../../components/sections/FaqHome.astro';
+import CityPills from '../../../components/global/CityPills.astro';
+import GoogleReviews from '../../../components/global/GoogleReviews.astro';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const alternates = buildAlternates('/agencia-inmobiliarias/wordpress/', '/ca/agencia-inmobiliarias/wordpress/', SITE_URL);
+
+let allCases: any[] = [];
+try {
+  const casesRes = await strapiClient.getCaseStudies('ca');
+  allCases = casesRes.data.map((i: any) => i.attributes ?? i).filter((c: any) => {
+    const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase());
+    return cats.some((s: string) => s === 'marketing-digital' || s.includes('seo') || s === 'diseno-web');
+  });
+} catch {}
+
+const faqs = [
+  { question: "Quant costa una agència de màrqueting per a immobiliàries?", answer: "Els plans mensuals parteixen de 400 euros al mes per a agències que arrenquen amb un o dos canals, i creixen segons la inversió publicitària i el volum de feina. Abans de començar reps un pressupost tancat per escrit, amb fee de gestió fix i sense percentatges ocults sobre la teva inversió." },
+  { question: "Què inclou el servei de màrqueting immobiliari?", answer: "Inclou un diagnòstic inicial, una estratègia documentada i l'execució i mesura mensual de cada canal activat. SEO immobiliari, campanyes de Google Ads i Meta Ads, email màrqueting, optimització de la web i visibilitat a la IA." },
+  { question: "Treballeu amb qualsevol tema immobiliari de WordPress?", answer: "Sí. Auditem el que tens i et diem amb dades si convé mantenir-lo, optimitzar-lo o canviar-lo. La majoria de webs immobiliàries poden competir amb una bona posada a punt, sense refer-ho tot des de zero." },
+  { question: "Qui portarà el meu compte?", answer: "Sempre la mateixa persona, el consultor fundador. Res de gestors júnior que canvien cada trimestre. Treballem amb un nombre limitat de clients perquè cada agència tingui seguiment sènior de veritat." },
+  { question: "Quant trigaré a veure resultats?", answer: "Depèn del canal. Les campanyes de pagament poden generar leads de valoració la primera setmana, i el SEO consolida resultats entre el tercer i el dotzè mes." },
+  { question: "Com mesureu els resultats?", answer: "En captacions, encàrrecs i vendes. Cada lead queda atribuït al seu canal i la seva campanya. A l'informe mensual veus quant has invertit, quants leads han arribat i què et costa cada captació." },
+  { question: "Treballeu amb permanència?", answer: "No, treballem mes a mes. Si el servei no t'aporta valor, pots cancel·lar-lo quan vulguis. La nostra permanència real és el resultat que veus als informes cada mes." },
+];
+
+const pageSchema = localAgencySchema({
+  pageUrl: `${SITE_URL}/ca/agencia-inmobiliarias/wordpress/`,
+  lang: 'ca',
+  cityName: 'Barcelona',
+  postalCode: '08035',
+  geo: { lat: 41.4114, lng: 2.1526 },
+  areaServed: ["España", "Barcelona", "Sabadell", "Sant Cugat del Vallès", "Terrassa", "Vallès Occidental"],
+  title: "Màrqueting Immobiliari per a WordPress | Nova Marketing",
+  description: "Agència de màrqueting per a immobiliàries amb web en WordPress. SEO, Ads i CRO adaptats a la teva plataforma. Sense permanències.",
+  datePublished: '2026-07-17',
+  dateModified: '2026-07-17',
+  streetAddress: 'Carrer del General Mendoza, 10',
+  hasMap: 'https://maps.app.goo.gl/9fbB12UcK32bgjj89',
+  aggregateRating: { ratingValue: '5.0', reviewCount: '8' },
+  breadcrumbName: "Màrqueting Immobiliari WordPress",
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Màrqueting Immobiliari per a WordPress | Nova Marketing"
+  description="Agència de màrqueting per a immobiliàries amb web en WordPress. SEO, Ads i CRO adaptats a la teva plataforma. Sense permanències."
+  locale="ca"
+  alternates={alternates}
+  schemas={[pageSchema]}
+>
+
+    <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
+    <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+        <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+
+        <div class="max-w-5xl mx-auto reveal">
+            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
+                <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+                Màrqueting Immobiliari en WordPress
+            </span>
+            <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
+                <span class="lg:whitespace-nowrap">Màrqueting per a la teva </span>
+                <span class="lg:whitespace-nowrap text-mktg-gradient">Immobiliària en WordPress</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
+                La base tecnològica més usada del sector immobiliari. Màrqueting especialitzat per a webs immobiliàries en WordPress amb estratègia a mida i resultats mesurats en captacions.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
+                {['Sense permanències', 'Tracte directe amb el consultor', 'Resultats mesurats en captacions'].map(item => (
+                    <span class="inline-flex items-center gap-2 text-[11px] sm:text-xs font-black uppercase tracking-widest text-zinc-700">
+                        <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        {item}
+                    </span>
+                ))}
+            </div>
+            <div class="flex justify-center mt-4">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    PARLEM DE LA TEVA IMMOBILIÀRIA
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <LogoMarquee />
+
+    <!-- ═══ INTRO ═══════════════════════════════════════════════════════ -->
+    <section class="py-16 sm:py-24 bg-white px-4 sm:px-6 border-b border-black/5">
+        <div class="max-w-6xl mx-auto reveal grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-16 items-center">
+            <div>
+                <p class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4">Per què màrqueting per a WordPress?</p>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    L'agència de màrqueting per a la teva web immobiliària en WordPress
+                </h2>
+                <div class="space-y-6 text-zinc-600 font-light text-base sm:text-lg leading-relaxed">
+                    <p>
+                        <strong class="font-semibold text-zinc-900">La web no capta sola, capta el sistema que l'envolta</strong>. Trànsit que arriba amb intenció, fitxes que converteixen, valorador que capta propietaris i campanyes rendibles. WordPress posa la base, el màrqueting posa els clients.
+                    </p>
+                    <p>
+                        Nova és una <strong class="font-semibold text-zinc-900">agència de màrqueting especialitzada en immobiliàries</strong> que domina WordPress. Temes i plugins immobiliaris, velocitat i SEO no ens agafen de nou.
+                    </p>
+                </div>
+            </div>
+            <div class="hidden md:block">
+                <img src="/sergio-galos-agencia-inmobiliarias-wordpress.webp" alt="Sergio Galo's, consultor de màrqueting immobiliari" title="Sergio Galo's, consultor de màrqueting immobiliari" class="w-full h-auto" loading="lazy" />
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SERVEIS ═══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-14 sm:mb-20 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Què fem</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Serveis de Màrqueting per a la teva web en WordPress
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Les sis peces que combinem segons el que necessiti la teva agència. No pagues per un paquet tancat, pagues pel que la teva captació necessita.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal text-left">
+                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
+                        <a href="/ca/agencia-inmobiliarias/seo/" class="hover:text-accent transition-colors">SEO Immobiliari</a>
+                    </h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">Apareix quan algú busca vendre o comprar a la teva zona. Landings per barri i contingut que capta propietaris abans que els portals.</p>
+                    <a href="/ca/agencia-inmobiliarias/seo/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
+                </div>
+                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
+                        <a href="/ca/agencia-inmobiliarias/google-ads/" class="hover:text-accent transition-colors">Google Ads per a Immobiliàries</a>
+                    </h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">Campanyes per a les cerques amb més intenció del sector, de la valoració de pis a la venda urgent. Leads amb nom i telèfon.</p>
+                    <a href="/ca/agencia-inmobiliarias/google-ads/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
+                </div>
+                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
+                        <a href="/ca/agencia-inmobiliarias/meta-ads/" class="hover:text-accent transition-colors">Meta Ads per a Immobiliàries</a>
+                    </h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">Instagram i Facebook per captar propietaris que encara no busquen agència i donar sortida a les teves exclusives.</p>
+                    <a href="/ca/agencia-inmobiliarias/meta-ads/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
+                </div>
+                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
+                        <a href="/ca/agencia-inmobiliarias/email-marketing/" class="hover:text-accent transition-colors">Email Màrqueting Immobiliari</a>
+                    </h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">Nurturing de compradors, seguiment de valoracions i demanda qualificada avisada de cada exclusiva nova.</p>
+                    <a href="/ca/agencia-inmobiliarias/email-marketing/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
+                </div>
+                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
+                        <a href="/ca/agencia-inmobiliarias/diseno-web/" class="hover:text-accent transition-colors">Disseny Web</a>
+                    </h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">Una web ràpida, adaptada a mòbil i pensada per convertir la visita en client. La base sobre la qual treballa cada canal.</p>
+                    <a href="/ca/agencia-inmobiliarias/diseno-web/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
+                </div>
+                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
+                        <a href="/ca/agencia-inmobiliarias/posicionamiento-geo/" class="hover:text-accent transition-colors">GEO i Visibilitat en IA</a>
+                    </h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">Quan algú pregunta a ChatGPT quina immobiliària li recomana a la teva zona, la resposta en recomana una o dues. Que siguis tu.</p>
+                    <a href="/ca/agencia-inmobiliarias/posicionamiento-geo/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
+                </div>
+            </div>
+            <div class="mt-12 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">PARLEM DE LA TEVA IMMOBILIÀRIA</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ ESTRATÈGIA ════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16 sm:mb-24 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Com treballem</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Estratègies de màrqueting per a la teva immobiliària en WordPress
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Una metodologia documentada per captar més exclusives i més compradors cada mes, pas a pas i sense fum.
+                </p>
+            </div>
+
+            <div id="timeline-container" class="relative">
+                <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
+                <div id="progress-bar" class="hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100"></div>
+
+                <div class="space-y-16 md:space-y-24 flex flex-col items-center">
+                    {[
+                        { title: "Diagnòstic de la Immobiliària", desc: "Analitzem la teva captació amb dades. D'on surten avui les teves exclusives i els teus compradors, quant et costa cada lead i quina dependència tens dels portals." },
+                        { title: "Estratègia Documentada", desc: "Reps un pla per escrit. Quins canals activar, quina zona atacar, quin pressupost necessita cada campanya i quantes captacions és raonable esperar en 3, 6 i 12 mesos." },
+                        { title: "Execució Multicanal", desc: "SEO per dominar la teva zona, Ads per al propietari que decideix avui, xarxes per al que decidirà demà i email per tancar. Cada canal amb la seva funció." },
+                        { title: "Mesura Sense Fum", desc: "Mesurem captacions, encàrrecs i vendes, no visites. Cada lead queda atribuït al seu canal i la seva campanya a l'informe mensual." },
+                        { title: "Optimització Contínua", desc: "Revisem cada setmana campanyes i conversió, tallem el que no porta leads i reinvertim en el que capta. Mes a mes, el compte millora o s'explica per què." },
+                    ].map((step, index) => (
+                        <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
+                            <div class:list={["flex-1 w-full", index % 2 === 0 ? "md:order-1 md:text-right" : "md:order-3 md:text-left"]}>
+                                <div class="p-8 sm:p-10 bg-zinc-50 border border-black/5 rounded-3xl hover:border-accent/10 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+                                    <h3 class="text-xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{index + 1}. {step.title}</h3>
+                                    <div class:list={["h-0.5 bg-accent w-full mb-4 opacity-80", index % 2 === 0 ? "md:ml-auto" : ""]}></div>
+                                    <p class:list={["text-sm text-zinc-500 font-light max-w-md", index % 2 === 0 ? "md:ml-auto" : ""]}>{step.desc}</p>
+                                    <div class="absolute -bottom-6 -right-5 text-8xl font-black text-black/[0.02] select-none z-0 group-hover:scale-105 transition-transform duration-500">0{index+1}</div>
+                                </div>
+                            </div>
+                            <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all">
+                                0{index + 1}
+                            </div>
+                            <div class:list={["hidden md:block md:flex-1", index % 2 === 0 ? "md:order-3" : "md:order-1"]}></div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PER QUÈ ESPECIALITZAT ═════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-4xl mx-auto">
+            <div class="reveal mb-10">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Especialització real</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
+                    Per què la teva web immobiliària en WordPress necessita màrqueting especialitzat
+                </h2>
+            </div>
+            <div class="reveal space-y-5 text-zinc-600 font-light text-base leading-relaxed mb-8">
+                <p>WordPress domina les webs immobiliàries per la seva flexibilitat i els seus plugins especialitzats. Aquesta mateixa facilitat fa que gairebé totes les agències tinguin webs semblants, lentes i amb el mateix SEO per defecte.</p>
+                <p>El seu gran avantatge per captar és el contingut. Cap plataforma combina millor blog, landings per barri i fitxes de propietat, i això és or per posicionar-se davant propietaris i compradors.</p>
+                <p>El seu risc és el rendiment. Temes immobiliaris pesats, plugins acumulats i fotos sense optimitzar que arruïnen la velocitat i el posicionament si ningú els vigila.</p>
+                <p>Treballem el teu WordPress immobiliari amb aquest coneixement de sèrie. Landings per zona que posicionen, valorador que capta propietaris i una base tècnica ràpida i estable.</p>
+            </div>
+            <ul class="space-y-3 reveal">
+                {["Tema i plugins immobiliaris ben triats","Velocitat optimitzada encara que hi hagi moltes fotos","Landings per barri que posicionen","Valorador online que capta propietaris","Fitxes de propietat que converteixen","Mesura de leads sense duplicats"].map(item => (
+                    <li class="flex items-start gap-3 text-sm text-zinc-700 font-light">
+                        <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        {item}
+                    </li>
+                ))}
+            </ul>
+            <div class="mt-16 reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    VULL LA MEVA AUDITORIA IMMOBILIÀRIA
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CITA ══════════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-zinc-950 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <blockquote class="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.15] mb-8">
+                “La teva competència té una web semblant a la teva. La diferència no és a la plataforma. És al sistema de captació que l'omple de propietaris i compradors.”
+            </blockquote>
+            <p class="text-sm text-zinc-400 font-light mb-10">Sergio Galo's · Consultor de màrqueting immobiliari</p>
+            <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                PARLEM DE LA TEVA IMMOBILIÀRIA
+            </a>
+        </div>
+    </section>
+
+    <!-- ═══ PER QUÈ NOVA (COMPARATIVA) ═════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Per què nova</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Què diferencia nova d'una altra agència de màrqueting amb WordPress
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    El màrqueting immobiliari està ple de fum i de leads freds comprats a l'engròs. Nosaltres el treballem amb mètode, transparència i resultats en captacions signades.
+                </p>
+            </div>
+
+            <div class="reveal overflow-x-auto rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
+                <table class="w-full min-w-[640px] text-left border-collapse bg-white">
+                    <thead>
+                        <tr class="bg-black text-white">
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Criteri</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Nova</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Altres agències</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-zinc-100">
+                        {[
+                            { c: "Qui serà el teu contacte", o: "Gestor júnior amb 20-30 comptes", n: "Sergio Galo's" },
+                            { c: "Què es mesura", o: "Visites i impressions", n: "Captacions, encàrrecs i vendes" },
+                            { c: "Coneixement de WordPress", o: "Instal·len plugins fins que alguna cosa funciona", n: "Base tècnica cuidada i captació connectada" },
+                            { c: "Propietat dels teus actius", o: "Web i comptes a nom de l'agència", n: "Tot al teu nom des del dia u" },
+                            { c: "Permanència", o: "6-12 mesos habituals", n: "Mes a mes, sense permanència" },
+                            { c: "Visibilitat en IA (GEO)", o: "Només canals tradicionals", n: "SEO + GEO integrats amb mètode propi" },
+                            { c: "Transparència de preus", o: "Percentatges opacs sobre la teva inversió", n: "Fee fix tancat per escrit abans de començar" },
+                        ].map(row => (
+                            <tr class="hover:bg-zinc-50/50 transition-colors">
+                                <td class="px-6 py-5 text-sm font-bold text-zinc-900">{row.c}</td>
+                                <td class="px-6 py-5 text-sm font-bold text-accent">{row.n}</td>
+                                <td class="px-6 py-5 text-sm text-zinc-500 font-light">{row.o}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ QUI HI HA AL DARRERE ═══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto reveal">
+            <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] grid md:grid-cols-[280px_1fr] gap-8 sm:gap-12 items-center">
+                <div class="rounded-2xl overflow-hidden bg-zinc-100">
+                    <img src="/sergio-galos-agencia-inmobiliarias-wordpress.webp" alt="Sergio Galo's, consultor de màrqueting immobiliari" title="Sergio Galo's, consultor de màrqueting immobiliari" class="w-full h-full object-cover object-top" loading="lazy" />
+                </div>
+                <div>
+                    <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Qui hi ha al darrere</span>
+                    <h2 class="text-2xl sm:text-4xl font-black tracking-tighter uppercase text-zinc-900 leading-[0.95] mb-6">
+                        Sergio Galo's <br>
+                        <span class="text-lg sm:text-2xl">El teu consultor de màrqueting immobiliari</span>
+                    </h2>
+                    <div class="space-y-4 text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
+                        <p>
+                            Soc <strong class="font-semibold text-zinc-900">Sergio Galo's</strong>, consultor de màrqueting digital i fundador de Nova Marketing. Porto anys generant captacions i vendes per a immobiliàries en alguns dels mercats més competits d'Espanya.
+                        </p>
+                        <p>
+                            Quan contractes màrqueting per a la teva immobiliària amb nova parles sempre amb mi. Jo faig l'auditoria, jo dissenyo l'estratègia i jo responc a la reunió mensual.
+                        </p>
+                    </div>
+                    <a href="https://www.linkedin.com/company/nova-marketing-pymes/" target="_blank" rel="noopener" class="inline-block mt-6 text-[12px] font-black tracking-widest text-accent hover:underline">
+                        Veure perfil a LinkedIn →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CASOS D'ÈXIT (CMS) ═══════════════════════════════════ -->
+    {allCases.length > 0 && (
+    <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6 overflow-hidden">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-12 reveal">
+          <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultats provats</span>
+          <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
+            Casos d'èxit de màrqueting<br class="hidden md:inline" /> per a negocis locals
+          </h2>
+        </div>
+        <div class="cases-carousel relative overflow-hidden">
+          <div class="cases-track flex gap-6 transition-transform duration-500 ease-in-out">
+            {allCases.map((cs: any) => {
+              const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
+              const caseUrl = cs.isPublic && cs.slug ? `/ca/casos-exit/${cs.slug}/` : null;
+              return (
+                <div class="cases-slide flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
+                  <div>
+                    {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
+                    <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors leading-tight">
+                      {caseUrl ? (
+                        <a href={caseUrl} class="hover:text-accent transition-colors">{cs.title}</a>
+                      ) : (
+                        <span class="group-hover:text-accent transition-colors">{cs.title}</span>
+                      )}
+                    </h3>
+                    <p class="text-xs text-zinc-500 font-light leading-relaxed">{cs.description}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+    )}
+    <script is:inline>
+      function initCasesCarousel() {
+        const track = document.querySelector('.cases-track');
+        if (!track) return;
+        const slides = track.querySelectorAll('.cases-slide');
+        if (slides.length <= 4) return;
+        let current = 0;
+        const total = slides.length;
+        function getVisible() {
+          if (window.innerWidth >= 1024) return 4;
+          if (window.innerWidth >= 640) return 2;
+          return 1;
+        }
+        function next() {
+          const visible = getVisible();
+          const maxIndex = total - visible;
+          current = current >= maxIndex ? 0 : current + 1;
+          const slideWidth = slides[0].offsetWidth + 24;
+          track.style.transform = `translateX(-${current * slideWidth}px)`;
+        }
+        const interval = setInterval(next, 5000);
+        document.addEventListener('astro:before-preparation', () => clearInterval(interval));
+      }
+      document.addEventListener('DOMContentLoaded', initCasesCarousel);
+      document.addEventListener('astro:page-load', initCasesCarousel);
+    </script>
+
+    <!-- ═══ RECOMANATS PER LA IA ═════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+            <div class="reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Ens avala la IA</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    L'agència de màrqueting immobiliari que recomana la IA
+                </h2>
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed">
+                    <p>
+                        Quan algú pregunta per una <strong class="font-semibold text-zinc-900">agència de màrqueting per a immobiliàries</strong> a ChatGPT, Gemini o Claude, nova apareix entre les agències recomanades. És la millor prova que sabem generar visibilitat, perquè ho apliquem primer en nosaltres mateixos.
+                    </p>
+                    <p>
+                        Als assistents d'IA no els pots comprar un anunci per sortir primer. Recomanen el que troben. Casos reals publicats, botigues que creixen i es poden visitar, una especialització clara i clients que parlen de nosaltres.
+                    </p>
+                    <p>
+                        Prova-ho tu mateix. Obre ChatGPT i pregunta-li quina agència de màrqueting per a immobiliàries et recomana. Si et surt nova, ja saps qui pot fer el mateix per la teva botiga.
+                    </p>
+                </div>
+            </div>
+
+            <div class="reveal flex justify-center">
+                <img src="/agencia-inmobiliarias-wordpress.webp" alt="Nova Marketing, màrqueting immobiliari per a WordPress recomanat per la IA" title="Nova Marketing, màrqueting immobiliari per a WordPress recomanat per la IA" class="w-full max-w-sm lg:max-w-md h-auto" loading="lazy" />
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══ RESSENYES GOOGLE ═════════════════════════════════════════ -->
+    <GoogleReviews locale="ca" title="El que diuen els nostres clients sobre el màrqueting immobiliari de Nova" />
+
+
+    <!-- ═══ FAQS ════════════════════════════════════════════════ -->
+    <FaqHome title="Preguntes sobre màrqueting per a la teva immobiliària en WordPress" items={faqs} emitSchema={false} />
+
+    <!-- ═══ CONTACTE ════════════════════════════════════════════ -->
+    <section id="contacto" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
+            <div class="reveal text-white">
+                <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">CREIXEMENT GARANTIT</span>
+                <h2 class="text-5xl sm:text-7xl font-black uppercase tracking-tighter leading-[0.8] mb-8">
+                   CAPTA MÉS <br>PROPIETARIS
+                </h2>
+                <p class="font-light max-w-md text-base sm:text-xl">Consulta'm i et diré d'on poden sortir les teves properes exclusives, i quant et costaria cadascuna.</p>
+            </div>
+
+            <div class="reveal">
+                <div class="bg-white p-8 sm:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
+                    <form class="space-y-8" id="contact-form">
+                        <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
+                            <div class="flex flex-col gap-3">
+                                <label class="opacity-30">NOM</label>
+                                <input type="text" name="name" aria-label="Nom" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                            <div class="flex flex-col gap-3">
+                                <label class="opacity-30">TELÈFON</label>
+                                <input type="tel" name="phone" class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">EMAIL PROFESSIONAL</label>
+                            <input type="email" name="email" aria-label="Correu electrònic" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                        </div>
+                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">CONSULTA</label>
+                            <textarea name="msg" aria-label="Missatge" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="Què necessita la teva immobiliària?"></textarea>
+                        </div>
+                        <button type="submit" class="w-full btn-mktg-v5 !py-6">VULL MÉS CAPTACIONS</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</BaseLayout>
+
+<script>
+    document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const btn = form.querySelector('button');
+        if (btn) { btn.innerHTML = 'ENVIANT...'; btn.disabled = true; }
+        const data = Object.fromEntries(new FormData(form));
+        try {
+            const res = await fetch('https://cms.novamarketing.es/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            if (res.ok) {
+                window.location.href = '/ca/gracies/';
+            } else { throw new Error(); }
+        } catch {
+            if (btn) { btn.innerHTML = 'ERROR — TORNA-HO A PROVAR'; btn.disabled = false; btn.style.background = '#ef4444'; }
+        }
+    });
+function initTimeline() {
+        const progressBar = document.getElementById('progress-bar');
+        const timeline = document.getElementById('timeline-container');
+        if (!progressBar || !timeline) return;
+
+        function updateProgress() {
+            const rect = timeline.getBoundingClientRect();
+            const winHeight = window.innerHeight;
+            const topPassed = (winHeight / 2) - rect.top;
+            let percentage = (topPassed / rect.height) * 100;
+            percentage = Math.max(0, Math.min(100, percentage));
+            progressBar.style.height = `${percentage}%`;
+
+            const nodes = timeline.querySelectorAll('.node-circle');
+            nodes.forEach((node) => {
+                const nodeTop = node.getBoundingClientRect().top;
+                if (nodeTop < winHeight / 2) {
+                    node.classList.add('!border-accent', '!bg-accent', '!text-white');
+                } else {
+                    node.classList.remove('!border-accent', '!bg-accent', '!text-white');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        document.addEventListener('astro:page-load', updateProgress);
+        updateProgress();
+    }
+    document.addEventListener('DOMContentLoaded', initTimeline);
+    document.addEventListener('astro:page-load', initTimeline);
+</script>

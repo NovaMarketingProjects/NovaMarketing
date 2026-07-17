@@ -19,7 +19,7 @@ const { title, logos = [] } = Astro.props;
       {logos.map((logo) => (
         <img
           src={getStrapiImageUrl(logo)}
-          alt={logo.alternativeText || 'Cliente de Nova Marketing'}
+          alt={logo.alternativeText || 'Cliente de Nova Marketing'} title={logo.alternativeText || 'Cliente de Nova Marketing'}
           width={logo.width > 160 ? 160 : logo.width}
           height="auto"
           loading="lazy"

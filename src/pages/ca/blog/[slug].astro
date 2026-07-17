@@ -137,7 +137,7 @@ const authorDisplayName = author?.name?.trim().toLowerCase().startsWith('sergio 
     <div class="absolute inset-0 z-0 opacity-60">
         <img
           src={coverUrl}
-          alt={post.title}
+          alt={post.title} title={post.title}
           class="w-full h-full object-cover scale-105"
         />
         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
@@ -171,7 +171,7 @@ const authorDisplayName = author?.name?.trim().toLowerCase().startsWith('sergio 
                         src={author.photo?.formats?.small?.url
                           ? (author.photo.formats.small.url.startsWith('http') ? author.photo.formats.small.url : `${import.meta.env.STRAPI_URL || 'http://localhost:1337'}${author.photo.formats.small.url}`)
                           : getStrapiImageUrl(author.photo)}
-                        alt={authorDisplayName}
+                        alt={authorDisplayName} title={authorDisplayName}
                         class="w-16 h-16 rounded-full border-2 border-white/20 object-cover"
                     />
                 )}
@@ -247,7 +247,7 @@ const authorDisplayName = author?.name?.trim().toLowerCase().startsWith('sergio 
                 { label: 'Posicionament SEO', href: '/ca/agencia-seo-per-pimes/' },
                 { label: 'Google Ads', href: '/ca/agencia-sem-per-pimes/' },
                 { label: 'Disseny de pàgines web', href: '/ca/disseny-web-per-pimes/' },
-                { label: 'Consultoria de marketing', href: '/ca/consultoria-marketing-per-pimes/' },
+                { label: 'Posicionament GEO en IA', href: '/ca/agencia-geo-per-pimes/' },
               ].map(s => (
                 <li class="border-b border-zinc-200 last:border-0">
                   <a href={s.href} class="group flex items-center justify-between py-3">

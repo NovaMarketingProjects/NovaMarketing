@@ -145,7 +145,7 @@ const ctaTitle = caseCategories.some((c: string) => c.includes('seo') || c.inclu
     <div class="absolute inset-0 z-0">
         <img 
           src={coverUrl} 
-          alt={caseStudy.title} 
+          alt={caseStudy.title} title={caseStudy.title} 
           class="w-full h-full object-cover scale-105 brightness-50 contrast-[1.1] saturate-[0.8]"
         />
         <!-- Dark Gradient Overlay -->
@@ -244,7 +244,7 @@ const ctaTitle = caseCategories.some((c: string) => c.includes('seo') || c.inclu
                 { label: 'Posicionamiento SEO', href: '/agencia-seo-para-pymes/' },
                 { label: 'Google Ads', href: '/agencia-sem-para-pymes/' },
                 { label: 'Diseño de páginas web', href: '/diseno-web-para-pymes/' },
-                { label: 'Consultoría de marketing', href: '/consultoria-marketing-para-pymes/' },
+                { label: 'Posicionamiento GEO en IA', href: '/agencia-geo-para-pymes/' },
               ].map(s => (
                 <li class="border-b border-zinc-200 last:border-0">
                   <a href={s.href} class="group flex items-center justify-between py-3">

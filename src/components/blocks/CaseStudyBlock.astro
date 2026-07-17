@@ -35,7 +35,7 @@ const displayed = caseStudies.slice(0, maxItems);
           {cs.featuredImage && (
             <img
               src={cs.featuredImage.url}
-              alt={cs.title}
+              alt={cs.title} title={cs.title}
               class="w-full h-40 object-cover rounded-lg mb-4"
               loading="lazy"
             />

@@ -413,7 +413,7 @@ const faqs = [
         return (
           <a href={caseUrl} class="group bg-white border border-black/5 rounded-3xl overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 shadow-sm flex flex-col h-full reveal" style={`transition-delay: ${i * 100}ms`}>
             <div class="relative aspect-[4/3] overflow-hidden">
-              <img src={imageUrl} alt={cs.title} class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
+              <img src={imageUrl} alt={cs.title} title={cs.title} class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
               <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
               <div class="absolute top-3 left-3 z-10">
                 <span class="bg-white/95 backdrop-blur-sm border border-black/5 px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-[0.2em] text-accent shadow-md">{catName}</span>
@@ -471,7 +471,6 @@ const faqs = [
         { href: '/agencia-de-marketing-digital-en-barcelona/', title: 'Agencia de Marketing Digital en Barcelona', desc: 'Estrategia digital integral para empresas de Barcelona: SEO, SEM, redes sociales y analítica web para crecer en el mercado más competitivo de Cataluña.' },
         { href: '/agencia-sem-para-pymes/barcelona/', title: 'Agencia de Google Ads en Barcelona', desc: 'Campañas de Google Ads rentables para empresas de Barcelona. Visibilidad inmediata en el mercado más grande de Cataluña con presupuesto optimizado.' },
         { href: '/diseno-web-para-pymes/', title: 'Agencia de Diseño Web en Barcelona', desc: 'Diseñamos webs profesionales para empresas de Barcelona orientadas a captar clientes y convertir visitas en contactos reales.' },
-        { href: '/consultoria-marketing-para-pymes/', title: 'Consultoría de Marketing en Barcelona', desc: 'Consultoría de marketing para pymes de Barcelona. Analizamos tu negocio y diseñamos el plan de marketing más rentable para el mercado barcelonés.' },
       ].map((s, i) => (
         <a href={s.href} class="group p-8 bg-white border border-zinc-100/60 rounded-3xl hover:border-accent/20 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden flex flex-col reveal" style={`transition-delay: ${i * 80}ms`}>
           <div class="absolute bottom-0 inset-x-0 h-1 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>

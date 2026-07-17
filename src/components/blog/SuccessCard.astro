@@ -21,7 +21,7 @@ const company = caseStudy.company || '';
   <div class="relative aspect-[4/3] overflow-hidden">
     <img 
       src={imageUrl} 
-      alt={caseStudy.title}
+      alt={caseStudy.title} title={caseStudy.title}
       class="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
     />
     <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>

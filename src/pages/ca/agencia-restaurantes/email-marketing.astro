@@ -1,0 +1,700 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { buildAlternates } from '../../../lib/i18n';
+import { localAgencySchema } from '../../../lib/schema';
+import { strapiClient } from '../../../lib/strapi';
+import LogoMarquee from '../../../components/sections/LogoMarquee.astro';
+import FaqHome from '../../../components/sections/FaqHome.astro';
+import CityPills from '../../../components/global/CityPills.astro';
+import GoogleReviews from '../../../components/global/GoogleReviews.astro';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const alternates = buildAlternates('/agencia-restaurantes/email-marketing/', '/ca/agencia-restaurantes/email-marketing/', SITE_URL);
+
+let allCases: any[] = [];
+try {
+  const casesRes = await strapiClient.getCaseStudies('ca');
+  allCases = casesRes.data.map((i: any) => i.attributes ?? i).filter((c: any) => {
+    const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase());
+    return cats.some((s: string) => s === 'marketing-digital' || s === 'e-commerce');
+  });
+} catch {}
+
+const faqs = [
+  { question: "Què inclou el servei d'email màrqueting per a restaurants?", answer: "Inclou auditoria inicial, estratègia documentada, sistema de captació de contactes al local, automatitzacions de benvinguda i reactivació, calendari de campanyes de menús i esdeveniments, i un informe mensual amb les reserves generades pel canal." },
+  { question: "Quant costa?", answer: "L'auditoria costa 600 euros i els plans mensuals van des de 300 euros al mes. A això s'hi suma el cost de l'eina d'email, que es contracta al teu nom." },
+  { question: "Com capto els contactes dels meus comensals?", answer: "Amb un sistema al propi local. QR a taula amb incentiu, wifi amb registre, reserves i sortejos. Ben muntat, un local mitjà capta centenars de contactes al mes." },
+  { question: "Cada quant he d'enviar?", answer: "Entre una i quatre vegades al mes segons el teu ritme d'esdeveniments i novetats. Més que la freqüència importa el motiu." },
+  { question: "Quant triga a veure's el resultat?", answer: "La captació arrenca el primer mes i les primeres campanyes generen reserves quan la llista té volum. La reactivació de clients adormits sol donar resultat la primera setmana." },
+  { question: "Com mesureu els resultats?", answer: "En reserves i visites generades per cada campanya, amb codis i enllaços mesurables." },
+  { question: "Treballeu amb permanència?", answer: "No, treballem mes a mes. Si el servei no t'aporta valor, pots cancel·lar-lo quan vulguis." },
+];
+
+const pageSchema = localAgencySchema({
+  pageUrl: `${SITE_URL}/ca/agencia-restaurantes/email-marketing/`,
+  lang: 'ca',
+  cityName: 'Barcelona',
+  postalCode: '08035',
+  geo: { lat: 41.4114, lng: 2.1526 },
+  areaServed: ["España", "Barcelona", "Sabadell", "Sant Cugat del Vallès", "Terrassa", "Vallès Occidental"],
+  title: "Email Màrqueting per a Restaurants | Fidelització i Repetició | Nova Marketing",
+  description: "Email màrqueting per a restaurants. Base de clients pròpia, esdeveniments, menús i dates assenyalades que omplen taules amb el canal més barat que existeix.",
+  datePublished: '2026-07-17',
+  dateModified: '2026-07-17',
+  streetAddress: 'Carrer del General Mendoza, 10',
+  hasMap: 'https://maps.app.goo.gl/9fbB12UcK32bgjj89',
+  aggregateRating: { ratingValue: '5.0', reviewCount: '8' },
+  breadcrumbName: "Email Màrqueting per a Restaurants",
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Email Màrqueting per a Restaurants | Fidelització i Repetició | Nova Marketing"
+  description="Email màrqueting per a restaurants. Base de clients pròpia, esdeveniments, menús i dates assenyalades que omplen taules amb el canal més barat que existeix."
+  locale="ca"
+  alternates={alternates}
+  schemas={[pageSchema]}
+>
+
+    <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
+    <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+        <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+
+        <div class="max-w-5xl mx-auto reveal">
+            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
+                <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+                Email i Fidelització Gastronòmica
+            </span>
+            <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
+                <span class="lg:whitespace-nowrap">Email Màrqueting </span>
+                <span class="lg:whitespace-nowrap text-mktg-gradient">per a Restaurants</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
+                La taula més barata és la del client que repeteix. Email màrqueting per a restaurants que converteix comensals d'una vegada en habituals de sempre.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
+                {['Sense permanències', 'Tracte directe amb el consultor', 'Resultats mesurats en reserves'].map(item => (
+                    <span class="inline-flex items-center gap-2 text-[11px] sm:text-xs font-black uppercase tracking-widest text-zinc-700">
+                        <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        {item}
+                    </span>
+                ))}
+            </div>
+            <div class="flex justify-center mt-4">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    PARLEM DEL TEU RESTAURANT
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <LogoMarquee />
+
+    <!-- ═══ INTRO ═══════════════════════════════════════════════════════ -->
+    <section class="py-16 sm:py-24 bg-white px-4 sm:px-6 border-b border-black/5">
+        <div class="max-w-6xl mx-auto reveal grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-16 items-center">
+            <div>
+                <p class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4">Per què email màrqueting?</p>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    L'agència d'email màrqueting per al teu restaurant
+                </h2>
+                <div class="space-y-6 text-zinc-600 font-light text-base sm:text-lg leading-relaxed">
+                    <p>
+                        <strong class="font-semibold text-zinc-900">Cada comensal que se'n va sense deixar el seu contacte és un client que depens de recaptar pagant</strong>. La teva base de clients és l'únic canal on omplir taules no costa comissió ni publicitat.
+                    </p>
+                    <p>
+                        Nova és una <strong class="font-semibold text-zinc-900">agència especialitzada en email màrqueting gastronòmic</strong>. Base pròpia, campanyes i automatitzacions amb una sola mètrica que importa. <strong class="font-semibold text-zinc-900">Quantes taules omple la teva base de clients cada mes</strong>.
+                    </p>
+                </div>
+            </div>
+            <div class="hidden md:block">
+                <img src="/sergio-galos-agencia-restaurantes-email-marketing.webp" alt="Sergio Galo's, Consultor d'email màrqueting gastronòmic" title="Sergio Galo's, Consultor d'email màrqueting gastronòmic" class="w-full h-auto" loading="lazy" />
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SERVEIS ══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50 px-4 sm:px-6 border-t border-b border-black/5">
+        <div class="max-w-7xl mx-auto text-center reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Què fem</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Servei d'email màrqueting per a restaurants
+            </h2>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-16">
+                L'email d'un restaurant no són newsletters, és un sistema de fidelització que omple taules entre setmana. Aquestes són les nou peces.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+                {[
+                    { t: "Auditoria d'email", d: "Radiografia de la teva base de clients i el que fas avui amb ella. Quantes taules dormen a la teva llista." },
+                    { t: "Captació de contactes", d: "QR a taula, wifi, reserves i sortejos que converteixen comensals en base de dades pròpia." },
+                    { t: "Benvinguda i primera volta", d: "L'email que converteix qui va venir una vegada en qui torna el mes que ve." },
+                    { t: "Esdeveniments i dates assenyalades", d: "Nadal, grups i celebracions avisats a temps a qui ja et coneix. Les dates fortes s'omplen abans." },
+                    { t: "Menús i novetats", d: "Carta nova, menú de temporada i suggeriments explicats de manera que fa gana." },
+                    { t: "Reactivació", d: "Qui porta mesos sense venir rep el motiu perfecte per tornar." },
+                    { t: "Segmentació", d: "El de menú del dia i el de sopar de dissabte no volen el mateix email. Cada perfil, el seu missatge." },
+                    { t: "Lliurabilitat", d: "De res serveix el millor email si cau a spam. Domini autenticat i llista neta." },
+                    { t: "Mesura per campanya", d: "Cada reserva generada per l'email, atribuïda a la seva campanya. Sabràs què omple la teva llista." },
+                ].map((c: any) => (
+                    <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900 mb-3">
+                            {c.href ? <a href={c.href} class="hover:text-accent transition-colors">{c.t}</a> : c.t}
+                            {c.b && <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1 font-semibold">{c.b}</span>}
+                        </h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed mb-2">{c.d}</p>
+                        {c.href && <a href={c.href} class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>}
+                    </div>
+                ))}
+            </div>
+            <div class="mt-12 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">PARLEM DEL TEU RESTAURANT</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ ESTRATÈGIA ════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16 sm:mb-24 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Com treballem</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Estratègia d'email màrqueting per al teu restaurant
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Una metodologia documentada, pas a pas i sense fum.
+                </p>
+            </div>
+
+            <div id="timeline-container" class="relative">
+                <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
+                <div id="progress-bar" class="hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100"></div>
+
+                <div class="space-y-16 md:space-y-24 flex flex-col items-center">
+                    {[
+                        { title: "Auditoria de Base de Clients", desc: "Analitzem quins contactes tens, com els captes i què fas avui amb ells. Gairebé sempre, res. Allà hi ha les taules." },
+                        { title: "Estratègia Documentada", desc: "Pla per escrit. Com captar contactes cada servei, quines automatitzacions muntar i què esperar del canal." },
+                        { title: "Captació i Automatitzacions", desc: "Muntem la captació al local i les seqüències de benvinguda, esdeveniments i reactivació." },
+                        { title: "Calendari de Campanyes", desc: "Menús, esdeveniments i dates assenyalades programats a temps, sense cremar la llista." },
+                        { title: "Mesura i Optimització", desc: "Monitorem reserves generades per cada campanya i optimitzem cada mes." },
+                    ].map((step, index) => (
+                        <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
+                            <div class:list={["flex-1 w-full", index % 2 === 0 ? "md:order-1 md:text-right" : "md:order-3 md:text-left"]}>
+                                <div class="p-8 sm:p-10 bg-zinc-50 border border-black/5 rounded-3xl hover:border-accent/10 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+                                    <h3 class="text-xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{index + 1}. {step.title}</h3>
+                                    <div class:list={["h-0.5 bg-accent w-full mb-4 opacity-80", index % 2 === 0 ? "md:ml-auto" : ""]}></div>
+                                    <p class:list={["text-sm text-zinc-500 font-light max-w-md", index % 2 === 0 ? "md:ml-auto" : ""]}>{step.desc}</p>
+                                    <div class="absolute -bottom-6 -right-5 text-8xl font-black text-black/[0.02] select-none z-0 group-hover:scale-105 transition-transform duration-500">0{index+1}</div>
+                                </div>
+                            </div>
+                            <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all">
+                                0{index + 1}
+                            </div>
+                            <div class:list={["hidden md:block md:flex-1", index % 2 === 0 ? "md:order-3" : "md:order-1"]}></div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ AUDITORIA ═════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-[6fr_4fr] gap-12 lg:gap-16 items-start">
+            <div class="reveal lg:col-span-2">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Punt de partida</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
+                    Auditoria d'email màrqueting per al teu restaurant
+                </h2>
+            </div>
+            <div class="reveal">
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed mb-8">
+                    <p>Quants comensals van passar per les teves taules l'any passat? De quants tens el contacte? A la majoria de restaurants la resposta fa mal, i allà hi ha l'oportunitat.</p>
+                    <p>La nostra <strong class="font-semibold text-zinc-900">auditoria d'email gastronòmic</strong> revisa la teva base de clients, la teva captació i els teus enviaments, i acaba amb un pla d'acció prioritzat per taules recuperables.</p>
+                    <p>Cada punt el revisa un consultor sènior amb experiència en hostaleria.</p>
+                </div>
+                <ul class="space-y-3">
+                    {["Mida i salut de la teva base de clients","Captació de contactes al local","Emails que envies avui i el seu resultat","Automatitzacions que falten","Eina i cost actual","Pla d'acció prioritzat per impacte"].map(item => (
+                        <li class="flex items-start gap-3 text-sm text-zinc-700 font-light">
+                            <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                            {item}
+                        </li>
+                    ))}
+                </ul>
+                <div class="mt-16">
+                    <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                        VULL LA MEVA AUDITORIA D'EMAIL
+                    </a>
+                </div>
+            </div>
+            <div class="reveal flex flex-col gap-4">
+                {[
+                    { bg: 'bg-purple-100', color: 'text-purple-600', t: "Anàlisi de la base de clients", d: "Quants contactes tens, quants segueixen vius i quantes taules poden generar." },
+                    { bg: 'bg-green-100', color: 'text-green-600', t: "Pla d'acció prioritzat", d: "Què muntar primer segons les taules que pot omplir." },
+                    { bg: 'bg-purple-100', color: 'text-purple-600', t: "Captació al local", d: "Com converteixes comensals en contactes avui i quant més podries captar sense molestar." },
+                    { bg: 'bg-amber-100', color: 'text-amber-600', t: "Auditoria d'enviaments", d: "Què envies, amb quina freqüència i quin resultat dona. Sense dades, tot són sensacions." },
+                    { bg: 'bg-blue-100', color: 'text-blue-600', t: "Benchmark de la teva zona", d: "Què fan els locals de la teva zona amb la seva base de clients. Subscriu-te i compara." },
+                ].map(card => (
+                    <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                        <div class:list={["w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0", card.bg]}>
+                            <svg class:list={["w-5 h-5", card.color]} fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-black text-zinc-900 mb-1">{card.t}</h3>
+                            <p class="text-xs text-zinc-500 font-light leading-relaxed">{card.d}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ QUÈ INCLOU L'AUDITORIA ═══════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Pas a pas</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
+                    Què inclou l'auditoria Email Màrqueting de nova
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch reveal">
+                {[
+                    { n: '1', t: "Radiografia de la teva base de clients", d: "Quins contactes tens, què els envies avui i quines taules dormen allà." },
+                    { n: '2', t: "Diagnòstic de captació", d: "Quants comensals se'n van cada servei sense deixar contacte i com evitar-ho." },
+                    { n: '3', t: "Full de ruta per impacte", d: "Accions ordenades per taules recuperables i una videotrucada on ho repassem." },
+                ].map((st, i) => (
+                    <div class="flex items-center gap-4 lg:gap-6">
+                        {i > 0 && <div class="hidden lg:flex text-3xl text-accent font-black select-none">→</div>}
+                        <div class="bg-white border border-black/5 rounded-2xl p-8 shadow-[0_15px_40px_rgba(0,0,0,0.06)] flex-1 text-center h-full">
+                            <div class="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto mb-4 text-accent font-black text-lg">{st.n}</div>
+                            <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3">{st.t}</h3>
+                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{st.d}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto text-center mt-16 reveal">
+                La nostra auditoria d'email és el primer pas perquè la teva base de clients ompli taules sola. Analitza què generes avui i què muntar primer.
+            </p>
+            <div class="mt-12 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">VULL LA MEVA AUDITORIA D'EMAIL</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PREUS ════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Tarifes clares</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Preus d'email màrqueting per a restaurants
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto">
+                    Tarifes orientatives i sense lletra petita. El preu depèn de la mida del teu catàleg, la competència del teu sector i el teu punt de partida, així que abans de començar reps un pressupost tancat per escrit. El cost no porta sorpreses ni permanències.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                {[
+                    { small: 'Preu', name: "Auditoria Email Gastronòmic", price: "600€", meta: ["Lliurament en 1 a 2 setmanes","Per a locals amb clientela recurrent"], items: ["Sessió inicial d'objectius","Anàlisi de base de clients","Auditoria de captació al local","Revisió d'enviaments actuals","Comparativa amb 3 competidors","Accions ordenades per impacte","Videotrucada de lliurament"], cta: "Vull auditar la meva fidelització" },
+                    { small: 'Preu', name: "Email Restaurant", price: "des de 300€ / mes", meta: ["Sistema de captació actiu el primer mes","Per a locals que volen fidelitzar"], items: ["Diagnòstic inicial del restaurant","Estratègia documentada","Captació de contactes al local","Benvinguda i reactivació","Dues campanyes mensuals","Lliurabilitat cuidada","Informe mensual de reserves i costos","Línia directa amb el consultor","Sense permanència"], cta: "Vull fidelitzar clients" },
+                    { small: 'Preu', name: "Email Big Restaurant", price: "des de 600€ / mes", meta: ["Per a grups i calendari intens","Per a locals que volen esprémer el canal"], items: ["Diagnòstic inicial del restaurant","Estratègia documentada","Tot el pla Email Restaurant","Segmentació avançada","Campanyes setmanals amb testing","Esdeveniments i dates assenyalades","Informe mensual de reserves i costos","Línia directa amb el consultor","Sense permanència"], cta: "Vull esprémer la meva llista" },
+                ].map(pl => (
+                    <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-10 flex flex-col shadow-[0_15px_40px_rgba(0,0,0,0.06)] hover:shadow-xl transition-shadow duration-300 reveal">
+                        <h3 class="leading-tight mb-2">
+                            <span class="block text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-1">{pl.small} </span>
+                            <span class="block text-xl font-black uppercase tracking-tight text-zinc-900">{pl.name}</span>
+                        </h3>
+                        <div class="text-lg font-bold text-zinc-900">{pl.price}</div>
+                        <div class="text-[10px] text-zinc-400 font-light mt-1 mb-6">* Preu sense IVA</div>
+                        <div class="text-xs text-zinc-500 font-light mb-8 space-y-1.5">
+                            {pl.meta.map(m => <div>{m}</div>)}
+                        </div>
+                        <div class="text-xs font-black uppercase tracking-widest text-zinc-400 pb-3 border-b border-zinc-100">Què inclou</div>
+                        <ul class="divide-y divide-zinc-100 flex-1">
+                            {pl.items.map(item => (
+                                <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light">
+                                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 !py-4 !text-[11px] !tracking-widest font-black mt-10 text-center">
+                            {pl.cta}
+                        </a>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PLATAFORMES ══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-b border-black/5">
+        <div class="max-w-7xl mx-auto text-center reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">La teva tecnologia</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Email màrqueting per a la teva plataforma
+            </h2>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-16">
+                Cada web de restaurant té les seves regles de joc. Treballem les dues bases tecnològiques que dominen el sector.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+                {[
+                    { t: "Email Màrqueting per a WordPress", d: "Carta, reserves i SEO local ben muntats sobre la plataforma més usada en hostaleria.", b: "Plataforma", href: "/ca/agencia-restaurantes/wordpress/" },
+                    { t: "Email Màrqueting per a Desenvolupament Propi", d: "Especificacions clares per al teu equip tècnic i campanyes connectades al teu motor de reserves.", b: "Plataforma", href: "/ca/agencia-restaurantes/desarrollo-propio/" },
+                ].map((c: any) => (
+                    <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900 mb-3">
+                            {c.href ? <a href={c.href} class="hover:text-accent transition-colors">{c.t}</a> : c.t}
+                            {c.b && <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1 font-semibold">{c.b}</span>}
+                        </h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed mb-2">{c.d}</p>
+                        {c.href && <a href={c.href} class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>}
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CITA ══════════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-zinc-950 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <blockquote class="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.15] mb-8">
+                “El comensal del dissabte passat se n'anirà a un altre lloc el dissabte que ve, no perquè mengés malament, sinó perquè ningú li va recordar el bé que va menjar. Això és el que arregla l'email.”
+            </blockquote>
+            <p class="text-sm text-zinc-400 font-light mb-10">Sergio Galo's · Consultor d'email màrqueting gastronòmic</p>
+            <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                PARLEM DEL TEU RESTAURANT
+            </a>
+        </div>
+    </section>
+
+    <!-- ═══ PER QUÈ NOVA (COMPARATIVA) ═════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Per què nova</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Què diferencia nova d'una altra agència d'email màrqueting
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    El màrqueting per a restaurants està ple de fotos boniques que no omplen taules. Nosaltres el treballem amb mètode, transparència i resultats en reserves.
+                </p>
+            </div>
+
+            <div class="reveal overflow-x-auto rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
+                <table class="w-full min-w-[640px] text-left border-collapse bg-white">
+                    <thead>
+                        <tr class="bg-black text-white">
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Criteri</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Nova</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Altres agències</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-zinc-100">
+                        {[
+                            { c: "Qui serà el teu contacte", o: "Gestor júnior amb 20-30 comptes", n: "Sergio Galo's" },
+                            { c: "Què es mesura", o: "Obertures i clics", n: "Reserves generades per cada campanya" },
+                            { c: "L'enfocament", o: "Newsletters soltes sense sistema", n: "Captació al local més automatitzacions" },
+                            { c: "La base de clients", o: "Se li dispara a tothom igual", n: "Segmentació per perfil i freqüència" },
+                            { c: "Propietat dels teus actius", o: "Compte i llista a nom de l'agència", n: "Eina i base de clients al teu nom" },
+                            { c: "Permanència", o: "6-12 mesos habituals", n: "Mes a mes, sense permanència" },
+                            { c: "Transparència de preus", o: "Pressupostos opacs amb extres sorpresa", n: "Preu tancat per escrit abans de començar" },
+                        ].map(row => (
+                            <tr class="hover:bg-zinc-50/50 transition-colors">
+                                <td class="px-6 py-5 text-sm font-bold text-zinc-900">{row.c}</td>
+                                <td class="px-6 py-5 text-sm font-bold text-accent">{row.n}</td>
+                                <td class="px-6 py-5 text-sm text-zinc-500 font-light">{row.o}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ COM TRIAR ════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-12 sm:mb-16 reveal text-center">
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Com contractar email màrqueting gastronòmic sense que et venguin fum
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Hi ha centenars d'agències i la majoria de restaurants tria malament la primera vegada. Aquests són els set criteris que hauries d'exigir a qualsevol agència, inclosa la nostra.
+                </p>
+            </div>
+
+            <div class="divide-y divide-zinc-100 reveal">
+                {[
+                    { title: "Demana taules, no obertures", desc: "L'email d'un restaurant es mesura en reserves generades per campanya." },
+                    { title: "Pregunta qui portarà el teu compte", desc: "Exigeix conèixer la persona que treballarà el teu email abans de signar." },
+                    { title: "Exigeix que la base de clients sigui teva", desc: "L'eina i els contactes han d'estar al teu nom. La teva llista és un dels teus majors actius." },
+                    { title: "Que comenci per la captació", desc: "Sense sistema per captar contactes cada servei, no hi ha canal. El QR a la taula val més que qualsevol plantilla bonica." },
+                    { title: "Pregunta per la lliurabilitat", desc: "De res serveix el millor menú si cau a spam. Domini autenticat i llista neta són l'estàndard." },
+                    { title: "Fuig de les permanències llargues", desc: "El sistema es munta en setmanes i els resultats es veuen aviat." },
+                    { title: "Que respecti els teus clients", desc: "Disparar ofertes a diari crema la llista. La freqüència correcta omple més taules que el volum." },
+                ].map((c, i) => (
+                    <div class="py-6 sm:py-8 flex gap-6 sm:gap-8 items-start">
+                        <div class="text-2xl sm:text-3xl font-black tracking-tighter text-accent flex-shrink-0 w-10 leading-none">0{i + 1}</div>
+                        <div>
+                            <h3 class="text-base sm:text-lg font-black uppercase tracking-tight text-zinc-900 mb-2">{c.title}</h3>
+                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.desc}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ QUI HI HA AL DARRERE ═══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto reveal">
+            <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] grid md:grid-cols-[280px_1fr] gap-8 sm:gap-12 items-center">
+                <div class="rounded-2xl overflow-hidden bg-zinc-100">
+                    <img src="/sergio-galos-agencia-restaurantes-email-marketing.webp" alt="Sergio Galo's, Consultor d'email màrqueting gastronòmic" title="Sergio Galo's, Consultor d'email màrqueting gastronòmic" class="w-full h-full object-cover object-top" loading="lazy" />
+                </div>
+                <div>
+                    <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Qui hi ha al darrere</span>
+                    <h2 class="text-2xl sm:text-4xl font-black tracking-tighter uppercase text-zinc-900 leading-[0.95] mb-6">
+                        Sergio Galo's <br>
+                        <span class="text-lg sm:text-2xl">El teu consultor d'email màrqueting gastronòmic</span>
+                    </h2>
+                    <div class="space-y-4 text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
+                        <p>
+                            Soc <strong class="font-semibold text-zinc-900">Sergio Galo's</strong>, consultor de màrqueting digital i fundador de Nova Marketing. Porto anys omplint taules i fent créixer restaurants en alguns dels mercats més competits d'Espanya.
+                        </p>
+                        <p>
+                            Quan contractes amb nova parles sempre amb mi. Jo faig l'auditoria, jo dissenyo l'estratègia i jo responc a la reunió mensual. Sense capes comercials ni gestors que canvien cada trimestre.
+                        </p>
+                    </div>
+                    <a href="https://www.linkedin.com/company/nova-marketing-pymes/" target="_blank" rel="noopener" class="inline-block mt-6 text-[12px] font-black tracking-widest text-accent hover:underline">
+                        Veure perfil a LinkedIn →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CASOS D'ÈXIT (CMS) ═══════════════════════════════════ -->
+    {allCases.length > 0 && (
+    <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6 overflow-hidden">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-12 reveal">
+          <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultats provats</span>
+          <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
+            Casos d'èxit de màrqueting<br class="hidden md:inline" /> i fidelització local
+          </h2>
+        </div>
+        <div class="cases-carousel relative overflow-hidden">
+          <div class="cases-track flex gap-6 transition-transform duration-500 ease-in-out">
+            {allCases.map((cs: any) => {
+              const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
+              const caseUrl = cs.isPublic && cs.slug ? `/ca/casos-exit/${cs.slug}/` : null;
+              return (
+                <div class="cases-slide flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
+                  <div>
+                    {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
+                    <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors leading-tight">
+                      {caseUrl ? (
+                        <a href={caseUrl} class="hover:text-accent transition-colors">{cs.title}</a>
+                      ) : (
+                        <span class="group-hover:text-accent transition-colors">{cs.title}</span>
+                      )}
+                    </h3>
+                    <p class="text-xs text-zinc-500 font-light leading-relaxed">{cs.description}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+    )}
+    <script is:inline>
+      function initCasesCarousel() {
+        const track = document.querySelector('.cases-track');
+        if (!track) return;
+        const slides = track.querySelectorAll('.cases-slide');
+        if (slides.length <= 4) return;
+        let current = 0;
+        const total = slides.length;
+        function getVisible() {
+          if (window.innerWidth >= 1024) return 4;
+          if (window.innerWidth >= 640) return 2;
+          return 1;
+        }
+        function next() {
+          const visible = getVisible();
+          const maxIndex = total - visible;
+          current = current >= maxIndex ? 0 : current + 1;
+          const slideWidth = slides[0].offsetWidth + 24;
+          track.style.transform = `translateX(-${current * slideWidth}px)`;
+        }
+        const interval = setInterval(next, 5000);
+        document.addEventListener('astro:before-preparation', () => clearInterval(interval));
+      }
+      document.addEventListener('DOMContentLoaded', initCasesCarousel);
+      document.addEventListener('astro:page-load', initCasesCarousel);
+    </script>
+
+    <!-- ═══ RECOMANATS PER LA IA ═════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+            <div class="reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Ens avala la IA</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    L'agència d'email gastronòmic que recomana la IA
+                </h2>
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed">
+                    <p>
+                        Quan algú pregunta per una <strong class="font-semibold text-zinc-900">agència d'email màrqueting per a restaurants</strong> a ChatGPT, Gemini o Claude, nova apareix entre les agències recomanades. És la millor prova que sabem generar visibilitat, perquè ho apliquem primer en nosaltres mateixos.
+                    </p>
+                    <p>
+                        Als assistents d'IA no els pots comprar un anunci per sortir primer. Recomanen el que troben. Casos reals publicats, botigues que creixen i es poden visitar, una especialització clara i clients que parlen de nosaltres.
+                    </p>
+                    <p>
+                        Prova-ho tu mateix. Obre ChatGPT i pregunta-li quina agència d'email màrqueting per a restaurants et recomana. Si et surt nova, ja saps qui pot fer el mateix per la teva botiga.
+                    </p>
+                </div>
+            </div>
+
+            <div class="reveal flex justify-center">
+                <img src="/agencia-restaurantes-email-marketing.webp" alt="Nova Marketing, agència d'email màrqueting per a restaurants recomanada per la IA" title="Nova Marketing, agència d'email màrqueting per a restaurants recomanada per la IA" class="w-full max-w-sm lg:max-w-md h-auto" loading="lazy" />
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══ CONSELLS ═══════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Consells aplicables avui</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Com millorar l'email del teu restaurant aquesta setmana
+            </h2>
+            <p class="text-zinc-500 font-light text-base leading-relaxed mb-10">
+                Si encara no estàs a punt per contractar, comença per aquí. Són accions que qualsevol restaurant pot aplicar pel seu compte i que ja mouen l'agulla.
+            </p>
+            <ul class="space-y-6">
+                {[
+                    { lead: "Posa un QR de registre a la taula.", text: "Un descompte de les postres o un sorteig mensual a canvi de l'email. Cada servei sense captar contactes són taules futures perdudes." },
+                    { lead: "Escriu a la teva llista abans de les dates fortes.", text: "Els grups de Nadal es tanquen a l'octubre. Qui avisa primer la seva base de clients omple primer." },
+                    { lead: "Reactiva els adormits.", text: "Un email a qui no ve des de fa tres mesos amb un bon motiu per tornar és la campanya més rendible del sector." },
+                    { lead: "Autentica el teu domini.", text: "Comprova que tens SPF, DKIM i DMARC configurats." },
+                ].map(tip => (
+                    <li class="flex items-start gap-4">
+                        <svg class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        <p class="text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
+                            <strong class="font-bold text-zinc-900">{tip.lead}</strong> {tip.text}
+                        </p>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </section>
+
+    <!-- ═══ RESSENYES GOOGLE ═════════════════════════════════════════ -->
+    <GoogleReviews locale="ca" title="El que diuen els nostres clients sobre l'email màrqueting de Nova" />
+
+
+    <!-- ═══ FAQS ════════════════════════════════════════════════ -->
+    <FaqHome title="Preguntes sobre el nostre email màrqueting per a restaurants" items={faqs} emitSchema={false} />
+
+    <!-- ═══ CONTACTE ════════════════════════════════════════════ -->
+    <section id="contacto" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
+            <div class="reveal text-white">
+                <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">CREIXEMENT GARANTIT</span>
+                <h2 class="text-5xl sm:text-7xl font-black uppercase tracking-tighter leading-[0.8] mb-8">
+                   OMPLE EL TEU <br>RESTAURANT
+                </h2>
+                <p class="font-light max-w-md text-base sm:text-xl">Consulta'm i et diré quantes taules dormen avui a la teva base de clients.</p>
+            </div>
+
+            <div class="reveal">
+                <div class="bg-white p-8 sm:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
+                    <form class="space-y-8" id="contact-form">
+                        <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
+                            <div class="flex flex-col gap-3">
+                                <label class="opacity-30">NOM</label>
+                                <input type="text" name="name" aria-label="Nom" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                            <div class="flex flex-col gap-3">
+                                <label class="opacity-30">TELÈFON</label>
+                                <input type="tel" name="phone" class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">EMAIL PROFESSIONAL</label>
+                            <input type="email" name="email" aria-label="Correu electrònic" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                        </div>
+                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">CONSULTA</label>
+                            <textarea name="msg" aria-label="Missatge" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="Què necessita el teu restaurant?"></textarea>
+                        </div>
+                        <button type="submit" class="w-full btn-mktg-v5 !py-6">VULL MÉS RESERVES</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</BaseLayout>
+
+<script>
+    document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const btn = form.querySelector('button');
+        if (btn) { btn.innerHTML = 'ENVIANT...'; btn.disabled = true; }
+        const data = Object.fromEntries(new FormData(form));
+        try {
+            const res = await fetch('https://cms.novamarketing.es/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            if (res.ok) {
+                window.location.href = '/ca/gracies/';
+            } else { throw new Error(); }
+        } catch {
+            if (btn) { btn.innerHTML = 'ERROR — TORNA-HO A PROVAR'; btn.disabled = false; btn.style.background = '#ef4444'; }
+        }
+    });
+function initTimeline() {
+        const progressBar = document.getElementById('progress-bar');
+        const timeline = document.getElementById('timeline-container');
+        if (!progressBar || !timeline) return;
+
+        function updateProgress() {
+            const rect = timeline.getBoundingClientRect();
+            const winHeight = window.innerHeight;
+            const topPassed = (winHeight / 2) - rect.top;
+            let percentage = (topPassed / rect.height) * 100;
+            percentage = Math.max(0, Math.min(100, percentage));
+            progressBar.style.height = `${percentage}%`;
+
+            const nodes = timeline.querySelectorAll('.node-circle');
+            nodes.forEach((node) => {
+                const nodeTop = node.getBoundingClientRect().top;
+                if (nodeTop < winHeight / 2) {
+                    node.classList.add('!border-accent', '!bg-accent', '!text-white');
+                } else {
+                    node.classList.remove('!border-accent', '!bg-accent', '!text-white');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        document.addEventListener('astro:page-load', updateProgress);
+        updateProgress();
+    }
+    document.addEventListener('DOMContentLoaded', initTimeline);
+    document.addEventListener('astro:page-load', initTimeline);
+</script>

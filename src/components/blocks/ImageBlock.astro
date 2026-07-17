@@ -8,7 +8,7 @@ const { image, caption } = Astro.props;
   <figure class="my-8">
     <img
       src={getStrapiImageUrl(image)}
-      alt={image.alternativeText || caption || ''}
+      alt={image.alternativeText || caption || ''} title={image.alternativeText || caption || ''}
       width={image.width}
       height={image.height}
       loading="lazy"

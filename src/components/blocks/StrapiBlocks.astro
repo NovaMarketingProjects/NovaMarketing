@@ -93,7 +93,7 @@ function renderBlock(block: any): string {
       const figcaption = caption
         ? `<figcaption class="sb-figcaption">${caption.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</figcaption>`
         : '';
-      return `<figure class="sb-figure"><img src="${url}" alt="${alt}" loading="lazy" class="sb-img" />${figcaption}</figure>`;
+      return `<figure class="sb-figure"><img src="${url}" alt="${alt}" title="${alt}" loading="lazy" class="sb-img" />${figcaption}</figure>`;
     }
 
     case 'quote': {

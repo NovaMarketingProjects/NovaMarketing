@@ -5,6 +5,7 @@ import { localAgencySchema } from '../../../lib/schema';
 import { strapiClient } from '../../../lib/strapi';
 import LogoMarquee from '../../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../../components/sections/FaqHome.astro';
+import CityPills from '../../../components/global/CityPills.astro';
 import GoogleReviews from '../../../components/global/GoogleReviews.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
@@ -48,9 +49,9 @@ const faqs = [
 ];
 
 const sectors = [
-  { icon: '🛒', title: 'SEO per a ecommerce', desc: 'Arquitectura de categories, fitxes optimitzades i SEO de producte. Que qui busca comprar et trobi a tu i no a la teva competència.' },
-  { icon: '🏠', title: 'SEO per a immobiliàries', desc: 'Captació de propietaris i compradors amb landings per zona i SEO local per barri. Trànsit que filtra curiosos de clients reals.' },
-  { icon: '🍽️', title: 'SEO per a restaurants', desc: 'Aquí mana la fitxa de Google i les ressenyes. Pack local complet per aparèixer quan algú busca on menjar a prop.' },
+  { icon: '🛒', title: 'SEO per a ecommerce', href: '/ca/agencia-ecommerce/seo/', desc: 'Arquitectura de categories, fitxes optimitzades i SEO de producte. Que qui busca comprar et trobi a tu i no a la teva competència.' },
+  { icon: '🏠', title: 'SEO per a immobiliàries', href: '/ca/agencia-inmobiliarias/seo/', desc: 'Captació de propietaris i compradors amb landings per zona i SEO local per barri. Trànsit que filtra curiosos de clients reals.' },
+  { icon: '🍽️', title: 'SEO per a restaurants', href: '/ca/agencia-restaurantes/seo/', desc: 'Aquí mana la fitxa de Google i les ressenyes. Pack local complet per aparèixer quan algú busca on menjar a prop.' },
   { icon: '🧠', title: 'SEO per a psicòlegs', desc: 'El pacient busca confiança abans que preu. Contingut amb autoritat clínica i SEO local per especialitat que converteix cerques en primeres visites.' },
   { icon: '🌿', title: 'SEO per a terapeutes', desc: 'Molta competència genèrica i poca especialitzada. Posicionem la teva consulta per teràpia i zona amb contingut que educa i converteix.' },
   { icon: '🦷', title: 'SEO per a dentistes', desc: 'Sector saturat i amb alta exigència d\'autoritat. Guanyen els qui combinen SEO local impecable, ressenyes gestionades i contingut clínic real.' },
@@ -99,8 +100,7 @@ const pageSchema = localAgencySchema({
             </span>
             <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
                 <span class="lg:whitespace-nowrap">Agència SEO </span>
-                <span class="lg:whitespace-nowrap">Posicionament </span>
-                <span class="lg:whitespace-nowrap text-mktg-gradient">a Google a Sant Cugat</span>
+                <span class="lg:whitespace-nowrap text-mktg-gradient">a Sant Cugat</span>
             </h1>
             <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
                 Apareix quan els teus clients busquen el teu servei a Google. Servei de posicionament SEO per a pimes de Sant Cugat amb estratègia a mida, preus clars i resultats que es mesuren en vendes.
@@ -143,7 +143,7 @@ const pageSchema = localAgencySchema({
                 </div>
             </div>
             <div class="hidden md:block">
-                <img src="/sergio-galos-agencia-seo-per-pimes-sant-cugat.webp" alt="Sergio Galo's, consultor SEO per a pimes a Sant Cugat" class="w-full h-auto" loading="lazy" />
+                <img src="/sergio-galos-agencia-seo-per-pimes-sant-cugat.webp" alt="Sergio Galo's, consultor SEO per a pimes a Sant Cugat" title="Sergio Galo's, consultor SEO per a pimes a Sant Cugat" class="w-full h-auto" loading="lazy" />
             </div>
         </div>
     </section>
@@ -409,7 +409,7 @@ const pageSchema = localAgencySchema({
                     <div class="bg-white border border-black/5 rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                         <div class="text-3xl mb-4">{s.icon}</div>
                         <h3 class="text-base uppercase tracking-tight text-zinc-900 mb-3 leading-tight font-montserrat-semibold">
-                            {s.title}
+                            {s.href ? <a href={s.href} class="hover:text-accent transition-colors">{s.title}</a> : s.title}
                             <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1 font-semibold">a Sant Cugat</span>
                         </h3>
                         <p class="text-sm text-zinc-500 font-light leading-relaxed">{s.desc}</p>
@@ -557,7 +557,7 @@ const pageSchema = localAgencySchema({
         <div class="max-w-5xl mx-auto reveal">
             <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] grid md:grid-cols-[280px_1fr] gap-8 sm:gap-12 items-center">
                 <div class="rounded-2xl overflow-hidden bg-zinc-100">
-                    <img src="/sergio-galos-agencia-seo-per-pimes-sant-cugat.webp" alt="Sergio Galo's, consultor SEO per a pimes a Sant Cugat" class="w-full h-full object-cover object-top" loading="lazy" />
+                    <img src="/sergio-galos-agencia-seo-per-pimes-sant-cugat.webp" alt="Sergio Galo's, consultor SEO per a pimes a Sant Cugat" title="Sergio Galo's, consultor SEO per a pimes a Sant Cugat" class="w-full h-full object-cover object-top" loading="lazy" />
                 </div>
                 <div>
                     <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Qui hi ha darrere</span>
@@ -667,7 +667,7 @@ const pageSchema = localAgencySchema({
             </div>
 
             <div class="reveal lg:-mr-[12%] xl:-mr-[18%]">
-                <img src="/agencia-seo-per-pimes-sant-cugat.webp" alt="Nova Marketing, agència SEO a Sant Cugat recomanada per la IA" class="w-full h-auto" loading="lazy" />
+                <img src="/agencia-seo-per-pimes-sant-cugat.webp" alt="Nova Marketing, agència SEO a Sant Cugat recomanada per la IA" title="Nova Marketing, agència SEO a Sant Cugat recomanada per la IA" class="w-full h-auto" loading="lazy" />
             </div>
 
         </div>
@@ -702,27 +702,72 @@ const pageSchema = localAgencySchema({
     </section>
 
     <!-- ═══ RESSENYES GOOGLE ═════════════════════════════════════ -->
-    <GoogleReviews locale="ca" />
+    <GoogleReviews locale="ca" title="El que diuen els nostres clients sobre el posicionament SEO de Nova" />
 
-    <!-- ═══ ON TREBALLEM ═══════════════════════════════════════════ -->
+    <!-- ═══ SERVICIOS COMPLEMENTARIOS ═══════════════════════════════ -->
     <section class="py-20 sm:py-28 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Més enllà del SEO</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Serveis complementaris de la nostra agència SEO a Sant Cugat
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    El posicionament funciona millor quan tot el màrqueting empeny en la mateixa direcció. Aquests són els serveis que el complementen.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal">
+                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
+                        <a href="/ca/agencia-de-marketing-digital-a-sant-cugat/" class="hover:text-accent transition-colors">Agència de Màrqueting Digital a Sant Cugat</a>
+                    </h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
+                        L'estratègia completa. Combinem SEO, publicitat, web i visibilitat en IA en un sol pla orientat que la teva pime guanyi clients cada mes.
+                    </p>
+                    <a href="/ca/agencia-de-marketing-digital-a-sant-cugat/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
+                </div>
+                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
+                        <a href="/ca/agencia-sem-per-pimes/sant-cugat/" class="hover:text-accent transition-colors">Agència SEM a Sant Cugat</a>
+                    </h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
+                        Anuncis a Google per captar clients des de la primera setmana mentre el SEO guanya posicions. Fee fix i el compte sempre al teu nom.
+                    </p>
+                    <a href="/ca/agencia-sem-per-pimes/sant-cugat/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
+                </div>
+                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
+                        <a href="/ca/disseny-web-per-pimes/sant-cugat/" class="hover:text-accent transition-colors">Disseny Web a Sant Cugat</a>
+                    </h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
+                        El SEO comença en una bona web. Pàgines ràpides, adaptades a mòbil i enfocades a convertir en clients les visites que porta el posicionament.
+                    </p>
+                    <a href="/ca/disseny-web-per-pimes/sant-cugat/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
+                </div>
+                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
+                        <a href="/ca/agencia-geo-per-pimes/sant-cugat/" class="hover:text-accent transition-colors">Agència GEO a Sant Cugat</a>
+                    </h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
+                        Els teus clients ja pregunten a ChatGPT i Gemini quina empresa contractar. Treballem el teu posicionament GEO perquè la IA recomani el teu negoci.
+                    </p>
+                    <a href="/ca/agencia-geo-per-pimes/sant-cugat/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ DÓNDE TRABAJAMOS ═══════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
         <div class="max-w-4xl mx-auto text-center reveal">
             <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">On treballem</span>
             <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Seu a Barcelona, clients a tota Espanya
+                Seu a Barcelona, clients a tot Espanya
             </h2>
             <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
-                La nostra base és a Barcelona i la majoria de projectes són de la ciutat i la seva àrea metropolitana, on ens reunim presencialment. Però el posicionament SEO no entén de quilòmetres. Treballem amb pimes de tota Espanya per videotrucada amb el mateix nivell de seguiment.
+                La nostra base és a Barcelona i la majoria de projectes són de la ciutat i la seva àrea metropolitana, on ens reunim presencialment. Però el posicionament SEO no entén de quilòmetres. Treballem amb pimes de tot Espanya per videotrucada amb el mateix nivell de seguiment.
             </p>
-            <div class="flex flex-wrap items-center justify-center gap-3">
-                <a href="/ca/agencia-seo-per-pimes/barcelona/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Barcelona</a>
-                <a href="/ca/agencia-seo-per-pimes/sabadell/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Sabadell</a>
-                <a href="/ca/agencia-seo-per-pimes/sant-cugat/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Sant Cugat</a>
-                <a href="/ca/agencia-seo-per-pimes/terrassa/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Terrassa</a>
-                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">Badalona</span>
-                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">L'Hospitalet</span>
-                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">Resta d'Espanya</span>
-            </div>
+            <CityPills base="/ca/agencia-seo-per-pimes/" lang="ca" />
         </div>
     </section>
 

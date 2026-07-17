@@ -24,7 +24,18 @@ import StrapiBlocks from './StrapiBlocks.astro';
 interface Props {
   blocks: any[];
 }
-const { blocks } = Astro.props;
+const { blocks: rawBlocks } = Astro.props;
+
+// URLs retiradas: reescribimos los enlaces que aún existan en el contenido del CMS
+// y añadimos title a las imágenes embebidas que solo traen alt.
+const blocks = JSON.parse(
+  JSON.stringify(rawBlocks ?? [])
+    .replaceAll('/ca/consultoria-marketing-per-pimes/', '/ca/agencia-geo-per-pimes/')
+    .replaceAll('/consultoria-marketing-para-pymes/', '/agencia-geo-para-pymes/')
+    .replace(/\/ca\/consultoria-marketing-digital-(barcelona|sabadell|sant-cugat|terrassa)\//g, '/ca/agencia-de-marketing-digital-a-$1/')
+    .replace(/\/consultoria-marketing-digital-(barcelona|sabadell|sant-cugat|terrassa)\//g, '/agencia-de-marketing-digital-en-$1/')
+    .replace(/<img\b(?![^>]*\btitle=)([^>]*?)\balt=\\"([^"\\]*)\\"/g, '<img$1alt=\\"$2\\" title=\\"$2\\"')
+);
 
 const STRAPI_URL = import.meta.env.STRAPI_URL || 'http://localhost:1337';
 
@@ -69,7 +80,7 @@ function embedUrl(url: string): string {
     {/* ── Image ── */}
     {block.__component === 'blocks.image' && block.image && (
       <figure class={`pb-image pb-image--${block.size ?? 'normal'}`}>
-        <img src={imgUrl(block.image)} alt={block.image.alternativeText ?? ''} loading="lazy" class="pb-img" />
+        <img src={imgUrl(block.image)} alt={block.image.alternativeText ?? ''} title={block.image.alternativeText ?? ''} loading="lazy" class="pb-img" />
         {block.caption && <figcaption class="pb-figcaption">{block.caption}</figcaption>}
       </figure>
     )}
@@ -140,7 +151,7 @@ function embedUrl(url: string): string {
     {block.__component === 'blocks.image-text' && block.image && (
       <div class={`pb-imgtext pb-imgtext--${block.image_side ?? 'right'}`}>
         <figure class="pb-imgtext__figure">
-          <img src={imgUrl(block.image)} alt={block.image.alternativeText ?? ''} loading="lazy" class="pb-img" />
+          <img src={imgUrl(block.image)} alt={block.image.alternativeText ?? ''} title={block.image.alternativeText ?? ''} loading="lazy" class="pb-img" />
         </figure>
         <div class="pb-imgtext__body sb-content">
           {block.title && <h3 class="pb-imgtext__title">{block.title}</h3>}
@@ -178,7 +189,7 @@ function embedUrl(url: string): string {
         <div class={`pb-gallery__grid pb-gallery__grid--${block.columns ?? '3'}`}>
           {block.images.map((img: any) => (
             <div class="pb-gallery__item">
-              <img src={imgUrl(img)} alt={img.alternativeText ?? ''} loading="lazy" class="pb-gallery__img" />
+              <img src={imgUrl(img)} alt={img.alternativeText ?? ''} title={img.alternativeText ?? ''} loading="lazy" class="pb-gallery__img" />
             </div>
           ))}
         </div>

@@ -1,0 +1,639 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { buildAlternates } from '../lib/i18n';
+import { localAgencySchema } from '../lib/schema';
+import { strapiClient } from '../lib/strapi';
+import LogoMarquee from '../components/sections/LogoMarquee.astro';
+import FaqHome from '../components/sections/FaqHome.astro';
+import CityPills from '../components/global/CityPills.astro';
+import GoogleReviews from '../components/global/GoogleReviews.astro';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const alternates = buildAlternates('/agencia-ecommerce/', '/ca/agencia-ecommerce/', SITE_URL);
+
+let allCases: any[] = [];
+try {
+  const casesRes = await strapiClient.getCaseStudies('es');
+  allCases = casesRes.data.map((i: any) => i.attributes ?? i).filter((c: any) => {
+    const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase());
+    return cats.some((s: string) => s === 'e-commerce' || s === 'ecommerce');
+  });
+} catch {}
+
+const steps = [
+  { title: "Diagnóstico de la Tienda", desc: "Analizamos tu ecommerce con datos. Tráfico, tasa de conversión, ticket medio, márgenes por categoría y qué canales traen ventas de verdad. Detectamos dónde se pierde dinero y dónde está la oportunidad que tu competencia ya explota." },
+  { title: "Estrategia Documentada", desc: "Recibes un plan por escrito. Qué canales activar, qué productos empujar, qué presupuesto necesita cada campaña y qué retorno es razonable esperar en 3, 6 y 12 meses. Sabes en qué se invierte cada euro antes de invertirlo." },
+  { title: "Ejecución Multicanal", desc: "SEO para captar la búsqueda, Ads para escalar la venta, email para repetir compra y una web pensada para que la tienda convierta más con el mismo tráfico. Cada canal con su función y todos midiendo contra la misma cuenta de resultados." },
+  { title: "Medición Sin Humo", desc: "Medimos ventas, ROAS y margen, no likes ni impresiones. Cada pedido queda atribuido a su canal y su campaña. En el informe mensual ves cuánto has invertido, cuánto has vendido y qué canal te da más rentabilidad." },
+  { title: "Optimización Continua", desc: "El ecommerce no descansa y la estrategia tampoco. Revisamos cada semana campañas, productos y conversión, cortamos lo que no rinde y reinvertimos en lo que vende. Mes a mes, la cuenta mejora o se explica por qué." }
+];
+
+const criteria = [
+  { title: "Pide casos de éxito verificables", desc: "Un muro de logos no demuestra nada. Pide casos de tiendas online con datos concretos. Qué facturaba antes, qué factura ahora, con qué inversión y en cuánto tiempo. Una agencia de marketing ecommerce seria debería poder enseñarte resultados de tiendas como la tuya. Si no pueden enseñarte ni uno, sigue buscando." },
+  { title: "Pregunta quién llevará tu cuenta", desc: "En muchas agencias vende un director y ejecuta un junior con 30 cuentas. Exige conocer a la persona que trabajará tu tienda antes de firmar. En nova hablas siempre con el consultor que ejecuta tu estrategia, presencialmente o por videollamada." },
+  { title: "Exige propiedad de tus activos", desc: "La tienda, el dominio, las cuentas publicitarias, la analítica y la lista de emails deben estar a tu nombre. Hay ecommerce que llevan años pagando y descubren al cambiar de agencia que no son dueños ni de su lista de clientes. Eso no es un servicio, es una dependencia." },
+  { title: "Que hable de rentabilidad, no de tráfico", desc: "Un ecommerce no vive de visitas, vive de margen. Si la agencia te habla de sesiones y alcance pero no de ROAS, ticket medio y coste de adquisición, está midiendo su actividad y no tu negocio. Exige objetivos en euros desde la primera propuesta." },
+  { title: "Revisa qué mide el informe mensual", desc: "El informe debe responder tres preguntas. Cuánto has invertido, cuánto has vendido gracias a esa inversión y qué se va a hacer el mes que viene para vender más. Todo lo demás es decoración." },
+  { title: "Huye de las permanencias largas", desc: "Una permanencia de 12 meses protege a la agencia, no a ti. El trabajo bien hecho retiene clientes sin necesidad de contratos que los aten. Por eso en nova trabajamos mes a mes." },
+  { title: "Especialización en ecommerce", desc: "Vender online no es lo mismo que captar leads. Feed de producto, estacionalidad, carritos abandonados, márgenes por categoría y logística que condiciona la promoción. Una agencia generalista aprende con tu dinero. Una especializada ya sabe qué funciona." }
+];
+
+const faqs = [
+  { question: "¿Cuánto cuesta una agencia de marketing para ecommerce?", answer: "Depende de los canales que actives y del tamaño de tu tienda. Los planes mensuales parten de 400 euros al mes para tiendas que arrancan con uno o dos canales, y crecen según la inversión publicitaria y el volumen de trabajo. Antes de empezar recibes un presupuesto cerrado por escrito, con fee de gestión fijo y sin porcentajes ocultos sobre tu inversión." },
+  { question: "¿Qué incluye el servicio de marketing para ecommerce?", answer: "Incluye un diagnóstico inicial de la tienda, una estrategia documentada y la ejecución y medición mensual de cada canal activado. SEO para ecommerce, campañas de Google Ads y Meta Ads, email marketing, optimización de la conversión y visibilidad en la IA. No aplicamos plantillas, cada tienda y cada catálogo compiten de forma distinta." },
+  { question: "¿Quién llevará mi cuenta?", answer: "Siempre la misma persona, el consultor fundador. Nada de gestores junior que cambian cada trimestre. Trabajamos con un número limitado de clientes precisamente para que cada tienda tenga seguimiento senior de verdad." },
+  { question: "¿Cuánto tardaré en ver resultados?", answer: "Depende del canal. Las campañas de pago pueden generar ventas la primera semana, las mejoras en la web se notan en cuanto se aplican los primeros cambios, y el SEO consolida resultados entre el tercer y el duodécimo mes. La estrategia combina canales rápidos y canales que construyen para que la cuenta crezca desde el principio." },
+  { question: "¿Cómo medís los resultados?", answer: "En ventas, ROAS y margen. Configuramos la medición de la tienda desde el primer día para que cada pedido quede atribuido a su canal y su campaña. En el informe mensual ves cuánto has invertido, cuánto has vendido y qué rentabilidad deja cada canal. Los datos y las cuentas son siempre tuyos." },
+  { question: "¿Trabajáis con permanencia?", answer: "No, trabajamos mes a mes. Si el servicio no te aporta valor, puedes cancelarlo cuando quieras. Nuestra permanencia real es el resultado que ves en los informes cada mes." },
+  { question: "¿Con qué plataformas trabajáis?", answer: "Principalmente Shopify, PrestaShop y WooCommerce, que concentran la gran mayoría del ecommerce en España. Conocemos las particularidades técnicas y de SEO de cada una, así que no aprendemos con tu tienda. Si usas otra plataforma, cuéntanos tu caso y te decimos si podemos ayudarte." }
+];
+
+const pageSchema = localAgencySchema({
+  pageUrl: `${SITE_URL}/agencia-ecommerce/`,
+  lang: 'es',
+  cityName: 'Barcelona',
+  postalCode: '08035',
+  geo: { lat: 41.4114, lng: 2.1526 },
+  areaServed: ["España", "Barcelona", "Sabadell", "Sant Cugat del Vallès", "Terrassa", "Vallès Occidental"],
+  title: "Agencia para Ecommerce | Marketing para Tiendas Online | Nova Marketing",
+  description: "Agencia de marketing especializada en ecommerce. SEO, Google Ads, Meta Ads, email marketing y diseño web para que tu tienda online venda más. Resultados medidos en ventas y ROAS. Sin permanencias.",
+  datePublished: '2026-07-17',
+  dateModified: '2026-07-17',
+  streetAddress: 'Carrer del General Mendoza, 10',
+  hasMap: 'https://maps.app.goo.gl/9fbB12UcK32bgjj89',
+  aggregateRating: { ratingValue: '5.0', reviewCount: '8' },
+  breadcrumbName: 'Agencia para Ecommerce',
+  faqs,
+});
+
+const services = [
+  { href: '/agencia-ecommerce/seo/', t: 'SEO para Ecommerce', d: 'Arquitectura de categorías, fichas de producto optimizadas y contenido que capta la búsqueda con intención de compra. Tráfico que llega queriendo comprar.' },
+  { href: '/agencia-ecommerce/google-ads/', t: 'Google Ads para Ecommerce', d: 'Shopping, Performance Max y búsqueda con feed optimizado. Tu producto con foto y precio delante de quien ya lo está buscando.' },
+  { href: '/agencia-ecommerce/meta-ads/', t: 'Meta Ads para Ecommerce', d: 'Campañas en Instagram y Facebook con creativos que venden y catálogos conectados. De descubrir el producto al carrito sin salir del feed.' },
+  { href: '/agencia-ecommerce/email-marketing/', t: 'Email Marketing', d: 'Flujos de carrito abandonado, bienvenida y recompra. El canal más rentable de un ecommerce, porque vender a quien ya te compró cuesta mucho menos.' },
+  { href: '/agencia-ecommerce/diseno-web/', t: 'Diseño Web para Ecommerce', d: 'Una web rápida, adaptada a móvil y pensada para convertir la visita en cliente. La base sobre la que trabajan todos los demás canales.' },
+  { href: '/agencia-ecommerce/posicionamiento-geo/', t: 'GEO y Visibilidad en IA', d: 'Cuando alguien pregunta a ChatGPT qué producto comprar, quien sale en la respuesta se lleva la venta. Trabajamos tus señales para que la IA recomiende tu tienda.' },
+];
+
+const platforms = [
+  { href: '/agencia-ecommerce/shopify/', t: 'Marketing para Shopify', d: 'La plataforma que más rápido crece. Exprimimos su ecosistema de apps, su checkout optimizado y su integración nativa con los canales de venta.' },
+  { href: '/agencia-ecommerce/prestashop/', t: 'Marketing para PrestaShop', d: 'El clásico del ecommerce español. Conocemos sus módulos, sus limitaciones de SEO y cómo hacerla competir sin migrar de plataforma.' },
+  { href: '/agencia-ecommerce/woocommerce/', t: 'Marketing para WooCommerce', d: 'Toda la flexibilidad de WordPress aplicada a vender. Velocidad, SEO técnico y campañas conectadas con tu catálogo.' },
+];
+
+const cityCards = [
+  { href: '/agencia-ecommerce/barcelona/', t: 'Agencia Ecommerce en Barcelona', d: 'El mayor hub de ecommerce del sur de Europa. Competencia feroz donde gana quien mejor mide y más rápido optimiza.' },
+  { href: '/agencia-ecommerce/sabadell/', t: 'Agencia Ecommerce en Sabadell', d: 'Comercio con historia que da el salto online. Ayudamos a las tiendas del Vallès a vender más allá de su calle.' },
+  { href: '/agencia-ecommerce/sant-cugat/', t: 'Agencia Ecommerce en Sant Cugat', d: 'Marcas con ticket alto y cliente exigente. Ecommerce que debe estar a la altura de lo que vende.' },
+  { href: '/agencia-ecommerce/terrassa/', t: 'Agencia Ecommerce en Terrassa', d: 'Industria y comercio egarense con producto propio. De vender en la comarca a vender en toda España.' },
+];
+---
+
+<BaseLayout
+  title="Agencia para Ecommerce | Marketing para Tiendas Online | Nova Marketing"
+  description="Agencia de marketing especializada en ecommerce. SEO, Google Ads, Meta Ads, email marketing y diseño web para que tu tienda online venda más. Resultados medidos en ventas y ROAS. Sin permanencias."
+  locale="es"
+  alternates={alternates}
+  schemas={[pageSchema]}
+>
+
+    <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
+    <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+        <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+
+        <div class="max-w-5xl mx-auto reveal">
+            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
+                <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+                Marketing para Tiendas Online
+            </span>
+            <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
+                <span class="lg:whitespace-nowrap">Agencia </span>
+                <span class="lg:whitespace-nowrap text-mktg-gradient">para Ecommerce</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
+                Tu tienda online puede vender mucho más. Marketing digital para ecommerce con estrategia a medida, canales que se complementan y resultados que se miden en ventas y margen.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
+                {['Sin permanencias', 'Trato directo con el consultor', 'Resultados medidos en ventas'].map(item => (
+                    <span class="inline-flex items-center gap-2 text-[11px] sm:text-xs font-black uppercase tracking-widest text-zinc-700">
+                        <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        {item}
+                    </span>
+                ))}
+            </div>
+            <div class="flex justify-center mt-4">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    HABLEMOS DE TU TIENDA
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <LogoMarquee />
+
+    <!-- ═══ INTRO ═══════════════════════════════════════════════════════ -->
+    <section class="py-16 sm:py-24 bg-white px-4 sm:px-6 border-b border-black/5">
+        <div class="max-w-6xl mx-auto reveal grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-16 items-center">
+            <div>
+                <p class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4">¿Por qué una agencia ecommerce?</p>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    La agencia de marketing para tu tienda online
+                </h2>
+                <div class="space-y-6 text-zinc-600 font-light text-base sm:text-lg leading-relaxed">
+                    <p>
+                        <strong class="font-semibold text-zinc-900">Vender online no es tener una tienda, es tener un sistema que la llena de compradores</strong>. Tráfico que llega con intención, fichas que convierten, campañas rentables y clientes que repiten. Cuando una pieza falla, el margen desaparece aunque las visitas suban.
+                    </p>
+                    <p>
+                        Nova es una <strong class="font-semibold text-zinc-900">agencia de marketing especializada en ecommerce</strong>. Trabajamos con un número limitado de tiendas, cada cuenta la lleva directamente el consultor fundador y toda la estrategia se orienta a una sola métrica que importa. <strong class="font-semibold text-zinc-900">Cuánto vende tu tienda y con qué margen</strong>.
+                    </p>
+                </div>
+            </div>
+            <div class="hidden md:block">
+                <img src="/sergio-galos-agencia-ecommerce.webp" alt="Sergio Galo's, consultor de marketing para ecommerce" title="Sergio Galo's, consultor de marketing para ecommerce" class="w-full h-auto" loading="lazy" />
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SERVICIOS ══════════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50 border-b border-black/5 px-4 sm:px-6">
+        <div class="max-w-7xl mx-auto text-center reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Qué hacemos</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Servicios de Marketing Online para Ecommerce
+            </h2>
+            <div class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-16 space-y-4">
+                <p>
+                    Un ecommerce rentable no depende de un solo canal, depende de un <strong class="font-semibold text-zinc-700">sistema donde cada canal hace su trabajo</strong>. Estas son las seis piezas que combinamos según lo que necesite tu tienda.
+                </p>
+                <p>
+                    No pagas por un paquete cerrado de acciones, pagas por las que tu cuenta de resultados necesita.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+                {services.map(s => (
+                    <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
+                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
+                            <a href={s.href} class="hover:text-accent transition-colors">{s.t}</a>
+                        </h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">{s.d}</p>
+                        <a href={s.href} class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
+                    </div>
+                ))}
+            </div>
+
+            <div class="mt-12 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    HABLEMOS DE TU TIENDA
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ ESTRATEGIA ════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16 sm:mb-24 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Cómo trabajamos</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Estrategias de marketing digital para ecommerce
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Una metodología documentada para que tu tienda venda más cada mes, paso a paso y sin humo.
+                </p>
+            </div>
+
+            <div id="timeline-container" class="relative">
+                <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
+                <div id="progress-bar" class="hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100"></div>
+
+                <div class="space-y-16 md:space-y-24 flex flex-col items-center">
+                    {steps.map((step, index) => (
+                        <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
+                            <div class:list={["flex-1 w-full", index % 2 === 0 ? "md:order-1 md:text-right" : "md:order-3 md:text-left"]}>
+                                <div class="p-8 sm:p-10 bg-zinc-50 border border-black/5 rounded-3xl hover:border-accent/10 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+                                    <h3 class="text-xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{index + 1}. {step.title}</h3>
+                                    <div class:list={["h-0.5 bg-accent w-full mb-4 opacity-80", index % 2 === 0 ? "md:ml-auto" : ""]}></div>
+                                    <p class:list={["text-sm text-zinc-500 font-light max-w-md", index % 2 === 0 ? "md:ml-auto" : ""]}>{step.desc}</p>
+                                    <div class="absolute -bottom-6 -right-5 text-8xl font-black text-black/[0.02] select-none z-0 group-hover:scale-105 transition-transform duration-500">0{index+1}</div>
+                                </div>
+                            </div>
+                            <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all">
+                                0{index + 1}
+                            </div>
+                            <div class:list={["hidden md:block md:flex-1", index % 2 === 0 ? "md:order-3" : "md:order-1"]}></div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ AUDITORÍA ═════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-[6fr_4fr] gap-12 lg:gap-16 items-start">
+
+            <div class="reveal lg:col-span-2">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Punto de partida</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
+                    Auditoría de marketing digital para tu ecommerce
+                </h2>
+            </div>
+
+            <div class="reveal">
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed mb-8">
+                    <p>
+                        Antes de proponerte nada, auditamos. ¿Sabes qué canal te deja más margen? ¿Cuánto te cuesta conseguir cada pedido y cuánto vale un cliente a lo largo del año? Casi ninguna tienda lo sabe con datos, y ahí empieza todo.
+                    </p>
+                    <p>
+                        Nuestra <strong class="font-semibold text-zinc-900">auditoría de marketing para ecommerce</strong> revisa tu tienda, tus campañas y tu competencia con una sola pregunta en mente. Dónde está el dinero que hoy se escapa. Y termina con un plan de acción priorizado por impacto en ventas.
+                    </p>
+                    <p>
+                        A diferencia de los análisis automáticos que generan un PDF con cien avisos irrelevantes, aquí cada punto lo revisa un consultor senior con años de experiencia en tiendas online. El resultado no es un listado técnico, es un diagnóstico de negocio que entiende cualquier gerente.
+                    </p>
+                </div>
+                <ul class="space-y-3">
+                    {[
+                        'Conversión de la tienda por dispositivo y categoría',
+                        'Rentabilidad real de cada canal de captación',
+                        'Salud del feed de producto y las campañas activas',
+                        'Fugas en ficha de producto, carrito y checkout',
+                        'Oportunidades de recompra y email que no explotas',
+                        'Plan de acción priorizado por impacto en ventas',
+                    ].map(item => (
+                        <li class="flex items-start gap-3 text-sm text-zinc-700 font-light">
+                            <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            {item}
+                        </li>
+                    ))}
+                </ul>
+                <div class="mt-16">
+                    <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                        QUIERO MI AUDITORÍA ECOMMERCE
+                    </a>
+                </div>
+            </div>
+
+            <div class="reveal flex flex-col gap-4">
+                {[
+                    { bg: 'bg-purple-100', color: 'text-purple-600', icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z', t: 'Análisis completo de la tienda', d: 'Velocidad, fichas, carrito y checkout revisados con ojos de comprador y con datos de comportamiento. Dónde y por qué se pierden las ventas.' },
+                    { bg: 'bg-green-100', color: 'text-green-600', icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6', t: 'Plan de acción priorizado', d: 'No una lista infinita de tareas, sino un plan ordenado por impacto en ventas y esfuerzo. Sabrás qué arreglar la primera semana.' },
+                    { bg: 'bg-purple-100', color: 'text-purple-600', icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z', t: 'Enfoque en venta y margen', d: 'Cada recomendación se traduce a euros. Qué canal escalar, qué producto empujar y qué campaña cortar porque vende sin dejar margen.' },
+                    { bg: 'bg-amber-100', color: 'text-amber-600', icon: 'M9 12h6m-6 4h6M9 8h2m8-3v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2h6l4 4z', t: 'Auditoría de campañas', d: 'Revisamos tus cuentas de Google y Meta campaña a campaña. Qué parte de tu inversión trae pedidos y qué parte se pierde en clics que nunca compran.' },
+                    { bg: 'bg-blue-100', color: 'text-blue-600', icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z', t: 'Benchmark de tu sector', d: 'Comparamos tu tienda con tus tres competidores directos. Qué precios, qué visibilidad y qué canales trabajan que tú aún no.' },
+                ].map(card => (
+                    <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                        <div class:list={["w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0", card.bg]}>
+                            <svg class:list={["w-5 h-5", card.color]} fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d={card.icon}/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-black text-zinc-900 mb-1">{card.t}</h3>
+                            <p class="text-xs text-zinc-500 font-light leading-relaxed">{card.d}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══ PLATAFORMAS ═══════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-14 sm:mb-20 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Tu tecnología</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Marketing Digital para tu Plataforma
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Cada plataforma tiene sus reglas de juego. Trabajamos las tres que concentran el ecommerce en España y conocemos sus trucos de primera mano.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal">
+                {platforms.map(p => (
+                    <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
+                        <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
+                            {p.t}
+                        </h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">{p.d}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══ POR QUÉ NOVA (COMPARATIVA) ═════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Por qué nova</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Qué diferencia a nova de otra agencia de marketing ecommerce
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    El marketing para tiendas online está lleno de informes de tráfico que no hablan de margen. Nosotros lo trabajamos con método, transparencia y resultados que se ven en tu cuenta de resultados.
+                </p>
+            </div>
+
+            <div class="reveal overflow-x-auto rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
+                <table class="w-full min-w-[640px] text-left border-collapse bg-white">
+                    <thead>
+                        <tr class="bg-black text-white">
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Criterio</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Nova</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Otras agencias</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-zinc-100">
+                        {[
+                            { c: "Quién será tu contacto", o: "Gestor junior con 20-30 cuentas", n: "Sergio Galo's" },
+                            { c: "Qué se mide", o: "Tráfico, alcance e impresiones", n: "Ventas, ROAS y margen por canal" },
+                            { c: "Estrategia", o: "Plantillas iguales para toda tienda", n: "Plan a medida según catálogo y márgenes" },
+                            { c: "Propiedad de tus activos", o: "Cuentas y listas a nombre de la agencia", n: "Todo a tu nombre desde el día uno" },
+                            { c: "Permanencia", o: "6-12 meses habituales", n: "Mes a mes, sin permanencia" },
+                            { c: "Visibilidad en IA (GEO)", o: "Solo canales tradicionales", n: "SEO + GEO integrados con método propio" },
+                            { c: "Transparencia de precios", o: "Porcentajes opacos sobre tu inversión", n: "Fee fijo cerrado por escrito antes de empezar" },
+                        ].map(row => (
+                            <tr class="hover:bg-zinc-50/50 transition-colors">
+                                <td class="px-6 py-5 text-sm font-bold text-zinc-900">{row.c}</td>
+                                <td class="px-6 py-5 text-sm font-bold text-accent">{row.n}</td>
+                                <td class="px-6 py-5 text-sm text-zinc-500 font-light">{row.o}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="text-xs sm:text-sm text-zinc-400 font-light leading-relaxed mt-6 reveal">
+                Un consultor de marketing ecommerce externo te da acceso a experiencia senior sin los costes fijos de contratar un perfil propio, sin proceso de selección y sin periodo de adaptación.
+            </p>
+        </div>
+    </section>
+
+    <!-- ═══ CÓMO ELEGIR AGENCIA ════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-12 sm:mb-16 reveal text-center">
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Cómo Elegir Agencia de Marketing para tu Ecommerce
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Hay cientos de agencias y la mayoría de tiendas online elige mal la primera vez. Estos son los siete criterios que deberías exigir a cualquier agencia, incluida la nuestra.
+                </p>
+            </div>
+
+            <div class="divide-y divide-zinc-100 reveal">
+                {criteria.map((c, i) => (
+                    <div class="py-6 sm:py-8 flex gap-6 sm:gap-8 items-start">
+                        <div class="text-2xl sm:text-3xl font-black tracking-tighter text-accent flex-shrink-0 w-10 leading-none">0{i + 1}</div>
+                        <div>
+                            <h3 class="text-base sm:text-lg font-black uppercase tracking-tight text-zinc-900 mb-2">{c.title}</h3>
+                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.desc}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ QUIÉN ESTÁ DETRÁS ═══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto reveal">
+            <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] grid md:grid-cols-[280px_1fr] gap-8 sm:gap-12 items-center">
+                <div class="rounded-2xl overflow-hidden bg-zinc-100">
+                    <img src="/sergio-galos-agencia-ecommerce.webp" alt="Sergio Galo's, consultor de marketing para ecommerce" title="Sergio Galo's, consultor de marketing para ecommerce" class="w-full h-full object-cover object-top" loading="lazy" />
+                </div>
+                <div>
+                    <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Quién está detrás</span>
+                    <h2 class="text-2xl sm:text-4xl font-black tracking-tighter uppercase text-zinc-900 leading-[0.95] mb-6">
+                        Sergio Galo's <br>
+                        <span class="text-lg sm:text-2xl">Tu consultor de marketing ecommerce</span>
+                    </h2>
+                    <div class="space-y-4 text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
+                        <p>
+                            Soy <strong class="font-semibold text-zinc-900">Sergio Galo's</strong>, consultor de marketing digital y fundador de Nova Marketing. Llevo años haciendo crecer tiendas online en algunos de los sectores más competitivos, desde moda y alimentación hasta producto industrial.
+                        </p>
+                        <p>
+                            Cuando contratas marketing para tu ecommerce con nova hablas siempre conmigo. Yo hago la auditoría, yo diseño la estrategia y yo respondo en la reunión mensual. Sin capas comerciales ni gestores que cambian cada trimestre.
+                        </p>
+                    </div>
+                    <a href="https://www.linkedin.com/company/nova-marketing-pymes/" target="_blank" rel="noopener" class="inline-block mt-6 text-[12px] font-black tracking-widest text-accent hover:underline">
+                        Ver perfil en LinkedIn →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CASOS DE ÉXITO (CMS) ═══════════════════════════════════ -->
+    {allCases.length > 0 && (
+    <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6 overflow-hidden">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-12 reveal">
+          <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultados probados</span>
+          <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
+            Casos de éxito de marketing digital<br class="hidden md:inline" /> para ecommerce
+          </h2>
+        </div>
+        <div class="cases-carousel relative overflow-hidden">
+          <div class="cases-track flex gap-6 transition-transform duration-500 ease-in-out">
+            {allCases.map((cs: any) => {
+              const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
+              const caseUrl = cs.isPublic && cs.slug ? `/casos-exito/${cs.slug}/` : null;
+              return (
+                <div class="cases-slide flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
+                  <div>
+                    {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
+                    <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors leading-tight">
+                      {caseUrl ? (
+                        <a href={caseUrl} class="hover:text-accent transition-colors">{cs.title}</a>
+                      ) : (
+                        <span class="group-hover:text-accent transition-colors">{cs.title}</span>
+                      )}
+                    </h3>
+                    <p class="text-xs text-zinc-500 font-light leading-relaxed">{cs.description}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+    )}
+    <script is:inline>
+      function initCasesCarousel() {
+        const track = document.querySelector('.cases-track');
+        if (!track) return;
+        const slides = track.querySelectorAll('.cases-slide');
+        if (slides.length <= 4) return;
+        let current = 0;
+        const total = slides.length;
+        function getVisible() {
+          if (window.innerWidth >= 1024) return 4;
+          if (window.innerWidth >= 640) return 2;
+          return 1;
+        }
+        function next() {
+          const visible = getVisible();
+          const maxIndex = total - visible;
+          current = current >= maxIndex ? 0 : current + 1;
+          const slideWidth = slides[0].offsetWidth + 24;
+          track.style.transform = `translateX(-${current * slideWidth}px)`;
+        }
+        const interval = setInterval(next, 5000);
+        document.addEventListener('astro:before-preparation', () => clearInterval(interval));
+      }
+      document.addEventListener('DOMContentLoaded', initCasesCarousel);
+      document.addEventListener('astro:page-load', initCasesCarousel);
+    </script>
+
+    <!-- ═══ RECOMENDADOS POR LA IA ═════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+            <div class="reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Nos avala la IA</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    La agencia de marketing ecommerce que recomienda la IA
+                </h2>
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed">
+                    <p>
+                        Cuando alguien pregunta por una <strong class="font-semibold text-zinc-900">agencia de marketing para ecommerce</strong> a ChatGPT, Gemini o Claude, nova aparece entre las agencias recomendadas. Es la mejor prueba de que sabemos generar visibilidad, porque lo aplicamos primero en nosotros mismos.
+                    </p>
+                    <p>
+                        A los asistentes de IA no les puedes comprar un anuncio para salir primero. Recomiendan lo que encuentran. Casos reales publicados, tiendas que crecen y se pueden visitar, una especialización clara y clientes que hablan de nosotros.
+                    </p>
+                    <p>
+                        Pruébalo tú mismo. Abre ChatGPT y pregúntale qué agencia de marketing te recomienda para tu tienda online. Si te sale nova, ya sabes quién puede hacer lo mismo por tu ecommerce.
+                    </p>
+                </div>
+            </div>
+
+            <div class="reveal flex justify-center">
+                <img src="/agencia-ecommerce.webp" alt="Nova Marketing, agencia de marketing para ecommerce recomendada por la IA" title="Nova Marketing, agencia de marketing para ecommerce recomendada por la IA" class="w-full max-w-sm lg:max-w-md h-auto" loading="lazy" />
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
+    <GoogleReviews locale="es" title="Lo que dicen nuestros clientes sobre el marketing ecommerce de Nova" />
+
+    <!-- ═══ DÓNDE TRABAJAMOS ═══════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Dónde trabajamos</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Sede en Barcelona, clientes en toda España
+            </h2>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
+                Nuestra base está en Barcelona y la mayoría de proyectos son de la ciudad y su área metropolitana, donde nos reunimos presencialmente. Pero una tienda online no entiende de kilómetros. Trabajamos con ecommerce de toda España por videollamada con el mismo nivel de seguimiento.
+            </p>
+            <CityPills base="/agencia-ecommerce/" lang="es" />
+        </div>
+    </section>
+
+    <!-- ═══ FAQS ════════════════════════════════════════════════ -->
+    <FaqHome title="Preguntas sobre nuestra agencia de marketing ecommerce" items={faqs} emitSchema={false} />
+
+    <!-- ═══ CONTACTO ════════════════════════════════════════════ -->
+    <section id="contacto" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
+            <div class="reveal text-white">
+                <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">CRECIMIENTO GARANTIZADO</span>
+                <h2 class="text-5xl sm:text-7xl font-black uppercase tracking-tighter leading-[0.8] mb-8">
+                   VENDE MÁS <br>CON TU TIENDA
+                </h2>
+                <p class="font-light max-w-md text-base sm:text-xl">Consúltame y te diré dónde está el dinero que hoy se le escapa a tu ecommerce, y cómo recuperarlo.</p>
+            </div>
+
+            <div class="reveal">
+                <div class="bg-white p-8 sm:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
+                    <form class="space-y-8" id="contact-form">
+                        <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
+                            <div class="flex flex-col gap-3">
+                                <label class="opacity-30">NOMBRE</label>
+                                <input type="text" name="name" aria-label="Nombre" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                            <div class="flex flex-col gap-3">
+                                <label class="opacity-30">TELÉFONO</label>
+                                <input type="tel" name="phone" class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">EMAIL PROFESIONAL</label>
+                            <input type="email" name="email" aria-label="Correo electrónico" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                        </div>
+                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">CONSULTA</label>
+                            <textarea name="msg" aria-label="Mensaje" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="¿Qué vende tu tienda online?"></textarea>
+                        </div>
+                        <button type="submit" class="w-full btn-mktg-v5 !py-6">QUIERO VENDER MÁS</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</BaseLayout>
+
+<script>
+    document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const btn = form.querySelector('button');
+        if (btn) { btn.innerHTML = 'ENVIANDO...'; btn.disabled = true; }
+        const data = Object.fromEntries(new FormData(form));
+        try {
+            const res = await fetch('https://cms.novamarketing.es/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            if (res.ok) {
+                window.location.href = '/gracias/';
+            } else { throw new Error(); }
+        } catch {
+            if (btn) { btn.innerHTML = 'ERROR — INTÉNTALO DE NUEVO'; btn.disabled = false; btn.style.background = '#ef4444'; }
+        }
+    });
+function initTimeline() {
+        const progressBar = document.getElementById('progress-bar');
+        const timeline = document.getElementById('timeline-container');
+        if (!progressBar || !timeline) return;
+
+        function updateProgress() {
+            const rect = timeline.getBoundingClientRect();
+            const winHeight = window.innerHeight;
+            const topPassed = (winHeight / 2) - rect.top;
+            let percentage = (topPassed / rect.height) * 100;
+            percentage = Math.max(0, Math.min(100, percentage));
+            progressBar.style.height = `${percentage}%`;
+
+            const nodes = timeline.querySelectorAll('.node-circle');
+            nodes.forEach((node) => {
+                const nodeTop = node.getBoundingClientRect().top;
+                if (nodeTop < winHeight / 2) {
+                    node.classList.add('!border-accent', '!bg-accent', '!text-white');
+                } else {
+                    node.classList.remove('!border-accent', '!bg-accent', '!text-white');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        document.addEventListener('astro:page-load', updateProgress);
+        updateProgress();
+    }
+    document.addEventListener('DOMContentLoaded', initTimeline);
+    document.addEventListener('astro:page-load', initTimeline);
+</script>

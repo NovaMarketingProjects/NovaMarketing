@@ -1,0 +1,700 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { buildAlternates } from '../../../lib/i18n';
+import { localAgencySchema } from '../../../lib/schema';
+import { strapiClient } from '../../../lib/strapi';
+import LogoMarquee from '../../../components/sections/LogoMarquee.astro';
+import FaqHome from '../../../components/sections/FaqHome.astro';
+import CityPills from '../../../components/global/CityPills.astro';
+import GoogleReviews from '../../../components/global/GoogleReviews.astro';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const alternates = buildAlternates('/agencia-ecommerce/meta-ads/', '/ca/agencia-ecommerce/meta-ads/', SITE_URL);
+
+let allCases: any[] = [];
+try {
+  const casesRes = await strapiClient.getCaseStudies('ca');
+  allCases = casesRes.data.map((i: any) => i.attributes ?? i).filter((c: any) => {
+    const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase());
+    return cats.some((s: string) => s === 'e-commerce' || s === 'marketing-digital');
+  });
+} catch {}
+
+const faqs = [
+  { question: "Què inclou la gestió de Meta Ads per a un ecommerce?", answer: "Inclou auditoria inicial, estratègia d'embut documentada i gestió setmanal. Campanyes de prospecció i remarketing, catàleg connectat, producció i testing de creatius, píxel i API de conversions ben configurats i un informe mensual amb vendes, ROAS i marge." },
+  { question: "Quant costa una agència de Meta Ads?", answer: "L'auditoria del teu compte costa 900 euros i la gestió mensual comença en 150 euros al mes amb fee fix, sense percentatges sobre la teva inversió. A això s'hi suma el teu pressupost publicitari, que va íntegre a Meta. Pressupost tancat per escrit." },
+  { question: "Quant pressupost necessita la meva botiga a Meta?", answer: "Com a regla general, recomanem partir d'entre 500 i 1.000 euros al mes perquè l'algoritme tingui dades de compra suficients per optimitzar. A l'auditoria et donem la xifra concreta per al teu cas i el teu tiquet mitjà." },
+  { question: "Qui produeix els creatius?", answer: "Nosaltres, amb tu. Definim els angles de venda, produïm les peces a partir del teu producte i els teus materials, i les renovem segons el testing. Si tens equip creatiu propi, ens hi coordinem." },
+  { question: "Funciona Meta Ads per a qualsevol producte?", answer: "Funciona especialment bé amb producte visual i tiquet de compra per impuls o consideració curta. Per a productes molt tècnics o de cerca activa, solem combinar-lo amb Google. L'auditoria et diu quina barreja convé a la teva botiga." },
+  { question: "Com mesureu els resultats?", answer: "En vendes, ROAS i marge. Píxel i API de conversions configurats des del primer dia perquè cada compra quedi atribuïda amb el seu valor real. Les dades i els comptes són sempre teus." },
+  { question: "Treballeu amb permanència?", answer: "No, treballem mes a mes. Si el servei no t'aporta valor, pots cancel·lar-lo quan vulguis. La nostra permanència real és el resultat que veus als informes cada mes." },
+];
+
+const pageSchema = localAgencySchema({
+  pageUrl: `${SITE_URL}/ca/agencia-ecommerce/meta-ads/`,
+  lang: 'ca',
+  cityName: 'Barcelona',
+  postalCode: '08035',
+  geo: { lat: 41.4114, lng: 2.1526 },
+  areaServed: ["España", "Barcelona", "Sabadell", "Sant Cugat del Vallès", "Terrassa", "Vallès Occidental"],
+  title: "Agència Meta Ads per a Ecommerce | Instagram i Facebook Ads | Nova Marketing",
+  description: "Campanyes de Meta Ads per a ecommerce. Creatius que venen, catàlegs connectats i remarketing dinàmic a Instagram i Facebook. Resultats mesurats en ROAS.",
+  datePublished: '2026-07-17',
+  dateModified: '2026-07-17',
+  streetAddress: 'Carrer del General Mendoza, 10',
+  hasMap: 'https://maps.app.goo.gl/9fbB12UcK32bgjj89',
+  aggregateRating: { ratingValue: '5.0', reviewCount: '8' },
+  breadcrumbName: "Agència Meta Ads per a Ecommerce",
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Agència Meta Ads per a Ecommerce | Instagram i Facebook Ads | Nova Marketing"
+  description="Campanyes de Meta Ads per a ecommerce. Creatius que venen, catàlegs connectats i remarketing dinàmic a Instagram i Facebook. Resultats mesurats en ROAS."
+  locale="ca"
+  alternates={alternates}
+  schemas={[pageSchema]}
+>
+
+    <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
+    <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+        <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+
+        <div class="max-w-5xl mx-auto reveal">
+            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
+                <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+                Publicitat a Instagram i Facebook
+            </span>
+            <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
+                <span class="lg:whitespace-nowrap">Agència Meta Ads </span>
+                <span class="lg:whitespace-nowrap text-mktg-gradient">per a Ecommerce</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
+                El teu producte al feed de qui encara no sap que el vol. Campanyes d'Instagram i Facebook per a botigues online amb creatius que venen i resultats mesurats en ROAS.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
+                {['Sense permanències', 'Tracte directe amb el consultor', 'Resultats mesurats en vendes'].map(item => (
+                    <span class="inline-flex items-center gap-2 text-[11px] sm:text-xs font-black uppercase tracking-widest text-zinc-700">
+                        <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        {item}
+                    </span>
+                ))}
+            </div>
+            <div class="flex justify-center mt-4">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    PARLEM DE LA TEVA BOTIGA
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <LogoMarquee />
+
+    <!-- ═══ INTRO ═══════════════════════════════════════════════════════ -->
+    <section class="py-16 sm:py-24 bg-white px-4 sm:px-6 border-b border-black/5">
+        <div class="max-w-6xl mx-auto reveal grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-16 items-center">
+            <div>
+                <p class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4">Per què Meta Ads?</p>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    L'agència de Meta Ads per a la teva botiga online
+                </h2>
+                <div class="space-y-6 text-zinc-600 font-light text-base sm:text-lg leading-relaxed">
+                    <p>
+                        <strong class="font-semibold text-zinc-900">A Google et compren els qui ja et busquen. A Meta descobreixes els qui encara no saben que et necessiten</strong>. Instagram i Facebook són la màquina de demanda d'un ecommerce, i el creatiu és el 80% del resultat.
+                    </p>
+                    <p>
+                        Nova és una <strong class="font-semibold text-zinc-900">agència de Meta Ads especialitzada en ecommerce</strong>. Creatius que aturen l'scroll, catàleg connectat i una sola mètrica que importa. <strong class="font-semibold text-zinc-900">Quant ven cada campanya i amb quin marge</strong>.
+                    </p>
+                </div>
+            </div>
+            <div class="hidden md:block">
+                <img src="/sergio-galos-agencia-ecommerce-meta-ads.webp" alt="Sergio Galo's, Consultor de Meta Ads per a ecommerce" title="Sergio Galo's, Consultor de Meta Ads per a ecommerce" class="w-full h-auto" loading="lazy" />
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SERVEIS ══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50 px-4 sm:px-6 border-t border-b border-black/5">
+        <div class="max-w-7xl mx-auto text-center reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Què fem</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Servei de Meta Ads per a ecommerce
+            </h2>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-16">
+                Vendre a Instagram i Facebook no és fer boost a publicacions, és un sistema. Aquestes són les nou peces que treballem perquè cada euro torni convertit en comandes.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+                {[
+                    { t: "Auditoria del compte", d: "Radiografia de les teves campanyes, els teus creatius i el teu píxel abans de tocar res. On es perd pressupost i per què." },
+                    { t: "Estratègia d'embut", d: "Prospecció per descobrir, remarketing per tancar i recompra per repetir. Cada fase amb la seva campanya i el seu missatge." },
+                    { t: "Creatius que venen", d: "El creatiu és el 80% del resultat a Meta. Produïm i testem imatges i vídeos que aturen l'scroll i venen." },
+                    { t: "Catàleg connectat", d: "El teu catàleg sincronitzat amb Meta per a anuncis dinàmics que mostren el producte exacte que interessa a cada usuari." },
+                    { t: "Remarketing dinàmic", d: "Qui va veure el teu producte i no va comprar torna a veure'l al seu feed. Les comandes més barates són a la segona visita." },
+                    { t: "Segmentació i audiències", d: "Audiències àmplies ben alimentades amb esdeveniments de compra. L'algoritme es guia amb dades, no amb microsegments." },
+                    { t: "Mesura i API de conversions", d: "Píxel i API de conversions ben configurats perquè Meta optimitzi amb dades reals de compra." },
+                    { t: "Testing continu", d: "Cada setmana es testen angles, creatius i ofertes. El que funciona escala, el que no es talla sense pietat." },
+                    { t: "Meta més Google", d: "Meta genera la demanda i Google la captura. Coordinem els dos canals perquè el pressupost rendeixi més." },
+                ].map((c: any) => (
+                    <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900 mb-3">
+                            {c.href ? <a href={c.href} class="hover:text-accent transition-colors">{c.t}</a> : c.t}
+                            {c.b && <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1 font-semibold">{c.b}</span>}
+                        </h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed mb-2">{c.d}</p>
+                        {c.href && <a href={c.href} class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>}
+                    </div>
+                ))}
+            </div>
+            <div class="mt-12 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">PARLEM DE LA TEVA BOTIGA</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ ESTRATÈGIA ════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16 sm:mb-24 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Com treballem</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Estratègia de Meta Ads per al teu ecommerce
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Una metodologia documentada, pas a pas i sense fum.
+                </p>
+            </div>
+
+            <div id="timeline-container" class="relative">
+                <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
+                <div id="progress-bar" class="hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100"></div>
+
+                <div class="space-y-16 md:space-y-24 flex flex-col items-center">
+                    {[
+                        { title: "Auditoria de Compte i Píxel", desc: "Analitzem les teves campanyes, els teus creatius i la teva mesura. Detectem pressupost malbaratat, audiències cremades i esdeveniments mal configurats." },
+                        { title: "Estratègia d'Embut Documentada", desc: "Reps un pla per escrit. Quines campanyes llançar a cada fase, quins creatius produir, quin pressupost necessites i quin ROAS és raonable." },
+                        { title: "Creatius, Catàleg i Campanyes", desc: "Produïm els creatius, connectem el catàleg i muntem l'embut complet, de la prospecció al remarketing dinàmic." },
+                        { title: "Testing i Optimització", desc: "Testem angles i creatius cada setmana. Escalem el que ven, tallem el que no i renovem creatius abans que es cremin." },
+                        { title: "Mesura i Escalat", desc: "Monitorem vendes, ROAS i marge per campanya. A l'informe veus què funciona, què es talla i on va el pressupost el mes següent." },
+                    ].map((step, index) => (
+                        <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
+                            <div class:list={["flex-1 w-full", index % 2 === 0 ? "md:order-1 md:text-right" : "md:order-3 md:text-left"]}>
+                                <div class="p-8 sm:p-10 bg-zinc-50 border border-black/5 rounded-3xl hover:border-accent/10 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+                                    <h3 class="text-xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{index + 1}. {step.title}</h3>
+                                    <div class:list={["h-0.5 bg-accent w-full mb-4 opacity-80", index % 2 === 0 ? "md:ml-auto" : ""]}></div>
+                                    <p class:list={["text-sm text-zinc-500 font-light max-w-md", index % 2 === 0 ? "md:ml-auto" : ""]}>{step.desc}</p>
+                                    <div class="absolute -bottom-6 -right-5 text-8xl font-black text-black/[0.02] select-none z-0 group-hover:scale-105 transition-transform duration-500">0{index+1}</div>
+                                </div>
+                            </div>
+                            <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all">
+                                0{index + 1}
+                            </div>
+                            <div class:list={["hidden md:block md:flex-1", index % 2 === 0 ? "md:order-3" : "md:order-1"]}></div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ AUDITORIA ═════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-[6fr_4fr] gap-12 lg:gap-16 items-start">
+            <div class="reveal lg:col-span-2">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Punt de partida</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
+                    Auditoria de Meta Ads per al teu ecommerce
+                </h2>
+            </div>
+            <div class="reveal">
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed mb-8">
+                    <p>Saps quins creatius et venen i quins només consumeixen pressupost? El teu píxel registra les compres de veritat o Meta optimitza a cegues? Gairebé cap botiga ho sap amb dades, i aquí comença tot.</p>
+                    <p>La nostra <strong class="font-semibold text-zinc-900">auditoria de Meta Ads per a ecommerce</strong> revisa les teves campanyes, els teus creatius i la teva mesura, i acaba amb un pla d'acció prioritzat per estalvi i impacte en vendes.</p>
+                    <p>Cada punt el revisa un consultor sènior amb experiència en botigues online. El resultat és un diagnòstic de negoci que entén qualsevol gerent.</p>
+                </div>
+                <ul class="space-y-3">
+                    {["Estructura de l'embut i les campanyes","Salut del píxel i la API de conversions","Rendiment real de cada creatiu","Audiències cremades o mal construïdes","Catàleg i anuncis dinàmics","Pla d'acció prioritzat per estalvi"].map(item => (
+                        <li class="flex items-start gap-3 text-sm text-zinc-700 font-light">
+                            <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                            {item}
+                        </li>
+                    ))}
+                </ul>
+                <div class="mt-16">
+                    <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                        VULL LA MEVA AUDITORIA DE META ADS
+                    </a>
+                </div>
+            </div>
+            <div class="reveal flex flex-col gap-4">
+                {[
+                    { bg: 'bg-purple-100', color: 'text-purple-600', t: "Revisió completa del compte", d: "Campanyes, conjunts, pujes i configuració. Tot el que encareix les teves vendes, documentat." },
+                    { bg: 'bg-green-100', color: 'text-green-600', t: "Pla d'acció prioritzat", d: "Un pla ordenat per estalvi i impacte. Sabràs què tallar la primera setmana i on reinvertir." },
+                    { bg: 'bg-purple-100', color: 'text-purple-600', t: "Auditoria de creatius", d: "Quins angles i formats venen i quins cremen pressupost. El creatiu és el 80% del resultat." },
+                    { bg: 'bg-amber-100', color: 'text-amber-600', t: "Mesura i píxel", d: "Revisem esdeveniments, API de conversions i valors de compra. Si Meta no veu les vendes, optimitza a cegues." },
+                    { bg: 'bg-blue-100', color: 'text-blue-600', t: "Benchmark del teu sector", d: "Comparem els teus anuncis amb els dels teus tres competidors directes a la biblioteca d'anuncis." },
+                ].map(card => (
+                    <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                        <div class:list={["w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0", card.bg]}>
+                            <svg class:list={["w-5 h-5", card.color]} fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-black text-zinc-900 mb-1">{card.t}</h3>
+                            <p class="text-xs text-zinc-500 font-light leading-relaxed">{card.d}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ QUÈ INCLOU L'AUDITORIA ═══════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Pas a pas</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
+                    Què inclou l'auditoria Meta Ads de nova
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch reveal">
+                {[
+                    { n: '1', t: "Radiografia de la teva inversió", d: "Analitzem quant inverteixes, quines campanyes porten comandes, a quin cost i quina part del pressupost es perd." },
+                    { n: '2', t: "Diagnòstic de creatius i embut", d: "Creuem les dades amb els teus creatius i el teu embut per explicar què encareix cada venda." },
+                    { n: '3', t: "Full de ruta per rendibilitzar", d: "Tanques l'auditoria amb accions ordenades per estalvi i impacte i una videotrucada on ho repassem amb tu." },
+                ].map((st, i) => (
+                    <div class="flex items-center gap-4 lg:gap-6">
+                        {i > 0 && <div class="hidden lg:flex text-3xl text-accent font-black select-none">→</div>}
+                        <div class="bg-white border border-black/5 rounded-2xl p-8 shadow-[0_15px_40px_rgba(0,0,0,0.06)] flex-1 text-center h-full">
+                            <div class="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto mb-4 text-accent font-black text-lg">{st.n}</div>
+                            <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3">{st.t}</h3>
+                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{st.d}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto text-center mt-16 reveal">
+                La nostra auditoria de Meta Ads és el primer pas de qualsevol estratègia de publicitat en xarxes per a ecommerce. Analitza com treballa avui el teu pressupost, explica per què la teva competència ven més barat i et deixa un full de ruta clar.
+            </p>
+            <div class="mt-12 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">VULL LA MEVA AUDITORIA DE META ADS</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PREUS ════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Tarifes clares</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Preus de Meta Ads per a ecommerce
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto">
+                    Tarifes orientatives i sense lletra petita. El preu depèn de la mida del teu catàleg, la competència del teu sector i el teu punt de partida, així que abans de començar reps un pressupost tancat per escrit. El cost no porta sorpreses ni permanències.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                {[
+                    { small: 'Preu', name: "Auditoria Meta Ads", price: "900€", meta: ["Lliurament en 1 a 2 setmanes","Per a botigues que ja inverteixen en Meta"], items: ["Sessió inicial d'objectius","Revisió completa del compte","Auditoria de creatius","Salut del píxel i la mesura","Anàlisi de l'embut complet","Comparativa amb 3 competidors","Accions ordenades per estalvi","Videotrucada de lliurament"], cta: "Vull auditar el meu compte" },
+                    { small: 'Preu', name: "Meta Ads Ecommerce", price: "des de 150€ / mes", meta: ["Més el teu pressupost publicitari, que va íntegre a Meta","Per a botigues que arrenquen amb l'embut"], items: ["Diagnòstic inicial de la botiga","Estratègia documentada","Embut de prospecció i remarketing","Catàleg connectat","Píxel i API de conversions","Testing de creatius mensual","Informe mensual de vendes i costos","Línia directa amb el consultor","Sense permanència"], cta: "Vull llançar les meves campanyes" },
+                    { small: 'Preu', name: "Meta Ads Big Ecommerce", price: "des de 400€ / mes", meta: ["Per a comptes amb més inversió i producció creativa","Per a botigues que volen escalar"], items: ["Diagnòstic inicial de la botiga","Estratègia documentada","Tot el pla Meta Ads Ecommerce","Producció creativa ampliada","Testing setmanal d'angles","Estratègia conjunta amb Google","Informe mensual de vendes i costos","Línia directa amb el consultor","Sense permanència"], cta: "Vull escalar les meves campanyes" },
+                ].map(pl => (
+                    <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-10 flex flex-col shadow-[0_15px_40px_rgba(0,0,0,0.06)] hover:shadow-xl transition-shadow duration-300 reveal">
+                        <h3 class="leading-tight mb-2">
+                            <span class="block text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-1">{pl.small} </span>
+                            <span class="block text-xl font-black uppercase tracking-tight text-zinc-900">{pl.name}</span>
+                        </h3>
+                        <div class="text-lg font-bold text-zinc-900">{pl.price}</div>
+                        <div class="text-[10px] text-zinc-400 font-light mt-1 mb-6">* Preu sense IVA</div>
+                        <div class="text-xs text-zinc-500 font-light mb-8 space-y-1.5">
+                            {pl.meta.map(m => <div>{m}</div>)}
+                        </div>
+                        <div class="text-xs font-black uppercase tracking-widest text-zinc-400 pb-3 border-b border-zinc-100">Què inclou</div>
+                        <ul class="divide-y divide-zinc-100 flex-1">
+                            {pl.items.map(item => (
+                                <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light">
+                                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 !py-4 !text-[11px] !tracking-widest font-black mt-10 text-center">
+                            {pl.cta}
+                        </a>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PLATAFORMES ══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-b border-black/5">
+        <div class="max-w-7xl mx-auto text-center reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">La teva tecnologia</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Meta Ads per a la teva plataforma
+            </h2>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-16">
+                Cada plataforma té les seves regles de joc. Treballem les tres que concentren l'ecommerce a Espanya.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+                {[
+                    { t: "Meta Ads per a Shopify", d: "Catàleg sincronitzat amb l'app oficial i compres mesurades des del checkout sense duplicats.", b: "Plataforma" },
+                    { t: "Meta Ads per a PrestaShop", d: "Feed de catàleg net i píxel ben implementat encara que la botiga tingui mòduls acumulats.", b: "Plataforma" },
+                    { t: "Meta Ads per a WooCommerce", d: "Catàleg generat des de WordPress i API de conversions enviant valors de comanda reals.", b: "Plataforma" },
+                ].map((c: any) => (
+                    <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900 mb-3">
+                            {c.t}
+                            {c.b && <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1 font-semibold">{c.b}</span>}
+                        </h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed mb-2">{c.d}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CITA ══════════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-zinc-950 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <blockquote class="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.15] mb-8">
+                “El teu client no sabia que volia el teu producte fins que el va veure al seu feed. Aquest és el poder de Meta. La qüestió és que el creatiu vengui i el marge aguanti.”
+            </blockquote>
+            <p class="text-sm text-zinc-400 font-light mb-10">Sergio Galo's · Consultor de Meta Ads per a ecommerce</p>
+            <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                PARLEM DE LA TEVA BOTIGA
+            </a>
+        </div>
+    </section>
+
+    <!-- ═══ PER QUÈ NOVA (COMPARATIVA) ═════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Per què nova</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Què diferencia nova d'una altra agència de Meta Ads
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    El màrqueting per a botigues online està ple d'informes que no parlen de marge. Nosaltres el treballem amb mètode, transparència i resultats al teu compte de resultats.
+                </p>
+            </div>
+
+            <div class="reveal overflow-x-auto rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
+                <table class="w-full min-w-[640px] text-left border-collapse bg-white">
+                    <thead>
+                        <tr class="bg-black text-white">
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Criteri</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Nova</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Altres agències</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-zinc-100">
+                        {[
+                            { c: "Qui serà el teu contacte", o: "Gestor júnior amb 20-30 comptes", n: "Sergio Galo's" },
+                            { c: "Què es mesura", o: "Abast, likes i impressions", n: "Vendes, ROAS i marge per campanya" },
+                            { c: "Els creatius", o: "Es reciclen fins a cremar-se", n: "Testing i renovació contínua" },
+                            { c: "Model de cobrament", o: "Percentatge de la teva inversió publicitària", n: "Fee fix, el 100% del pressupost va a Meta" },
+                            { c: "Propietat del compte", o: "Business Manager de l'agència", n: "Compte i píxel al teu nom des del dia u" },
+                            { c: "Permanència", o: "6-12 mesos habituals", n: "Mes a mes, sense permanència" },
+                            { c: "Transparència de preus", o: "Pressupostos opacs amb extres sorpresa", n: "Preu tancat per escrit abans de començar" },
+                        ].map(row => (
+                            <tr class="hover:bg-zinc-50/50 transition-colors">
+                                <td class="px-6 py-5 text-sm font-bold text-zinc-900">{row.c}</td>
+                                <td class="px-6 py-5 text-sm font-bold text-accent">{row.n}</td>
+                                <td class="px-6 py-5 text-sm text-zinc-500 font-light">{row.o}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ COM TRIAR ════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-12 sm:mb-16 reveal text-center">
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Com contractar una agència de Meta Ads sense que et venguin fum
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Hi ha centenars d'agències i la majoria de botigues online tria malament la primera vegada. Aquests són els set criteris que hauries d'exigir a qualsevol agència, inclosa la nostra.
+                </p>
+            </div>
+
+            <div class="divide-y divide-zinc-100 reveal">
+                {[
+                    { title: "Demana casos de botigues online verificables", desc: "Quina inversió, quin ROAS, quantes vendes i en quant de temps. Si només ensenyen mètriques d'abast, segueix buscant." },
+                    { title: "Pregunta qui portarà el teu compte", desc: "Exigeix conèixer la persona que gestionarà les teves campanyes abans de signar. A nova parles sempre amb el consultor que optimitza el teu compte." },
+                    { title: "Exigeix que el compte i el píxel siguin teus", desc: "El Business Manager, el compte publicitari i el píxel han d'estar al teu nom. En marxar t'emportes tot l'historial." },
+                    { title: "Pregunta per la producció creativa", desc: "A Meta el creatiu és el 80% del resultat. Una agència sense pla de creatius i testing està optimitzant el de menys." },
+                    { title: "Que parli de ROAS i marge", desc: "Un ecommerce no viu d'abast. Exigeix objectius de retorn i cost per venda des de la primera proposta." },
+                    { title: "Fuig de les permanències llargues", desc: "A Meta els resultats es veuen en setmanes, així que no hi ha excusa per lligar-te un any." },
+                    { title: "Que mesuri amb API de conversions", desc: "Sense mesura server side, Meta perd part de les compres i optimitza a cegues. És l'estàndard, no un extra." },
+                ].map((c, i) => (
+                    <div class="py-6 sm:py-8 flex gap-6 sm:gap-8 items-start">
+                        <div class="text-2xl sm:text-3xl font-black tracking-tighter text-accent flex-shrink-0 w-10 leading-none">0{i + 1}</div>
+                        <div>
+                            <h3 class="text-base sm:text-lg font-black uppercase tracking-tight text-zinc-900 mb-2">{c.title}</h3>
+                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.desc}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ QUI HI HA AL DARRERE ═══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto reveal">
+            <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] grid md:grid-cols-[280px_1fr] gap-8 sm:gap-12 items-center">
+                <div class="rounded-2xl overflow-hidden bg-zinc-100">
+                    <img src="/sergio-galos-agencia-ecommerce-meta-ads.webp" alt="Sergio Galo's, Consultor de Meta Ads per a ecommerce" title="Sergio Galo's, Consultor de Meta Ads per a ecommerce" class="w-full h-full object-cover object-top" loading="lazy" />
+                </div>
+                <div>
+                    <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Qui hi ha al darrere</span>
+                    <h2 class="text-2xl sm:text-4xl font-black tracking-tighter uppercase text-zinc-900 leading-[0.95] mb-6">
+                        Sergio Galo's <br>
+                        <span class="text-lg sm:text-2xl">El teu consultor de meta ads per a ecommerce</span>
+                    </h2>
+                    <div class="space-y-4 text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
+                        <p>
+                            Soc <strong class="font-semibold text-zinc-900">Sergio Galo's</strong>, consultor de màrqueting digital i fundador de Nova Marketing. Porto anys fent créixer botigues online en alguns dels sectors més competitius, des de moda i alimentació fins a producte industrial.
+                        </p>
+                        <p>
+                            Quan contractes amb nova parles sempre amb mi. Jo faig l'auditoria, jo dissenyo l'estratègia i jo responc a la reunió mensual. Sense capes comercials ni gestors que canvien cada trimestre.
+                        </p>
+                    </div>
+                    <a href="https://www.linkedin.com/company/nova-marketing-pymes/" target="_blank" rel="noopener" class="inline-block mt-6 text-[12px] font-black tracking-widest text-accent hover:underline">
+                        Veure perfil a LinkedIn →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CASOS D'ÈXIT (CMS) ═══════════════════════════════════ -->
+    {allCases.length > 0 && (
+    <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6 overflow-hidden">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-12 reveal">
+          <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultats provats</span>
+          <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
+            Casos d'èxit de Meta Ads<br class="hidden md:inline" /> per a ecommerce
+          </h2>
+        </div>
+        <div class="cases-carousel relative overflow-hidden">
+          <div class="cases-track flex gap-6 transition-transform duration-500 ease-in-out">
+            {allCases.map((cs: any) => {
+              const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
+              const caseUrl = cs.isPublic && cs.slug ? `/ca/casos-exit/${cs.slug}/` : null;
+              return (
+                <div class="cases-slide flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
+                  <div>
+                    {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
+                    <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors leading-tight">
+                      {caseUrl ? (
+                        <a href={caseUrl} class="hover:text-accent transition-colors">{cs.title}</a>
+                      ) : (
+                        <span class="group-hover:text-accent transition-colors">{cs.title}</span>
+                      )}
+                    </h3>
+                    <p class="text-xs text-zinc-500 font-light leading-relaxed">{cs.description}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+    )}
+    <script is:inline>
+      function initCasesCarousel() {
+        const track = document.querySelector('.cases-track');
+        if (!track) return;
+        const slides = track.querySelectorAll('.cases-slide');
+        if (slides.length <= 4) return;
+        let current = 0;
+        const total = slides.length;
+        function getVisible() {
+          if (window.innerWidth >= 1024) return 4;
+          if (window.innerWidth >= 640) return 2;
+          return 1;
+        }
+        function next() {
+          const visible = getVisible();
+          const maxIndex = total - visible;
+          current = current >= maxIndex ? 0 : current + 1;
+          const slideWidth = slides[0].offsetWidth + 24;
+          track.style.transform = `translateX(-${current * slideWidth}px)`;
+        }
+        const interval = setInterval(next, 5000);
+        document.addEventListener('astro:before-preparation', () => clearInterval(interval));
+      }
+      document.addEventListener('DOMContentLoaded', initCasesCarousel);
+      document.addEventListener('astro:page-load', initCasesCarousel);
+    </script>
+
+    <!-- ═══ RECOMANATS PER LA IA ═════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+            <div class="reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Ens avala la IA</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    L'agència de Meta Ads que recomana la IA
+                </h2>
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed">
+                    <p>
+                        Quan algú pregunta per una <strong class="font-semibold text-zinc-900">agència de Meta Ads per a ecommerce</strong> a ChatGPT, Gemini o Claude, nova apareix entre les agències recomanades. És la millor prova que sabem generar visibilitat, perquè ho apliquem primer en nosaltres mateixos.
+                    </p>
+                    <p>
+                        Als assistents d'IA no els pots comprar un anunci per sortir primer. Recomanen el que troben. Casos reals publicats, botigues que creixen i es poden visitar, una especialització clara i clients que parlen de nosaltres.
+                    </p>
+                    <p>
+                        Prova-ho tu mateix. Obre ChatGPT i pregunta-li quina agència de Meta Ads per a ecommerce et recomana. Si et surt nova, ja saps qui pot fer el mateix per la teva botiga.
+                    </p>
+                </div>
+            </div>
+
+            <div class="reveal flex justify-center">
+                <img src="/agencia-ecommerce-meta-ads.webp" alt="Nova Marketing, agència de Meta Ads per a ecommerce recomanada per la IA" title="Nova Marketing, agència de Meta Ads per a ecommerce recomanada per la IA" class="w-full max-w-sm lg:max-w-md h-auto" loading="lazy" />
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══ CONSELLS ═══════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Consells aplicables avui</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Com millorar les teves campanyes de Meta aquesta setmana
+            </h2>
+            <p class="text-zinc-500 font-light text-base leading-relaxed mb-10">
+                Si encara no estàs a punt per contractar, comença per aquí. Són accions que qualsevol botiga pot aplicar pel seu compte i que ja mouen l'agulla.
+            </p>
+            <ul class="space-y-6">
+                {[
+                    { lead: "Revisa la freqüència dels teus anuncis.", text: "Si la teva audiència veu el mateix creatiu més de tres o quatre vegades, està cremat. Renova el creatiu abans de pujar pressupost." },
+                    { lead: "Comprova els esdeveniments del píxel.", text: "Entra a l'administrador d'esdeveniments i verifica que les compres arriben amb el seu valor. Sense això, Meta optimitza a cegues." },
+                    { lead: "Connecta el teu catàleg.", text: "Els anuncis dinàmics de catàleg són el remarketing més rendible d'un ecommerce i moltes botigues ni els tenen activats." },
+                    { lead: "Simplifica l'estructura.", text: "Menys campanyes amb més pressupost aprenen més ràpid que vint conjunts competint entre si." },
+                ].map(tip => (
+                    <li class="flex items-start gap-4">
+                        <svg class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        <p class="text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
+                            <strong class="font-bold text-zinc-900">{tip.lead}</strong> {tip.text}
+                        </p>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </section>
+
+    <!-- ═══ RESSENYES GOOGLE ═════════════════════════════════════════ -->
+    <GoogleReviews locale="ca" title="El que diuen els nostres clients sobre les campanyes de Meta Ads de Nova" />
+
+
+    <!-- ═══ FAQS ════════════════════════════════════════════════ -->
+    <FaqHome title="Preguntes sobre la nostra agència de Meta Ads per a ecommerce" items={faqs} emitSchema={false} />
+
+    <!-- ═══ CONTACTE ════════════════════════════════════════════ -->
+    <section id="contacto" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
+            <div class="reveal text-white">
+                <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">CREIXEMENT GARANTIT</span>
+                <h2 class="text-5xl sm:text-7xl font-black uppercase tracking-tighter leading-[0.8] mb-8">
+                   VEN MÉS <br>AMB LA TEVA BOTIGA
+                </h2>
+                <p class="font-light max-w-md text-base sm:text-xl">Consulta'm i et diré per què les teves campanyes de Meta no venen més, i com arreglar-ho.</p>
+            </div>
+
+            <div class="reveal">
+                <div class="bg-white p-8 sm:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
+                    <form class="space-y-8" id="contact-form">
+                        <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
+                            <div class="flex flex-col gap-3">
+                                <label class="opacity-30">NOM</label>
+                                <input type="text" name="name" aria-label="Nom" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                            <div class="flex flex-col gap-3">
+                                <label class="opacity-30">TELÈFON</label>
+                                <input type="tel" name="phone" class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">EMAIL PROFESSIONAL</label>
+                            <input type="email" name="email" aria-label="Correu electrònic" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                        </div>
+                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">CONSULTA</label>
+                            <textarea name="msg" aria-label="Missatge" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="Què ven la teva botiga online?"></textarea>
+                        </div>
+                        <button type="submit" class="w-full btn-mktg-v5 !py-6">VULL VENDRE MÉS</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</BaseLayout>
+
+<script>
+    document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const btn = form.querySelector('button');
+        if (btn) { btn.innerHTML = 'ENVIANT...'; btn.disabled = true; }
+        const data = Object.fromEntries(new FormData(form));
+        try {
+            const res = await fetch('https://cms.novamarketing.es/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            if (res.ok) {
+                window.location.href = '/ca/gracies/';
+            } else { throw new Error(); }
+        } catch {
+            if (btn) { btn.innerHTML = 'ERROR — TORNA-HO A PROVAR'; btn.disabled = false; btn.style.background = '#ef4444'; }
+        }
+    });
+function initTimeline() {
+        const progressBar = document.getElementById('progress-bar');
+        const timeline = document.getElementById('timeline-container');
+        if (!progressBar || !timeline) return;
+
+        function updateProgress() {
+            const rect = timeline.getBoundingClientRect();
+            const winHeight = window.innerHeight;
+            const topPassed = (winHeight / 2) - rect.top;
+            let percentage = (topPassed / rect.height) * 100;
+            percentage = Math.max(0, Math.min(100, percentage));
+            progressBar.style.height = `${percentage}%`;
+
+            const nodes = timeline.querySelectorAll('.node-circle');
+            nodes.forEach((node) => {
+                const nodeTop = node.getBoundingClientRect().top;
+                if (nodeTop < winHeight / 2) {
+                    node.classList.add('!border-accent', '!bg-accent', '!text-white');
+                } else {
+                    node.classList.remove('!border-accent', '!bg-accent', '!text-white');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        document.addEventListener('astro:page-load', updateProgress);
+        updateProgress();
+    }
+    document.addEventListener('DOMContentLoaded', initTimeline);
+    document.addEventListener('astro:page-load', initTimeline);
+</script>

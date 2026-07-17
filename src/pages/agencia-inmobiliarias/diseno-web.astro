@@ -1,0 +1,675 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { buildAlternates } from '../../lib/i18n';
+import { localAgencySchema } from '../../lib/schema';
+import { strapiClient } from '../../lib/strapi';
+import LogoMarquee from '../../components/sections/LogoMarquee.astro';
+import FaqHome from '../../components/sections/FaqHome.astro';
+import CityPills from '../../components/global/CityPills.astro';
+import GoogleReviews from '../../components/global/GoogleReviews.astro';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const alternates = buildAlternates('/agencia-inmobiliarias/diseno-web/', '/ca/agencia-inmobiliarias/diseno-web/', SITE_URL);
+
+let allCases: any[] = [];
+try {
+  const casesRes = await strapiClient.getCaseStudies('es');
+  allCases = casesRes.data.map((i: any) => i.attributes ?? i).filter((c: any) => {
+    const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase());
+    return cats.some((s: string) => s === 'diseno-web' || s === 'marketing-digital');
+  });
+} catch {}
+
+const faqs = [
+  { question: "¿Cuánto cuesta una web para una inmobiliaria?", answer: "Una landing parte de 400 euros y una web a medida desde 120 euros al mes en 12 cuotas. El precio depende del tamaño y las funcionalidades. Antes de empezar recibes un presupuesto cerrado por escrito, sin permanencias." },
+  { question: "¿La web incluye SEO?", answer: "Toda web que sale de nova incluye la base SEO de serie: arquitectura, velocidad, datos estructurados e indexación. Si después quieres competir por posiciones, nuestro SEO para inmobiliarias continúa desde esa base." },
+  { question: "¿La web y el dominio serán míos?", answer: "Sí, siempre. El dominio se registra a tu nombre, los contenidos son tuyos y tienes acceso completo a todo. Si algún día dejas de trabajar con nosotros, te llevas tu web entera." },
+  { question: "¿Con qué tecnología la hacéis?", answer: "La que más convenga a tu proyecto. Trabajamos WordPress, Desarrollo Propio según lo que necesites. La tecnología es un medio, el criterio es qué convierte mejor para tu negocio." },
+  { question: "¿Cuánto se tarda?", answer: "Una web corporativa suele estar lista en 3 a 5 semanas contando desde que recibimos los contenidos. En el briefing inicial te damos un calendario con fechas concretas." },
+  { question: "¿Qué pasa después del lanzamiento?", answer: "Tienes un periodo de ajustes incluido y después puedes contratar mantenimiento mensual o pedir cambios puntuales con presupuesto cerrado. Nunca te quedas solo con la web." },
+  { question: "¿Trabajáis con permanencia?", answer: "No. Pagas por el trabajo entregado, en pago único o en 12 cuotas, sin permanencias ni cuotas ocultas. Nuestra permanencia real es que la web te genere clientes." },
+];
+
+const pageSchema = localAgencySchema({
+  pageUrl: `${SITE_URL}/agencia-inmobiliarias/diseno-web/`,
+  lang: 'es',
+  cityName: 'Barcelona',
+  postalCode: '08035',
+  geo: { lat: 41.4114, lng: 2.1526 },
+  areaServed: ["España", "Barcelona", "Sabadell", "Sant Cugat del Vallès", "Terrassa", "Vallès Occidental"],
+  title: "Diseño Web para Inmobiliarias | Webs que Convierten | Nova Marketing",
+  description: "Diseño web especializado en inmobiliarias. Webs rápidas, optimizadas para Google y pensadas para captar. Sin permanencias.",
+  datePublished: '2026-07-17',
+  dateModified: '2026-07-17',
+  streetAddress: 'Carrer del General Mendoza, 10',
+  hasMap: 'https://maps.app.goo.gl/9fbB12UcK32bgjj89',
+  aggregateRating: { ratingValue: '5.0', reviewCount: '8' },
+  breadcrumbName: "Diseño Web para Inmobiliarias",
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Diseño Web para Inmobiliarias | Webs que Convierten | Nova Marketing"
+  description="Diseño web especializado en inmobiliarias. Webs rápidas, optimizadas para Google y pensadas para captar. Sin permanencias."
+  locale="es"
+  schemas={[pageSchema]}
+  alternates={alternates}
+>
+
+    <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
+    <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+        <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+
+        <div class="max-w-5xl mx-auto reveal">
+            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
+                <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+                Diseño Web para Inmobiliarias
+            </span>
+            <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
+                <span class="lg:whitespace-nowrap">Diseño Web </span>
+                <span class="lg:whitespace-nowrap text-mktg-gradient">para Inmobiliarias</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
+                Tu web es tu mejor comercial o tu peor enemigo. Diseñamos webs para inmobiliarias rápidas, optimizadas para Google y pensadas para captar.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
+                {['Sin permanencias', 'Trato directo con el consultor', 'Resultados medidos en captaciones'].map(item => (
+                    <span class="inline-flex items-center gap-2 text-[11px] sm:text-xs font-black uppercase tracking-widest text-zinc-700">
+                        <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        {item}
+                    </span>
+                ))}
+            </div>
+            <div class="flex justify-center mt-4">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    HABLEMOS DE TU INMOBILIARIA
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <LogoMarquee />
+
+    <!-- ═══ INTRO ═══════════════════════════════════════════════════════ -->
+    <section class="py-16 sm:py-24 bg-white px-4 sm:px-6 border-b border-black/5">
+        <div class="max-w-6xl mx-auto reveal grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-16 items-center">
+            <div>
+                <p class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4">¿Por qué tu web importa?</p>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    La agencia de diseño web para tu inmobiliaria
+                </h2>
+                <div class="space-y-6 text-zinc-600 font-light text-base sm:text-lg leading-relaxed">
+                    <p>
+                        <strong class="font-semibold text-zinc-900">Tu cliente entra en tu web antes de decidir</strong>. En segundos juzga si eres de fiar. Una web lenta o anticuada le manda directo a tu competencia.
+                    </p>
+                    <p>
+                        Nova es una <strong class="font-semibold text-zinc-900">agencia de diseño web especializada en inmobiliarias</strong>. No hacemos webs bonitas, hacemos webs con un objetivo medible. <strong class="font-semibold text-zinc-900">Que cada visita tenga la máxima probabilidad de captar</strong>.
+                    </p>
+                </div>
+            </div>
+            <div class="hidden md:block">
+                <img src="/sergio-galos-agencia-inmobiliarias-diseno-web.webp" alt="Sergio Galo's, consultor de diseño web inmobiliario" title="Sergio Galo's, consultor de diseño web inmobiliario" class="w-full h-auto" loading="lazy" />
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SERVICIOS ══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50 px-4 sm:px-6 border-t border-b border-black/5">
+        <div class="max-w-7xl mx-auto text-center reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Qué hacemos</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Servicio de diseño web para Inmobiliarias
+            </h2>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-16">
+                Una web que convierte no es solo diseño, es un sistema. Estas son las nueve piezas que trabajamos.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+                {[
+                    { t: "Diseño de web inmobiliaria", d: "Una web que transmite confianza y convierte al propietario y al comprador en contacto." },
+                    { t: "Valorador online", d: "La herramienta de captación número uno del sector, integrada y optimizada para capturar el contacto." },
+                    { t: "Fichas de propiedad", d: "Fotos, orden de la información y llamadas a la acción que convierten el interés en visita." },
+                    { t: "Buscador de propiedades", d: "Filtros claros conectados a tu CRM. Que el comprador encuentre y contacte sin frustrarse." },
+                    { t: "Velocidad y Core Web Vitals", d: "Webs llenas de fotos que cargan al instante desde el móvil, que es donde te buscan." },
+                    { t: "SEO local de serie", d: "Landings por barrio, datos estructurados e indexación pensados para dominar tu zona en Google." },
+                    { t: "Integración con tu CRM", d: "Formularios y valorador conectados a tu gestor, sin trabajo manual ni contactos perdidos." },
+                    { t: "Diseño responsive real", d: "El propietario te busca desde el móvil. Diseñamos ahí primero, no como un añadido." },
+                    { t: "Mantenimiento y soporte", d: "Actualizaciones, seguridad y cambios sin esperas. Tu web siempre disponible y al día." },
+                ].map((c) => (
+                    <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900 mb-3">
+                            {c.href ? <a href={c.href} class="hover:text-accent transition-colors">{c.t}</a> : c.t}
+                            {c.b && <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1 font-semibold">{c.b}</span>}
+                        </h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed mb-2">{c.d}</p>
+                        {c.href && <a href={c.href} class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>}
+                    </div>
+                ))}
+            </div>
+            <div class="mt-12 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">HABLEMOS DE TU INMOBILIARIA</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ ESTRATEGIA ════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16 sm:mb-24 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Cómo trabajamos</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Así creamos la web que capta
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Una metodología documentada, paso a paso y sin humo.
+                </p>
+            </div>
+
+            <div id="timeline-container" class="relative">
+                <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
+                <div id="progress-bar" class="hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100"></div>
+
+                <div class="space-y-16 md:space-y-24 flex flex-col items-center">
+                    {[
+                        { title: "Briefing y Objetivos", desc: "Entendemos tu inmobiliaria, tu cliente y qué tiene que conseguir la web antes de diseñar nada." },
+                        { title: "Arquitectura y Contenidos", desc: "Definimos qué páginas necesitas y cómo se organizan, con las keywords de tu sector integradas de serie." },
+                        { title: "Diseño y Desarrollo", desc: "Diseñamos una web que transmite confianza en tres segundos y la desarrollamos rápida y adaptada a móvil." },
+                        { title: "SEO Técnico y Velocidad", desc: "Core Web Vitals en verde, datos estructurados e indexación correcta. Lo que otros venden como extra, aquí es el estándar." },
+                        { title: "Lanzamiento y Mantenimiento", desc: "Publicamos, medimos y no desaparecemos. Analítica, seguridad, copias y soporte directo." },
+                    ].map((step, index) => (
+                        <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
+                            <div class:list={["flex-1 w-full", index % 2 === 0 ? "md:order-1 md:text-right" : "md:order-3 md:text-left"]}>
+                                <div class="p-8 sm:p-10 bg-zinc-50 border border-black/5 rounded-3xl hover:border-accent/10 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+                                    <h3 class="text-xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{index + 1}. {step.title}</h3>
+                                    <div class:list={["h-0.5 bg-accent w-full mb-4 opacity-80", index % 2 === 0 ? "md:ml-auto" : ""]}></div>
+                                    <p class:list={["text-sm text-zinc-500 font-light max-w-md", index % 2 === 0 ? "md:ml-auto" : ""]}>{step.desc}</p>
+                                    <div class="absolute -bottom-6 -right-5 text-8xl font-black text-black/[0.02] select-none z-0 group-hover:scale-105 transition-transform duration-500">0{index+1}</div>
+                                </div>
+                            </div>
+                            <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all">
+                                0{index + 1}
+                            </div>
+                            <div class:list={["hidden md:block md:flex-1", index % 2 === 0 ? "md:order-3" : "md:order-1"]}></div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ AUDITORÍA ═════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-[6fr_4fr] gap-12 lg:gap-16 items-start">
+            <div class="reveal lg:col-span-2">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Punto de partida</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">Auditoría web gratuita para tu inmobiliaria</h2>
+            </div>
+            <div class="reveal">
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed mb-8">
+                    <p>¿Sabes cuántos segundos tarda tu web en cargar desde un móvil? ¿Cuántas visitas acaban en captaciones? Casi nadie lo sabe con datos, y ahí empieza todo.</p>
+                    <p>Nuestra <strong class="font-semibold text-zinc-900">auditoría web gratuita</strong> revisa tu página actual con ojos de cliente y de consultor. Velocidad, diseño, textos, SEO y conversión, y termina con un diagnóstico claro.</p>
+                    <p>A diferencia de los análisis automáticos, aquí cada punto lo revisa un consultor senior. El resultado es un diagnóstico de negocio, no un listado técnico.</p>
+                </div>
+                <ul class="space-y-3">
+                    {["Velocidad de carga desde el móvil","Primera impresión y confianza que transmite","Textos y llamadas a la acción","Salud SEO e indexación en Google","Puntos de fuga en el camino a la conversión","Diagnóstico priorizado por impacto"].map(item => (
+                        <li class="flex items-start gap-3 text-sm text-zinc-700 font-light"><svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>{item}</li>
+                    ))}
+                </ul>
+                <div class="mt-16">
+                    <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">QUIERO MI AUDITORÍA WEB GRATIS</a>
+                </div>
+            </div>
+            <div class="reveal flex flex-col gap-4">
+                {[
+                    { bg: 'bg-purple-100', color: 'text-purple-600', t: "Test de velocidad real", d: "Cuánto tarda tu web desde un móvil con conexión normal, que es como llega tu cliente." },
+                    { bg: 'bg-green-100', color: 'text-green-600', t: "Revisión con ojos de cliente", d: "Qué entiende en tres segundos, qué le genera dudas y por qué se va sin convertir." },
+                    { bg: 'bg-purple-100', color: 'text-purple-600', t: "Salud SEO de tu web", d: "Si Google entiende tu página y qué visibilidad estás dejando escapar." },
+                    { bg: 'bg-amber-100', color: 'text-amber-600', t: "Análisis de conversión", d: "Dónde pierde clientes tu web y qué cambio tendría más impacto." },
+                    { bg: 'bg-blue-100', color: 'text-blue-600', t: "Comparativa con tu competencia", d: "Tu web al lado de tus tres competidores directos. Dónde está la oportunidad." },
+                ].map(card => (
+                    <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                        <div class:list={["w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0", card.bg]}>
+                            <svg class:list={["w-5 h-5", card.color]} fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-black text-zinc-900 mb-1">{card.t}</h3>
+                            <p class="text-xs text-zinc-500 font-light leading-relaxed">{card.d}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ QUÉ INCLUYE LA AUDITORÍA ═══════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Paso a paso</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">Qué incluye la auditoría web de nova</h2>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch reveal">
+                {[
+                    { n: '1', t: "Radiografía de tu web actual", d: "Velocidad, diseño, contenidos y SEO tal y como los ve hoy tu cliente y Google." },
+                    { n: '2', t: "Diagnóstico de conversión", d: "Dónde y por qué tu web pierde clientes, cruzando datos con el recorrido real del usuario." },
+                    { n: '3', t: "Hoja de ruta con presupuesto", d: "Un diagnóstico claro, la propuesta que más te conviene y un presupuesto cerrado. Sin compromiso." },
+                ].map((st, i) => (
+                    <div class="flex items-center gap-4 lg:gap-6">
+                        {i > 0 && <div class="hidden lg:flex text-3xl text-accent font-black select-none">→</div>}
+                        <div class="bg-white border border-black/5 rounded-2xl p-8 shadow-[0_15px_40px_rgba(0,0,0,0.06)] flex-1 text-center h-full">
+                            <div class="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto mb-4 text-accent font-black text-lg">{st.n}</div>
+                            <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3">{st.t}</h3>
+                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{st.d}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto text-center mt-16 reveal">Nuestra auditoría web es el primer paso de cualquier proyecto de diseño o rediseño. Es gratuita y sin compromiso, porque preferimos que decidas con datos y no con promesas.</p>
+            <div class="mt-12 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">QUIERO MI AUDITORÍA WEB GRATIS</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PRECIOS ════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Tarifas claras</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">Precios de diseño web para Inmobiliarias</h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto">Tarifas orientativas y sin letra pequeña. El precio depende del tamaño de la web y las funcionalidades que necesites, así que antes de empezar recibes un presupuesto cerrado por escrito. El coste no lleva sorpresas ni permanencias.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                {[
+                    { small: 'Precio', name: "Landing page", price: "desde 400€", note: "", meta: ["Lista en 1 a 2 semanas","Para campañas que necesitan convertir"], items: ["Página enfocada a convertir","Diseño a medida","Textos orientados a la acción","Formulario y llamada a un toque","Velocidad optimizada","Medición de conversiones","Adaptada a móvil","Entrega llave en mano"], cta: "Quiero mi landing" },
+                    { small: 'Precio', name: "Web a medida", price: "desde 120€ / mes", note: "en 12 cuotas", meta: ["Entrega en 3 a 5 semanas","Para una web propia y exclusiva"], items: ["Briefing y objetivos","Arquitectura y keywords","Diseño exclusivo","Desarrollo rápido y limpio","Redacción de contenidos","SEO técnico completo","Analítica configurada","La web es tuya al 100%"], cta: "Quiero mi web a medida" },
+                    { small: 'Precio', name: "Web para Inmobiliarias", price: "desde 130€ / mes", note: "en 12 cuotas", meta: ["Entrega en 6 a 8 semanas","Para inmobiliaria con funcionalidades avanzadas"], items: ["Todo lo de la web a medida","Buscador y valorador","Integraciones a medida","SEO local avanzado","Formación para gestionarla","Preparada para campañas","Soporte prioritario","Mantenimiento incluido"], cta: "Quiero mi web avanzada" },
+                ].map(pl => (
+                    <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-10 flex flex-col shadow-[0_15px_40px_rgba(0,0,0,0.06)] hover:shadow-xl transition-shadow duration-300 reveal">
+                        <h3 class="leading-tight mb-2">
+                            <span class="block text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-1">{pl.small} </span>
+                            <span class="block text-xl font-black uppercase tracking-tight text-zinc-900">{pl.name}</span>
+                        </h3>
+                        <div class="text-lg font-bold text-zinc-900">{pl.price}</div>
+                        {pl.note && <div class="text-[10px] text-zinc-400 font-light">{pl.note}</div>}
+                        <div class="text-[10px] text-zinc-400 font-light mt-1 mb-6">* Precio sin IVA</div>
+                        <div class="text-xs text-zinc-500 font-light mb-8 space-y-1.5">{pl.meta.map(m => <div>{m}</div>)}</div>
+                        <div class="text-xs font-black uppercase tracking-widest text-zinc-400 pb-3 border-b border-zinc-100">Qué incluye</div>
+                        <ul class="divide-y divide-zinc-100 flex-1">
+                            {pl.items.map(item => (
+                                <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light">
+                                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 !py-4 !text-[11px] !tracking-widest font-black mt-10 text-center">{pl.cta}</a>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PLATAFORMAS ══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-b border-black/5">
+        <div class="max-w-7xl mx-auto text-center reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Tu tecnología</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Diseño web para tu plataforma
+            </h2>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-16">
+                Trabajamos las bases tecnológicas que dominan tu sector, cada una con sus trucos.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2  gap-6 text-left">
+                {[
+                    { t: "Diseño Web para WordPress", d: "Sacamos partido de WordPress para tu web con velocidad, SEO y conversión bien trabajados.", b: "Plataforma", href: "/agencia-inmobiliarias/wordpress/" },
+                    { t: "Diseño Web para Desarrollo Propio", d: "Sacamos partido de Desarrollo Propio para tu web con velocidad, SEO y conversión bien trabajados.", b: "Plataforma", href: "/agencia-inmobiliarias/desarrollo-propio/" },
+                ].map((c) => (
+                    <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900 mb-3">
+                            {c.href ? <a href={c.href} class="hover:text-accent transition-colors">{c.t}</a> : c.t}
+                            {c.b && <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1 font-semibold">{c.b}</span>}
+                        </h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed mb-2">{c.d}</p>
+                        {c.href && <a href={c.href} class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>}
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CITA ══════════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-zinc-950 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <blockquote class="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.15] mb-8">
+                “Tu cliente visita tu web antes de decidir. En esos segundos elige si confía en ti o sigue buscando. No necesitas una web más bonita. Necesitas una web que capta.”
+            </blockquote>
+            <p class="text-sm text-zinc-400 font-light mb-10">Sergio Galo's · consultor de diseño web inmobiliario</p>
+            <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                HABLEMOS DE TU INMOBILIARIA
+            </a>
+        </div>
+    </section>
+
+    <!-- ═══ POR QUÉ NOVA (COMPARATIVA) ═════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Por qué nova</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Qué diferencia a nova de otra agencia de diseño web para Inmobiliarias
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    El diseño web está lleno de plantillas clonadas y proyectos abandonados. Nosotros lo trabajamos con método y resultados que se ven en tu caja.
+                </p>
+            </div>
+
+            <div class="reveal overflow-x-auto rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
+                <table class="w-full min-w-[640px] text-left border-collapse bg-white">
+                    <thead>
+                        <tr class="bg-black text-white">
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Criterio</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Nova</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Otras agencias</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-zinc-100">
+                        {[
+                            { c: "Quién será tu contacto", o: "Gestor junior con 20-30 proyectos", n: "Sergio Galo's" },
+                            { c: "Enfoque del diseño", o: "Web bonita como objetivo", n: "Web pensada para captar" },
+                            { c: "Propiedad de la web", o: "Dominio y web a nombre de la agencia", n: "Todo a tu nombre desde el día uno" },
+                            { c: "SEO", o: "Extra que se cobra aparte", n: "Incluido de serie en cada web" },
+                            { c: "Especialización", o: "Webs genéricas para cualquiera", n: "Diseño específico de inmobiliarias" },
+                            { c: "Después del lanzamiento", o: "Proyecto entregado y adiós", n: "Mantenimiento y mejora continua" },
+                            { c: "Transparencia de precios", o: "Presupuestos opacos con extras", n: "Precio cerrado por escrito antes de empezar" },
+                        ].map(row => (
+                            <tr class="hover:bg-zinc-50/50 transition-colors">
+                                <td class="px-6 py-5 text-sm font-bold text-zinc-900">{row.c}</td>
+                                <td class="px-6 py-5 text-sm font-bold text-accent">{row.n}</td>
+                                <td class="px-6 py-5 text-sm text-zinc-500 font-light">{row.o}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CÓMO ELEGIR ════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-12 sm:mb-16 reveal text-center">
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Cómo contratar una agencia de diseño web para Inmobiliarias sin que te vendan humo
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Hay cientos de agencias y la mayoría elige mal la primera vez. Estos son los siete criterios que deberías exigir, incluida la nuestra.
+                </p>
+            </div>
+
+            <div class="divide-y divide-zinc-100 reveal">
+                {[
+                    { title: "Pide webs reales que puedas visitar", desc: "Un portfolio de capturas no demuestra nada. Pide direcciones de webs vivas del sector y entra desde el móvil." },
+                    { title: "Pregunta quién hará tu web", desc: "Exige saber quién diseña, quién desarrolla y con quién hablarás. En nova hablas siempre con el consultor." },
+                    { title: "Exige la propiedad de tu web y dominio", desc: "El dominio, el hosting y los contenidos deben estar a tu nombre. Lo contrario es una dependencia." },
+                    { title: "Desconfía de las webs a 300 euros", desc: "Una web tirada de precio es una plantilla clonada, lenta y sin SEO. La acabas pagando dos veces." },
+                    { title: "Revisa qué pasa después del lanzamiento", desc: "Mantenimiento, seguridad y cambios forman parte del servicio. Pregunta qué incluye antes de firmar." },
+                    { title: "Huye de las permanencias largas", desc: "El trabajo bien hecho retiene sin contratos que aten. Por eso en nova trabajamos sin permanencias." },
+                    { title: "Que entienda tu sector", desc: "Diseñar para inmobiliarias no es lo mismo que una web genérica. Valorador, fichas y buscador tienen sus reglas." },
+                ].map((c, i) => (
+                    <div class="py-6 sm:py-8 flex gap-6 sm:gap-8 items-start">
+                        <div class="text-2xl sm:text-3xl font-black tracking-tighter text-accent flex-shrink-0 w-10 leading-none">0{i + 1}</div>
+                        <div>
+                            <h3 class="text-base sm:text-lg font-black uppercase tracking-tight text-zinc-900 mb-2">{c.title}</h3>
+                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.desc}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ QUIÉN ESTÁ DETRÁS ═══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto reveal">
+            <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] grid md:grid-cols-[280px_1fr] gap-8 sm:gap-12 items-center">
+                <div class="rounded-2xl overflow-hidden bg-zinc-100">
+                    <img src="/sergio-galos-agencia-inmobiliarias-diseno-web.webp" alt="Sergio Galo's, consultor de diseño web inmobiliario" title="Sergio Galo's, consultor de diseño web inmobiliario" class="w-full h-full object-cover object-top" loading="lazy" />
+                </div>
+                <div>
+                    <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Quién está detrás</span>
+                    <h2 class="text-2xl sm:text-4xl font-black tracking-tighter uppercase text-zinc-900 leading-[0.95] mb-6">
+                        Sergio Galo's <br>
+                        <span class="text-lg sm:text-2xl">Tu consultor de diseño web inmobiliario</span>
+                    </h2>
+                    <div class="space-y-4 text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
+                        <p>
+                            Soy <strong class="font-semibold text-zinc-900">Sergio Galo's</strong>, consultor de marketing digital y fundador de Nova Marketing. Llevo años generando captaciones y ventas para inmobiliarias en algunos de los mercados más competidos de España.
+                        </p>
+                        <p>
+                            Cuando contratas tu web con nova hablas siempre conmigo. Yo hago la auditoría, yo superviso el diseño y yo respondo cuando necesitas un cambio.
+                        </p>
+                    </div>
+                    <a href="https://www.linkedin.com/company/nova-marketing-pymes/" target="_blank" rel="noopener" class="inline-block mt-6 text-[12px] font-black tracking-widest text-accent hover:underline">
+                        Ver perfil en LinkedIn →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CASOS DE ÉXITO (CMS) ═══════════════════════════════════ -->
+    {allCases.length > 0 && (
+    <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6 overflow-hidden">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-12 reveal">
+          <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultados probados</span>
+          <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
+            Casos de éxito de diseño web<br class="hidden md:inline" /> para negocios locales
+          </h2>
+        </div>
+        <div class="cases-carousel relative overflow-hidden">
+          <div class="cases-track flex gap-6 transition-transform duration-500 ease-in-out">
+            {allCases.map((cs: any) => {
+              const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
+              const caseUrl = cs.isPublic && cs.slug ? `/casos-exito/${cs.slug}/` : null;
+              return (
+                <div class="cases-slide flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
+                  <div>
+                    {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
+                    <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors leading-tight">
+                      {caseUrl ? (
+                        <a href={caseUrl} class="hover:text-accent transition-colors">{cs.title}</a>
+                      ) : (
+                        <span class="group-hover:text-accent transition-colors">{cs.title}</span>
+                      )}
+                    </h3>
+                    <p class="text-xs text-zinc-500 font-light leading-relaxed">{cs.description}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+    )}
+    <script is:inline>
+      function initCasesCarousel() {
+        const track = document.querySelector('.cases-track');
+        if (!track) return;
+        const slides = track.querySelectorAll('.cases-slide');
+        if (slides.length <= 4) return;
+        let current = 0;
+        const total = slides.length;
+        function getVisible() {
+          if (window.innerWidth >= 1024) return 4;
+          if (window.innerWidth >= 640) return 2;
+          return 1;
+        }
+        function next() {
+          const visible = getVisible();
+          const maxIndex = total - visible;
+          current = current >= maxIndex ? 0 : current + 1;
+          const slideWidth = slides[0].offsetWidth + 24;
+          track.style.transform = `translateX(-${current * slideWidth}px)`;
+        }
+        const interval = setInterval(next, 5000);
+        document.addEventListener('astro:before-preparation', () => clearInterval(interval));
+      }
+      document.addEventListener('DOMContentLoaded', initCasesCarousel);
+      document.addEventListener('astro:page-load', initCasesCarousel);
+    </script>
+
+    <!-- ═══ RECOMENDADOS POR LA IA ═════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+            <div class="reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Nos avala la IA</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    La agencia de diseño web para Inmobiliarias que recomienda la IA
+                </h2>
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed">
+                    <p>
+                        Cuando alguien pregunta por una <strong class="font-semibold text-zinc-900">agencia de diseño web para inmobiliarias</strong> a ChatGPT, Gemini o Claude, nova aparece entre las agencias recomendadas. Es la mejor prueba de que sabemos generar visibilidad, porque lo aplicamos primero en nosotros mismos.
+                    </p>
+                    <p>
+                        A los asistentes de IA no les puedes comprar un anuncio para salir primero. Recomiendan lo que encuentran. Casos reales publicados, tiendas que crecen y se pueden visitar, una especialización clara y clientes que hablan de nosotros.
+                    </p>
+                    <p>
+                        Pruébalo tú mismo. Abre ChatGPT y pregúntale qué agencia de diseño web para inmobiliarias te recomienda. Si te sale nova, ya sabes quién puede hacer lo mismo por tu tienda.
+                    </p>
+                </div>
+            </div>
+
+            <div class="reveal flex justify-center">
+                <img src="/agencia-inmobiliarias-diseno-web.webp" alt="Nova Marketing, agencia de diseño web para inmobiliarias recomendada por la IA" title="Nova Marketing, agencia de diseño web para inmobiliarias recomendada por la IA" class="w-full max-w-sm lg:max-w-md h-auto" loading="lazy" />
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══ CONSEJOS ═══════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Consejos aplicables hoy</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">Cómo mejorar tu web esta semana</h2>
+            <p class="text-zinc-500 font-light text-base leading-relaxed mb-10">Si todavía no estás listo para renovar tu web, empieza por aquí. Acciones que ya mueven la aguja.</p>
+            <ul class="space-y-6">
+                {[
+                    { lead: "Abre tu web desde el móvil con datos.", text: "Si tarda más de tres segundos o hay que hacer zoom, por ahí se van tus clientes." },
+                    { lead: "Pon el contacto a un toque.", text: "El valorador y el teléfono deben estar visibles sin hacer scroll." },
+                    { lead: "Revisa tu primera pantalla.", text: "Sin scroll, tu web debe responder qué haces, para quién y qué hacer ahora." },
+                    { lead: "Quita el texto que habla de ti.", text: "Menos misión y visión, más respuestas a lo que tu cliente busca." },
+                ].map(tip => (
+                    <li class="flex items-start gap-4">
+                        <svg class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        <p class="text-sm sm:text-base text-zinc-600 font-light leading-relaxed"><strong class="font-bold text-zinc-900">{tip.lead}</strong> {tip.text}</p>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </section>
+
+    <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
+    <GoogleReviews locale="es" title="Lo que dicen nuestros clientes sobre el diseño web para inmobiliarias de Nova" />
+
+
+    <!-- ═══ FAQS ════════════════════════════════════════════════ -->
+    <FaqHome title="Preguntas sobre nuestro diseño web para Inmobiliarias" items={faqs} emitSchema={false} />
+
+    <!-- ═══ CONTACTO ════════════════════════════════════════════ -->
+    <section id="contacto" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
+            <div class="reveal text-white">
+                <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">CRECIMIENTO GARANTIZADO</span>
+                <h2 class="text-5xl sm:text-7xl font-black uppercase tracking-tighter leading-[0.8] mb-8">
+                   CAPTA MÁS <br>PROPIETARIOS
+                </h2>
+                <p class="font-light max-w-md text-base sm:text-xl">Consúltame y te diré qué le pasa hoy a tu web, y cómo convertirla en tu mejor comercial.</p>
+            </div>
+
+            <div class="reveal">
+                <div class="bg-white p-8 sm:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
+                    <form class="space-y-8" id="contact-form">
+                        <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
+                            <div class="flex flex-col gap-3">
+                                <label class="opacity-30">NOMBRE</label>
+                                <input type="text" name="name" aria-label="Nombre" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                            <div class="flex flex-col gap-3">
+                                <label class="opacity-30">TELÉFONO</label>
+                                <input type="tel" name="phone" class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">EMAIL PROFESIONAL</label>
+                            <input type="email" name="email" aria-label="Correo electrónico" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                        </div>
+                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">CONSULTA</label>
+                            <textarea name="msg" aria-label="Mensaje" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="¿Qué necesita tu inmobiliaria?"></textarea>
+                        </div>
+                        <button type="submit" class="w-full btn-mktg-v5 !py-6">QUIERO MÁS CAPTACIONES</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</BaseLayout>
+
+<script>
+    document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const btn = form.querySelector('button');
+        if (btn) { btn.innerHTML = 'ENVIANDO...'; btn.disabled = true; }
+        const data = Object.fromEntries(new FormData(form));
+        try {
+            const res = await fetch('https://cms.novamarketing.es/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            if (res.ok) {
+                window.location.href = '/gracias/';
+            } else { throw new Error(); }
+        } catch {
+            if (btn) { btn.innerHTML = 'ERROR — INTÉNTALO DE NUEVO'; btn.disabled = false; btn.style.background = '#ef4444'; }
+        }
+    });
+function initTimeline() {
+        const progressBar = document.getElementById('progress-bar');
+        const timeline = document.getElementById('timeline-container');
+        if (!progressBar || !timeline) return;
+
+        function updateProgress() {
+            const rect = timeline.getBoundingClientRect();
+            const winHeight = window.innerHeight;
+            const topPassed = (winHeight / 2) - rect.top;
+            let percentage = (topPassed / rect.height) * 100;
+            percentage = Math.max(0, Math.min(100, percentage));
+            progressBar.style.height = `${percentage}%`;
+
+            const nodes = timeline.querySelectorAll('.node-circle');
+            nodes.forEach((node) => {
+                const nodeTop = node.getBoundingClientRect().top;
+                if (nodeTop < winHeight / 2) {
+                    node.classList.add('!border-accent', '!bg-accent', '!text-white');
+                } else {
+                    node.classList.remove('!border-accent', '!bg-accent', '!text-white');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        document.addEventListener('astro:page-load', updateProgress);
+        updateProgress();
+    }
+    document.addEventListener('DOMContentLoaded', initTimeline);
+    document.addEventListener('astro:page-load', initTimeline);
+</script>

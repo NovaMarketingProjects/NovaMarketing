@@ -1,0 +1,701 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { buildAlternates } from '../../../lib/i18n';
+import { localAgencySchema } from '../../../lib/schema';
+import { strapiClient } from '../../../lib/strapi';
+import LogoMarquee from '../../../components/sections/LogoMarquee.astro';
+import FaqHome from '../../../components/sections/FaqHome.astro';
+import CityPills from '../../../components/global/CityPills.astro';
+import GoogleReviews from '../../../components/global/GoogleReviews.astro';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const alternates = buildAlternates('/agencia-ecommerce/seo/', '/ca/agencia-ecommerce/seo/', SITE_URL);
+
+let allCases: any[] = [];
+try {
+  const casesRes = await strapiClient.getCaseStudies('ca');
+  allCases = casesRes.data.map((i: any) => i.attributes ?? i).filter((c: any) => {
+    const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase());
+    return cats.some((s: string) => s.includes('seo') || s === 'e-commerce');
+  });
+} catch {}
+
+const faqs = [
+  { question: "Què inclou el SEO per a un ecommerce?", answer: "Inclou auditoria inicial, estratègia documentada i execució mensual. Optimització tècnica de la botiga, keyword research de producte, arquitectura de categories, fitxes optimitzades, continguts, link building i un informe mensual amb posicions, trànsit i vendes orgàniques." },
+  { question: "Quant costa el SEO per a una botiga online?", answer: "L'auditoria SEO costa 1.800 euros i els plans mensuals van des de 400 euros al mes per a botigues petites i mitjanes i des de 900 per a catàlegs grans o sectors molt competits. Pressupost tancat per escrit i sense permanències." },
+  { question: "Quant triga el SEO en un ecommerce?", answer: "Els primers moviments solen veure's entre el segon i el tercer mes, i els resultats consolidats entre el sisè i el dotzè. El termini depèn del teu punt de partida i de la competència del teu sector." },
+  { question: "Optimitzeu les fitxes de producte una a una?", answer: "Les més importants sí, i per a la resta del catàleg creem regles i plantilles optimitzades que escalen a milers de productes. La prioritat la marquen el marge i la demanda de cada producte." },
+  { question: "El SEO funciona amb catàlegs que canvien molt?", answer: "Sí, amb l'estratègia adequada. L'autoritat es concentra en categories estables i les fitxes hereten aquest posicionament encara que rotin. Així el SEO sobreviu a canvis de temporada i d'estoc." },
+  { question: "Com mesureu els resultats?", answer: "En vendes orgàniques, no només en posicions. Cada comanda queda atribuïda al seu canal i a l'informe mensual veus quantes vendes arriben des de Google i quines keywords les porten. Les dades són sempre teves." },
+  { question: "Treballeu amb permanència?", answer: "No, treballem mes a mes. Si el servei no t'aporta valor, pots cancel·lar-lo quan vulguis. La nostra permanència real és el resultat que veus als informes cada mes." },
+];
+
+const pageSchema = localAgencySchema({
+  pageUrl: `${SITE_URL}/ca/agencia-ecommerce/seo/`,
+  lang: 'ca',
+  cityName: 'Barcelona',
+  postalCode: '08035',
+  geo: { lat: 41.4114, lng: 2.1526 },
+  areaServed: ["España", "Barcelona", "Sabadell", "Sant Cugat del Vallès", "Terrassa", "Vallès Occidental"],
+  title: "Agència SEO per a Ecommerce | Posicionament per a Botigues Online",
+  description: "Agència de posicionament SEO per a ecommerce. Arquitectura, fitxes de producte i continguts que capten la cerca amb intenció de compra. Sense permanències.",
+  datePublished: '2026-07-17',
+  dateModified: '2026-07-17',
+  streetAddress: 'Carrer del General Mendoza, 10',
+  hasMap: 'https://maps.app.goo.gl/9fbB12UcK32bgjj89',
+  aggregateRating: { ratingValue: '5.0', reviewCount: '8' },
+  breadcrumbName: "Agència SEO per a Ecommerce",
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Agència SEO per a Ecommerce | Posicionament per a Botigues Online"
+  description="Agència de posicionament SEO per a ecommerce. Arquitectura, fitxes de producte i continguts que capten la cerca amb intenció de compra. Sense permanències."
+  locale="ca"
+  alternates={alternates}
+  schemas={[pageSchema]}
+>
+
+    <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
+    <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+        <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+
+        <div class="max-w-5xl mx-auto reveal">
+            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
+                <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+                Posicionament SEO per a Botigues Online
+            </span>
+            <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
+                <span class="lg:whitespace-nowrap">Agència SEO </span>
+                <span class="lg:whitespace-nowrap text-mktg-gradient">per a Ecommerce</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
+                Apareix quan els teus clients busquen el teu producte a Google. Posicionament SEO per a botigues online amb estratègia a mida i resultats que es mesuren en vendes.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
+                {['Sense permanències', 'Tracte directe amb el consultor', 'Resultats mesurats en vendes'].map(item => (
+                    <span class="inline-flex items-center gap-2 text-[11px] sm:text-xs font-black uppercase tracking-widest text-zinc-700">
+                        <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        {item}
+                    </span>
+                ))}
+            </div>
+            <div class="flex justify-center mt-4">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    PARLEM DE LA TEVA BOTIGA
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <LogoMarquee />
+
+    <!-- ═══ INTRO ═══════════════════════════════════════════════════════ -->
+    <section class="py-16 sm:py-24 bg-white px-4 sm:px-6 border-b border-black/5">
+        <div class="max-w-6xl mx-auto reveal grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-16 items-center">
+            <div>
+                <p class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4">Per què SEO?</p>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    L'agència de posicionament SEO per a la teva botiga online
+                </h2>
+                <div class="space-y-6 text-zinc-600 font-light text-base sm:text-lg leading-relaxed">
+                    <p>
+                        <strong class="font-semibold text-zinc-900">El SEO és el canal que segueix portant compradors quan deixes de pagar per anuncis</strong>. Cada cerca del teu producte és un client amb intenció de compra, i qui apareix primer s'emporta la venda. A diferència de la publicitat, el posicionament és un actiu que s'acumula mes a mes.
+                    </p>
+                    <p>
+                        Nova és una <strong class="font-semibold text-zinc-900">agència SEO especialitzada en ecommerce</strong>. Arquitectura de categories, fitxes de producte i contingut pensats per a una sola mètrica que importa. <strong class="font-semibold text-zinc-900">Quantes vendes arriben des de Google cada mes</strong>.
+                    </p>
+                </div>
+            </div>
+            <div class="hidden md:block">
+                <img src="/sergio-galos-agencia-ecommerce-seo.webp" alt="Sergio Galo's, Consultor SEO per a ecommerce" title="Sergio Galo's, Consultor SEO per a ecommerce" class="w-full h-auto" loading="lazy" />
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SERVEIS ══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50 px-4 sm:px-6 border-t border-b border-black/5">
+        <div class="max-w-7xl mx-auto text-center reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Què fem</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Servei de posicionament SEO per a ecommerce
+            </h2>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-16">
+                El SEO d'una botiga online no és una sola tasca, és un sistema. Aquestes són les nou peces que treballem perquè el teu ecommerce passi de ser invisible a Google a vendre cada dia des del cercador.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+                {[
+                    { t: "Auditoria SEO ecommerce", d: "Radiografia tècnica, de contingut i d'autoritat de la teva botiga abans de tocar res. El punt de partida de qualsevol estratègia." },
+                    { t: "SEO tècnic", d: "Velocitat, indexació, Core Web Vitals i rastreig de milers d'URLs de producte sense malbaratar pressupost de rastreig." },
+                    { t: "Keyword research de producte", d: "Què busquen els teus compradors, amb quines paraules i en quin moment de la decisió. Keywords que venen, no que només porten visites." },
+                    { t: "Continguts i categories", d: "Arquitectura de categories que posiciona i contingut que resol el dubte de compra abans que la teva competència." },
+                    { t: "Link building", d: "Enllaços de qualitat en mitjans rellevants que augmenten l'autoritat del teu domini de manera orgànica i sostinguda." },
+                    { t: "SEO de fitxes de producte", d: "Títols, descripcions i dades estructurades de producte que posicionen i converteixen. La fitxa és la teva pàgina de venda." },
+                    { t: "Analítica i Search Console", d: "Cada venda orgànica atribuïda a la seva keyword i la seva pàgina. Decisions amb dades, no amb intuïcions." },
+                    { t: "SEO més GEO", d: "Cada cop més compradors pregunten a la IA abans de comprar. Integrem posicionament a Google i a la IA en una sola estratègia." },
+                    { t: "Migracions de plataforma", d: "Canvis de plataforma o redissenys sense perdre el posicionament que tant ha costat aconseguir." },
+                ].map((c: any) => (
+                    <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900 mb-3">
+                            {c.href ? <a href={c.href} class="hover:text-accent transition-colors">{c.t}</a> : c.t}
+                            {c.b && <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1 font-semibold">{c.b}</span>}
+                        </h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed mb-2">{c.d}</p>
+                        {c.href && <a href={c.href} class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>}
+                    </div>
+                ))}
+            </div>
+            <div class="mt-12 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">PARLEM DE LA TEVA BOTIGA</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ ESTRATÈGIA ════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16 sm:mb-24 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Com treballem</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Estratègia SEO per posicionar el teu ecommerce a Google
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Una metodologia documentada, pas a pas i sense fum.
+                </p>
+            </div>
+
+            <div id="timeline-container" class="relative">
+                <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
+                <div id="progress-bar" class="hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100"></div>
+
+                <div class="space-y-16 md:space-y-24 flex flex-col items-center">
+                    {[
+                        { title: "Auditoria SEO Completa", desc: "Analitzem la teva botiga, la teva visibilitat actual a Google i la teva competència directa. Detectem errors tècnics, keywords rendibles sense explotar i oportunitats de venda." },
+                        { title: "Estratègia SEO Documentada", desc: "Reps un full de ruta per escrit. Quines keywords atacar, quines categories crear, què arreglar a la botiga i quins resultats esperar en 3, 6 i 12 mesos." },
+                        { title: "Optimització Tècnica i Continguts", desc: "Arreglem el que impedeix a Google entendre la teva botiga i creem el contingut que posiciona. Categories, fitxes i guies de compra pensades per vendre." },
+                        { title: "Autoritat i Enllaços", desc: "Google posiciona qui considera una referència. Aconseguim enllaços de mitjans i directoris rellevants que empenyen les teves posicions." },
+                        { title: "Mesura i Ajust Continu", desc: "Monitorem mes a mes posicions, trànsit i vendes orgàniques. A l'informe veus quines keywords pugen i quantes comandes arriben des de Google." },
+                    ].map((step, index) => (
+                        <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
+                            <div class:list={["flex-1 w-full", index % 2 === 0 ? "md:order-1 md:text-right" : "md:order-3 md:text-left"]}>
+                                <div class="p-8 sm:p-10 bg-zinc-50 border border-black/5 rounded-3xl hover:border-accent/10 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+                                    <h3 class="text-xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{index + 1}. {step.title}</h3>
+                                    <div class:list={["h-0.5 bg-accent w-full mb-4 opacity-80", index % 2 === 0 ? "md:ml-auto" : ""]}></div>
+                                    <p class:list={["text-sm text-zinc-500 font-light max-w-md", index % 2 === 0 ? "md:ml-auto" : ""]}>{step.desc}</p>
+                                    <div class="absolute -bottom-6 -right-5 text-8xl font-black text-black/[0.02] select-none z-0 group-hover:scale-105 transition-transform duration-500">0{index+1}</div>
+                                </div>
+                            </div>
+                            <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all">
+                                0{index + 1}
+                            </div>
+                            <div class:list={["hidden md:block md:flex-1", index % 2 === 0 ? "md:order-3" : "md:order-1"]}></div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ AUDITORIA ═════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-[6fr_4fr] gap-12 lg:gap-16 items-start">
+            <div class="reveal lg:col-span-2">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Punt de partida</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
+                    Auditoria de posicionament SEO per al teu ecommerce
+                </h2>
+            </div>
+            <div class="reveal">
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed mb-8">
+                    <p>Saps en quina posició surt la teva botiga quan algú busca el teu producte? Quines keywords et porten vendes i quines s'emporta la teva competència? Gairebé cap ecommerce ho sap amb dades, i aquí comença tot.</p>
+                    <p>La nostra <strong class="font-semibold text-zinc-900">auditoria SEO per a ecommerce</strong> mesura la teva visibilitat real a Google, revisa la salut tècnica de la botiga i analitza la teva competència directa, i acaba amb un pla d'acció prioritzat per impacte en vendes.</p>
+                    <p>A diferència de les auditories automàtiques que generen un PDF amb cent errors irrellevants, aquí cada punt el revisa un consultor sènior amb experiència en botigues online.</p>
+                    <p>Si ja treballes amb una altra agència, l'auditoria també serveix com a segona opinió independent abans de seguir invertint.</p>
+                </div>
+                <ul class="space-y-3">
+                    {["Salut tècnica amb indexació, velocitat i rastreig","Posicions actuals per a les teves cerques de producte","Anàlisi de la teva competència directa a Google","Keywords rendibles que encara no ataques","Arquitectura de categories i canibalitzacions","Pla d'acció SEO prioritzat per impacte"].map(item => (
+                        <li class="flex items-start gap-3 text-sm text-zinc-700 font-light">
+                            <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                            {item}
+                        </li>
+                    ))}
+                </ul>
+                <div class="mt-16">
+                    <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                        VULL LA MEVA AUDITORIA SEO
+                    </a>
+                </div>
+            </div>
+            <div class="reveal flex flex-col gap-4">
+                {[
+                    { bg: 'bg-purple-100', color: 'text-purple-600', t: "Revisió tècnica completa", d: "Indexació, velocitat, dades estructurades de producte i errors de rastreig. Tot el que frena la teva botiga, documentat." },
+                    { bg: 'bg-green-100', color: 'text-green-600', t: "Pla d'acció prioritzat", d: "Un pla ordenat per impacte i esforç. Sabràs què arreglar la primera setmana i què no mereix ni un euro." },
+                    { bg: 'bg-purple-100', color: 'text-purple-600', t: "Keywords de producte", d: "Les cerques que fan els teus compradors quan volen comprar, no només les de més volum." },
+                    { bg: 'bg-amber-100', color: 'text-amber-600', t: "Arquitectura de categories", d: "Quines categories posicionen, quines canibalitzen keywords entre si i quina estructura falta per cobrir la demanda." },
+                    { bg: 'bg-blue-100', color: 'text-blue-600', t: "Benchmark del teu sector", d: "Comparem la teva visibilitat amb els teus tres competidors directes. Quines keywords els porten vendes i què pots fer millor." },
+                ].map(card => (
+                    <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                        <div class:list={["w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0", card.bg]}>
+                            <svg class:list={["w-5 h-5", card.color]} fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-black text-zinc-900 mb-1">{card.t}</h3>
+                            <p class="text-xs text-zinc-500 font-light leading-relaxed">{card.d}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ QUÈ INCLOU L'AUDITORIA ═══════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Pas a pas</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
+                    Què inclou l'auditoria SEO de nova
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch reveal">
+                {[
+                    { n: '1', t: "Radiografia de la teva visibilitat a Google", d: "Analitzem en quina posició surts per a les cerques dels teus compradors, quin trànsit reps i què s'emporta la teva competència." },
+                    { n: '2', t: "Diagnòstic tècnic i de continguts", d: "Creuem les dades amb la salut tècnica de la teva botiga i les teves categories per explicar exactament què et frena al cercador." },
+                    { n: '3', t: "Full de ruta per posicionar", d: "Tanques l'auditoria amb un document d'accions ordenades per impacte i una videotrucada on repassem cada punt amb tu." },
+                ].map((st, i) => (
+                    <div class="flex items-center gap-4 lg:gap-6">
+                        {i > 0 && <div class="hidden lg:flex text-3xl text-accent font-black select-none">→</div>}
+                        <div class="bg-white border border-black/5 rounded-2xl p-8 shadow-[0_15px_40px_rgba(0,0,0,0.06)] flex-1 text-center h-full">
+                            <div class="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto mb-4 text-accent font-black text-lg">{st.n}</div>
+                            <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3">{st.t}</h3>
+                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{st.d}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto text-center mt-16 reveal">
+                La nostra auditoria SEO és el primer pas de qualsevol estratègia de posicionament per a ecommerce. Analitza com et veu avui el cercador, explica per què la teva competència surt abans que tu i et deixa un full de ruta clar per començar a vendre des de les cerques. També pots contractar-la solta com a segona opinió.
+            </p>
+            <div class="mt-12 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">VULL LA MEVA AUDITORIA SEO</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PREUS ════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Tarifes clares</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Preus de posicionament SEO per a ecommerce
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto">
+                    Tarifes orientatives i sense lletra petita. El preu depèn de la mida del teu catàleg, la competència del teu sector i el teu punt de partida, així que abans de començar reps un pressupost tancat per escrit. El cost no porta sorpreses ni permanències.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                {[
+                    { small: 'Preu', name: "Auditoria SEO Ecommerce", price: "1.800€", meta: ["Lliurament en 3 a 4 setmanes","Per a qualsevol botiga que vulgui saber on és"], items: ["Sessió inicial d'objectius","Revisió tècnica completa","Posicions i visibilitat actual","Keyword research de producte","Auditoria de categories i fitxes","Comparativa amb 3 competidors","Accions ordenades per impacte","Videotrucada de lliurament"], cta: "Vull auditar la meva botiga" },
+                    { small: 'Preu', name: "SEO Ecommerce", price: "des de 400€ / mes", meta: ["Primers moviments en uns 3 mesos","Per a botigues petites i mitjanes"], items: ["Auditoria SEO inicial","Optimització tècnica contínua","Categories i fitxes optimitzades","Continguts que posicionen","Dades estructurades de producte","Informe mensual de posicions i vendes","Línia directa amb el consultor","Sense permanència"], cta: "Vull posicionar la meva botiga" },
+                    { small: 'Preu', name: "SEO Big Ecommerce", price: "des de 900€ / mes", meta: ["Primers moviments en uns 2 mesos","Per a catàlegs grans i sectors competits"], items: ["Tot el pla SEO Ecommerce","Estratègia SEO i GEO conjunta","Redacció professional ampliada","Link building en mitjans","Optimització de milers d'URLs","Cobertura internacional","Reunió mensual de negoci","Objectiu, primeres posicions"], cta: "Vull escalar el meu SEO" },
+                ].map(pl => (
+                    <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-10 flex flex-col shadow-[0_15px_40px_rgba(0,0,0,0.06)] hover:shadow-xl transition-shadow duration-300 reveal">
+                        <h3 class="leading-tight mb-2">
+                            <span class="block text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-1">{pl.small} </span>
+                            <span class="block text-xl font-black uppercase tracking-tight text-zinc-900">{pl.name}</span>
+                        </h3>
+                        <div class="text-lg font-bold text-zinc-900">{pl.price}</div>
+                        <div class="text-[10px] text-zinc-400 font-light mt-1 mb-6">* Preu sense IVA</div>
+                        <div class="text-xs text-zinc-500 font-light mb-8 space-y-1.5">
+                            {pl.meta.map(m => <div>{m}</div>)}
+                        </div>
+                        <div class="text-xs font-black uppercase tracking-widest text-zinc-400 pb-3 border-b border-zinc-100">Què inclou</div>
+                        <ul class="divide-y divide-zinc-100 flex-1">
+                            {pl.items.map(item => (
+                                <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light">
+                                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 !py-4 !text-[11px] !tracking-widest font-black mt-10 text-center">
+                            {pl.cta}
+                        </a>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PLATAFORMES ══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-b border-black/5">
+        <div class="max-w-7xl mx-auto text-center reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">La teva tecnologia</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Posicionament SEO per a la teva plataforma
+            </h2>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-16">
+                Cada plataforma té les seves regles de joc. Treballem les tres que concentren l'ecommerce a Espanya.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+                {[
+                    { t: "SEO per a Shopify", d: "Treballem les seves limitacions tècniques conegudes, les seves col·leccions i la seva manera de generar URLs.", b: "Plataforma" },
+                    { t: "SEO per a PrestaShop", d: "Mòduls SEO ben triats, memòria cau configurada i URLs netes. PrestaShop posiciona molt bé quan es cuida la tècnica.", b: "Plataforma" },
+                    { t: "SEO per a WooCommerce", d: "Tot el poder SEO de WordPress aplicat a la botiga. Contingut, categories i velocitat treballant junts.", b: "Plataforma" },
+                ].map((c: any) => (
+                    <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900 mb-3">
+                            {c.t}
+                            {c.b && <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1 font-semibold">{c.b}</span>}
+                        </h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed mb-2">{c.d}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CITA ══════════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-zinc-950 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <blockquote class="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.15] mb-8">
+                “Cada dia els teus clients busquen el teu producte a Google. Si no apareixes, la venda se l'emporta un altre. No necessites més anuncis. Necessites posicionar-te.”
+            </blockquote>
+            <p class="text-sm text-zinc-400 font-light mb-10">Sergio Galo's · Consultor SEO per a ecommerce</p>
+            <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                PARLEM DE LA TEVA BOTIGA
+            </a>
+        </div>
+    </section>
+
+    <!-- ═══ PER QUÈ NOVA (COMPARATIVA) ═════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Per què nova</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Què diferencia nova d'una altra agència SEO per a ecommerce
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    El màrqueting per a botigues online està ple d'informes que no parlen de marge. Nosaltres el treballem amb mètode, transparència i resultats al teu compte de resultats.
+                </p>
+            </div>
+
+            <div class="reveal overflow-x-auto rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
+                <table class="w-full min-w-[640px] text-left border-collapse bg-white">
+                    <thead>
+                        <tr class="bg-black text-white">
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Criteri</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Nova</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Altres agències</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-zinc-100">
+                        {[
+                            { c: "Qui serà el teu contacte", o: "Gestor júnior amb 20-30 comptes", n: "Sergio Galo's" },
+                            { c: "Què es mesura", o: "Posicions i impressions", n: "Vendes orgàniques i marge" },
+                            { c: "Estratègia", o: "Plantilles estandarditzades", n: "Full de ruta a mida segons catàleg" },
+                            { c: "Especialització", o: "SEO genèric per a qualsevol web", n: "SEO específic de botigues online" },
+                            { c: "Permanència", o: "6-12 mesos habituals", n: "Mes a mes, sense permanència" },
+                            { c: "Visibilitat en IA (GEO)", o: "Només SEO tradicional a Google", n: "SEO + GEO integrats amb mètode propi" },
+                            { c: "Transparència de preus", o: "Pressupostos opacs amb extres sorpresa", n: "Preu tancat per escrit abans de començar" },
+                        ].map(row => (
+                            <tr class="hover:bg-zinc-50/50 transition-colors">
+                                <td class="px-6 py-5 text-sm font-bold text-zinc-900">{row.c}</td>
+                                <td class="px-6 py-5 text-sm font-bold text-accent">{row.n}</td>
+                                <td class="px-6 py-5 text-sm text-zinc-500 font-light">{row.o}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ COM TRIAR ════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-12 sm:mb-16 reveal text-center">
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Com contractar una agència SEO ecommerce sense que et venguin fum
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Hi ha centenars d'agències i la majoria de botigues online tria malament la primera vegada. Aquests són els set criteris que hauries d'exigir a qualsevol agència, inclosa la nostra.
+                </p>
+            </div>
+
+            <div class="divide-y divide-zinc-100 reveal">
+                {[
+                    { title: "Demana casos de botigues online verificables", desc: "Quina keyword, quina posició va assolir, en quant de temps i quantes vendes va portar. Si no poden ensenyar-te ni un cas d'ecommerce, segueix buscant." },
+                    { title: "Pregunta qui portarà el teu compte", desc: "Exigeix conèixer la persona que treballarà el teu projecte abans de signar. A nova parles sempre amb el consultor que executa la teva estratègia." },
+                    { title: "Exigeix la propietat dels teus actius", desc: "La botiga, el domini, l'analítica i el contingut han d'estar al teu nom. El contrari és una dependència, no un servei." },
+                    { title: "Desconfia de qui garanteix la posició 1", desc: "Ningú pot garantir-la. Qui ho promet, o menteix o fa servir tècniques que acabaran penalitzant la teva botiga. El que és seriós és garantir mètode i feina verificable." },
+                    { title: "Revisa què mesura l'informe mensual", desc: "Si parla de posicions però no de vendes orgàniques i comandes, l'agència mesura la seva activitat i no el teu negoci." },
+                    { title: "Fuig de les permanències llargues", desc: "Una permanència de 12 mesos protegeix l'agència, no a tu. Per això a nova treballem mes a mes." },
+                    { title: "Que pensi també en la IA", desc: "Cada cop més compradors pregunten a ChatGPT abans de comprar. Una agència SEO que ignora el GEO optimitza només la meitat del tauler." },
+                ].map((c, i) => (
+                    <div class="py-6 sm:py-8 flex gap-6 sm:gap-8 items-start">
+                        <div class="text-2xl sm:text-3xl font-black tracking-tighter text-accent flex-shrink-0 w-10 leading-none">0{i + 1}</div>
+                        <div>
+                            <h3 class="text-base sm:text-lg font-black uppercase tracking-tight text-zinc-900 mb-2">{c.title}</h3>
+                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.desc}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ QUI HI HA AL DARRERE ═══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto reveal">
+            <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] grid md:grid-cols-[280px_1fr] gap-8 sm:gap-12 items-center">
+                <div class="rounded-2xl overflow-hidden bg-zinc-100">
+                    <img src="/sergio-galos-agencia-ecommerce-seo.webp" alt="Sergio Galo's, Consultor SEO per a ecommerce" title="Sergio Galo's, Consultor SEO per a ecommerce" class="w-full h-full object-cover object-top" loading="lazy" />
+                </div>
+                <div>
+                    <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Qui hi ha al darrere</span>
+                    <h2 class="text-2xl sm:text-4xl font-black tracking-tighter uppercase text-zinc-900 leading-[0.95] mb-6">
+                        Sergio Galo's <br>
+                        <span class="text-lg sm:text-2xl">El teu consultor seo per a ecommerce</span>
+                    </h2>
+                    <div class="space-y-4 text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
+                        <p>
+                            Soc <strong class="font-semibold text-zinc-900">Sergio Galo's</strong>, consultor de màrqueting digital i fundador de Nova Marketing. Porto anys fent créixer botigues online en alguns dels sectors més competitius, des de moda i alimentació fins a producte industrial.
+                        </p>
+                        <p>
+                            Quan contractes amb nova parles sempre amb mi. Jo faig l'auditoria, jo dissenyo l'estratègia i jo responc a la reunió mensual. Sense capes comercials ni gestors que canvien cada trimestre.
+                        </p>
+                    </div>
+                    <a href="https://www.linkedin.com/company/nova-marketing-pymes/" target="_blank" rel="noopener" class="inline-block mt-6 text-[12px] font-black tracking-widest text-accent hover:underline">
+                        Veure perfil a LinkedIn →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CASOS D'ÈXIT (CMS) ═══════════════════════════════════ -->
+    {allCases.length > 0 && (
+    <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6 overflow-hidden">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-12 reveal">
+          <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultats provats</span>
+          <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
+            Casos d'èxit de posicionament<br class="hidden md:inline" /> SEO per a ecommerce
+          </h2>
+        </div>
+        <div class="cases-carousel relative overflow-hidden">
+          <div class="cases-track flex gap-6 transition-transform duration-500 ease-in-out">
+            {allCases.map((cs: any) => {
+              const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
+              const caseUrl = cs.isPublic && cs.slug ? `/ca/casos-exit/${cs.slug}/` : null;
+              return (
+                <div class="cases-slide flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
+                  <div>
+                    {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
+                    <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors leading-tight">
+                      {caseUrl ? (
+                        <a href={caseUrl} class="hover:text-accent transition-colors">{cs.title}</a>
+                      ) : (
+                        <span class="group-hover:text-accent transition-colors">{cs.title}</span>
+                      )}
+                    </h3>
+                    <p class="text-xs text-zinc-500 font-light leading-relaxed">{cs.description}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+    )}
+    <script is:inline>
+      function initCasesCarousel() {
+        const track = document.querySelector('.cases-track');
+        if (!track) return;
+        const slides = track.querySelectorAll('.cases-slide');
+        if (slides.length <= 4) return;
+        let current = 0;
+        const total = slides.length;
+        function getVisible() {
+          if (window.innerWidth >= 1024) return 4;
+          if (window.innerWidth >= 640) return 2;
+          return 1;
+        }
+        function next() {
+          const visible = getVisible();
+          const maxIndex = total - visible;
+          current = current >= maxIndex ? 0 : current + 1;
+          const slideWidth = slides[0].offsetWidth + 24;
+          track.style.transform = `translateX(-${current * slideWidth}px)`;
+        }
+        const interval = setInterval(next, 5000);
+        document.addEventListener('astro:before-preparation', () => clearInterval(interval));
+      }
+      document.addEventListener('DOMContentLoaded', initCasesCarousel);
+      document.addEventListener('astro:page-load', initCasesCarousel);
+    </script>
+
+    <!-- ═══ RECOMANATS PER LA IA ═════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+            <div class="reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Ens avala la IA</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    L'agència SEO ecommerce que recomana la IA
+                </h2>
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed">
+                    <p>
+                        Quan algú pregunta per una <strong class="font-semibold text-zinc-900">agència SEO per a ecommerce</strong> a ChatGPT, Gemini o Claude, nova apareix entre les agències recomanades. És la millor prova que sabem generar visibilitat, perquè ho apliquem primer en nosaltres mateixos.
+                    </p>
+                    <p>
+                        Als assistents d'IA no els pots comprar un anunci per sortir primer. Recomanen el que troben. Casos reals publicats, botigues que creixen i es poden visitar, una especialització clara i clients que parlen de nosaltres.
+                    </p>
+                    <p>
+                        Prova-ho tu mateix. Obre ChatGPT i pregunta-li quina agència SEO per a ecommerce et recomana. Si et surt nova, ja saps qui pot fer el mateix per la teva botiga.
+                    </p>
+                </div>
+            </div>
+
+            <div class="reveal flex justify-center">
+                <img src="/agencia-ecommerce-seo.webp" alt="Nova Marketing, agència SEO per a ecommerce recomanada per la IA" title="Nova Marketing, agència SEO per a ecommerce recomanada per la IA" class="w-full max-w-sm lg:max-w-md h-auto" loading="lazy" />
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══ CONSELLS ═══════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Consells aplicables avui</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Com millorar el SEO del teu ecommerce aquesta setmana
+            </h2>
+            <p class="text-zinc-500 font-light text-base leading-relaxed mb-10">
+                Si encara no estàs a punt per contractar, comença per aquí. Són accions que qualsevol botiga pot aplicar pel seu compte i que ja mouen l'agulla.
+            </p>
+            <ul class="space-y-6">
+                {[
+                    { lead: "Revisa les teves fitxes de producte més venudes.", text: "Títol únic, descripció pròpia i dades estructurades. Les fitxes copiades del fabricant competeixen contra cent botigues amb el mateix text." },
+                    { lead: "Elimina les categories buides o duplicades.", text: "Cada categoria sense producte o repetida dilueix l'autoritat de la teva botiga i confon Google." },
+                    { lead: "Mesura la velocitat des del mòbil.", text: "La majoria dels teus compradors arriba des del mòbil. Si la teva botiga triga més de tres segons, estàs perdent vendes i posicions." },
+                    { lead: "Respon a la teva botiga els dubtes de compra.", text: "Guies, comparatives i preguntes freqüents capten la cerca prèvia a la compra i acosten el comprador al teu carret." },
+                ].map(tip => (
+                    <li class="flex items-start gap-4">
+                        <svg class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        <p class="text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
+                            <strong class="font-bold text-zinc-900">{tip.lead}</strong> {tip.text}
+                        </p>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </section>
+
+    <!-- ═══ RESSENYES GOOGLE ═════════════════════════════════════════ -->
+    <GoogleReviews locale="ca" title="El que diuen els nostres clients sobre el posicionament SEO de Nova" />
+
+
+    <!-- ═══ FAQS ════════════════════════════════════════════════ -->
+    <FaqHome title="Preguntes sobre la nostra agència SEO per a ecommerce" items={faqs} emitSchema={false} />
+
+    <!-- ═══ CONTACTE ════════════════════════════════════════════ -->
+    <section id="contacto" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
+            <div class="reveal text-white">
+                <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">CREIXEMENT GARANTIT</span>
+                <h2 class="text-5xl sm:text-7xl font-black uppercase tracking-tighter leading-[0.8] mb-8">
+                   VEN MÉS <br>AMB LA TEVA BOTIGA
+                </h2>
+                <p class="font-light max-w-md text-base sm:text-xl">Consulta'm i et diré en quina posició és avui la teva botiga, i com pujar-la.</p>
+            </div>
+
+            <div class="reveal">
+                <div class="bg-white p-8 sm:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
+                    <form class="space-y-8" id="contact-form">
+                        <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
+                            <div class="flex flex-col gap-3">
+                                <label class="opacity-30">NOM</label>
+                                <input type="text" name="name" aria-label="Nom" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                            <div class="flex flex-col gap-3">
+                                <label class="opacity-30">TELÈFON</label>
+                                <input type="tel" name="phone" class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">EMAIL PROFESSIONAL</label>
+                            <input type="email" name="email" aria-label="Correu electrònic" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                        </div>
+                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">CONSULTA</label>
+                            <textarea name="msg" aria-label="Missatge" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="Què ven la teva botiga online?"></textarea>
+                        </div>
+                        <button type="submit" class="w-full btn-mktg-v5 !py-6">VULL VENDRE MÉS</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</BaseLayout>
+
+<script>
+    document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const btn = form.querySelector('button');
+        if (btn) { btn.innerHTML = 'ENVIANT...'; btn.disabled = true; }
+        const data = Object.fromEntries(new FormData(form));
+        try {
+            const res = await fetch('https://cms.novamarketing.es/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            if (res.ok) {
+                window.location.href = '/ca/gracies/';
+            } else { throw new Error(); }
+        } catch {
+            if (btn) { btn.innerHTML = 'ERROR — TORNA-HO A PROVAR'; btn.disabled = false; btn.style.background = '#ef4444'; }
+        }
+    });
+function initTimeline() {
+        const progressBar = document.getElementById('progress-bar');
+        const timeline = document.getElementById('timeline-container');
+        if (!progressBar || !timeline) return;
+
+        function updateProgress() {
+            const rect = timeline.getBoundingClientRect();
+            const winHeight = window.innerHeight;
+            const topPassed = (winHeight / 2) - rect.top;
+            let percentage = (topPassed / rect.height) * 100;
+            percentage = Math.max(0, Math.min(100, percentage));
+            progressBar.style.height = `${percentage}%`;
+
+            const nodes = timeline.querySelectorAll('.node-circle');
+            nodes.forEach((node) => {
+                const nodeTop = node.getBoundingClientRect().top;
+                if (nodeTop < winHeight / 2) {
+                    node.classList.add('!border-accent', '!bg-accent', '!text-white');
+                } else {
+                    node.classList.remove('!border-accent', '!bg-accent', '!text-white');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        document.addEventListener('astro:page-load', updateProgress);
+        updateProgress();
+    }
+    document.addEventListener('DOMContentLoaded', initTimeline);
+    document.addEventListener('astro:page-load', initTimeline);
+</script>

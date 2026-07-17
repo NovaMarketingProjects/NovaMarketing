@@ -5,6 +5,7 @@ import { localAgencySchema } from '../../lib/schema';
 import { strapiClient } from '../../lib/strapi';
 import LogoMarquee from '../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../components/sections/FaqHome.astro';
+import CityPills from '../../components/global/CityPills.astro';
 import GoogleReviews from '../../components/global/GoogleReviews.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
@@ -48,9 +49,9 @@ const faqs = [
 ];
 
 const sectors = [
-  { icon: '🛒', title: 'Diseño web para ecommerce', desc: 'Tiendas online rápidas, con fichas que venden y un proceso de compra sin fricciones. El diseño trabaja para el carrito, no contra él.' },
-  { icon: '🏠', title: 'Diseño web para inmobiliarias', desc: 'Buscadores de propiedades claros, fichas con la información que decide y formularios que convierten visitas en visitas al piso.' },
-  { icon: '🍽️', title: 'Diseño web para restaurantes', desc: 'Carta legible desde el móvil, reservas en dos toques y una web conectada con tu ficha de Google. El comensal decide en segundos.' },
+  { icon: '🛒', title: 'Diseño web para ecommerce', href: '/agencia-ecommerce/diseno-web/', desc: 'Tiendas online rápidas, con fichas que venden y un proceso de compra sin fricciones. El diseño trabaja para el carrito, no contra él.' },
+  { icon: '🏠', title: 'Diseño web para inmobiliarias', href: '/agencia-inmobiliarias/diseno-web/', desc: 'Buscadores de propiedades claros, fichas con la información que decide y formularios que convierten visitas en visitas al piso.' },
+  { icon: '🍽️', title: 'Diseño web para restaurantes', href: '/agencia-restaurantes/diseno-web/', desc: 'Carta legible desde el móvil, reservas en dos toques y una web conectada con tu ficha de Google. El comensal decide en segundos.' },
   { icon: '🧠', title: 'Diseño web para psicólogos', desc: 'El paciente busca confianza antes que precio. Webs serenas, con autoridad clínica y una primera cita a un clic de distancia.' },
   { icon: '🌿', title: 'Diseño web para terapeutas', desc: 'Tu web es tu consulta antes de la consulta. Diseño que transmite lo que haces y contenido que convierte dudas en primeras visitas.' },
   { icon: '🦷', title: 'Diseño web para dentistas', desc: 'Sector saturado donde la web decide. Casos reales, reseñas visibles y cita online para convertir la búsqueda en paciente.' },
@@ -145,7 +146,7 @@ const pageSchema = localAgencySchema({
                 </div>
             </div>
             <div class="hidden md:block">
-                <img src="/sergio-galos-diseno-web-para-pymes-sabadell.webp" alt="Sergio Galo's, consultor de diseño web para PYMEs en Sabadell" class="w-full h-auto" loading="lazy" />
+                <img src="/sergio-galos-diseno-web-para-pymes-sabadell.webp" alt="Sergio Galo's, consultor de diseño web para PYMEs en Sabadell" title="Sergio Galo's, consultor de diseño web para PYMEs en Sabadell" class="w-full h-auto" loading="lazy" />
             </div>
         </div>
     </section>
@@ -412,7 +413,7 @@ const pageSchema = localAgencySchema({
                     <div class="bg-white border border-black/5 rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                         <div class="text-3xl mb-4">{s.icon}</div>
                         <h3 class="text-base uppercase tracking-tight text-zinc-900 mb-3 leading-tight font-montserrat-semibold">
-                            {s.title}
+                            {s.href ? <a href={s.href} class="hover:text-accent transition-colors">{s.title}</a> : s.title}
                             <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1 font-semibold">en Sabadell</span>
                         </h3>
                         <p class="text-sm text-zinc-500 font-light leading-relaxed">{s.desc}</p>
@@ -560,7 +561,7 @@ const pageSchema = localAgencySchema({
         <div class="max-w-5xl mx-auto reveal">
             <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] grid md:grid-cols-[280px_1fr] gap-8 sm:gap-12 items-center">
                 <div class="rounded-2xl overflow-hidden bg-zinc-100">
-                    <img src="/sergio-galos-diseno-web-para-pymes-sabadell.webp" alt="Sergio Galo's, consultor de diseño web para PYMEs en Sabadell" class="w-full h-full object-cover object-top" loading="lazy" />
+                    <img src="/sergio-galos-diseno-web-para-pymes-sabadell.webp" alt="Sergio Galo's, consultor de diseño web para PYMEs en Sabadell" title="Sergio Galo's, consultor de diseño web para PYMEs en Sabadell" class="w-full h-full object-cover object-top" loading="lazy" />
                 </div>
                 <div>
                     <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Quién está detrás</span>
@@ -670,7 +671,7 @@ const pageSchema = localAgencySchema({
             </div>
 
             <div class="reveal flex justify-center">
-                <img src="/diseno-web-para-pymes-sabadell.webp" alt="Nova Marketing, agencia de diseño web en Sabadell recomendada por la IA" class="w-full max-w-sm lg:max-w-md h-auto" loading="lazy" />
+                <img src="/diseno-web-para-pymes-sabadell.webp" alt="Nova Marketing, agencia de diseño web en Sabadell recomendada por la IA" title="Nova Marketing, agencia de diseño web en Sabadell recomendada por la IA" class="w-full max-w-sm lg:max-w-md h-auto" loading="lazy" />
             </div>
 
         </div>
@@ -705,10 +706,63 @@ const pageSchema = localAgencySchema({
     </section>
 
     <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
-    <GoogleReviews locale="es" />
+    <GoogleReviews locale="es" title="Lo que dicen nuestros clientes sobre el diseño web de Nova" />
+
+    <!-- ═══ SERVICIOS COMPLEMENTARIOS ═══════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Más allá del diseño web</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Servicios complementarios de nuestra agencia de diseño web en Sabadell
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Tu captación funciona mejor cuando todo el marketing empuja en la misma dirección. Estos son los servicios que la complementan.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal">
+                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
+                        <a href="/agencia-de-marketing-digital-en-sabadell/" class="hover:text-accent transition-colors">Agencia de Marketing Digital en Sabadell</a>
+                    </h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
+                        La estrategia completa. Combinamos SEO, publicidad, web y visibilidad en IA en un solo plan orientado a que tu pyme gane clientes cada mes.
+                    </p>
+                    <a href="/agencia-de-marketing-digital-en-sabadell/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
+                </div>
+                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
+                        <a href="/agencia-seo-para-pymes/sabadell/" class="hover:text-accent transition-colors">Agencia SEO en Sabadell</a>
+                    </h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
+                        Aparece en Google cuando tus clientes buscan tu servicio. Posicionamiento orgánico que se acumula mes a mes y reduce tu dependencia de pagar por cada clic.
+                    </p>
+                    <a href="/agencia-seo-para-pymes/sabadell/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
+                </div>
+                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
+                        <a href="/agencia-sem-para-pymes/sabadell/" class="hover:text-accent transition-colors">Agencia SEM en Sabadell</a>
+                    </h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
+                        Anuncios en Google para captar clientes desde la primera semana. Fee fijo, la cuenta siempre a tu nombre y resultados medidos en leads y ventas.
+                    </p>
+                    <a href="/agencia-sem-para-pymes/sabadell/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
+                </div>
+                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
+                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
+                        <a href="/agencia-geo-para-pymes/sabadell/" class="hover:text-accent transition-colors">Agencia GEO en Sabadell</a>
+                    </h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
+                        Tus clientes ya preguntan a ChatGPT y Gemini qué empresa contratar. Trabajamos tu posicionamiento GEO para que la IA recomiende tu negocio.
+                    </p>
+                    <a href="/agencia-geo-para-pymes/sabadell/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- ═══ DÓNDE TRABAJAMOS ═══════════════════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
         <div class="max-w-4xl mx-auto text-center reveal">
             <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Dónde trabajamos</span>
             <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
@@ -717,15 +771,7 @@ const pageSchema = localAgencySchema({
             <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
                 Nuestra base está en Barcelona y la mayoría de proyectos son de la ciudad y su área metropolitana, donde nos reunimos presencialmente. Pero el diseño web no entiende de kilómetros. Trabajamos con PYMEs de toda España por videollamada con el mismo nivel de seguimiento.
             </p>
-            <div class="flex flex-wrap items-center justify-center gap-3">
-                <a href="/diseno-web-para-pymes/barcelona/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Barcelona</a>
-                <a href="/diseno-web-para-pymes/sabadell/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Sabadell</a>
-                <a href="/diseno-web-para-pymes/sant-cugat/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Sant Cugat</a>
-                <a href="/diseno-web-para-pymes/terrassa/" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">Terrassa</a>
-                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">Badalona</span>
-                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">L'Hospitalet</span>
-                <span class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm">Resto de España</span>
-            </div>
+            <CityPills base="/diseno-web-para-pymes/" lang="es" />
         </div>
     </section>
 

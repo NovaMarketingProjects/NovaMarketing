@@ -1,0 +1,35 @@
+---
+/**
+ * CityPills.astro — Pills de ciudades generadas automáticamente.
+ * Detecta las páginas .astro dentro de la carpeta de la familia (src/pages{base})
+ * y crea una pill por ciudad. Añade al final "Resto de España" enlazando a la general.
+ * Ej.: crear src/pages/agencia-seo-para-pymes/hospitalet.astro añade la pill "Hospitalet".
+ */
+interface Props {
+  base: string;          // URL base de la familia, ej. '/agencia-seo-para-pymes/' o '/ca/agencia-seo-per-pimes/'
+  lang?: 'es' | 'ca';
+  exclude?: string[];    // slugs hijos que NO son ciudades (ej. servicios o plataformas del silo)
+}
+const { base, lang = 'es', exclude = [] } = Astro.props;
+
+const allPages = Object.keys(import.meta.glob('/src/pages/**/*.astro'));
+const dir = `/src/pages${base}`;
+const cities = allPages
+  .filter(p => p.startsWith(dir) && p.endsWith('.astro') && !p.slice(dir.length).includes('/'))
+  .filter(p => !exclude.includes(p.slice(dir.length, -'.astro'.length)))
+  .map(p => p.slice(dir.length, -'.astro'.length))
+  .map(slug => ({
+    slug,
+    label: slug.split('-').map(w => (w ? w[0].toUpperCase() + w.slice(1) : w)).join(' '),
+  }))
+  .sort((a, b) => a.label.localeCompare(b.label, 'es'));
+
+const restLabel = lang === 'ca' ? "Resta d'Espanya" : 'Resto de España';
+---
+
+<div class="flex flex-wrap items-center justify-center gap-3">
+    {cities.map(c => (
+        <a href={`${base}${c.slug}/`} class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">{c.label}</a>
+    ))}
+    <a href={base} class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">{restLabel}</a>
+</div>

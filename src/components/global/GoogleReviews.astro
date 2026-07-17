@@ -4,7 +4,7 @@
  * Reseñas reales de las fichas de Google Business Profile, mostradas antes del footer.
  * Los textos son literales de GBP; los enlaces llevan a las fichas para verificarlas.
  */
-const { locale = 'es' } = Astro.props;
+const { locale = 'es', title: customTitle } = Astro.props;
 
 const t = locale === 'ca' ? {
     eyebrow: 'Ressenyes de Google',
@@ -22,18 +22,30 @@ const t = locale === 'ca' ? {
 
 const listings = [
     { label: 'Sabadell', rating: '5,0', count: 16, url: 'https://maps.app.goo.gl/ETtzpajqEucNf22D7' },
-    { label: 'Barcelona', rating: '5,0', count: 7, url: 'https://maps.app.goo.gl/9fbB12UcK32bgjj89' },
+    { label: 'Barcelona', rating: '5,0', count: 8, url: 'https://maps.app.goo.gl/9fbB12UcK32bgjj89' },
 ];
 
 // Textos literales de GBP (todas 5 estrellas)
-const reviews = [
+const allReviews = [
+    { author: 'Antonio Melero', location: 'Barcelona', text: 'Soy quiromasajista y necesitaba hacerme una página web que también tuviera buen posicionamiento SEO local. Sergio entendió perfectamente que mi web no era solo un sitio bonito, sino una herramienta para conseguir pacientes de mi zona. El resultado es una web clara, rápida y pensada para que la gente que busca un quiromasajista cerca acabe encontrándome a mí.' },
     { author: 'Cristina Oliver', location: 'Barcelona', text: 'Totalmente recomendados para cualquier pyme. Sergio no se limita a darte consejos analiza tu mercado para mejorar tu posicionamiento SEO. En mi caso necesitaba posicionar en un entorno muy competitivo y Nova Marketing trazó el plan perfecto.' },
     { author: 'Rosmelys Lopez', location: 'Sabadell', text: 'Sinceramente estoy súper contenta con el trabajo que está haciendo Nova Marketing con el posicionamiento SEO y la página web de mi negocio ✨ Llevamos solo 3 meses y ya estoy notando resultados reales.' },
     { author: 'John Muñoz', location: 'Sabadell', text: 'Excelente agencia de marketing. Los he contactado en varias ocasiones para asesoramiento y siempre han cumplido con mis expectativas. Profesionalismo, creatividad y compromiso en cada proyecto. Totalmente recomendados.' },
     { author: 'Lidia Monterrubio', location: 'Sabadell', text: '¡Muy muy buen servicio! Nos ayudó a realizar y hacer posible los proyectos que teníamos en mente para hacer crecer nuestro negocio. Un diez en asesoramiento y acompañamiento en todo el proceso.' },
     { author: 'Belén Carrillo Comellas', location: 'Sabadell', text: 'Gestiono redes sociales y necesitaba posicionarme en Google Sabadell y empezamos a trabajar en una estrategia seo. Dos o tres meses después ya empezamos a ver los resultados.' },
     { author: 'Alba Delgado Arau', location: 'Barcelona', text: 'Tenemos un club de gimnasia artística y nos han ayudado con nuestra estrategia de marketing digital que teníamos un poquito olvidada.' },
+    { author: 'Martin Garcia', location: 'Sabadell', text: 'Llevamos la estrategia SEM y publicidad en redes sociales con ellos, desde hace varios meses y de momento, trato y resultados de 10.' },
+    { author: '이진만', location: 'Barcelona', text: 'Como guía turístico, buscaba algo que me ayudara a diferenciarme, y hablé con Sergio de Nova Marketing y ha hecho un trabajo excepcional. 👍👍👍 La ilustración que han diseñado para mi marca es increíble y me va a ayudar muchísimo a posicionar.' },
+    { author: 'Jesús Antonio García', location: 'Barcelona', text: 'Excelente servicio de SEO y el trato siempre es muy cercano. Recomendados al 100%.' },
+    { author: 'Ester Guillen', location: 'Barcelona', text: 'Llevamos un par de meses trabajando juntos y al principio solo cogimos el pack SEM pero seguramente contratamos una auditoría completa con vosotros. Profesionales y muy recomendable.' },
 ];
+
+// Selección aleatoria de 6 en cada build: cada página muestra una combinación distinta
+const reviews = [...allReviews]
+  .map(r => ({ r, k: Math.random() }))
+  .sort((a, b) => a.k - b.k)
+  .slice(0, 6)
+  .map(x => x.r);
 
 const gbpFor = (loc: string) => listings.find(l => l.label === loc)?.url || '#';
 ---
@@ -43,7 +55,7 @@ const gbpFor = (loc: string) => listings.find(l => l.label === loc)?.url || '#';
         <div class="text-center mb-12 sm:mb-16 reveal">
             <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">{t.eyebrow}</span>
             <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                {t.title}
+                {customTitle || t.title}
             </h2>
             <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-8">
                 {t.subtitle}

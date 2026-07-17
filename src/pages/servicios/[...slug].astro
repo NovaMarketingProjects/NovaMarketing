@@ -97,7 +97,7 @@ const breadcrumbs = [
     <div class="container max-w-5xl mb-12">
       <img
         src={service.featuredImage.url}
-        alt={service.featuredImage.alternativeText || service.title}
+        alt={service.featuredImage.alternativeText || service.title} title={service.featuredImage.alternativeText || service.title}
         class="w-full h-64 md:h-96 object-cover rounded-2xl"
         loading="eager"
       />

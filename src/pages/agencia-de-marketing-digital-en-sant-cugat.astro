@@ -134,7 +134,7 @@ const pageSchema = localAgencySchema({
                 </div>
             </div>
             <div class="hidden md:block">
-                <img src="/sergio-galos-agencia-de-marketing-digital-en-sant-cugat.webp" alt="Sergio Galo's, consultor de marketing digital para PYMEs en Sant Cugat" class="w-full h-auto" loading="lazy" />
+                <img src="/sergio-galos-agencia-de-marketing-digital-en-sant-cugat.webp" alt="Sergio Galo's, consultor de marketing digital para PYMEs en Sant Cugat" title="Sergio Galo's, consultor de marketing digital para PYMEs en Sant Cugat" class="w-full h-auto" loading="lazy" />
             </div>
         </div>
     </section>
@@ -195,12 +195,12 @@ const pageSchema = localAgencySchema({
         <!-- Hover Gradient Overlay -->
         <div class="absolute inset-x-0 h-1 bottom-0 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
                     <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
-                        <a href="/consultoria-marketing-digital-sant-cugat/" class="hover:text-accent transition-colors">Consultoría de Marketing en Sant Cugat</a>
+                        <a href="/agencia-geo-para-pymes/sant-cugat/" class="hover:text-accent transition-colors">Agencia GEO en Sant Cugat</a>
                     </h3>
                     <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        ¿Tu marketing no da resultados? Auditamos tus procesos de captación, detectamos dónde se pierde el presupuesto y trazamos una hoja de ruta con embudos de venta sólidos para escalar tu negocio en Sant Cugat.
+                        Tus clientes de Sant Cugat ya preguntan a ChatGPT y Gemini qué empresa contratar. Trabajamos tu posicionamiento GEO para que la IA recomiende tu negocio antes que a tu competencia.
                     </p>
-                    <a href="/consultoria-marketing-digital-sant-cugat/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
+                    <a href="/agencia-geo-para-pymes/sant-cugat/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
                 </div>
             </div>
         </div>
@@ -363,9 +363,9 @@ const pageSchema = localAgencySchema({
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
                 {[
-                    { icon: '🛒', title: 'Agencia de marketing para ecommerce', desc: 'Arquitectura de categorías, fichas optimizadas, feed de Shopping y CRO. El SEO de producto y las campañas bien estructuradas se retroalimentan para vender más.' },
-                    { icon: '🏠', title: 'Agencia de marketing para inmobiliarias', desc: 'Captación de propietarios y compradores en un mercado carísimo. Landings por zona, SEO local por barrio y campañas que filtran curiosos de clientes reales.' },
-                    { icon: '🍽️', title: 'Agencia de marketing para restaurantes', desc: 'Aquí manda la ficha de Google y las reseñas. Trabajamos el pack local completo para que aparezcas cuando alguien busca dónde comer cerca, y llenar mesas entre semana.' },
+                    { icon: '🛒', title: 'Agencia de marketing para ecommerce', href: '/agencia-ecommerce/', desc: 'Arquitectura de categorías, fichas optimizadas, feed de Shopping y CRO. El SEO de producto y las campañas bien estructuradas se retroalimentan para vender más.' },
+                    { icon: '🏠', title: 'Agencia de marketing para inmobiliarias', href: '/agencia-inmobiliarias/', desc: 'Captación de propietarios y compradores en un mercado carísimo. Landings por zona, SEO local por barrio y campañas que filtran curiosos de clientes reales.' },
+                    { icon: '🍽️', title: 'Agencia de marketing para restaurantes', href: '/agencia-restaurantes/', desc: 'Aquí manda la ficha de Google y las reseñas. Trabajamos el pack local completo para que aparezcas cuando alguien busca dónde comer cerca, y llenar mesas entre semana.' },
                     { icon: '🧠', title: 'Agencia de marketing para psicólogos', desc: 'El paciente busca confianza antes que precio. Contenido con autoridad clínica, SEO local por especialidad y campañas discretas que respetan la sensibilidad del sector.' },
                     { icon: '🌿', title: 'Agencia de marketing para terapeutas', desc: 'Un sector con mucha competencia genérica y poca especializada. Posicionamos tu consulta por terapia y zona, con contenido que educa y convierte visitas en primeras sesiones.' },
                     { icon: '🦷', title: 'Agencia de marketing para dentistas', desc: 'Sector saturado en Sant Cugat y con alta exigencia de E-E-A-T. Ganan quienes combinan SEO local impecable, reseñas gestionadas y contenido clínico con autoridad real.' },
@@ -379,7 +379,7 @@ const pageSchema = localAgencySchema({
                     <div class="bg-white border border-black/5 rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                         <div class="text-3xl mb-4">{s.icon}</div>
                         <h3 class="text-base uppercase tracking-tight text-zinc-900 mb-3 leading-tight font-montserrat-semibold">
-                            {s.title}
+                            {s.href ? <a href={s.href} class="hover:text-accent transition-colors">{s.title}</a> : s.title}
                             <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1 font-semibold">en Sant Cugat</span>
                         </h3>
                         <p class="text-sm text-zinc-500 font-light leading-relaxed">{s.desc}</p>
@@ -522,7 +522,7 @@ const pageSchema = localAgencySchema({
         <div class="max-w-5xl mx-auto reveal">
             <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] grid md:grid-cols-[280px_1fr] gap-8 sm:gap-12 items-center">
                 <div class="rounded-2xl overflow-hidden bg-zinc-100">
-                    <img src="/sergio-galos-agencia-de-marketing-digital-en-sant-cugat.webp" alt="Sergio Galo's, consultor de marketing digital para PYMEs en Sant Cugat" class="w-full h-full object-cover object-top" loading="lazy" />
+                    <img src="/sergio-galos-agencia-de-marketing-digital-en-sant-cugat.webp" alt="Sergio Galo's, consultor de marketing digital para PYMEs en Sant Cugat" title="Sergio Galo's, consultor de marketing digital para PYMEs en Sant Cugat" class="w-full h-full object-cover object-top" loading="lazy" />
                 </div>
                 <div>
                     <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Quién está detrás</span>
@@ -634,14 +634,14 @@ const pageSchema = localAgencySchema({
 
             <!-- Imagen: más grande, desbordando por la derecha -->
             <div class="reveal lg:-mr-[12%] xl:-mr-[18%]">
-                <img src="/agencia-de-marketing-digital-para-pymes-sant-cugat.webp" alt="Nova Marketing, agencia de marketing digital recomendada por la IA en Sant Cugat" class="w-full h-auto" loading="lazy" />
+                <img src="/agencia-de-marketing-digital-para-pymes-sant-cugat.webp" alt="Nova Marketing, agencia de marketing digital recomendada por la IA en Sant Cugat" title="Nova Marketing, agencia de marketing digital recomendada por la IA en Sant Cugat" class="w-full h-auto" loading="lazy" />
             </div>
 
         </div>
     </section>
 
     <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
-    <GoogleReviews locale="es" />
+    <GoogleReviews locale="es" title="Lo que dicen nuestros clientes sobre el marketing digital de Nova" />
 
     <!-- ═══ DÓNDE TRABAJAMOS ═══════════════════════════════════════ -->
     <section class="py-20 sm:py-28 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">

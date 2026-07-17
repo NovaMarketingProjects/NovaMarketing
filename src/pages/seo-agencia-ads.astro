@@ -103,7 +103,7 @@ const faqs = [
 
   <!-- Consultant image: anchored to the very bottom-right of the hero, flush with the edge -->
   <div class="hidden lg:block absolute bottom-0 right-[-8%] h-[82%] z-[1] pointer-events-none select-none">
-    <img src="/consultor-marketing-digital.webp" alt="Sergio Galo's - Fundador & Consultor SEO" class="h-full w-auto object-contain object-bottom" />
+    <img src="/consultor-marketing-digital.webp" alt="Sergio Galo's - Fundador & Consultor SEO" title="Sergio Galo's - Fundador & Consultor SEO" class="h-full w-auto object-contain object-bottom" />
   </div>
 
   <!-- Name card: elemento propio por encima de todo (z-[3] > grid z-[2]) -->
@@ -430,7 +430,7 @@ const faqs = [
         return (
           <a href={caseUrl} class="group bg-white border border-black/5 rounded-3xl overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 shadow-sm flex flex-col h-full reveal" style={`transition-delay: ${i * 100}ms`}>
             <div class="relative aspect-[4/3] overflow-hidden">
-              <img src={imageUrl} alt={cs.title} class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
+              <img src={imageUrl} alt={cs.title} title={cs.title} class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
               <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
               <div class="absolute top-3 left-3 z-10">
                 <span class="bg-white/95 backdrop-blur-sm border border-black/5 px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-[0.2em] text-accent shadow-md">{catName}</span>

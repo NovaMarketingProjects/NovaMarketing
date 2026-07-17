@@ -144,7 +144,7 @@ const authorDisplayName = author?.name?.trim().toLowerCase().startsWith('sergio 
     <div class="absolute inset-0 z-0 opacity-60">
         <img 
           src={coverUrl} 
-          alt={post.title} 
+          alt={post.title} title={post.title} 
           class="w-full h-full object-cover scale-105"
         />
         <!-- Vignette & Gradient Overlay -->
@@ -179,7 +179,7 @@ const authorDisplayName = author?.name?.trim().toLowerCase().startsWith('sergio 
                         src={author.photo?.formats?.small?.url
                           ? (author.photo.formats.small.url.startsWith('http') ? author.photo.formats.small.url : `${import.meta.env.STRAPI_URL || 'http://localhost:1337'}${author.photo.formats.small.url}`)
                           : getStrapiImageUrl(author.photo)}
-                        alt={authorDisplayName}
+                        alt={authorDisplayName} title={authorDisplayName}
                         class="w-16 h-16 rounded-full border-2 border-white/20 object-cover"
                     />
                 )}
@@ -266,7 +266,7 @@ const authorDisplayName = author?.name?.trim().toLowerCase().startsWith('sergio 
                 { label: 'Posicionamiento SEO', href: '/agencia-seo-para-pymes/' },
                 { label: 'Google Ads', href: '/agencia-sem-para-pymes/' },
                 { label: 'Diseño de páginas web', href: '/diseno-web-para-pymes/' },
-                { label: 'Consultoría de marketing', href: '/consultoria-marketing-para-pymes/' },
+                { label: 'Posicionamiento GEO en IA', href: '/agencia-geo-para-pymes/' },
               ].map(s => (
                 <li class="border-b border-zinc-200 last:border-0">
                   <a href={s.href} class="group flex items-center justify-between py-3">

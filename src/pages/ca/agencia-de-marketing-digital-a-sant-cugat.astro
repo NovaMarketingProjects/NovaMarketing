@@ -41,9 +41,9 @@ const criteria = [
 ];
 
 const sectors = [
-  { icon: '🛒', title: 'Agència de marketing per a ecommerce', desc: "Arquitectura de categories, fitxes optimitzades, feed de Shopping i CRO. El SEO de producte i les campanyes ben estructurades es retroalimenten per vendre més." },
-  { icon: '🏠', title: 'Agència de marketing per a immobiliàries', desc: "Captació de propietaris i compradors en un mercat caríssim. Landings per zona, SEO local per barri i campanyes que filtren curiosos de clients reals." },
-  { icon: '🍽️', title: 'Agència de marketing per a restaurants', desc: "Aquí mana la fitxa de Google i les ressenyes. Treballem el pack local complet perquè apareguis quan algú busca on menjar a prop, i omplir taules entre setmana." },
+  { icon: '🛒', title: 'Agència de marketing per a ecommerce', href: '/ca/agencia-ecommerce/', desc: "Arquitectura de categories, fitxes optimitzades, feed de Shopping i CRO. El SEO de producte i les campanyes ben estructurades es retroalimenten per vendre més." },
+  { icon: '🏠', title: 'Agència de marketing per a immobiliàries', href: '/ca/agencia-inmobiliarias/', desc: "Captació de propietaris i compradors en un mercat caríssim. Landings per zona, SEO local per barri i campanyes que filtren curiosos de clients reals." },
+  { icon: '🍽️', title: 'Agència de marketing per a restaurants', href: '/ca/agencia-restaurantes/', desc: "Aquí mana la fitxa de Google i les ressenyes. Treballem el pack local complet perquè apareguis quan algú busca on menjar a prop, i omplir taules entre setmana." },
   { icon: '🧠', title: 'Agència de marketing per a psicòlegs', desc: "El pacient busca confiança abans que preu. Contingut amb autoritat clínica, SEO local per especialitat i campanyes discretes que respecten la sensibilitat del sector." },
   { icon: '🌿', title: 'Agència de marketing per a terapeutes', desc: "Un sector amb molta competència genèrica i poca especialitzada. Posicionem la teva consulta per teràpia i zona, amb contingut que educa i converteix visites en primeres sessions." },
   { icon: '🦷', title: 'Agència de marketing per a dentistes', desc: "Sector saturat a Sant Cugat i amb alta exigència d'E-E-A-T. Guanyen els qui combinen SEO local impecable, ressenyes gestionades i contingut clínic amb autoritat real." },
@@ -141,7 +141,7 @@ const pageSchema = localAgencySchema({
                 </h2>
                 <div class="space-y-6 text-zinc-600 font-light text-base sm:text-lg leading-relaxed">
                     <p>
-                        <strong class="font-semibold text-zinc-900">Nova Marketing és una agència de marketing digital especialitzada en pimes</strong> que opera a Sant Cugat i el Vallès Occidental, amb serveis de posicionament SEO, Google Ads, disseny web i consultoria de marketing.
+                        <strong class="font-semibold text-zinc-900">Nova Marketing és una agència de marketing digital especialitzada en pimes</strong> que opera a Sant Cugat i el Vallès Occidental, amb serveis de posicionament SEO, Google Ads, disseny web i posicionament GEO en IA.
                     </p>
                     <p>
                         El nostre enfocament és diferent: treballem amb un nombre limitat de clients, cada compte el porta directament el consultor fundador i tota l'estratègia s'orienta a una sola mètrica que importa: <strong class="font-semibold text-zinc-900">quants clients nous genera la teva inversió cada mes</strong>.
@@ -149,7 +149,7 @@ const pageSchema = localAgencySchema({
                 </div>
             </div>
             <div class="hidden md:block">
-                <img src="/sergio-galos-agencia-de-marketing-digital-a-sant-cugat.webp" alt="Sergio Galo's, consultor de màrqueting digital per a pimes a Sant Cugat" class="w-full h-auto" loading="lazy" />
+                <img src="/sergio-galos-agencia-de-marketing-digital-a-sant-cugat.webp" alt="Sergio Galo's, consultor de màrqueting digital per a pimes a Sant Cugat" title="Sergio Galo's, consultor de màrqueting digital per a pimes a Sant Cugat" class="w-full h-auto" loading="lazy" />
             </div>
         </div>
     </section>
@@ -210,12 +210,12 @@ const pageSchema = localAgencySchema({
         <!-- Hover Gradient Overlay -->
         <div class="absolute inset-x-0 h-1 bottom-0 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
                     <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
-                        <a href="/ca/consultoria-marketing-digital-sant-cugat/" class="hover:text-accent transition-colors">Consultoria de Marketing a Sant Cugat</a>
+                        <a href="/ca/agencia-geo-per-pimes/sant-cugat/" class="hover:text-accent transition-colors">Agència GEO a Sant Cugat</a>
                     </h3>
                     <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        El teu marketing no dona resultats? Auditem els teus processos de captació, detectem on es perd el pressupost i tracem un full de ruta amb embuts de venda sòlids per escalar el teu negoci a Sant Cugat.
+                        Els teus clients de Sant Cugat ja pregunten a ChatGPT i Gemini quina empresa contractar. Treballem el teu posicionament GEO perquè la IA recomani el teu negoci abans que la teva competència.
                     </p>
-                    <a href="/ca/consultoria-marketing-digital-sant-cugat/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
+                    <a href="/ca/agencia-geo-per-pimes/sant-cugat/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
                 </div>
             </div>
         </div>
@@ -381,7 +381,7 @@ const pageSchema = localAgencySchema({
                     <div class="bg-white border border-black/5 rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                         <div class="text-3xl mb-4">{s.icon}</div>
                         <h3 class="text-base uppercase tracking-tight text-zinc-900 mb-3 leading-tight font-montserrat-semibold">
-                            {s.title}
+                            {s.href ? <a href={s.href} class="hover:text-accent transition-colors">{s.title}</a> : s.title}
                             <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1 font-semibold">a Sant Cugat</span>
                         </h3>
                         <p class="text-sm text-zinc-500 font-light leading-relaxed">{s.desc}</p>
@@ -524,7 +524,7 @@ const pageSchema = localAgencySchema({
         <div class="max-w-5xl mx-auto reveal">
             <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] grid md:grid-cols-[280px_1fr] gap-8 sm:gap-12 items-center">
                 <div class="rounded-2xl overflow-hidden bg-zinc-100">
-                    <img src="/sergio-galos-agencia-de-marketing-digital-a-sant-cugat.webp" alt="Sergio Galo's, consultor de màrqueting digital per a pimes a Sant Cugat" class="w-full h-full object-cover object-top" loading="lazy" />
+                    <img src="/sergio-galos-agencia-de-marketing-digital-a-sant-cugat.webp" alt="Sergio Galo's, consultor de màrqueting digital per a pimes a Sant Cugat" title="Sergio Galo's, consultor de màrqueting digital per a pimes a Sant Cugat" class="w-full h-full object-cover object-top" loading="lazy" />
                 </div>
                 <div>
                     <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Qui hi ha darrere</span>
@@ -636,14 +636,14 @@ const pageSchema = localAgencySchema({
 
             <!-- Imatge: més gran, desbordant per la dreta -->
             <div class="reveal lg:-mr-[12%] xl:-mr-[18%]">
-                <img src="/agencia-de-marketing-digital-per-a-pimes-sant-cugat.webp" alt="Nova Marketing, agència de marketing digital recomanada per la IA a Sant Cugat" class="w-full h-auto" loading="lazy" />
+                <img src="/agencia-de-marketing-digital-per-a-pimes-sant-cugat.webp" alt="Nova Marketing, agència de marketing digital recomanada per la IA a Sant Cugat" title="Nova Marketing, agència de marketing digital recomanada per la IA a Sant Cugat" class="w-full h-auto" loading="lazy" />
             </div>
 
         </div>
     </section>
 
     <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
-    <GoogleReviews locale="ca" />
+    <GoogleReviews locale="ca" title="El que diuen els nostres clients sobre el màrqueting digital de Nova" />
 
     <!-- ═══ ON TREBALLEM ═══════════════════════════════════════════ -->
     <section class="py-20 sm:py-28 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">

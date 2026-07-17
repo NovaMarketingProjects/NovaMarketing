@@ -1,0 +1,700 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { buildAlternates } from '../../lib/i18n';
+import { localAgencySchema } from '../../lib/schema';
+import { strapiClient } from '../../lib/strapi';
+import LogoMarquee from '../../components/sections/LogoMarquee.astro';
+import FaqHome from '../../components/sections/FaqHome.astro';
+import CityPills from '../../components/global/CityPills.astro';
+import GoogleReviews from '../../components/global/GoogleReviews.astro';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const alternates = buildAlternates('/agencia-inmobiliarias/email-marketing/', '/ca/agencia-inmobiliarias/email-marketing/', SITE_URL);
+
+let allCases: any[] = [];
+try {
+  const casesRes = await strapiClient.getCaseStudies('es');
+  allCases = casesRes.data.map((i: any) => i.attributes ?? i).filter((c: any) => {
+    const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase());
+    return cats.some((s: string) => s === 'marketing-digital' || s === 'e-commerce');
+  });
+} catch {}
+
+const faqs = [
+  { question: "¿Qué incluye el servicio de email marketing inmobiliario?", answer: "Incluye auditoría inicial, estrategia documentada, montaje de las secuencias automáticas de nurturing y alertas, captación de contactos en tu web, newsletter de zona, cuidado de la entregabilidad y un informe mensual con las operaciones generadas por el canal." },
+  { question: "¿Cuánto cuesta?", answer: "La auditoría cuesta 600 euros y los planes mensuales van desde 300 euros al mes. A eso se suma el coste de la herramienta de email, que se contrata a tu nombre. Presupuesto cerrado por escrito y sin permanencias." },
+  { question: "¿Se integra con mi CRM inmobiliario?", answer: "Sí, es la base del sistema. Conectamos la herramienta de email con tu CRM para que valoraciones, visitas y estados se sincronicen y las secuencias se disparen solas en el momento correcto." },
+  { question: "¿Qué puede generar mi base de datos?", answer: "Depende de su tamaño y su historia, pero en casi todas las agencias hay encargos dormidos en valoraciones sin seguir y compradores sin alertas. En la auditoría te decimos con datos qué hay recuperable en la tuya." },
+  { question: "¿Cuánto tarda en verse el resultado?", answer: "Las secuencias principales quedan activas el primer mes. La campaña de reactivación de valoraciones antiguas suele generar respuestas la primera semana." },
+  { question: "¿Cómo medís los resultados?", answer: "En valoraciones, visitas y encargos generados por cada secuencia y campaña, sincronizados con tu CRM. En el informe mensual ves qué produce tu base de datos." },
+  { question: "¿Trabajáis con permanencia?", answer: "No, trabajamos mes a mes. Si el servicio no te aporta valor, puedes cancelarlo cuando quieras." },
+];
+
+const pageSchema = localAgencySchema({
+  pageUrl: `${SITE_URL}/agencia-inmobiliarias/email-marketing/`,
+  lang: 'es',
+  cityName: 'Barcelona',
+  postalCode: '08035',
+  geo: { lat: 41.4114, lng: 2.1526 },
+  areaServed: ["España", "Barcelona", "Sabadell", "Sant Cugat del Vallès", "Terrassa", "Vallès Occidental"],
+  title: "Email Marketing para Inmobiliarias | Nurturing y Automatizaciones | Nova Marketing",
+  description: "Email marketing para inmobiliarias. Nurturing de propietarios, alertas de exclusivas para compradores y seguimiento automático que convierte contactos en encargos.",
+  datePublished: '2026-07-17',
+  dateModified: '2026-07-17',
+  streetAddress: 'Carrer del General Mendoza, 10',
+  hasMap: 'https://maps.app.goo.gl/9fbB12UcK32bgjj89',
+  aggregateRating: { ratingValue: '5.0', reviewCount: '8' },
+  breadcrumbName: "Email Marketing para Inmobiliarias",
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Email Marketing para Inmobiliarias | Nurturing y Automatizaciones | Nova Marketing"
+  description="Email marketing para inmobiliarias. Nurturing de propietarios, alertas de exclusivas para compradores y seguimiento automático que convierte contactos en encargos."
+  locale="es"
+  alternates={alternates}
+  schemas={[pageSchema]}
+>
+
+    <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
+    <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+        <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+
+        <div class="max-w-5xl mx-auto reveal">
+            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
+                <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+                Email y Automatizaciones Inmobiliarias
+            </span>
+            <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
+                <span class="lg:whitespace-nowrap">Email Marketing </span>
+                <span class="lg:whitespace-nowrap text-mktg-gradient">para Inmobiliarias</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
+                Tu base de datos guarda encargos que nunca llegaron a firmarse. Email marketing inmobiliario con seguimiento automático que convierte contactos dormidos en captaciones.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
+                {['Sin permanencias', 'Trato directo con el consultor', 'Resultados medidos en captaciones'].map(item => (
+                    <span class="inline-flex items-center gap-2 text-[11px] sm:text-xs font-black uppercase tracking-widest text-zinc-700">
+                        <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        {item}
+                    </span>
+                ))}
+            </div>
+            <div class="flex justify-center mt-4">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    HABLEMOS DE TU INMOBILIARIA
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <LogoMarquee />
+
+    <!-- ═══ INTRO ═══════════════════════════════════════════════════════ -->
+    <section class="py-16 sm:py-24 bg-white px-4 sm:px-6 border-b border-black/5">
+        <div class="max-w-6xl mx-auto reveal grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-16 items-center">
+            <div>
+                <p class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4">¿Por qué email marketing?</p>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    La agencia de email marketing para tu inmobiliaria
+                </h2>
+                <div class="space-y-6 text-zinc-600 font-light text-base sm:text-lg leading-relaxed">
+                    <p>
+                        <strong class="font-semibold text-zinc-900">El propietario tarda meses en decidir vender, y quien sigue presente durante ese tiempo se lleva el encargo</strong>. Cada valoración sin seguimiento y cada comprador sin alertas es una operación que se enfría en tu CRM.
+                    </p>
+                    <p>
+                        Nova es una <strong class="font-semibold text-zinc-900">agencia especializada en email marketing inmobiliario</strong>. Secuencias automáticas y una sola métrica que importa. <strong class="font-semibold text-zinc-900">Cuántos encargos y ventas salen de tu propia base de datos</strong>.
+                    </p>
+                </div>
+            </div>
+            <div class="hidden md:block">
+                <img src="/sergio-galos-agencia-inmobiliarias-email-marketing.webp" alt="Sergio Galo's, Consultor de email marketing inmobiliario" title="Sergio Galo's, Consultor de email marketing inmobiliario" class="w-full h-auto" loading="lazy" />
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SERVICIOS ══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50 px-4 sm:px-6 border-t border-b border-black/5">
+        <div class="max-w-7xl mx-auto text-center reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Qué hacemos</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Servicio de email marketing inmobiliario
+            </h2>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-16">
+                El email de una inmobiliaria no son newsletters, es un sistema de seguimiento que trabaja cada contacto. Estas son las nueve piezas.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+                {[
+                    { t: "Auditoría de email", d: "Radiografía de tu base de datos y tu seguimiento actual. Cuántas operaciones se enfrían sin que nadie las trabaje." },
+                    { t: "Nurturing de propietarios", d: "Secuencia automática tras cada valoración. Precios de la zona, casos reales y confianza hasta que decide vender." },
+                    { t: "Alertas de exclusivas", d: "Cada captación nueva avisada al instante a los compradores que encajan. Ventas más rápidas y propietarios más contentos." },
+                    { t: "Seguimiento de compradores", d: "Quien visitó y no compró sigue buscando. Secuencias que lo mantienen contigo hasta la operación." },
+                    { t: "Captación de suscriptores", d: "Valorador, guías de venta y alertas de zona que convierten visitas web en contactos con nombre." },
+                    { t: "Newsletter de zona", d: "Precios, operaciones y novedades de tu plaza cada mes. La marca que recuerdan cuando toca vender." },
+                    { t: "Segmentación", d: "Propietarios, compradores e inversores reciben mensajes distintos. Cada perfil, su secuencia." },
+                    { t: "Entregabilidad", d: "De nada sirve el seguimiento si cae en spam. Dominio autenticado y base de datos limpia." },
+                    { t: "Medición por secuencia", d: "Cada valoración, visita y encargo atribuido a su email. Sabrás qué genera tu base de datos." },
+                ].map((c: any) => (
+                    <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900 mb-3">
+                            {c.href ? <a href={c.href} class="hover:text-accent transition-colors">{c.t}</a> : c.t}
+                            {c.b && <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1 font-semibold">{c.b}</span>}
+                        </h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed mb-2">{c.d}</p>
+                        {c.href && <a href={c.href} class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>}
+                    </div>
+                ))}
+            </div>
+            <div class="mt-12 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">HABLEMOS DE TU INMOBILIARIA</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ ESTRATEGIA ════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16 sm:mb-24 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Cómo trabajamos</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Estrategia de email marketing para tu inmobiliaria
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Una metodología documentada, paso a paso y sin humo.
+                </p>
+            </div>
+
+            <div id="timeline-container" class="relative">
+                <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
+                <div id="progress-bar" class="hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100"></div>
+
+                <div class="space-y-16 md:space-y-24 flex flex-col items-center">
+                    {[
+                        { title: "Auditoría de Base de Datos", desc: "Analizamos tus contactos, tu seguimiento actual y cuántas operaciones se enfrían sin trabajar." },
+                        { title: "Estrategia de Secuencias Documentada", desc: "Plan por escrito. Qué secuencias montar primero, qué campañas programar y qué esperar del canal." },
+                        { title: "Montaje de Secuencias", desc: "Nurturing de propietarios, alertas de exclusivas y seguimiento de compradores, conectados a tu CRM." },
+                        { title: "Campañas y Newsletter", desc: "El calendario mensual que mantiene tu marca presente en tu zona sin quemar la base de datos." },
+                        { title: "Medición y Optimización", desc: "Monitorizamos qué secuencias generan valoraciones, visitas y encargos, y optimizamos cada mes." },
+                    ].map((step, index) => (
+                        <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
+                            <div class:list={["flex-1 w-full", index % 2 === 0 ? "md:order-1 md:text-right" : "md:order-3 md:text-left"]}>
+                                <div class="p-8 sm:p-10 bg-zinc-50 border border-black/5 rounded-3xl hover:border-accent/10 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+                                    <h3 class="text-xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{index + 1}. {step.title}</h3>
+                                    <div class:list={["h-0.5 bg-accent w-full mb-4 opacity-80", index % 2 === 0 ? "md:ml-auto" : ""]}></div>
+                                    <p class:list={["text-sm text-zinc-500 font-light max-w-md", index % 2 === 0 ? "md:ml-auto" : ""]}>{step.desc}</p>
+                                    <div class="absolute -bottom-6 -right-5 text-8xl font-black text-black/[0.02] select-none z-0 group-hover:scale-105 transition-transform duration-500">0{index+1}</div>
+                                </div>
+                            </div>
+                            <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all">
+                                0{index + 1}
+                            </div>
+                            <div class:list={["hidden md:block md:flex-1", index % 2 === 0 ? "md:order-3" : "md:order-1"]}></div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ AUDITORÍA ═════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-[6fr_4fr] gap-12 lg:gap-16 items-start">
+            <div class="reveal lg:col-span-2">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Punto de partida</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
+                    Auditoría de email marketing para tu inmobiliaria
+                </h2>
+            </div>
+            <div class="reveal">
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed mb-8">
+                    <p>¿Cuántas valoraciones hiciste el año pasado que no acabaron en encargo? ¿Alguien las siguió trabajando? En la mayoría de agencias, esa lista dormida vale más que cualquier campaña nueva.</p>
+                    <p>Nuestra <strong class="font-semibold text-zinc-900">auditoría de email inmobiliario</strong> revisa tu base de datos, tu seguimiento y tus herramientas, y termina con un plan de acción priorizado por operaciones recuperables.</p>
+                    <p>Cada punto lo revisa un consultor senior con experiencia en el sector.</p>
+                </div>
+                <ul class="space-y-3">
+                    {["Tamaño y salud de tu base de datos","Seguimiento actual de valoraciones","Alertas a compradores activos","Captación de contactos en tu web","Herramienta y conexión con tu CRM","Plan de acción priorizado por impacto"].map(item => (
+                        <li class="flex items-start gap-3 text-sm text-zinc-700 font-light">
+                            <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                            {item}
+                        </li>
+                    ))}
+                </ul>
+                <div class="mt-16">
+                    <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                        QUIERO MI AUDITORÍA DE EMAIL
+                    </a>
+                </div>
+            </div>
+            <div class="reveal flex flex-col gap-4">
+                {[
+                    { bg: 'bg-purple-100', color: 'text-purple-600', t: "Análisis de la base de datos", d: "Cuántos contactos tienes, cuántos siguen vivos y cuántas operaciones dormidas guardan." },
+                    { bg: 'bg-green-100', color: 'text-green-600', t: "Plan de acción priorizado", d: "Qué secuencia montar primero según los encargos que puede recuperar." },
+                    { bg: 'bg-purple-100', color: 'text-purple-600', t: "Auditoría de seguimiento", d: "Qué pasa hoy tras una valoración o una visita. Casi siempre, nada. Ahí está el dinero." },
+                    { bg: 'bg-amber-100', color: 'text-amber-600', t: "Captación en tu web", d: "Cómo conviertes visitas en contactos hoy y cuánto más podrías captar." },
+                    { bg: 'bg-blue-100', color: 'text-blue-600', t: "Benchmark de tu zona", d: "Qué seguimiento hacen las agencias de tu zona. Pide una valoración y compara." },
+                ].map(card => (
+                    <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                        <div class:list={["w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0", card.bg]}>
+                            <svg class:list={["w-5 h-5", card.color]} fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-black text-zinc-900 mb-1">{card.t}</h3>
+                            <p class="text-xs text-zinc-500 font-light leading-relaxed">{card.d}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ QUÉ INCLUYE LA AUDITORÍA ═══════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Paso a paso</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
+                    Qué incluye la auditoría Email Marketing de nova
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch reveal">
+                {[
+                    { n: '1', t: "Radiografía de tu base de datos", d: "Qué contactos tienes, qué se les envía hoy y qué operaciones duermen ahí." },
+                    { n: '2', t: "Diagnóstico de seguimiento", d: "Dónde se enfrían las operaciones, de la valoración al encargo." },
+                    { n: '3', t: "Hoja de ruta por impacto", d: "Acciones ordenadas por encargos recuperables y una videollamada donde lo repasamos." },
+                ].map((st, i) => (
+                    <div class="flex items-center gap-4 lg:gap-6">
+                        {i > 0 && <div class="hidden lg:flex text-3xl text-accent font-black select-none">→</div>}
+                        <div class="bg-white border border-black/5 rounded-2xl p-8 shadow-[0_15px_40px_rgba(0,0,0,0.06)] flex-1 text-center h-full">
+                            <div class="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto mb-4 text-accent font-black text-lg">{st.n}</div>
+                            <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3">{st.t}</h3>
+                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{st.d}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto text-center mt-16 reveal">
+                Nuestra auditoría de email es el primer paso para que tu base de datos trabaje sola. Analiza qué genera hoy tu seguimiento, dónde se enfrían las operaciones y qué montar primero.
+            </p>
+            <div class="mt-12 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">QUIERO MI AUDITORÍA DE EMAIL</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PRECIOS ════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Tarifas claras</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Precios de email marketing inmobiliario
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto">
+                    Tarifas orientativas y sin letra pequeña. El precio depende de tu zona, tu competencia y tu punto de partida, así que antes de empezar recibes un presupuesto cerrado por escrito. El coste no lleva sorpresas ni permanencias.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                {[
+                    { small: 'Precio', name: "Auditoría Email Inmobiliario", price: "600€", meta: ["Entrega en 1 a 2 semanas","Para agencias con base de datos propia"], items: ["Sesión inicial de objetivos","Análisis de base de datos","Auditoría del seguimiento actual","Revisión de captación web","Comparativa con 3 competidores","Acciones ordenadas por impacto","Videollamada de entrega"], cta: "Quiero auditar mi seguimiento" },
+                    { small: 'Precio', name: "Email Inmobiliario", price: "desde 300€ / mes", meta: ["Secuencias principales activas el primer mes","Para agencias que quieren automatizar"], items: ["Diagnóstico inicial de la agencia","Estrategia documentada","Nurturing de propietarios","Alertas de exclusivas","Newsletter de zona mensual","Entregabilidad cuidada","Informe mensual de leads y costes","Línea directa con el consultor","Sin permanencia"], cta: "Quiero activar mi seguimiento" },
+                    { small: 'Precio', name: "Email Big Inmobiliaria", price: "desde 600€ / mes", meta: ["Para bases de datos grandes y multizona","Para grupos que quieren exprimir el canal"], items: ["Diagnóstico inicial de la agencia","Estrategia documentada","Todo el plan Email Inmobiliario","Secuencias avanzadas por perfil","Campañas semanales con testing","Integración completa con tu CRM","Informe mensual de leads y costes","Línea directa con el consultor","Sin permanencia"], cta: "Quiero exprimir mi base de datos" },
+                ].map(pl => (
+                    <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-10 flex flex-col shadow-[0_15px_40px_rgba(0,0,0,0.06)] hover:shadow-xl transition-shadow duration-300 reveal">
+                        <h3 class="leading-tight mb-2">
+                            <span class="block text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-1">{pl.small} </span>
+                            <span class="block text-xl font-black uppercase tracking-tight text-zinc-900">{pl.name}</span>
+                        </h3>
+                        <div class="text-lg font-bold text-zinc-900">{pl.price}</div>
+                        <div class="text-[10px] text-zinc-400 font-light mt-1 mb-6">* Precio sin IVA</div>
+                        <div class="text-xs text-zinc-500 font-light mb-8 space-y-1.5">
+                            {pl.meta.map(m => <div>{m}</div>)}
+                        </div>
+                        <div class="text-xs font-black uppercase tracking-widest text-zinc-400 pb-3 border-b border-zinc-100">Qué incluye</div>
+                        <ul class="divide-y divide-zinc-100 flex-1">
+                            {pl.items.map(item => (
+                                <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light">
+                                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 !py-4 !text-[11px] !tracking-widest font-black mt-10 text-center">
+                            {pl.cta}
+                        </a>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PLATAFORMAS ══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-b border-black/5">
+        <div class="max-w-7xl mx-auto text-center reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Tu tecnología</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Email marketing para tu plataforma
+            </h2>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-16">
+                Cada web inmobiliaria tiene sus reglas de juego. Trabajamos las dos bases tecnológicas que dominan el sector.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2  gap-6 text-left">
+                {[
+                    { t: "Email Marketing para WordPress", d: "Aprovechamos los plugins inmobiliarios, las landings por barrio y la flexibilidad editorial de WordPress.", b: "Plataforma", href: "/agencia-inmobiliarias/wordpress/" },
+                    { t: "Email Marketing para Desarrollo Propio", d: "Especificaciones claras para tu equipo técnico y campañas conectadas a tu buscador y tu CRM.", b: "Plataforma", href: "/agencia-inmobiliarias/desarrollo-propio/" },
+                ].map((c: any) => (
+                    <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900 mb-3">
+                            {c.href ? <a href={c.href} class="hover:text-accent transition-colors">{c.t}</a> : c.t}
+                            {c.b && <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1 font-semibold">{c.b}</span>}
+                        </h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed mb-2">{c.d}</p>
+                        {c.href && <a href={c.href} class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>}
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CITA ══════════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-zinc-950 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <blockquote class="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.15] mb-8">
+                “La valoración que hiciste en marzo firma con otra agencia en octubre. No perdiste el encargo en marzo. Lo perdiste cada semana que nadie la siguió trabajando.”
+            </blockquote>
+            <p class="text-sm text-zinc-400 font-light mb-10">Sergio Galo's · Consultor de email marketing inmobiliario</p>
+            <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                HABLEMOS DE TU INMOBILIARIA
+            </a>
+        </div>
+    </section>
+
+    <!-- ═══ POR QUÉ NOVA (COMPARATIVA) ═════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Por qué nova</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Qué diferencia a nova de otra agencia de email marketing
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    El marketing inmobiliario está lleno de humo y de leads fríos comprados a granel. Nosotros lo trabajamos con método, transparencia y resultados en captaciones firmadas.
+                </p>
+            </div>
+
+            <div class="reveal overflow-x-auto rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
+                <table class="w-full min-w-[640px] text-left border-collapse bg-white">
+                    <thead>
+                        <tr class="bg-black text-white">
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Criterio</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Nova</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Otras agencias</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-zinc-100">
+                        {[
+                            { c: "Quién será tu contacto", o: "Gestor junior con 20-30 cuentas", n: "Sergio Galo's" },
+                            { c: "Qué se mide", o: "Aperturas y clics", n: "Valoraciones, visitas y encargos generados" },
+                            { c: "El enfoque", o: "Newsletters sueltas sin sistema", n: "Secuencias automáticas de seguimiento" },
+                            { c: "La base de datos", o: "Se le dispara a todos igual", n: "Segmentación por perfil y zona" },
+                            { c: "Propiedad de tus activos", o: "Cuenta y lista a nombre de la agencia", n: "Herramienta y base de datos a tu nombre" },
+                            { c: "Permanencia", o: "6-12 meses habituales", n: "Mes a mes, sin permanencia" },
+                            { c: "Transparencia de precios", o: "Presupuestos opacos con extras sorpresa", n: "Precio cerrado por escrito antes de empezar" },
+                        ].map(row => (
+                            <tr class="hover:bg-zinc-50/50 transition-colors">
+                                <td class="px-6 py-5 text-sm font-bold text-zinc-900">{row.c}</td>
+                                <td class="px-6 py-5 text-sm font-bold text-accent">{row.n}</td>
+                                <td class="px-6 py-5 text-sm text-zinc-500 font-light">{row.o}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CÓMO ELEGIR ════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-12 sm:mb-16 reveal text-center">
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Cómo contratar email marketing inmobiliario sin que te vendan humo
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Hay cientos de agencias y la mayoría de inmobiliarias elige mal la primera vez. Estos son los siete criterios que deberías exigir a cualquier agencia, incluida la nuestra.
+                </p>
+            </div>
+
+            <div class="divide-y divide-zinc-100 reveal">
+                {[
+                    { title: "Pide operaciones, no aperturas", desc: "El email inmobiliario se mide en valoraciones, visitas y encargos generados. Las tasas de apertura son lo de menos." },
+                    { title: "Pregunta quién llevará tu cuenta", desc: "Exige conocer a la persona que trabajará tu email antes de firmar." },
+                    { title: "Exige que la base de datos sea tuya", desc: "La herramienta y los contactos deben estar a tu nombre. Tu base de datos es uno de tus mayores activos." },
+                    { title: "Que empiece por el seguimiento", desc: "Las newsletters dan visibilidad, las secuencias de seguimiento firman encargos. El orden importa." },
+                    { title: "Pregunta por la conexión con tu CRM", desc: "Sin integración con tu CRM, el seguimiento se hace a mano o no se hace. Es parte del servicio." },
+                    { title: "Huye de las permanencias largas", desc: "Las secuencias se montan en semanas y los resultados se ven pronto. No hay excusa para atarte un año." },
+                    { title: "Que respete a tus contactos", desc: "Disparar promociones a diario quema la base de datos. En este sector, la confianza es la moneda." },
+                ].map((c, i) => (
+                    <div class="py-6 sm:py-8 flex gap-6 sm:gap-8 items-start">
+                        <div class="text-2xl sm:text-3xl font-black tracking-tighter text-accent flex-shrink-0 w-10 leading-none">0{i + 1}</div>
+                        <div>
+                            <h3 class="text-base sm:text-lg font-black uppercase tracking-tight text-zinc-900 mb-2">{c.title}</h3>
+                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.desc}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ QUIÉN ESTÁ DETRÁS ═══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto reveal">
+            <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] grid md:grid-cols-[280px_1fr] gap-8 sm:gap-12 items-center">
+                <div class="rounded-2xl overflow-hidden bg-zinc-100">
+                    <img src="/sergio-galos-agencia-inmobiliarias-email-marketing.webp" alt="Sergio Galo's, Consultor de email marketing inmobiliario" title="Sergio Galo's, Consultor de email marketing inmobiliario" class="w-full h-full object-cover object-top" loading="lazy" />
+                </div>
+                <div>
+                    <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Quién está detrás</span>
+                    <h2 class="text-2xl sm:text-4xl font-black tracking-tighter uppercase text-zinc-900 leading-[0.95] mb-6">
+                        Sergio Galo's <br>
+                        <span class="text-lg sm:text-2xl">Tu consultor de email marketing inmobiliario</span>
+                    </h2>
+                    <div class="space-y-4 text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
+                        <p>
+                            Soy <strong class="font-semibold text-zinc-900">Sergio Galo's</strong>, consultor de marketing digital y fundador de Nova Marketing. Llevo años generando captaciones y ventas para inmobiliarias en algunos de los mercados más competidos de España.
+                        </p>
+                        <p>
+                            Cuando contratas con nova hablas siempre conmigo. Yo hago la auditoría, yo diseño la estrategia y yo respondo en la reunión mensual. Sin capas comerciales ni gestores que cambian cada trimestre.
+                        </p>
+                    </div>
+                    <a href="https://www.linkedin.com/company/nova-marketing-pymes/" target="_blank" rel="noopener" class="inline-block mt-6 text-[12px] font-black tracking-widest text-accent hover:underline">
+                        Ver perfil en LinkedIn →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CASOS DE ÉXITO (CMS) ═══════════════════════════════════ -->
+    {allCases.length > 0 && (
+    <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6 overflow-hidden">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-12 reveal">
+          <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultados probados</span>
+          <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
+            Casos de éxito de marketing<br class="hidden md:inline" /> y captación local
+          </h2>
+        </div>
+        <div class="cases-carousel relative overflow-hidden">
+          <div class="cases-track flex gap-6 transition-transform duration-500 ease-in-out">
+            {allCases.map((cs: any) => {
+              const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
+              const caseUrl = cs.isPublic && cs.slug ? `/casos-exito/${cs.slug}/` : null;
+              return (
+                <div class="cases-slide flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
+                  <div>
+                    {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
+                    <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors leading-tight">
+                      {caseUrl ? (
+                        <a href={caseUrl} class="hover:text-accent transition-colors">{cs.title}</a>
+                      ) : (
+                        <span class="group-hover:text-accent transition-colors">{cs.title}</span>
+                      )}
+                    </h3>
+                    <p class="text-xs text-zinc-500 font-light leading-relaxed">{cs.description}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+    )}
+    <script is:inline>
+      function initCasesCarousel() {
+        const track = document.querySelector('.cases-track');
+        if (!track) return;
+        const slides = track.querySelectorAll('.cases-slide');
+        if (slides.length <= 4) return;
+        let current = 0;
+        const total = slides.length;
+        function getVisible() {
+          if (window.innerWidth >= 1024) return 4;
+          if (window.innerWidth >= 640) return 2;
+          return 1;
+        }
+        function next() {
+          const visible = getVisible();
+          const maxIndex = total - visible;
+          current = current >= maxIndex ? 0 : current + 1;
+          const slideWidth = slides[0].offsetWidth + 24;
+          track.style.transform = `translateX(-${current * slideWidth}px)`;
+        }
+        const interval = setInterval(next, 5000);
+        document.addEventListener('astro:before-preparation', () => clearInterval(interval));
+      }
+      document.addEventListener('DOMContentLoaded', initCasesCarousel);
+      document.addEventListener('astro:page-load', initCasesCarousel);
+    </script>
+
+    <!-- ═══ RECOMENDADOS POR LA IA ═════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+            <div class="reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Nos avala la IA</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    La agencia de email inmobiliario que recomienda la IA
+                </h2>
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed">
+                    <p>
+                        Cuando alguien pregunta por una <strong class="font-semibold text-zinc-900">agencia de email marketing para inmobiliarias</strong> a ChatGPT, Gemini o Claude, nova aparece entre las agencias recomendadas. Es la mejor prueba de que sabemos generar visibilidad, porque lo aplicamos primero en nosotros mismos.
+                    </p>
+                    <p>
+                        A los asistentes de IA no les puedes comprar un anuncio para salir primero. Recomiendan lo que encuentran. Casos reales publicados, tiendas que crecen y se pueden visitar, una especialización clara y clientes que hablan de nosotros.
+                    </p>
+                    <p>
+                        Pruébalo tú mismo. Abre ChatGPT y pregúntale qué agencia de email marketing para inmobiliarias te recomienda. Si te sale nova, ya sabes quién puede hacer lo mismo por tu tienda.
+                    </p>
+                </div>
+            </div>
+
+            <div class="reveal flex justify-center">
+                <img src="/agencia-inmobiliarias-email-marketing.webp" alt="Nova Marketing, agencia de email marketing para inmobiliarias recomendada por la IA" title="Nova Marketing, agencia de email marketing para inmobiliarias recomendada por la IA" class="w-full max-w-sm lg:max-w-md h-auto" loading="lazy" />
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══ CONSEJOS ═══════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Consejos aplicables hoy</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Cómo mejorar el email de tu agencia esta semana
+            </h2>
+            <p class="text-zinc-500 font-light text-base leading-relaxed mb-10">
+                Si todavía no estás listo para contratar, empieza por aquí. Son acciones que cualquier agencia puede aplicar por su cuenta y que ya mueven la aguja.
+            </p>
+            <ul class="space-y-6">
+                {[
+                    { lead: "Recupera tus valoraciones antiguas.", text: "Escribe a quien pidió valoración hace meses con los precios actualizados de su zona. Es la campaña más rentable que harás este año." },
+                    { lead: "Monta la alerta de exclusivas.", text: "Cada captación nueva avisada el mismo día a los compradores que encajan. Vendes antes y captas mejor." },
+                    { lead: "Autentica tu dominio.", text: "Comprueba que tienes SPF, DKIM y DMARC configurados. Sin eso, tu seguimiento compite por llegar a la bandeja." },
+                    { lead: "Pon un gancho en tu web.", text: "Una guía de venta o las alertas de zona convierten visitas anónimas en contactos con nombre y teléfono." },
+                ].map(tip => (
+                    <li class="flex items-start gap-4">
+                        <svg class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        <p class="text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
+                            <strong class="font-bold text-zinc-900">{tip.lead}</strong> {tip.text}
+                        </p>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </section>
+
+    <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
+    <GoogleReviews locale="es" title="Lo que dicen nuestros clientes sobre el email marketing de Nova" />
+
+
+    <!-- ═══ FAQS ════════════════════════════════════════════════ -->
+    <FaqHome title="Preguntas sobre nuestro email marketing inmobiliario" items={faqs} emitSchema={false} />
+
+    <!-- ═══ CONTACTO ════════════════════════════════════════════ -->
+    <section id="contacto" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
+            <div class="reveal text-white">
+                <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">CRECIMIENTO GARANTIZADO</span>
+                <h2 class="text-5xl sm:text-7xl font-black uppercase tracking-tighter leading-[0.8] mb-8">
+                   CAPTA MÁS <br>PROPIETARIOS
+                </h2>
+                <p class="font-light max-w-md text-base sm:text-xl">Consúltame y te diré cuántos encargos duermen hoy en tu base de datos.</p>
+            </div>
+
+            <div class="reveal">
+                <div class="bg-white p-8 sm:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
+                    <form class="space-y-8" id="contact-form">
+                        <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
+                            <div class="flex flex-col gap-3">
+                                <label class="opacity-30">NOMBRE</label>
+                                <input type="text" name="name" aria-label="Nombre" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                            <div class="flex flex-col gap-3">
+                                <label class="opacity-30">TELÉFONO</label>
+                                <input type="tel" name="phone" class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">EMAIL PROFESIONAL</label>
+                            <input type="email" name="email" aria-label="Correo electrónico" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                        </div>
+                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">CONSULTA</label>
+                            <textarea name="msg" aria-label="Mensaje" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="¿Qué necesita tu inmobiliaria?"></textarea>
+                        </div>
+                        <button type="submit" class="w-full btn-mktg-v5 !py-6">QUIERO MÁS CAPTACIONES</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</BaseLayout>
+
+<script>
+    document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const btn = form.querySelector('button');
+        if (btn) { btn.innerHTML = 'ENVIANDO...'; btn.disabled = true; }
+        const data = Object.fromEntries(new FormData(form));
+        try {
+            const res = await fetch('https://cms.novamarketing.es/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            if (res.ok) {
+                window.location.href = '/gracias/';
+            } else { throw new Error(); }
+        } catch {
+            if (btn) { btn.innerHTML = 'ERROR — INTÉNTALO DE NUEVO'; btn.disabled = false; btn.style.background = '#ef4444'; }
+        }
+    });
+function initTimeline() {
+        const progressBar = document.getElementById('progress-bar');
+        const timeline = document.getElementById('timeline-container');
+        if (!progressBar || !timeline) return;
+
+        function updateProgress() {
+            const rect = timeline.getBoundingClientRect();
+            const winHeight = window.innerHeight;
+            const topPassed = (winHeight / 2) - rect.top;
+            let percentage = (topPassed / rect.height) * 100;
+            percentage = Math.max(0, Math.min(100, percentage));
+            progressBar.style.height = `${percentage}%`;
+
+            const nodes = timeline.querySelectorAll('.node-circle');
+            nodes.forEach((node) => {
+                const nodeTop = node.getBoundingClientRect().top;
+                if (nodeTop < winHeight / 2) {
+                    node.classList.add('!border-accent', '!bg-accent', '!text-white');
+                } else {
+                    node.classList.remove('!border-accent', '!bg-accent', '!text-white');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        document.addEventListener('astro:page-load', updateProgress);
+        updateProgress();
+    }
+    document.addEventListener('DOMContentLoaded', initTimeline);
+    document.addEventListener('astro:page-load', initTimeline);
+</script>

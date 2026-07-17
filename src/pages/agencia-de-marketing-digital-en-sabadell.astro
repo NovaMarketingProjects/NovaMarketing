@@ -68,7 +68,6 @@ const pageSchema = localAgencySchema({
   reviews: [
     { author: "Rosmelys Lopez", date: '2026-05-14', body: "Sinceramente estoy súper contenta con el trabajo que está haciendo Nova Marketing con el posicionamiento SEO y la página web de mi negocio ✨ Llevamos solo 3 meses y ya estoy notando resultados reales. Además, da gusto" },
     { author: "Belén Carrillo Comellas", date: '2025-08-14', body: "Gestiono redes sociales y necesitaba posicionarme en Google Sabadell y empezamos a trabajar en una estrategia seo. Dos o tres meses después ya empezamos a ver los resultados." },
-    { author: "Javier Pelegrin del Bas", date: '2025-10-14', body: "Hemos trabajados el posicionamiento local en Google concepto BuzzMarketing y muy satisfied" },
     { author: "John Muñoz", date: '2025-07-14', body: "Excelente agencia de marketing. Los he contactado en varias ocasiones para asesoramiento y siempre han cumplido con mis expectativas. Profesionalismo, creatividad y compromiso en cada proyecto. Totalmente recomendados." },
     { author: "Lidia Monterrubio", date: '2025-07-14', body: "¡Muy muy buen servicio! Nos ayudó a realizar y hacer posible los proyectos que teníamos en mente para hacer crecer nuestro negocio. Un diez en asesoramiento y acompañamiento en todo el proceso." },
     { author: "Martin Garcia", date: '2025-07-14', body: "Llevamos la estrategia SEM y publicidad en redes sociales con ellos,desde hace varios meses y de momento, trato y resultados de 10" },
@@ -145,7 +144,7 @@ const pageSchema = localAgencySchema({
                 </div>
             </div>
             <div class="hidden md:block">
-                <img src="/sergio-galos-agencia-de-marketing-digital-en-sabadell.webp" alt="Sergio Galo's, consultor de marketing digital para PYMEs en Sabadell" class="w-full h-auto" loading="lazy" />
+                <img src="/sergio-galos-agencia-de-marketing-digital-en-sabadell.webp" alt="Sergio Galo's, consultor de marketing digital para PYMEs en Sabadell" title="Sergio Galo's, consultor de marketing digital para PYMEs en Sabadell" class="w-full h-auto" loading="lazy" />
             </div>
         </div>
     </section>
@@ -206,12 +205,12 @@ const pageSchema = localAgencySchema({
         <!-- Hover Gradient Overlay -->
         <div class="absolute inset-x-0 h-1 bottom-0 bg-gradient-to-r from-accent via-accent/90 to-purple-600 w-0 group-hover:w-full transition-all duration-500"></div>
                     <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
-                        <a href="/consultoria-marketing-digital-sabadell/" class="hover:text-accent transition-colors">Consultoría de Marketing en Sabadell</a>
+                        <a href="/agencia-geo-para-pymes/sabadell/" class="hover:text-accent transition-colors">Agencia GEO en Sabadell</a>
                     </h3>
                     <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        ¿Tu marketing no da resultados? Auditamos tus procesos de captación, detectamos dónde se pierde el presupuesto y trazamos una hoja de ruta con embudos de venta sólidos para escalar tu negocio en Sabadell.
+                        Tus clientes de Sabadell ya preguntan a ChatGPT y Gemini qué empresa contratar. Trabajamos tu posicionamiento GEO para que la IA recomiende tu negocio antes que a tu competencia.
                     </p>
-                    <a href="/consultoria-marketing-digital-sabadell/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
+                    <a href="/agencia-geo-para-pymes/sabadell/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
                 </div>
             </div>
         </div>
@@ -374,9 +373,9 @@ const pageSchema = localAgencySchema({
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
                 {[
-                    { icon: '🛒', title: 'Agencia de marketing para ecommerce', desc: 'Arquitectura de categorías, fichas optimizadas, feed de Shopping y CRO. El SEO de producto y las campañas bien estructuradas se retroalimentan para vender más.' },
-                    { icon: '🏠', title: 'Agencia de marketing para inmobiliarias', desc: 'Captación de propietarios y compradores en un mercado carísimo. Landings por zona, SEO local por barrio y campañas que filtran curiosos de clientes reales.' },
-                    { icon: '🍽️', title: 'Agencia de marketing para restaurantes', desc: 'Aquí manda la ficha de Google y las reseñas. Trabajamos el pack local completo para que aparezcas cuando alguien busca dónde comer cerca, y llenar mesas entre semana.' },
+                    { icon: '🛒', title: 'Agencia de marketing para ecommerce', href: '/agencia-ecommerce/', desc: 'Arquitectura de categorías, fichas optimizadas, feed de Shopping y CRO. El SEO de producto y las campañas bien estructuradas se retroalimentan para vender más.' },
+                    { icon: '🏠', title: 'Agencia de marketing para inmobiliarias', href: '/agencia-inmobiliarias/', desc: 'Captación de propietarios y compradores en un mercado carísimo. Landings por zona, SEO local por barrio y campañas que filtran curiosos de clientes reales.' },
+                    { icon: '🍽️', title: 'Agencia de marketing para restaurantes', href: '/agencia-restaurantes/', desc: 'Aquí manda la ficha de Google y las reseñas. Trabajamos el pack local completo para que aparezcas cuando alguien busca dónde comer cerca, y llenar mesas entre semana.' },
                     { icon: '🧠', title: 'Agencia de marketing para psicólogos', desc: 'El paciente busca confianza antes que precio. Contenido con autoridad clínica, SEO local por especialidad y campañas discretas que respetan la sensibilidad del sector.' },
                     { icon: '🌿', title: 'Agencia de marketing para terapeutas', desc: 'Un sector con mucha competencia genérica y poca especializada. Posicionamos tu consulta por terapia y zona, con contenido que educa y convierte visitas en primeras sesiones.' },
                     { icon: '🦷', title: 'Agencia de marketing para dentistas', desc: 'Sector saturado en Sabadell y con alta exigencia de E-E-A-T. Ganan quienes combinan SEO local impecable, reseñas gestionadas y contenido clínico con autoridad real.' },
@@ -390,7 +389,7 @@ const pageSchema = localAgencySchema({
                     <div class="bg-white border border-black/5 rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                         <div class="text-3xl mb-4">{s.icon}</div>
                         <h3 class="text-base uppercase tracking-tight text-zinc-900 mb-3 leading-tight font-montserrat-semibold">
-                            {s.title}
+                            {s.href ? <a href={s.href} class="hover:text-accent transition-colors">{s.title}</a> : s.title}
                             <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1 font-semibold">en Sabadell</span>
                         </h3>
                         <p class="text-sm text-zinc-500 font-light leading-relaxed">{s.desc}</p>
@@ -533,7 +532,7 @@ const pageSchema = localAgencySchema({
         <div class="max-w-5xl mx-auto reveal">
             <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] grid md:grid-cols-[280px_1fr] gap-8 sm:gap-12 items-center">
                 <div class="rounded-2xl overflow-hidden bg-zinc-100">
-                    <img src="/sergio-galos-agencia-de-marketing-digital-en-sabadell.webp" alt="Sergio Galo's, consultor de marketing digital para PYMEs en Sabadell" class="w-full h-full object-cover object-top" loading="lazy" />
+                    <img src="/sergio-galos-agencia-de-marketing-digital-en-sabadell.webp" alt="Sergio Galo's, consultor de marketing digital para PYMEs en Sabadell" title="Sergio Galo's, consultor de marketing digital para PYMEs en Sabadell" class="w-full h-full object-cover object-top" loading="lazy" />
                 </div>
                 <div>
                     <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Quién está detrás</span>
@@ -645,14 +644,14 @@ const pageSchema = localAgencySchema({
 
             <!-- Imagen: más grande, desbordando por la derecha -->
             <div class="reveal lg:-mr-[12%] xl:-mr-[18%]">
-                <img src="/agencia-de-marketing-digital-para-pymes-sabadell.webp" alt="Nova Marketing, agencia de marketing digital recomendada por la IA en Sabadell" class="w-full h-auto" loading="lazy" />
+                <img src="/agencia-de-marketing-digital-para-pymes-sabadell.webp" alt="Nova Marketing, agencia de marketing digital recomendada por la IA en Sabadell" title="Nova Marketing, agencia de marketing digital recomendada por la IA en Sabadell" class="w-full h-auto" loading="lazy" />
             </div>
 
         </div>
     </section>
 
     <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
-    <GoogleReviews locale="es" />
+    <GoogleReviews locale="es" title="Lo que dicen nuestros clientes sobre el marketing digital de Nova" />
 
     <!-- ═══ DÓNDE TRABAJAMOS ═══════════════════════════════════════ -->
     <section class="py-20 sm:py-28 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">

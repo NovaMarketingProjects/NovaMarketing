@@ -5,9 +5,16 @@ interface Props {
   backgroundColor?: string;
 }
 const { content, backgroundColor } = Astro.props;
+
+// URLs retiradas: reescribimos los enlaces que aún existan en el contenido del CMS
+const safeContent = (content || '')
+  .replaceAll('/ca/consultoria-marketing-per-pimes/', '/ca/agencia-geo-per-pimes/')
+  .replaceAll('/consultoria-marketing-para-pymes/', '/agencia-geo-para-pymes/')
+  .replace(/\/ca\/consultoria-marketing-digital-(barcelona|sabadell|sant-cugat|terrassa)\//g, '/ca/agencia-de-marketing-digital-a-$1/')
+  .replace(/\/consultoria-marketing-digital-(barcelona|sabadell|sant-cugat|terrassa)\//g, '/agencia-de-marketing-digital-en-$1/');
 ---
 <div
   class="prose my-8 mx-auto"
   style={backgroundColor ? `background:${backgroundColor}; padding:2rem; border-radius:1rem;` : ''}
-  set:html={content}
+  set:html={safeContent}
 />

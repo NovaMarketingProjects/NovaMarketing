@@ -144,7 +144,7 @@ const ctaTitle = caseCategories.some((c: string) => c.includes('seo') || c.inclu
         <div class="absolute inset-0 z-0">
             <img 
               src={coverUrl} 
-              alt={caseStudy.title} 
+              alt={caseStudy.title} title={caseStudy.title} 
               class="w-full h-full object-cover scale-105 opacity-60"
             />
             <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent"></div>
@@ -241,7 +241,7 @@ const ctaTitle = caseCategories.some((c: string) => c.includes('seo') || c.inclu
                     { label: 'Posicionament SEO', href: '/ca/agencia-seo-per-pimes/' },
                     { label: 'Google Ads', href: '/ca/agencia-sem-per-pimes/' },
                     { label: 'Disseny de pàgines web', href: '/ca/disseny-web-per-pimes/' },
-                    { label: 'Consultoria de marketing', href: '/ca/consultoria-marketing-per-pimes/' },
+                    { label: 'Posicionament GEO en IA', href: '/ca/agencia-geo-per-pimes/' },
                   ].map(s => (
                     <li class="border-b border-zinc-200 last:border-0">
                       <a href={s.href} class="group flex items-center justify-between py-3">

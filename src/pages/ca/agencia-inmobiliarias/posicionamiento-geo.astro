@@ -1,0 +1,700 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { buildAlternates } from '../../../lib/i18n';
+import { localAgencySchema } from '../../../lib/schema';
+import { strapiClient } from '../../../lib/strapi';
+import LogoMarquee from '../../../components/sections/LogoMarquee.astro';
+import FaqHome from '../../../components/sections/FaqHome.astro';
+import CityPills from '../../../components/global/CityPills.astro';
+import GoogleReviews from '../../../components/global/GoogleReviews.astro';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const alternates = buildAlternates('/agencia-inmobiliarias/posicionamiento-geo/', '/ca/agencia-inmobiliarias/posicionamiento-geo/', SITE_URL);
+
+let allCases: any[] = [];
+try {
+  const casesRes = await strapiClient.getCaseStudies('ca');
+  allCases = casesRes.data.map((i: any) => i.attributes ?? i).filter((c: any) => {
+    const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase());
+    return cats.some((s: string) => s.includes('seo') || s === 'marketing-digital');
+  });
+} catch {}
+
+const faqs = [
+  { question: "Què és el GEO per a una immobiliària?", answer: "El GEO (Generative Engine Optimization) optimitza la teva presència digital perquè els assistents d'IA com ChatGPT, Gemini o Perplexity mencionin i recomanin la teva agència quan algú pregunta a qui confiar la venda del seu pis o quina immobiliària triar a la teva zona." },
+  { question: "Quant costa?", answer: "L'auditoria GEO costa 1.800 euros i els plans mensuals van des de 400 euros al mes per a agències amb una o dues zones i des de 900 per a grups o zones molt competides." },
+  { question: "Com faig que ChatGPT recomani la meva agència?", answer: "Treballant els senyals que els models fan servir. Contingut local citable, ressenyes verificables, dades estructurades, mencions en fonts fiables i coherència de marca. No es pot pagar per sortir, cal guanyar-s'ho amb mètode." },
+  { question: "De veritat la gent pregunta això a la IA?", answer: "Cada cop més. Vendre un pis és una decisió de molts diners i poca freqüència, exactament el tipus de decisió on es demana consell. I aquest consell s'està traslladant a la IA." },
+  { question: "Quant es triga a aparèixer?", answer: "Amb una base de contingut i ressenyes, els primers canvis poden veure's en setmanes. Partint de zero, l'habitual és començar a guanyar mencions entre el tercer i el sisè mes." },
+  { question: "Com mesureu els resultats?", answer: "Amb un panell de preguntes reals de la teva zona llançades a cada model cada mes, registrant si apareixes i davant qui, amb captura i data." },
+  { question: "Treballeu amb permanència?", answer: "No, treballem mes a mes. Si el servei no t'aporta valor, pots cancel·lar-lo quan vulguis." },
+];
+
+const pageSchema = localAgencySchema({
+  pageUrl: `${SITE_URL}/ca/agencia-inmobiliarias/posicionamiento-geo/`,
+  lang: 'ca',
+  cityName: 'Barcelona',
+  postalCode: '08035',
+  geo: { lat: 41.4114, lng: 2.1526 },
+  areaServed: ["España", "Barcelona", "Sabadell", "Sant Cugat del Vallès", "Terrassa", "Vallès Occidental"],
+  title: "Agència GEO per a Immobiliàries | Posicionament en IA | Nova Marketing",
+  description: "Posicionament GEO per a immobiliàries. Fes que ChatGPT, Gemini i Perplexity recomanin la teva agència quan algú pregunta a qui confiar el seu pis. Sense permanències.",
+  datePublished: '2026-07-17',
+  dateModified: '2026-07-17',
+  streetAddress: 'Carrer del General Mendoza, 10',
+  hasMap: 'https://maps.app.goo.gl/9fbB12UcK32bgjj89',
+  aggregateRating: { ratingValue: '5.0', reviewCount: '8' },
+  breadcrumbName: "Agència GEO per a Immobiliàries",
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Agència GEO per a Immobiliàries | Posicionament en IA | Nova Marketing"
+  description="Posicionament GEO per a immobiliàries. Fes que ChatGPT, Gemini i Perplexity recomanin la teva agència quan algú pregunta a qui confiar el seu pis. Sense permanències."
+  locale="ca"
+  alternates={alternates}
+  schemas={[pageSchema]}
+>
+
+    <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
+    <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+        <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+
+        <div class="max-w-5xl mx-auto reveal">
+            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
+                <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+                Posicionament en IA per a Immobiliàries
+            </span>
+            <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
+                <span class="lg:whitespace-nowrap">Agència GEO </span>
+                <span class="lg:whitespace-nowrap text-mktg-gradient">per a Immobiliàries</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
+                Quan algú pregunta a ChatGPT quina immobiliària li recomana a la teva zona, la resposta en nomena una o dues. Posicionament en IA perquè la recomanada siguis tu.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
+                {['Sense permanències', 'Tracte directe amb el consultor', 'Resultats mesurats en captacions'].map(item => (
+                    <span class="inline-flex items-center gap-2 text-[11px] sm:text-xs font-black uppercase tracking-widest text-zinc-700">
+                        <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        {item}
+                    </span>
+                ))}
+            </div>
+            <div class="flex justify-center mt-4">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    PARLEM DE LA TEVA IMMOBILIÀRIA
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <LogoMarquee />
+
+    <!-- ═══ INTRO ═══════════════════════════════════════════════════════ -->
+    <section class="py-16 sm:py-24 bg-white px-4 sm:px-6 border-b border-black/5">
+        <div class="max-w-6xl mx-auto reveal grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-16 items-center">
+            <div>
+                <p class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4">Per què GEO?</p>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    L'agència de posicionament en IA per a la teva immobiliària
+                </h2>
+                <div class="space-y-6 text-zinc-600 font-light text-base sm:text-lg leading-relaxed">
+                    <p>
+                        <strong class="font-semibold text-zinc-900">Vendre un pis és una de les decisions on més consell es demana, i cada cop es demana a la IA</strong>. Quina immobiliària triar, quant cobren, qui és de fiar a la meva zona. La resposta recomana una o dues agències, i allà no hi ha segona pàgina.
+                    </p>
+                    <p>
+                        Nova és una <strong class="font-semibold text-zinc-900">agència GEO especialitzada en immobiliàries</strong>. Treballem els senyals que els models fan servir per recomanar amb una sola mètrica que importa. <strong class="font-semibold text-zinc-900">Que la IA recomani la teva agència abans que la teva competència</strong>.
+                    </p>
+                </div>
+            </div>
+            <div class="hidden md:block">
+                <img src="/sergio-galos-agencia-inmobiliarias-posicionamiento-geo.webp" alt="Sergio Galo's, Consultor GEO immobiliari" title="Sergio Galo's, Consultor GEO immobiliari" class="w-full h-auto" loading="lazy" />
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SERVEIS ══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50 px-4 sm:px-6 border-t border-b border-black/5">
+        <div class="max-w-7xl mx-auto text-center reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Què fem</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Servei de posicionament GEO immobiliari
+            </h2>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-16">
+                El GEO d'una immobiliària no és un truc, és un sistema de senyals. Aquestes són les nou peces que treballem.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+                {[
+                    { t: "Auditoria GEO", d: "Preguntem a ChatGPT, Gemini, Claude i Perplexity el que preguntaria un propietari de la teva zona i documentem cada resposta." },
+                    { t: "Entitat de marca local", d: "Que la IA entengui sense dubtes quina agència ets, a quina zona treballes i per què ets de fiar." },
+                    { t: "Contingut citable", d: "Guies de venda i preus per zona estructurats perquè un model pugui citar-los en respondre." },
+                    { t: "Dades estructurades", d: "La teva agència, les teves zones i els teus serveis en l'idioma que llegeixen les màquines." },
+                    { t: "Ressenyes com a senyal", d: "Els models recomanen agències amb reputació verificable. Les teves ressenyes de Google són munició." },
+                    { t: "Autoritat i mencions", d: "Mencions en mitjans i directoris del sector que avalen la teva agència davant dels models." },
+                    { t: "Monitorització de mencions", d: "Seguiment mensual de què respon cada model sobre les agències de la teva zona." },
+                    { t: "GEO més SEO", d: "La IA s'alimenta de contingut ben posicionat. Una sola estratègia per a Google i la IA." },
+                    { t: "Google AI Overviews", d: "Els resums amb IA de Google ja responen cerques immobiliàries. Preparem la teva agència per sortir-hi." },
+                ].map((c: any) => (
+                    <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900 mb-3">
+                            {c.href ? <a href={c.href} class="hover:text-accent transition-colors">{c.t}</a> : c.t}
+                            {c.b && <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1 font-semibold">{c.b}</span>}
+                        </h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed mb-2">{c.d}</p>
+                        {c.href && <a href={c.href} class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>}
+                    </div>
+                ))}
+            </div>
+            <div class="mt-12 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">PARLEM DE LA TEVA IMMOBILIÀRIA</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ ESTRATÈGIA ════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16 sm:mb-24 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Com treballem</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Estratègia GEO per a la teva immobiliària
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Una metodologia documentada, pas a pas i sense fum.
+                </p>
+            </div>
+
+            <div id="timeline-container" class="relative">
+                <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
+                <div id="progress-bar" class="hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100"></div>
+
+                <div class="space-y-16 md:space-y-24 flex flex-col items-center">
+                    {[
+                        { title: "Auditoria de Visibilitat en IA", desc: "Preguntem als models el que preguntaria un propietari de la teva zona. Mesurem si apareixes i a qui recomanen." },
+                        { title: "Estratègia GEO Documentada", desc: "Full de ruta per escrit. Quines preguntes atacar, quin contingut crear i quins senyals reforçar." },
+                        { title: "Optimització per a Motors Generatius", desc: "Reestructurem la teva web i el teu contingut local perquè la IA pugui citar-los." },
+                        { title: "Autoritat i Citabilitat", desc: "Ressenyes, mencions i coherència de marca. Els senyals perquè la teva agència sigui la resposta." },
+                        { title: "Mesura i Ajust Continu", desc: "Monitorem les teves mencions a cada model mes a mes, amb captura i data." },
+                    ].map((step, index) => (
+                        <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
+                            <div class:list={["flex-1 w-full", index % 2 === 0 ? "md:order-1 md:text-right" : "md:order-3 md:text-left"]}>
+                                <div class="p-8 sm:p-10 bg-zinc-50 border border-black/5 rounded-3xl hover:border-accent/10 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+                                    <h3 class="text-xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{index + 1}. {step.title}</h3>
+                                    <div class:list={["h-0.5 bg-accent w-full mb-4 opacity-80", index % 2 === 0 ? "md:ml-auto" : ""]}></div>
+                                    <p class:list={["text-sm text-zinc-500 font-light max-w-md", index % 2 === 0 ? "md:ml-auto" : ""]}>{step.desc}</p>
+                                    <div class="absolute -bottom-6 -right-5 text-8xl font-black text-black/[0.02] select-none z-0 group-hover:scale-105 transition-transform duration-500">0{index+1}</div>
+                                </div>
+                            </div>
+                            <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all">
+                                0{index + 1}
+                            </div>
+                            <div class:list={["hidden md:block md:flex-1", index % 2 === 0 ? "md:order-3" : "md:order-1"]}></div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ AUDITORIA ═════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-[6fr_4fr] gap-12 lg:gap-16 items-start">
+            <div class="reveal lg:col-span-2">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Punt de partida</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
+                    Auditoria de posicionament en IA per a la teva immobiliària
+                </h2>
+            </div>
+            <div class="reveal">
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed mb-8">
+                    <p>Saps què respon ChatGPT quan algú pregunta quina immobiliària triar a la teva zona? Surt la teva agència o surt la teva competència? Gairebé ningú ho ha comprovat, i aquí comença tot.</p>
+                    <p>La nostra <strong class="font-semibold text-zinc-900">auditoria GEO immobiliària</strong> llança les preguntes reals de propietaris i compradors als principals models i documenta cada resposta amb captura i data.</p>
+                    <p>Cada punt el revisa un consultor sènior. El resultat és un diagnòstic de negoci, no un experiment.</p>
+                </div>
+                <ul class="space-y-3">
+                    {["Test real a ChatGPT, Gemini, Claude i Perplexity","Presència a Google AI Overviews","Entitat de marca i dades estructurades","Contingut local citable","Ressenyes i senyals de confiança","Pla d'acció prioritzat per impacte"].map(item => (
+                        <li class="flex items-start gap-3 text-sm text-zinc-700 font-light">
+                            <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                            {item}
+                        </li>
+                    ))}
+                </ul>
+                <div class="mt-16">
+                    <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                        VULL LA MEVA AUDITORIA GEO
+                    </a>
+                </div>
+            </div>
+            <div class="reveal flex flex-col gap-4">
+                {[
+                    { bg: 'bg-purple-100', color: 'text-purple-600', t: "Test real als models", d: "Les preguntes de la teva zona llançades a cada model, amb captura i data." },
+                    { bg: 'bg-green-100', color: 'text-green-600', t: "Pla d'acció prioritzat", d: "Quins senyals treballar primer i què no mereix ni un euro." },
+                    { bg: 'bg-purple-100', color: 'text-purple-600', t: "Anàlisi d'entitat", d: "Com entén la IA la teva agència avui i quins buits confonen els models." },
+                    { bg: 'bg-amber-100', color: 'text-amber-600', t: "Contingut citable", d: "Quines pàgines pot citar la IA tal com estan i quines cal reestructurar." },
+                    { bg: 'bg-blue-100', color: 'text-blue-600', t: "Benchmark de la teva zona", d: "A quines agències recomana avui la IA a la teva plaça i quins senyals tenen que tu no." },
+                ].map(card => (
+                    <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                        <div class:list={["w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0", card.bg]}>
+                            <svg class:list={["w-5 h-5", card.color]} fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-black text-zinc-900 mb-1">{card.t}</h3>
+                            <p class="text-xs text-zinc-500 font-light leading-relaxed">{card.d}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ QUÈ INCLOU L'AUDITORIA ═══════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Pas a pas</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
+                    Què inclou l'auditoria GEO de nova
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch reveal">
+                {[
+                    { n: '1', t: "Radiografia de visibilitat en IA", d: "Les preguntes de la teva zona llançades als principals models, amb cada resposta guardada." },
+                    { n: '2', t: "Diagnòstic GEO de la teva agència", d: "Per què la IA t'ignora o et cita, explicat amb els teus senyals actuals." },
+                    { n: '3', t: "Full de ruta per sortir en la IA", d: "Accions ordenades per impacte i una videotrucada on ho repassem amb tu." },
+                ].map((st, i) => (
+                    <div class="flex items-center gap-4 lg:gap-6">
+                        {i > 0 && <div class="hidden lg:flex text-3xl text-accent font-black select-none">→</div>}
+                        <div class="bg-white border border-black/5 rounded-2xl p-8 shadow-[0_15px_40px_rgba(0,0,0,0.06)] flex-1 text-center h-full">
+                            <div class="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto mb-4 text-accent font-black text-lg">{st.n}</div>
+                            <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3">{st.t}</h3>
+                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{st.d}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto text-center mt-16 reveal">
+                La nostra auditoria GEO és el primer pas perquè la IA recomani la teva agència. Analitza com et veuen avui els models i et deixa un full de ruta clar.
+            </p>
+            <div class="mt-12 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">VULL LA MEVA AUDITORIA GEO</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PREUS ════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Tarifes clares</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Preus de posicionament GEO immobiliari
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto">
+                    Tarifes orientatives i sense lletra petita. El preu depèn de la mida del teu catàleg, la competència del teu sector i el teu punt de partida, així que abans de començar reps un pressupost tancat per escrit. El cost no porta sorpreses ni permanències.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                {[
+                    { small: 'Preu', name: "Auditoria GEO Immobiliària", price: "1.800€", meta: ["Lliurament en 3 a 4 setmanes","Per a qualsevol agència que vulgui saber on és"], items: ["Sessió inicial d'objectius","Test a ChatGPT, Gemini i Perplexity","Presència a Google AI Overviews","Entitat i dades estructurades","Diagnòstic de contingut citable","Comparativa amb 3 competidors","Accions ordenades per impacte","Videotrucada de lliurament"], cta: "Vull auditar la meva visibilitat" },
+                    { small: 'Preu', name: "GEO Immobiliari", price: "des de 400€ / mes", meta: ["Primeres mencions en uns 3 mesos","Per a agències amb una o dues zones"], items: ["Diagnòstic inicial de l'agència","Estratègia documentada","Panell mensual de preguntes","Contingut local citable","Dades estructurades al dia","Ressenyes i senyals de confiança","Informe mensual de leads i costos","Línia directa amb el consultor","Sense permanència"], cta: "Vull sortir en la IA" },
+                    { small: 'Preu', name: "GEO Big Immobiliària", price: "des de 900€ / mes", meta: ["Primeres mencions en uns 2 mesos","Per a grups i zones molt competides"], items: ["Diagnòstic inicial de l'agència","Estratègia documentada","Tot el pla GEO Immobiliari","Estratègia SEO i GEO conjunta","Mencions en mitjans","Seguiment a tots els models","Informe mensual de leads i costos","Línia directa amb el consultor","Sense permanència"], cta: "Vull ser la resposta" },
+                ].map(pl => (
+                    <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-10 flex flex-col shadow-[0_15px_40px_rgba(0,0,0,0.06)] hover:shadow-xl transition-shadow duration-300 reveal">
+                        <h3 class="leading-tight mb-2">
+                            <span class="block text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-1">{pl.small} </span>
+                            <span class="block text-xl font-black uppercase tracking-tight text-zinc-900">{pl.name}</span>
+                        </h3>
+                        <div class="text-lg font-bold text-zinc-900">{pl.price}</div>
+                        <div class="text-[10px] text-zinc-400 font-light mt-1 mb-6">* Preu sense IVA</div>
+                        <div class="text-xs text-zinc-500 font-light mb-8 space-y-1.5">
+                            {pl.meta.map(m => <div>{m}</div>)}
+                        </div>
+                        <div class="text-xs font-black uppercase tracking-widest text-zinc-400 pb-3 border-b border-zinc-100">Què inclou</div>
+                        <ul class="divide-y divide-zinc-100 flex-1">
+                            {pl.items.map(item => (
+                                <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light">
+                                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 !py-4 !text-[11px] !tracking-widest font-black mt-10 text-center">
+                            {pl.cta}
+                        </a>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PLATAFORMES ══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-b border-black/5">
+        <div class="max-w-7xl mx-auto text-center reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">La teva tecnologia</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Posicionament GEO per a la teva plataforma
+            </h2>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-16">
+                Cada web immobiliària té les seves regles de joc. Treballem les dues bases tecnològiques que dominen el sector.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+                {[
+                    { t: "GEO per a WordPress", d: "Aprofitem els plugins immobiliaris, les landings per barri i la flexibilitat editorial de WordPress.", b: "Plataforma", href: "/ca/agencia-inmobiliarias/wordpress/" },
+                    { t: "GEO per a Desenvolupament Propi", d: "Especificacions clares per al teu equip tècnic i campanyes connectades al teu cercador i el teu CRM.", b: "Plataforma", href: "/ca/agencia-inmobiliarias/desarrollo-propio/" },
+                ].map((c: any) => (
+                    <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900 mb-3">
+                            {c.href ? <a href={c.href} class="hover:text-accent transition-colors">{c.t}</a> : c.t}
+                            {c.b && <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1 font-semibold">{c.b}</span>}
+                        </h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed mb-2">{c.d}</p>
+                        {c.href && <a href={c.href} class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>}
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CITA ══════════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-zinc-950 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <blockquote class="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.15] mb-8">
+                “Cada setmana algú de la teva zona pregunta a la IA a qui confiar el seu pis. Si la teva agència no és a la resposta, l'exclusiva se l'emporta una altra. No necessites més portals. Necessites GEO.”
+            </blockquote>
+            <p class="text-sm text-zinc-400 font-light mb-10">Sergio Galo's · Consultor GEO immobiliari</p>
+            <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                PARLEM DE LA TEVA IMMOBILIÀRIA
+            </a>
+        </div>
+    </section>
+
+    <!-- ═══ PER QUÈ NOVA (COMPARATIVA) ═════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Per què nova</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Què diferencia nova d'una altra agència GEO
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    El màrqueting immobiliari està ple de fum i de leads freds comprats a l'engròs. Nosaltres el treballem amb mètode, transparència i resultats en captacions signades.
+                </p>
+            </div>
+
+            <div class="reveal overflow-x-auto rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
+                <table class="w-full min-w-[640px] text-left border-collapse bg-white">
+                    <thead>
+                        <tr class="bg-black text-white">
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Criteri</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Nova</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Altres agències</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-zinc-100">
+                        {[
+                            { c: "Qui serà el teu contacte", o: "Gestor júnior amb 20-30 comptes", n: "Sergio Galo's" },
+                            { c: "Què es mesura", o: "Promeses sense comprovar", n: "Mencions reals a cada model, amb captura" },
+                            { c: "El mètode", o: "Trucs i dreceres sense base", n: "Senyals verificables que fan servir els models" },
+                            { c: "Especialització", o: "GEO genèric per a qualsevol web", n: "GEO específic del sector immobiliari" },
+                            { c: "Permanència", o: "6-12 mesos habituals", n: "Mes a mes, sense permanència" },
+                            { c: "La base", o: "GEO sense SEO, castell a l'aire", n: "SEO + GEO integrats amb mètode propi" },
+                            { c: "Transparència de preus", o: "Pressupostos opacs amb extres sorpresa", n: "Preu tancat per escrit abans de començar" },
+                        ].map(row => (
+                            <tr class="hover:bg-zinc-50/50 transition-colors">
+                                <td class="px-6 py-5 text-sm font-bold text-zinc-900">{row.c}</td>
+                                <td class="px-6 py-5 text-sm font-bold text-accent">{row.n}</td>
+                                <td class="px-6 py-5 text-sm text-zinc-500 font-light">{row.o}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ COM TRIAR ════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-12 sm:mb-16 reveal text-center">
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Com contractar una agència GEO sense que et venguin fum
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Hi ha centenars d'agències i la majoria d'immobiliàries tria malament la primera vegada. Aquests són els set criteris que hauries d'exigir a qualsevol agència, inclosa la nostra.
+                </p>
+            </div>
+
+            <div class="divide-y divide-zinc-100 reveal">
+                {[
+                    { title: "Demana una demostració en directe", desc: "Que preguntin a ChatGPT pels seus propis clients i t'ensenyin on apareixen." },
+                    { title: "Pregunta qui portarà el teu compte", desc: "Exigeix conèixer la persona que treballarà el teu projecte abans de signar." },
+                    { title: "Desconfia de qui garanteix aparèixer a ChatGPT", desc: "Ningú controla què respon un model. El que és seriós és garantir mètode i senyals mesurables." },
+                    { title: "Exigeix mesura amb captures", desc: "El GEO es demostra amb les respostes reals de cada model, amb data." },
+                    { title: "Que combini GEO amb SEO", desc: "Els models citen contingut visible i amb autoritat. Un GEO sense SEO construeix sobre sorra." },
+                    { title: "Fuig de les permanències llargues", desc: "Una permanència de 12 mesos protegeix l'agència, no a tu." },
+                    { title: "Especialització en immobiliàries", desc: "Que la IA recomani una agència depèn de senyals locals, ressenyes i confiança." },
+                ].map((c, i) => (
+                    <div class="py-6 sm:py-8 flex gap-6 sm:gap-8 items-start">
+                        <div class="text-2xl sm:text-3xl font-black tracking-tighter text-accent flex-shrink-0 w-10 leading-none">0{i + 1}</div>
+                        <div>
+                            <h3 class="text-base sm:text-lg font-black uppercase tracking-tight text-zinc-900 mb-2">{c.title}</h3>
+                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.desc}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ QUI HI HA AL DARRERE ═══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto reveal">
+            <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] grid md:grid-cols-[280px_1fr] gap-8 sm:gap-12 items-center">
+                <div class="rounded-2xl overflow-hidden bg-zinc-100">
+                    <img src="/sergio-galos-agencia-inmobiliarias-posicionamiento-geo.webp" alt="Sergio Galo's, Consultor GEO immobiliari" title="Sergio Galo's, Consultor GEO immobiliari" class="w-full h-full object-cover object-top" loading="lazy" />
+                </div>
+                <div>
+                    <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Qui hi ha al darrere</span>
+                    <h2 class="text-2xl sm:text-4xl font-black tracking-tighter uppercase text-zinc-900 leading-[0.95] mb-6">
+                        Sergio Galo's <br>
+                        <span class="text-lg sm:text-2xl">El teu consultor geo immobiliari</span>
+                    </h2>
+                    <div class="space-y-4 text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
+                        <p>
+                            Soc <strong class="font-semibold text-zinc-900">Sergio Galo's</strong>, consultor de màrqueting digital i fundador de Nova Marketing. Porto anys generant captacions i vendes per a immobiliàries en alguns dels mercats més competits d'Espanya.
+                        </p>
+                        <p>
+                            Quan contractes amb nova parles sempre amb mi. Jo faig l'auditoria, jo dissenyo l'estratègia i jo responc a la reunió mensual. Sense capes comercials ni gestors que canvien cada trimestre.
+                        </p>
+                    </div>
+                    <a href="https://www.linkedin.com/company/nova-marketing-pymes/" target="_blank" rel="noopener" class="inline-block mt-6 text-[12px] font-black tracking-widest text-accent hover:underline">
+                        Veure perfil a LinkedIn →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CASOS D'ÈXIT (CMS) ═══════════════════════════════════ -->
+    {allCases.length > 0 && (
+    <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6 overflow-hidden">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-12 reveal">
+          <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultats provats</span>
+          <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
+            Casos d'èxit de posicionament<br class="hidden md:inline" /> local i en IA
+          </h2>
+        </div>
+        <div class="cases-carousel relative overflow-hidden">
+          <div class="cases-track flex gap-6 transition-transform duration-500 ease-in-out">
+            {allCases.map((cs: any) => {
+              const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
+              const caseUrl = cs.isPublic && cs.slug ? `/ca/casos-exit/${cs.slug}/` : null;
+              return (
+                <div class="cases-slide flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
+                  <div>
+                    {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
+                    <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors leading-tight">
+                      {caseUrl ? (
+                        <a href={caseUrl} class="hover:text-accent transition-colors">{cs.title}</a>
+                      ) : (
+                        <span class="group-hover:text-accent transition-colors">{cs.title}</span>
+                      )}
+                    </h3>
+                    <p class="text-xs text-zinc-500 font-light leading-relaxed">{cs.description}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+    )}
+    <script is:inline>
+      function initCasesCarousel() {
+        const track = document.querySelector('.cases-track');
+        if (!track) return;
+        const slides = track.querySelectorAll('.cases-slide');
+        if (slides.length <= 4) return;
+        let current = 0;
+        const total = slides.length;
+        function getVisible() {
+          if (window.innerWidth >= 1024) return 4;
+          if (window.innerWidth >= 640) return 2;
+          return 1;
+        }
+        function next() {
+          const visible = getVisible();
+          const maxIndex = total - visible;
+          current = current >= maxIndex ? 0 : current + 1;
+          const slideWidth = slides[0].offsetWidth + 24;
+          track.style.transform = `translateX(-${current * slideWidth}px)`;
+        }
+        const interval = setInterval(next, 5000);
+        document.addEventListener('astro:before-preparation', () => clearInterval(interval));
+      }
+      document.addEventListener('DOMContentLoaded', initCasesCarousel);
+      document.addEventListener('astro:page-load', initCasesCarousel);
+    </script>
+
+    <!-- ═══ RECOMANATS PER LA IA ═════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+            <div class="reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Ens avala la IA</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    L'agència GEO immobiliària que recomana la pròpia IA
+                </h2>
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed">
+                    <p>
+                        Quan algú pregunta per una <strong class="font-semibold text-zinc-900">agència GEO per a immobiliàries</strong> a ChatGPT, Gemini o Claude, nova apareix entre les agències recomanades. És la millor prova que sabem generar visibilitat, perquè ho apliquem primer en nosaltres mateixos.
+                    </p>
+                    <p>
+                        Als assistents d'IA no els pots comprar un anunci per sortir primer. Recomanen el que troben. Casos reals publicats, botigues que creixen i es poden visitar, una especialització clara i clients que parlen de nosaltres.
+                    </p>
+                    <p>
+                        Prova-ho tu mateix. Obre ChatGPT i pregunta-li quina agència GEO per a immobiliàries et recomana. Si et surt nova, ja saps qui pot fer el mateix per la teva botiga.
+                    </p>
+                </div>
+            </div>
+
+            <div class="reveal flex justify-center">
+                <img src="/agencia-inmobiliarias-posicionamiento-geo.webp" alt="Nova Marketing, agència GEO per a immobiliàries recomanada per la IA" title="Nova Marketing, agència GEO per a immobiliàries recomanada per la IA" class="w-full max-w-sm lg:max-w-md h-auto" loading="lazy" />
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══ CONSELLS ═══════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Consells aplicables avui</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Com millorar la presència de la teva agència en la IA aquesta setmana
+            </h2>
+            <p class="text-zinc-500 font-light text-base leading-relaxed mb-10">
+                Si encara no estàs a punt per contractar, comença per aquí. Són accions que qualsevol agència pot aplicar pel seu compte i que ja mouen l'agulla.
+            </p>
+            <ul class="space-y-6">
+                {[
+                    { lead: "Pregunta a la IA per la teva zona.", text: "Obre ChatGPT i pregunta quina immobiliària recomana al teu barri. Sabràs si apareixes i a qui nomena." },
+                    { lead: "Cuida les teves ressenyes de Google.", text: "Els models llegeixen la teva reputació per decidir si et recomanen." },
+                    { lead: "Publica contingut local citable.", text: "Preus per barri, temps de venda i guies clares. És el contingut que un model pot citar." },
+                    { lead: "Revisa la teva coherència de marca.", text: "Mateix nom, adreça i zones a web, fitxa de Google i directoris." },
+                ].map(tip => (
+                    <li class="flex items-start gap-4">
+                        <svg class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        <p class="text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
+                            <strong class="font-bold text-zinc-900">{tip.lead}</strong> {tip.text}
+                        </p>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </section>
+
+    <!-- ═══ RESSENYES GOOGLE ═════════════════════════════════════════ -->
+    <GoogleReviews locale="ca" title="El que diuen els nostres clients sobre el posicionament GEO en IA de Nova" />
+
+
+    <!-- ═══ FAQS ════════════════════════════════════════════════ -->
+    <FaqHome title="Preguntes sobre el nostre GEO per a immobiliàries" items={faqs} emitSchema={false} />
+
+    <!-- ═══ CONTACTE ════════════════════════════════════════════ -->
+    <section id="contacto" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
+            <div class="reveal text-white">
+                <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">CREIXEMENT GARANTIT</span>
+                <h2 class="text-5xl sm:text-7xl font-black uppercase tracking-tighter leading-[0.8] mb-8">
+                   CAPTA MÉS <br>PROPIETARIS
+                </h2>
+                <p class="font-light max-w-md text-base sm:text-xl">Consulta'm i et diré què respon avui la IA sobre les immobiliàries de la teva zona.</p>
+            </div>
+
+            <div class="reveal">
+                <div class="bg-white p-8 sm:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
+                    <form class="space-y-8" id="contact-form">
+                        <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
+                            <div class="flex flex-col gap-3">
+                                <label class="opacity-30">NOM</label>
+                                <input type="text" name="name" aria-label="Nom" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                            <div class="flex flex-col gap-3">
+                                <label class="opacity-30">TELÈFON</label>
+                                <input type="tel" name="phone" class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">EMAIL PROFESSIONAL</label>
+                            <input type="email" name="email" aria-label="Correu electrònic" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                        </div>
+                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">CONSULTA</label>
+                            <textarea name="msg" aria-label="Missatge" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="Què necessita la teva immobiliària?"></textarea>
+                        </div>
+                        <button type="submit" class="w-full btn-mktg-v5 !py-6">VULL MÉS CAPTACIONS</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</BaseLayout>
+
+<script>
+    document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const btn = form.querySelector('button');
+        if (btn) { btn.innerHTML = 'ENVIANT...'; btn.disabled = true; }
+        const data = Object.fromEntries(new FormData(form));
+        try {
+            const res = await fetch('https://cms.novamarketing.es/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            if (res.ok) {
+                window.location.href = '/ca/gracies/';
+            } else { throw new Error(); }
+        } catch {
+            if (btn) { btn.innerHTML = 'ERROR — TORNA-HO A PROVAR'; btn.disabled = false; btn.style.background = '#ef4444'; }
+        }
+    });
+function initTimeline() {
+        const progressBar = document.getElementById('progress-bar');
+        const timeline = document.getElementById('timeline-container');
+        if (!progressBar || !timeline) return;
+
+        function updateProgress() {
+            const rect = timeline.getBoundingClientRect();
+            const winHeight = window.innerHeight;
+            const topPassed = (winHeight / 2) - rect.top;
+            let percentage = (topPassed / rect.height) * 100;
+            percentage = Math.max(0, Math.min(100, percentage));
+            progressBar.style.height = `${percentage}%`;
+
+            const nodes = timeline.querySelectorAll('.node-circle');
+            nodes.forEach((node) => {
+                const nodeTop = node.getBoundingClientRect().top;
+                if (nodeTop < winHeight / 2) {
+                    node.classList.add('!border-accent', '!bg-accent', '!text-white');
+                } else {
+                    node.classList.remove('!border-accent', '!bg-accent', '!text-white');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        document.addEventListener('astro:page-load', updateProgress);
+        updateProgress();
+    }
+    document.addEventListener('DOMContentLoaded', initTimeline);
+    document.addEventListener('astro:page-load', initTimeline);
+</script>

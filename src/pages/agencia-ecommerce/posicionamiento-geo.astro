@@ -1,0 +1,699 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { buildAlternates } from '../../lib/i18n';
+import { localAgencySchema } from '../../lib/schema';
+import { strapiClient } from '../../lib/strapi';
+import LogoMarquee from '../../components/sections/LogoMarquee.astro';
+import FaqHome from '../../components/sections/FaqHome.astro';
+import CityPills from '../../components/global/CityPills.astro';
+import GoogleReviews from '../../components/global/GoogleReviews.astro';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const alternates = buildAlternates('/agencia-ecommerce/posicionamiento-geo/', '/ca/agencia-ecommerce/posicionamiento-geo/', SITE_URL);
+
+let allCases: any[] = [];
+try {
+  const casesRes = await strapiClient.getCaseStudies('es');
+  allCases = casesRes.data.map((i: any) => i.attributes ?? i).filter((c: any) => {
+    const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase());
+    return cats.some((s: string) => s.includes('seo') || s === 'e-commerce');
+  });
+} catch {}
+
+const faqs = [
+  { question: "¿Qué es el GEO para un ecommerce?", answer: "El GEO (Generative Engine Optimization) optimiza tu tienda para que los asistentes de IA como ChatGPT, Gemini, Claude o Perplexity la mencionen y recomienden cuando alguien pregunta qué producto comprar o en qué tienda confiar. Igual que el SEO te posiciona en Google, el GEO te posiciona en las respuestas de la IA." },
+  { question: "¿Cuánto cuesta el posicionamiento GEO?", answer: "La auditoría GEO cuesta 1.800 euros y los planes mensuales van desde 400 euros al mes para tiendas pequeñas y medianas y desde 900 para catálogos grandes o sectores muy competidos. Presupuesto cerrado por escrito y sin permanencias." },
+  { question: "¿Cómo hago que ChatGPT recomiende mi tienda?", answer: "Trabajando las señales que los modelos usan para decidir. Fichas y comparativas citables, datos estructurados de producto, reseñas verificables, menciones en fuentes fiables y coherencia de marca en toda la red. No se puede pagar por salir, hay que ganárselo con método." },
+  { question: "¿Cuánto se tarda en aparecer en la IA?", answer: "Los modelos actualizan sus fuentes constantemente, así que los primeros cambios pueden verse en semanas cuando ya existe una base de contenido y autoridad. Partiendo de cero, lo habitual es empezar a ganar menciones entre el tercer y el sexto mes." },
+  { question: "¿El GEO sustituye al SEO?", answer: "No, se alimenta de él. Los modelos citan contenido que ya es visible, estructurado y con autoridad. Por eso trabajamos SEO y GEO como una sola estrategia donde cada acción suma en los dos frentes." },
+  { question: "¿Cómo medís el posicionamiento en IA?", answer: "Monitorizamos un panel de preguntas reales de compra en cada modelo y registramos si apareces, cómo te describe la IA y frente a qué competidores, con captura y fecha. Además medimos el tráfico y las ventas que llegan citando la IA como origen." },
+  { question: "¿Trabajáis con permanencia?", answer: "No, trabajamos mes a mes. Si el servicio no te aporta valor, puedes cancelarlo cuando quieras. Nuestra permanencia real es el resultado que ves en los informes cada mes." },
+];
+
+const pageSchema = localAgencySchema({
+  pageUrl: `${SITE_URL}/agencia-ecommerce/posicionamiento-geo/`,
+  lang: 'es',
+  cityName: 'Barcelona',
+  postalCode: '08035',
+  geo: { lat: 41.4114, lng: 2.1526 },
+  areaServed: ["España", "Barcelona", "Sabadell", "Sant Cugat del Vallès", "Terrassa", "Vallès Occidental"],
+  title: "Agencia GEO para Ecommerce | Posicionamiento en IA | Nova Marketing",
+  description: "Posicionamiento GEO para ecommerce. Haz que ChatGPT, Gemini y Perplexity recomienden tu tienda cuando alguien pregunta qué comprar. Sin permanencias.",
+  datePublished: '2026-07-17',
+  dateModified: '2026-07-17',
+  streetAddress: 'Carrer del General Mendoza, 10',
+  hasMap: 'https://maps.app.goo.gl/9fbB12UcK32bgjj89',
+  aggregateRating: { ratingValue: '5.0', reviewCount: '8' },
+  breadcrumbName: "Agencia GEO para Ecommerce",
+  faqs,
+});
+---
+
+<BaseLayout
+  title="Agencia GEO para Ecommerce | Posicionamiento en IA | Nova Marketing"
+  description="Posicionamiento GEO para ecommerce. Haz que ChatGPT, Gemini y Perplexity recomienden tu tienda cuando alguien pregunta qué comprar. Sin permanencias."
+  locale="es"
+  alternates={alternates}
+  schemas={[pageSchema]}
+>
+
+    <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
+    <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+        <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+
+        <div class="max-w-5xl mx-auto reveal">
+            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
+                <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+                Posicionamiento en IA para Tiendas Online
+            </span>
+            <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
+                <span class="lg:whitespace-nowrap">Agencia GEO </span>
+                <span class="lg:whitespace-nowrap text-mktg-gradient">para Ecommerce</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
+                Cuando alguien pregunta a ChatGPT qué producto comprar, quien sale en la respuesta se lleva la venta. Posicionamiento en IA para tiendas online con método y medición.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
+                {['Sin permanencias', 'Trato directo con el consultor', 'Resultados medidos en ventas'].map(item => (
+                    <span class="inline-flex items-center gap-2 text-[11px] sm:text-xs font-black uppercase tracking-widest text-zinc-700">
+                        <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        {item}
+                    </span>
+                ))}
+            </div>
+            <div class="flex justify-center mt-4">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    HABLEMOS DE TU TIENDA
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <LogoMarquee />
+
+    <!-- ═══ INTRO ═══════════════════════════════════════════════════════ -->
+    <section class="py-16 sm:py-24 bg-white px-4 sm:px-6 border-b border-black/5">
+        <div class="max-w-6xl mx-auto reveal grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-16 items-center">
+            <div>
+                <p class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4">¿Por qué GEO?</p>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    La agencia de posicionamiento en IA para tu tienda online
+                </h2>
+                <div class="space-y-6 text-zinc-600 font-light text-base sm:text-lg leading-relaxed">
+                    <p>
+                        <strong class="font-semibold text-zinc-900">Cada día más compradores preguntan a la IA antes de comprar</strong>. Qué producto elegir, qué marca es fiable, dónde comprarlo. La respuesta recomienda una o dos tiendas, y ahí no hay segunda página.
+                    </p>
+                    <p>
+                        Nova es una <strong class="font-semibold text-zinc-900">agencia GEO especializada en ecommerce</strong>. Trabajamos las señales que los modelos usan para recomendar con una sola métrica que importa. <strong class="font-semibold text-zinc-900">Que la IA recomiende tu tienda antes que a tu competencia</strong>.
+                    </p>
+                </div>
+            </div>
+            <div class="hidden md:block">
+                <img src="/sergio-galos-agencia-ecommerce-posicionamiento-geo.webp" alt="Sergio Galo's, Consultor GEO para ecommerce" title="Sergio Galo's, Consultor GEO para ecommerce" class="w-full h-auto" loading="lazy" />
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SERVICIOS ══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50 px-4 sm:px-6 border-t border-b border-black/5">
+        <div class="max-w-7xl mx-auto text-center reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Qué hacemos</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Servicio de posicionamiento GEO para ecommerce
+            </h2>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-16">
+                El GEO de una tienda no es un truco, es un sistema de señales. Estas son las nueve piezas que trabajamos para que la IA encuentre, entienda y recomiende tu ecommerce.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+                {[
+                    { t: "Auditoría GEO", d: "Preguntamos a ChatGPT, Gemini, Claude y Perplexity lo mismo que preguntarían tus compradores y documentamos cada respuesta." },
+                    { t: "Entidad de marca", d: "Que la IA entienda sin dudas qué vendes, a quién y por qué eres fiable. Una sola identidad en toda la red." },
+                    { t: "Fichas citables", d: "Fichas y comparativas estructuradas para que un modelo pueda extraerlas y citarlas al responder qué comprar." },
+                    { t: "Datos estructurados de producto", d: "Precio, stock, reseñas y marca marcados con schema. El idioma que leen las máquinas." },
+                    { t: "Reseñas y señales de confianza", d: "Los modelos recomiendan tiendas con reseñas verificables y reputación coherente. Las trabajamos como señal." },
+                    { t: "Autoridad y menciones", d: "Mensiones en medios, comparativas y directorios fiables que avalan tu marca ante los modelos." },
+                    { t: "Monitorización de menciones", d: "Seguimiento mensual de qué responde cada modelo sobre tu marca, tus productos y tu competencia." },
+                    { t: "GEO más SEO", d: "La IA se alimenta de contenido bien posicionado. Una sola estrategia que posiciona en Google y en la IA a la vez." },
+                    { t: "Google AI Overviews", d: "Preparamos tu tienda para los resúmenes con IA de Google, donde la recomendación se lleva el clic." },
+                ].map((c: any) => (
+                    <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900 mb-3">
+                            {c.t}
+                            {c.b && <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1 font-semibold">{c.b}</span>}
+                        </h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.d}</p>
+                    </div>
+                ))}
+            </div>
+            <div class="mt-12 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">HABLEMOS DE TU TIENDA</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ ESTRATEGIA ════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16 sm:mb-24 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Cómo trabajamos</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Estrategia de GEO para tu ecommerce
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Una metodología documentada, paso a paso y sin humo.
+                </p>
+            </div>
+
+            <div id="timeline-container" class="relative">
+                <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
+                <div id="progress-bar" class="hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100"></div>
+
+                <div class="space-y-16 md:space-y-24 flex flex-col items-center">
+                    {[
+                        { title: "Auditoría de Visibilidad en IA", desc: "Preguntamos a los principales modelos lo que preguntarían tus compradores. Medimos si apareces, cómo te describen y a quién recomiendan antes que a ti." },
+                        { title: "Estrategia GEO Documentada", desc: "Recibes una hoja de ruta por escrito. Qué preguntas de compra atacar, qué contenido crear, qué señales reforzar y qué esperar en cada fase." },
+                        { title: "Optimización para Motores Generativos", desc: "Reestructuramos fichas, comparativas y datos de producto para que la IA pueda citarlos. Lo que no se puede citar no se recomienda." },
+                        { title: "Autoridad y Citabilidad", desc: "Reseñas, menciones y comparativas en fuentes fiables. Construimos las señales para que tu tienda sea la respuesta." },
+                        { title: "Medición y Ajuste Continuo", desc: "Monitorizamos mes a mes tus menciones en cada modelo. En el informe ves en qué preguntas apareces y cómo evolucionas frente a tu competencia." },
+                    ].map((step, index) => (
+                        <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
+                            <div class:list={["flex-1 w-full", index % 2 === 0 ? "md:order-1 md:text-right" : "md:order-3 md:text-left"]}>
+                                <div class="p-8 sm:p-10 bg-zinc-50 border border-black/5 rounded-3xl hover:border-accent/10 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+                                    <h3 class="text-xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{index + 1}. {step.title}</h3>
+                                    <div class:list={["h-0.5 bg-accent w-full mb-4 opacity-80", index % 2 === 0 ? "md:ml-auto" : ""]}></div>
+                                    <p class:list={["text-sm text-zinc-500 font-light max-w-md", index % 2 === 0 ? "md:ml-auto" : ""]}>{step.desc}</p>
+                                    <div class="absolute -bottom-6 -right-5 text-8xl font-black text-black/[0.02] select-none z-0 group-hover:scale-105 transition-transform duration-500">0{index+1}</div>
+                                </div>
+                            </div>
+                            <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all">
+                                0{index + 1}
+                            </div>
+                            <div class:list={["hidden md:block md:flex-1", index % 2 === 0 ? "md:order-3" : "md:order-1"]}></div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ AUDITORÍA ═════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-[6fr_4fr] gap-12 lg:gap-16 items-start">
+            <div class="reveal lg:col-span-2">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Punto de partida</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
+                    Auditoría de posicionamiento en IA para tu ecommerce
+                </h2>
+            </div>
+            <div class="reveal">
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed mb-8">
+                    <p>¿Sabes qué responde ChatGPT cuando alguien pregunta por tu tipo de producto? ¿Aparece tu tienda o aparece tu competencia? Casi ningún ecommerce lo ha comprobado, y ahí empieza todo.</p>
+                    <p>Nuestra <strong class="font-semibold text-zinc-900">auditoría GEO</strong> lanza las preguntas reales de tus compradores a los principales modelos, documenta cada respuesta y termina con un plan de acción priorizado por impacto.</p>
+                    <p>Cada punto lo revisa un consultor senior. El resultado no es un experimento, es un diagnóstico de negocio con captura y fecha de cada respuesta.</p>
+                </div>
+                <ul class="space-y-3">
+                    {["Test real en ChatGPT, Gemini, Claude y Perplexity","Presencia en Google AI Overviews","Entidad de marca y datos estructurados","Fichas y contenido citable","Reseñas y señales de confianza","Plan de acción priorizado por impacto"].map(item => (
+                        <li class="flex items-start gap-3 text-sm text-zinc-700 font-light">
+                            <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                            {item}
+                        </li>
+                    ))}
+                </ul>
+                <div class="mt-16">
+                    <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                        QUIERO MI AUDITORÍA GEO
+                    </a>
+                </div>
+            </div>
+            <div class="reveal flex flex-col gap-4">
+                {[
+                    { bg: 'bg-purple-100', color: 'text-purple-600', t: "Test real a los modelos", d: "Las preguntas de compra de tus clientes lanzadas a cada modelo, con captura y fecha de cada respuesta." },
+                    { bg: 'bg-green-100', color: 'text-green-600', t: "Plan de acción priorizado", d: "Qué señales trabajar la primera semana y qué no merece ni un euro. Ordenado por impacto y esfuerzo." },
+                    { bg: 'bg-purple-100', color: 'text-purple-600', t: "Análisis de entidad", d: "Cómo entiende la IA tu marca hoy. Datos estructurados, coherencia y vacíos que confunden a los modelos." },
+                    { bg: 'bg-amber-100', color: 'text-amber-600', t: "Contenido citable", d: "Qué fichas y comparativas puede citar la IA tal como están y cuáles hay que reestructurar." },
+                    { bg: 'bg-blue-100', color: 'text-blue-600', t: "Benchmark de tu sector", d: "A quién recomienda hoy la IA en tu categoría y qué señales tienen ellos que tú no." },
+                ].map(card => (
+                    <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                        <div class:list={["w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0", card.bg]}>
+                            <svg class:list={["w-5 h-5", card.color]} fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-black text-zinc-900 mb-1">{card.t}</h3>
+                            <p class="text-xs text-zinc-500 font-light leading-relaxed">{card.d}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ QUÉ INCLUYE LA AUDITORÍA ═══════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Paso a paso</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
+                    Qué incluye la auditoría GEO de nova
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch reveal">
+                {[
+                    { n: '1', t: "Radiografía de visibilidad en IA", d: "Lanzamos las preguntas de tus compradores a los principales modelos y guardamos cada respuesta con su fecha." },
+                    { n: '2', t: "Diagnóstico GEO de tu tienda", d: "Cruzamos las respuestas con tu web, tu entidad y tus señales para explicar por qué la IA te ignora o te cita." },
+                    { n: '3', t: "Hoja de ruta para salir en la IA", d: "Cierras la auditoría con acciones ordenadas por impacto y una videollamada donde lo repasamos contigo." },
+                ].map((st, i) => (
+                    <div class="flex items-center gap-4 lg:gap-6">
+                        {i > 0 && <div class="hidden lg:flex text-3xl text-accent font-black select-none">→</div>}
+                        <div class="bg-white border border-black/5 rounded-2xl p-8 shadow-[0_15px_40px_rgba(0,0,0,0.06)] flex-1 text-center h-full">
+                            <div class="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto mb-4 text-accent font-black text-lg">{st.n}</div>
+                            <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3">{st.t}</h3>
+                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{st.d}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto text-center mt-16 reveal">
+                Nuestra auditoría GEO es el primer paso para que la IA recomiende tu tienda. Analiza cómo te ven hoy los modelos, explica por qué recomiendan a tu competencia y te deja una hoja de ruta clara. Es la misma auditoría con la que arrancan todos nuestros planes GEO para ecommerce.
+            </p>
+            <div class="mt-12 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">QUIERO MI AUDITORÍA GEO</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PRECIOS ════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Tarifas claras</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Precios de posicionamiento GEO para ecommerce
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto">
+                    Tarifas orientativas y sin letra pequeña. El precio depende del tamaño de tu catálogo, la competencia de tu sector y tu punto de partida, así que antes de empezar recibes un presupuesto cerrado por escrito. El coste no lleva sorpresas ni permanencias.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                {[
+                    { small: 'Precio', name: "Auditoría GEO Ecommerce", price: "1.800€", meta: ["Entrega en 3 a 4 semanas","Para cualquier tienda que quiera saber dónde está"], items: ["Sesión inicial de objetivos","Test a ChatGPT, Gemini y Perplexity","Presencia en Google AI Overviews","Entidad y datos estructurados","Diagnóstico de fichas citables","Comparativa con 3 competidores","Acciones ordenadas por impacto","Videollamada de entrega"], cta: "Quiero auditar mi visibilidad" },
+                    { small: 'Precio', name: "GEO Ecommerce", price: "desde 400€ / mes", meta: ["Primeras menciones en unos 3 meses","Para tiendas pequeñas y medianas"], items: ["Diagnóstico inicial de la tienda","Estrategia documentada","Panel mensual de preguntas","Fichas y contenido citable","Datos estructurados al día","Reseñas y señales de confianza","Informe mensual de ventas y costes","Línea directa con el consultor","Sin permanencia"], cta: "Quiero salir en la IA" },
+                    { small: 'Precio', name: "GEO Big Ecommerce", price: "desde 900€ / mes", meta: ["Primeras menciones en unos 2 meses","Para catálogos grandes y sectores competidos"], items: ["Diagnóstico inicial de la tienda","Estrategia documentada","Todo el plan GEO Ecommerce","Estrategia SEO y GEO conjunta","Menciones en medios","Seguimiento en todos los modelos","Informe mensual de ventas y costes","Línea directa con el consultor","Sin permanencia"], cta: "Quiero ser la respuesta" },
+                ].map(pl => (
+                    <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-10 flex flex-col shadow-[0_15px_40px_rgba(0,0,0,0.06)] hover:shadow-xl transition-shadow duration-300 reveal">
+                        <h3 class="leading-tight mb-2">
+                            <span class="block text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-1">{pl.small} </span>
+                            <span class="block text-xl font-black uppercase tracking-tight text-zinc-900">{pl.name}</span>
+                        </h3>
+                        <div class="text-lg font-bold text-zinc-900">{pl.price}</div>
+                        <div class="text-[10px] text-zinc-400 font-light mt-1 mb-6">* Precio sin IVA</div>
+                        <div class="text-xs text-zinc-500 font-light mb-8 space-y-1.5">
+                            {pl.meta.map(m => <div>{m}</div>)}
+                        </div>
+                        <div class="text-xs font-black uppercase tracking-widest text-zinc-400 pb-3 border-b border-zinc-100">Qué incluye</div>
+                        <ul class="divide-y divide-zinc-100 flex-1">
+                            {pl.items.map(item => (
+                                <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light">
+                                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 !py-4 !text-[11px] !tracking-widest font-black mt-10 text-center">
+                            {pl.cta}
+                        </a>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PLATAFORMAS ══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-b border-black/5">
+        <div class="max-w-7xl mx-auto text-center reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Tu tecnología</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Posicionamiento GEO para tu plataforma
+            </h2>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-16">
+                Cada plataforma tiene sus reglas de juego. Trabajamos las tres que concentran el ecommerce en España.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+                {[
+                    { t: "GEO para Shopify", d: "Datos estructurados de producto correctos de serie y fichas preparadas para ser citadas.", b: "Plataforma" },
+                    { t: "GEO para PrestaShop", d: "Marcado schema bien implementado por módulo y contenido citable sobre el catálogo existente.", b: "Plataforma" },
+                    { t: "GEO para WooCommerce", d: "El poder editorial de WordPress para crear las comparativas y guías que los modelos citan.", b: "Plataforma" },
+                ].map((c: any) => (
+                    <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900 mb-3">
+                            {c.t}
+                            {c.b && <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1 font-semibold">{c.b}</span>}
+                        </h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">{c.d}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CITA ══════════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-zinc-950 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <blockquote class="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.15] mb-8">
+                “Cada día miles de compradores preguntan a la IA qué comprar. Si tu tienda no está en la respuesta, la venta se la lleva otro. No necesitas más anuncios. Necesitas GEO.”
+            </blockquote>
+            <p class="text-sm text-zinc-400 font-light mb-10">Sergio Galo's · Consultor GEO para ecommerce</p>
+            <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                HABLEMOS DE TU TIENDA
+            </a>
+        </div>
+    </section>
+
+    <!-- ═══ POR QUÉ NOVA (COMPARATIVA) ═════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Por qué nova</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Qué diferencia a nova de otra agencia GEO
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    El marketing para tiendas online está lleno de informes que no hablan de margen. Nosotros lo trabajamos con método, transparencia y resultados en tu cuenta de resultados.
+                </p>
+            </div>
+
+            <div class="reveal overflow-x-auto rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
+                <table class="w-full min-w-[640px] text-left border-collapse bg-white">
+                    <thead>
+                        <tr class="bg-black text-white">
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Criterio</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Nova</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Otras agencias</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-zinc-100">
+                        {[
+                            { c: "Quién será tu contacto", o: "Gestor junior con 20-30 cuentas", n: "Sergio Galo's" },
+                            { c: "Qué se mide", o: "Promesas sin comprobar", n: "Menciones reales en cada modelo, con captura" },
+                            { c: "El método", o: "Trucos y atajos sin base", n: "Señales verificables que usan los modelos" },
+                            { c: "Especialización", o: "GEO genérico para cualquier web", n: "GEO específico de tiendas online" },
+                            { c: "Permanencia", o: "6-12 meses habituales", n: "Mes a mes, sin permanencia" },
+                            { c: "La base", o: "GEO sin SEO, castillo en el aire", n: "SEO + GEO integrados con método propio" },
+                            { c: "Transparencia de precios", o: "Presupuestos opacos con extras sorpresa", n: "Precio cerrado por escrito antes de empezar" },
+                        ].map(row => (
+                            <tr class="hover:bg-zinc-50/50 transition-colors">
+                                <td class="px-6 py-5 text-sm font-bold text-zinc-900">{row.c}</td>
+                                <td class="px-6 py-5 text-sm font-bold text-accent">{row.n}</td>
+                                <td class="px-6 py-5 text-sm text-zinc-500 font-light">{row.o}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CÓMO ELEGIR ════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-12 sm:mb-16 reveal text-center">
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Cómo contratar una agencia GEO sin que te vendan humo
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Hay cientos de agencias y la mayoría de tiendas online elige mal la primera vez. Estos son los siete criterios que deberías exigir a cualquier agencia, incluida la nuestra.
+                </p>
+            </div>
+
+            <div class="divide-y divide-zinc-100 reveal">
+                {[
+                    { title: "Pide una demostración en directo", desc: "Que pregunten a ChatGPT o Perplexity por sus propios clientes y te enseñen dónde aparecen. Si no pueden enseñarte ni un caso, sigue buscando." },
+                    { title: "Pregunta quién llevará tu cuenta", desc: "Exige conocer a la persona que trabajará tu proyecto antes de firmar. En nova hablas siempre con el consultor que ejecuta la estrategia." },
+                    { title: "Desconfía de quien garantiza aparecer en ChatGPT", desc: "Nadie controla qué responde un modelo. Lo serio es garantizar método, señales medibles y trabajo verificable." },
+                    { title: "Exige medición con capturas", desc: "El GEO se demuestra con las respuestas reales de cada modelo, con fecha. Sin eso, todo son promesas." },
+                    { title: "Que combine GEO con SEO", desc: "Los modelos citan contenido que ya es visible y con autoridad. Un GEO que ignora tu posicionamiento en Google construye sobre arena." },
+                    { title: "Huye de las permanencias largas", desc: "Una permanencia de 12 meses protege a la agencia, no a ti. Por eso en nova trabajamos mes a mes." },
+                    { title: "Especialización en ecommerce", desc: "Que la IA recomiende una tienda depende de señales de producto, reseñas y datos estructurados. No es lo mismo que posicionar un blog." },
+                ].map((c, i) => (
+                    <div class="py-6 sm:py-8 flex gap-6 sm:gap-8 items-start">
+                        <div class="text-2xl sm:text-3xl font-black tracking-tighter text-accent flex-shrink-0 w-10 leading-none">0{i + 1}</div>
+                        <div>
+                            <h3 class="text-base sm:text-lg font-black uppercase tracking-tight text-zinc-900 mb-2">{c.title}</h3>
+                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.desc}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ QUIÉN ESTÁ DETRÁS ═══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto reveal">
+            <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] grid md:grid-cols-[280px_1fr] gap-8 sm:gap-12 items-center">
+                <div class="rounded-2xl overflow-hidden bg-zinc-100">
+                    <img src="/sergio-galos-agencia-ecommerce-posicionamiento-geo.webp" alt="Sergio Galo's, Consultor GEO para ecommerce" title="Sergio Galo's, Consultor GEO para ecommerce" class="w-full h-full object-cover object-top" loading="lazy" />
+                </div>
+                <div>
+                    <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Quién está detrás</span>
+                    <h2 class="text-2xl sm:text-4xl font-black tracking-tighter uppercase text-zinc-900 leading-[0.95] mb-6">
+                        Sergio Galo's <br>
+                        <span class="text-lg sm:text-2xl">Tu consultor geo para ecommerce</span>
+                    </h2>
+                    <div class="space-y-4 text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
+                        <p>
+                            Soy <strong class="font-semibold text-zinc-900">Sergio Galo's</strong>, consultor de marketing digital y fundador de Nova Marketing. Llevo años haciendo crecer tiendas online en algunos de los sectores más competitivos, desde moda y alimentación hasta producto industrial.
+                        </p>
+                        <p>
+                            Cuando contratas con nova hablas siempre conmigo. Yo hago la auditoría, yo diseño la estrategia y yo respondo en la reunión mensual. Sin capas comerciales ni gestores que cambian cada trimestre.
+                        </p>
+                    </div>
+                    <a href="https://www.linkedin.com/company/nova-marketing-pymes/" target="_blank" rel="noopener" class="inline-block mt-6 text-[12px] font-black tracking-widest text-accent hover:underline">
+                        Ver perfil en LinkedIn →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CASOS DE ÉXITO (CMS) ═══════════════════════════════════ -->
+    {allCases.length > 0 && (
+    <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6 overflow-hidden">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-12 reveal">
+          <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultados probados</span>
+          <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
+            Casos de éxito de posicionamiento<br class="hidden md:inline" /> GEO para ecommerce
+          </h2>
+        </div>
+        <div class="cases-carousel relative overflow-hidden">
+          <div class="cases-track flex gap-6 transition-transform duration-500 ease-in-out">
+            {allCases.map((cs: any) => {
+              const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
+              const caseUrl = cs.isPublic && cs.slug ? `/casos-exito/${cs.slug}/` : null;
+              return (
+                <div class="cases-slide flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
+                  <div>
+                    {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
+                    <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors leading-tight">
+                      {caseUrl ? (
+                        <a href={caseUrl} class="hover:text-accent transition-colors">{cs.title}</a>
+                      ) : (
+                        <span class="group-hover:text-accent transition-colors">{cs.title}</span>
+                      )}
+                    </h3>
+                    <p class="text-xs text-zinc-500 font-light leading-relaxed">{cs.description}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+    )}
+    <script is:inline>
+      function initCasesCarousel() {
+        const track = document.querySelector('.cases-track');
+        if (!track) return;
+        const slides = track.querySelectorAll('.cases-slide');
+        if (slides.length <= 4) return;
+        let current = 0;
+        const total = slides.length;
+        function getVisible() {
+          if (window.innerWidth >= 1024) return 4;
+          if (window.innerWidth >= 640) return 2;
+          return 1;
+        }
+        function next() {
+          const visible = getVisible();
+          const maxIndex = total - visible;
+          current = current >= maxIndex ? 0 : current + 1;
+          const slideWidth = slides[0].offsetWidth + 24;
+          track.style.transform = `translateX(-${current * slideWidth}px)`;
+        }
+        const interval = setInterval(next, 5000);
+        document.addEventListener('astro:before-preparation', () => clearInterval(interval));
+      }
+      document.addEventListener('DOMContentLoaded', initCasesCarousel);
+      document.addEventListener('astro:page-load', initCasesCarousel);
+    </script>
+
+    <!-- ═══ RECOMENDADOS POR LA IA ═════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+            <div class="reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Nos avala la IA</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    La agencia GEO ecommerce que recomienda la propia IA
+                </h2>
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed">
+                    <p>
+                        Cuando alguien pregunta por una <strong class="font-semibold text-zinc-900">agencia GEO para ecommerce</strong> a ChatGPT, Gemini o Claude, nova aparece entre las agencias recomendadas. Es la mejor prueba de que sabemos generar visibilidad, porque lo aplicamos primero en nosotros mismos.
+                    </p>
+                    <p>
+                        A los asistentes de IA no les puedes comprar un anuncio para salir primero. Recomiendan lo que encuentran. Casos reales publicados, tiendas que crecen y se pueden visitar, una especialización clara y clientes que hablan de nosotros.
+                    </p>
+                    <p>
+                        Pruébalo tú mismo. Abre ChatGPT y pregúntale qué agencia GEO para ecommerce te recomienda. Si te sale nova, ya sabes quién puede hacer lo mismo por tu tienda.
+                    </p>
+                </div>
+            </div>
+
+            <div class="reveal flex justify-center">
+                <img src="/agencia-ecommerce-posicionamiento-geo.webp" alt="Nova Marketing, agencia GEO para ecommerce recomendada por la IA" title="Nova Marketing, agencia GEO para ecommerce recomendada por la IA" class="w-full max-w-sm lg:max-w-md h-auto" loading="lazy" />
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══ CONSEJOS ═══════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Consejos aplicables hoy</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Cómo mejorar la presencia de tu tienda en la IA esta semana
+            </h2>
+            <p class="text-zinc-500 font-light text-base leading-relaxed mb-10">
+                Si todavía no estás listo para contratar, empieza por aquí. Son acciones que cualquier tienda puede aplicar por su cuenta y que ya mueven la aguja.
+            </p>
+            <ul class="space-y-6">
+                {[
+                    { lead: "Pregunta a la IA por tu categoría.", text: "Abre ChatGPT y Perplexity y pregunta lo que preguntaría tu comprador. Sabrás si apareces, cómo te describen y a quién recomiendan." },
+                    { lead: "Revisa tus datos estructurados de producto.", text: "Precio, stock, marca y reseñas marcados con schema. Es lo primero que un modelo lee de tu catálogo." },
+                    { lead: "Cuida la coherencia de tu marca.", text: "Mismo nombre, misma descripción y mismos datos en tu web, redes y directorios. Las incoherencias confunden a los modelos." },
+                    { lead: "Consigue reseñas verificables.", text: "Los modelos recomiendan tiendas con reputación comprobable. Google, Trustpilot y reseñas en la propia ficha suman señal." },
+                ].map(tip => (
+                    <li class="flex items-start gap-4">
+                        <svg class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        <p class="text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
+                            <strong class="font-bold text-zinc-900">{tip.lead}</strong> {tip.text}
+                        </p>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </section>
+
+    <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
+    <GoogleReviews locale="es" title="Lo que dicen nuestros clientes sobre el posicionamiento GEO en IA de Nova" />
+
+
+    <!-- ═══ FAQS ════════════════════════════════════════════════ -->
+    <FaqHome title="Preguntas sobre nuestra agencia GEO para ecommerce" items={faqs} emitSchema={false} />
+
+    <!-- ═══ CONTACTO ════════════════════════════════════════════ -->
+    <section id="contacto" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
+            <div class="reveal text-white">
+                <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">CRECIMIENTO GARANTIZADO</span>
+                <h2 class="text-5xl sm:text-7xl font-black uppercase tracking-tighter leading-[0.8] mb-8">
+                   VENDE MÁS <br>CON TU TIENDA
+                </h2>
+                <p class="font-light max-w-md text-base sm:text-xl">Consúltame y te diré qué responde hoy la IA sobre tu tienda, y cómo cambiarlo.</p>
+            </div>
+
+            <div class="reveal">
+                <div class="bg-white p-8 sm:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
+                    <form class="space-y-8" id="contact-form">
+                        <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
+                            <div class="flex flex-col gap-3">
+                                <label class="opacity-30">NOMBRE</label>
+                                <input type="text" name="name" aria-label="Nombre" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                            <div class="flex flex-col gap-3">
+                                <label class="opacity-30">TELÉFONO</label>
+                                <input type="tel" name="phone" class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">EMAIL PROFESIONAL</label>
+                            <input type="email" name="email" aria-label="Correo electrónico" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                        </div>
+                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">CONSULTA</label>
+                            <textarea name="msg" aria-label="Mensaje" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="¿Qué vende tu tienda online?"></textarea>
+                        </div>
+                        <button type="submit" class="w-full btn-mktg-v5 !py-6">QUIERO VENDER MÁS</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</BaseLayout>
+
+<script>
+    document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const btn = form.querySelector('button');
+        if (btn) { btn.innerHTML = 'ENVIANDO...'; btn.disabled = true; }
+        const data = Object.fromEntries(new FormData(form));
+        try {
+            const res = await fetch('https://cms.novamarketing.es/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            if (res.ok) {
+                window.location.href = '/gracias/';
+            } else { throw new Error(); }
+        } catch {
+            if (btn) { btn.innerHTML = 'ERROR — INTÉNTALO DE NUEVO'; btn.disabled = false; btn.style.background = '#ef4444'; }
+        }
+    });
+function initTimeline() {
+        const progressBar = document.getElementById('progress-bar');
+        const timeline = document.getElementById('timeline-container');
+        if (!progressBar || !timeline) return;
+
+        function updateProgress() {
+            const rect = timeline.getBoundingClientRect();
+            const winHeight = window.innerHeight;
+            const topPassed = (winHeight / 2) - rect.top;
+            let percentage = (topPassed / rect.height) * 100;
+            percentage = Math.max(0, Math.min(100, percentage));
+            progressBar.style.height = `${percentage}%`;
+
+            const nodes = timeline.querySelectorAll('.node-circle');
+            nodes.forEach((node) => {
+                const nodeTop = node.getBoundingClientRect().top;
+                if (nodeTop < winHeight / 2) {
+                    node.classList.add('!border-accent', '!bg-accent', '!text-white');
+                } else {
+                    node.classList.remove('!border-accent', '!bg-accent', '!text-white');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        document.addEventListener('astro:page-load', updateProgress);
+        updateProgress();
+    }
+    document.addEventListener('DOMContentLoaded', initTimeline);
+    document.addEventListener('astro:page-load', initTimeline);
+</script>
