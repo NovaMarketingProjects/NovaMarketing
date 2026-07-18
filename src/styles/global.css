@@ -20,14 +20,19 @@
 @font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-ExtraBold.woff2') format('woff2'); font-weight: 800; font-display: optional; }
 @font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-Black.woff2') format('woff2'); font-weight: 900; font-display: swap; }
 
+/* Fallbacks con métricas ajustadas a la fuente real (medidas con fontkit sobre
+   texto en español vs Arial): el swap de la webfont no desplaza el layout (CLS). */
+@font-face { font-family: 'Montserrat Fallback'; src: local('Arial'); size-adjust: 123.31%; ascent-override: 78.5%; descent-override: 20.35%; line-gap-override: 0%; }
+@font-face { font-family: 'Inter Fallback'; src: local('Arial'); size-adjust: 106.75%; ascent-override: 90.75%; descent-override: 22.6%; line-gap-override: 0%; }
+
 /* ─── TAILWIND v4 THEME ─── */
 @theme {
   --color-primary: #000000;
   --color-accent: #3b82f6;
   --color-bg: #ffffff;
   
-  --font-heading: 'Montserrat', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  --font-heading: 'Montserrat', 'Montserrat Fallback', sans-serif;
+  --font-body: 'Inter', 'Inter Fallback', sans-serif;
 
   @keyframes reveal {
     from { opacity: 0; transform: translateY(30px); }
@@ -203,7 +208,7 @@ h1, h2, h3, h4 {
 }
 /* ─── Utilidades extraídas de estilos inline ─────────────── */
 .font-montserrat-semibold {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', 'Montserrat Fallback', sans-serif;
     font-weight: 600;
 }
 

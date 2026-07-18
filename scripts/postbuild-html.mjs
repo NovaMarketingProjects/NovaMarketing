@@ -44,9 +44,15 @@ function walk(dir, out = []) {
 function truncateAboveFold(html) {
   const mainIdx = html.indexOf('<main');
   if (mainIdx === -1) return html;
-  const close = html.indexOf('</section>', mainIdx);
-  const cap = mainIdx + 20000;
-  const idx = close !== -1 && close < cap ? close + '</section>'.length : Math.min(cap, html.length);
+  // dos secciones: hero + marquee de logos (visible en el primer pintado; sin sus
+  // estilos críticos los logos parpadean y generan CLS)
+  let idx = mainIdx;
+  const cap = mainIdx + 24000;
+  for (let i = 0; i < 2; i++) {
+    const close = html.indexOf('</section>', idx);
+    if (close === -1 || close > cap) { idx = Math.min(cap, html.length); break; }
+    idx = close + '</section>'.length;
+  }
   let t = html.slice(0, idx) + '</main></body></html>';
   // dropdowns del menú (invisible group-hover) y menú móvil: fuera del crítico
   t = t.replace(/<div class="absolute top-8[^"]*invisible[^"]*"[^>]*>[\s\S]*?<\/div>/g, '');
