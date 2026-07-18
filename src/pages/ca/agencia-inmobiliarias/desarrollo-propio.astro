@@ -389,11 +389,12 @@ const pageSchema = localAgencySchema({
           if (window.innerWidth >= 640) return 2;
           return 1;
         }
+        let slideWidth = slides[0].offsetWidth + 24;
+        window.addEventListener('resize', () => { slideWidth = slides[0].offsetWidth + 24; }, { passive: true });
         function next() {
           const visible = getVisible();
           const maxIndex = total - visible;
           current = current >= maxIndex ? 0 : current + 1;
-          const slideWidth = slides[0].offsetWidth + 24;
           track.style.transform = `translateX(-${current * slideWidth}px)`;
         }
         const interval = setInterval(next, 5000);
@@ -506,17 +507,18 @@ function initTimeline() {
         if (!progressBar || !timeline) return;
 
         function updateProgress() {
+            // lecturas primero (evita reflows forzados intercalando lectura/escritura)
             const rect = timeline.getBoundingClientRect();
             const winHeight = window.innerHeight;
+            const nodes = timeline.querySelectorAll('.node-circle');
+            const nodeTops = Array.from(nodes, (node) => node.getBoundingClientRect().top);
+            // escrituras después
             const topPassed = (winHeight / 2) - rect.top;
             let percentage = (topPassed / rect.height) * 100;
             percentage = Math.max(0, Math.min(100, percentage));
             progressBar.style.height = `${percentage}%`;
-
-            const nodes = timeline.querySelectorAll('.node-circle');
-            nodes.forEach((node) => {
-                const nodeTop = node.getBoundingClientRect().top;
-                if (nodeTop < winHeight / 2) {
+            nodes.forEach((node, i) => {
+                if (nodeTops[i] < winHeight / 2) {
                     node.classList.add('!border-accent', '!bg-accent', '!text-white');
                 } else {
                     node.classList.remove('!border-accent', '!bg-accent', '!text-white');
@@ -524,7 +526,13 @@ function initTimeline() {
             });
         }
 
-        window.addEventListener('scroll', updateProgress);
+        let progressTick = false;
+        function onProgressScroll() {
+            if (progressTick) return;
+            progressTick = true;
+            requestAnimationFrame(() => { updateProgress(); progressTick = false; });
+        }
+        window.addEventListener('scroll', onProgressScroll, { passive: true });
         document.addEventListener('astro:page-load', updateProgress);
         updateProgress();
     }

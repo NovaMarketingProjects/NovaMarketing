@@ -1135,15 +1135,19 @@ function initPbTimelines() {
     }
 
     function update() {
+      // lecturas primero (evita reflows forzados intercalando lectura/escritura)
       const rect = track.getBoundingClientRect();
       const mid  = window.innerHeight / 2;
+      const nodeMids = nodes.map((node) => {
+        const nodeRect = node.getBoundingClientRect();
+        return nodeRect.top + nodeRect.height / 2;
+      });
+      // escrituras después
       const raw  = (mid - rect.top) / rect.height * 100;
       const pct  = Math.max(0, Math.min(100, raw));
       fill.style.height = pct + '%';
-
-      nodes.forEach((node) => {
-        const nodeRect = node.getBoundingClientRect();
-        if (nodeRect.top + nodeRect.height / 2 < mid) {
+      nodes.forEach((node, i) => {
+        if (nodeMids[i] < mid) {
           node.classList.add('is-active');
         } else {
           node.classList.remove('is-active');
@@ -1151,9 +1155,16 @@ function initPbTimelines() {
       });
     }
 
+    let pbTick = false;
+    function onPbScroll() {
+      if (pbTick) return;
+      pbTick = true;
+      requestAnimationFrame(() => { update(); pbTick = false; });
+    }
+
     alignLine();
     window.addEventListener('resize', alignLine, { passive: true });
-    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('scroll', onPbScroll, { passive: true });
     update();
   });
 }
