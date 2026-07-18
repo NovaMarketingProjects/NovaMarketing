@@ -77,7 +77,7 @@ const phoneClean = phone.replace(/\s/g, '');
 <div id="wa-widget" class="hidden md:block fixed bottom-6 right-6 z-50">
 
   <!-- Tarjeta expandida (oculta por defecto) — estilo chat de WhatsApp -->
-  <div id="wa-card" class="hidden absolute bottom-0 right-0 w-[300px] rounded-[18px] shadow-[0_8px_40px_rgba(0,0,0,0.22)] overflow-hidden">
+  <div id="wa-card" data-whatsapp={whatsapp} class="hidden absolute bottom-0 right-0 w-[300px] rounded-[18px] shadow-[0_8px_40px_rgba(0,0,0,0.22)] overflow-hidden">
 
     <!-- Header verde WhatsApp -->
     <div class="bg-[#075E54] px-[1.1rem] pt-4 pb-[0.9rem] flex items-center gap-[0.9rem] relative">
@@ -148,7 +148,7 @@ const phoneClean = phone.replace(/\s/g, '');
   </button>
 </div>
 
-<script is:inline define:vars={{ whatsapp }}>
+<script>
   function initWaWidget() {
     const card = document.getElementById('wa-card');
     const openBtn = document.getElementById('wa-open');
@@ -247,7 +247,8 @@ const phoneClean = phone.replace(/\s/g, '');
     form?.addEventListener('submit', (e) => {
       e.preventDefault();
       const msg = (input?.value || '').trim() || 'Hola, me gustaría más información sobre vuestros servicios.';
-      window.open(`https://wa.me/${whatsapp}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
+      const waNumber = (card as HTMLElement).dataset.whatsapp || '34644738270';
+      window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
     });
   }
   document.addEventListener('DOMContentLoaded', initWaWidget);

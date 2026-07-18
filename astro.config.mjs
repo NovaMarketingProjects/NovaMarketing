@@ -33,5 +33,9 @@ export default defineConfig({
   },
   vite: {
     plugins: [tailwindcss()],
+    build: {
+      // scripts del layout en ficheros externos cacheables (no inline en cada página)
+      assetsInlineLimit: 0,
+    },
   },
 });
