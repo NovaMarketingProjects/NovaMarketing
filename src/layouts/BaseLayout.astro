@@ -53,10 +53,7 @@ const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 <!DOCTYPE html>
 <html lang={locale === 'ca' ? 'ca' : 'es'}>
 <head>
-  <!-- Google Consent Mode v2 + cola de eventos (inline, ligero).
-       Los scripts pesados de Google (gtm.js y gtag.js) se cargan tras el
-       evento load para sacarlos de la ruta crítica y evitar reflows forzados
-       durante la carga inicial. Los eventos quedan encolados en dataLayer. -->
+  <!-- Google Consent Mode v2 — defaults DENIED until user accepts cookies -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -71,27 +68,23 @@ const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
         gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'granted' });
       }
     } catch(_) {}
+  </script>
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-5XJ5NNLL');</script>
+  <!-- End Google Tag Manager -->
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-X8YZVZTRSN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-X8YZVZTRSN');
-
-    function loadGoogleTags() {
-      // Google Tag Manager
-      window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-      var gtm = document.createElement('script');
-      gtm.async = true;
-      gtm.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-5XJ5NNLL';
-      document.head.appendChild(gtm);
-      // Google tag (gtag.js)
-      var ga = document.createElement('script');
-      ga.async = true;
-      ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-X8YZVZTRSN';
-      document.head.appendChild(ga);
-    }
-    if (document.readyState === 'complete') {
-      setTimeout(loadGoogleTags, 0);
-    } else {
-      window.addEventListener('load', function () { setTimeout(loadGoogleTags, 0); });
-    }
   </script>
 
   <meta charset="UTF-8" />
