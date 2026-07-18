@@ -15,8 +15,8 @@ export default defineConfig({
   output: 'static',
   build: {
     format: 'directory',
-    // Inyecta el CSS en el HTML para eliminar la petición que bloquea el renderizado
-    inlineStylesheets: 'always',
+    // CSS en fichero externo (mejor relación texto/HTML y cacheable entre páginas)
+    inlineStylesheets: 'never',
   },
   image: {
     remotePatterns: [
