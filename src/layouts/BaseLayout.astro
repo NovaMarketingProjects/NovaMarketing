@@ -239,7 +239,13 @@ const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 
     /* Init Core */
     function init() {
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        // Los elementos ya visibles al cargar NO se re-animan: re-pintarlos desde
+        // opacidad 0 retrasaba el LCP en móvil hasta el final de la animación.
+        // Solo se observa (y anima) lo que entra al hacer scroll.
+        const vh = window.innerHeight;
+        document.querySelectorAll('.reveal').forEach(el => {
+            if (el.getBoundingClientRect().top >= vh) observer.observe(el);
+        });
         // Efectos visuales no críticos: se difieren a tiempo de inactividad para
         // evitar reflows forzados durante la carga inicial (leen tamaño del viewport).
         const runVisuals = () => { initParticles(); initCursorGlow(); };
