@@ -65,6 +65,12 @@ Redirect 301 /ca/consultoria-marketing-digital-terrassa/ https://novamarketing.e
 # Blog posts redirects
 Redirect 301 /las-redes-sociales-en-2024-analisis-del-estudio-de-iab-spain/ https://novamarketing.es/blog/mejores-herramientas-de-gestion-de-redes-sociales-para-pymes/
 
+# Legacy/stray URLs
+Redirect 301 /google-ads/ https://novamarketing.es/agencia-sem-para-pymes/
+Redirect 301 /logout https://novamarketing.es/
+Redirect 301 /ca/casos-exit/cas-d-exit-tagtio/ https://novamarketing.es/
+Redirect 301 /ca/casos-exit/case-study/ https://novamarketing.es/
+
 # Localized redirection for success stories (ES/CA)
 # From /ca/casos-exito/ to /ca/casos-exit/
 Redirect 301 /ca/casos-exito/ https://novamarketing.es/ca/casos-exit/
