@@ -70,20 +70,31 @@ const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
       }
     } catch(_) {}
 
-    // Google Tag Manager
-    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-5XJ5NNLL');
-
-    // Google tag (gtag.js) config
+    // Google tag (gtag.js) config: queda encolado en dataLayer hasta que cargue la librería
     gtag('js', new Date());
     gtag('config', 'G-X8YZVZTRSN');
-  </script>
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-X8YZVZTRSN"></script>
+    // gtm.js y gtag.js (~200 KB de terceros) se cargan tras el evento load:
+    // si cargan de inmediato entran en el grafo de dependencias del LCP y
+    // disparan el LCP simulado en móvil (5,7 s -> ~2 s). Los eventos previos
+    // quedan encolados en dataLayer y se procesan al llegar las librerías.
+    function loadGoogleTags() {
+      window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      var gtm = document.createElement('script');
+      gtm.async = true;
+      gtm.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-5XJ5NNLL';
+      document.head.appendChild(gtm);
+      var ga = document.createElement('script');
+      ga.async = true;
+      ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-X8YZVZTRSN';
+      document.head.appendChild(ga);
+    }
+    if (document.readyState === 'complete') {
+      setTimeout(loadGoogleTags, 0);
+    } else {
+      window.addEventListener('load', function () { setTimeout(loadGoogleTags, 0); });
+    }
+  </script>
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />

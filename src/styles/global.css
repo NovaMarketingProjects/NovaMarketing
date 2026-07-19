@@ -7,10 +7,12 @@
 @import "tailwindcss";
 
 /* ─── LOCAL FONTS ─── */
-/* Preloaded in BaseLayout (critical): Inter-Regular, Montserrat-Black → font-display: swap */
-/* Secondary weights → font-display: optional (no layout shift, loaded silently) */
-@font-face { font-family: 'Inter'; src: url('/fonts/Inter-Regular.woff2') format('woff2'); font-weight: 300; font-display: swap; }
-@font-face { font-family: 'Inter'; src: url('/fonts/Inter-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+/* Todas las fuentes → font-display: optional: sin repintado tardío que penalice
+   el LCP en móvil. Las críticas (Inter-Regular, Montserrat-Black) van precargadas
+   en BaseLayout, así que suelen llegar dentro de la ventana; si no, el fallback
+   con métricas ajustadas se queda sin swap y sin desplazamiento. */
+@font-face { font-family: 'Inter'; src: url('/fonts/Inter-Regular.woff2') format('woff2'); font-weight: 300; font-display: optional; }
+@font-face { font-family: 'Inter'; src: url('/fonts/Inter-Regular.woff2') format('woff2'); font-weight: 400; font-display: optional; }
 @font-face { font-family: 'Inter'; src: url('/fonts/Inter-Medium.woff2') format('woff2'); font-weight: 500; font-display: optional; }
 @font-face { font-family: 'Inter'; src: url('/fonts/Inter-SemiBold.woff2') format('woff2'); font-weight: 600; font-display: optional; }
 @font-face { font-family: 'Inter'; src: url('/fonts/Inter-SemiBold.woff2') format('woff2'); font-weight: 700; font-display: optional; }
@@ -18,7 +20,7 @@
 @font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-SemiBold.woff2') format('woff2'); font-weight: 600; font-display: optional; }
 @font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-Bold.woff2') format('woff2'); font-weight: 700; font-display: optional; }
 @font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-ExtraBold.woff2') format('woff2'); font-weight: 800; font-display: optional; }
-@font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-Black.woff2') format('woff2'); font-weight: 900; font-display: swap; }
+@font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-Black.woff2') format('woff2'); font-weight: 900; font-display: optional; }
 
 /* Fallbacks con métricas ajustadas a la fuente real (medidas con fontkit sobre
    texto en español vs Arial): el swap de la webfont no desplaza el layout (CLS). */
