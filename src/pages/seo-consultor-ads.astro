@@ -10,7 +10,7 @@ try {
   const seoSlugs = ['seo', 'seo-local', 'consultoria-seo', 'posicionamiento-seo'];
   caseStudies = allCases
     .filter((cs: any) => {
-      if (!cs.slug) return false;
+      if (!cs.slug || !cs.isPublic) return false;
       const cats: any[] = cs.categories || [];
       return cats.some((c: any) => {
         const name: string = (c.name || c.attributes?.name || '').toLowerCase();
