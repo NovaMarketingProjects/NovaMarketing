@@ -35,4 +35,4 @@ Disallow: /*?*
 Disallow: /cgi-bin/
 
 # Sitemaps
-Sitemap: https://novamarketing.es/sitemap.xml
+Sitemap: https://novamarketing.es/sitemap-index.xml

@@ -3,82 +3,82 @@ import { strapiClient } from '../lib/strapi';
 
 const SITE = 'https://novamarketing.es';
 
-// Mapeo CA ↔ ES para páginas estáticas
-const STATIC_PAGES: { ca: string; es: string; priority: string; changefreq: string }[] = [
-  { ca: '/ca/',                                                priority: '1.0', changefreq: 'weekly',  es: '/'                                              },
-  { ca: '/ca/agencia-seo-per-pimes/',                          priority: '0.9', changefreq: 'monthly', es: '/agencia-seo-para-pymes/'                       },
-  { ca: '/ca/agencia-sem-per-pimes/',                          priority: '0.9', changefreq: 'monthly', es: '/agencia-sem-para-pymes/'                       },
-  { ca: '/ca/disseny-web-per-pimes/',                          priority: '0.9', changefreq: 'monthly', es: '/diseno-web-para-pymes/'                        },
-  { ca: '/ca/casos-exit/',                                     priority: '0.8', changefreq: 'weekly',  es: '/casos-exito/'                                  },
-  { ca: '/ca/blog/',                                           priority: '0.8', changefreq: 'daily',   es: '/blog/'                                         },
-  { ca: '/ca/agencia-de-marketing-digital-a-barcelona/',       priority: '0.7', changefreq: 'monthly', es: '/agencia-de-marketing-digital-en-barcelona/'    },
-  { ca: '/ca/agencia-de-marketing-digital-a-sabadell/',        priority: '0.7', changefreq: 'monthly', es: '/agencia-de-marketing-digital-en-sabadell/'     },
-  { ca: '/ca/agencia-de-marketing-digital-a-sant-cugat/',      priority: '0.7', changefreq: 'monthly', es: '/agencia-de-marketing-digital-en-sant-cugat/'   },
-  { ca: '/ca/agencia-de-marketing-digital-a-terrassa/',        priority: '0.7', changefreq: 'monthly', es: '/agencia-de-marketing-digital-en-terrassa/'     },
-  { ca: '/ca/agencia-seo-per-pimes/barcelona/',                        priority: '0.7', changefreq: 'monthly', es: '/agencia-seo-para-pymes/barcelona/'                     },
-  { ca: '/ca/agencia-seo-per-pimes/sabadell/',                         priority: '0.7', changefreq: 'monthly', es: '/agencia-seo-para-pymes/sabadell/'                      },
-  { ca: '/ca/agencia-seo-per-pimes/sant-cugat/',                       priority: '0.7', changefreq: 'monthly', es: '/agencia-seo-para-pymes/sant-cugat/'                    },
-  { ca: '/ca/agencia-seo-per-pimes/terrassa/',                         priority: '0.7', changefreq: 'monthly', es: '/agencia-seo-para-pymes/terrassa/'                      },
-  { ca: '/ca/agencia-sem-per-pimes/barcelona/',                   priority: '0.7', changefreq: 'monthly', es: '/agencia-sem-para-pymes/barcelona/'                 },
-  { ca: '/ca/agencia-sem-per-pimes/sabadell/',                    priority: '0.7', changefreq: 'monthly', es: '/agencia-sem-para-pymes/sabadell/'                  },
-  { ca: '/ca/agencia-sem-per-pimes/sant-cugat/',                  priority: '0.7', changefreq: 'monthly', es: '/agencia-sem-para-pymes/sant-cugat/'                },
-  { ca: '/ca/agencia-sem-per-pimes/terrassa/',                    priority: '0.7', changefreq: 'monthly', es: '/agencia-sem-para-pymes/terrassa/'                  },
-  { es: '/agencia-geo-para-pymes/', ca: '/ca/agencia-geo-per-pimes/', priority: '0.9', changefreq: 'monthly' },
-  { es: '/agencia-geo-para-pymes/barcelona/', ca: '/ca/agencia-geo-per-pimes/barcelona/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/diseno-web-para-pymes/barcelona/', ca: '/ca/disseny-web-per-pimes/barcelona/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/agencia-geo-para-pymes/sabadell/', ca: '/ca/agencia-geo-per-pimes/sabadell/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/diseno-web-para-pymes/sabadell/', ca: '/ca/disseny-web-per-pimes/sabadell/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/agencia-geo-para-pymes/sant-cugat/', ca: '/ca/agencia-geo-per-pimes/sant-cugat/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/diseno-web-para-pymes/sant-cugat/', ca: '/ca/disseny-web-per-pimes/sant-cugat/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/agencia-geo-para-pymes/terrassa/', ca: '/ca/agencia-geo-per-pimes/terrassa/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/diseno-web-para-pymes/terrassa/', ca: '/ca/disseny-web-per-pimes/terrassa/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/agencia-ecommerce/', ca: '/ca/agencia-ecommerce/', priority: '0.9', changefreq: 'monthly' },
-  { es: '/agencia-ecommerce/diseno-web/', ca: '/ca/agencia-ecommerce/diseno-web/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/agencia-ecommerce/seo/', ca: '/ca/agencia-ecommerce/seo/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/agencia-ecommerce/google-ads/', ca: '/ca/agencia-ecommerce/google-ads/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/agencia-ecommerce/meta-ads/', ca: '/ca/agencia-ecommerce/meta-ads/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/agencia-ecommerce/email-marketing/', ca: '/ca/agencia-ecommerce/email-marketing/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/agencia-ecommerce/posicionamiento-geo/', ca: '/ca/agencia-ecommerce/posicionamiento-geo/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/agencia-inmobiliarias/', ca: '/ca/agencia-inmobiliarias/', priority: '0.9', changefreq: 'monthly' },
-  { es: '/agencia-inmobiliarias/diseno-web/', ca: '/ca/agencia-inmobiliarias/diseno-web/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/agencia-inmobiliarias/seo/', ca: '/ca/agencia-inmobiliarias/seo/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/agencia-inmobiliarias/google-ads/', ca: '/ca/agencia-inmobiliarias/google-ads/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/agencia-inmobiliarias/meta-ads/', ca: '/ca/agencia-inmobiliarias/meta-ads/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/agencia-inmobiliarias/email-marketing/', ca: '/ca/agencia-inmobiliarias/email-marketing/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/agencia-inmobiliarias/posicionamiento-geo/', ca: '/ca/agencia-inmobiliarias/posicionamiento-geo/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/agencia-inmobiliarias/wordpress/', ca: '/ca/agencia-inmobiliarias/wordpress/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/agencia-inmobiliarias/desarrollo-propio/', ca: '/ca/agencia-inmobiliarias/desarrollo-propio/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/agencia-restaurantes/', ca: '/ca/agencia-restaurantes/', priority: '0.9', changefreq: 'monthly' },
-  { es: '/agencia-restaurantes/diseno-web/', ca: '/ca/agencia-restaurantes/diseno-web/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/agencia-restaurantes/seo/', ca: '/ca/agencia-restaurantes/seo/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/agencia-restaurantes/google-ads/', ca: '/ca/agencia-restaurantes/google-ads/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/agencia-restaurantes/meta-ads/', ca: '/ca/agencia-restaurantes/meta-ads/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/agencia-restaurantes/email-marketing/', ca: '/ca/agencia-restaurantes/email-marketing/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/agencia-restaurantes/posicionamiento-geo/', ca: '/ca/agencia-restaurantes/posicionamiento-geo/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/agencia-restaurantes/wordpress/', ca: '/ca/agencia-restaurantes/wordpress/', priority: '0.7', changefreq: 'monthly' },
-  { es: '/agencia-restaurantes/desarrollo-propio/', ca: '/ca/agencia-restaurantes/desarrollo-propio/', priority: '0.7', changefreq: 'monthly' },
+// Páginas estáticas CA ↔ ES. lastmod = fecha real del último commit que tocó
+// el fichero fuente (git log), NO la fecha de build. Las páginas legales CA
+// están en noindex,nofollow → no se listan aquí en absoluto.
+const STATIC_PAGES: { ca: string; es: string; lastmod: string }[] = [
+  { ca: '/ca/', es: '/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-seo-per-pimes/', es: '/agencia-seo-para-pymes/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-sem-per-pimes/', es: '/agencia-sem-para-pymes/', lastmod: '2026-07-23' },
+  { ca: '/ca/disseny-web-per-pimes/', es: '/diseno-web-para-pymes/', lastmod: '2026-07-23' },
+  { ca: '/ca/casos-exit/', es: '/casos-exito/', lastmod: '2026-07-20' },
+  { ca: '/ca/blog/', es: '/blog/', lastmod: '2026-07-20' },
+  { ca: '/ca/agencia-de-marketing-digital-a-barcelona/', es: '/agencia-de-marketing-digital-en-barcelona/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-de-marketing-digital-a-sabadell/', es: '/agencia-de-marketing-digital-en-sabadell/', lastmod: '2026-07-20' },
+  { ca: '/ca/agencia-de-marketing-digital-a-sant-cugat/', es: '/agencia-de-marketing-digital-en-sant-cugat/', lastmod: '2026-07-20' },
+  { ca: '/ca/agencia-de-marketing-digital-a-terrassa/', es: '/agencia-de-marketing-digital-en-terrassa/', lastmod: '2026-07-20' },
+  { ca: '/ca/agencia-seo-per-pimes/barcelona/', es: '/agencia-seo-para-pymes/barcelona/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-seo-per-pimes/sabadell/', es: '/agencia-seo-para-pymes/sabadell/', lastmod: '2026-07-20' },
+  { ca: '/ca/agencia-seo-per-pimes/sant-cugat/', es: '/agencia-seo-para-pymes/sant-cugat/', lastmod: '2026-07-20' },
+  { ca: '/ca/agencia-seo-per-pimes/terrassa/', es: '/agencia-seo-para-pymes/terrassa/', lastmod: '2026-07-20' },
+  { ca: '/ca/agencia-sem-per-pimes/barcelona/', es: '/agencia-sem-para-pymes/barcelona/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-sem-per-pimes/sabadell/', es: '/agencia-sem-para-pymes/sabadell/', lastmod: '2026-07-20' },
+  { ca: '/ca/agencia-sem-per-pimes/sant-cugat/', es: '/agencia-sem-para-pymes/sant-cugat/', lastmod: '2026-07-20' },
+  { ca: '/ca/agencia-sem-per-pimes/terrassa/', es: '/agencia-sem-para-pymes/terrassa/', lastmod: '2026-07-20' },
+  { ca: '/ca/agencia-geo-per-pimes/', es: '/agencia-geo-para-pymes/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-geo-per-pimes/barcelona/', es: '/agencia-geo-para-pymes/barcelona/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-geo-per-pimes/sabadell/', es: '/agencia-geo-para-pymes/sabadell/', lastmod: '2026-07-20' },
+  { ca: '/ca/agencia-geo-per-pimes/sant-cugat/', es: '/agencia-geo-para-pymes/sant-cugat/', lastmod: '2026-07-20' },
+  { ca: '/ca/agencia-geo-per-pimes/terrassa/', es: '/agencia-geo-para-pymes/terrassa/', lastmod: '2026-07-20' },
+  { ca: '/ca/disseny-web-per-pimes/barcelona/', es: '/diseno-web-para-pymes/barcelona/', lastmod: '2026-07-23' },
+  { ca: '/ca/disseny-web-per-pimes/sabadell/', es: '/diseno-web-para-pymes/sabadell/', lastmod: '2026-07-20' },
+  { ca: '/ca/disseny-web-per-pimes/sant-cugat/', es: '/diseno-web-para-pymes/sant-cugat/', lastmod: '2026-07-20' },
+  { ca: '/ca/disseny-web-per-pimes/terrassa/', es: '/diseno-web-para-pymes/terrassa/', lastmod: '2026-07-20' },
+  { ca: '/ca/agencia-ecommerce/', es: '/agencia-ecommerce/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-ecommerce/diseno-web/', es: '/agencia-ecommerce/diseno-web/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-ecommerce/seo/', es: '/agencia-ecommerce/seo/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-ecommerce/google-ads/', es: '/agencia-ecommerce/google-ads/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-ecommerce/meta-ads/', es: '/agencia-ecommerce/meta-ads/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-ecommerce/email-marketing/', es: '/agencia-ecommerce/email-marketing/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-ecommerce/posicionamiento-geo/', es: '/agencia-ecommerce/posicionamiento-geo/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-inmobiliarias/', es: '/agencia-inmobiliarias/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-inmobiliarias/diseno-web/', es: '/agencia-inmobiliarias/diseno-web/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-inmobiliarias/seo/', es: '/agencia-inmobiliarias/seo/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-inmobiliarias/google-ads/', es: '/agencia-inmobiliarias/google-ads/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-inmobiliarias/meta-ads/', es: '/agencia-inmobiliarias/meta-ads/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-inmobiliarias/email-marketing/', es: '/agencia-inmobiliarias/email-marketing/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-inmobiliarias/posicionamiento-geo/', es: '/agencia-inmobiliarias/posicionamiento-geo/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-inmobiliarias/wordpress/', es: '/agencia-inmobiliarias/wordpress/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-inmobiliarias/desarrollo-propio/', es: '/agencia-inmobiliarias/desarrollo-propio/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-restaurantes/', es: '/agencia-restaurantes/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-restaurantes/diseno-web/', es: '/agencia-restaurantes/diseno-web/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-restaurantes/seo/', es: '/agencia-restaurantes/seo/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-restaurantes/google-ads/', es: '/agencia-restaurantes/google-ads/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-restaurantes/meta-ads/', es: '/agencia-restaurantes/meta-ads/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-restaurantes/email-marketing/', es: '/agencia-restaurantes/email-marketing/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-restaurantes/posicionamiento-geo/', es: '/agencia-restaurantes/posicionamiento-geo/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-restaurantes/wordpress/', es: '/agencia-restaurantes/wordpress/', lastmod: '2026-07-23' },
+  { ca: '/ca/agencia-restaurantes/desarrollo-propio/', es: '/agencia-restaurantes/desarrollo-propio/', lastmod: '2026-07-23' },
 ];
+
+// Categorías de blog/casos de éxito cuyo slug difiere entre ES y CA
+// (verificado en vivo: el resto de categorías comparten el mismo slug).
+const ES_CATEGORY_SLUG: Record<string, string> = {
+  'disseny-web': 'diseno-web',
+  'consultoria-de-marketing': 'Consultoria-de-marketing',
+};
 
 function e(str: string): string {
   return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-function entry(
-  caPath: string,
-  esPath: string | null,
-  lastmod: string,
-  priority: string,
-  changefreq: string,
-): string {
+function entry(caPath: string, esPath: string | null, lastmod: string): string {
   const caUrl = e(SITE + caPath);
   const esUrl = esPath ? e(SITE + esPath) : null;
-  // x-default apunta siempre a la versión ES (idioma por defecto del sitio)
   const defaultUrl = esUrl ?? caUrl;
   return `  <url>
     <loc>${caUrl}</loc>
     <lastmod>${lastmod.split('T')[0]}</lastmod>
-    <changefreq>${changefreq}</changefreq>
-    <priority>${priority}</priority>
     <xhtml:link rel="alternate" hreflang="ca-ES" href="${caUrl}"/>
     ${esUrl ? `<xhtml:link rel="alternate" hreflang="es-ES" href="${esUrl}"/>` : ''}
     <xhtml:link rel="alternate" hreflang="x-default" href="${defaultUrl}"/>
@@ -86,15 +86,14 @@ function entry(
 }
 
 export const GET: APIRoute = async () => {
-  const today = new Date().toISOString().split('T')[0];
   const entries: string[] = [];
 
-  // Pàgines estàtiques
+  // Páginas estáticas
   for (const p of STATIC_PAGES) {
-    entries.push(entry(p.ca, p.es, today, p.priority, p.changefreq));
+    entries.push(entry(p.ca, p.es, p.lastmod));
   }
 
-  // Blog posts: cruzar documentId per obtenir slug ES
+  // Blog posts: cruzar documentId para obtener slug ES
   try {
     const [resCa, resEs] = await Promise.all([
       strapiClient.getBlogPosts('ca', { limit: 500 }),
@@ -108,17 +107,14 @@ export const GET: APIRoute = async () => {
     for (const item of (resCa.data ?? []) as any[]) {
       const post = item.attributes ?? item;
       if (!post.slug) continue;
-      const lastmod = post.publishedAt || post.publishedDate || today;
+      const lastmod = post.publishedAt || post.publishedDate;
+      if (!lastmod) continue;
       const esSlug = item.documentId && esSlugMap[item.documentId];
-      entries.push(entry(
-        `/ca/blog/${post.slug}/`,
-        esSlug ? `/blog/${esSlug}/` : null,
-        lastmod, '0.7', 'monthly',
-      ));
+      entries.push(entry(`/ca/blog/${post.slug}/`, esSlug ? `/blog/${esSlug}/` : null, lastmod));
     }
   } catch {}
 
-  // Casos d'èxit: cruzar documentId per obtenir slug ES
+  // Casos d'èxit: cruzar documentId para obtener slug ES (solo isPublic)
   try {
     const [resCa, resEs] = await Promise.all([
       strapiClient.getCaseStudies('ca'),
@@ -131,14 +127,44 @@ export const GET: APIRoute = async () => {
     }
     for (const item of (resCa.data ?? []) as any[]) {
       const cs = item.attributes ?? item;
-      if (!cs.slug || !cs.isPublic) continue;
-      const lastmod = cs.publishedAt || today;
+      if (!cs.slug || !cs.isPublic || !cs.publishedAt) continue;
       const esSlug = item.documentId && esSlugMap[item.documentId];
-      entries.push(entry(
-        `/ca/casos-exit/${cs.slug}/`,
-        esSlug ? `/casos-exito/${esSlug}/` : null,
-        lastmod, '0.7', 'monthly',
-      ));
+      entries.push(entry(`/ca/casos-exit/${cs.slug}/`, esSlug ? `/casos-exito/${esSlug}/` : null, cs.publishedAt));
+    }
+  } catch {}
+
+  // Páginas de categoría de blog: solo si tienen al menos un post publicado.
+  try {
+    const catsRes = await strapiClient.getBlogCategories('ca');
+    for (const item of (catsRes.data ?? []) as any[]) {
+      const cat = item.attributes ?? item;
+      if (!cat.slug) continue;
+      const postsRes = await strapiClient.getBlogPosts('ca', { category: cat.slug });
+      const posts = (postsRes.data ?? []) as any[];
+      if (!posts.length) continue;
+      const first = posts[0].attributes ?? posts[0];
+      const lastmod = first.publishedAt;
+      if (!lastmod) continue;
+      const esSlug = ES_CATEGORY_SLUG[cat.slug] || cat.slug;
+      entries.push(entry(`/ca/blog/${cat.slug}/`, `/blog/${esSlug}/`, lastmod));
+    }
+  } catch {}
+
+  // Páginas de categoría de casos de éxito: mismas reglas, filtrando por isPublic.
+  try {
+    const catsRes = await strapiClient.getCaseStudyCategories('ca');
+    for (const item of (catsRes.data ?? []) as any[]) {
+      const cat = item.attributes ?? item;
+      if (!cat.slug) continue;
+      const casesRes = await strapiClient.getCaseStudies('ca', { category: cat.slug });
+      const cases = ((casesRes.data ?? []) as any[])
+        .map(i => i.attributes ?? i)
+        .filter((c: any) => c.isPublic);
+      if (!cases.length) continue;
+      const lastmod = cases[0].publishedAt;
+      if (!lastmod) continue;
+      const esSlug = ES_CATEGORY_SLUG[cat.slug] || cat.slug;
+      entries.push(entry(`/ca/casos-exit/${cat.slug}/`, `/casos-exito/${esSlug}/`, lastmod));
     }
   } catch {}
 
