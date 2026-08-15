@@ -331,33 +331,6 @@ const pageSchema = localAgencySchema({
         </div>
     </section>
 
-    <!-- ═══ PLATAFORMAS ══════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-b border-black/5">
-        <div class="max-w-7xl mx-auto text-center reveal">
-            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Tu tecnología</span>
-            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                SEO para tu plataforma
-            </h2>
-            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-16">
-                Cada web de restaurante tiene sus reglas de juego. Trabajamos las dos bases tecnológicas que dominan el sector.
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2  gap-6 text-left">
-                {[
-                    { t: "SEO para WordPress", d: "Carta, reservas y SEO local bien montados sobre la plataforma más usada en hostelería.", b: "Plataforma", href: "/agencia-restaurantes/wordpress/" },
-                    { t: "SEO para Desarrollo Propio", d: "Especificaciones claras para tu equipo técnico y campañas conectadas a tu motor de reservas.", b: "Plataforma", href: "/agencia-restaurantes/desarrollo-propio/" },
-                ].map((c: any) => (
-                    <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                        <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900 mb-3">
-                            {c.href ? <a href={c.href} class="hover:text-accent transition-colors">{c.t}</a> : c.t}
-                            {c.b && <span class="block text-[11px] uppercase tracking-[0.2em] text-accent mt-1 font-semibold">{c.b}</span>}
-                        </h3>
-                        <p class="text-sm text-zinc-500 font-light leading-relaxed mb-2">{c.d}</p>
-                        {c.href && <a href={c.href} class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>}
-                    </div>
-                ))}
-            </div>
-        </div>
-    </section>
 
     <!-- ═══ CITA ══════════════════════════════════════════════════ -->
     <section class="py-20 sm:py-28 bg-zinc-950 px-4 sm:px-6">

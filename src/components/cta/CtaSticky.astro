@@ -198,7 +198,7 @@ const phoneClean = phone.replace(/\s/g, '');
       show(0);
       setTimeout(() => {
         show(1);
-        try { sessionStorage.setItem('waSeqDone', '1'); } catch (_) {}
+        try { localStorage.setItem('waSeqDone', '1'); } catch (_) {}
       }, 2000);
     }
 
@@ -214,7 +214,7 @@ const phoneClean = phone.replace(/\s/g, '');
       card.classList.remove('hidden');
       openBtn.classList.add('invisible');
       startChatSequence();
-      try { sessionStorage.setItem('waClosed', '0'); } catch (_) {}
+      try { localStorage.setItem('waClosed', '0'); } catch (_) {}
       if (focus) input?.focus();
     }
     openBtn.addEventListener('click', () => openCard(true));
@@ -222,14 +222,16 @@ const phoneClean = phone.replace(/\s/g, '');
       userClosed = true;
       card.classList.add('hidden');
       openBtn.classList.remove('invisible');
-      try { sessionStorage.setItem('waClosed', '1'); } catch (_) {}
+      try { localStorage.setItem('waClosed', '1'); } catch (_) {}
     });
 
-    // Estado persistente durante la sesión: no reabrir un chat nuevo en cada URL
+    // localStorage (no sessionStorage): se comparte entre pestañas, así que si
+    // el usuario ya vio la secuencia en una pestaña, otra pestaña del mismo
+    // sitio no la repite ni reproduce el sonido de nuevo.
     let seqDone = false, wasClosed = false;
     try {
-      seqDone = sessionStorage.getItem('waSeqDone') === '1';
-      wasClosed = sessionStorage.getItem('waClosed') === '1';
+      seqDone = localStorage.getItem('waSeqDone') === '1';
+      wasClosed = localStorage.getItem('waClosed') === '1';
     } catch (_) {}
 
     if (seqDone) {

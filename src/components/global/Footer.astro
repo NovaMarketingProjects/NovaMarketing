@@ -69,7 +69,7 @@ const locations = [
             <!-- Brand -->
             <div>
                 <div class="group inline-block cursor-default mb-8">
-                    <span class="hover-animate-gradient text-6xl font-heading font-black tracking-tighter text-white">
+                    <span class="hover-animate-gradient footer-logo text-6xl font-heading font-black tracking-tighter">
                         nova.
                     </span>
                 </div>
@@ -137,3 +137,14 @@ const locations = [
         </div>
     </div>
 </footer>
+
+<style>
+    /* .hover-animate-gradient fija color negro sin capa Tailwind, por lo que
+       gana siempre a la utilidad text-white (bug de cascade layers de
+       Tailwind v4). Aquí, sobre fondo negro, forzamos blanco con un
+       selector con ámbito para no tocar la clase compartida (Header y las
+       landings de ads la usan sobre fondo blanco). */
+    .footer-logo {
+        color: #fff;
+    }
+</style>

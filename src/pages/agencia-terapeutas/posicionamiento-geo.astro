@@ -1,0 +1,915 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { buildAlternates } from '../../lib/i18n';
+import { localAgencySchema } from '../../lib/schema';
+import { strapiClient } from '../../lib/strapi';
+import LogoMarquee from '../../components/sections/LogoMarquee.astro';
+import FaqHome from '../../components/sections/FaqHome.astro';
+import GoogleReviews from '../../components/global/GoogleReviews.astro';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const alternates = buildAlternates('/agencia-terapeutas/posicionamiento-geo/', '/agencia-terapeutes/posicionamiento-geo/', SITE_URL);
+
+let allCases: any[] = [];
+try {
+  const casesRes = await strapiClient.getCaseStudies('es');
+  allCases = casesRes.data.map((i: any) => i.attributes ?? i).filter((c: any) => {
+    const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase());
+    return cats.some((s: string) => s.includes('terapeutas') || s.includes('geo'));
+  });
+} catch {}
+
+const heroChecks = [
+  "Sin permanencias",
+  "Trato directo con el consultor",
+  "Resultados medidos en sesiones"
+];
+
+const tiles = [
+  {
+    "t": "Auditoría de visibilidad en IA",
+    "d": "Comprobamos qué responden hoy ChatGPT, Gemini y Claude cuando alguien pregunta por tu especialidad en tu zona."
+  },
+  {
+    "t": "Optimización de contenido para IA",
+    "d": "Estructuramos tu web para que los motores de IA puedan citarte como fuente fiable."
+  },
+  {
+    "t": "Datos estructurados avanzados",
+    "d": "Marcado schema que ayuda a las IA a entender quién eres, qué tratas y dónde estás."
+  },
+  {
+    "t": "Presencia en directorios de salud",
+    "d": "Perfiles consistentes en las fuentes que las IA consultan para recomendar profesionales."
+  },
+  {
+    "t": "Contenido que responde preguntas reales",
+    "d": "Las preguntas que la gente hace a la IA antes de buscar profesional, respondidas en tu propia web."
+  },
+  {
+    "t": "Reputación online",
+    "d": "Reseñas y menciones coherentes, la señal de confianza que más pesa tanto para Google como para la IA."
+  },
+  {
+    "t": "Seguimiento de menciones",
+    "d": "Monitorizamos si tu consulta aparece recomendada y cómo evoluciona mes a mes."
+  },
+  {
+    "t": "GEO más SEO",
+    "d": "Una sola estrategia que trabaja el buscador tradicional y los asistentes de IA a la vez."
+  },
+  {
+    "t": "Informe de visibilidad IA",
+    "d": "Cada mes ves si apareces recomendado y qué se ha hecho para mejorarlo."
+  }
+];
+
+const timeline = [
+  {
+    "title": "Auditoría de Visibilidad en IA",
+    "desc": "Comprobamos qué responden hoy ChatGPT, Gemini y Claude cuando alguien pregunta por tu especialidad en tu zona."
+  },
+  {
+    "title": "Estrategia GEO Documentada",
+    "desc": "Recibes por escrito qué señales trabajar primero: contenido, datos estructurados o reputación, según tu punto de partida."
+  },
+  {
+    "title": "Optimización de Contenido y Datos",
+    "desc": "Estructuramos tu web y tus perfiles para que las IA puedan entenderte y citarte como fuente fiable."
+  },
+  {
+    "title": "Reputación y Presencia",
+    "desc": "Reseñas, menciones y directorios de salud coherentes, la señal de confianza que más pesa para las IA."
+  },
+  {
+    "title": "Seguimiento y Ajuste",
+    "desc": "Monitorizamos mes a mes si apareces recomendado y qué se ha hecho para mejorarlo."
+  }
+];
+
+const auditParas = [
+  "¿Sabes qué responde ChatGPT cuando alguien le pregunta por un profesional de tu especialidad en tu zona? Casi nadie lo sabe, y ahí empieza todo.",
+  "Nuestra <strong class=\"font-semibold text-zinc-900\">auditoría de visibilidad en IA para terapeutas</strong> comprueba qué dicen hoy los principales asistentes de IA sobre tu especialidad, y termina con un plan de acción priorizado por impacto.",
+  "A diferencia de los análisis genéricos, aquí cada punto lo revisa un consultor senior con experiencia en posicionamiento en IA para el sector salud."
+];
+
+const auditChecklist = [
+  "Qué responden hoy ChatGPT, Gemini y Claude sobre tu especialidad",
+  "Presencia y coherencia en directorios de salud",
+  "Datos estructurados actuales de tu web",
+  "Reputación y reseñas como señal de confianza",
+  "Contenido que responde preguntas reales",
+  "Plan de acción priorizado por impacto"
+];
+
+const auditCards = [
+  {
+    "t": "Test de recomendación en IA",
+    "d": "Preguntamos directamente a ChatGPT, Gemini y Claude por tu especialidad en tu zona y documentamos qué responden.",
+    "bg": "bg-purple-100",
+    "color": "text-purple-600"
+  },
+  {
+    "t": "Datos estructurados",
+    "d": "Revisamos si tu web tiene el marcado schema que ayuda a las IA a entenderte.",
+    "bg": "bg-green-100",
+    "color": "text-green-600"
+  },
+  {
+    "t": "Reputación online",
+    "d": "Analizamos tus reseñas y menciones, la señal de confianza que más pesa.",
+    "bg": "bg-purple-100",
+    "color": "text-purple-600"
+  },
+  {
+    "t": "Presencia en directorios",
+    "d": "Comprobamos si tus datos son coherentes en las fuentes que las IA consultan.",
+    "bg": "bg-amber-100",
+    "color": "text-amber-600"
+  },
+  {
+    "t": "Benchmark de tu competencia",
+    "d": "Vemos si tu competencia ya aparece recomendada y por qué.",
+    "bg": "bg-blue-100",
+    "color": "text-blue-600"
+  }
+];
+
+const journey = [
+  {
+    "t": "Test real en los asistentes de IA",
+    "d": "Preguntamos directamente a ChatGPT, Gemini y Claude por profesionales de tu especialidad en tu zona."
+  },
+  {
+    "t": "Diagnóstico de señales",
+    "d": "Analizamos datos estructurados, reputación y presencia en directorios de salud."
+  },
+  {
+    "t": "Hoja de ruta GEO",
+    "d": "Cierras la auditoría con un plan de acciones ordenadas por impacto para aparecer recomendado."
+  }
+];
+
+const pricing = [
+  {
+    "small": "Precio",
+    "name": "Auditoría GEO",
+    "price": "1.800€",
+    "meta": [
+      "Entrega en 3 a 4 semanas",
+      "Test real en los principales asistentes de IA"
+    ],
+    "items": [
+      "Sesión inicial de objetivos",
+      "Test en ChatGPT, Gemini y Claude",
+      "Revisión de datos estructurados",
+      "Análisis de reputación online",
+      "Auditoría de directorios de salud",
+      "Comparativa con tu competencia",
+      "Acciones ordenadas por impacto",
+      "Videollamada de entrega"
+    ],
+    "cta": "Quiero mi auditoría GEO"
+  },
+  {
+    "small": "Precio",
+    "name": "GEO Terapeutas",
+    "price": "desde 400€ / mes",
+    "meta": [
+      "Primeras señales de mejora en unos 2 meses",
+      "Para consultas y centros individuales"
+    ],
+    "items": [
+      "Auditoría GEO inicial",
+      "Optimización de datos estructurados",
+      "Contenido optimizado para IA",
+      "Gestión de reputación",
+      "Presencia en directorios de salud",
+      "Informe mensual de visibilidad IA",
+      "Línea directa con el consultor",
+      "Sin permanencia"
+    ],
+    "cta": "Quiero mi visibilidad IA"
+  },
+  {
+    "small": "Precio",
+    "name": "GEO Avanzado",
+    "price": "desde 900€ / mes",
+    "meta": [
+      "Cobertura ampliada",
+      "Para varias especialidades o sedes"
+    ],
+    "items": [
+      "Todo el plan GEO",
+      "Estrategia SEO y GEO conjunta",
+      "Contenido por especialidad y sede",
+      "Seguimiento de menciones en IA",
+      "Cobertura de varias zonas",
+      "Reunión mensual de negocio",
+      "Soporte prioritario",
+      "Objetivo, aparecer recomendado"
+    ],
+    "cta": "Quiero escalar mi GEO"
+  }
+];
+
+const comparison = [
+  {
+    "c": "Quién será tu contacto",
+    "o": "Gestor junior con 20-30 cuentas",
+    "n": "Sergio Galo's"
+  },
+  {
+    "c": "Conocimiento del sector",
+    "o": "Marketing genérico para \"salud\"",
+    "n": "Especialistas en fisio, logopedia y terapia"
+  },
+  {
+    "c": "Estrategia",
+    "o": "Plantillas iguales para todo centro",
+    "n": "Plan a medida según tu especialidad"
+  },
+  {
+    "c": "Propiedad de tus activos",
+    "o": "Web y cuentas a nombre de la agencia",
+    "n": "Todo a tu nombre desde el día uno"
+  },
+  {
+    "c": "Permanencia",
+    "o": "6-12 meses habituales",
+    "n": "Mes a mes, sin permanencia"
+  },
+  {
+    "c": "Visibilidad en IA (GEO)",
+    "o": "Solo canales tradicionales",
+    "n": "SEO + GEO integrados con método propio"
+  },
+  {
+    "c": "Transparencia de precios",
+    "o": "Presupuestos opacos con extras sorpresa",
+    "n": "Precio cerrado por escrito antes de empezar"
+  }
+];
+
+const criteria = [
+  {
+    "title": "Pide casos verificables del sector",
+    "desc": "Un muro de logos no demuestra nada. Pide casos de centros de terapia con datos concretos. Si no pueden enseñarte ni uno, sigue buscando."
+  },
+  {
+    "title": "Pregunta quién llevará tu cuenta",
+    "desc": "Exige conocer a la persona que trabajará tu proyecto antes de firmar. En nova hablas siempre con el consultor que ejecuta tu estrategia."
+  },
+  {
+    "title": "Exige propiedad de tus activos",
+    "desc": "Tu web, tu dominio y tus cuentas publicitarias deben estar a tu nombre. Lo contrario es una dependencia, no un servicio."
+  },
+  {
+    "title": "Que entienda tu especialidad concreta",
+    "desc": "Fisioterapia, logopedia y terapia ocupacional buscan palabras clave distintas. Una agencia generalista aprende con tu presupuesto."
+  },
+  {
+    "title": "Revisa qué mide el informe mensual",
+    "desc": "El informe debe hablar de sesiones reservadas, no solo de visitas o impresiones. Todo lo demás es decoración."
+  },
+  {
+    "title": "Huye de las permanencias largas",
+    "desc": "Una permanencia de 12 meses protege a la agencia, no a ti. Por eso en nova trabajamos mes a mes."
+  },
+  {
+    "title": "Que sepa combinar recurrencia y captación",
+    "desc": "Muchas terapias necesitan pacientes recurrentes y nuevos a la vez. Una buena estrategia trabaja las dos cosas sin descuidar ninguna."
+  }
+];
+
+const tips = [
+  {
+    "lead": "Pregunta tú mismo a ChatGPT.",
+    "text": "Escribe la búsqueda que haría tu paciente y comprueba si apareces. Es el primer diagnóstico, gratis."
+  },
+  {
+    "lead": "Mantén tu ficha de Google actualizada.",
+    "text": "Horario, teléfono y especialidades correctos son una de las señales que más consultan las IA."
+  },
+  {
+    "lead": "Responde preguntas reales en tu web.",
+    "text": "Un apartado de preguntas frecuentes bien redactado es contenido que las IA pueden citar directamente."
+  },
+  {
+    "lead": "Cuida tu reputación online.",
+    "text": "Reseñas recientes y coherentes en varias plataformas son la señal de confianza más consultada."
+  }
+];
+
+const faqs = [
+  {
+    "question": "¿Qué es el GEO?",
+    "answer": "Generative Engine Optimization: el conjunto de técnicas para que los asistentes de IA como ChatGPT, Gemini o Claude te reconozcan y recomienden como profesional fiable."
+  },
+  {
+    "question": "¿El GEO sustituye al SEO?",
+    "answer": "No, lo complementa. El SEO trabaja el buscador tradicional y el GEO los asistentes de IA. Trabajamos ambos con una estrategia integrada."
+  },
+  {
+    "question": "¿Cuánto cuesta?",
+    "answer": "La auditoría GEO cuesta 1.800 euros y los planes mensuales parten de 400 euros al mes. Presupuesto cerrado por escrito."
+  },
+  {
+    "question": "¿Cómo sé si la IA me recomienda hoy?",
+    "answer": "En la auditoría te mostramos exactamente qué responde cada asistente cuando le preguntamos por tu especialidad en tu zona."
+  },
+  {
+    "question": "¿Cuánto tardaré en ver resultados?",
+    "answer": "Las primeras señales de mejora suelen verse a partir del segundo mes, ya que los motores de IA actualizan su conocimiento con cierta frecuencia."
+  },
+  {
+    "question": "¿Trabajáis con permanencia?",
+    "answer": "No, trabajamos mes a mes. Nuestra permanencia real es el resultado que ves en tu visibilidad cada mes."
+  }
+];
+
+const pageSchema = localAgencySchema({
+  pageUrl: `${SITE_URL}/agencia-terapeutas/posicionamiento-geo/`,
+  lang: 'es',
+  cityName: 'Barcelona',
+  postalCode: '08035',
+  geo: { lat: 41.4114, lng: 2.1526 },
+  areaServed: ["España", "Barcelona", "Sabadell", "Sant Cugat del Vallès", "Terrassa", "Vallès Occidental"],
+  title: "▷ GEO y Visibilidad en IA para Terapeutas | Resultados medibles",
+  description: "GEO y Visibilidad en IA para terapeutas: estrategia a medida y resultados que se miden en sesiones ✅ Más información",
+  datePublished: '2026-08-15',
+  dateModified: '2026-08-15',
+  streetAddress: 'Carrer del General Mendoza, 10',
+  hasMap: 'https://maps.app.goo.gl/9fbB12UcK32bgjj89',
+  aggregateRating: { ratingValue: '5.0', reviewCount: '12' },
+  breadcrumbName: "GEO y Visibilidad en IA para Terapeutas",
+  faqs,
+});
+---
+
+<BaseLayout
+  title="▷ GEO y Visibilidad en IA para Terapeutas | Resultados medibles"
+  description="GEO y Visibilidad en IA para terapeutas: estrategia a medida y resultados que se miden en sesiones ✅ Más información"
+  locale="es"
+  alternates={alternates}
+  schemas={[pageSchema]}
+>
+
+    <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
+    <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+        <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+
+        <div class="max-w-5xl mx-auto reveal">
+            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
+                <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+                GEO y Visibilidad en IA para Terapeutas
+            </span>
+            <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
+                <span class="lg:whitespace-nowrap">GEO y Visibilidad en IA </span>
+                <span class="lg:whitespace-nowrap text-mktg-gradient">para Terapeutas</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
+                Cuando alguien pregunta a ChatGPT qué profesional elegir, quien sale en la respuesta se lleva la cita. Trabajamos tus señales para que la IA recomiende tu centro de terapia.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
+                {heroChecks.map(item => (
+                    <span class="inline-flex items-center gap-2 text-[11px] sm:text-xs font-black uppercase tracking-widest text-zinc-700">
+                        <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        {item}
+                    </span>
+                ))}
+            </div>
+            <div class="flex justify-center mt-4">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    HABLEMOS DE TU CENTRO
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <LogoMarquee />
+
+    <!-- ═══ INTRO ═══════════════════════════════════════════════════════ -->
+    <section class="py-16 sm:py-24 bg-white px-4 sm:px-6 border-b border-black/5">
+        <div class="max-w-6xl mx-auto reveal grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-16 items-center">
+            <div>
+                <p class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4">¿Por qué GEO?</p>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    La agencia GEO para tu centro de terapia
+                </h2>
+                <div class="space-y-6 text-zinc-600 font-light text-base sm:text-lg leading-relaxed">
+                    <p>
+                        <strong class="font-semibold text-zinc-900">Cada vez más pacientes preguntan a ChatGPT, Gemini o Claude antes de buscar en Google</strong>. Si la IA no te conoce, esa recomendación se la lleva otro profesional, aunque tu web esté perfectamente posicionada en el buscador tradicional.
+                    </p>
+                    <p>
+                        Nova es una <strong class="font-semibold text-zinc-900">agencia GEO especializada en terapeutas</strong>. Trabajamos las señales que hacen que los motores de IA te reconozcan como una fuente fiable y te recomienden.
+                    </p>
+                </div>
+            </div>
+            <div class="hidden md:block">
+                <img src="/sergio-galos-agencia-terapeutas-posicionamiento-geo.webp" alt="Sergio Galo's, Tu consultor GEO para terapeutas" title="Sergio Galo's, Tu consultor GEO para terapeutas" class="w-full h-auto" loading="lazy" width="473" height="591" />
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SERVICIOS ══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50 px-4 sm:px-6 border-t border-b border-black/5">
+        <div class="max-w-7xl mx-auto text-center reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Qué hacemos</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Servicio GEO y visibilidad en IA para terapeutas
+            </h2>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-16">
+                Aparecer recomendado en la IA no es suerte, es un sistema. Estas son las nueve piezas que trabajamos.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+                {tiles.map((c: any) => (
+                    <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900 mb-3">
+                            {c.t}
+                        </h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.d}</p>
+                    </div>
+                ))}
+            </div>
+            <div class="mt-12 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">HABLEMOS DE TU CENTRO</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ ESTRATEGIA ════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16 sm:mb-24 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Cómo trabajamos</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Estrategia GEO para posicionar tu centro de terapia
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Una metodología documentada, paso a paso y sin humo.
+                </p>
+            </div>
+
+            <div id="timeline-container" class="relative">
+                <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
+                <div id="progress-bar" class="hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100"></div>
+
+                <div class="space-y-16 md:space-y-24 flex flex-col items-center">
+                    {timeline.map((step, index) => (
+                        <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
+                            <div class:list={["flex-1 w-full", index % 2 === 0 ? "md:order-1 md:text-right" : "md:order-3 md:text-left"]}>
+                                <div class="p-8 sm:p-10 bg-zinc-50 border border-black/5 rounded-3xl hover:border-accent/10 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+                                    <h3 class="text-xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{index + 1}. {step.title}</h3>
+                                    <div class:list={["h-0.5 bg-accent w-full mb-4 opacity-80", index % 2 === 0 ? "md:ml-auto" : ""]}></div>
+                                    <p class:list={["text-sm text-zinc-500 font-light max-w-md", index % 2 === 0 ? "md:ml-auto" : ""]}>{step.desc}</p>
+                                    <div class="absolute -bottom-6 -right-5 text-8xl font-black text-black/[0.02] select-none z-0 group-hover:scale-105 transition-transform duration-500">0{index+1}</div>
+                                </div>
+                            </div>
+                            <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all">
+                                0{index + 1}
+                            </div>
+                            <div class:list={["hidden md:block md:flex-1", index % 2 === 0 ? "md:order-3" : "md:order-1"]}></div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ AUDITORÍA ═════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-[6fr_4fr] gap-12 lg:gap-16 items-start">
+            <div class="reveal lg:col-span-2">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Punto de partida</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
+                    Auditoría de visibilidad en IA para tu centro de terapia
+                </h2>
+            </div>
+            <div class="reveal">
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed mb-8">
+                    {auditParas.map((p: string) => <p set:html={p} />)}
+                </div>
+                <ul class="space-y-3">
+                    {auditChecklist.map((item: string) => (
+                        <li class="flex items-start gap-3 text-sm text-zinc-700 font-light">
+                            <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                            {item}
+                        </li>
+                    ))}
+                </ul>
+                <div class="mt-16">
+                    <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                        QUIERO MI AUDITORÍA DE VISIBILIDAD IA
+                    </a>
+                </div>
+            </div>
+            <div class="reveal flex flex-col gap-4">
+                {auditCards.map(card => (
+                    <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                        <div class:list={["w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0", card.bg]}>
+                            <svg class:list={["w-5 h-5", card.color]} fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-black text-zinc-900 mb-1">{card.t}</h3>
+                            <p class="text-xs text-zinc-500 font-light leading-relaxed">{card.d}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ QUÉ INCLUYE LA AUDITORÍA ═══════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Paso a paso</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
+                    Qué incluye la auditoría GEO de nova
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch reveal">
+                {journey.map((st: any, i: number) => (
+                    <div class="flex items-center gap-4 lg:gap-6">
+                        {i > 0 && <div class="hidden lg:flex text-3xl text-accent font-black select-none">→</div>}
+                        <div class="bg-white border border-black/5 rounded-2xl p-8 shadow-[0_15px_40px_rgba(0,0,0,0.06)] flex-1 text-center h-full">
+                            <div class="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto mb-4 text-accent font-black text-lg">{i + 1}</div>
+                            <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3">{st.t}</h3>
+                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{st.d}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto text-center mt-16 reveal">
+                Nuestra auditoría GEO es el primer paso para entender cómo te ve hoy la IA. Es gratuita y sin compromiso.
+            </p>
+            <div class="mt-12 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">QUIERO MI AUDITORÍA DE VISIBILIDAD IA</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PRECIOS ════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Tarifas claras</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Precios de GEO para terapeutas
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto">
+                    Tarifas orientativas y sin letra pequeña. El precio depende de tu punto de partida y tus objetivos, así que antes de empezar recibes un presupuesto cerrado por escrito. El coste no lleva sorpresas ni permanencias.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                {pricing.map(pl => (
+                    <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-10 flex flex-col shadow-[0_15px_40px_rgba(0,0,0,0.06)] hover:shadow-xl transition-shadow duration-300 reveal">
+                        <h3 class="leading-tight mb-2">
+                            <span class="block text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-1">{pl.small} </span>
+                            <span class="block text-xl font-black uppercase tracking-tight text-zinc-900">{pl.name}</span>
+                        </h3>
+                        <div class="text-lg font-bold text-zinc-900">{pl.price}</div>
+                        <div class="text-[10px] text-zinc-400 font-light mt-1 mb-6">* Precio sin IVA</div>
+                        <div class="text-xs text-zinc-500 font-light mb-8 space-y-1.5">
+                            {pl.meta.map(m => <div>{m}</div>)}
+                        </div>
+                        <div class="text-xs font-black uppercase tracking-widest text-zinc-400 pb-3 border-b border-zinc-100">Qué incluye</div>
+                        <ul class="divide-y divide-zinc-100 flex-1">
+                            {pl.items.map(item => (
+                                <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light">
+                                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 !py-4 !text-[11px] !tracking-widest font-black mt-10 text-center">
+                            {pl.cta}
+                        </a>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CITA ══════════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-zinc-950 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <blockquote class="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.15] mb-8">
+                "Cada vez más pacientes preguntan a la IA antes de buscar en Google. Si ChatGPT no te conoce, esa cita ya se la ha llevado otro profesional."
+            </blockquote>
+            <p class="text-sm text-zinc-400 font-light mb-10">Sergio Galo's · Tu consultor GEO para terapeutas</p>
+            <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                HABLEMOS DE TU CENTRO
+            </a>
+        </div>
+    </section>
+
+    <!-- ═══ POR QUÉ NOVA (COMPARATIVA) ═════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Por qué nova</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Qué diferencia a nova de otra agencia GEO para terapeutas
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    El marketing para centros de terapia está lleno de agencias que no distinguen una especialidad de otra. Nosotros lo trabajamos con método y resultados que se ven en tu agenda.
+                </p>
+            </div>
+
+            <div class="reveal overflow-x-auto rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
+                <table class="w-full min-w-[640px] text-left border-collapse bg-white">
+                    <thead>
+                        <tr class="bg-black text-white">
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Criterio</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Nova</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Otras agencias</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-zinc-100">
+                        {comparison.map(row => (
+                            <tr class="hover:bg-zinc-50/50 transition-colors">
+                                <td class="px-6 py-5 text-sm font-bold text-zinc-900">{row.c}</td>
+                                <td class="px-6 py-5 text-sm font-bold text-accent">{row.n}</td>
+                                <td class="px-6 py-5 text-sm text-zinc-500 font-light">{row.o}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CÓMO ELEGIR ════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-12 sm:mb-16 reveal text-center">
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Cómo contratar una agencia GEO para terapeutas sin que te vendan humo
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Hay cientos de agencias y la mayoría de centros elige mal la primera vez. Estos son los siete criterios que deberías exigir a cualquier agencia, incluida la nuestra.
+                </p>
+            </div>
+
+            <div class="divide-y divide-zinc-100 reveal">
+                {criteria.map((c, i) => (
+                    <div class="py-6 sm:py-8 flex gap-6 sm:gap-8 items-start">
+                        <div class="text-2xl sm:text-3xl font-black tracking-tighter text-accent flex-shrink-0 w-10 leading-none">0{i + 1}</div>
+                        <div>
+                            <h3 class="text-base sm:text-lg font-black uppercase tracking-tight text-zinc-900 mb-2">{c.title}</h3>
+                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.desc}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ QUIÉN ESTÁ DETRÁS ═══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto reveal">
+            <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] grid md:grid-cols-[280px_1fr] gap-8 sm:gap-12 items-center">
+                <div class="rounded-2xl overflow-hidden bg-zinc-100">
+                    <img src="/sergio-galos-agencia-terapeutas-posicionamiento-geo.webp" alt="Sergio Galo's, Tu consultor GEO para terapeutas" title="Sergio Galo's, Tu consultor GEO para terapeutas" class="w-full h-full object-cover object-top" loading="lazy" width="473" height="591" />
+                </div>
+                <div>
+                    <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Quién está detrás</span>
+                    <h2 class="text-2xl sm:text-4xl font-black tracking-tighter uppercase text-zinc-900 leading-[0.95] mb-6">
+                        Sergio Galo's <br>
+                        <span class="text-lg sm:text-2xl">Tu consultor GEO para terapeutas</span>
+                    </h2>
+                    <div class="space-y-4 text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
+                        <p>
+                            Soy <strong class="font-semibold text-zinc-900">Sergio Galo's</strong>, consultor de marketing digital y fundador de Nova Marketing. Llevo años ayudando a centros de fisioterapia, logopedia y terapia ocupacional a llenar su agenda sin depender solo del boca a boca. Sé qué diferencia a tu especialidad de la del centro de al lado.
+                        </p>
+                        <p>
+                            Cuando contratas con nova hablas siempre conmigo. Yo hago la auditoría, yo diseño la estrategia y yo respondo en la reunión mensual. Sin capas comerciales ni gestores que cambian cada trimestre.
+                        </p>
+                    </div>
+                    <a href="https://www.linkedin.com/company/nova-marketing-pymes/" target="_blank" rel="noopener" class="inline-block mt-6 text-[12px] font-black tracking-widest text-accent hover:underline">
+                        Ver perfil en LinkedIn →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CASOS DE ÉXITO (CMS) ═══════════════════════════════════ -->
+    {allCases.length > 0 && (
+    <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6 overflow-hidden">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-12 reveal">
+          <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultados probados</span>
+          <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
+            Casos de éxito de visibilidad<br class="hidden md:inline" /> en IA para terapeutas
+          </h2>
+        </div>
+        <div class="cases-carousel relative overflow-hidden">
+          <div class="cases-track flex gap-6 transition-transform duration-500 ease-in-out">
+            {allCases.map((cs: any) => {
+              const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
+              const caseUrl = cs.isPublic && cs.slug ? `/casos-exito/${cs.slug}/` : null;
+              return (
+                <div class="cases-slide flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
+                  <div>
+                    {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
+                    <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors leading-tight">
+                      {caseUrl ? (
+                        <a href={caseUrl} class="hover:text-accent transition-colors">{cs.title}</a>
+                      ) : (
+                        <span class="group-hover:text-accent transition-colors">{cs.title}</span>
+                      )}
+                    </h3>
+                    <p class="text-xs text-zinc-500 font-light leading-relaxed">{cs.description}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+    )}
+    <script>
+      function initCasesCarousel() {
+        const track = document.querySelector('.cases-track');
+        if (!track) return;
+        const slides = track.querySelectorAll('.cases-slide');
+        if (slides.length <= 4) return;
+        let current = 0;
+        const total = slides.length;
+        function getVisible() {
+          if (window.innerWidth >= 1024) return 4;
+          if (window.innerWidth >= 640) return 2;
+          return 1;
+        }
+        let slideWidth = slides[0].offsetWidth + 24;
+        window.addEventListener('resize', () => { slideWidth = slides[0].offsetWidth + 24; }, { passive: true });
+        function next() {
+          const visible = getVisible();
+          const maxIndex = total - visible;
+          current = current >= maxIndex ? 0 : current + 1;
+          track.style.transform = `translateX(-${current * slideWidth}px)`;
+        }
+        const interval = setInterval(next, 5000);
+        document.addEventListener('astro:before-preparation', () => clearInterval(interval));
+      }
+      document.addEventListener('DOMContentLoaded', initCasesCarousel);
+      document.addEventListener('astro:page-load', initCasesCarousel);
+    </script>
+
+    <!-- ═══ RECOMENDADOS POR LA IA ═════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+            <div class="reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Nos avala la IA</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    La agencia GEO para terapeutas que recomienda la propia IA
+                </h2>
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed">
+                    <p>Cuando alguien pregunta por una <strong class="font-semibold text-zinc-900">agencia GEO para terapeutas</strong> a ChatGPT, Gemini o Claude, nova aparece entre las agencias recomendadas. Es la mejor prueba de que sabemos generar visibilidad, porque lo aplicamos primero en nosotros mismos.</p>
+                    <p>A los asistentes de IA no les puedes comprar un anuncio para salir primero. Recomiendan lo que encuentran. Casos reales publicados, una especialización clara en el sector salud y clientes que hablan de nosotros.</p>
+                    <p>Pruébalo tú mismo. Abre ChatGPT y pregúntale qué agencia GEO para terapeutas te recomienda. Si te sale nova, ya sabes quién puede hacer lo mismo por tu centro de terapia.</p>
+                </div>
+            </div>
+
+            <div class="reveal flex justify-center">
+                <img src="/agencia-terapeutas-posicionamiento-geo.webp" alt="Nova Marketing, agencia GEO para terapeutas recomendada por la IA" title="Nova Marketing, agencia GEO para terapeutas recomendada por la IA" class="w-full max-w-sm lg:max-w-md h-auto" loading="lazy" width="1000" height="667" />
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══ CONSEJOS ═══════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Consejos aplicables hoy</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Cómo mejorar tu visibilidad en IA esta semana
+            </h2>
+            <p class="text-zinc-500 font-light text-base leading-relaxed mb-10">
+                Si todavía no estás listo para contratar, empieza por aquí. Son acciones que puedes aplicar por tu cuenta y que ya mueven la aguja.
+            </p>
+            <ul class="space-y-6">
+                {tips.map(tip => (
+                    <li class="flex items-start gap-4">
+                        <svg class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        <p class="text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
+                            <strong class="font-bold text-zinc-900">{tip.lead}</strong> {tip.text}
+                        </p>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </section>
+
+    <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
+    <GoogleReviews locale="es" title="Lo que dicen nuestros clientes sobre el geo y visibilidad en ia de Nova" />
+
+
+    <!-- ═══ FAQS ════════════════════════════════════════════════ -->
+    <FaqHome title="Preguntas sobre nuestro servicio de geo y visibilidad en ia" items={faqs} emitSchema={false} />
+
+    <!-- ═══ CONTACTO ════════════════════════════════════════════ -->
+    <section id="contacto" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
+            <div class="reveal text-white">
+                <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">CRECIMIENTO GARANTIZADO</span>
+                <h2 class="text-5xl sm:text-7xl font-black uppercase tracking-tighter leading-[0.8] mb-8">
+                   AGENDA LLENA <br>CADA SEMANA
+                </h2>
+                <p class="font-light max-w-md text-base sm:text-xl">Consúltame y te diré por qué tu centro no capta más pacientes online, y cómo solucionarlo.</p>
+            </div>
+
+            <div class="reveal">
+                <div class="bg-white p-8 sm:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
+                    <form class="space-y-8" id="contact-form">
+                        <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
+                            <div class="flex flex-col gap-3">
+                                <label class="opacity-30">NOMBRE</label>
+                                <input type="text" name="name" aria-label="Nombre" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                            <div class="flex flex-col gap-3">
+                                <label class="opacity-30">TELÉFONO</label>
+                                <input type="tel" name="phone" aria-label="Teléfono" class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">EMAIL PROFESIONAL</label>
+                            <input type="email" name="email" aria-label="Correo electrónico" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                        </div>
+                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">CONSULTA</label>
+                            <textarea name="msg" aria-label="Mensaje" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="¿Qué necesita tu centro?"></textarea>
+                        </div>
+                        <button type="submit" class="w-full btn-mktg-v5 !py-6">QUIERO LLENAR MI AGENDA</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</BaseLayout>
+
+<script>
+    document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const btn = form.querySelector('button');
+        if (btn) { btn.innerHTML = 'ENVIANDO...'; btn.disabled = true; }
+        const data = Object.fromEntries(new FormData(form));
+        try {
+            const res = await fetch('https://cms.novamarketing.es/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            if (res.ok) {
+                window.location.href = '/gracias/';
+            } else { throw new Error(); }
+        } catch {
+            if (btn) { btn.innerHTML = 'ERROR — INTÉNTALO DE NUEVO'; btn.disabled = false; btn.style.background = '#ef4444'; }
+        }
+    });
+function initTimeline() {
+        const progressBar = document.getElementById('progress-bar');
+        const timeline = document.getElementById('timeline-container');
+        if (!progressBar || !timeline) return;
+
+        function updateProgress() {
+            const rect = timeline.getBoundingClientRect();
+            const winHeight = window.innerHeight;
+            const nodes = timeline.querySelectorAll('.node-circle');
+            const nodeTops = Array.from(nodes, (node) => node.getBoundingClientRect().top);
+            const topPassed = (winHeight / 2) - rect.top;
+            let percentage = (topPassed / rect.height) * 100;
+            percentage = Math.max(0, Math.min(100, percentage));
+            progressBar.style.height = `${percentage}%`;
+            nodes.forEach((node, i) => {
+                if (nodeTops[i] < winHeight / 2) {
+                    node.classList.add('!border-accent', '!bg-accent', '!text-white');
+                } else {
+                    node.classList.remove('!border-accent', '!bg-accent', '!text-white');
+                }
+            });
+        }
+
+        let progressTick = false;
+        function onProgressScroll() {
+            if (progressTick) return;
+            progressTick = true;
+            requestAnimationFrame(() => { updateProgress(); progressTick = false; });
+        }
+        window.addEventListener('scroll', onProgressScroll, { passive: true });
+        document.addEventListener('astro:page-load', updateProgress);
+        updateProgress();
+    }
+    document.addEventListener('DOMContentLoaded', initTimeline);
+    document.addEventListener('astro:page-load', initTimeline);
+</script>
