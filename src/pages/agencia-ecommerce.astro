@@ -7,6 +7,8 @@ import LogoMarquee from '../components/sections/LogoMarquee.astro';
 import FaqHome from '../components/sections/FaqHome.astro';
 import CityPills from '../components/global/CityPills.astro';
 import GoogleReviews from '../components/global/GoogleReviews.astro';
+import SectorLinks from '../components/sections/SectorLinks.astro';
+import WhereWeWork from '../components/sections/WhereWeWork.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-ecommerce/', '/ca/agencia-ecommerce/', SITE_URL);
@@ -21,11 +23,11 @@ try {
 } catch {}
 
 const steps = [
-  { title: "Diagnóstico de la Tienda", desc: "Analizamos tu ecommerce con datos. Tráfico, tasa de conversión, ticket medio, márgenes por categoría y qué canales traen ventas de verdad. Detectamos dónde se pierde dinero y dónde está la oportunidad que tu competencia ya explota." },
-  { title: "Estrategia Documentada", desc: "Recibes un plan por escrito. Qué canales activar, qué productos empujar, qué presupuesto necesita cada campaña y qué retorno es razonable esperar en 3, 6 y 12 meses. Sabes en qué se invierte cada euro antes de invertirlo." },
-  { title: "Ejecución Multicanal", desc: "SEO para captar la búsqueda, Ads para escalar la venta, email para repetir compra y una web pensada para que la tienda convierta más con el mismo tráfico. Cada canal con su función y todos midiendo contra la misma cuenta de resultados." },
-  { title: "Medición Sin Humo", desc: "Medimos ventas, ROAS y margen, no likes ni impresiones. Cada pedido queda atribuido a su canal y su campaña. En el informe mensual ves cuánto has invertido, cuánto has vendido y qué canal te da más rentabilidad." },
-  { title: "Optimización Continua", desc: "El ecommerce no descansa y la estrategia tampoco. Revisamos cada semana campañas, productos y conversión, cortamos lo que no rinde y reinvertimos en lo que vende. Mes a mes, la cuenta mejora o se explica por qué." }
+  { title: "Diagnóstico de Ventas y Conversión", desc: "Analizamos tu ecommerce con datos. Tráfico, tasa de conversión, ticket medio, márgenes por categoría y qué canales traen ventas de verdad. Detectamos dónde se pierde dinero y dónde está la oportunidad que tu competencia ya explota." },
+  { title: "Estrategia de Canales y Presupuesto", desc: "Recibes un plan por escrito. Qué canales activar, qué productos empujar, qué presupuesto necesita cada campaña y qué retorno es razonable esperar en 3, 6 y 12 meses. Sabes en qué se invierte cada euro antes de invertirlo." },
+  { title: "Ejecución Multicanal de Campañas", desc: "SEO para captar la búsqueda, Ads para escalar la venta, email para repetir compra y una web pensada para que la tienda convierta más con el mismo tráfico. Cada canal con su función y todos midiendo contra la misma cuenta de resultados." },
+  { title: "Medición de ROAS y Margen", desc: "Medimos ventas, ROAS y margen, no likes ni impresiones. Cada pedido queda atribuido a su canal y su campaña. En el informe mensual ves cuánto has invertido, cuánto has vendido y qué canal te da más rentabilidad." },
+  { title: "Optimización del Embudo de Venta", desc: "El ecommerce no descansa y la estrategia tampoco. Revisamos cada semana campañas, productos y conversión, cortamos lo que no rinde y reinvertimos en lo que vende. Mes a mes, la cuenta mejora o se explica por qué." }
 ];
 
 const criteria = [
@@ -529,19 +531,10 @@ const cityCards = [
     <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
     <GoogleReviews locale="es" title="Lo que dicen nuestros clientes sobre el marketing ecommerce de Nova" />
 
-    <!-- ═══ DÓNDE TRABAJAMOS ═══════════════════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-4xl mx-auto text-center reveal">
-            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Dónde trabajamos</span>
-            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Sede en Barcelona, clientes en toda España
-            </h2>
-            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
-                Nuestra base está en Barcelona y la mayoría de proyectos son de la ciudad y su área metropolitana, donde nos reunimos presencialmente. Pero una tienda online no entiende de kilómetros. Trabajamos con ecommerce de toda España por videollamada con el mismo nivel de seguimiento.
-            </p>
-            <CityPills base="/agencia-ecommerce/" lang="es" exclude={["seo","google-ads","meta-ads","email-marketing","posicionamiento-geo","diseno-web"]} />
-        </div>
-    </section>
+    <SectorLinks lang="es" currentSector="ecommerce" />
+
+
+    <WhereWeWork lang="es" sectorKey="ecommerce" />
 
     <!-- ═══ FAQS ════════════════════════════════════════════════ -->
     <FaqHome title="Preguntas sobre nuestra agencia de marketing ecommerce" items={faqs} emitSchema={false} />

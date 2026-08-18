@@ -58,9 +58,9 @@ const sectors = [
   { icon: '💪', title: 'Google Ads per a gimnasos', desc: 'Campanyes estacionals amb pics al gener i al setembre. Promocions locals que omplen classes sense cremar pressupost la resta de l\'any.' },
   { icon: '🏗️', title: 'Google Ads per a constructores', desc: 'Leads de valor alt i molta competència local. Campanyes per servei i zona amb anuncis que porten pressupostos, no curiosos.' },
   { icon: '⚖️', title: 'Google Ads per a advocats', desc: 'Cerques d\'altíssima intenció amb els clics més cars de Google. Estructura quirúrgica per pagar només pels casos que t\'interessen.' },
-  { icon: '🏨', title: 'Google Ads per a hotels', desc: 'Campanyes de marca per frenar les OTAs i captar la reserva directa, més visibilitat a Google Hotels.' },
-  { icon: '🏭', title: 'Google Ads per a B2B', desc: 'Pocs decisors i cicles llargs. Campanyes de cerca tècnica i remarketing que acompanyen el responsable de compres fins al contacte.' },
-  { icon: '🎓', title: 'Google Ads per a escoles', desc: 'Captació concentrada en la finestra de matriculació. Campanyes que apreten quan les famílies decideixen i descansen la resta de l\'any.' },
+  { icon: '🏨', title: 'Google Ads per a hotels', href: '/ca/agencia-hotels/google-ads/', desc: 'Campanyes de marca per frenar les OTAs i captar la reserva directa, més visibilitat a Google Hotels.' },
+  { icon: '🏭', title: 'Google Ads per a B2B', href: '/ca/agencia-b2b/google-ads/', desc: 'Pocs decisors i cicles llargs. Campanyes de cerca tècnica i remarketing que acompanyen el responsable de compres fins al contacte.' },
+  { icon: '⚙️', title: 'Google Ads per a Empreses Industrials', href: '/ca/agencia-industrial/google-ads/', desc: "Campanyes de cerca que posen la teva empresa davant del responsable de compres que ja et busca, pagant només per leads qualificats reals." },
 ];
 
 const pageSchema = localAgencySchema({
@@ -725,12 +725,12 @@ const pageSchema = localAgencySchema({
         <div class="max-w-4xl mx-auto text-center reveal">
             <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">On treballem</span>
             <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Seu a Barcelona, clients a tot Espanya
+                Agència SEM amb seu a Barcelona i clients a tota Espanya
             </h2>
             <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
                 La nostra base és a Barcelona i la majoria de projectes són de la ciutat i la seva àrea metropolitana, on ens reunim presencialment. Però les campanyes de Google Ads no entenen de quilòmetres. Treballem amb pimes de tot Espanya per videotrucada amb el mateix nivell de seguiment.
             </p>
-            <CityPills base="/ca/agencia-sem-per-pimes/" lang="ca" />
+            <CityPills base="/ca/agencia-sem-per-pimes/" lang="ca" itemPrefix="agència SEM a" homeLabel="Agència SEM" />
         </div>
     </section>
 

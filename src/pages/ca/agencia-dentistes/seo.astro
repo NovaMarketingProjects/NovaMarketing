@@ -6,6 +6,9 @@ import { strapiClient } from '../../../lib/strapi';
 import LogoMarquee from '../../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../../components/sections/FaqHome.astro';
 import GoogleReviews from '../../../components/global/GoogleReviews.astro';
+import SectorLinks from '../../../components/sections/SectorLinks.astro';
+import SiblingServices from '../../../components/sections/SiblingServices.astro';
+import WhereWeWork from '../../../components/sections/WhereWeWork.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-dentistas/seo/', '/agencia-dentistes/seo/', SITE_URL);
@@ -27,62 +30,62 @@ const heroChecks = [
 
 const tiles = [
   {
-    "t": "Auditoria SEO inicial",
+    "t": "Auditoria SEO de la teva clínica",
     "d": "Radiografia tècnica, de contingut i d’autoritat de la teva web abans de tocar res. El punt de partida de qualsevol estratègia per a dentistes."
   },
   {
-    "t": "SEO tècnic",
+    "t": "SEO tècnic per a la teva clínica",
     "d": "Velocitat, indexació i Core Web Vitals. Que Google pugui rastrejar i entendre la teva web sense obstacles tècnics."
   },
   {
-    "t": "Keyword research local",
+    "t": "Keywords de tractaments dentals",
     "d": "Què escriu algú a Google quan busca pacients com els teus a la teva zona. Keywords que porten cita, no només trànsit."
   },
   {
-    "t": "Contingut d’especialitat",
+    "t": "Contingut per tractament i especialitat",
     "d": "Pàgines per especialitat o tractament que responen el dubte real abans que la teva competència."
   },
   {
-    "t": "SEO local i Google Business",
+    "t": "Fitxa de Google i ressenyes de pacients",
     "d": "La teva fitxa de Google optimitzada, ressenyes gestionades i presència al mapa quan algú busca a prop teu."
   },
   {
-    "t": "Dades estructurades",
+    "t": "Dades estructurades de tractaments",
     "d": "Marcatge schema de serveis i preguntes freqüents que ajuda Google a mostrar la teva web millor en resultats."
   },
   {
-    "t": "Analítica i Search Console",
+    "t": "Analítica de cites i pacients nous",
     "d": "Cada cita atribuïda al seu origen. Decisions amb dades, no amb intuïcions."
   },
   {
-    "t": "SEO més GEO",
+    "t": "SEO més GEO per a clíniques dentals",
     "d": "Cada vegada més gent pregunta a la IA abans de buscar. Integrem posicionament a Google i a la IA en una sola estratègia."
   },
   {
-    "t": "Migracions sense perdre posicions",
+    "t": "Redissenys sense perdre el SEO de la teva clínica",
     "d": "Canvis de web o redissenys sense perdre el posicionament que tant ha costat aconseguir."
   }
 ];
 
 const timeline = [
   {
-    "title": "Auditoria SEO Completa",
+    "title": "Auditoria SEO de la teva clínica",
     "desc": "Analitzem la teva web, la teva visibilitat actual a Google i la teva competència directa. Detectem errors tècnics i keywords de pacients sense explotar."
   },
   {
-    "title": "Estratègia SEO Documentada",
+    "title": "Estratègia SEO per a Dentistes",
     "desc": "Reps un full de ruta per escrit. Quines keywords atacar, quines pàgines crear i quins resultats esperar en 3, 6 i 12 mesos."
   },
   {
-    "title": "Optimització Tècnica i Continguts",
+    "title": "Contingut i Tècnica de la teva clínica",
     "desc": "Arreglem el que impedeix a Google entendre la teva web i creem el contingut que posiciona cada especialitat."
   },
   {
-    "title": "SEO Local i Reputació",
+    "title": "SEO Local de la teva clínica",
     "desc": "La teva fitxa de Google optimitzada, ressenyes gestionades i presència al mapa quan algú busca a prop teu."
   },
   {
-    "title": "Mesura i Ajust Continu",
+    "title": "Mesura de pacients des de Google",
     "desc": "Monitoritzem mes a mes posicions, trànsit i pacients. A l’informe veus quines keywords pugen i quantes cites arriben des de Google."
   }
 ];
@@ -104,7 +107,7 @@ const auditChecklist = [
 
 const auditCards = [
   {
-    "t": "Revisió tècnica completa",
+    "t": "Revisió tècnica de la teva clínica",
     "d": "Indexació, velocitat i errors de rastreig. Tot el que frena la teva web, documentat.",
     "bg": "bg-purple-100",
     "color": "text-purple-600"
@@ -116,7 +119,7 @@ const auditCards = [
     "color": "text-green-600"
   },
   {
-    "t": "Keywords d’especialitat",
+    "t": "Keywords de pacients",
     "d": "Les cerques que fan els teus pacients quan volen reservar, no només les de més volum.",
     "bg": "bg-purple-100",
     "color": "text-purple-600"
@@ -137,7 +140,7 @@ const auditCards = [
 
 const journey = [
   {
-    "t": "Radiografia de la teva visibilitat a Google",
+    "t": "Radiografia de la teva clínica a Google",
     "d": "Analitzem en quina posició surts per a les cerques de la teva especialitat i què se n’emporta la teva competència."
   },
   {
@@ -253,32 +256,32 @@ const comparison = [
 
 const criteria = [
   {
-    "title": "Demana casos verificables de clíniques dentals",
-    "desc": "Un mur de logos no demostra res. Demana casos amb dades concretes: quants pacients, amb quina inversió i en quant de temps. Si no poden ensenyar-te’n cap, segueix buscant."
+    "title": "Demana casos de SEO en Dentistes verificables",
+    "desc": "Quina keyword, quina posició va assolir i quants pacients va portar. Si no poden ensenyar-te un cas de dentistes, segueix buscant."
   },
   {
-    "title": "Pregunta qui portarà el teu compte",
-    "desc": "Exigeix conèixer la persona que treballarà el teu projecte abans de signar. A nova parles sempre amb el consultor que executa la teva estratègia."
-  },
-  {
-    "title": "Exigeix leads propis, no compartits",
-    "desc": "Fuig de qui et ven leads sortits d’un portal compartit amb altres clíniques. La teva inversió ha de generar trànsit i contactes només per a tu."
+    "title": "Pregunta qui portarà el teu SEO",
+    "desc": "Exigeix conèixer la persona que treballarà el posicionament de la teva clínica abans de signar. A nova parles sempre amb el consultor que executa la teva estratègia."
   },
   {
     "title": "Exigeix la propietat dels teus actius",
-    "desc": "La teva web, el teu domini i els teus comptes publicitaris han d’estar al teu nom. El contrari és una dependència, no un servei."
+    "desc": "La teva web, el teu domini, la teva analítica i el teu contingut han d’estar al teu nom. El contrari és una dependència, no un servei."
+  },
+  {
+    "title": "Desconfia de qui garanteix la posició 1",
+    "desc": "Ningú la pot garantir. Qui ho promet, o menteix o fa servir tècniques que acabaran penalitzant la teva web. El que és seriós és garantir mètode i feina verificable."
   },
   {
     "title": "Revisa què mesura l’informe mensual",
-    "desc": "L’informe ha de parlar de cites demanades i pacients nous, no només de clics. Tota la resta és decoració."
+    "desc": "Si parla de posicions però no de pacients, l’agència mesura la seva activitat i no el teu negoci."
   },
   {
-    "title": "Fuig de les permanències llargues",
-    "desc": "Una permanència de 12 mesos protegeix l’agència, no tu. Per això a nova treballem mes a mes."
+    "title": "Fuig de les permanències llargues en SEO",
+    "desc": "El SEO de la teva clínica triga a consolidar-se, i per això moltes agències usen aquesta lentitud per lligar-te 12 mesos. A nova treballem mes a mes des del primer dia."
   },
   {
-    "title": "Que sàpiga vendre tractaments d’alt valor",
-    "desc": "Captar un implant o una ortodòncia exigeix una estratègia diferent a captar una revisió. Una agència especialitzada ho sap diferenciar."
+    "title": "Que pensi també en la IA",
+    "desc": "Cada vegada més gent pregunta a ChatGPT abans de buscar. Una agència SEO que ignora el GEO optimitza només la meitat del tauler."
   }
 ];
 
@@ -288,7 +291,7 @@ const tips = [
     "text": "Horari, telèfon i especialitats actualitzats. És el primer que veu algú que et busca a prop seu."
   },
   {
-    "lead": "Crea una pàgina per especialitat.",
+    "lead": "Crea una pàgina per cada especialitat de la teva clínica.",
     "text": "Cada tractament o enfocament terapèutic mereix la seva pròpia pàgina, no una línia perduda a \"serveis\"."
   },
   {
@@ -296,7 +299,7 @@ const tips = [
     "text": "La majoria et busca des del mòbil, moltes vegades amb pressa. Si triga, marxen a una altra consulta."
   },
   {
-    "lead": "Demana ressenyes després de cada visita.",
+    "lead": "Demana ressenyes després de cada feina.",
     "text": "Les ressenyes recents pesen més a Google i generen la confiança que aquest sector necessita."
   }
 ];
@@ -329,7 +332,7 @@ const faqs = [
 ];
 
 const pageSchema = localAgencySchema({
-  pageUrl: `${SITE_URL}/agencia-dentistes/seo/`,
+  pageUrl: `${SITE_URL}/ca/agencia-dentistes/seo/`,
   lang: 'ca',
   cityName: 'Barcelona',
   postalCode: '08035',
@@ -812,6 +815,11 @@ const pageSchema = localAgencySchema({
     <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
     <GoogleReviews locale="ca" title="El que diuen els nostres clients sobre el seo de Nova" />
 
+
+    <SiblingServices lang="ca" currentSector="dentistas" currentService="seo" />
+    <SectorLinks lang="ca" currentSector="dentistas" service="seo" />
+
+    <WhereWeWork lang="ca" sectorKey="dentistas" />
 
     <!-- ═══ FAQS ════════════════════════════════════════════════ -->
     <FaqHome title="Preguntes sobre el nostre servei de seo" items={faqs} emitSchema={false} />

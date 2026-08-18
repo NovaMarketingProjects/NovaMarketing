@@ -6,6 +6,9 @@ import { strapiClient } from '../../lib/strapi';
 import LogoMarquee from '../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../components/sections/FaqHome.astro';
 import GoogleReviews from '../../components/global/GoogleReviews.astro';
+import SectorLinks from '../../components/sections/SectorLinks.astro';
+import SiblingServices from '../../components/sections/SiblingServices.astro';
+import WhereWeWork from '../../components/sections/WhereWeWork.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-terapeutas/meta-ads/', '/agencia-terapeutes/meta-ads/', SITE_URL);
@@ -27,11 +30,11 @@ const heroChecks = [
 
 const tiles = [
   {
-    "t": "Estrategia de contenidos",
+    "t": "Estrategia de contenidos para tu centro",
     "d": "Qué mostrar en Instagram y Facebook para generar confianza en un sector donde la confianza lo es todo."
   },
   {
-    "t": "Campañas de captación",
+    "t": "Campañas de captación de pacientes",
     "d": "Anuncios segmentados por zona e interés que ponen tu centro de terapia delante de quien encaja con tu especialidad."
   },
   {
@@ -39,11 +42,11 @@ const tiles = [
     "d": "Vídeo y foto pensados para transmitir cercanía y profesionalidad sin sonar a anuncio genérico."
   },
   {
-    "t": "Formularios de contacto nativos",
+    "t": "Formularios de contacto para reservar sesión",
     "d": "Pedir cita sin salir de Instagram o Facebook. Menos fricción, más conversión."
   },
   {
-    "t": "Remarketing",
+    "t": "Remarketing para quien no reservó",
     "d": "Quien vio tu contenido sin contactar sigue viendo tu marca mientras decide."
   },
   {
@@ -51,11 +54,11 @@ const tiles = [
     "d": "Respondemos comentarios y mensajes con el tono adecuado para un sector sensible."
   },
   {
-    "t": "Cumplimiento normativo",
+    "t": "Cumplimiento normativo en salud",
     "d": "Conocemos las restricciones de Meta para anuncios de salud y trabajamos dentro de sus políticas."
   },
   {
-    "t": "Medición de resultados",
+    "t": "Medición de sesiones generadas",
     "d": "Cada euro invertido atribuido a citas reales, no solo a interacciones."
   },
   {
@@ -66,15 +69,15 @@ const tiles = [
 
 const timeline = [
   {
-    "title": "Auditoría de Presencia Actual",
+    "title": "Auditoría de Cuenta y Públicos de Terapeutas",
     "desc": "Revisamos tu perfil, tus publicaciones y tu competencia en Instagram y Facebook antes de proponer nada."
   },
   {
-    "title": "Estrategia de Contenido y Anuncios",
+    "title": "Estrategia de Contenido para Terapeutas",
     "desc": "Recibes por escrito qué mostrar, a quién segmentar y qué presupuesto necesita cada campaña."
   },
   {
-    "title": "Creatividades y Campañas",
+    "title": "Creativos para sesiones",
     "desc": "Vídeo y foto pensados para generar confianza, con formularios nativos para pedir cita sin salir de la app."
   },
   {
@@ -116,7 +119,7 @@ const auditCards = [
     "color": "text-green-600"
   },
   {
-    "t": "Fricción del formulario",
+    "t": "Fricción en el formulario de contacto",
     "d": "Cuántos pasos hay entre ver tu anuncio y pedir cita, y cómo reducirlos.",
     "bg": "bg-purple-100",
     "color": "text-purple-600"
@@ -253,32 +256,32 @@ const comparison = [
 
 const criteria = [
   {
-    "title": "Pide casos verificables del sector",
-    "desc": "Un muro de logos no demuestra nada. Pide casos de centros de terapia con datos concretos. Si no pueden enseñarte ni uno, sigue buscando."
+    "title": "Pide casos de Meta Ads en Terapeutas verificables",
+    "desc": "Qué inversión, qué creativos funcionaron y cuántos sesiones generó. Si no pueden enseñarte un caso de terapeutas, sigue buscando."
   },
   {
-    "title": "Pregunta quién llevará tu cuenta",
-    "desc": "Exige conocer a la persona que trabajará tu proyecto antes de firmar. En nova hablas siempre con el consultor que ejecuta tu estrategia."
+    "title": "Pregunta quién gestionará tus campañas",
+    "desc": "Exige conocer a la persona que gestionará las campañas en redes de tu centro antes de firmar. En nova hablas siempre con el consultor que las ejecuta."
   },
   {
-    "title": "Exige propiedad de tus activos",
-    "desc": "Tu web, tu dominio y tus cuentas publicitarias deben estar a tu nombre. Lo contrario es una dependencia, no un servicio."
+    "title": "Exige que la cuenta y el píxel sean tuyos",
+    "desc": "Business Manager, cuenta y píxel a tu nombre. Al irte te llevas el historial."
   },
   {
-    "title": "Que entienda tu especialidad concreta",
-    "desc": "Fisioterapia, logopedia y terapia ocupacional buscan palabras clave distintas. Una agencia generalista aprende con tu presupuesto."
+    "title": "Que produzca creativos propios",
+    "desc": "Las fotos de stock no generan sesiones. Exige creativos reales de tu centro."
   },
   {
-    "title": "Revisa qué mide el informe mensual",
-    "desc": "El informe debe hablar de sesiones reservadas, no solo de visitas o impresiones. Todo lo demás es decoración."
+    "title": "Que hable de sesiones, no de likes",
+    "desc": "Los seguidores no pagan las facturas. Exige objetivos de sesiones desde la primera propuesta."
   },
   {
-    "title": "Huye de las permanencias largas",
-    "desc": "Una permanencia de 12 meses protege a la agencia, no a ti. Por eso en nova trabajamos mes a mes."
+    "title": "Huye de las permanencias en Meta Ads",
+    "desc": "En Meta Ads los resultados para tu centro se ven en semanas, así que no hay excusa para atarte un año."
   },
   {
-    "title": "Que sepa combinar recurrencia y captación",
-    "desc": "Muchas terapias necesitan pacientes recurrentes y nuevos a la vez. Una buena estrategia trabaja las dos cosas sin descuidar ninguna."
+    "title": "Que segmente por tu zona real",
+    "desc": "Pagar impresiones fuera de tu radio de alcance es tirar el presupuesto."
   }
 ];
 
@@ -812,6 +815,11 @@ const pageSchema = localAgencySchema({
     <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
     <GoogleReviews locale="es" title="Lo que dicen nuestros clientes sobre el meta ads de Nova" />
 
+
+    <SiblingServices lang="es" currentSector="terapeutas" currentService="meta-ads" />
+    <SectorLinks lang="es" currentSector="terapeutas" service="meta-ads" />
+
+    <WhereWeWork lang="es" sectorKey="terapeutas" />
 
     <!-- ═══ FAQS ════════════════════════════════════════════════ -->
     <FaqHome title="Preguntas sobre nuestro servicio de meta ads" items={faqs} emitSchema={false} />

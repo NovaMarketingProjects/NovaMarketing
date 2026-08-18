@@ -7,6 +7,8 @@ import LogoMarquee from '../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../components/sections/FaqHome.astro';
 import CityPills from '../../components/global/CityPills.astro';
 import GoogleReviews from '../../components/global/GoogleReviews.astro';
+import SectorLinks from '../../components/sections/SectorLinks.astro';
+import WhereWeWork from '../../components/sections/WhereWeWork.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-restaurantes/', '/ca/agencia-restaurantes/', SITE_URL);
@@ -197,11 +199,11 @@ const pageSchema = localAgencySchema({
 
                 <div class="space-y-16 md:space-y-24 flex flex-col items-center">
                     {[
-                        { title: "Diagnòstic del Restaurant", desc: "Analitzem la teva captació amb dades. D'on surten avui les teves reserves, quant pagues en comissions a plataformes i quina visibilitat tens al teu barri." },
-                        { title: "Estratègia Documentada", desc: "Reps un pla per escrit. Quins canals activar, quins serveis empènyer, quin pressupost necessita cada campanya i quantes reserves és raonable esperar en 3, 6 i 12 mesos." },
-                        { title: "Execució Multicanal", desc: "SEO local per a qui busca on menjar, Ads per a qui decideix ara, xarxes per obrir la gana i email perquè repeteixin. Cada canal amb la seva funció." },
-                        { title: "Mesura Sense Fum", desc: "Mesurem reserves, trucades i comandes, no likes. Cada reserva queda atribuïda al seu canal i la seva campanya a l'informe mensual." },
-                        { title: "Optimització Contínua", desc: "Revisem cada setmana campanyes i conversió, tallem el que no omple taules i reinvertim en el que funciona." },
+                        { title: "Diagnòstic de Reserves i Visibilitat", desc: "Analitzem la teva captació amb dades. D'on surten avui les teves reserves, quant pagues en comissions a plataformes i quina visibilitat tens al teu barri." },
+                        { title: "Estratègia de Captació de Taules", desc: "Reps un pla per escrit. Quins canals activar, quins serveis empènyer, quin pressupost necessita cada campanya i quantes reserves és raonable esperar en 3, 6 i 12 mesos." },
+                        { title: "Execució Multicanal per Omplir Taules", desc: "SEO local per a qui busca on menjar, Ads per a qui decideix ara, xarxes per obrir la gana i email perquè repeteixin. Cada canal amb la seva funció." },
+                        { title: "Mesura de Reserves i Comandes", desc: "Mesurem reserves, trucades i comandes, no likes. Cada reserva queda atribuïda al seu canal i la seva campanya a l'informe mensual." },
+                        { title: "Optimització de l’Ocupació", desc: "Revisem cada setmana campanyes i conversió, tallem el que no omple taules i reinvertim en el que funciona." },
                     ].map((step, index) => (
                         <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
                             <div class:list={["flex-1 w-full", index % 2 === 0 ? "md:order-1 md:text-right" : "md:order-3 md:text-left"]}>
@@ -479,19 +481,10 @@ const pageSchema = localAgencySchema({
     <!-- ═══ RESSENYES GOOGLE ═════════════════════════════════════════ -->
     <GoogleReviews locale="ca" title="El que diuen els nostres clients sobre el màrqueting gastronòmic de Nova" />
 
-    <!-- ═══ ON TREBALLEM ═══════════════════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-4xl mx-auto text-center reveal">
-            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">On treballem</span>
-            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Seu a Barcelona, clients a tot Espanya
-            </h2>
-            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
-                La nostra base és a Barcelona i la majoria de projectes són de la ciutat i la seva àrea metropolitana, on ens reunim presencialment. Però el màrqueting gastronòmic no entén de quilòmetres. Treballem amb restaurants de tot Espanya per videotrucada amb el mateix nivell de seguiment.
-            </p>
-            <CityPills base="/ca/agencia-restaurantes/" lang="ca" exclude={["seo","google-ads","meta-ads","email-marketing","cro","posicionamiento-geo","diseno-web"]} />
-        </div>
-    </section>
+    <SectorLinks lang="ca" currentSector="restaurantes" />
+
+
+    <WhereWeWork lang="ca" sectorKey="restaurantes" />
 
     <!-- ═══ FAQS ════════════════════════════════════════════════ -->
     <FaqHome title="Preguntes sobre la nostra agència de màrqueting per a restaurants" items={faqs} emitSchema={false} />

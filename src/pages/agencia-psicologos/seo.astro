@@ -6,6 +6,9 @@ import { strapiClient } from '../../lib/strapi';
 import LogoMarquee from '../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../components/sections/FaqHome.astro';
 import GoogleReviews from '../../components/global/GoogleReviews.astro';
+import SectorLinks from '../../components/sections/SectorLinks.astro';
+import SiblingServices from '../../components/sections/SiblingServices.astro';
+import WhereWeWork from '../../components/sections/WhereWeWork.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-psicologos/seo/', '/agencia-psicolegs/seo/', SITE_URL);
@@ -27,62 +30,62 @@ const heroChecks = [
 
 const tiles = [
   {
-    "t": "Auditoría SEO inicial",
+    "t": "Auditoría SEO de tu consulta",
     "d": "Radiografía técnica, de contenido y de autoridad de tu web antes de tocar nada. El punto de partida de cualquier estrategia para psicólogos."
   },
   {
-    "t": "SEO técnico",
+    "t": "SEO técnico para tu consulta",
     "d": "Velocidad, indexación y Core Web Vitals. Que Google pueda rastrear y entender tu web sin obstáculos técnicos."
   },
   {
-    "t": "Keyword research local",
+    "t": "Keywords de pacientes potenciales",
     "d": "Qué escribe alguien en Google cuando busca pacientes como los tuyos en tu zona. Keywords que traen cita, no solo tráfico."
   },
   {
-    "t": "Contenido de especialidad",
+    "t": "Contenido por especialidad clínica",
     "d": "Páginas por especialidad o tratamiento que responden la duda real antes que tu competencia."
   },
   {
-    "t": "SEO local y Google Business",
+    "t": "Ficha de Google y reseñas de pacientes",
     "d": "Tu ficha de Google optimizada, reseñas gestionadas y presencia en el mapa cuando alguien busca cerca de ti."
   },
   {
-    "t": "Datos estructurados",
+    "t": "Datos estructurados de servicios",
     "d": "Marcado schema de servicios y preguntas frecuentes que ayuda a Google a mostrar tu web mejor en resultados."
   },
   {
-    "t": "Analítica y Search Console",
+    "t": "Analítica de citas y contactos",
     "d": "Cada cita atribuida a su origen. Decisiones con datos, no con intuiciones."
   },
   {
-    "t": "SEO más GEO",
+    "t": "SEO más GEO para salud mental",
     "d": "Cada vez más gente pregunta a la IA antes de buscar. Integramos posicionamiento en Google y en la IA en una sola estrategia."
   },
   {
-    "t": "Migraciones sin perder posiciones",
+    "t": "Rediseños sin perder el SEO de tu consulta",
     "d": "Cambios de web o rediseños sin perder el posicionamiento que tanto ha costado conseguir."
   }
 ];
 
 const timeline = [
   {
-    "title": "Auditoría SEO Completa",
+    "title": "Auditoría SEO de tu consulta",
     "desc": "Analizamos tu web, tu visibilidad actual en Google y tu competencia directa. Detectamos errores técnicos y keywords de pacientes sin explotar."
   },
   {
-    "title": "Estrategia SEO Documentada",
+    "title": "Estrategia SEO para Psicólogos",
     "desc": "Recibes una hoja de ruta por escrito. Qué keywords atacar, qué páginas crear y qué resultados esperar en 3, 6 y 12 meses."
   },
   {
-    "title": "Optimización Técnica y Contenidos",
+    "title": "Contenido y Técnica de tu consulta",
     "desc": "Arreglamos lo que impide a Google entender tu web y creamos el contenido que posiciona cada especialidad."
   },
   {
-    "title": "SEO Local y Reputación",
+    "title": "SEO Local de tu consulta",
     "desc": "Tu ficha de Google optimizada, reseñas gestionadas y presencia en el mapa cuando alguien busca cerca de ti."
   },
   {
-    "title": "Medición y Ajuste Continuo",
+    "title": "Medición de pacientes desde Google",
     "desc": "Monitorizamos mes a mes posiciones, tráfico y pacientes. En el informe ves qué keywords suben y cuántas citas llegan desde Google."
   }
 ];
@@ -104,7 +107,7 @@ const auditChecklist = [
 
 const auditCards = [
   {
-    "t": "Revisión técnica completa",
+    "t": "Revisión técnica de tu consulta",
     "d": "Indexación, velocidad y errores de rastreo. Todo lo que frena tu web, documentado.",
     "bg": "bg-purple-100",
     "color": "text-purple-600"
@@ -116,7 +119,7 @@ const auditCards = [
     "color": "text-green-600"
   },
   {
-    "t": "Keywords de especialidad",
+    "t": "Keywords de pacientes",
     "d": "Las búsquedas que hacen tus pacientes cuando quieren reservar, no solo las de más volumen.",
     "bg": "bg-purple-100",
     "color": "text-purple-600"
@@ -137,7 +140,7 @@ const auditCards = [
 
 const journey = [
   {
-    "t": "Radiografía de tu visibilidad en Google",
+    "t": "Radiografía de tu consulta en Google",
     "d": "Analizamos en qué posición sales para las búsquedas de tu especialidad y qué se lleva tu competencia."
   },
   {
@@ -253,32 +256,32 @@ const comparison = [
 
 const criteria = [
   {
-    "title": "Pide casos verificables del sector salud",
-    "desc": "Un muro de logos no demuestra nada. Pide casos de consultas o clínicas con datos concretos. Si no pueden enseñarte ni uno, sigue buscando."
+    "title": "Pide casos de SEO en Psicólogos verificables",
+    "desc": "Qué keyword, qué posición alcanzó y cuántos pacientes trajo. Si no pueden enseñarte un caso de psicólogos, sigue buscando."
   },
   {
-    "title": "Pregunta quién llevará tu cuenta",
-    "desc": "Exige conocer a la persona que trabajará tu proyecto antes de firmar. En nova hablas siempre con el consultor que ejecuta tu estrategia."
+    "title": "Pregunta quién llevará tu SEO",
+    "desc": "Exige conocer a la persona que trabajará el posicionamiento de tu consulta antes de firmar. En nova hablas siempre con el consultor que ejecuta tu estrategia."
   },
   {
     "title": "Exige propiedad de tus activos",
-    "desc": "Tu web, tu dominio, tus cuentas publicitarias y tu lista de pacientes deben estar a tu nombre. Lo contrario es una dependencia, no un servicio."
+    "desc": "Tu web, tu dominio, tu analítica y tu contenido deben estar a tu nombre. Lo contrario es una dependencia, no un servicio."
   },
   {
-    "title": "Comprueba que entienden las restricciones del sector salud",
-    "desc": "Google y Meta limitan qué se puede anunciar en salud. Una agencia que lo ignora te arriesga a que te rechacen o suspendan campañas."
+    "title": "Desconfía de quien garantiza la posición 1",
+    "desc": "Nadie puede garantizarla. Quien lo promete, o miente o usa técnicas que acabarán penalizando tu web. Lo serio es garantizar método y trabajo verificable."
   },
   {
     "title": "Revisa qué mide el informe mensual",
-    "desc": "El informe debe hablar de citas y pacientes nuevos, no solo de visitas o impresiones. Todo lo demás es decoración."
+    "desc": "Si habla de posiciones pero no de pacientes, la agencia mide su actividad y no tu negocio."
   },
   {
-    "title": "Huye de las permanencias largas",
-    "desc": "Una permanencia de 12 meses protege a la agencia, no a ti. Por eso en nova trabajamos mes a mes."
+    "title": "Huye de las permanencias largas en SEO",
+    "desc": "El SEO de tu consulta tarda en consolidarse, y por eso muchas agencias usan esa lentitud para atarte 12 meses. En nova trabajamos mes a mes desde el primer día."
   },
   {
-    "title": "Que cuide el tono y la discreción",
-    "desc": "La comunicación en salud mental exige sensibilidad. Pide ver ejemplos reales de su trabajo en el sector antes de contratar."
+    "title": "Que piense también en la IA",
+    "desc": "Cada vez más gente pregunta a ChatGPT antes de buscar. Una agencia SEO que ignora el GEO optimiza solo la mitad del tablero."
   }
 ];
 
@@ -288,7 +291,7 @@ const tips = [
     "text": "Horario, teléfono y especialidades actualizados. Es lo primero que ve alguien que te busca cerca de él."
   },
   {
-    "lead": "Crea una página por especialidad.",
+    "lead": "Crea una página por cada especialidad de tu consulta.",
     "text": "Cada tratamiento o enfoque terapéutico merece su propia página, no una línea perdida en \"servicios\"."
   },
   {
@@ -296,7 +299,7 @@ const tips = [
     "text": "La mayoría te busca desde el móvil, muchas veces con prisa. Si tarda, se van a otra consulta."
   },
   {
-    "lead": "Pide reseñas después de cada visita.",
+    "lead": "Pide reseñas después de cada trabajo.",
     "text": "Las reseñas recientes pesan más en Google y generan la confianza que este sector necesita."
   }
 ];
@@ -812,6 +815,11 @@ const pageSchema = localAgencySchema({
     <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
     <GoogleReviews locale="es" title="Lo que dicen nuestros clientes sobre el seo de Nova" />
 
+
+    <SiblingServices lang="es" currentSector="psicologos" currentService="seo" />
+    <SectorLinks lang="es" currentSector="psicologos" service="seo" />
+
+    <WhereWeWork lang="es" sectorKey="psicologos" />
 
     <!-- ═══ FAQS ════════════════════════════════════════════════ -->
     <FaqHome title="Preguntas sobre nuestro servicio de seo" items={faqs} emitSchema={false} />

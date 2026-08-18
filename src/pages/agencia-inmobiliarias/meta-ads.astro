@@ -7,6 +7,9 @@ import LogoMarquee from '../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../components/sections/FaqHome.astro';
 import CityPills from '../../components/global/CityPills.astro';
 import GoogleReviews from '../../components/global/GoogleReviews.astro';
+import SectorLinks from '../../components/sections/SectorLinks.astro';
+import SiblingServices from '../../components/sections/SiblingServices.astro';
+import WhereWeWork from '../../components/sections/WhereWeWork.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-inmobiliarias/meta-ads/', '/ca/agencia-inmobiliarias/meta-ads/', SITE_URL);
@@ -603,6 +606,11 @@ const pageSchema = localAgencySchema({
     <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
     <GoogleReviews locale="es" title="Lo que dicen nuestros clientes sobre las campañas de Meta Ads de Nova" />
 
+
+    <SiblingServices lang="es" currentSector="inmobiliarias" currentService="meta-ads" />
+    <SectorLinks lang="es" currentSector="inmobiliarias" service="meta-ads" />
+
+    <WhereWeWork lang="es" sectorKey="inmobiliarias" />
 
     <!-- ═══ FAQS ════════════════════════════════════════════════ -->
     <FaqHome title="Preguntas sobre nuestro Meta Ads para inmobiliarias" items={faqs} emitSchema={false} />

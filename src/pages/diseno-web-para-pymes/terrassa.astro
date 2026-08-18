@@ -58,9 +58,9 @@ const sectors = [
   { icon: '💪', title: 'Diseño web para gimnasios', desc: 'Horarios claros, tarifas sin letra pequeña y alta online. Una web que llena clases en enero y las mantiene el resto del año.' },
   { icon: '🏗️', title: 'Diseño web para constructoras', desc: 'Proyectos documentados con fotos reales y formularios que filtran curiosos. La web que convierte visitas en presupuestos.' },
   { icon: '⚖️', title: 'Diseño web para abogados', desc: 'Autoridad y claridad. Webs por especialidad que resuelven la duda legal del cliente y lo llevan a la consulta.' },
-  { icon: '🏨', title: 'Diseño web para hoteles', desc: 'Reserva directa sin depender de las OTAs. Webs con motor de reservas, fotos que venden y velocidad de carga impecable.' },
-  { icon: '🏭', title: 'Diseño web para B2B', desc: 'Fichas técnicas descargables, casos de éxito y formularios pensados para el responsable de compras. Webs que generan presupuestos.' },
-  { icon: '🎓', title: 'Diseño web para escuelas', desc: 'Proyecto educativo bien contado, visitas al centro a un clic y matrícula online. La web que las familias comparan antes de decidir.' },
+  { icon: '🏨', title: 'Diseño web para hoteles', href: '/agencia-hoteles/diseno-web/', desc: 'Reserva directa sin depender de las OTAs. Webs con motor de reservas, fotos que venden y velocidad de carga impecable.' },
+  { icon: '🏭', title: 'Diseño web para B2B', href: '/agencia-b2b/diseno-web/', desc: 'Fichas técnicas descargables, casos de éxito y formularios pensados para el responsable de compras. Webs que generan presupuestos.' },
+  { icon: '⚙️', title: 'Diseño web para Empresas Industriales', href: '/agencia-industrial/diseno-web/', desc: 'Catálogo técnico claro, fichas de producto y formularios pensados para convertir la visita de un comprador técnico en leads cualificados.' },
 ];
 
 const pageSchema = localAgencySchema({
@@ -764,12 +764,12 @@ const pageSchema = localAgencySchema({
         <div class="max-w-4xl mx-auto text-center reveal">
             <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Dónde trabajamos</span>
             <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Sede en Barcelona, clientes en toda España
+                Agencia de Diseño Web con sede en Barcelona y clientes en toda España
             </h2>
             <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
                 Nuestra base está en Barcelona y la mayoría de proyectos son de la ciudad y su área metropolitana, donde nos reunimos presencialmente. Pero el diseño web no entiende de kilómetros. Trabajamos con PYMEs de toda España por videollamada con el mismo nivel de seguimiento.
             </p>
-            <CityPills base="/diseno-web-para-pymes/" lang="es" />
+            <CityPills base="/diseno-web-para-pymes/" lang="es" itemPrefix="agencia de diseño web en" homeLabel="Agencia de Diseño Web" />
         </div>
     </section>
 

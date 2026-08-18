@@ -6,6 +6,9 @@ import { strapiClient } from '../../../lib/strapi';
 import LogoMarquee from '../../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../../components/sections/FaqHome.astro';
 import GoogleReviews from '../../../components/global/GoogleReviews.astro';
+import SectorLinks from '../../../components/sections/SectorLinks.astro';
+import SiblingServices from '../../../components/sections/SiblingServices.astro';
+import WhereWeWork from '../../../components/sections/WhereWeWork.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-terapeutas/email-marketing/', '/agencia-terapeutes/email-marketing/', SITE_URL);
@@ -27,23 +30,23 @@ const heroChecks = [
 
 const tiles = [
   {
-    "t": "Flux de benvinguda",
+    "t": "Flux de benvinguda a nous pacients",
     "d": "El primer contacte després de la primera visita o la primera consulta, cuidat per generar confiança des del minut u."
   },
   {
-    "t": "Recordatoris de cita",
+    "t": "Recordatoris de sessió",
     "d": "Menys absències sense trucades de telèfon. Un recordatori automàtic redueix les cites perdudes."
   },
   {
-    "t": "Flux de recuperació",
+    "t": "Flux de recuperació de pacients",
     "d": "Pacients que no tornen des de fa temps reben el missatge adequat per tornar a reservar sessions."
   },
   {
-    "t": "Newsletter de valor",
+    "t": "Newsletter de benestar",
     "d": "Contingut útil sobre la teva especialitat que manté la teva consulta present sense sonar a publicitat constant."
   },
   {
-    "t": "Segmentació per tractament",
+    "t": "Segmentació per tipus de teràpia",
     "d": "Cada pacient rep informació rellevant al seu cas, no un missatge genèric per a tothom."
   },
   {
@@ -55,22 +58,22 @@ const tiles = [
     "d": "Els fluxos funcionen sols un cop configurats. El teu equip no perd temps en tasques repetitives."
   },
   {
-    "t": "Compliment RGPD",
+    "t": "Compliment RGPD en salut",
     "d": "Consentiment i protecció de dades gestionats correctament, crític en el sector salut."
   },
   {
-    "t": "Mesura de resultats",
+    "t": "Mesura de sessions generades",
     "d": "Obertures, clics i cites generades per cada enviament. Saps quin email porta agenda."
   }
 ];
 
 const timeline = [
   {
-    "title": "Auditoria de la teva Base de Dades",
+    "title": "Auditoria de la teva Base de Contactes",
     "desc": "Revisem la teva llista de pacients actual i quina eina fas servir, o t’ajudem a muntar-la des de zero complint RGPD."
   },
   {
-    "title": "Estratègia de Fluxos Documentada",
+    "title": "Estratègia de Fluxos per a Terapeutes",
     "desc": "Reps per escrit quins fluxos activar primer: recordatoris, recuperació o fidelització, segons el que més et fa falta."
   },
   {
@@ -82,7 +85,7 @@ const timeline = [
     "desc": "Configurem els fluxos perquè funcionin sols: recordatoris, seguiment i recuperació sense que el teu equip mogui un dit."
   },
   {
-    "title": "Mesura i Optimització",
+    "title": "Mesura de sessions",
     "desc": "Obertures, clics i cites generades per cada enviament. Ajustem mes a mes el que millor funciona."
   }
 ];
@@ -110,13 +113,13 @@ const auditCards = [
     "color": "text-purple-600"
   },
   {
-    "t": "Absències evitables",
+    "t": "Contactes que es refreden",
     "d": "Estimem quantes absències podries reduir amb recordatoris automàtics.",
     "bg": "bg-green-100",
     "color": "text-green-600"
   },
   {
-    "t": "Pacients recuperables",
+    "t": "Contactes recuperables",
     "d": "Detectem qui no torna des de fa temps i podria reactivar-se amb el missatge adequat.",
     "bg": "bg-purple-100",
     "color": "text-purple-600"
@@ -253,38 +256,38 @@ const comparison = [
 
 const criteria = [
   {
-    "title": "Demana casos verificables del sector",
-    "desc": "Un mur de logos no demostra res. Demana casos de centres de teràpia amb dades concretes. Si no poden ensenyar-te’n cap, segueix buscant."
+    "title": "Demana casos d’email marketing en Terapeutes verificables",
+    "desc": "Quines automatitzacions van muntar i quants sessions van generar. Si no poden ensenyar-te un cas de terapeutes, segueix buscant."
   },
   {
-    "title": "Pregunta qui portarà el teu compte",
-    "desc": "Exigeix conèixer la persona que treballarà el teu projecte abans de signar. A nova parles sempre amb el consultor que executa la teva estratègia."
+    "title": "Pregunta qui muntarà els teus fluxos",
+    "desc": "Exigeix conèixer la persona que dissenyarà les automatitzacions de la teva centre abans de signar. A nova parles sempre amb el consultor que les executa."
   },
   {
-    "title": "Exigeix la propietat dels teus actius",
-    "desc": "La teva web, el teu domini i els teus comptes publicitaris han d’estar al teu nom. El contrari és una dependència, no un servei."
+    "title": "Exigeix que la teva llista sigui teva",
+    "desc": "L’eina i els contactes han d’estar al teu nom. La teva llista és un dels teus actius més grans."
   },
   {
-    "title": "Que entengui la teva especialitat concreta",
-    "desc": "Fisioteràpia, logopèdia i teràpia ocupacional busquen paraules clau diferents. Una agència generalista aprèn amb el teu pressupost."
+    "title": "Que comenci per la captació",
+    "desc": "Sense un sistema per captar contactes nous, no hi ha canal que funcioni a llarg termini."
   },
   {
-    "title": "Revisa què mesura l’informe mensual",
-    "desc": "L’informe ha de parlar de sessions reservades, no només de visites o impressions. Tota la resta és decoració."
+    "title": "Pregunta per l’entregabilitat",
+    "desc": "De res serveix el millor contingut si cau a spam. Domini autenticat i llista neta són l’estàndard."
   },
   {
-    "title": "Fuig de les permanències llargues",
-    "desc": "Una permanència de 12 mesos protegeix l’agència, no tu. Per això a nova treballem mes a mes."
+    "title": "Fuig de les permanències en email marketing",
+    "desc": "El sistema per a la teva centre es munta en setmanes i els resultats es veuen aviat. No hi ha motiu per signar més enllà de mes a mes."
   },
   {
-    "title": "Que sàpiga combinar recurrència i captació",
-    "desc": "Moltes teràpies necessiten pacients recurrents i nous alhora. Una bona estratègia treballa les dues coses sense descuidar-ne cap."
+    "title": "Que respecti els teus contactes",
+    "desc": "Disparar correus cada dia crema la llista. La freqüència correcta genera més resultat que el volum."
   }
 ];
 
 const tips = [
   {
-    "lead": "Activa un recordatori de cita.",
+    "lead": "Activa un recordatori automàtic.",
     "text": "Encara que sigui manual al principi, redueix absències des del primer enviament."
   },
   {
@@ -292,11 +295,11 @@ const tips = [
     "text": "En salut, el tractament de dades personals té requisits extra. Verifica que compleixes la normativa."
   },
   {
-    "lead": "Segmenta qui no ve des de fa temps.",
+    "lead": "Segmenta qui no interactua des de fa temps.",
     "text": "Un missatge diferent per a pacients inactius funciona millor que un enviament igual per a tothom."
   },
   {
-    "lead": "Demana la ressenya just després de la sessió.",
+    "lead": "Demana la ressenya en el moment just.",
     "text": "El moment just després d’una bona experiència és quan és més probable que la deixin."
   }
 ];
@@ -329,7 +332,7 @@ const faqs = [
 ];
 
 const pageSchema = localAgencySchema({
-  pageUrl: `${SITE_URL}/agencia-terapeutes/email-marketing/`,
+  pageUrl: `${SITE_URL}/ca/agencia-terapeutes/email-marketing/`,
   lang: 'ca',
   cityName: 'Barcelona',
   postalCode: '08035',
@@ -812,6 +815,11 @@ const pageSchema = localAgencySchema({
     <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
     <GoogleReviews locale="ca" title="El que diuen els nostres clients sobre el email màrqueting de Nova" />
 
+
+    <SiblingServices lang="ca" currentSector="terapeutas" currentService="email-marketing" />
+    <SectorLinks lang="ca" currentSector="terapeutas" service="email-marketing" />
+
+    <WhereWeWork lang="ca" sectorKey="terapeutas" />
 
     <!-- ═══ FAQS ════════════════════════════════════════════════ -->
     <FaqHome title="Preguntes sobre el nostre servei de email màrqueting" items={faqs} emitSchema={false} />

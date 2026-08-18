@@ -6,6 +6,9 @@ import { strapiClient } from '../../../lib/strapi';
 import LogoMarquee from '../../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../../components/sections/FaqHome.astro';
 import GoogleReviews from '../../../components/global/GoogleReviews.astro';
+import SectorLinks from '../../../components/sections/SectorLinks.astro';
+import SiblingServices from '../../../components/sections/SiblingServices.astro';
+import WhereWeWork from '../../../components/sections/WhereWeWork.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-psicologos/posicionamiento-geo/', '/agencia-psicolegs/posicionamiento-geo/', SITE_URL);
@@ -27,15 +30,15 @@ const heroChecks = [
 
 const tiles = [
   {
-    "t": "Auditoria de visibilitat en IA",
+    "t": "Auditoria de visibilitat en IA de la teva consulta",
     "d": "Comprovem què responen avui ChatGPT, Gemini i Claude quan algú pregunta per la teva especialitat a la teva zona."
   },
   {
-    "t": "Optimització de contingut per a IA",
+    "t": "Contingut optimitzat per a IA per especialitat",
     "d": "Estructurem la teva web perquè els motors d’IA puguin citar-te com a font fiable."
   },
   {
-    "t": "Dades estructurades avançades",
+    "t": "Dades estructurades de serveis clínics",
     "d": "Marcatge schema que ajuda les IA a entendre qui ets, què tractes i on ets."
   },
   {
@@ -43,34 +46,34 @@ const tiles = [
     "d": "Perfils consistents a les fonts que les IA consulten per recomanar professionals."
   },
   {
-    "t": "Contingut que respon preguntes reals",
+    "t": "Preguntes freqüents sobre la teva especialitat",
     "d": "Les preguntes que la gent fa a la IA abans de buscar professional, respostes a la teva pròpia web."
   },
   {
-    "t": "Reputació online",
+    "t": "Reputació i ressenyes de pacients",
     "d": "Ressenyes i mencions coherents, el senyal de confiança que més pesa tant per a Google com per a la IA."
   },
   {
-    "t": "Seguiment de mencions",
+    "t": "Seguiment de mencions en IA",
     "d": "Monitoritzem si la teva consulta apareix recomanada i com evoluciona mes a mes."
   },
   {
-    "t": "GEO més SEO",
+    "t": "GEO més SEO per a salut mental",
     "d": "Una sola estratègia que treballa el cercador tradicional i els assistents d’IA alhora."
   },
   {
-    "t": "Informe de visibilitat IA",
+    "t": "Informe de visibilitat IA de la teva consulta",
     "d": "Cada mes veus si apareixes recomanat i què s’ha fet per millorar-ho."
   }
 ];
 
 const timeline = [
   {
-    "title": "Auditoria de Visibilitat en IA",
+    "title": "Auditoria de Visibilitat en IA de la teva consulta",
     "desc": "Comprovem què responen avui ChatGPT, Gemini i Claude quan algú pregunta per la teva especialitat a la teva zona."
   },
   {
-    "title": "Estratègia GEO Documentada",
+    "title": "Estratègia GEO per a Psicòlegs",
     "desc": "Reps per escrit quins senyals treballar primer: contingut, dades estructurades o reputació, segons el teu punt de partida."
   },
   {
@@ -78,7 +81,7 @@ const timeline = [
     "desc": "Estructurem la teva web i els teus perfils perquè les IA puguin entendre’t i citar-te com a font fiable."
   },
   {
-    "title": "Reputació i Presència",
+    "title": "Reputació i Presència de la teva consulta",
     "desc": "Ressenyes, mencions i directoris de salut coherents, el senyal de confiança que més pesa per a les IA."
   },
   {
@@ -104,7 +107,7 @@ const auditChecklist = [
 
 const auditCards = [
   {
-    "t": "Test de recomanació en IA",
+    "t": "Test de recomanació en IA per a Psicòlegs",
     "d": "Preguntem directament a ChatGPT, Gemini i Claude per la teva especialitat a la teva zona i documentem què responen.",
     "bg": "bg-purple-100",
     "color": "text-purple-600"
@@ -253,32 +256,32 @@ const comparison = [
 
 const criteria = [
   {
-    "title": "Demana casos verificables del sector salut",
-    "desc": "Un mur de logos no demostra res. Demana casos de consultes o clíniques amb dades concretes. Si no poden ensenyar-te’n cap, segueix buscant."
+    "title": "Demana casos de visibilitat en IA en Psicòlegs verificables",
+    "desc": "Que et mostrin un negoci de psicòlegs que avui apareix recomanat per la IA, no una promesa genèrica."
   },
   {
-    "title": "Pregunta qui portarà el teu compte",
-    "desc": "Exigeix conèixer la persona que treballarà el teu projecte abans de signar. A nova parles sempre amb el consultor que executa la teva estratègia."
+    "title": "Pregunta qui treballarà la teva visibilitat en IA",
+    "desc": "Exigeix conèixer la persona que analitzarà i treballarà els senyals d’IA de la teva consulta abans de signar. A nova parles sempre amb el consultor que executa la teva estratègia."
   },
   {
-    "title": "Exigeix la propietat dels teus actius",
-    "desc": "La teva web, el teu domini, els teus comptes publicitaris i la teva llista de pacients han d’estar al teu nom. El contrari és una dependència, no un servei."
+    "title": "Exigeix un test real en els assistents d’IA",
+    "desc": "Que et mostrin què respon ChatGPT avui sobre el teu sector, no una promesa genèrica de posicionament en IA."
   },
   {
-    "title": "Comprova que entenen les restriccions del sector salut",
-    "desc": "Google i Meta limiten què es pot anunciar en salut. Una agència que ho ignora et arrisca al fet que et rebutgin o suspenguin campanyes."
+    "title": "Desconfia de qui promet aparèixer sempre",
+    "desc": "Ningú controla al 100% el que respon un model d’IA. El que és seriós és treballar els senyals que augmenten la probabilitat, no garantir el resultat."
   },
   {
     "title": "Revisa què mesura l’informe mensual",
-    "desc": "L’informe ha de parlar de cites i pacients nous, no només de visites o impressions. Tota la resta és decoració."
+    "desc": "Si no et mostra captures reals del que respon la IA, no està mesurant res verificable."
   },
   {
-    "title": "Fuig de les permanències llargues",
-    "desc": "Una permanència de 12 mesos protegeix l’agència, no tu. Per això a nova treballem mes a mes."
+    "title": "Fuig de les permanències en GEO",
+    "desc": "Els motors d’IA actualitzen el seu coneixement amb freqüència, així que no hi ha excusa per lligar-te a llarg termini sense veure resultats en la teva consulta."
   },
   {
-    "title": "Que tingui cura del to i la discreció",
-    "desc": "La comunicació en salut mental exigeix sensibilitat. Demana veure exemples reals de la seva feina al sector abans de contractar."
+    "title": "Que ho integri amb el teu SEO",
+    "desc": "El GEO no substitueix el SEO tradicional. Una bona estratègia treballa el cercador i els assistents d’IA alhora."
   }
 ];
 
@@ -329,7 +332,7 @@ const faqs = [
 ];
 
 const pageSchema = localAgencySchema({
-  pageUrl: `${SITE_URL}/agencia-psicolegs/posicionamiento-geo/`,
+  pageUrl: `${SITE_URL}/ca/agencia-psicolegs/posicionamiento-geo/`,
   lang: 'ca',
   cityName: 'Barcelona',
   postalCode: '08035',
@@ -812,6 +815,11 @@ const pageSchema = localAgencySchema({
     <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
     <GoogleReviews locale="ca" title="El que diuen els nostres clients sobre el geo i visibilitat en ia de Nova" />
 
+
+    <SiblingServices lang="ca" currentSector="psicologos" currentService="posicionamiento-geo" />
+    <SectorLinks lang="ca" currentSector="psicologos" service="posicionamiento-geo" />
+
+    <WhereWeWork lang="ca" sectorKey="psicologos" />
 
     <!-- ═══ FAQS ════════════════════════════════════════════════ -->
     <FaqHome title="Preguntes sobre el nostre servei de geo i visibilitat en ia" items={faqs} emitSchema={false} />

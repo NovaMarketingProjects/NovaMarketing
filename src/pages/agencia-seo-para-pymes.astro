@@ -58,9 +58,9 @@ const sectors = [
   { icon: '💪', title: 'SEO para gimnasios', desc: 'Captación estacional con picos en enero y septiembre. Posicionamiento local y contenido que llena clases todo el año.' },
   { icon: '🏗️', title: 'SEO para constructoras', desc: 'Competencia local feroz y leads de valor alto. Ficha de Google impecable, landings por zona y keywords que traen presupuestos, no visitas.' },
   { icon: '⚖️', title: 'SEO para abogados', desc: 'Búsquedas de altísima intención y CPCs carísimos en Ads. El SEO capta la consulta con contenido que resuelve la duda legal antes que la competencia.' },
-  { icon: '🏨', title: 'SEO para hoteles', desc: 'Reducir la dependencia de las OTAs es el objetivo. SEO para reserva directa, ficha optimizada y visibilidad en Google Hotels.' },
-  { icon: '🏭', title: 'SEO para B2B', desc: 'Ciclos de venta largos y pocos decisores. Aquí no importa el volumen, importa aparecer en las diez búsquedas técnicas del responsable de compras.' },
-  { icon: '🎓', title: 'SEO para escuelas', desc: 'Captación estacional con picos claros. Contenido informacional todo el año y posicionamiento fuerte en la ventana de matriculación.' },
+  { icon: '🏨', title: 'SEO para hoteles', href: '/agencia-hoteles/seo/', desc: 'Reducir la dependencia de las OTAs es el objetivo. SEO para reserva directa, ficha optimizada y visibilidad en Google Hotels.' },
+  { icon: '🏭', title: 'SEO para B2B', href: '/agencia-b2b/seo/', desc: 'Ciclos de venta largos y pocos decisores. Aquí no importa el volumen, importa aparecer en las diez búsquedas técnicas del responsable de compras.' },
+  { icon: '⚙️', title: 'SEO para Empresas Industriales', href: '/agencia-industrial/seo/', desc: 'Contenido técnico y ficha de producto optimizada para captar búsquedas de compradores técnicos. Posicionamiento pensado para leads cualificados, no solo tráfico.' },
 ];
 
 const pageSchema = localAgencySchema({
@@ -725,12 +725,12 @@ const pageSchema = localAgencySchema({
         <div class="max-w-4xl mx-auto text-center reveal">
             <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Dónde trabajamos</span>
             <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Sede en Barcelona, clientes en toda España
+                Agencia SEO con sede en Barcelona y clientes en toda España
             </h2>
             <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
                 Nuestra base está en Barcelona y la mayoría de proyectos son de la ciudad y su área metropolitana, donde nos reunimos presencialmente. Pero el posicionamiento SEO no entiende de kilómetros. Trabajamos con PYMEs de toda España por videollamada con el mismo nivel de seguimiento.
             </p>
-            <CityPills base="/agencia-seo-para-pymes/" lang="es" />
+            <CityPills base="/agencia-seo-para-pymes/" lang="es" itemPrefix="agencia SEO en" homeLabel="Agencia SEO" />
         </div>
     </section>
 

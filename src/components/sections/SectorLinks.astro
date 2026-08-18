@@ -1,0 +1,71 @@
+---
+/**
+ * SectorLinks.astro — Sección "Más sectores" con enlaces cruzados entre
+ * verticales. Lee de src/lib/sectors.ts, así que al añadir un sector nuevo
+ * a ese fichero, esta sección se actualiza sola en todas las páginas que ya
+ * la usan, sin tener que tocarlas una a una.
+ *
+ * Modo pilar (sin `service`): enlaza a las landings pilar de los demás sectores.
+ * Modo servicio (con `service`): enlaza al mismo subservicio en los demás sectores.
+ */
+import { SECTORS, SERVICES } from '../../lib/sectors';
+
+interface Props {
+  lang: 'es' | 'ca';
+  currentSector: string;
+  service?: string;
+}
+const { lang, currentSector, service } = Astro.props as Props;
+
+const others = SECTORS.filter(s => s.key !== currentSector);
+
+const eyebrow = lang === 'ca' ? 'Més sectors' : 'Más sectores';
+
+let h2: string;
+let intro: string;
+
+if (service) {
+  const svc = SERVICES.find(s => s.key === service);
+  h2 = svc ? svc.crossTitle[lang] : eyebrow;
+  intro = lang === 'ca'
+    ? `Apliquem la mateixa estratègia de ${(svc?.label.ca ?? '').toLowerCase()} en altres sectors molt diferents. Aquests són alguns d’ells.`
+    : `Aplicamos la misma estrategia de ${(svc?.label.es ?? '').toLowerCase()} en otros sectores muy distintos. Estos son algunos de ellos.`;
+} else {
+  const current = SECTORS.find(s => s.key === currentSector);
+  h2 = current ? current.crossTitle[lang] : eyebrow;
+  intro = lang === 'ca'
+    ? 'Treballem amb negocis de sectors molt diferents, cadascun amb la seva pròpia estratègia. Aquests són alguns dels sectors en què també tenim experiència.'
+    : 'Trabajamos con negocios de sectores muy distintos, cada uno con su propia estrategia. Estos son algunos de los sectores en los que también tenemos experiencia.';
+}
+
+function hrefFor(s: (typeof SECTORS)[number]): string {
+  const siloSlug = lang === 'ca' ? s.silo.ca : s.silo.es;
+  const base = lang === 'ca' ? `/ca/${siloSlug}/` : `/${siloSlug}/`;
+  return service ? `${base}${service}/` : base;
+}
+
+const connector = lang === 'ca' ? 'per a' : 'para';
+const serviceLabel = service ? SERVICES.find(sv => sv.key === service)?.label[lang] : undefined;
+
+function labelFor(s: (typeof SECTORS)[number]): string {
+  const prefix = serviceLabel ?? 'Marketing';
+  return `${prefix} ${connector} ${s.name[lang]}`;
+}
+---
+
+<section class="py-20 sm:py-28 bg-zinc-50 px-4 sm:px-6 border-t border-black/5">
+    <div class="max-w-4xl mx-auto text-center reveal">
+        <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">{eyebrow}</span>
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+            {h2}
+        </h2>
+        <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
+            {intro}
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-3">
+            {others.map(s => (
+                <a href={hrefFor(s)} class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">{labelFor(s)}</a>
+            ))}
+        </div>
+    </div>
+</section>

@@ -58,9 +58,9 @@ const sectors = [
   { icon: '💪', title: 'Google Ads para gimnasios', desc: 'Campañas estacionales con picos en enero y septiembre. Promociones locales que llenan clases sin quemar presupuesto el resto del año.' },
   { icon: '🏗️', title: 'Google Ads para constructoras', desc: 'Leads de valor alto y mucha competencia local. Campañas por servicio y zona con anuncios que traen presupuestos, no curiosos.' },
   { icon: '⚖️', title: 'Google Ads para abogados', desc: 'Búsquedas de altísima intención con los clics más caros de Google. Estructura quirúrgica para pagar solo por los casos que te interesan.' },
-  { icon: '🏨', title: 'Google Ads para hoteles', desc: 'Campañas de marca para frenar a las OTAs y captar la reserva directa, más visibilidad en Google Hotels.' },
-  { icon: '🏭', title: 'Google Ads para B2B', desc: 'Pocos decisores y ciclos largos. Campañas de búsqueda técnica y remarketing que acompañan al responsable de compras hasta el contacto.' },
-  { icon: '🎓', title: 'Google Ads para escuelas', desc: 'Captación concentrada en la ventana de matriculación. Campañas que aprietan cuando las familias deciden y descansan el resto del año.' },
+  { icon: '🏨', title: 'Google Ads para hoteles', href: '/agencia-hoteles/google-ads/', desc: 'Campañas de marca para frenar a las OTAs y captar la reserva directa, más visibilidad en Google Hotels.' },
+  { icon: '🏭', title: 'Google Ads para B2B', href: '/agencia-b2b/google-ads/', desc: 'Pocos decisores y ciclos largos. Campañas de búsqueda técnica y remarketing que acompañan al responsable de compras hasta el contacto.' },
+  { icon: '⚙️', title: 'Google Ads para Empresas Industriales', href: '/agencia-industrial/google-ads/', desc: 'Campañas de búsqueda que ponen tu empresa delante del responsable de compras que ya te está buscando, pagando solo por leads cualificados reales.' },
 ];
 
 const pageSchema = localAgencySchema({
@@ -725,12 +725,12 @@ const pageSchema = localAgencySchema({
         <div class="max-w-4xl mx-auto text-center reveal">
             <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Dónde trabajamos</span>
             <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Sede en Barcelona, clientes en toda España
+                Agencia SEM con sede en Barcelona y clientes en toda España
             </h2>
             <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
                 Nuestra base está en Barcelona y la mayoría de proyectos son de la ciudad y su área metropolitana, donde nos reunimos presencialmente. Pero las campañas de Google Ads no entienden de kilómetros. Trabajamos con PYMEs de toda España por videollamada con el mismo nivel de seguimiento.
             </p>
-            <CityPills base="/agencia-sem-para-pymes/" lang="es" />
+            <CityPills base="/agencia-sem-para-pymes/" lang="es" itemPrefix="agencia SEM en" homeLabel="Agencia SEM" />
         </div>
     </section>
 

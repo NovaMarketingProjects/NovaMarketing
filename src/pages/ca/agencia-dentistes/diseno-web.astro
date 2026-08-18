@@ -6,6 +6,9 @@ import { strapiClient } from '../../../lib/strapi';
 import LogoMarquee from '../../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../../components/sections/FaqHome.astro';
 import GoogleReviews from '../../../components/global/GoogleReviews.astro';
+import SectorLinks from '../../../components/sections/SectorLinks.astro';
+import SiblingServices from '../../../components/sections/SiblingServices.astro';
+import WhereWeWork from '../../../components/sections/WhereWeWork.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-dentistas/diseno-web/', '/agencia-dentistes/diseno-web/', SITE_URL);
@@ -27,7 +30,7 @@ const heroChecks = [
 
 const tiles = [
   {
-    "t": "Disseny que transmet confiança",
+    "t": "Disseny que transmet confiança clínica",
     "d": "Una web que resol en tres segons el dubte de qui busca pacients: qui ets i per què confiar en tu."
   },
   {
@@ -35,7 +38,7 @@ const tiles = [
     "d": "Calendari integrat per demanar cita sense trucar. Menys fricció, més agenda plena."
   },
   {
-    "t": "Pàgines per especialitat",
+    "t": "Pàgines per tractament",
     "d": "Cada especialitat o tractament amb la seva pròpia pàgina, pensada per posicionar i per convertir."
   },
   {
@@ -55,7 +58,7 @@ const tiles = [
     "d": "La majoria et busca des del mòbil, moltes vegades amb pressa. Dissenyem allà primer."
   },
   {
-    "t": "Compliment i privacitat",
+    "t": "Privacitat del pacient",
     "d": "Formularis i polítiques adaptats a un sector on la privacitat del pacient és innegociable."
   },
   {
@@ -66,11 +69,11 @@ const tiles = [
 
 const timeline = [
   {
-    "title": "Briefing i Objectius",
+    "title": "Briefing de la teva clínica",
     "desc": "Entenem la teva clínica dental, el teu pacient i què ha d’aconseguir la web abans de dissenyar res."
   },
   {
-    "title": "Arquitectura i Continguts",
+    "title": "Arquitectura de Continguts per a Dentistes",
     "desc": "Definim quines pàgines necessites i com s’organitzen, amb les keywords de la teva especialitat integrades de sèrie."
   },
   {
@@ -110,7 +113,7 @@ const auditCards = [
     "color": "text-purple-600"
   },
   {
-    "t": "Revisió amb ulls de pacient",
+    "t": "Revisió amb ulls de client",
     "d": "Què entén en tres segons, què li genera dubtes i per què marxa sense reservar.",
     "bg": "bg-green-100",
     "color": "text-green-600"
@@ -253,32 +256,32 @@ const comparison = [
 
 const criteria = [
   {
-    "title": "Demana casos verificables de clíniques dentals",
-    "desc": "Un mur de logos no demostra res. Demana casos amb dades concretes: quants pacients, amb quina inversió i en quant de temps. Si no poden ensenyar-te’n cap, segueix buscant."
+    "title": "Demana webs lliurades a Dentistes verificables",
+    "desc": "Demana adreces de webs reals que puguis visitar des del mòbil. Un portfolio de captures no demostra res."
   },
   {
-    "title": "Pregunta qui portarà el teu compte",
-    "desc": "Exigeix conèixer la persona que treballarà el teu projecte abans de signar. A nova parles sempre amb el consultor que executa la teva estratègia."
+    "title": "Pregunta qui farà la teva web",
+    "desc": "Exigeix saber qui dissenya, qui desenvolupa i amb qui parlaràs durant el projecte de la teva clínica. A nova parles sempre amb el consultor."
   },
   {
-    "title": "Exigeix leads propis, no compartits",
-    "desc": "Fuig de qui et ven leads sortits d’un portal compartit amb altres clíniques. La teva inversió ha de generar trànsit i contactes només per a tu."
+    "title": "Exigeix la propietat de la teva web i domini",
+    "desc": "El domini, l’hosting i els continguts han d’estar al teu nom. El contrari és una dependència."
   },
   {
-    "title": "Exigeix la propietat dels teus actius",
-    "desc": "La teva web, el teu domini i els teus comptes publicitaris han d’estar al teu nom. El contrari és una dependència, no un servei."
+    "title": "Desconfia de les webs a 300 euros",
+    "desc": "Una web tirada de preu és una plantilla clonada, lenta i sense SEO. L’acabes pagant dues vegades."
   },
   {
-    "title": "Revisa què mesura l’informe mensual",
-    "desc": "L’informe ha de parlar de cites demanades i pacients nous, no només de clics. Tota la resta és decoració."
+    "title": "Revisa què passa després del llançament",
+    "desc": "Manteniment, seguretat i canvis formen part del servei. Pregunta què inclou abans de signar."
   },
   {
-    "title": "Fuig de les permanències llargues",
-    "desc": "Una permanència de 12 mesos protegeix l’agència, no tu. Per això a nova treballem mes a mes."
+    "title": "Fuig de les permanències després del lliurament",
+    "desc": "La feina ben feta reté sense contractes que lliguin. Per això a nova treballem sense permanències també en el manteniment de la teva clínica."
   },
   {
-    "title": "Que sàpiga vendre tractaments d’alt valor",
-    "desc": "Captar un implant o una ortodòncia exigeix una estratègia diferent a captar una revisió. Una agència especialitzada ho sap diferenciar."
+    "title": "Que entengui el teu sector",
+    "desc": "Dissenyar per a dentistes no és el mateix que una web genèrica. Cada sector té les seves pròpies regles."
   }
 ];
 
@@ -296,7 +299,7 @@ const tips = [
     "text": "Sense scroll, la teva web ha de respondre què fas, per a qui i què fer ara."
   },
   {
-    "lead": "Treu el text que parla de tu.",
+    "lead": "Treu el text que només parla de tu.",
     "text": "Menys missió i visió, més respostes al que el teu pacient busca."
   }
 ];
@@ -329,7 +332,7 @@ const faqs = [
 ];
 
 const pageSchema = localAgencySchema({
-  pageUrl: `${SITE_URL}/agencia-dentistes/diseno-web/`,
+  pageUrl: `${SITE_URL}/ca/agencia-dentistes/diseno-web/`,
   lang: 'ca',
   cityName: 'Barcelona',
   postalCode: '08035',
@@ -812,6 +815,11 @@ const pageSchema = localAgencySchema({
     <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
     <GoogleReviews locale="ca" title="El que diuen els nostres clients sobre el disseny web de Nova" />
 
+
+    <SiblingServices lang="ca" currentSector="dentistas" currentService="diseno-web" />
+    <SectorLinks lang="ca" currentSector="dentistas" service="diseno-web" />
+
+    <WhereWeWork lang="ca" sectorKey="dentistas" />
 
     <!-- ═══ FAQS ════════════════════════════════════════════════ -->
     <FaqHome title="Preguntes sobre el nostre servei de disseny web" items={faqs} emitSchema={false} />

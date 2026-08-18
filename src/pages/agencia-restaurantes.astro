@@ -7,6 +7,8 @@ import LogoMarquee from '../components/sections/LogoMarquee.astro';
 import FaqHome from '../components/sections/FaqHome.astro';
 import CityPills from '../components/global/CityPills.astro';
 import GoogleReviews from '../components/global/GoogleReviews.astro';
+import SectorLinks from '../components/sections/SectorLinks.astro';
+import WhereWeWork from '../components/sections/WhereWeWork.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-restaurantes/', '/ca/agencia-restaurantes/', SITE_URL);
@@ -197,11 +199,11 @@ const pageSchema = localAgencySchema({
 
                 <div class="space-y-16 md:space-y-24 flex flex-col items-center">
                     {[
-                        { title: "Diagnóstico del Restaurante", desc: "Analizamos tu captación con datos. De dónde salen hoy tus reservas, cuánto pagas en comisiones a plataformas y qué visibilidad tienes en tu barrio. Ese es tu punto de partida real." },
-                        { title: "Estrategia Documentada", desc: "Recibes un plan por escrito. Qué canales activar, qué servicios empujar, qué presupuesto necesita cada campaña y cuántas reservas es razonable esperar en 3, 6 y 12 meses." },
-                        { title: "Ejecución Multicanal", desc: "SEO local para quien busca dónde comer, Ads para quien decide ahora, redes para abrir el apetito y email para que repitan. Cada canal con su función." },
-                        { title: "Medición Sin Humo", desc: "Medimos reservas, llamadas y pedidos, no likes. Cada reserva queda atribuida a su canal y su campaña en el informe mensual." },
-                        { title: "Optimización Continua", desc: "Revisamos cada semana campañas y conversión, cortamos lo que no llena mesas y reinvertimos en lo que funciona. Mes a mes, la cuenta mejora o se explica por qué." },
+                        { title: "Diagnóstico de Reservas y Visibilidad", desc: "Analizamos tu captación con datos. De dónde salen hoy tus reservas, cuánto pagas en comisiones a plataformas y qué visibilidad tienes en tu barrio. Ese es tu punto de partida real." },
+                        { title: "Estrategia de Captación de Mesas", desc: "Recibes un plan por escrito. Qué canales activar, qué servicios empujar, qué presupuesto necesita cada campaña y cuántas reservas es razonable esperar en 3, 6 y 12 meses." },
+                        { title: "Ejecución Multicanal para Llenar Mesas", desc: "SEO local para quien busca dónde comer, Ads para quien decide ahora, redes para abrir el apetito y email para que repitan. Cada canal con su función." },
+                        { title: "Medición de Reservas y Pedidos", desc: "Medimos reservas, llamadas y pedidos, no likes. Cada reserva queda atribuida a su canal y su campaña en el informe mensual." },
+                        { title: "Optimización de la Ocupación", desc: "Revisamos cada semana campañas y conversión, cortamos lo que no llena mesas y reinvertimos en lo que funciona. Mes a mes, la cuenta mejora o se explica por qué." },
                     ].map((step, index) => (
                         <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
                             <div class:list={["flex-1 w-full", index % 2 === 0 ? "md:order-1 md:text-right" : "md:order-3 md:text-left"]}>
@@ -479,19 +481,10 @@ const pageSchema = localAgencySchema({
     <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
     <GoogleReviews locale="es" title="Lo que dicen nuestros clientes sobre el marketing gastronómico de Nova" />
 
-    <!-- ═══ DÓNDE TRABAJAMOS ═══════════════════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-4xl mx-auto text-center reveal">
-            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Dónde trabajamos</span>
-            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Sede en Barcelona, clientes en toda España
-            </h2>
-            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
-                Nuestra base está en Barcelona y la mayoría de proyectos son de la ciudad y su área metropolitana, donde nos reunimos presencialmente. Pero el marketing gastronómico no entiende de kilómetros. Trabajamos con restaurantes de toda España por videollamada con el mismo nivel de seguimiento.
-            </p>
-            <CityPills base="/agencia-restaurantes/" lang="es" exclude={["seo","google-ads","meta-ads","email-marketing","cro","posicionamiento-geo","diseno-web"]} />
-        </div>
-    </section>
+    <SectorLinks lang="es" currentSector="restaurantes" />
+
+
+    <WhereWeWork lang="es" sectorKey="restaurantes" />
 
     <!-- ═══ FAQS ════════════════════════════════════════════════ -->
     <FaqHome title="Preguntas sobre nuestra agencia de marketing para restaurantes" items={faqs} emitSchema={false} />

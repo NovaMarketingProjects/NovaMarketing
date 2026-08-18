@@ -58,9 +58,9 @@ const sectors = [
   { icon: '💪', title: 'GEO para gimnasios', desc: 'La IA compara gimnasios por reseñas, servicios y cercanía. Optimizamos esas señales para que te recomiende a ti en enero... y el resto del año.' },
   { icon: '🏗️', title: 'GEO para constructoras', desc: 'Leads de valor alto que ya validan proveedores preguntando a la IA. Casos documentados y autoridad verificable para entrar en la lista corta.' },
   { icon: '⚖️', title: 'GEO para abogados', desc: 'Las dudas legales son de las consultas más frecuentes en la IA. Quien resuelve la duda con autoridad se lleva la consulta. Contenido citable por especialidad.' },
-  { icon: '🏨', title: 'GEO para hoteles', desc: 'Los viajeros planifican con ChatGPT y Perplexity. Señales de marca, reseñas y contenido estructurado para aparecer en el itinerario antes que las OTAs.' },
-  { icon: '🏭', title: 'GEO para B2B', desc: 'El responsable de compras pregunta a la IA por proveedores antes de buscar en Google. Fichas técnicas citables y autoridad sectorial para estar en esa respuesta.' },
-  { icon: '🎓', title: 'GEO para escuelas', desc: 'Las familias comparan centros preguntando a la IA. Proyecto educativo bien explicado, reseñas y datos estructurados para salir en la comparativa.' },
+  { icon: '🏨', title: 'GEO para hoteles', href: '/agencia-hoteles/posicionamiento-geo/', desc: 'Los viajeros planifican con ChatGPT y Perplexity. Señales de marca, reseñas y contenido estructurado para aparecer en el itinerario antes que las OTAs.' },
+  { icon: '🏭', title: 'GEO para B2B', href: '/agencia-b2b/posicionamiento-geo/', desc: 'El responsable de compras pregunta a la IA por proveedores antes de buscar en Google. Fichas técnicas citables y autoridad sectorial para estar en esa respuesta.' },
+  { icon: '⚙️', title: 'GEO para Empresas Industriales', href: '/agencia-industrial/posicionamiento-geo/', desc: 'Los compradores técnicos preguntan a la IA antes de buscar proveedor. Contenido citable y datos estructurados para que la IA recomiende tu empresa.' },
 ];
 
 const pageSchema = localAgencySchema({
@@ -868,12 +868,12 @@ const pageSchema = localAgencySchema({
         <div class="max-w-4xl mx-auto text-center reveal">
             <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Dónde trabajamos</span>
             <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Sede en Barcelona, clientes en toda España
+                Agencia GEO con sede en Barcelona y clientes en toda España
             </h2>
             <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
                 Nuestra base está en Barcelona y la mayoría de proyectos son de la ciudad y su área metropolitana, donde nos reunimos presencialmente. Pero el posicionamiento en IA no entiende de kilómetros. Trabajamos con PYMEs de toda España por videollamada con el mismo nivel de seguimiento.
             </p>
-            <CityPills base="/agencia-geo-para-pymes/" lang="es" />
+            <CityPills base="/agencia-geo-para-pymes/" lang="es" itemPrefix="agencia GEO en" homeLabel="Agencia GEO" />
         </div>
     </section>
 

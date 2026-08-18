@@ -1,0 +1,61 @@
+---
+/**
+ * WhereWeWork.astro — Sección "Dónde trabajamos" para páginas de sector
+ * (pilar y subservicios). Como los sectores no tienen landings por ciudad
+ * propias, enlaza a las landings genéricas de marketing digital por ciudad
+ * y a la home. Lee de src/lib/sectors.ts, así que al añadir un sector nuevo
+ * esta sección se actualiza sola en todas las páginas que ya la usan.
+ */
+import { SECTORS } from '../../lib/sectors';
+
+interface Props {
+  lang: 'es' | 'ca';
+  sectorKey: string;
+}
+const { lang, sectorKey } = Astro.props as Props;
+
+const sector = SECTORS.find(s => s.key === sectorKey);
+const sectorName = sector ? sector.name[lang] : '';
+const sectorNameLower = sectorName.toLowerCase();
+
+const eyebrow = lang === 'ca' ? 'On treballem' : 'Dónde trabajamos';
+const h2 = lang === 'ca'
+  ? `Agència ${sectorName} amb seu a Barcelona i clients a tota Espanya`
+  : `Agencia ${sectorName} con sede en Barcelona y clientes en toda España`;
+const intro = lang === 'ca'
+  ? `La nostra base és a Barcelona, però el màrqueting per a ${sectorNameLower} no entén de quilòmetres: treballem amb ${sectorNameLower} de tota Espanya per videotrucada amb el mateix nivell de seguiment. Aquestes són les nostres landings locals de màrqueting digital.`
+  : `Nuestra base está en Barcelona, pero el marketing para ${sectorNameLower} no entiende de kilómetros: trabajamos con ${sectorNameLower} de toda España por videollamada con el mismo nivel de seguimiento. Estas son nuestras landings locales de marketing digital.`;
+
+const CITIES = [
+  { slug: 'barcelona', es: 'Barcelona', ca: 'Barcelona' },
+  { slug: 'sabadell', es: 'Sabadell', ca: 'Sabadell' },
+  { slug: 'sant-cugat', es: 'Sant Cugat', ca: 'Sant Cugat' },
+  { slug: 'terrassa', es: 'Terrassa', ca: 'Terrassa' },
+];
+
+const pills = CITIES.map(c => ({
+  href: lang === 'ca' ? `/ca/agencia-de-marketing-digital-a-${c.slug}/` : `/agencia-de-marketing-digital-en-${c.slug}/`,
+  label: lang === 'ca' ? `Agència de màrqueting digital a ${c.ca}` : `Agencia de marketing digital en ${c.es}`,
+}));
+pills.push({
+  href: lang === 'ca' ? '/ca/' : '/',
+  label: lang === 'ca' ? 'Agència de màrqueting digital' : 'Agencia de marketing digital',
+});
+---
+
+<section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
+    <div class="max-w-4xl mx-auto text-center reveal">
+        <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">{eyebrow}</span>
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+            {h2}
+        </h2>
+        <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
+            {intro}
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-3">
+            {pills.map(p => (
+                <a href={p.href} class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">{p.label}</a>
+            ))}
+        </div>
+    </div>
+</section>

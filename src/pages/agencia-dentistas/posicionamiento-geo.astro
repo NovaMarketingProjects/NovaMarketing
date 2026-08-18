@@ -6,6 +6,9 @@ import { strapiClient } from '../../lib/strapi';
 import LogoMarquee from '../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../components/sections/FaqHome.astro';
 import GoogleReviews from '../../components/global/GoogleReviews.astro';
+import SectorLinks from '../../components/sections/SectorLinks.astro';
+import SiblingServices from '../../components/sections/SiblingServices.astro';
+import WhereWeWork from '../../components/sections/WhereWeWork.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-dentistas/posicionamiento-geo/', '/agencia-dentistes/posicionamiento-geo/', SITE_URL);
@@ -27,50 +30,50 @@ const heroChecks = [
 
 const tiles = [
   {
-    "t": "Auditoría de visibilidad en IA",
+    "t": "Auditoría de visibilidad en IA de tu clínica",
     "d": "Comprobamos qué responden hoy ChatGPT, Gemini y Claude cuando alguien pregunta por tu especialidad en tu zona."
   },
   {
-    "t": "Optimización de contenido para IA",
+    "t": "Contenido optimizado para IA por tratamiento",
     "d": "Estructuramos tu web para que los motores de IA puedan citarte como fuente fiable."
   },
   {
-    "t": "Datos estructurados avanzados",
+    "t": "Datos estructurados de tratamientos dentales",
     "d": "Marcado schema que ayuda a las IA a entender quién eres, qué tratas y dónde estás."
   },
   {
-    "t": "Presencia en directorios de salud",
+    "t": "Presencia en directorios de salud dental",
     "d": "Perfiles consistentes en las fuentes que las IA consultan para recomendar profesionales."
   },
   {
-    "t": "Contenido que responde preguntas reales",
+    "t": "Preguntas frecuentes sobre tratamientos",
     "d": "Las preguntas que la gente hace a la IA antes de buscar profesional, respondidas en tu propia web."
   },
   {
-    "t": "Reputación online",
+    "t": "Reputación y reseñas de pacientes",
     "d": "Reseñas y menciones coherentes, la señal de confianza que más pesa tanto para Google como para la IA."
   },
   {
-    "t": "Seguimiento de menciones",
+    "t": "Seguimiento de menciones en IA",
     "d": "Monitorizamos si tu consulta aparece recomendada y cómo evoluciona mes a mes."
   },
   {
-    "t": "GEO más SEO",
+    "t": "GEO más SEO para clínicas dentales",
     "d": "Una sola estrategia que trabaja el buscador tradicional y los asistentes de IA a la vez."
   },
   {
-    "t": "Informe de visibilidad IA",
+    "t": "Informe de visibilidad IA de tu clínica",
     "d": "Cada mes ves si apareces recomendado y qué se ha hecho para mejorarlo."
   }
 ];
 
 const timeline = [
   {
-    "title": "Auditoría de Visibilidad en IA",
+    "title": "Auditoría de Visibilidad en IA de tu clínica",
     "desc": "Comprobamos qué responden hoy ChatGPT, Gemini y Claude cuando alguien pregunta por tu especialidad en tu zona."
   },
   {
-    "title": "Estrategia GEO Documentada",
+    "title": "Estrategia GEO para Dentistas",
     "desc": "Recibes por escrito qué señales trabajar primero: contenido, datos estructurados o reputación, según tu punto de partida."
   },
   {
@@ -78,7 +81,7 @@ const timeline = [
     "desc": "Estructuramos tu web y tus perfiles para que las IA puedan entenderte y citarte como fuente fiable."
   },
   {
-    "title": "Reputación y Presencia",
+    "title": "Reputación y Presencia de tu clínica",
     "desc": "Reseñas, menciones y directorios de salud coherentes, la señal de confianza que más pesa para las IA."
   },
   {
@@ -104,7 +107,7 @@ const auditChecklist = [
 
 const auditCards = [
   {
-    "t": "Test de recomendación en IA",
+    "t": "Test de recomendación en IA para Dentistas",
     "d": "Preguntamos directamente a ChatGPT, Gemini y Claude por tu especialidad en tu zona y documentamos qué responden.",
     "bg": "bg-purple-100",
     "color": "text-purple-600"
@@ -253,32 +256,32 @@ const comparison = [
 
 const criteria = [
   {
-    "title": "Pide casos verificables de clínicas dentales",
-    "desc": "Un muro de logos no demuestra nada. Pide casos con datos concretos: cuántos pacientes, con qué inversión y en cuánto tiempo. Si no pueden enseñarte ni uno, sigue buscando."
+    "title": "Pide casos de visibilidad en IA en Dentistas verificables",
+    "desc": "Que te enseñen un negocio de dentistas que hoy aparece recomendado por la IA, no una promesa genérica."
   },
   {
-    "title": "Pregunta quién llevará tu cuenta",
-    "desc": "Exige conocer a la persona que trabajará tu proyecto antes de firmar. En nova hablas siempre con el consultor que ejecuta tu estrategia."
+    "title": "Pregunta quién trabajará tu visibilidad en IA",
+    "desc": "Exige conocer a la persona que analizará y trabajará las señales de IA de tu clínica antes de firmar. En nova hablas siempre con el consultor que ejecuta tu estrategia."
   },
   {
-    "title": "Exige leads propios, no compartidos",
-    "desc": "Huye de quien te vende leads sacados de un portal compartido con otras clínicas. Tu inversión debe generar tráfico y contactos solo para ti."
+    "title": "Exige un test real en los asistentes de IA",
+    "desc": "Que te enseñen qué responde ChatGPT hoy sobre tu sector, no una promesa genérica de posicionamiento en IA."
   },
   {
-    "title": "Exige propiedad de tus activos",
-    "desc": "Tu web, tu dominio y tus cuentas publicitarias deben estar a tu nombre. Lo contrario es una dependencia, no un servicio."
+    "title": "Desconfía de quien promete aparecer siempre",
+    "desc": "Nadie controla al 100% lo que responde un modelo de IA. Lo serio es trabajar las señales que aumentan la probabilidad, no garantizar el resultado."
   },
   {
     "title": "Revisa qué mide el informe mensual",
-    "desc": "El informe debe hablar de citas pedidas y pacientes nuevos, no solo de clics. Todo lo demás es decoración."
+    "desc": "Si no te enseña capturas reales de lo que responde la IA, no está midiendo nada verificable."
   },
   {
-    "title": "Huye de las permanencias largas",
-    "desc": "Una permanencia de 12 meses protege a la agencia, no a ti. Por eso en nova trabajamos mes a mes."
+    "title": "Huye de las permanencias en GEO",
+    "desc": "Los motores de IA actualizan su conocimiento con frecuencia, así que no hay excusa para atarte a largo plazo sin ver resultados en tu clínica."
   },
   {
-    "title": "Que sepa vender tratamientos de alto valor",
-    "desc": "Captar un implante o una ortodoncia exige una estrategia distinta a captar una revisión. Una agencia especializada sabe diferenciarlo."
+    "title": "Que lo integre con tu SEO",
+    "desc": "El GEO no sustituye al SEO tradicional. Una buena estrategia trabaja el buscador y los asistentes de IA a la vez."
   }
 ];
 
@@ -812,6 +815,11 @@ const pageSchema = localAgencySchema({
     <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
     <GoogleReviews locale="es" title="Lo que dicen nuestros clientes sobre el geo y visibilidad en ia de Nova" />
 
+
+    <SiblingServices lang="es" currentSector="dentistas" currentService="posicionamiento-geo" />
+    <SectorLinks lang="es" currentSector="dentistas" service="posicionamiento-geo" />
+
+    <WhereWeWork lang="es" sectorKey="dentistas" />
 
     <!-- ═══ FAQS ════════════════════════════════════════════════ -->
     <FaqHome title="Preguntas sobre nuestro servicio de geo y visibilidad en ia" items={faqs} emitSchema={false} />

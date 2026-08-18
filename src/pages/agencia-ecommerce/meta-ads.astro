@@ -7,6 +7,9 @@ import LogoMarquee from '../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../components/sections/FaqHome.astro';
 import CityPills from '../../components/global/CityPills.astro';
 import GoogleReviews from '../../components/global/GoogleReviews.astro';
+import SectorLinks from '../../components/sections/SectorLinks.astro';
+import SiblingServices from '../../components/sections/SiblingServices.astro';
+import WhereWeWork from '../../components/sections/WhereWeWork.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-ecommerce/meta-ads/', '/ca/agencia-ecommerce/meta-ads/', SITE_URL);
@@ -603,6 +606,11 @@ const pageSchema = localAgencySchema({
     <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
     <GoogleReviews locale="es" title="Lo que dicen nuestros clientes sobre las campañas de Meta Ads de Nova" />
 
+
+    <SiblingServices lang="es" currentSector="ecommerce" currentService="meta-ads" />
+    <SectorLinks lang="es" currentSector="ecommerce" service="meta-ads" />
+
+    <WhereWeWork lang="es" sectorKey="ecommerce" />
 
     <!-- ═══ FAQS ════════════════════════════════════════════════ -->
     <FaqHome title="Preguntas sobre nuestra agencia de Meta Ads para ecommerce" items={faqs} emitSchema={false} />

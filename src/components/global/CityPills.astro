@@ -9,8 +9,10 @@ interface Props {
   base: string;          // URL base de la familia, ej. '/agencia-seo-para-pymes/' o '/ca/agencia-seo-per-pimes/'
   lang?: 'es' | 'ca';
   exclude?: string[];    // slugs hijos que NO son ciudades (ej. servicios o plataformas del silo)
+  itemPrefix?: string;   // si se indica, cada pill de ciudad pasa a ser "{itemPrefix} {Ciudad}"
+  homeLabel?: string;    // si se indica, sustituye la pill final "Resto de España" por este texto (sigue enlazando a `base`)
 }
-const { base, lang = 'es', exclude = [] } = Astro.props;
+const { base, lang = 'es', exclude = [], itemPrefix, homeLabel } = Astro.props;
 
 const allPages = Object.keys(import.meta.glob('/src/pages/**/*.astro'));
 const dir = `/src/pages${base}`;
@@ -24,12 +26,12 @@ const cities = allPages
   }))
   .sort((a, b) => a.label.localeCompare(b.label, 'es'));
 
-const restLabel = lang === 'ca' ? "Resta d'Espanya" : 'Resto de España';
+const restLabel = homeLabel ?? (lang === 'ca' ? "Resta d'Espanya" : 'Resto de España');
 ---
 
 <div class="flex flex-wrap items-center justify-center gap-3">
     {cities.map(c => (
-        <a href={`${base}${c.slug}/`} class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">{c.label}</a>
+        <a href={`${base}${c.slug}/`} class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">{itemPrefix ? `${itemPrefix} ${c.label}` : c.label}</a>
     ))}
     <a href={base} class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm text-zinc-800 shadow-sm hover:border-accent/30 hover:text-accent transition-colors">{restLabel}</a>
 </div>

@@ -7,6 +7,8 @@ import LogoMarquee from '../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../components/sections/FaqHome.astro';
 import CityPills from '../../components/global/CityPills.astro';
 import GoogleReviews from '../../components/global/GoogleReviews.astro';
+import SectorLinks from '../../components/sections/SectorLinks.astro';
+import WhereWeWork from '../../components/sections/WhereWeWork.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-ecommerce/', '/ca/agencia-ecommerce/', SITE_URL);
@@ -21,11 +23,11 @@ try {
 } catch {}
 
 const steps = [
-  { title: "Diagnòstic de la Botiga", desc: "Analitzem el teu ecommerce amb dades. Trànsit, taxa de conversió, tiquet mitjà, marges per categoria i quins canals porten vendes de veritat. Detectem on es perden diners i on hi ha l'oportunitat que la teva competència ja explota." },
-  { title: "Estratègia Documentada", desc: "Reps un pla per escrit. Quins canals activar, quins productes empènyer, quin pressupost necessita cada campanya i quin retorn és raonable esperar en 3, 6 i 12 mesos. Saps en què s'inverteix cada euro abans d'invertir-lo." },
-  { title: "Execució Multicanal", desc: "SEO per captar la cerca, Ads per escalar la venda, email per repetir compra i una web pensada perquè la botiga converteixi més amb el mateix trànsit. Cada canal amb la seva funció i tots mesurant contra el mateix compte de resultats." },
-  { title: "Mesura Sense Fum", desc: "Mesurem vendes, ROAS i marge, no likes ni impressions. Cada comanda queda atribuïda al seu canal i la seva campanya. A l'informe mensual veus quant has invertit, quant has venut i quin canal et dona més rendibilitat." },
-  { title: "Optimització Contínua", desc: "L'ecommerce no descansa i l'estratègia tampoc. Revisem cada setmana campanyes, productes i conversió, tallem el que no rendeix i reinvertim en el que ven. Mes a mes, el compte millora o s'explica per què." }
+  { title: "Diagnòstic de Vendes i Conversió", desc: "Analitzem el teu ecommerce amb dades. Trànsit, taxa de conversió, tiquet mitjà, marges per categoria i quins canals porten vendes de veritat. Detectem on es perden diners i on hi ha l'oportunitat que la teva competència ja explota." },
+  { title: "Estratègia de Canals i Pressupost", desc: "Reps un pla per escrit. Quins canals activar, quins productes empènyer, quin pressupost necessita cada campanya i quin retorn és raonable esperar en 3, 6 i 12 mesos. Saps en què s'inverteix cada euro abans d'invertir-lo." },
+  { title: "Execució Multicanal de Campanyes", desc: "SEO per captar la cerca, Ads per escalar la venda, email per repetir compra i una web pensada perquè la botiga converteixi més amb el mateix trànsit. Cada canal amb la seva funció i tots mesurant contra el mateix compte de resultats." },
+  { title: "Mesura de ROAS i Marge", desc: "Mesurem vendes, ROAS i marge, no likes ni impressions. Cada comanda queda atribuïda al seu canal i la seva campanya. A l'informe mensual veus quant has invertit, quant has venut i quin canal et dona més rendibilitat." },
+  { title: "Optimització de l’Embut de Venda", desc: "L'ecommerce no descansa i l'estratègia tampoc. Revisem cada setmana campanyes, productes i conversió, tallem el que no rendeix i reinvertim en el que ven. Mes a mes, el compte millora o s'explica per què." }
 ];
 
 const criteria = [
@@ -529,19 +531,10 @@ const cityCards = [
     <!-- ═══ RESSENYES GOOGLE ═════════════════════════════════════════ -->
     <GoogleReviews locale="ca" title="El que diuen els nostres clients sobre el màrqueting ecommerce de Nova" />
 
-    <!-- ═══ ON TREBALLEM ═══════════════════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-4xl mx-auto text-center reveal">
-            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">On treballem</span>
-            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Seu a Barcelona, clients a tot Espanya
-            </h2>
-            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
-                La nostra base és a Barcelona i la majoria de projectes són de la ciutat i la seva àrea metropolitana, on ens reunim presencialment. Però una botiga online no entén de quilòmetres. Treballem amb ecommerce de tot Espanya per videotrucada amb el mateix nivell de seguiment.
-            </p>
-            <CityPills base="/ca/agencia-ecommerce/" lang="ca" exclude={["seo","google-ads","meta-ads","email-marketing","posicionamiento-geo","diseno-web"]} />
-        </div>
-    </section>
+    <SectorLinks lang="ca" currentSector="ecommerce" />
+
+
+    <WhereWeWork lang="ca" sectorKey="ecommerce" />
 
     <!-- ═══ FAQS ════════════════════════════════════════════════ -->
     <FaqHome title="Preguntes sobre la nostra agència de màrqueting ecommerce" items={faqs} emitSchema={false} />

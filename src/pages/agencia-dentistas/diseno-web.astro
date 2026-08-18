@@ -6,6 +6,9 @@ import { strapiClient } from '../../lib/strapi';
 import LogoMarquee from '../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../components/sections/FaqHome.astro';
 import GoogleReviews from '../../components/global/GoogleReviews.astro';
+import SectorLinks from '../../components/sections/SectorLinks.astro';
+import SiblingServices from '../../components/sections/SiblingServices.astro';
+import WhereWeWork from '../../components/sections/WhereWeWork.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-dentistas/diseno-web/', '/agencia-dentistes/diseno-web/', SITE_URL);
@@ -27,7 +30,7 @@ const heroChecks = [
 
 const tiles = [
   {
-    "t": "Diseño que transmite confianza",
+    "t": "Diseño que transmite confianza clínica",
     "d": "Una web que resuelve en tres segundos la duda de quien busca pacientes: quién eres y por qué confiar en ti."
   },
   {
@@ -35,7 +38,7 @@ const tiles = [
     "d": "Calendario integrado para pedir cita sin llamar. Menos fricción, más agenda llena."
   },
   {
-    "t": "Páginas por especialidad",
+    "t": "Páginas por tratamiento",
     "d": "Cada especialidad o tratamiento con su propia página, pensada para posicionar y para convertir."
   },
   {
@@ -55,7 +58,7 @@ const tiles = [
     "d": "La mayoría te busca desde el móvil, muchas veces con prisa. Diseñamos ahí primero."
   },
   {
-    "t": "Cumplimiento y privacidad",
+    "t": "Privacidad del paciente",
     "d": "Formularios y políticas adaptadas a un sector donde la privacidad del paciente es innegociable."
   },
   {
@@ -66,11 +69,11 @@ const tiles = [
 
 const timeline = [
   {
-    "title": "Briefing y Objetivos",
+    "title": "Briefing de tu clínica",
     "desc": "Entendemos tu clínica dental, tu paciente y qué tiene que conseguir la web antes de diseñar nada."
   },
   {
-    "title": "Arquitectura y Contenidos",
+    "title": "Arquitectura de Contenidos para Dentistas",
     "desc": "Definimos qué páginas necesitas y cómo se organizan, con las keywords de tu especialidad integradas de serie."
   },
   {
@@ -110,7 +113,7 @@ const auditCards = [
     "color": "text-purple-600"
   },
   {
-    "t": "Revisión con ojos de paciente",
+    "t": "Revisión con ojos de cliente",
     "d": "Qué entiende en tres segundos, qué le genera dudas y por qué se va sin reservar.",
     "bg": "bg-green-100",
     "color": "text-green-600"
@@ -253,32 +256,32 @@ const comparison = [
 
 const criteria = [
   {
-    "title": "Pide casos verificables de clínicas dentales",
-    "desc": "Un muro de logos no demuestra nada. Pide casos con datos concretos: cuántos pacientes, con qué inversión y en cuánto tiempo. Si no pueden enseñarte ni uno, sigue buscando."
+    "title": "Pide webs entregadas a Dentistas verificables",
+    "desc": "Pide direcciones de webs reales que puedas visitar desde el móvil. Un portfolio de capturas no demuestra nada."
   },
   {
-    "title": "Pregunta quién llevará tu cuenta",
-    "desc": "Exige conocer a la persona que trabajará tu proyecto antes de firmar. En nova hablas siempre con el consultor que ejecuta tu estrategia."
+    "title": "Pregunta quién hará tu web",
+    "desc": "Exige saber quién diseña, quién desarrolla y con quién hablarás durante el proyecto de tu clínica. En nova hablas siempre con el consultor."
   },
   {
-    "title": "Exige leads propios, no compartidos",
-    "desc": "Huye de quien te vende leads sacados de un portal compartido con otras clínicas. Tu inversión debe generar tráfico y contactos solo para ti."
+    "title": "Exige la propiedad de tu web y dominio",
+    "desc": "El dominio, el hosting y los contenidos deben estar a tu nombre. Lo contrario es una dependencia."
   },
   {
-    "title": "Exige propiedad de tus activos",
-    "desc": "Tu web, tu dominio y tus cuentas publicitarias deben estar a tu nombre. Lo contrario es una dependencia, no un servicio."
+    "title": "Desconfía de las webs a 300 euros",
+    "desc": "Una web tirada de precio es una plantilla clonada, lenta y sin SEO. La acabas pagando dos veces."
   },
   {
-    "title": "Revisa qué mide el informe mensual",
-    "desc": "El informe debe hablar de citas pedidas y pacientes nuevos, no solo de clics. Todo lo demás es decoración."
+    "title": "Revisa qué pasa después del lanzamiento",
+    "desc": "Mantenimiento, seguridad y cambios forman parte del servicio. Pregunta qué incluye antes de firmar."
   },
   {
-    "title": "Huye de las permanencias largas",
-    "desc": "Una permanencia de 12 meses protege a la agencia, no a ti. Por eso en nova trabajamos mes a mes."
+    "title": "Huye de las permanencias tras la entrega",
+    "desc": "El trabajo bien hecho retiene sin contratos que aten. Por eso en nova trabajamos sin permanencias también en el mantenimiento de tu clínica."
   },
   {
-    "title": "Que sepa vender tratamientos de alto valor",
-    "desc": "Captar un implante o una ortodoncia exige una estrategia distinta a captar una revisión. Una agencia especializada sabe diferenciarlo."
+    "title": "Que entienda tu sector",
+    "desc": "Diseñar para dentistas no es lo mismo que una web genérica. Cada sector tiene sus propias reglas."
   }
 ];
 
@@ -296,7 +299,7 @@ const tips = [
     "text": "Sin scroll, tu web debe responder qué haces, para quién y qué hacer ahora."
   },
   {
-    "lead": "Quita el texto que habla de ti.",
+    "lead": "Quita el texto que solo habla de ti.",
     "text": "Menos misión y visión, más respuestas a lo que tu paciente busca."
   }
 ];
@@ -812,6 +815,11 @@ const pageSchema = localAgencySchema({
     <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
     <GoogleReviews locale="es" title="Lo que dicen nuestros clientes sobre el diseño web de Nova" />
 
+
+    <SiblingServices lang="es" currentSector="dentistas" currentService="diseno-web" />
+    <SectorLinks lang="es" currentSector="dentistas" service="diseno-web" />
+
+    <WhereWeWork lang="es" sectorKey="dentistas" />
 
     <!-- ═══ FAQS ════════════════════════════════════════════════ -->
     <FaqHome title="Preguntas sobre nuestro servicio de diseño web" items={faqs} emitSchema={false} />

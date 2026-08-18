@@ -6,6 +6,9 @@ import { strapiClient } from '../../lib/strapi';
 import LogoMarquee from '../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../components/sections/FaqHome.astro';
 import GoogleReviews from '../../components/global/GoogleReviews.astro';
+import SectorLinks from '../../components/sections/SectorLinks.astro';
+import SiblingServices from '../../components/sections/SiblingServices.astro';
+import WhereWeWork from '../../components/sections/WhereWeWork.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-psicologos/posicionamiento-geo/', '/agencia-psicolegs/posicionamiento-geo/', SITE_URL);
@@ -27,15 +30,15 @@ const heroChecks = [
 
 const tiles = [
   {
-    "t": "Auditoría de visibilidad en IA",
+    "t": "Auditoría de visibilidad en IA de tu consulta",
     "d": "Comprobamos qué responden hoy ChatGPT, Gemini y Claude cuando alguien pregunta por tu especialidad en tu zona."
   },
   {
-    "t": "Optimización de contenido para IA",
+    "t": "Contenido optimizado para IA por especialidad",
     "d": "Estructuramos tu web para que los motores de IA puedan citarte como fuente fiable."
   },
   {
-    "t": "Datos estructurados avanzados",
+    "t": "Datos estructurados de servicios clínicos",
     "d": "Marcado schema que ayuda a las IA a entender quién eres, qué tratas y dónde estás."
   },
   {
@@ -43,34 +46,34 @@ const tiles = [
     "d": "Perfiles consistentes en las fuentes que las IA consultan para recomendar profesionales."
   },
   {
-    "t": "Contenido que responde preguntas reales",
+    "t": "Preguntas frecuentes sobre tu especialidad",
     "d": "Las preguntas que la gente hace a la IA antes de buscar profesional, respondidas en tu propia web."
   },
   {
-    "t": "Reputación online",
+    "t": "Reputación y reseñas de pacientes",
     "d": "Reseñas y menciones coherentes, la señal de confianza que más pesa tanto para Google como para la IA."
   },
   {
-    "t": "Seguimiento de menciones",
+    "t": "Seguimiento de menciones en IA",
     "d": "Monitorizamos si tu consulta aparece recomendada y cómo evoluciona mes a mes."
   },
   {
-    "t": "GEO más SEO",
+    "t": "GEO más SEO para salud mental",
     "d": "Una sola estrategia que trabaja el buscador tradicional y los asistentes de IA a la vez."
   },
   {
-    "t": "Informe de visibilidad IA",
+    "t": "Informe de visibilidad IA de tu consulta",
     "d": "Cada mes ves si apareces recomendado y qué se ha hecho para mejorarlo."
   }
 ];
 
 const timeline = [
   {
-    "title": "Auditoría de Visibilidad en IA",
+    "title": "Auditoría de Visibilidad en IA de tu consulta",
     "desc": "Comprobamos qué responden hoy ChatGPT, Gemini y Claude cuando alguien pregunta por tu especialidad en tu zona."
   },
   {
-    "title": "Estrategia GEO Documentada",
+    "title": "Estrategia GEO para Psicólogos",
     "desc": "Recibes por escrito qué señales trabajar primero: contenido, datos estructurados o reputación, según tu punto de partida."
   },
   {
@@ -78,7 +81,7 @@ const timeline = [
     "desc": "Estructuramos tu web y tus perfiles para que las IA puedan entenderte y citarte como fuente fiable."
   },
   {
-    "title": "Reputación y Presencia",
+    "title": "Reputación y Presencia de tu consulta",
     "desc": "Reseñas, menciones y directorios de salud coherentes, la señal de confianza que más pesa para las IA."
   },
   {
@@ -104,7 +107,7 @@ const auditChecklist = [
 
 const auditCards = [
   {
-    "t": "Test de recomendación en IA",
+    "t": "Test de recomendación en IA para Psicólogos",
     "d": "Preguntamos directamente a ChatGPT, Gemini y Claude por tu especialidad en tu zona y documentamos qué responden.",
     "bg": "bg-purple-100",
     "color": "text-purple-600"
@@ -253,32 +256,32 @@ const comparison = [
 
 const criteria = [
   {
-    "title": "Pide casos verificables del sector salud",
-    "desc": "Un muro de logos no demuestra nada. Pide casos de consultas o clínicas con datos concretos. Si no pueden enseñarte ni uno, sigue buscando."
+    "title": "Pide casos de visibilidad en IA en Psicólogos verificables",
+    "desc": "Que te enseñen un negocio de psicólogos que hoy aparece recomendado por la IA, no una promesa genérica."
   },
   {
-    "title": "Pregunta quién llevará tu cuenta",
-    "desc": "Exige conocer a la persona que trabajará tu proyecto antes de firmar. En nova hablas siempre con el consultor que ejecuta tu estrategia."
+    "title": "Pregunta quién trabajará tu visibilidad en IA",
+    "desc": "Exige conocer a la persona que analizará y trabajará las señales de IA de tu consulta antes de firmar. En nova hablas siempre con el consultor que ejecuta tu estrategia."
   },
   {
-    "title": "Exige propiedad de tus activos",
-    "desc": "Tu web, tu dominio, tus cuentas publicitarias y tu lista de pacientes deben estar a tu nombre. Lo contrario es una dependencia, no un servicio."
+    "title": "Exige un test real en los asistentes de IA",
+    "desc": "Que te enseñen qué responde ChatGPT hoy sobre tu sector, no una promesa genérica de posicionamiento en IA."
   },
   {
-    "title": "Comprueba que entienden las restricciones del sector salud",
-    "desc": "Google y Meta limitan qué se puede anunciar en salud. Una agencia que lo ignora te arriesga a que te rechacen o suspendan campañas."
+    "title": "Desconfía de quien promete aparecer siempre",
+    "desc": "Nadie controla al 100% lo que responde un modelo de IA. Lo serio es trabajar las señales que aumentan la probabilidad, no garantizar el resultado."
   },
   {
     "title": "Revisa qué mide el informe mensual",
-    "desc": "El informe debe hablar de citas y pacientes nuevos, no solo de visitas o impresiones. Todo lo demás es decoración."
+    "desc": "Si no te enseña capturas reales de lo que responde la IA, no está midiendo nada verificable."
   },
   {
-    "title": "Huye de las permanencias largas",
-    "desc": "Una permanencia de 12 meses protege a la agencia, no a ti. Por eso en nova trabajamos mes a mes."
+    "title": "Huye de las permanencias en GEO",
+    "desc": "Los motores de IA actualizan su conocimiento con frecuencia, así que no hay excusa para atarte a largo plazo sin ver resultados en tu consulta."
   },
   {
-    "title": "Que cuide el tono y la discreción",
-    "desc": "La comunicación en salud mental exige sensibilidad. Pide ver ejemplos reales de su trabajo en el sector antes de contratar."
+    "title": "Que lo integre con tu SEO",
+    "desc": "El GEO no sustituye al SEO tradicional. Una buena estrategia trabaja el buscador y los asistentes de IA a la vez."
   }
 ];
 
@@ -812,6 +815,11 @@ const pageSchema = localAgencySchema({
     <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
     <GoogleReviews locale="es" title="Lo que dicen nuestros clientes sobre el geo y visibilidad en ia de Nova" />
 
+
+    <SiblingServices lang="es" currentSector="psicologos" currentService="posicionamiento-geo" />
+    <SectorLinks lang="es" currentSector="psicologos" service="posicionamiento-geo" />
+
+    <WhereWeWork lang="es" sectorKey="psicologos" />
 
     <!-- ═══ FAQS ════════════════════════════════════════════════ -->
     <FaqHome title="Preguntas sobre nuestro servicio de geo y visibilidad en ia" items={faqs} emitSchema={false} />

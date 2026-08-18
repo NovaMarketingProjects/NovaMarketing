@@ -7,6 +7,9 @@ import LogoMarquee from '../../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../../components/sections/FaqHome.astro';
 import CityPills from '../../../components/global/CityPills.astro';
 import GoogleReviews from '../../../components/global/GoogleReviews.astro';
+import SectorLinks from '../../../components/sections/SectorLinks.astro';
+import SiblingServices from '../../../components/sections/SiblingServices.astro';
+import WhereWeWork from '../../../components/sections/WhereWeWork.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-restaurantes/email-marketing/', '/ca/agencia-restaurantes/email-marketing/', SITE_URL);
@@ -576,6 +579,11 @@ const pageSchema = localAgencySchema({
     <!-- ═══ RESSENYES GOOGLE ═════════════════════════════════════════ -->
     <GoogleReviews locale="ca" title="El que diuen els nostres clients sobre l'email màrqueting de Nova" />
 
+
+    <SiblingServices lang="ca" currentSector="restaurantes" currentService="email-marketing" />
+    <SectorLinks lang="ca" currentSector="restaurantes" service="email-marketing" />
+
+    <WhereWeWork lang="ca" sectorKey="restaurantes" />
 
     <!-- ═══ FAQS ════════════════════════════════════════════════ -->
     <FaqHome title="Preguntes sobre el nostre email màrqueting per a restaurants" items={faqs} emitSchema={false} />

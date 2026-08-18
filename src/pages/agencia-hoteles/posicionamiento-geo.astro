@@ -1,0 +1,859 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { buildAlternates } from '../../lib/i18n';
+import { localAgencySchema } from '../../lib/schema';
+import { strapiClient } from '../../lib/strapi';
+import LogoMarquee from '../../components/sections/LogoMarquee.astro';
+import FaqHome from '../../components/sections/FaqHome.astro';
+import GoogleReviews from '../../components/global/GoogleReviews.astro';
+import SectorLinks from '../../components/sections/SectorLinks.astro';
+import SiblingServices from '../../components/sections/SiblingServices.astro';
+import WhereWeWork from '../../components/sections/WhereWeWork.astro';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const alternates = buildAlternates('/agencia-hoteles/posicionamiento-geo/', '/agencia-hotels/posicionamiento-geo/', SITE_URL);
+
+let allCases: any[] = [];
+try {
+  const casesRes = await strapiClient.getCaseStudies('es');
+  allCases = casesRes.data.map((i: any) => i.attributes ?? i).filter((c: any) => {
+    const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase());
+    return cats.some((s: string) => s.includes('hoteles') || s.includes('posicionamiento-geo'));
+  });
+} catch {}
+
+const heroChecks = [
+  "Sin permanencias",
+  "Trato directo con el consultor",
+  "Resultados medidos en reservas directas"
+];
+
+const tiles = [
+  {
+    "t": "Auditoría de tu visibilidad en IA",
+    "d": "Comprobamos qué dicen ChatGPT, Gemini y Claude de tu hotel hoy, y qué dicen de tu competencia."
+  },
+  {
+    "t": "Contenido de experiencias citable",
+    "d": "Páginas de destino y actividades redactadas con la claridad y estructura que las IA prefieren citar."
+  },
+  {
+    "t": "Datos estructurados avanzados",
+    "d": "Marcado schema que ayuda a las IA a entender tus habitaciones, tus precios y tus servicios."
+  },
+  {
+    "t": "Presencia en directorios de referencia",
+    "d": "Tu hotel presente en los directorios y fuentes que las IA consultan para recomendar alojamiento."
+  },
+  {
+    "t": "Gestión de reseñas como prueba social",
+    "d": "Reseñas gestionadas y respondidas, la prueba social que las IA priorizan al recomendar."
+  },
+  {
+    "t": "Autoridad de marca y menciones",
+    "d": "Trabajamos menciones y enlaces desde fuentes relevantes de turismo y viajes."
+  },
+  {
+    "t": "GEO más SEO en una sola estrategia",
+    "d": "El contenido que posiciona en Google también alimenta las señales que usan las IA. Una sola estrategia, doble resultado."
+  },
+  {
+    "t": "Preguntas frecuentes optimizadas para IA",
+    "d": "FAQs redactadas para responder exactamente lo que un viajero le preguntaría a un asistente de IA."
+  },
+  {
+    "t": "Monitorización de menciones en IA",
+    "d": "Revisamos periódicamente qué recomiendan las IA sobre tu hotel y tu zona."
+  }
+];
+const timeline = [
+  {
+    "title": "Auditoría de tu visibilidad en IA",
+    "desc": "Comprobamos qué recomiendan hoy ChatGPT, Gemini y Claude en tu zona, y si tu hotel aparece o no."
+  },
+  {
+    "title": "Estrategia de Señales y Contenido",
+    "desc": "Recibes un plan por escrito. Qué contenido crear, qué datos estructurar y qué resultado es razonable esperar."
+  },
+  {
+    "title": "Producción de Contenido Citable",
+    "desc": "Creamos páginas de experiencias, destino y FAQs redactadas para que las IA las citen al recomendar alojamiento."
+  },
+  {
+    "title": "Estructura de Datos y Autoridad",
+    "desc": "Implementamos datos estructurados y trabajamos menciones desde fuentes relevantes de turismo."
+  },
+  {
+    "title": "Medición de Reservas y Menciones",
+    "desc": "Monitorizamos qué dicen las IA de tu hotel y medimos reservas directas que llegan por recomendación de IA."
+  }
+];
+const auditChecklist = [
+  "Qué dicen ChatGPT, Gemini y Claude de tu hotel",
+  "Comparativa con lo que dicen de tu competencia",
+  "Contenido de experiencias citable en tu web actual",
+  "Datos estructurados implementados hoy",
+  "Presencia en directorios de referencia de turismo",
+  "Plan de acción priorizado por impacto en reservas"
+];
+const auditCards = [
+  {
+    "t": "Análisis completo de tu visibilidad en IA",
+    "d": "Probamos preguntas reales en varias IA y documentamos qué recomiendan hoy.",
+    "bg": "bg-purple-100",
+    "color": "text-purple-600"
+  },
+  {
+    "t": "Plan de acción priorizado",
+    "d": "Un plan ordenado por impacto y esfuerzo. Sabrás qué arreglar la primera semana.",
+    "bg": "bg-green-100",
+    "color": "text-green-600"
+  },
+  {
+    "t": "Enfoque en reservas, no solo en menciones",
+    "d": "Cada recomendación se traduce a reservas directas, no a apariciones puntuales sin seguimiento.",
+    "bg": "bg-purple-100",
+    "color": "text-purple-600"
+  },
+  {
+    "t": "Auditoría de contenido citable",
+    "d": "Revisamos si tu contenido actual tiene la estructura que las IA prefieren citar.",
+    "bg": "bg-amber-100",
+    "color": "text-amber-600"
+  },
+  {
+    "t": "Benchmark de tu zona",
+    "d": "Comparamos tu visibilidad en IA con tus tres competidores directos más cercanos.",
+    "bg": "bg-blue-100",
+    "color": "text-blue-600"
+  }
+];
+const journey = [
+  {
+    "t": "Radiografía de tu visibilidad en IA",
+    "d": "Probamos preguntas reales de viajeros en varias IA y documentamos las respuestas."
+  },
+  {
+    "t": "Diagnóstico de señales ausentes",
+    "d": "Cruzamos los datos para explicar qué te falta frente a la competencia que sí recomiendan las IA."
+  },
+  {
+    "t": "Hoja de ruta para ser recomendado",
+    "d": "Cierras la auditoría con un documento de acciones ordenadas por impacto y una videollamada donde repasamos cada punto."
+  }
+];
+const pricing = [
+  {
+    "small": "Precio",
+    "name": "Auditoría GEO para Hoteles",
+    "price": "1.200€",
+    "meta": [
+      "Entrega en 2 a 3 semanas",
+      "Para cualquier hotel que quiera saber qué dice la IA de él"
+    ],
+    "items": [
+      "Sesión inicial de objetivos",
+      "Pruebas en ChatGPT, Gemini y Claude",
+      "Comparativa con 3 competidores",
+      "Revisión de contenido citable",
+      "Auditoría de datos estructurados",
+      "Revisión de directorios de referencia",
+      "Acciones ordenadas por impacto",
+      "Videollamada de entrega"
+    ],
+    "cta": "Quiero auditar mi visibilidad"
+  },
+  {
+    "small": "Precio",
+    "name": "GEO para Hoteles",
+    "price": "desde 350€ / mes",
+    "meta": [
+      "Primeras señales activas en 1 mes",
+      "Para negocios que arrancan con un canal"
+    ],
+    "items": [
+      "Auditoría GEO inicial",
+      "Contenido de experiencias citable mensual",
+      "Datos estructurados básicos",
+      "Presencia en 2 directorios de referencia",
+      "Informe mensual de menciones en IA",
+      "Línea directa con el consultor",
+      "Sin permanencia"
+    ],
+    "cta": "Quiero trabajar mi visibilidad en IA"
+  },
+  {
+    "small": "Precio",
+    "name": "GEO Avanzado para Hoteles",
+    "price": "desde 700€ / mes",
+    "meta": [
+      "Estrategia GEO y SEO conjunta",
+      "Para hoteles con presencia en varios idiomas"
+    ],
+    "items": [
+      "Todo el plan GEO",
+      "Estrategia GEO y SEO integrada",
+      "Contenido de destino publicado periódicamente",
+      "Presencia ampliada en directorios",
+      "Cobertura de varios idiomas",
+      "Reunión mensual de negocio",
+      "Soporte prioritario",
+      "Objetivo, ser la opción recomendada"
+    ],
+    "cta": "Quiero escalar mi visibilidad"
+  }
+];
+const comparison = [
+  {
+    "c": "Quién será tu contacto",
+    "o": "Gestor junior con 20-30 cuentas",
+    "n": "Sergio Galo's"
+  },
+  {
+    "c": "Origen de las reservas",
+    "o": "Portales OTA con comisión del 15-20%",
+    "n": "Reservas directas propias de tu web"
+  },
+  {
+    "c": "Qué se mide",
+    "o": "Clics e impresiones",
+    "n": "Reservas directas y coste por reserva"
+  },
+  {
+    "c": "Propiedad de tus activos",
+    "o": "Web y cuentas a nombre de la agencia",
+    "n": "Todo a tu nombre desde el día uno"
+  },
+  {
+    "c": "Permanencia",
+    "o": "6-12 meses habituales",
+    "n": "Mes a mes, sin permanencia"
+  },
+  {
+    "c": "Visibilidad en IA (GEO)",
+    "o": "Solo canales tradicionales",
+    "n": "SEO + GEO integrados con método propio"
+  },
+  {
+    "c": "Transparencia de precios",
+    "o": "Presupuestos opacos con extras sorpresa",
+    "n": "Precio cerrado por escrito antes de empezar"
+  }
+];
+const criteria = [
+  {
+    "title": "Pide casos de GEO Hotelero verificables",
+    "desc": "Qué preguntas probaron y qué cambió. Si no pueden enseñarte un caso del sector hotelero, sigue buscando."
+  },
+  {
+    "title": "Pregunta quién trabajará tu visibilidad en IA",
+    "desc": "Exige conocer a la persona que ejecutará la estrategia antes de firmar. En nova hablas siempre con el consultor que la ejecuta."
+  },
+  {
+    "title": "Exige propiedad de tu contenido",
+    "desc": "El contenido de experiencias y las páginas que se crean deben quedarse en tu web, a tu nombre. Lo contrario es una dependencia, no un servicio."
+  },
+  {
+    "title": "Desconfía de quien promete apariciones garantizadas",
+    "desc": "Nadie controla el algoritmo de una IA externa. Lo serio es garantizar método, señales trabajadas y seguimiento constante."
+  },
+  {
+    "title": "Revisa qué mide el informe mensual",
+    "desc": "Si habla de menciones puntuales pero no de reservas directas, la agencia mide su actividad y no tu negocio."
+  },
+  {
+    "title": "Huye de las permanencias largas en GEO",
+    "desc": "Es una disciplina nueva y en evolución constante. En nova trabajamos mes a mes desde el primer día."
+  },
+  {
+    "title": "Que integre también el SEO tradicional",
+    "desc": "El GEO funciona mejor combinado con SEO. Una agencia que separa ambas disciplinas duplica esfuerzo y reduce resultado."
+  }
+];
+const tips = [
+  {
+    "lead": "Pregunta tú mismo a ChatGPT sobre tu zona.",
+    "text": "Comprueba si tu hotel aparece cuando preguntas dónde alojarse. Es el diagnóstico más rápido que existe."
+  },
+  {
+    "lead": "Publica contenido de experiencias con detalle real.",
+    "text": "Las IA priorizan contenido específico y verificable sobre las descripciones genéricas de folleto."
+  },
+  {
+    "lead": "Redacta FAQs con preguntas reales de viajeros.",
+    "text": "Cuanto más se parezca a lo que alguien le preguntaría a una IA, más fácil es que te citen."
+  },
+  {
+    "lead": "Cuida y responde tus reseñas.",
+    "text": "Las reseñas gestionadas son una de las señales más fuertes que usan las IA para recomendar alojamiento."
+  }
+];
+const faqs = [
+  {
+    "question": "¿Qué incluye el servicio de GEO para hoteles?",
+    "answer": "Incluye auditoría inicial, estrategia documentada y ejecución mensual. Contenido citable, datos estructurados, presencia en directorios y un informe mensual de menciones en IA."
+  },
+  {
+    "question": "¿Cuánto cuesta el GEO?",
+    "answer": "La auditoría cuesta 1.200 euros y los planes mensuales van desde 350 euros al mes. Presupuesto cerrado por escrito y sin permanencias."
+  },
+  {
+    "question": "¿Cuánto tarda el GEO en dar resultados?",
+    "answer": "Las primeras señales se activan en el primer mes, y los resultados consolidados suelen verse entre el tercer y el sexto mes."
+  },
+  {
+    "question": "¿El GEO sustituye al SEO?",
+    "answer": "No, lo complementa. Trabajamos ambas disciplinas de forma integrada porque comparten gran parte del contenido y las señales."
+  },
+  {
+    "question": "¿Cómo medís los resultados?",
+    "answer": "En reservas directas atribuidas a recomendaciones de IA y en menciones verificadas en ChatGPT, Gemini y Claude. En el informe mensual ves la evolución."
+  },
+  {
+    "question": "¿Trabajáis con permanencia?",
+    "answer": "No, trabajamos mes a mes. Nuestra permanencia real es el resultado que ves en los informes cada mes."
+  }
+];
+
+const pageSchema = localAgencySchema({
+  pageUrl: `${SITE_URL}/agencia-hoteles/posicionamiento-geo/`,
+  lang: 'es',
+  cityName: 'Barcelona',
+  postalCode: '08035',
+  geo: { lat: 41.4114, lng: 2.1526 },
+  areaServed: ["España", "Barcelona", "Sabadell", "Sant Cugat del Vallès", "Terrassa", "Vallès Occidental"],
+  title: "▷ GEO para Hoteles | Visibilidad en IA",
+  description: "GEO para hoteles: visibilidad en ChatGPT, Gemini y Claude con resultados que se miden en reservas directas ✅ Más información",
+  datePublished: '2026-08-17',
+  dateModified: '2026-08-17',
+  streetAddress: 'Carrer del General Mendoza, 10',
+  hasMap: 'https://maps.app.goo.gl/9fbB12UcK32bgjj89',
+  aggregateRating: { ratingValue: '5.0', reviewCount: '12' },
+  breadcrumbName: "GEO para Hoteles",
+  faqs,
+});
+---
+
+<BaseLayout title="▷ GEO para Hoteles | Visibilidad en IA" description="GEO para hoteles: visibilidad en ChatGPT, Gemini y Claude con resultados que se miden en reservas directas ✅ Más información" locale="es" alternates={alternates} schemas={[pageSchema]}>
+
+    <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
+    <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+        <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+        <div class="max-w-5xl mx-auto reveal">
+            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
+                <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+                GEO y Visibilidad en IA para Hoteles
+            </span>
+            <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
+                <span class="lg:whitespace-nowrap">Agencia GEO </span>
+                <span class="lg:whitespace-nowrap text-mktg-gradient">para Hoteles</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
+                Cuando alguien pregunta a ChatGPT qué hotel elegir en tu zona, trabajamos tus señales para que la IA recomiende el tuyo. Visibilidad en IA con resultados medidos en reservas directas.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
+                {heroChecks.map(item => (
+                    <span class="inline-flex items-center gap-2 text-[11px] sm:text-xs font-black uppercase tracking-widest text-zinc-700">
+                        <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        {item}
+                    </span>
+                ))}
+            </div>
+            <div class="flex justify-center mt-4">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                    HABLEMOS DE TU HOTEL
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <LogoMarquee />
+
+    <!-- ═══ INTRO ═══════════════════════════════════════════════════════ -->
+    <section class="py-16 sm:py-24 bg-white px-4 sm:px-6 border-b border-black/5">
+        <div class="max-w-6xl mx-auto reveal grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-16 items-center">
+            <div>
+                <p class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4">¿Por qué GEO?</p>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    La agencia de GEO para tu hotel
+                </h2>
+                <div class="space-y-6 text-zinc-600 font-light text-base sm:text-lg leading-relaxed">
+                    <p set:html={`<strong class="font-semibold text-zinc-900">Cada vez más viajeros preguntan a la IA antes de buscar en Booking</strong>. ChatGPT, Gemini y Claude recomiendan alojamiento basándose en señales concretas, reseñas, contenido citable y experiencias bien descritas. Si no trabajas esas señales, la IA recomienda al hotel de al lado.`} />
+                    <p set:html={`Nova es una <strong class="font-semibold text-zinc-900">agencia de GEO especializada en hoteles</strong>. Contenido de experiencias citable y presencia estructurada trabajados para una sola métrica que importa. <strong class="font-semibold text-zinc-900">Cuántas reservas directas llegan porque la IA te recomendó</strong>.`} />
+                </div>
+            </div>
+            <div class="hidden md:block">
+                <img src="/sergio-galos-agencia-hoteles-posicionamiento-geo.webp" alt="Sergio Galo's, GEO para Hoteles" title="Sergio Galo's, GEO para Hoteles" class="w-full h-auto" loading="lazy" width="473" height="591" />
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SERVICIOS ══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50 px-4 sm:px-6 border-t border-b border-black/5">
+        <div class="max-w-7xl mx-auto text-center reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Qué hacemos</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Servicio de GEO y visibilidad en IA para hoteles
+            </h2>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-16">
+                La visibilidad en IA no es magia, es un sistema de señales. Estas son las nueve piezas que trabajamos para que las IA recomienden tu hotel.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+                {tiles.map((c: any) => (
+                    <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900 mb-3">{c.t}</h3>
+                        <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.d}</p>
+                    </div>
+                ))}
+            </div>
+            <div class="mt-12 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">HABLEMOS DE TU HOTEL</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ ESTRATEGIA ════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16 sm:mb-24 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Cómo trabajamos</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Estrategia de GEO para tu hotel
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Una metodología documentada, paso a paso y sin humo.
+                </p>
+            </div>
+            <div id="timeline-container" class="relative">
+                <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
+                <div id="progress-bar" class="hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100"></div>
+                <div class="space-y-16 md:space-y-24 flex flex-col items-center">
+                    {timeline.map((step, index) => (
+                        <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
+                            <div class:list={["flex-1 w-full", index % 2 === 0 ? "md:order-1 md:text-right" : "md:order-3 md:text-left"]}>
+                                <div class="p-8 sm:p-10 bg-zinc-50 border border-black/5 rounded-3xl hover:border-accent/10 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+                                    <h3 class="text-xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{index + 1}. {step.title}</h3>
+                                    <div class:list={["h-0.5 bg-accent w-full mb-4 opacity-80", index % 2 === 0 ? "md:ml-auto" : ""]}></div>
+                                    <p class:list={["text-sm text-zinc-500 font-light max-w-md", index % 2 === 0 ? "md:ml-auto" : ""]}>{step.desc}</p>
+                                    <div class="absolute -bottom-6 -right-5 text-8xl font-black text-black/[0.02] select-none z-0 group-hover:scale-105 transition-transform duration-500">0{index+1}</div>
+                                </div>
+                            </div>
+                            <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all">0{index + 1}</div>
+                            <div class:list={["hidden md:block md:flex-1", index % 2 === 0 ? "md:order-3" : "md:order-1"]}></div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ AUDITORÍA ═════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-[6fr_4fr] gap-12 lg:gap-16 items-start">
+            <div class="reveal lg:col-span-2">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Punto de partida</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
+                    Auditoría de GEO y Visibilidad en IA para tu hotel
+                </h2>
+            </div>
+            <div class="reveal">
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed mb-8">
+                    <p set:html={`¿Sabes qué le responde ChatGPT a alguien que le pregunta qué hotel elegir en tu zona? Casi ningún hotel lo sabe, y ahí empieza todo.`} />
+                    <p set:html={`Nuestra <strong class="font-semibold text-zinc-900">auditoría de GEO para hoteles</strong> comprueba qué dicen las principales IA de tu hotel y de tu competencia, y termina con un plan de acción priorizado por impacto.`} />
+                    <p set:html={`A diferencia de los análisis genéricos, aquí cada punto lo revisa un consultor senior con experiencia en negocios como el tuyo, probando preguntas reales en distintas IA.`} />
+                </div>
+                <ul class="space-y-3">
+                    {auditChecklist.map((item: string) => (
+                        <li class="flex items-start gap-3 text-sm text-zinc-700 font-light">
+                            <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                            {item}
+                        </li>
+                    ))}
+                </ul>
+                <div class="mt-16">
+                    <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                        QUIERO MI AUDITORÍA DE GEO Y VISIBILIDAD EN IA
+                    </a>
+                </div>
+            </div>
+            <div class="reveal flex flex-col gap-4">
+                {auditCards.map(card => (
+                    <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
+                        <div class:list={["w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0", card.bg]}>
+                            <svg class:list={["w-5 h-5", card.color]} fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-black text-zinc-900 mb-1">{card.t}</h3>
+                            <p class="text-xs text-zinc-500 font-light leading-relaxed">{card.d}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ QUÉ INCLUYE LA AUDITORÍA ═══════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Paso a paso</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
+                    Qué incluye la auditoría de nova
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch reveal">
+                {journey.map((st: any, i: number) => (
+                    <div class="flex items-center gap-4 lg:gap-6">
+                        {i > 0 && <div class="hidden lg:flex text-3xl text-accent font-black select-none">→</div>}
+                        <div class="bg-white border border-black/5 rounded-2xl p-8 shadow-[0_15px_40px_rgba(0,0,0,0.06)] flex-1 text-center h-full">
+                            <div class="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto mb-4 text-accent font-black text-lg">{i + 1}</div>
+                            <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3">{st.t}</h3>
+                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{st.d}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto text-center mt-16 reveal">
+                Nuestra auditoría de GEO es el primer paso de cualquier estrategia de visibilidad en IA para hoteles. Analiza cómo te ven hoy las IA y te deja una hoja de ruta clara. También puedes contratarla suelta como segunda opinión.
+            </p>
+            <div class="mt-12 text-center reveal">
+                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">QUIERO MI AUDITORÍA DE GEO Y VISIBILIDAD EN IA</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PRECIOS ════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Tarifas claras</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Precios de GEO y visibilidad en IA para hoteles
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto">
+                    Tarifas orientativas y sin letra pequeña. El precio depende de tu punto de partida y tus objetivos, así que antes de empezar recibes un presupuesto cerrado por escrito. El coste no lleva sorpresas ni permanencias.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                {pricing.map(pl => (
+                    <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-10 flex flex-col shadow-[0_15px_40px_rgba(0,0,0,0.06)] hover:shadow-xl transition-shadow duration-300 reveal">
+                        <h3 class="leading-tight mb-2">
+                            <span class="block text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-1">{pl.small} </span>
+                            <span class="block text-xl font-black uppercase tracking-tight text-zinc-900">{pl.name}</span>
+                        </h3>
+                        <div class="text-lg font-bold text-zinc-900">{pl.price}</div>
+                        <div class="text-[10px] text-zinc-400 font-light mt-1 mb-6">* Precio sin IVA</div>
+                        <div class="text-xs text-zinc-500 font-light mb-8 space-y-1.5">
+                            {pl.meta.map(m => <div>{m}</div>)}
+                        </div>
+                        <div class="text-xs font-black uppercase tracking-widest text-zinc-400 pb-3 border-b border-zinc-100">Qué incluye</div>
+                        <ul class="divide-y divide-zinc-100 flex-1">
+                            {pl.items.map(item => (
+                                <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light">
+                                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 !py-4 !text-[11px] !tracking-widest font-black mt-10 text-center">{pl.cta}</a>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CITA ══════════════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-zinc-950 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <blockquote class="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.15] mb-8">
+                "El viajero de hoy le pregunta a ChatGPT dónde alojarse antes de abrir Booking. Si la IA no te conoce, ni siquiera entras en su lista de opciones."
+            </blockquote>
+            <p class="text-sm text-zinc-400 font-light mb-10">Sergio Galo's · Tu consultor de GEO y Visibilidad en IA</p>
+            <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
+                HABLEMOS DE TU HOTEL
+            </a>
+        </div>
+    </section>
+
+    <!-- ═══ POR QUÉ NOVA (COMPARATIVA) ═════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Por qué nova</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Qué diferencia a nova de otra agencia de GEO y Visibilidad en IA para hoteles
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    El marketing para hoteles está lleno de agencias que solo saben optimizar tu ficha en las OTAs. Nosotros lo trabajamos con método para que la reserva directa se quede en tu cuenta.
+                </p>
+            </div>
+            <div class="reveal overflow-x-auto rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
+                <table class="w-full min-w-[640px] text-left border-collapse bg-white">
+                    <thead>
+                        <tr class="bg-black text-white">
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Criterio</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Nova</th>
+                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Otras agencias</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-zinc-100">
+                        {comparison.map(row => (
+                            <tr class="hover:bg-zinc-50/50 transition-colors">
+                                <td class="px-6 py-5 text-sm font-bold text-zinc-900">{row.c}</td>
+                                <td class="px-6 py-5 text-sm font-bold text-accent">{row.n}</td>
+                                <td class="px-6 py-5 text-sm text-zinc-500 font-light">{row.o}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CÓMO ELEGIR ════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-12 sm:mb-16 reveal text-center">
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                    Cómo Contratar una Agencia de GEO y Visibilidad en IA para Hoteles sin que te vendan humo
+                </h2>
+                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                    Hay cientos de agencias y la mayoría de hoteles elige mal la primera vez. Estos son los siete criterios que deberías exigir a cualquier agencia, incluida la nuestra.
+                </p>
+            </div>
+            <div class="divide-y divide-zinc-100 reveal">
+                {criteria.map((c, i) => (
+                    <div class="py-6 sm:py-8 flex gap-6 sm:gap-8 items-start">
+                        <div class="text-2xl sm:text-3xl font-black tracking-tighter text-accent flex-shrink-0 w-10 leading-none">0{i + 1}</div>
+                        <div>
+                            <h3 class="text-base sm:text-lg font-black uppercase tracking-tight text-zinc-900 mb-2">{c.title}</h3>
+                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.desc}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ QUIÉN ESTÁ DETRÁS ═══════════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-5xl mx-auto reveal">
+            <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] grid md:grid-cols-[280px_1fr] gap-8 sm:gap-12 items-center">
+                <div class="rounded-2xl overflow-hidden bg-zinc-100">
+                    <img src="/sergio-galos-agencia-hoteles-posicionamiento-geo.webp" alt="Sergio Galo's, GEO para Hoteles" title="Sergio Galo's, GEO para Hoteles" class="w-full h-full object-cover object-top" loading="lazy" width="473" height="591" />
+                </div>
+                <div>
+                    <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Quién está detrás</span>
+                    <h2 class="text-2xl sm:text-4xl font-black tracking-tighter uppercase text-zinc-900 leading-[0.95] mb-6">
+                        Sergio Galo's <br>
+                        <span class="text-lg sm:text-2xl">Tu consultor de GEO y Visibilidad en IA</span>
+                    </h2>
+                    <div class="space-y-4 text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
+                        <p>Soy Sergio Galo's, consultor de marketing digital y fundador de Nova Marketing. Llevo años ayudando a hoteles y alojamientos a captar reservas directas sin depender solo de las OTAs. Sé qué hace que un viajero reserve directo contigo y no a través de un intermediario.</p>
+                        <p>Cuando contratas con nova hablas siempre conmigo. Yo hago la auditoría, yo diseño la estrategia y yo respondo en la reunión mensual. Sin capas comerciales ni gestores que cambian cada trimestre.</p>
+                    </div>
+                    <a href="https://www.linkedin.com/company/nova-marketing-pymes/" target="_blank" rel="noopener" class="inline-block mt-6 text-[12px] font-black tracking-widest text-accent hover:underline">
+                        Ver perfil en LinkedIn →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CASOS DE ÉXITO (CMS) ═══════════════════════════════════ -->
+    {allCases.length > 0 && (
+    <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6 overflow-hidden">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-12 reveal">
+          <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultados probados</span>
+          <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
+            Casos de éxito de GEO y Visibilidad en IA<br class="hidden md:inline" /> para hoteles
+          </h2>
+        </div>
+        <div class="cases-carousel relative overflow-hidden">
+          <div class="cases-track flex gap-6 transition-transform duration-500 ease-in-out">
+            {allCases.map((cs: any) => {
+              const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
+              const caseUrl = cs.isPublic && cs.slug ? `/casos-exito/${cs.slug}/` : null;
+              return (
+                <div class="cases-slide flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
+                  <div>
+                    {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
+                    <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors leading-tight">
+                      {caseUrl ? (<a href={caseUrl} class="hover:text-accent transition-colors">{cs.title}</a>) : (<span class="group-hover:text-accent transition-colors">{cs.title}</span>)}
+                    </h3>
+                    <p class="text-xs text-zinc-500 font-light leading-relaxed">{cs.description}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+    )}
+    <script>
+      function initCasesCarousel() {
+        const track = document.querySelector('.cases-track');
+        if (!track) return;
+        const slides = track.querySelectorAll('.cases-slide');
+        if (slides.length <= 4) return;
+        let current = 0;
+        const total = slides.length;
+        function getVisible() { if (window.innerWidth >= 1024) return 4; if (window.innerWidth >= 640) return 2; return 1; }
+        let slideWidth = slides[0].offsetWidth + 24;
+        window.addEventListener('resize', () => { slideWidth = slides[0].offsetWidth + 24; }, { passive: true });
+        function next() {
+          const visible = getVisible();
+          const maxIndex = total - visible;
+          current = current >= maxIndex ? 0 : current + 1;
+          track.style.transform = `translateX(-${current * slideWidth}px)`;
+        }
+        const interval = setInterval(next, 5000);
+        document.addEventListener('astro:before-preparation', () => clearInterval(interval));
+      }
+      document.addEventListener('DOMContentLoaded', initCasesCarousel);
+      document.addEventListener('astro:page-load', initCasesCarousel);
+    </script>
+
+    <!-- ═══ RECOMENDADOS POR LA IA ═════════════════════════════════ -->
+    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <div class="reveal">
+                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Nos avala la IA</span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
+                    La agencia de GEO y Visibilidad en IA para hoteles que recomienda la IA
+                </h2>
+                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed">
+                    <p set:html={`Cuando alguien pregunta por una <strong class='font-semibold text-zinc-900'>agencia de GEO y Visibilidad en IA para hoteles</strong> a ChatGPT, Gemini o Claude, nova aparece entre las agencias recomendadas. Es la mejor prueba de que sabemos generar visibilidad, porque lo aplicamos primero en nosotros mismos.`} />
+                    <p>A los asistentes de IA no les puedes comprar un anuncio para salir primero. Recomiendan lo que encuentran. Casos reales publicados, una especialización clara y clientes que hablan de nosotros.</p>
+                    <p set:html={`Pruébalo tú mismo. Abre ChatGPT y pregúntale qué agencia de GEO y Visibilidad en IA para hoteles te recomienda. Si te sale nova, ya sabes quién puede hacer lo mismo por tu hotel.`} />
+                </div>
+            </div>
+            <div class="reveal flex justify-center">
+                <img src="/agencia-hoteles-posicionamiento-geo.webp" alt="Nova Marketing, agencia de GEO y Visibilidad en IA para hoteles recomendada por la IA" title="Nova Marketing, agencia de GEO y Visibilidad en IA para hoteles recomendada por la IA" class="w-full max-w-sm lg:max-w-md h-auto" loading="lazy" width="1000" height="667" />
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CONSEJOS ═══════════════════════════════════════════ -->
+    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
+        <div class="max-w-4xl mx-auto reveal">
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Consejos aplicables hoy</span>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
+                Cómo mejorar el GEO y Visibilidad en IA de tu hotel esta semana
+            </h2>
+            <p class="text-zinc-500 font-light text-base leading-relaxed mb-10">
+                Si todavía no estás listo para contratar, empieza por aquí. Son acciones que puedes aplicar por tu cuenta y que ya mueven la aguja.
+            </p>
+            <ul class="space-y-6">
+                {tips.map(tip => (
+                    <li class="flex items-start gap-4">
+                        <svg class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        <p class="text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
+                            <strong class="font-bold text-zinc-900">{tip.lead}</strong> {tip.text}
+                        </p>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </section>
+
+    <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
+    <GoogleReviews locale="es" title="Lo que dicen nuestros clientes sobre el geo y visibilidad en ia de Nova" />
+
+
+    <SiblingServices lang="es" currentSector="hoteles" currentService="posicionamiento-geo" />
+    <SectorLinks lang="es" currentSector="hoteles" service="posicionamiento-geo" />
+
+    <WhereWeWork lang="es" sectorKey="hoteles" />
+
+    <!-- ═══ FAQS ════════════════════════════════════════════════ -->
+    <FaqHome title="Preguntas sobre nuestro servicio de geo y visibilidad en ia" items={faqs} emitSchema={false} />
+
+    <!-- ═══ CONTACTO ════════════════════════════════════════════ -->
+    <section id="contacto" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
+            <div class="reveal text-white">
+                <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">CRECIMIENTO GARANTIZADO</span>
+                <h2 class="text-5xl sm:text-7xl font-black uppercase tracking-tighter leading-[0.8] mb-8">
+                   MÁS RESERVAS <br>DIRECTAS
+                </h2>
+                <p class="font-light max-w-md text-base sm:text-xl">Consúltame y te diré por qué tu hotel no capta más reservas directas online, y cómo solucionarlo.</p>
+            </div>
+            <div class="reveal">
+                <div class="bg-white p-8 sm:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
+                    <form class="space-y-8" id="contact-form">
+                        <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
+                            <div class="flex flex-col gap-3">
+                                <label class="opacity-30">NOMBRE</label>
+                                <input type="text" name="name" aria-label="Nombre" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                            <div class="flex flex-col gap-3">
+                                <label class="opacity-30">TELÈFON</label>
+                                <input type="tel" name="phone" aria-label="Telèfon" class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">EMAIL PROFESIONAL</label>
+                            <input type="email" name="email" aria-label="Correo electrónico" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                        </div>
+                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+                            <label class="opacity-30">CONSULTA</label>
+                            <textarea name="msg" aria-label="Mensaje" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="¿Qué necesita tu hotel?"></textarea>
+                        </div>
+                        <button type="submit" class="w-full btn-mktg-v5 !py-6">QUIERO MÁS RESERVAS</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</BaseLayout>
+
+<script>
+    document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const btn = form.querySelector('button');
+        if (btn) { btn.innerHTML = 'ENVIANDO...'; btn.disabled = true; }
+        const data = Object.fromEntries(new FormData(form));
+        try {
+            const res = await fetch('https://cms.novamarketing.es/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            if (res.ok) { window.location.href = '/gracias/'; } else { throw new Error(); }
+        } catch {
+            if (btn) { btn.innerHTML = 'ERROR — INTÉNTALO DE NUEVO'; btn.disabled = false; btn.style.background = '#ef4444'; }
+        }
+    });
+function initTimeline() {
+        const progressBar = document.getElementById('progress-bar');
+        const timeline = document.getElementById('timeline-container');
+        if (!progressBar || !timeline) return;
+        function updateProgress() {
+            const rect = timeline.getBoundingClientRect();
+            const winHeight = window.innerHeight;
+            const nodes = timeline.querySelectorAll('.node-circle');
+            const nodeTops = Array.from(nodes, (node) => node.getBoundingClientRect().top);
+            const topPassed = (winHeight / 2) - rect.top;
+            let percentage = (topPassed / rect.height) * 100;
+            percentage = Math.max(0, Math.min(100, percentage));
+            progressBar.style.height = `${percentage}%`;
+            nodes.forEach((node, i) => {
+                if (nodeTops[i] < winHeight / 2) { node.classList.add('!border-accent', '!bg-accent', '!text-white'); } else { node.classList.remove('!border-accent', '!bg-accent', '!text-white'); }
+            });
+        }
+        let progressTick = false;
+        function onProgressScroll() { if (progressTick) return; progressTick = true; requestAnimationFrame(() => { updateProgress(); progressTick = false; }); }
+        window.addEventListener('scroll', onProgressScroll, { passive: true });
+        document.addEventListener('astro:page-load', updateProgress);
+        updateProgress();
+    }
+    document.addEventListener('DOMContentLoaded', initTimeline);
+    document.addEventListener('astro:page-load', initTimeline);
+</script>

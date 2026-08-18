@@ -6,6 +6,9 @@ import { strapiClient } from '../../lib/strapi';
 import LogoMarquee from '../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../components/sections/FaqHome.astro';
 import GoogleReviews from '../../components/global/GoogleReviews.astro';
+import SectorLinks from '../../components/sections/SectorLinks.astro';
+import SiblingServices from '../../components/sections/SiblingServices.astro';
+import WhereWeWork from '../../components/sections/WhereWeWork.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-psicologos/google-ads/', '/agencia-psicolegs/google-ads/', SITE_URL);
@@ -27,11 +30,11 @@ const heroChecks = [
 
 const tiles = [
   {
-    "t": "Auditoría de cuenta",
+    "t": "Auditoría de tu cuenta de Ads",
     "d": "Revisamos campañas activas o creamos la cuenta desde cero con estructura pensada para captar cita, no solo clics."
   },
   {
-    "t": "Campañas de búsqueda",
+    "t": "Campañas de búsqueda para tu consulta",
     "d": "Apareces cuando alguien busca pacientes en tu zona con intención de reservar ya."
   },
   {
@@ -39,50 +42,50 @@ const tiles = [
     "d": "Botón de llamar o pedir cita directo en el anuncio. Menos pasos entre el clic y la agenda."
   },
   {
-    "t": "Segmentación geográfica",
+    "t": "Segmentación geográfica de tu zona",
     "d": "Tu inversión se concentra en el radio real desde el que te pueden visitar, sin desperdiciar presupuesto."
   },
   {
-    "t": "Campañas de marca",
+    "t": "Campañas de marca para tu consulta",
     "d": "Protegemos tu nombre en Google para que la competencia no se lleve las búsquedas de quien ya te conoce."
   },
   {
-    "t": "Landing pages que convierten",
+    "t": "Landing pages para pedir cita",
     "d": "Cada campaña lleva a una página pensada para una sola acción, pedir cita, no a tu web genérica."
   },
   {
-    "t": "Remarketing",
+    "t": "Remarketing para quien no reservó",
     "d": "Quien visitó tu web sin reservar sigue viendo tu consulta mientras decide. Recuperas visitas que no se pierden."
   },
   {
-    "t": "Medición de conversión",
+    "t": "Medición de citas generadas",
     "d": "Cada clic que se convierte en cita queda registrado. Sabes exactamente qué campaña te trae agenda."
   },
   {
-    "t": "Optimización continua",
+    "t": "Optimización continua de tu cuenta",
     "d": "Revisamos cada semana pujas, anuncios y palabras clave. Cortamos lo que gasta sin traer citas."
   }
 ];
 
 const timeline = [
   {
-    "title": "Auditoría de Cuenta",
+    "title": "Auditoría de tu Cuenta de Ads",
     "desc": "Revisamos campañas activas o creamos la cuenta desde cero con estructura pensada para captar cita, no solo clics."
   },
   {
-    "title": "Estrategia de Puja Documentada",
+    "title": "Estrategia de Campañas para Psicólogos",
     "desc": "Recibes por escrito qué búsquedas atacar, qué presupuesto necesita cada una y qué coste por cita es razonable esperar."
   },
   {
-    "title": "Creación de Campañas y Anuncios",
+    "title": "Estructura y Landing Pages de tu consulta",
     "desc": "Campañas de búsqueda, extensiones de llamada y cita, y landing pages pensadas para una sola acción, reservar."
   },
   {
-    "title": "Segmentación y Control de Gasto",
+    "title": "Puja y Presupuesto para pacientes",
     "desc": "Tu inversión se concentra en el radio real desde el que te pueden visitar, sin desperdiciar presupuesto en clics fuera de tu zona."
   },
   {
-    "title": "Optimización Semanal",
+    "title": "Medición de pacientes",
     "desc": "Revisamos pujas, anuncios y palabras clave cada semana. Cortamos lo que gasta sin traer citas y escalamos lo que funciona."
   }
 ];
@@ -104,19 +107,19 @@ const auditChecklist = [
 
 const auditCards = [
   {
-    "t": "Revisión de estructura",
+    "t": "Revisión de tu cuenta de Ads",
     "d": "Campañas, grupos de anuncios y palabras clave organizados o listos para crear desde cero.",
     "bg": "bg-purple-100",
     "color": "text-purple-600"
   },
   {
-    "t": "Coste por cita real",
+    "t": "Coste por resultado real",
     "d": "Calculamos qué te cuesta hoy captar una cita, y qué debería costarte según tu sector.",
     "bg": "bg-green-100",
     "color": "text-green-600"
   },
   {
-    "t": "Palabras clave que sangran",
+    "t": "Palabras clave que sangran presupuesto",
     "d": "Detectamos búsquedas que gastan presupuesto sin traer ni una sola cita.",
     "bg": "bg-purple-100",
     "color": "text-purple-600"
@@ -141,7 +144,7 @@ const journey = [
     "d": "Analizamos campañas activas, o si empiezas de cero, qué invierte y cobra tu competencia por cita."
   },
   {
-    "t": "Diagnóstico de coste por cita",
+    "t": "Diagnóstico de coste por pacientes",
     "d": "Detectamos dónde se pierde presupuesto y qué palabras clave y horarios rinden mejor."
   },
   {
@@ -253,32 +256,32 @@ const comparison = [
 
 const criteria = [
   {
-    "title": "Pide casos verificables del sector salud",
-    "desc": "Un muro de logos no demuestra nada. Pide casos de consultas o clínicas con datos concretos. Si no pueden enseñarte ni uno, sigue buscando."
+    "title": "Pide casos de Google Ads en Psicólogos verificables",
+    "desc": "Qué inversión, qué coste por resultado y cuántos pacientes generó. Si no pueden enseñarte un caso de psicólogos, sigue buscando."
   },
   {
-    "title": "Pregunta quién llevará tu cuenta",
-    "desc": "Exige conocer a la persona que trabajará tu proyecto antes de firmar. En nova hablas siempre con el consultor que ejecuta tu estrategia."
+    "title": "Pregunta quién gestionará tu cuenta de Ads",
+    "desc": "Exige conocer a la persona que gestionará las campañas de tu consulta antes de firmar. En nova hablas siempre con el consultor que optimiza tu cuenta."
   },
   {
-    "title": "Exige propiedad de tus activos",
-    "desc": "Tu web, tu dominio, tus cuentas publicitarias y tu lista de pacientes deben estar a tu nombre. Lo contrario es una dependencia, no un servicio."
+    "title": "Exige que la cuenta sea tuya",
+    "desc": "La cuenta, el historial y las conversiones deben estar a tu nombre. Al irte te llevas todo el aprendizaje acumulado."
   },
   {
-    "title": "Comprueba que entienden las restricciones del sector salud",
-    "desc": "Google y Meta limitan qué se puede anunciar en salud. Una agencia que lo ignora te arriesga a que te rechacen o suspendan campañas."
+    "title": "Desconfía del porcentaje sobre inversión",
+    "desc": "Si la agencia gana más cuanto más gastas, su incentivo es que gastes más, no que consigas resultados. Exige fee fijo."
   },
   {
-    "title": "Revisa qué mide el informe mensual",
-    "desc": "El informe debe hablar de citas y pacientes nuevos, no solo de visitas o impresiones. Todo lo demás es decoración."
+    "title": "Que hable de pacientes, no solo de clics",
+    "desc": "Exige objetivos de pacientes y coste por resultado desde la primera propuesta."
   },
   {
-    "title": "Huye de las permanencias largas",
-    "desc": "Una permanencia de 12 meses protege a la agencia, no a ti. Por eso en nova trabajamos mes a mes."
+    "title": "Huye de las permanencias en Google Ads",
+    "desc": "En Google Ads los resultados para tu consulta se ven en semanas, así que no hay excusa para atarte un año."
   },
   {
-    "title": "Que cuide el tono y la discreción",
-    "desc": "La comunicación en salud mental exige sensibilidad. Pide ver ejemplos reales de su trabajo en el sector antes de contratar."
+    "title": "Que sepa gestionar presupuestos ajustados",
+    "desc": "Malgastar presupuesto en las primeras semanas es habitual en manos inexpertas. Exige un plan de optimización desde el primer euro."
   }
 ];
 
@@ -288,7 +291,7 @@ const tips = [
     "text": "Un botón de llamar directo en el anuncio elimina un paso entre el clic y la cita."
   },
   {
-    "lead": "Excluye tu propia zona irrelevante.",
+    "lead": "Excluye zonas fuera del radio real de tu consulta.",
     "text": "Si trabajas solo presencial, excluye búsquedas de gente que está a horas de distancia."
   },
   {
@@ -812,6 +815,11 @@ const pageSchema = localAgencySchema({
     <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
     <GoogleReviews locale="es" title="Lo que dicen nuestros clientes sobre el google ads de Nova" />
 
+
+    <SiblingServices lang="es" currentSector="psicologos" currentService="google-ads" />
+    <SectorLinks lang="es" currentSector="psicologos" service="google-ads" />
+
+    <WhereWeWork lang="es" sectorKey="psicologos" />
 
     <!-- ═══ FAQS ════════════════════════════════════════════════ -->
     <FaqHome title="Preguntas sobre nuestro servicio de google ads" items={faqs} emitSchema={false} />

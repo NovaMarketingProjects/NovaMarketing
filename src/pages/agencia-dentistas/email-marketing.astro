@@ -6,6 +6,9 @@ import { strapiClient } from '../../lib/strapi';
 import LogoMarquee from '../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../components/sections/FaqHome.astro';
 import GoogleReviews from '../../components/global/GoogleReviews.astro';
+import SectorLinks from '../../components/sections/SectorLinks.astro';
+import SiblingServices from '../../components/sections/SiblingServices.astro';
+import WhereWeWork from '../../components/sections/WhereWeWork.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-dentistas/email-marketing/', '/agencia-dentistes/email-marketing/', SITE_URL);
@@ -27,19 +30,19 @@ const heroChecks = [
 
 const tiles = [
   {
-    "t": "Flujo de bienvenida",
+    "t": "Flujo de bienvenida a nuevos pacientes",
     "d": "El primer contacto tras la primera visita o la primera consulta, cuidado para generar confianza desde el minuto uno."
   },
   {
-    "t": "Recordatorios de cita",
+    "t": "Recordatorios de revisión",
     "d": "Menos ausencias sin llamadas de teléfono. Un recordatorio automático reduce las citas perdidas."
   },
   {
-    "t": "Flujo de recuperación",
+    "t": "Flujo de recuperación de pacientes",
     "d": "Pacientes que no vuelven desde hace tiempo reciben el mensaje adecuado para volver a reservar pacientes."
   },
   {
-    "t": "Newsletter de valor",
+    "t": "Newsletter de tratamientos",
     "d": "Contenido útil sobre tu especialidad que mantiene tu consulta presente sin sonar a publicidad constante."
   },
   {
@@ -55,22 +58,22 @@ const tiles = [
     "d": "Los flujos funcionan solos una vez configurados. Tu equipo no pierde tiempo en tareas repetitivas."
   },
   {
-    "t": "Cumplimiento RGPD",
+    "t": "Cumplimiento RGPD en salud",
     "d": "Consentimiento y protección de datos gestionados correctamente, crítico en el sector salud."
   },
   {
-    "t": "Medición de resultados",
+    "t": "Medición de citas generadas",
     "d": "Aperturas, clics y citas generadas por cada envío. Sabes qué email trae agenda."
   }
 ];
 
 const timeline = [
   {
-    "title": "Auditoría de tu Base de Datos",
+    "title": "Auditoría de tu Base de Contactos",
     "desc": "Revisamos tu lista de pacientes actual y qué herramienta usas, o te ayudamos a montarla desde cero cumpliendo RGPD."
   },
   {
-    "title": "Estrategia de Flujos Documentada",
+    "title": "Estrategia de Flujos para Dentistas",
     "desc": "Recibes por escrito qué flujos activar primero: recordatorios, recuperación o fidelización, según lo que más falta te hace."
   },
   {
@@ -82,7 +85,7 @@ const timeline = [
     "desc": "Configuramos los flujos para que funcionen solos: recordatorios, seguimiento y recuperación sin que tu equipo mueva un dedo."
   },
   {
-    "title": "Medición y Optimización",
+    "title": "Medición de pacientes",
     "desc": "Aperturas, clics y citas generadas por cada envío. Ajustamos mes a mes lo que mejor funciona."
   }
 ];
@@ -110,13 +113,13 @@ const auditCards = [
     "color": "text-purple-600"
   },
   {
-    "t": "Ausencias evitables",
+    "t": "Contactos que se enfrían",
     "d": "Estimamos cuántas ausencias podrías reducir con recordatorios automáticos.",
     "bg": "bg-green-100",
     "color": "text-green-600"
   },
   {
-    "t": "Pacientes recuperables",
+    "t": "Contactos recuperables",
     "d": "Detectamos quién no vuelve desde hace tiempo y podría reactivarse con el mensaje adecuado.",
     "bg": "bg-purple-100",
     "color": "text-purple-600"
@@ -253,38 +256,38 @@ const comparison = [
 
 const criteria = [
   {
-    "title": "Pide casos verificables de clínicas dentales",
-    "desc": "Un muro de logos no demuestra nada. Pide casos con datos concretos: cuántos pacientes, con qué inversión y en cuánto tiempo. Si no pueden enseñarte ni uno, sigue buscando."
+    "title": "Pide casos de email marketing en Dentistas verificables",
+    "desc": "Qué automatizaciones montaron y cuántos pacientes generaron. Si no pueden enseñarte un caso de dentistas, sigue buscando."
   },
   {
-    "title": "Pregunta quién llevará tu cuenta",
-    "desc": "Exige conocer a la persona que trabajará tu proyecto antes de firmar. En nova hablas siempre con el consultor que ejecuta tu estrategia."
+    "title": "Pregunta quién montará tus flujos",
+    "desc": "Exige conocer a la persona que diseñará las automatizaciones de tu clínica antes de firmar. En nova hablas siempre con el consultor que las ejecuta."
   },
   {
-    "title": "Exige leads propios, no compartidos",
-    "desc": "Huye de quien te vende leads sacados de un portal compartido con otras clínicas. Tu inversión debe generar tráfico y contactos solo para ti."
+    "title": "Exige que tu lista sea tuya",
+    "desc": "La herramienta y los contactos deben estar a tu nombre. Tu lista es uno de tus mayores activos."
   },
   {
-    "title": "Exige propiedad de tus activos",
-    "desc": "Tu web, tu dominio y tus cuentas publicitarias deben estar a tu nombre. Lo contrario es una dependencia, no un servicio."
+    "title": "Que empiece por la captación",
+    "desc": "Sin un sistema para captar contactos nuevos, no hay canal que funcione a largo plazo."
   },
   {
-    "title": "Revisa qué mide el informe mensual",
-    "desc": "El informe debe hablar de citas pedidas y pacientes nuevos, no solo de clics. Todo lo demás es decoración."
+    "title": "Pregunta por la entregabilidad",
+    "desc": "De nada sirve el mejor contenido si cae en spam. Dominio autenticado y lista limpia son el estándar."
   },
   {
-    "title": "Huye de las permanencias largas",
-    "desc": "Una permanencia de 12 meses protege a la agencia, no a ti. Por eso en nova trabajamos mes a mes."
+    "title": "Huye de las permanencias en email marketing",
+    "desc": "El sistema para tu clínica se monta en semanas y los resultados se ven pronto. No hay motivo para firmar más allá de mes a mes."
   },
   {
-    "title": "Que sepa vender tratamientos de alto valor",
-    "desc": "Captar un implante o una ortodoncia exige una estrategia distinta a captar una revisión. Una agencia especializada sabe diferenciarlo."
+    "title": "Que respete a tus contactos",
+    "desc": "Disparar correos a diario quema la lista. La frecuencia correcta genera más resultado que el volumen."
   }
 ];
 
 const tips = [
   {
-    "lead": "Activa un recordatorio de cita.",
+    "lead": "Activa un recordatorio automático.",
     "text": "Aunque sea manual al principio, reduce ausencias desde el primer envío."
   },
   {
@@ -292,11 +295,11 @@ const tips = [
     "text": "En salud, el tratamiento de datos personales tiene requisitos extra. Verifica que estás cumpliendo la normativa."
   },
   {
-    "lead": "Segmenta a quien no viene hace tiempo.",
+    "lead": "Segmenta a quien no interactúa hace tiempo.",
     "text": "Un mensaje distinto para pacientes inactivos funciona mejor que un envío igual para todos."
   },
   {
-    "lead": "Pide la reseña justo después de la sesión.",
+    "lead": "Pide la reseña en el momento justo.",
     "text": "El momento justo tras una buena experiencia es cuando más probable es que la dejen."
   }
 ];
@@ -812,6 +815,11 @@ const pageSchema = localAgencySchema({
     <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
     <GoogleReviews locale="es" title="Lo que dicen nuestros clientes sobre el email marketing de Nova" />
 
+
+    <SiblingServices lang="es" currentSector="dentistas" currentService="email-marketing" />
+    <SectorLinks lang="es" currentSector="dentistas" service="email-marketing" />
+
+    <WhereWeWork lang="es" sectorKey="dentistas" />
 
     <!-- ═══ FAQS ════════════════════════════════════════════════ -->
     <FaqHome title="Preguntas sobre nuestro servicio de email marketing" items={faqs} emitSchema={false} />

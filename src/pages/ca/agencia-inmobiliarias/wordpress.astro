@@ -7,6 +7,7 @@ import LogoMarquee from '../../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../../components/sections/FaqHome.astro';
 import CityPills from '../../../components/global/CityPills.astro';
 import GoogleReviews from '../../../components/global/GoogleReviews.astro';
+import WhereWeWork from '../../../components/sections/WhereWeWork.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-inmobiliarias/wordpress/', '/ca/agencia-inmobiliarias/wordpress/', SITE_URL);
@@ -436,6 +437,8 @@ const pageSchema = localAgencySchema({
     <!-- ═══ RESSENYES GOOGLE ═════════════════════════════════════════ -->
     <GoogleReviews locale="ca" title="El que diuen els nostres clients sobre el màrqueting immobiliari de Nova" />
 
+
+    <WhereWeWork lang="ca" sectorKey="inmobiliarias" />
 
     <!-- ═══ FAQS ════════════════════════════════════════════════ -->
     <FaqHome title="Preguntes sobre màrqueting per a la teva immobiliària en WordPress" items={faqs} emitSchema={false} />

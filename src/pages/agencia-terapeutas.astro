@@ -7,6 +7,8 @@ import LogoMarquee from '../components/sections/LogoMarquee.astro';
 import FaqHome from '../components/sections/FaqHome.astro';
 import CityPills from '../components/global/CityPills.astro';
 import GoogleReviews from '../components/global/GoogleReviews.astro';
+import SectorLinks from '../components/sections/SectorLinks.astro';
+import WhereWeWork from '../components/sections/WhereWeWork.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-terapeutas/', '/agencia-terapeutes/', SITE_URL);
@@ -44,7 +46,7 @@ const services = [
   },
   {
     "href": "/agencia-terapeutas/email-marketing/",
-    "t": "Email Marketing",
+    "t": "Email Marketing para Terapeutas",
     "d": "Recordatorios, seguimiento entre visitas y contenido que mantiene el vínculo con tus sesiones."
   },
   {
@@ -54,30 +56,30 @@ const services = [
   },
   {
     "href": "/agencia-terapeutas/posicionamiento-geo/",
-    "t": "GEO y Visibilidad en IA",
+    "t": "GEO y Visibilidad en IA para Terapeutas",
     "d": "Cuando alguien pregunta a ChatGPT qué profesional elegir, trabajamos tus señales para que la IA recomiende tu centro de terapia."
   }
 ];
 
 const steps = [
   {
-    "title": "Diagnóstico Inicial",
+    "title": "Diagnóstico de Especialidad y Visibilidad",
     "desc": "Analizamos tu web, tu ficha de Google y tu competencia directa. Detectamos dónde se pierden los sesiones que ya te buscan y dónde está la oportunidad que tu competencia ya explota."
   },
   {
-    "title": "Estrategia Documentada",
+    "title": "Estrategia por Terapia y Zona",
     "desc": "Recibes un plan por escrito. Qué canales activar, qué presupuesto necesita cada uno y qué resultado es razonable esperar en 3, 6 y 12 meses."
   },
   {
-    "title": "Ejecución Multicanal",
+    "title": "Ejecución Multicanal para Reservas",
     "desc": "SEO local para captar la búsqueda, Ads para escalar sesiones, email para no perder el vínculo y una web pensada para convertir la visita en cita. Cada canal con su función."
   },
   {
-    "title": "Medición Sin Humo",
+    "title": "Medición de Sesiones y Agenda",
     "desc": "Medimos sesiones y agenda llena, no likes ni impresiones. En el informe mensual ves cuánto has invertido y cuántas citas ha generado cada canal."
   },
   {
-    "title": "Optimización Continua",
+    "title": "Optimización de la Ocupación",
     "desc": "Revisamos cada semana campañas y conversión, cortamos lo que no rinde y reinvertimos en lo que llena tu agenda."
   }
 ];
@@ -87,35 +89,35 @@ const auditCards = [
     "bg": "bg-purple-100",
     "color": "text-purple-600",
     "icon": "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z",
-    "t": "Análisis completo de tu web y ficha",
+    "t": "Análisis completo de tu centro",
     "d": "Velocidad, confianza y facilidad para pedir cita revisadas con datos reales. Dónde y por qué se pierden sesiones."
   },
   {
     "bg": "bg-green-100",
     "color": "text-green-600",
     "icon": "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6",
-    "t": "Plan de acción priorizado",
+    "t": "Plan de acción priorizado por sesiones",
     "d": "No una lista infinita de tareas, sino un plan ordenado por impacto en agenda y esfuerzo. Sabrás qué arreglar la primera semana."
   },
   {
     "bg": "bg-purple-100",
     "color": "text-purple-600",
     "icon": "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
-    "t": "Enfoque en agenda, no en tráfico",
+    "t": "Enfoque en sesiones, no en tráfico",
     "d": "Cada recomendación se traduce a citas. Qué canal escalar y qué campaña cortar porque genera clics sin generar sesiones."
   },
   {
     "bg": "bg-amber-100",
     "color": "text-amber-600",
     "icon": "M9 12h6m-6 4h6M9 8h2m8-3v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2h6l4 4z",
-    "t": "Auditoría de campañas",
+    "t": "Auditoría de tus campañas de captación",
     "d": "Revisamos tus cuentas de Google y Meta campaña a campaña. Qué parte de tu inversión trae citas y qué parte se pierde en clics que nunca contactan."
   },
   {
     "bg": "bg-blue-100",
     "color": "text-blue-600",
     "icon": "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z",
-    "t": "Benchmark de tu zona",
+    "t": "Comparativa con otros negocios de terapeutas",
     "d": "Comparamos tu presencia con tus tres competidores directos más cercanos. Qué visibilidad y qué canales trabajan que tú aún no."
   }
 ];
@@ -623,19 +625,10 @@ const pageSchema = localAgencySchema({
     <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
     <GoogleReviews locale="es" title="Lo que dicen nuestros clientes sobre el marketing para terapeutas de Nova" />
 
-    <!-- ═══ DÓNDE TRABAJAMOS ═══════════════════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-4xl mx-auto text-center reveal">
-            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Dónde trabajamos</span>
-            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Sede en Barcelona, clientes en toda España
-            </h2>
-            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
-                Nuestra base está en Barcelona y la mayoría de proyectos son de la ciudad y su área metropolitana, donde nos reunimos presencialmente. Pero tu agenda no entiende de kilómetros. Trabajamos por videollamada con el mismo nivel de seguimiento con clientes de toda España.
-            </p>
-            <CityPills base="/agencia-terapeutas/" lang="es" exclude={["seo","google-ads","meta-ads","email-marketing","diseno-web","posicionamiento-geo"]} />
-        </div>
-    </section>
+    <SectorLinks lang="es" currentSector="terapeutas" />
+
+
+    <WhereWeWork lang="es" sectorKey="terapeutas" />
 
     <!-- ═══ FAQS ════════════════════════════════════════════════ -->
     <FaqHome title="Preguntas sobre nuestra agencia de marketing para terapeutas" items={faqs} emitSchema={false} />

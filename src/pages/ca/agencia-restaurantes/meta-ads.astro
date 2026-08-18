@@ -7,6 +7,9 @@ import LogoMarquee from '../../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../../components/sections/FaqHome.astro';
 import CityPills from '../../../components/global/CityPills.astro';
 import GoogleReviews from '../../../components/global/GoogleReviews.astro';
+import SectorLinks from '../../../components/sections/SectorLinks.astro';
+import SiblingServices from '../../../components/sections/SiblingServices.astro';
+import WhereWeWork from '../../../components/sections/WhereWeWork.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-restaurantes/meta-ads/', '/ca/agencia-restaurantes/meta-ads/', SITE_URL);
@@ -576,6 +579,11 @@ const pageSchema = localAgencySchema({
     <!-- ═══ RESSENYES GOOGLE ═════════════════════════════════════════ -->
     <GoogleReviews locale="ca" title="El que diuen els nostres clients sobre les campanyes de Meta Ads de Nova" />
 
+
+    <SiblingServices lang="ca" currentSector="restaurantes" currentService="meta-ads" />
+    <SectorLinks lang="ca" currentSector="restaurantes" service="meta-ads" />
+
+    <WhereWeWork lang="ca" sectorKey="restaurantes" />
 
     <!-- ═══ FAQS ════════════════════════════════════════════════ -->
     <FaqHome title="Preguntes sobre el nostre Meta Ads per a restaurants" items={faqs} emitSchema={false} />

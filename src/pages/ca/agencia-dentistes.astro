@@ -7,6 +7,8 @@ import LogoMarquee from '../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../components/sections/FaqHome.astro';
 import CityPills from '../../components/global/CityPills.astro';
 import GoogleReviews from '../../components/global/GoogleReviews.astro';
+import SectorLinks from '../../components/sections/SectorLinks.astro';
+import WhereWeWork from '../../components/sections/WhereWeWork.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-dentistas/', '/agencia-dentistes/', SITE_URL);
@@ -28,56 +30,56 @@ const heroChecks = [
 
 const services = [
   {
-    "href": "/agencia-dentistes/seo/",
+    "href": "/ca/agencia-dentistes/seo/",
     "t": "SEO per a Dentistes",
     "d": "Contingut d’especialitat i fitxa de Google optimitzada perquè aparegui quan algú busca dentistes a la teva zona."
   },
   {
-    "href": "/agencia-dentistes/google-ads/",
+    "href": "/ca/agencia-dentistes/google-ads/",
     "t": "Google Ads per a Dentistes",
     "d": "Campanyes de cerca que posen la teva clínica dental davant de qui ja està buscant ajuda, pagant només per pacients reals."
   },
   {
-    "href": "/agencia-dentistes/meta-ads/",
+    "href": "/ca/agencia-dentistes/meta-ads/",
     "t": "Meta Ads per a Dentistes",
     "d": "Campanyes a Instagram i Facebook que generen confiança abans de la primera cita, sense sonar a anunci genèric."
   },
   {
-    "href": "/agencia-dentistes/email-marketing/",
-    "t": "Email Màrqueting",
+    "href": "/ca/agencia-dentistes/email-marketing/",
+    "t": "Email Màrqueting per a Dentistes",
     "d": "Recordatoris, seguiment entre visites i contingut que manté el vincle amb els teus pacients."
   },
   {
-    "href": "/agencia-dentistes/diseno-web/",
+    "href": "/ca/agencia-dentistes/diseno-web/",
     "t": "Disseny Web per a Dentistes",
     "d": "Una web ràpida i que transmet confiança des del primer segon, pensada perquè reservin cita."
   },
   {
-    "href": "/agencia-dentistes/posicionamiento-geo/",
-    "t": "GEO i Visibilitat en IA",
+    "href": "/ca/agencia-dentistes/posicionamiento-geo/",
+    "t": "GEO i Visibilitat en IA per a Dentistes",
     "d": "Quan algú pregunta a ChatGPT quin professional triar, treballem els teus senyals perquè la IA recomani la teva clínica dental."
   }
 ];
 
 const steps = [
   {
-    "title": "Diagnòstic Inicial",
+    "title": "Diagnòstic de Tractaments i Visibilitat",
     "desc": "Analitzem la teva web, la teva fitxa de Google i la teva competència directa. Detectem on es perden els pacients que ja et busquen i on hi ha l’oportunitat que la teva competència ja explota."
   },
   {
-    "title": "Estratègia Documentada",
+    "title": "Estratègia per Tractament d’Alt Valor",
     "desc": "Reps un pla per escrit. Quins canals activar, quin pressupost necessita cadascun i quin resultat és raonable esperar en 3, 6 i 12 mesos."
   },
   {
-    "title": "Execució Multicanal",
+    "title": "Execució Multicanal per a Urgències i Cites",
     "desc": "SEO local per captar la cerca, Ads per escalar pacients, email per no perdre el vincle i una web pensada per convertir la visita en cita. Cada canal amb la seva funció."
   },
   {
-    "title": "Mesura Sense Fum",
+    "title": "Mesura de Cites i Pacients Nous",
     "desc": "Mesurem pacients i agenda plena, no likes ni impressions. A l’informe mensual veus quant has invertit i quantes cites ha generat cada canal."
   },
   {
-    "title": "Optimització Contínua",
+    "title": "Optimització de la Conversió a Cita",
     "desc": "Revisem cada setmana campanyes i conversió, tallem el que no rendeix i reinvertim en el que omple la teva agenda."
   }
 ];
@@ -87,35 +89,35 @@ const auditCards = [
     "bg": "bg-purple-100",
     "color": "text-purple-600",
     "icon": "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z",
-    "t": "Anàlisi completa de la teva web i fitxa",
+    "t": "Anàlisi completa de la teva clínica",
     "d": "Velocitat, confiança i facilitat per demanar cita revisades amb dades reals. On i per què es perden pacients."
   },
   {
     "bg": "bg-green-100",
     "color": "text-green-600",
     "icon": "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6",
-    "t": "Pla d’acció prioritzat",
+    "t": "Pla d’acció prioritzat per pacients",
     "d": "No una llista infinita de tasques, sinó un pla ordenat per impacte en agenda i esforç. Sabràs què arreglar la primera setmana."
   },
   {
     "bg": "bg-purple-100",
     "color": "text-purple-600",
     "icon": "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
-    "t": "Enfocament en agenda, no en trànsit",
+    "t": "Enfocament en pacients, no en trànsit",
     "d": "Cada recomanació es tradueix a cites. Quin canal escalar i quina campanya tallar perquè genera clics sense generar pacients."
   },
   {
     "bg": "bg-amber-100",
     "color": "text-amber-600",
     "icon": "M9 12h6m-6 4h6M9 8h2m8-3v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2h6l4 4z",
-    "t": "Auditoria de campanyes",
+    "t": "Auditoria de les teves campanyes de captació",
     "d": "Revisem els teus comptes de Google i Meta campanya a campanya. Quina part de la teva inversió porta cites i quina es perd en clics que mai contacten."
   },
   {
     "bg": "bg-blue-100",
     "color": "text-blue-600",
     "icon": "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z",
-    "t": "Benchmark de la teva zona",
+    "t": "Comparativa amb altres negocis de dentistes",
     "d": "Comparem la teva presència amb els teus tres competidors directes més propers. Quina visibilitat i quins canals treballen que tu encara no."
   }
 ];
@@ -217,7 +219,7 @@ const faqs = [
 ];
 
 const pageSchema = localAgencySchema({
-  pageUrl: `${SITE_URL}/agencia-dentistes/`,
+  pageUrl: `${SITE_URL}/ca/agencia-dentistes/`,
   lang: 'ca',
   cityName: 'Barcelona',
   postalCode: '08035',
@@ -623,19 +625,10 @@ const pageSchema = localAgencySchema({
     <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
     <GoogleReviews locale="ca" title="El que diuen els nostres clients sobre el màrqueting per a dentistes de Nova" />
 
-    <!-- ═══ DÓNDE TRABAJAMOS ═══════════════════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-4xl mx-auto text-center reveal">
-            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">On treballem</span>
-            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Seu a Barcelona, clients a tot Espanya
-            </h2>
-            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
-                La nostra base és a Barcelona i la majoria de projectes són de la ciutat i la seva àrea metropolitana, on ens reunim presencialment. Però la teva agenda no entén de quilòmetres. Treballem per videotrucada amb el mateix nivell de seguiment amb clients de tot Espanya.
-            </p>
-            <CityPills base="/agencia-dentistes/" lang="ca" exclude={["seo","google-ads","meta-ads","email-marketing","diseno-web","posicionamiento-geo"]} />
-        </div>
-    </section>
+    <SectorLinks lang="ca" currentSector="dentistas" />
+
+
+    <WhereWeWork lang="ca" sectorKey="dentistas" />
 
     <!-- ═══ FAQS ════════════════════════════════════════════════ -->
     <FaqHome title="Preguntes sobre la nostra agència de màrqueting per a dentistes" items={faqs} emitSchema={false} />

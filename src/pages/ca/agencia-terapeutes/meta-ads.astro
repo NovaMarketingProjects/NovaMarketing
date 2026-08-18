@@ -6,6 +6,9 @@ import { strapiClient } from '../../../lib/strapi';
 import LogoMarquee from '../../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../../components/sections/FaqHome.astro';
 import GoogleReviews from '../../../components/global/GoogleReviews.astro';
+import SectorLinks from '../../../components/sections/SectorLinks.astro';
+import SiblingServices from '../../../components/sections/SiblingServices.astro';
+import WhereWeWork from '../../../components/sections/WhereWeWork.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-terapeutas/meta-ads/', '/agencia-terapeutes/meta-ads/', SITE_URL);
@@ -27,11 +30,11 @@ const heroChecks = [
 
 const tiles = [
   {
-    "t": "Estratègia de continguts",
+    "t": "Estratègia de continguts per al teu centre",
     "d": "Què mostrar a Instagram i Facebook per generar confiança en un sector on la confiança ho és tot."
   },
   {
-    "t": "Campanyes de captació",
+    "t": "Campanyes de captació de pacients",
     "d": "Anuncis segmentats per zona i interès que posen la teva centre de teràpia davant de qui encaixa amb la teva especialitat."
   },
   {
@@ -39,11 +42,11 @@ const tiles = [
     "d": "Vídeo i foto pensats per transmetre proximitat i professionalitat sense sonar a anunci genèric."
   },
   {
-    "t": "Formularis de contacte natius",
+    "t": "Formularis de contacte per reservar sessió",
     "d": "Demanar cita sense sortir d’Instagram o Facebook. Menys fricció, més conversió."
   },
   {
-    "t": "Remarketing",
+    "t": "Remarketing per a qui no va reservar",
     "d": "Qui va veure el teu contingut sense contactar segueix veient la teva marca mentre decideix."
   },
   {
@@ -51,11 +54,11 @@ const tiles = [
     "d": "Responem comentaris i missatges amb el to adequat per a un sector sensible."
   },
   {
-    "t": "Compliment normatiu",
+    "t": "Compliment normatiu en salut",
     "d": "Coneixem les restriccions de Meta per a anuncis de salut i treballem dins de les seves polítiques."
   },
   {
-    "t": "Mesura de resultats",
+    "t": "Mesura de sessions generades",
     "d": "Cada euro invertit atribuït a cites reals, no només a interaccions."
   },
   {
@@ -66,15 +69,15 @@ const tiles = [
 
 const timeline = [
   {
-    "title": "Auditoria de Presència Actual",
+    "title": "Auditoria de Compte i Públics de Terapeutes",
     "desc": "Revisem el teu perfil, les teves publicacions i la teva competència a Instagram i Facebook abans de proposar res."
   },
   {
-    "title": "Estratègia de Contingut i Anuncis",
+    "title": "Estratègia de Contingut per a Terapeutes",
     "desc": "Reps per escrit què mostrar, a qui segmentar i quin pressupost necessita cada campanya."
   },
   {
-    "title": "Creativitats i Campanyes",
+    "title": "Creatius per a sessions",
     "desc": "Vídeo i foto pensats per generar confiança, amb formularis natius per demanar cita sense sortir de l’app."
   },
   {
@@ -116,7 +119,7 @@ const auditCards = [
     "color": "text-green-600"
   },
   {
-    "t": "Fricció del formulari",
+    "t": "Fricció al formulari de contacte",
     "d": "Quants passos hi ha entre veure el teu anunci i demanar cita, i com reduir-los.",
     "bg": "bg-purple-100",
     "color": "text-purple-600"
@@ -253,32 +256,32 @@ const comparison = [
 
 const criteria = [
   {
-    "title": "Demana casos verificables del sector",
-    "desc": "Un mur de logos no demostra res. Demana casos de centres de teràpia amb dades concretes. Si no poden ensenyar-te’n cap, segueix buscant."
+    "title": "Demana casos de Meta Ads en Terapeutes verificables",
+    "desc": "Quina inversió, quins creatius van funcionar i quants sessions va generar. Si no poden ensenyar-te un cas de terapeutes, segueix buscant."
   },
   {
-    "title": "Pregunta qui portarà el teu compte",
-    "desc": "Exigeix conèixer la persona que treballarà el teu projecte abans de signar. A nova parles sempre amb el consultor que executa la teva estratègia."
+    "title": "Pregunta qui gestionarà les teves campanyes",
+    "desc": "Exigeix conèixer la persona que gestionarà les campanyes a xarxes de la teva centre abans de signar. A nova parles sempre amb el consultor que les executa."
   },
   {
-    "title": "Exigeix la propietat dels teus actius",
-    "desc": "La teva web, el teu domini i els teus comptes publicitaris han d’estar al teu nom. El contrari és una dependència, no un servei."
+    "title": "Exigeix que el compte i el píxel siguin teus",
+    "desc": "Business Manager, compte i píxel al teu nom. En marxar t’emportes l’historial."
   },
   {
-    "title": "Que entengui la teva especialitat concreta",
-    "desc": "Fisioteràpia, logopèdia i teràpia ocupacional busquen paraules clau diferents. Una agència generalista aprèn amb el teu pressupost."
+    "title": "Que produeixi creatius propis",
+    "desc": "Les fotos d’stock no generen sessions. Exigeix creatius reals de la teva centre."
   },
   {
-    "title": "Revisa què mesura l’informe mensual",
-    "desc": "L’informe ha de parlar de sessions reservades, no només de visites o impressions. Tota la resta és decoració."
+    "title": "Que parli de sessions, no de likes",
+    "desc": "Els seguidors no paguen les factures. Exigeix objectius de sessions des de la primera proposta."
   },
   {
-    "title": "Fuig de les permanències llargues",
-    "desc": "Una permanència de 12 mesos protegeix l’agència, no tu. Per això a nova treballem mes a mes."
+    "title": "Fuig de les permanències en Meta Ads",
+    "desc": "A Meta Ads els resultats per a la teva centre es veuen en setmanes, així que no hi ha excusa per lligar-te un any."
   },
   {
-    "title": "Que sàpiga combinar recurrència i captació",
-    "desc": "Moltes teràpies necessiten pacients recurrents i nous alhora. Una bona estratègia treballa les dues coses sense descuidar-ne cap."
+    "title": "Que segmenti per la teva zona real",
+    "desc": "Pagar impressions fora del teu radi d’abast és llençar el pressupost."
   }
 ];
 
@@ -329,7 +332,7 @@ const faqs = [
 ];
 
 const pageSchema = localAgencySchema({
-  pageUrl: `${SITE_URL}/agencia-terapeutes/meta-ads/`,
+  pageUrl: `${SITE_URL}/ca/agencia-terapeutes/meta-ads/`,
   lang: 'ca',
   cityName: 'Barcelona',
   postalCode: '08035',
@@ -812,6 +815,11 @@ const pageSchema = localAgencySchema({
     <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
     <GoogleReviews locale="ca" title="El que diuen els nostres clients sobre el meta ads de Nova" />
 
+
+    <SiblingServices lang="ca" currentSector="terapeutas" currentService="meta-ads" />
+    <SectorLinks lang="ca" currentSector="terapeutas" service="meta-ads" />
+
+    <WhereWeWork lang="ca" sectorKey="terapeutas" />
 
     <!-- ═══ FAQS ════════════════════════════════════════════════ -->
     <FaqHome title="Preguntes sobre el nostre servei de meta ads" items={faqs} emitSchema={false} />

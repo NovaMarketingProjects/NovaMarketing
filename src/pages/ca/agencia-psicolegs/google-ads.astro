@@ -6,6 +6,9 @@ import { strapiClient } from '../../../lib/strapi';
 import LogoMarquee from '../../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../../components/sections/FaqHome.astro';
 import GoogleReviews from '../../../components/global/GoogleReviews.astro';
+import SectorLinks from '../../../components/sections/SectorLinks.astro';
+import SiblingServices from '../../../components/sections/SiblingServices.astro';
+import WhereWeWork from '../../../components/sections/WhereWeWork.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-psicologos/google-ads/', '/agencia-psicolegs/google-ads/', SITE_URL);
@@ -27,11 +30,11 @@ const heroChecks = [
 
 const tiles = [
   {
-    "t": "Auditoria de compte",
+    "t": "Auditoria del teu compte d’Ads",
     "d": "Revisem campanyes actives o creem el compte des de zero amb estructura pensada per captar cita, no només clics."
   },
   {
-    "t": "Campanyes de cerca",
+    "t": "Campanyes de cerca per a la teva consulta",
     "d": "Apareixes quan algú busca pacients a la teva zona amb intenció de reservar ja."
   },
   {
@@ -39,50 +42,50 @@ const tiles = [
     "d": "Botó de trucar o demanar cita directe a l’anunci. Menys passos entre el clic i l’agenda."
   },
   {
-    "t": "Segmentació geogràfica",
+    "t": "Segmentació geogràfica de la teva zona",
     "d": "La teva inversió es concentra en el radi real des del qual et poden visitar, sense malgastar pressupost."
   },
   {
-    "t": "Campanyes de marca",
+    "t": "Campanyes de marca per a la teva consulta",
     "d": "Protegim el teu nom a Google perquè la competència no s’emporti les cerques de qui ja et coneix."
   },
   {
-    "t": "Landing pages que converteixen",
+    "t": "Landing pages per demanar cita",
     "d": "Cada campanya porta a una pàgina pensada per a una sola acció, demanar cita, no a la teva web genèrica."
   },
   {
-    "t": "Remarketing",
+    "t": "Remarketing per a qui no va reservar",
     "d": "Qui va visitar la teva web sense reservar segueix veient la teva consulta mentre decideix. Recuperes visites que no es perden."
   },
   {
-    "t": "Mesura de conversió",
+    "t": "Mesura de cites generades",
     "d": "Cada clic que es converteix en cita queda registrat. Saps exactament quina campanya et porta agenda."
   },
   {
-    "t": "Optimització contínua",
+    "t": "Optimització contínua del teu compte",
     "d": "Revisem cada setmana pujes, anuncis i paraules clau. Tallem el que gasta sense portar cites."
   }
 ];
 
 const timeline = [
   {
-    "title": "Auditoria de Compte",
+    "title": "Auditoria del teu Compte d’Ads",
     "desc": "Revisem campanyes actives o creem el compte des de zero amb estructura pensada per captar cita, no només clics."
   },
   {
-    "title": "Estratègia de Puja Documentada",
+    "title": "Estratègia de Campanyes per a Psicòlegs",
     "desc": "Reps per escrit quines cerques atacar, quin pressupost necessita cadascuna i quin cost per cita és raonable esperar."
   },
   {
-    "title": "Creació de Campanyes i Anuncis",
+    "title": "Estructura i Landing Pages de la teva consulta",
     "desc": "Campanyes de cerca, extensions de trucada i cita, i landing pages pensades per a una sola acció, reservar."
   },
   {
-    "title": "Segmentació i Control de Despesa",
+    "title": "Puja i Pressupost per a pacients",
     "desc": "La teva inversió es concentra en el radi real des del qual et poden visitar, sense malgastar pressupost en clics fora de la teva zona."
   },
   {
-    "title": "Optimització Setmanal",
+    "title": "Mesura de pacients",
     "desc": "Revisem pujes, anuncis i paraules clau cada setmana. Tallem el que gasta sense portar cites i escalem el que funciona."
   }
 ];
@@ -104,19 +107,19 @@ const auditChecklist = [
 
 const auditCards = [
   {
-    "t": "Revisió d’estructura",
+    "t": "Revisió del teu compte d’Ads",
     "d": "Campanyes, grups d’anuncis i paraules clau organitzats o llestos per crear des de zero.",
     "bg": "bg-purple-100",
     "color": "text-purple-600"
   },
   {
-    "t": "Cost per cita real",
+    "t": "Cost per resultat real",
     "d": "Calculem què et costa avui captar una cita, i què t’hauria de costar segons el teu sector.",
     "bg": "bg-green-100",
     "color": "text-green-600"
   },
   {
-    "t": "Paraules clau que sagnen",
+    "t": "Paraules clau que sagnen pressupost",
     "d": "Detectem cerques que gasten pressupost sense portar ni una sola cita.",
     "bg": "bg-purple-100",
     "color": "text-purple-600"
@@ -137,11 +140,11 @@ const auditCards = [
 
 const journey = [
   {
-    "t": "Radiografia del teu compte o mercat",
+    "t": "Radiografia del teu compte o el teu mercat",
     "d": "Analitzem campanyes actives, o si comences de zero, què inverteix i cobra la teva competència per cita."
   },
   {
-    "t": "Diagnòstic de cost per cita",
+    "t": "Diagnòstic de cost per pacients",
     "d": "Detectem on es perd pressupost i quines paraules clau i horaris rendeixen millor."
   },
   {
@@ -253,32 +256,32 @@ const comparison = [
 
 const criteria = [
   {
-    "title": "Demana casos verificables del sector salut",
-    "desc": "Un mur de logos no demostra res. Demana casos de consultes o clíniques amb dades concretes. Si no poden ensenyar-te’n cap, segueix buscant."
+    "title": "Demana casos de Google Ads en Psicòlegs verificables",
+    "desc": "Quina inversió, quin cost per resultat i quants pacients va generar. Si no poden ensenyar-te un cas de psicòlegs, segueix buscant."
   },
   {
-    "title": "Pregunta qui portarà el teu compte",
-    "desc": "Exigeix conèixer la persona que treballarà el teu projecte abans de signar. A nova parles sempre amb el consultor que executa la teva estratègia."
+    "title": "Pregunta qui gestionarà el teu compte d’Ads",
+    "desc": "Exigeix conèixer la persona que gestionarà les campanyes de la teva consulta abans de signar. A nova parles sempre amb el consultor que optimitza el teu compte."
   },
   {
-    "title": "Exigeix la propietat dels teus actius",
-    "desc": "La teva web, el teu domini, els teus comptes publicitaris i la teva llista de pacients han d’estar al teu nom. El contrari és una dependència, no un servei."
+    "title": "Exigeix que el compte sigui teu",
+    "desc": "El compte, l’historial i les conversions han d’estar al teu nom. En marxar t’emportes tot l’aprenentatge acumulat."
   },
   {
-    "title": "Comprova que entenen les restriccions del sector salut",
-    "desc": "Google i Meta limiten què es pot anunciar en salut. Una agència que ho ignora et arrisca al fet que et rebutgin o suspenguin campanyes."
+    "title": "Desconfia del percentatge sobre la inversió",
+    "desc": "Si l’agència guanya més com més gastes, el seu incentiu és que gastis més, no que aconsegueixis resultats. Exigeix fee fix."
   },
   {
-    "title": "Revisa què mesura l’informe mensual",
-    "desc": "L’informe ha de parlar de cites i pacients nous, no només de visites o impressions. Tota la resta és decoració."
+    "title": "Que parli de pacients, no només de clics",
+    "desc": "Exigeix objectius de pacients i cost per resultat des de la primera proposta."
   },
   {
-    "title": "Fuig de les permanències llargues",
-    "desc": "Una permanència de 12 mesos protegeix l’agència, no tu. Per això a nova treballem mes a mes."
+    "title": "Fuig de les permanències en Google Ads",
+    "desc": "A Google Ads els resultats per a la teva consulta es veuen en setmanes, així que no hi ha excusa per lligar-te un any."
   },
   {
-    "title": "Que tingui cura del to i la discreció",
-    "desc": "La comunicació en salut mental exigeix sensibilitat. Demana veure exemples reals de la seva feina al sector abans de contractar."
+    "title": "Que sàpiga gestionar pressupostos ajustats",
+    "desc": "Malgastar pressupost en les primeres setmanes és habitual en mans inexpertes. Exigeix un pla d’optimització des del primer euro."
   }
 ];
 
@@ -288,7 +291,7 @@ const tips = [
     "text": "Un botó de trucar directe a l’anunci elimina un pas entre el clic i la cita."
   },
   {
-    "lead": "Exclou la teva zona irrellevant.",
+    "lead": "Exclou zones fora del radi real de la teva consulta.",
     "text": "Si treballes només presencial, exclou cerques de gent que és a hores de distància."
   },
   {
@@ -329,7 +332,7 @@ const faqs = [
 ];
 
 const pageSchema = localAgencySchema({
-  pageUrl: `${SITE_URL}/agencia-psicolegs/google-ads/`,
+  pageUrl: `${SITE_URL}/ca/agencia-psicolegs/google-ads/`,
   lang: 'ca',
   cityName: 'Barcelona',
   postalCode: '08035',
@@ -812,6 +815,11 @@ const pageSchema = localAgencySchema({
     <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
     <GoogleReviews locale="ca" title="El que diuen els nostres clients sobre el google ads de Nova" />
 
+
+    <SiblingServices lang="ca" currentSector="psicologos" currentService="google-ads" />
+    <SectorLinks lang="ca" currentSector="psicologos" service="google-ads" />
+
+    <WhereWeWork lang="ca" sectorKey="psicologos" />
 
     <!-- ═══ FAQS ════════════════════════════════════════════════ -->
     <FaqHome title="Preguntes sobre el nostre servei de google ads" items={faqs} emitSchema={false} />
