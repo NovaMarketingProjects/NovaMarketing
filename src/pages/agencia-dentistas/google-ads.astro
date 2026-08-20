@@ -15,11 +15,16 @@ const alternates = buildAlternates('/agencia-dentistas/google-ads/', '/agencia-d
 
 let allCases: any[] = [];
 try {
+  // Casos de éxito: primero los etiquetados con la categoría de este sector;
+  // si el sector no tiene ninguno, se muestran todos los casos.
   const casesRes = await strapiClient.getCaseStudies('es');
-  allCases = casesRes.data.map((i: any) => i.attributes ?? i).filter((c: any) => {
-    const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase());
-    return cats.some((s: string) => s.includes('dentistas') || s.includes('google-ads'));
+  const cases = casesRes.data.map((i: any) => i.attributes ?? i);
+  const SECTOR_CATEGORY_SLUGS = ["dentistas","dentistes"];
+  const bySector = cases.filter((c: any) => {
+    const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase().replace(/[^a-z0-9]/g, ''));
+    return cats.some((s: string) => SECTOR_CATEGORY_SLUGS.includes(s));
   });
+  allCases = bySector.length > 0 ? bySector : cases;
 } catch {}
 
 const heroChecks = [
