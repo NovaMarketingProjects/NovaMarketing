@@ -93,10 +93,10 @@ export default {
         { name: 'Hoteles', slug: 'hoteles' },
         { name: 'B2B', slug: 'b2b' },
       ];
-      const sectorCount = await strapi.documents('api::sector.sector' as any).count({});
+      const sectorCount = await strapi.documents('api::sector.sector').count({});
       if (sectorCount === 0) {
         for (const s of SEED_SECTORS) {
-          await strapi.documents('api::sector.sector' as any).create({ data: s });
+          await strapi.documents('api::sector.sector').create({ data: s });
         }
         strapi.log.info('[bootstrap] Seeded ' + SEED_SECTORS.length + ' sectors');
       }

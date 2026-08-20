@@ -1,2 +1,2 @@
 import { factories } from '@strapi/strapi';
-export default factories.createCoreService('api::sector.sector');
+export default factories.createCoreService('api::sector.sector' as any);

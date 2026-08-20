@@ -536,6 +536,7 @@ export interface ApiCaseStudyCaseStudy extends Struct.CollectionTypeSchema {
       'manyToMany',
       'api::category.category'
     >;
+    sectors: Schema.Attribute.Relation<'manyToMany', 'api::sector.sector'>;
     company: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -691,6 +692,38 @@ export interface ApiHomeHome extends Struct.SingleTypeSchema {
           localized: true;
         };
       }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiSectorSector extends Struct.CollectionTypeSchema {
+  collectionName: 'sectors';
+  info: {
+    description: 'Sectores verticales para etiquetar casos de éxito';
+    displayName: 'Sector';
+    pluralName: 'sectors';
+    singularName: 'sector';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    case_studies: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::case-study.case-study'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::sector.sector'>;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1272,6 +1305,7 @@ declare module '@strapi/strapi' {
       'api::case-study.case-study': ApiCaseStudyCaseStudy;
       'api::category.category': ApiCategoryCategory;
       'api::home.home': ApiHomeHome;
+      'api::sector.sector': ApiSectorSector;
       'api::service.service': ApiServiceService;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
