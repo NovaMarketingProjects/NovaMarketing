@@ -15,14 +15,16 @@ const alternates = buildAlternates('/agencia-abogados/email-marketing/', '/agenc
 
 let allCases: any[] = [];
 try {
-  // Casos de éxito: primero los etiquetados con la categoría de este sector;
-  // si el sector no tiene ninguno, se muestran todos los casos.
+  // Casos de éxito: primero los etiquetados con el sector de esta página
+  // (relación `sectors` de Strapi, con las categorías legacy como
+  // compatibilidad); si el sector no tiene ninguno, se muestran todos.
   const casesRes = await strapiClient.getCaseStudies('ca');
   const cases = casesRes.data.map((i: any) => i.attributes ?? i);
-  const SECTOR_CATEGORY_SLUGS = ["abogados","advocats"];
+  const SECTOR_SLUGS = ["abogados","advocats"];
   const bySector = cases.filter((c: any) => {
-    const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase().replace(/[^a-z0-9]/g, ''));
-    return cats.some((s: string) => SECTOR_CATEGORY_SLUGS.includes(s));
+    const tags = [...(c.sectors || []), ...(c.categories || [])]
+      .map((t: any) => (t.slug || t.attributes?.slug || '').toLowerCase().replace(/[^a-z0-9]/g, ''));
+    return tags.some((s: string) => SECTOR_SLUGS.includes(s));
   });
   allCases = bySector.length > 0 ? bySector : cases;
 } catch {}

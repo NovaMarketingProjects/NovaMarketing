@@ -132,6 +132,7 @@ export interface CaseStudy {
   metadescription?: string;
   cover_image?: StrapiImage;
   categories?: CaseStudyCategory[];
+  sectors?: CaseStudySector[];
   page_blocks?: any[];
   author?: Author;
   isPublic: boolean;
@@ -140,6 +141,12 @@ export interface CaseStudy {
 }
 
 export interface CaseStudyCategory {
+  id: number;
+  name: string;
+  slug: string;
+}
+
+export interface CaseStudySector {
   id: number;
   name: string;
   slug: string;
