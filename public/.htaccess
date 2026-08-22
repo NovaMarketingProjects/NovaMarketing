@@ -12,6 +12,12 @@ RewriteEngine On
 RewriteCond %{HTTP_HOST} ^www\.novamarketing\.es [NC]
 RewriteRule ^(.*)$ https://novamarketing.es/$1 [L,R=301]
 
+# Collapse duplicate slashes in the URL path (//foo → /foo) with a 301.
+# THE_REQUEST sees the raw request line, so this catches leading // too.
+RewriteCond %{THE_REQUEST} \s[^?\s]*// [NC]
+RewriteCond %{REQUEST_URI} ^(.*?)//+(.*)$
+RewriteRule . https://novamarketing.es%1/%2 [R=301,L]
+
 # SEO city pages moved under /agencia-seo-para-pymes/
 Redirect 301 /agencia-seo-en-sabadell/ https://novamarketing.es/agencia-seo-para-pymes/sabadell/
 Redirect 301 /ca/agencia-seo-a-sabadell/ https://novamarketing.es/ca/agencia-seo-per-pimes/sabadell/
