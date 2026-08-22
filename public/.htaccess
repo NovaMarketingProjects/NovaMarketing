@@ -141,3 +141,39 @@ RewriteRule ^sitemap\.xml$ /sitemap-index.xml [L,R=301]
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml font/woff2
 </IfModule>
+
+# Category filter URLs removed (filtering is client-side on /blog/ and /casos-exito/)
+Redirect 301 /blog/consultoria-seo/ https://novamarketing.es/blog/
+Redirect 301 /blog/diseno-web/ https://novamarketing.es/blog/
+Redirect 301 /blog/google-ads/ https://novamarketing.es/blog/
+Redirect 301 /blog/seo/ https://novamarketing.es/blog/
+Redirect 301 /blog/e-commerce/ https://novamarketing.es/blog/
+Redirect 301 /blog/marketing-digital/ https://novamarketing.es/blog/
+Redirect 301 /blog/Consultoria-de-marketing/ https://novamarketing.es/blog/
+Redirect 301 /blog/consultoria-de-marketing/ https://novamarketing.es/blog/
+Redirect 301 /blog/seo-local/ https://novamarketing.es/blog/
+Redirect 301 /casos-exito/consultoria-seo/ https://novamarketing.es/casos-exito/
+Redirect 301 /casos-exito/diseno-web/ https://novamarketing.es/casos-exito/
+Redirect 301 /casos-exito/google-ads/ https://novamarketing.es/casos-exito/
+Redirect 301 /casos-exito/seo/ https://novamarketing.es/casos-exito/
+Redirect 301 /casos-exito/e-commerce/ https://novamarketing.es/casos-exito/
+Redirect 301 /casos-exito/marketing-digital/ https://novamarketing.es/casos-exito/
+Redirect 301 /casos-exito/Consultoria-de-marketing/ https://novamarketing.es/casos-exito/
+Redirect 301 /casos-exito/consultoria-de-marketing/ https://novamarketing.es/casos-exito/
+Redirect 301 /casos-exito/seo-local/ https://novamarketing.es/casos-exito/
+Redirect 301 /ca/blog/consultoria-seo/ https://novamarketing.es/ca/blog/
+Redirect 301 /ca/blog/disseny-web/ https://novamarketing.es/ca/blog/
+Redirect 301 /ca/blog/google-ads/ https://novamarketing.es/ca/blog/
+Redirect 301 /ca/blog/seo/ https://novamarketing.es/ca/blog/
+Redirect 301 /ca/blog/e-commerce/ https://novamarketing.es/ca/blog/
+Redirect 301 /ca/blog/marketing-digital/ https://novamarketing.es/ca/blog/
+Redirect 301 /ca/blog/consultoria-de-marketing/ https://novamarketing.es/ca/blog/
+Redirect 301 /ca/blog/seo-local/ https://novamarketing.es/ca/blog/
+Redirect 301 /ca/casos-exit/consultoria-seo/ https://novamarketing.es/ca/casos-exit/
+Redirect 301 /ca/casos-exit/disseny-web/ https://novamarketing.es/ca/casos-exit/
+Redirect 301 /ca/casos-exit/google-ads/ https://novamarketing.es/ca/casos-exit/
+Redirect 301 /ca/casos-exit/seo/ https://novamarketing.es/ca/casos-exit/
+Redirect 301 /ca/casos-exit/e-commerce/ https://novamarketing.es/ca/casos-exit/
+Redirect 301 /ca/casos-exit/marketing-digital/ https://novamarketing.es/ca/casos-exit/
+Redirect 301 /ca/casos-exit/consultoria-de-marketing/ https://novamarketing.es/ca/casos-exit/
+Redirect 301 /ca/casos-exit/seo-local/ https://novamarketing.es/ca/casos-exit/

@@ -12,14 +12,12 @@ import type { Service, BlogPost } from '../../lib/strapi';
 export async function getStaticPaths() {
   try {
     // 1. Fetch Case Studies ES + CA (para cruzar slugs por documentId)
-    const [casesRes, casesCaRes, categoriesRes] = await Promise.all([
+    const [casesRes, casesCaRes] = await Promise.all([
       strapiClient.getCaseStudies('es'),
       strapiClient.getCaseStudies('ca'),
-      strapiClient.getCaseStudyCategories('es'),
     ]);
 
     const cases = casesRes.data.map(i => i.attributes ?? i).filter(c => c.isPublic);
-    const categories = categoriesRes.data.map(i => i.attributes ?? i);
 
     // Mapa documentId → slug CA
     const caSlugMap: Record<string, string> = {};
@@ -37,10 +35,6 @@ export async function getStaticPaths() {
           props: { pageType: 'case-study', item: cs, caSlug }
         };
       }),
-      ...categories.map(cat => ({
-        params: { slug: cat.slug || cat.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-') },
-        props: { pageType: 'category', item: cat, caSlug: null }
-      }))
     ];
 
     return paths;

@@ -162,37 +162,8 @@ export const GET: APIRoute = async () => {
     }
   } catch {}
 
-  // Páginas de categoría de blog: solo si tienen al menos un post publicado.
-  try {
-    const catsRes = await strapiClient.getBlogCategories('ca');
-    for (const item of (catsRes.data ?? []) as any[]) {
-      const cat = item.attributes ?? item;
-      if (!cat.slug) continue;
-      const postsRes = await strapiClient.getBlogPosts('ca', { category: cat.slug });
-      const posts = (postsRes.data ?? []) as any[];
-      if (!posts.length) continue;
-      const lastmod = (posts[0].attributes ?? posts[0]).publishedAt;
-      if (!lastmod) continue;
-      entries.push(entry(`/ca/blog/${cat.slug}/`, lastmod));
-    }
-  } catch {}
-
-  // Páginas de categoría de casos de éxito: mismas reglas, filtrando por isPublic.
-  try {
-    const catsRes = await strapiClient.getCaseStudyCategories('ca');
-    for (const item of (catsRes.data ?? []) as any[]) {
-      const cat = item.attributes ?? item;
-      if (!cat.slug) continue;
-      const casesRes = await strapiClient.getCaseStudies('ca', { category: cat.slug });
-      const cases = ((casesRes.data ?? []) as any[])
-        .map(i => i.attributes ?? i)
-        .filter((c: any) => c.isPublic);
-      if (!cases.length) continue;
-      const lastmod = cases[0].publishedAt;
-      if (!lastmod) continue;
-      entries.push(entry(`/ca/casos-exit/${cat.slug}/`, lastmod));
-    }
-  } catch {}
+  // Les pàgines de categoria de blog i de casos d'èxit ja no existeixen:
+  // el filtratge és en client sobre /ca/blog/ i /ca/casos-exit/.
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
