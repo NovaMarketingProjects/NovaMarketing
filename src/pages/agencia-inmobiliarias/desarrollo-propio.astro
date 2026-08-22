@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { buildAlternates } from '../../lib/i18n';
 import { localAgencySchema } from '../../lib/schema';
 import { strapiClient } from '../../lib/strapi';
 import LogoMarquee from '../../components/sections/LogoMarquee.astro';
@@ -10,7 +9,6 @@ import GoogleReviews from '../../components/global/GoogleReviews.astro';
 import WhereWeWork from '../../components/sections/WhereWeWork.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
-const alternates = buildAlternates('/agencia-inmobiliarias/desarrollo-propio/', '/ca/agencia-inmobiliarias/desarrollo-propio/', SITE_URL);
 
 let allCases: any[] = [];
 try {
@@ -61,7 +59,6 @@ const pageSchema = localAgencySchema({
   title="▷ Marketing inmobiliario para webs propias | Agencia especializada"
   description="Marketing inmobiliario con desarrollo web propio, SEO, Ads y CRO integrados ✅ Estrategia adaptada a plataformas conectadas al CRM 💡"
   locale="es"
-  alternates={alternates}
   schemas={[pageSchema]}
 >
 

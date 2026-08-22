@@ -177,3 +177,7 @@ Redirect 301 /ca/casos-exit/e-commerce/ https://novamarketing.es/ca/casos-exit/
 Redirect 301 /ca/casos-exit/marketing-digital/ https://novamarketing.es/ca/casos-exit/
 Redirect 301 /ca/casos-exit/consultoria-de-marketing/ https://novamarketing.es/ca/casos-exit/
 Redirect 301 /ca/casos-exit/seo-local/ https://novamarketing.es/ca/casos-exit/
+
+# CA platform pages for inmobiliarias removed (ES-only pages remain)
+Redirect 301 /ca/agencia-inmobiliarias/wordpress/ https://novamarketing.es/ca/agencia-inmobiliarias/
+Redirect 301 /ca/agencia-inmobiliarias/desarrollo-propio/ https://novamarketing.es/ca/agencia-inmobiliarias/

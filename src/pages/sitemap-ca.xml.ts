@@ -48,8 +48,6 @@ const STATIC_PAGES: { path: string; lastmod: string }[] = [
   { path: '/ca/agencia-inmobiliarias/meta-ads/', lastmod: '2026-07-23' },
   { path: '/ca/agencia-inmobiliarias/email-marketing/', lastmod: '2026-07-23' },
   { path: '/ca/agencia-inmobiliarias/posicionamiento-geo/', lastmod: '2026-07-23' },
-  { path: '/ca/agencia-inmobiliarias/wordpress/', lastmod: '2026-07-23' },
-  { path: '/ca/agencia-inmobiliarias/desarrollo-propio/', lastmod: '2026-07-23' },
   { path: '/ca/agencia-restaurantes/', lastmod: '2026-07-23' },
   { path: '/ca/agencia-restaurantes/diseno-web/', lastmod: '2026-07-23' },
   { path: '/ca/agencia-restaurantes/seo/', lastmod: '2026-07-23' },
