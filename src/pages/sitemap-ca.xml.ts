@@ -118,6 +118,10 @@ const STATIC_PAGES: { path: string; lastmod: string }[] = [
   { path: '/ca/agencia-b2b/meta-ads/', lastmod: '2026-08-17' },
   { path: '/ca/agencia-b2b/email-marketing/', lastmod: '2026-08-17' },
   { path: '/ca/agencia-b2b/posicionamiento-geo/', lastmod: '2026-08-17' },
+  { path: '/ca/avis-legal/', lastmod: '2026-08-20' },
+  { path: '/ca/privacitat/', lastmod: '2026-08-20' },
+  { path: '/ca/cookies/', lastmod: '2026-08-20' },
+  { path: '/ca/termes-i-condicions/', lastmod: '2026-08-20' },
 ];
 
 function e(str: string): string {
