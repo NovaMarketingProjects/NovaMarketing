@@ -107,6 +107,30 @@ const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
     }
   </script>
 
+  <!-- OpenAI Ads Measurement Pixel (oaiq). Loader async oficial; page_viewed
+       se emite manualmente porque el SDK no lo mide solo. is:inline para que
+       Astro no lo convierta en módulo diferido. -->
+  <script is:inline>
+    (function (w, d, s, u) {
+      if (w.oaiq) return;
+      var q = function () {
+        q.q.push(arguments);
+      };
+      q.q = [];
+      w.oaiq = q;
+      var js = d.createElement(s);
+      js.async = true;
+      js.src = u;
+      var f = d.getElementsByTagName(s)[0];
+      f.parentNode.insertBefore(js, f);
+    })(window, document, "script", "https://bzrcdn.openai.com/sdk/oaiq.min.js");
+
+    oaiq("init", {
+      pixelId: "Q711XNVBBEYdobUzY5Wbgh",
+    });
+    oaiq("measure", "page_viewed");
+  </script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="verify-getalink" content="verify-getalink-11915" />
@@ -114,6 +138,7 @@ const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
   <!-- Preconnect for third-party origins -->
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
   <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+  <link rel="dns-prefetch" href="https://bzrcdn.openai.com" />
 
   <!-- Preload above-the-fold fonts -->
   <link rel="preload" href="/fonts/Montserrat-Black.woff2" as="font" type="font/woff2" crossorigin />
