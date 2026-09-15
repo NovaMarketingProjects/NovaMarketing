@@ -107,9 +107,10 @@ const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
     }
   </script>
 
-  <!-- OpenAI Ads Measurement Pixel (oaiq). Loader async oficial; page_viewed
-       se emite manualmente porque el SDK no lo mide solo. is:inline para que
-       Astro no lo convierta en módulo diferido. -->
+  <!-- OpenAI Ads Measurement Pixel (oaiq). Loader async oficial, is:inline
+       para que Astro no lo convierta en módulo diferido. Aquí solo el init:
+       el evento page_viewed es la CONVERSIÓN y se emite únicamente en
+       /gracias/ y /ca/gracies/. -->
   <script is:inline>
     (function (w, d, s, u) {
       if (w.oaiq) return;
@@ -128,7 +129,6 @@ const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
     oaiq("init", {
       pixelId: "Q711XNVBBEYdobUzY5Wbgh",
     });
-    oaiq("measure", "page_viewed");
   </script>
 
   <meta charset="UTF-8" />
