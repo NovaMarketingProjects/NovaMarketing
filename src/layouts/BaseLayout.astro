@@ -130,6 +130,19 @@ const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
       pixelId: "CUwYttqqJ8c4D51AXFxFMq",
     });
 
+    /* Identificador de conversión, compartido por el píxel del navegador y la
+       Conversions API del servidor para que OpenAI deduplique. Lo usan tanto el
+       modal de contacto como los formularios de las landings de Ads. */
+    window.oaiqNewEventId = function () {
+      var id = null;
+      try {
+        if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+          id = crypto.randomUUID();
+        }
+      } catch (e) {}
+      return id || "ev-" + Date.now() + "-" + Math.random().toString(36).slice(2, 10);
+    };
+
     /* Conversión de contacto por WhatsApp. Todos los enlaces wa.me abren en
        pestaña nueva, así que la página sigue viva y da tiempo a enviar el
        evento. El id es el mismo durante toda la sesión: OpenAI deduplica por

@@ -655,7 +655,8 @@ const faqs = [
         setTimeout(() => { bar.style.width = '72%'; }, 700);
         setTimeout(() => { bar.style.width = '88%'; }, 1800);
       }
-      const data = { ...Object.fromEntries(new FormData(form)), source: window.location.href };
+      const eventId = (window as any).oaiqNewEventId?.() ?? String(Date.now());
+      const data = { ...Object.fromEntries(new FormData(form)), source: window.location.href, eventId };
       try {
         const res = await fetch('https://cms.novamarketing.es/api/contact', {
           method: 'POST',
@@ -663,6 +664,8 @@ const faqs = [
           body: JSON.stringify(data),
         });
         if (res.ok) {
+          // La página de gracias emite el evento del píxel con este id.
+          try { sessionStorage.setItem('oaiq_event_id', eventId); } catch {}
           if (bar) bar.style.width = '100%';
           setTimeout(() => { window.location.href = '/gracias/'; }, 400);
         } else { throw new Error(); }
