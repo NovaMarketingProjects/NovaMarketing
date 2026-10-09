@@ -200,7 +200,7 @@ const faqs = [
               </li>
             ))}
           </ul>
-          <a href="#solicitar" class={`block text-center font-black uppercase tracking-widest text-[11px] py-4 rounded-full transition-colors ${p.destacado ? 'bg-accent text-white hover:opacity-90' : 'bg-zinc-900 text-white hover:bg-accent'}`}>
+          <a href="#solicitar" data-plan={p.name} class={`plan-cta block text-center font-black uppercase tracking-widest text-[11px] py-4 rounded-full transition-colors ${p.destacado ? 'bg-accent text-white hover:opacity-90' : 'bg-zinc-900 text-white hover:bg-accent'}`}>
             Quiero este plan →
           </a>
         </div>
@@ -393,6 +393,19 @@ const faqs = [
         wrap.classList.add('bg-accent', 'border-accent');
         btn.setAttribute('aria-expanded', 'true');
       }
+    });
+  });
+
+  /* Los botones de plan abren el modal como el resto de CTA, pero ahí se
+     perdería qué plan eligió: se traslada al mensaje del modal. */
+  document.querySelectorAll<HTMLElement>('.plan-cta').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const plan = btn.dataset.plan;
+      if (!plan) return;
+      setTimeout(() => {
+        const msg = document.querySelector<HTMLTextAreaElement>('#desktop-modal-form [name="msg"]');
+        if (msg && !msg.value.trim()) msg.value = `Me interesa el plan ${plan}.`;
+      }, 60);
     });
   });
 

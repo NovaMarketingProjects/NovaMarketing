@@ -336,6 +336,13 @@ const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 
     /* Init Core */
     function init() {
+        // En las landings de Ads, los CTA que apuntan al formulario abren el
+        // modal de contacto en lugar de desplazar la página hasta él. El href
+        // se mantiene como alternativa si el JS del modal no llega a cargar.
+        document.querySelectorAll('a[href="#solicitar"]').forEach(a => {
+            a.classList.add('contact-modal-trigger');
+        });
+
         // Los elementos ya visibles al cargar NO se re-animan: re-pintarlos desde
         // opacidad 0 retrasaba el LCP en móvil hasta el final de la animación.
         // Solo se observa (y anima) lo que entra al hacer scroll.
