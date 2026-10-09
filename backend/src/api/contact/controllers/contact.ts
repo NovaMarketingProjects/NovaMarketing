@@ -1,5 +1,6 @@
 import { Context } from 'koa';
 import nodemailer from 'nodemailer';
+import { sendOpenAiConversion } from '../../../utils/openai-ads';
 
 function buildTransporter() {
   return nodemailer.createTransport({
@@ -52,7 +53,7 @@ export default {
   },
 
   async send(ctx: Context) {
-    const { name, email, url, phone, msg, source } = ctx.request.body as any;
+    const { name, email, url, phone, msg, source, eventId } = ctx.request.body as any;
 
     if (!name || !email) {
       ctx.status = 400;
@@ -97,6 +98,20 @@ export default {
       ctx.status = 500;
       ctx.body = { error: 'Failed to send admin notification', detail: err.message };
       return;
+    }
+
+    // Conversión de OpenAI Ads: en paralelo, sin bloquear la respuesta. Lleva
+    // el email cifrado, que el píxel del navegador no puede aportar porque la
+    // página de gracias no contiene datos del usuario.
+    if (eventId) {
+      void sendOpenAiConversion({
+        eventId,
+        sourceUrl: pageSource,
+        email,
+        phone,
+        ipAddress: ctx.request.ip,
+        userAgent: ctx.request.headers['user-agent'] as string,
+      });
     }
 
     // User confirmation — HTML, best-effort

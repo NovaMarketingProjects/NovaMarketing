@@ -39,12 +39,21 @@ const alternates = buildAlternates('/gracias/', '/ca/gracies/', SITE_URL);
     </div>
   </section>
 
-  <!-- Conversión OpenAI Ads: llamada exacta del evento creado en el panel -->
+  <!-- Conversión OpenAI Ads. Solo si se llega desde un envío real del
+       formulario: el id lo deja el formulario y lo comparte con la conversión
+       que manda el servidor, así OpenAI deduplica y una recarga de esta página
+       no suma otra conversión. -->
   <script is:inline>
-    oaiq(
-      "measure",
-      "page_viewed",
-      { type: "contents" }
-    );
+    (function () {
+      var eventId = null;
+      try { eventId = sessionStorage.getItem('oaiq_event_id'); } catch (e) {}
+      if (!eventId) return;
+      oaiq(
+        "measure",
+        "page_viewed",
+        { type: "contents" },
+        { event_id: eventId }
+      );
+    })();
   </script>
 </BaseLayout>

@@ -196,6 +196,18 @@ const t = {
         if (input.name === 'url') input.setCustomValidity('');
     });
 
+    /* Identificador del envío, compartido por el píxel del navegador y la
+       Conversions API del servidor: OpenAI deduplica por él, así que un mismo
+       formulario nunca cuenta como dos conversiones. */
+    function newEventId(): string {
+        try {
+            if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+                return crypto.randomUUID();
+            }
+        } catch {}
+        return 'ev-' + Date.now() + '-' + Math.random().toString(36).slice(2, 10);
+    }
+
     document.addEventListener('submit', async (e) => {
          const target = e.target as HTMLFormElement;
          if (target && target.id === 'desktop-modal-form') {
@@ -210,7 +222,8 @@ const t = {
               const btn = target.querySelector('button') as HTMLButtonElement;
               if (btn) { btn.disabled = true; }
               showSendingOverlay();
-              const data = { ...Object.fromEntries(new FormData(target)), source: window.location.href };
+              const eventId = newEventId();
+              const data = { ...Object.fromEntries(new FormData(target)), source: window.location.href, eventId };
               try {
                   const res = await fetch('https://cms.novamarketing.es/api/contact', {
                       method: 'POST',
@@ -218,6 +231,8 @@ const t = {
                       body: JSON.stringify(data),
                   });
                   if (res.ok) {
+                      // La página de gracias emite el evento del píxel con este id.
+                      try { sessionStorage.setItem('oaiq_event_id', eventId); } catch {}
                       completeSendingOverlay();
                       setTimeout(() => {
                           const isCA = window.location.pathname.startsWith('/ca');

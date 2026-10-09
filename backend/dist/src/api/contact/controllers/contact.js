@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const nodemailer_1 = __importDefault(require("nodemailer"));
+const openai_ads_1 = require("../../../utils/openai-ads");
 function buildTransporter() {
     return nodemailer_1.default.createTransport({
         host: process.env.SMTP_HOST || 'smtp.hostinger.com',
@@ -50,7 +51,7 @@ exports.default = {
         ctx.body = { ok: true, smtp_user: SMTP_USER, contact_to: CONTACT_TO };
     },
     async send(ctx) {
-        const { name, email, url, phone, msg, source } = ctx.request.body;
+        const { name, email, url, phone, msg, source, eventId } = ctx.request.body;
         if (!name || !email) {
             ctx.status = 400;
             ctx.body = { error: 'Name and email are required' };
@@ -70,9 +71,9 @@ exports.default = {
             '================================',
             `Nombre:   ${name}`,
             `Email:    ${email}`,
-            url   ? `Web:      ${url}`   : null,
+            url ? `Web:      ${url}` : null,
             phone ? `Telefono: ${phone}` : null,
-            msg   ? `Mensaje:  ${msg}`   : null,
+            msg ? `Mensaje:  ${msg}` : null,
             `Pagina:   ${pageSource}`,
             `Fecha:    ${now}`,
         ].filter(Boolean).join('\n');
@@ -91,6 +92,19 @@ exports.default = {
             ctx.status = 500;
             ctx.body = { error: 'Failed to send admin notification', detail: err.message };
             return;
+        }
+        // Conversión de OpenAI Ads: en paralelo, sin bloquear la respuesta. Lleva
+        // el email cifrado, que el píxel del navegador no puede aportar porque la
+        // página de gracias no contiene datos del usuario.
+        if (eventId) {
+            void (0, openai_ads_1.sendOpenAiConversion)({
+                eventId,
+                sourceUrl: pageSource,
+                email,
+                phone,
+                ipAddress: ctx.request.ip,
+                userAgent: ctx.request.headers['user-agent'],
+            });
         }
         // User confirmation — HTML, best-effort
         const confirmationHtml = `<!DOCTYPE html>
