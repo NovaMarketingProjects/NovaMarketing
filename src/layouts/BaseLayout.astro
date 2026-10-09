@@ -129,6 +129,43 @@ const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
     oaiq("init", {
       pixelId: "CUwYttqqJ8c4D51AXFxFMq",
     });
+
+    /* Conversión de contacto por WhatsApp. Todos los enlaces wa.me abren en
+       pestaña nueva, así que la página sigue viva y da tiempo a enviar el
+       evento. El id es el mismo durante toda la sesión: OpenAI deduplica por
+       él, así que varios clics del mismo visitante cuentan una sola vez. */
+    (function () {
+      function waEventId() {
+        var id = null;
+        try {
+          id = sessionStorage.getItem("oaiq_wa_event_id");
+          if (!id) {
+            id = "wa-" + Date.now() + "-" + Math.random().toString(36).slice(2, 10);
+            sessionStorage.setItem("oaiq_wa_event_id", id);
+          }
+        } catch (e) {
+          id = "wa-" + Date.now() + "-" + Math.random().toString(36).slice(2, 10);
+        }
+        return id;
+      }
+
+      window.trackWhatsAppLead = function () {
+        try {
+          oaiq(
+            "measure",
+            "lead_created",
+            { type: "customer_action" },
+            { event_id: waEventId() }
+          );
+        } catch (e) {}
+      };
+
+      document.addEventListener("click", function (e) {
+        var el = e.target;
+        if (!el || typeof el.closest !== "function") return;
+        if (el.closest('a[href*="wa.me"]')) window.trackWhatsAppLead();
+      }, true);
+    })();
   </script>
 
   <meta charset="UTF-8" />

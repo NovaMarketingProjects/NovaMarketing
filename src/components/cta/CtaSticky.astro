@@ -250,6 +250,9 @@ const phoneClean = phone.replace(/\s/g, '');
       e.preventDefault();
       const msg = (input?.value || '').trim() || 'Hola, me gustaría más información sobre vuestros servicios.';
       const waNumber = (card as HTMLElement).dataset.whatsapp || '34644738270';
+      // Este chat abre WhatsApp por JS, así que el listener de enlaces wa.me
+      // no lo ve: la conversión se registra aquí.
+      (window as any).trackWhatsAppLead?.();
       window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
     });
   }
