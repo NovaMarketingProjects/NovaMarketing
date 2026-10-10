@@ -4,13 +4,13 @@ export default {
       method: 'POST',
       path: '/contact',
       handler: 'api::contact.contact.send',
-      config: { auth: false, policies: [], middlewares: [] },
+      // El array middlewares, antes vacío, era el punto de enganche que faltaba
+      // para el limitador de tasa del endpoint anónimo.
+      config: { auth: false, policies: [], middlewares: ['global::contact-rate-limit'] },
     },
-    {
-      method: 'GET',
-      path: '/contact/test',
-      handler: 'api::contact.contact.test',
-      config: { auth: false, policies: [], middlewares: [] },
-    },
+    // GET /contact/test retirado: para cualquier anónimo hacía un login SMTP y
+    // un envío reales, y devolvía smtp_user / contact_to (y texto de error SMTP)
+    // en el cuerpo. Si se necesita un smoke test, exponerlo como POST tras auth
+    // de admin con una respuesta que no lleve configuración.
   ],
 };
