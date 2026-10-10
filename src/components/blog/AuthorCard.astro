@@ -1,6 +1,7 @@
 ---
 import { getStrapiImageUrl } from '../../lib/strapi';
 import type { Author } from '../../lib/strapi';
+import { safeHref } from '../../lib/url';
 
 interface Props {
   author: Author;
@@ -59,9 +60,12 @@ const displayName = author.name?.trim().toLowerCase().startsWith('sergio gar') ?
 
       {author.social_links && author.social_links.length > 0 && (
         <div class="author-card__socials">
-          {author.social_links.map((s: any) => (
+          {author.social_links.map((s: any) => {
+            const href = safeHref(s.url);
+            if (!href) return null;
+            return (
             <a
-              href={s.url}
+              href={href}
               target="_blank"
               rel="noopener noreferrer"
               class={`author-card__social-link author-card__social-link--${s.network}`}
@@ -70,7 +74,8 @@ const displayName = author.name?.trim().toLowerCase().startsWith('sergio gar') ?
               <span set:html={SOCIAL_ICONS[s.network] ?? SOCIAL_ICONS.website} />
               {s.label && <span class="author-card__social-label">{s.label}</span>}
             </a>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>

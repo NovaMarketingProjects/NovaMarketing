@@ -1,7 +1,8 @@
 // Using Native Global Fetch Node triggers
 
-const STRAPI_URL = 'http://localhost:1337';
-const JWT_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwic2Vzc2lvbklkIjoiZTk5ZWQ3MTM2ZGU2NmRkNWVmN2QwZWJiMGU3NDNjMDciLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzczOTk2MTk4LCJleHAiOjE3NzM5OTc5OTh9.u8rbx2xwq4_2tLtD6ETAFVwZ8PRUX4KrTSA7mqHYgkk';
+const STRAPI_URL = (process.env.STRAPI_URL || 'http://localhost:1337');
+const JWT_TOKEN = process.env.STRAPI_ADMIN_JWT;
+if (!JWT_TOKEN) { console.error('STRAPI_ADMIN_JWT no definido. Obtén un JWT de admin de corta duracion en tiempo de ejecucion; nunca lo commitees.'); process.exit(1); }
 
 const headers = {
   'Content-Type': 'application/json',

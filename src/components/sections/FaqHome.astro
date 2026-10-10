@@ -26,9 +26,13 @@ const faqSchema = {
     }
   }))
 };
+
+// Mismo escape que en SchemaOrg.astro: `<` -> `<` para que ningún valor
+// del CMS pueda cerrar el elemento <script> con `</script>`.
+const faqJson = JSON.stringify(faqSchema).replace(/</g, '\\u003c');
 ---
 
-{emitSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
+{emitSchema && <script type="application/ld+json" set:html={faqJson} />}
 
 <section class="py-24 sm:py-32 bg-white relative overflow-hidden px-4 sm:px-6">
     <!-- Subtle Background Element -->

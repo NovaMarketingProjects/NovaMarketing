@@ -7,5 +7,11 @@ interface Props {
   schema: object;
 }
 const { schema } = Astro.props;
+// JSON.stringify no escapa `<`, `>` ni `/`, y set:html inserta la cadena tal
+// cual en el cuerpo del <script>: un valor del CMS que contenga `</script>`
+// cerraría el elemento y el resto se parsearía como markup. Escapamos `<` como
+// `<` (escape JSON válido, mismo carácter para cualquier consumidor de
+// JSON-LD), igual que hace Astro con define:vars.
+const json = JSON.stringify(schema).replace(/</g, '\\u003c');
 ---
-<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+<script type="application/ld+json" set:html={json} />

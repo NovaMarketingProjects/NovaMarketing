@@ -17,6 +17,8 @@
  * Para tablas: usa el bloque "Table" si está disponible.
  */
 
+import { safeHref, escapeHtml } from '../../lib/url';
+
 interface Props {
   blocks: any[];
   class?: string;
@@ -28,10 +30,15 @@ function renderInline(children: any[]): string {
   if (!children) return '';
   return children.map((child: any) => {
     if (child.type === 'link') {
-      return `<a href="${child.url}" class="sb-link">${renderInline(child.children)}</a>`;
+      // href con lista blanca de esquemas y escapado de atributo; si el esquema
+      // no es seguro se renderiza el texto sin enlace.
+      const href = safeHref(child.url);
+      const inner = renderInline(child.children);
+      return href
+        ? `<a href="${escapeHtml(href)}" rel="nofollow noopener" class="sb-link">${inner}</a>`
+        : inner;
     }
-    let text = child.text ?? '';
-    text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    let text = escapeHtml(child.text ?? '');
     if (child.bold) text = `<strong>${text}</strong>`;
     if (child.italic) text = `<em>${text}</em>`;
     if (child.underline) text = `<u>${text}</u>`;
@@ -76,7 +83,9 @@ function renderBlock(block: any): string {
 
     case 'heading': {
       const text = renderInline(block.children);
-      return `<h${block.level} class="sb-h${block.level}">${text}</h${block.level}>`;
+      // level se interpola en el NOMBRE de la etiqueta: lista blanca de enteros 1-6.
+      const lvl = [1, 2, 3, 4, 5, 6].includes(Number(block.level)) ? Number(block.level) : 2;
+      return `<h${lvl} class="sb-h${lvl}">${text}</h${lvl}>`;
     }
 
     case 'list': {
@@ -87,11 +96,11 @@ function renderBlock(block: any): string {
 
     case 'image': {
       const img = block.image;
-      const url = img?.url ?? '';
-      const alt = img?.alternativeText ?? '';
+      const url = escapeHtml(safeHref(img?.url) ?? '');
+      const alt = escapeHtml(img?.alternativeText ?? '');
       const caption = block.children?.find((c: any) => c.text?.trim())?.text;
       const figcaption = caption
-        ? `<figcaption class="sb-figcaption">${caption.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</figcaption>`
+        ? `<figcaption class="sb-figcaption">${escapeHtml(caption)}</figcaption>`
         : '';
       return `<figure class="sb-figure"><img src="${url}" alt="${alt}" title="${alt}" loading="lazy" class="sb-img" />${figcaption}</figure>`;
     }
@@ -120,7 +129,7 @@ function renderBlock(block: any): string {
     case 'code': {
       const code = block.children.map((c: any) => c.text ?? '').join('')
         .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-      const lang = block.language ?? '';
+      const lang = escapeHtml(block.language ?? '');
       return `<div class="sb-code-block">
         ${lang ? `<span class="sb-code-lang">${lang}</span>` : ''}
         <pre><code>${code}</code></pre>

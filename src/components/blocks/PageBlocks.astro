@@ -20,6 +20,7 @@
  * - blocks.big-stat      → KPI / Estadística grande
  */
 import StrapiBlocks from './StrapiBlocks.astro';
+import { safeHref } from '../../lib/url';
 
 interface Props {
   blocks: any[];
@@ -58,8 +59,11 @@ function embedUrl(url: string): string {
   // Vimeo
   const vi = url.match(/vimeo\.com\/(\d+)/);
   if (vi) return `https://player.vimeo.com/video/${vi[1]}`;
-  return url;
+  // Cualquier valor no reconocido se rechaza: un embed solo puede ser YouTube
+  // o Vimeo, nunca una URL arbitraria del CMS en un iframe sin sandbox.
+  return '';
 }
+
 ---
 
 <div class="pb-space">
@@ -130,11 +134,11 @@ function embedUrl(url: string): string {
     {/* ── CTA ── */}
     {block.__component === 'blocks.cta' && (
       <div class={`pb-cta pb-cta--${block.style ?? 'dark'}`}>
-        {block.headline && <h3 class="pb-cta__headline" set:html={block.headline} />}
+        {block.headline && <h3 class="pb-cta__headline">{block.headline}</h3>}
         {block.description && <p class="pb-cta__desc">{block.description}</p>}
         {block.open_modal !== false
           ? <button class="pb-cta__btn contact-modal-trigger">{block.button_text ?? 'Contactar'}</button>
-          : block.button_url && <a href={block.button_url} class="pb-cta__btn">{block.button_text ?? 'Contactar'}</a>
+          : safeHref(block.button_url) && <a href={safeHref(block.button_url)} class="pb-cta__btn">{block.button_text ?? 'Contactar'}</a>
         }
       </div>
     )}
@@ -160,13 +164,14 @@ function embedUrl(url: string): string {
       </div>
     )}
 
-    {/* ── Video ── */}
-    {block.__component === 'blocks.video' && block.url && (
+    {/* ── Video ── (solo si embedUrl reconoce un reproductor YouTube/Vimeo) */}
+    {block.__component === 'blocks.video' && embedUrl(block.url) && (
       <figure class="pb-video">
         <div class="pb-video__wrap">
           <iframe
             src={embedUrl(block.url)}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            sandbox="allow-scripts allow-same-origin allow-presentation"
+            allow="autoplay; encrypted-media; picture-in-picture"
             allowfullscreen
             loading="lazy"
             class="pb-video__iframe"
