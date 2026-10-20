@@ -1,0 +1,197 @@
+---
+/**
+ * TattooxCase.astro — Caso de éxito hardcodeado (no viene de Strapi).
+ *
+ * Replica el layout de src/pages/casos-exito/[slug].astro (hero cinemático,
+ * contenido con PageBlocks, sidebar y "más casos") con el contenido escrito
+ * aquí, en ES y CA. Las cifras salen de Semrush (oct 2025 → sep/oct 2026) y
+ * PageSpeed Insights (móvil, antes/después).
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageBlocks from '../blocks/PageBlocks.astro';
+import SuccessCard from '../blog/SuccessCard.astro';
+import { strapiClient } from '../../lib/strapi';
+import { buildAlternates } from '../../lib/i18n';
+import { TATTOOX_CASE } from '../../data/casos/tattoox';
+
+interface Props {
+  locale: 'es' | 'ca';
+}
+const { locale } = Astro.props;
+const t = TATTOOX_CASE[locale];
+const isCa = locale === 'ca';
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+const alternates = buildAlternates(TATTOOX_CASE.paths.es, TATTOOX_CASE.paths.ca, SITE_URL);
+const coverUrl = TATTOOX_CASE.cover;
+
+// Más casos de éxito (desde Strapi, como en la plantilla dinámica)
+let latestCases: any[] = [];
+try {
+  const res = await strapiClient.getCaseStudies(locale, { limit: 5 });
+  latestCases = (res.data ?? []).map((i: any) => i.attributes ?? i).filter((c: any) => c.isPublic).slice(0, 4);
+} catch {}
+
+const ui = isCa ? {
+  back: 'TORNAR A CASOS', backHref: '/ca/casos-exit/',
+  company: 'Empresa', goal: 'Objectiu complert',
+  finalTitleA: 'Vols que la teva empresa ', finalTitleB: 'creixi igual', finalTitleC: '?',
+  finalText: "Explica'ns què tens en ment i quines necessitats tens. Nosaltres ens encarreguem de la resta.",
+  finalBtn: 'Començar Projecte',
+  sideBadge: 'AUDITORIA GRATUÏTA', sideTitle: 'Auditoria SEO per a la teva web',
+  sideText: 'Analitzem 5 punts clau de la teva web perquè comencis a facturar més.', sideBtn: 'SOL·LICITAR ARA',
+  servicesTitle: 'Serveis de marketing',
+  services: [
+    { label: 'Posicionament SEO', href: '/ca/agencia-seo-per-pimes/' },
+    { label: 'Google Ads', href: '/ca/agencia-sem-per-pimes/' },
+    { label: 'Disseny de pàgines web', href: '/ca/disseny-web-per-pimes/' },
+    { label: 'Posicionament GEO en IA', href: '/ca/agencia-geo-per-pimes/' },
+  ],
+  more: "Més casos d'èxit",
+} : {
+  back: 'VOLVER A CASOS', backHref: '/casos-exito/',
+  company: 'Empresa', goal: 'Objetivo cumplido',
+  finalTitleA: '¿Quieres que tu empresa ', finalTitleB: 'crezca igual', finalTitleC: '?',
+  finalText: 'Cuéntanos qué tienes en mente y qué necesidades tienes. Nosotros nos encargamos del resto.',
+  finalBtn: 'Empezar Proyecto',
+  sideBadge: 'AUDITORÍA GRATUITA', sideTitle: 'Auditoría SEO para tu web',
+  sideText: 'Analizamos 5 puntos clave de tu web para que empieces a facturar más.', sideBtn: 'SOLICITAR AHORA',
+  servicesTitle: 'Servicios de marketing',
+  services: [
+    { label: 'Posicionamiento SEO', href: '/agencia-seo-para-pymes/' },
+    { label: 'Google Ads', href: '/agencia-sem-para-pymes/' },
+    { label: 'Diseño de páginas web', href: '/diseno-web-para-pymes/' },
+    { label: 'Posicionamiento GEO en IA', href: '/agencia-geo-para-pymes/' },
+  ],
+  more: 'Más casos de éxito',
+};
+---
+
+<BaseLayout
+  title={t.metaTitle}
+  description={t.metaDescription}
+  ogDescription={t.metaDescription}
+  ogImage={`${SITE_URL}${coverUrl}`}
+  locale={locale}
+  alternates={alternates}
+>
+  <!-- Cinematic Hero -->
+  <header class="relative min-h-[70vh] flex items-end pb-20 px-6 sm:px-12 overflow-hidden bg-black">
+    <div class="absolute inset-0 z-0">
+      <img
+        src={coverUrl}
+        alt={t.title} title={t.title}
+        class="w-full h-full object-cover scale-105 brightness-50 contrast-[1.1] saturate-[0.8]"
+        width="1155" height="333"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/20"></div>
+    </div>
+
+    <div class="max-w-5xl mx-auto w-full relative z-10 animate-fade-in-up">
+      <div class="flex flex-wrap items-center gap-4 mb-8">
+        <a href={ui.backHref} class="text-white/60 hover:text-white text-xs font-bold uppercase tracking-widest flex items-center gap-2 transition-colors">
+          ← {ui.back}
+        </a>
+        <span class="w-1 h-1 bg-white/30 rounded-full"></span>
+        {t.categories.map((cat: string) => (
+          <span class="px-3 py-1 text-[10px] tracking-widest font-black uppercase bg-accent text-white rounded-lg">{cat}</span>
+        ))}
+        <span class="text-white/60 text-xs font-medium">{t.date}</span>
+      </div>
+
+      <h1 class="text-5xl md:text-8xl font-black mb-10 leading-[0.95] tracking-tighter text-white max-w-4xl">
+        {t.title}
+      </h1>
+
+      <div class="flex flex-wrap items-center gap-8 border-t border-white/10 pt-10">
+        <div class="flex flex-col">
+          <span class="text-white/40 text-[10px] font-black uppercase tracking-widest mb-1">{ui.company}</span>
+          <span class="text-white font-bold text-xl">Tattoox</span>
+        </div>
+        <div class="flex flex-col max-w-md">
+          <span class="text-white/40 text-[10px] font-black uppercase tracking-widest mb-1">{ui.goal}</span>
+          <p class="text-white/80 font-light text-sm italic">{t.description}</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="py-24 px-6 sm:px-12 bg-white relative">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_350px] gap-20">
+
+      <article class="max-w-none">
+        <PageBlocks blocks={t.blocks} />
+
+        <!-- Final CTA -->
+        <div class="reveal mt-32 relative group overflow-hidden p-8 sm:p-14 rounded-[3rem] bg-zinc-950 border border-white/10 transition-all duration-700 hover:border-accent/40 hover:shadow-[0_0_80px_-20px_rgba(59,130,246,0.3)]">
+          <div class="absolute -top-24 -right-24 w-80 h-80 bg-accent/20 rounded-full blur-[100px] group-hover:bg-accent/30 transition-all duration-1000"></div>
+          <div class="absolute -bottom-24 -left-24 w-80 h-80 bg-purple-600/10 rounded-full blur-[100px] group-hover:bg-purple-600/20 transition-all duration-1000"></div>
+          <div class="relative z-10 flex flex-col items-center text-center gap-6 md:gap-10">
+            <div class="w-full">
+              <h4 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-white mb-4 leading-none tracking-tighter uppercase transition-transform duration-500 group-hover:scale-[1.01]">
+                {ui.finalTitleA}<span class="text-mktg-gradient">{ui.finalTitleB}</span>{ui.finalTitleC}
+              </h4>
+              <p class="text-white/60 font-light text-base md:text-lg max-w-2xl mx-auto">{ui.finalText}</p>
+            </div>
+            <div class="mt-4">
+              <button class="contact-modal-trigger relative group/btn flex items-center gap-6 px-14 py-7 bg-accent text-white rounded-3xl font-black uppercase tracking-widest text-[13px] overflow-hidden transition-all duration-500 hover:scale-105 hover:bg-white hover:text-black shadow-[0_20px_60px_rgba(59,130,246,0.3)] hover:shadow-[0_30px_80px_rgba(255,255,255,0.2)]">
+                <span class="relative z-10">{ui.finalBtn}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="relative z-10 transition-transform duration-500 group-hover/btn:translate-x-3"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover/btn:animate-shine"></div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <aside>
+        <div class="sticky top-32 flex flex-col gap-6">
+          <div class="bg-black p-8 rounded-[2rem] text-white">
+            <span class="inline-block px-3 py-1 bg-accent text-[9px] font-black tracking-widest rounded-full mb-5">{ui.sideBadge}</span>
+            <div class="text-2xl font-black mb-3 leading-tight uppercase">{ui.sideTitle}</div>
+            <p class="text-white/50 font-light mb-7 text-sm leading-relaxed">{ui.sideText}</p>
+            <button class="contact-modal-trigger block w-full text-center py-4 bg-white text-black text-[10px] font-black tracking-widest rounded-xl hover:bg-accent hover:text-white transition-all cursor-pointer">
+              {ui.sideBtn}
+            </button>
+          </div>
+
+          <div class="rounded-[2rem] border border-zinc-100 bg-zinc-50 p-8">
+            <div class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-5">{ui.servicesTitle}</div>
+            <ul class="flex flex-col gap-0">
+              {ui.services.map(s => (
+                <li class="border-b border-zinc-200 last:border-0">
+                  <a href={s.href} class="group flex items-center justify-between py-3">
+                    <span class="text-sm font-bold text-zinc-700 group-hover:text-accent transition-colors uppercase tracking-tight">{s.label}</span>
+                    <span class="text-accent text-base font-black translate-x-0 group-hover:translate-x-1 transition-transform">→</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  {latestCases.length > 0 && (
+    <section class="py-16 px-6 sm:px-12 bg-zinc-50 border-t border-zinc-100">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-8">{ui.more}</div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {latestCases.map((cs: any) => (
+            <SuccessCard caseStudy={cs} locale={locale} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .animate-fade-in-up { animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+  @keyframes fadeInUp { from { opacity: 1; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes shine { 100% { transform: translateX(100%); } }
+  .animate-shine { animation: shine 0.8s ease-in-out; }
+</style>

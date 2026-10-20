@@ -5,6 +5,7 @@ import SuccessCard from '../../../components/blog/SuccessCard.astro';
 import CategoryTabs from '../../../components/blog/CategoryTabs.astro';
 import { strapiClient } from '../../../lib/strapi';
 import { buildAlternates } from '../../../lib/i18n';
+import { TATTOOX_CASE } from '../../../data/casos/tattoox';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/casos-exito/', '/ca/casos-exit/', SITE_URL);
@@ -26,6 +27,20 @@ try {
 } catch (e) {
   console.error("DEBUG: Casos CA index error:", e);
 }
+// Caso de éxito hardcodeado (Tattoox): no está en Strapi, se añade a mano al
+// principio del listado con la misma forma que una entrada del CMS.
+cases = [
+  {
+    slug: TATTOOX_CASE.slug,
+    title: TATTOOX_CASE.ca.cardTitle,
+    description: TATTOOX_CASE.ca.cardDescription,
+    company: 'Tattoox',
+    isPublic: true,
+    categories: [{ name: 'SEO', slug: TATTOOX_CASE.categorySlug }],
+    cover_image: { url: SITE_URL + TATTOOX_CASE.cover, alternativeText: TATTOOX_CASE.ca.cardTitle },
+  },
+  ...cases,
+];
 ---
 
 <BaseLayout
