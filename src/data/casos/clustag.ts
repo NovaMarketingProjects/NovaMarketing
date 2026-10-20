@@ -17,8 +17,7 @@
  *    CLS 0,037, SI 2,9 s). Después (escritorio): 98 (FCP 0,5 s, LCP 1,1 s,
  *    TBT 40 ms, CLS 0,041, SI 1,1 s). Accesibilidad 91, prácticas 96, SEO 92.
  *
- * Leads: solo "aumento significativo", sin cifra. La portada es provisional
- * (gráfica de Semrush) hasta recibir una captura de la home de clustag.
+ * Leads: solo "aumento significativo", sin cifra.
  */
 
 // Imágenes de los bloques: ruta relativa al sitio con local: true, para que
@@ -30,7 +29,7 @@ const IMG = {
   psDespues: '/casos/clustag/pagespeed-despues-clustag-escritorio.webp',
 };
 // Portada (hero, tarjeta del listado y og:image): ruta relativa al sitio.
-const COVER = '/casos/clustag/trafico-y-keywords-clustag-semrush.webp';
+const COVER = '/casos/clustag/clustag-web.webp';
 
 const R = (v: string) => `<td style="color:#b91c1c;background:#fef2f2;font-weight:600">${v}</td>`;
 const G = (v: string) => `<td style="color:#15803d;background:#f0fdf4;font-weight:800">${v}</td>`;
@@ -62,7 +61,7 @@ const PS_CA: [string, string, string][] = [
 export const CLUSTAG_CASE = {
   paths: { es: '/casos-exito/clustag/', ca: '/ca/casos-exit/clustag/' },
   cover: COVER,
-  coverSize: { w: 1122, h: 555 },
+  coverSize: { w: 1893, h: 907 },
   slug: 'clustag',
   company: 'Clustag',
   categorySlug: 'seo',
@@ -87,7 +86,10 @@ export const CLUSTAG_CASE = {
     categories: ['SEO', 'Consultoría SEO'],
     date: 'Octubre 2026',
     facts: {
-      sector: { label: 'Industria y B2B', href: '/agencia-industrial/' },
+      sectors: [
+        { label: 'Empresas industriales', href: '/agencia-industrial/' },
+        { label: 'B2B', href: '/agencia-b2b/' },
+      ],
       services: [
         { label: 'Posicionamiento SEO', href: '/agencia-seo-para-pymes/' },
         { label: 'Optimización web', href: '/diseno-web-para-pymes/' },
@@ -268,7 +270,10 @@ ${psTable(['Mejora del Page Speed (escritorio)', 'Antes', 'Después'], PS_ES)}
     categories: ['SEO', 'Consultoria SEO'],
     date: 'Octubre 2026',
     facts: {
-      sector: { label: 'Indústria i B2B', href: '/ca/agencia-industrial/' },
+      sectors: [
+        { label: 'Empreses industrials', href: '/ca/agencia-industrial/' },
+        { label: 'B2B', href: '/ca/agencia-b2b/' },
+      ],
       services: [
         { label: 'Posicionament SEO', href: '/ca/agencia-seo-per-pimes/' },
         { label: 'Optimització web', href: '/ca/disseny-web-per-pimes/' },
