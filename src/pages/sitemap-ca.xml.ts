@@ -162,7 +162,7 @@ export const GET: APIRoute = async () => {
     const res = await strapiClient.getCaseStudies('ca');
     for (const item of (res.data ?? []) as any[]) {
       const cs = item.attributes ?? item;
-      if (!cs.slug || !cs.isPublic || !cs.publishedAt) continue;
+      if (!cs.slug || !cs.isPublic || !cs.publishedAt || cs._static) continue;
       entries.push(entry(`/ca/casos-exit/${cs.slug}/`, cs.publishedAt));
     }
   } catch {}

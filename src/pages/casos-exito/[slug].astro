@@ -18,7 +18,8 @@ export async function getStaticPaths() {
       strapiClient.getCaseStudies('ca'),
     ]);
 
-    const cases = casesRes.data.map(i => i.attributes ?? i).filter(c => c.isPublic);
+    // Los casos con página estática propia no se generan desde esta plantilla.
+    const cases = casesRes.data.map(i => i.attributes ?? i).filter(c => c.isPublic && !c._static);
 
     // Mapa documentId → slug CA
     const caSlugMap: Record<string, string> = {};

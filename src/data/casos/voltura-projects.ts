@@ -68,6 +68,9 @@ export const VOLTURA_PROJECTS_CASE = {
   coverSize: { w: 1901, h: 907 },
   slug: 'voltura-projects',
   company: 'Voltura Projects',
+  // Entrada equivalente en Strapi (no pública): sus datos se sustituyen por
+  // estos en todo el sitio (ver applyStaticOverrides en src/data/casos/index.ts).
+  strapiSlugs: { es: 'caso-de-exito-voltura-projects', ca: 'cas-d-exit-voltura-projects' },
   categorySlug: 'diseno-web',
   // Filtros del listado por idioma (el primero es la etiqueta de la tarjeta).
   listingCategories: {

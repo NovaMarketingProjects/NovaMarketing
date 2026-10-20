@@ -13,6 +13,40 @@ import { VOLTURA_PROJECTS_CASE } from './voltura-projects';
 
 export const STATIC_CASES = [VOLTURA_PROJECTS_CASE, PALACIO_DEL_BEBE_CASE, TATTOOX_CASE];
 
+/**
+ * Sustituye, en la respuesta de Strapi, las entradas que tienen un caso
+ * estático equivalente (por `strapiSlugs`) por los datos del caso estático:
+ * slug, título, descripción, portada y isPublic=true, marcadas con
+ * `_static: true`. Así las 200+ páginas que listan casos desde Strapi
+ * (sectores, servicios, home, landings) muestran el texto correcto y enlazan a
+ * la página estática. Los listados, sitemaps y rutas dinámicas que ya inyectan
+ * los casos estáticos por su cuenta deben descartar las entradas `_static`.
+ */
+export function applyStaticOverrides<T extends { attributes?: any }>(items: T[], locale: 'es' | 'ca'): T[] {
+  const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
+  return items.map((item: any) => {
+    const c = item?.attributes ?? item;
+    if (!c?.slug) return item;
+    const sc: any = STATIC_CASES.find((s: any) => s.strapiSlugs?.[locale] === c.slug);
+    if (!sc) return item;
+    const t = sc[locale];
+    const merged = {
+      ...c,
+      slug: sc.slug,
+      title: t.cardTitle,
+      description: t.cardDescription,
+      company: sc.company,
+      isPublic: true,
+      cover_image: { url: siteUrl + sc.cover, alternativeText: t.cardTitle },
+      // Categorías del caso estático (si las define) para que las páginas de
+      // sector lo recojan aunque la entrada de Strapi tenga otras.
+      categories: resolveCategories(sc.listingCategories, locale) ?? c.categories,
+      _static: true,
+    };
+    return item?.attributes ? { ...item, attributes: merged } : merged;
+  });
+}
+
 function resolveCategories(lc: any, locale: 'es' | 'ca') {
   if (!lc) return undefined;
   return Array.isArray(lc) ? lc : lc[locale];

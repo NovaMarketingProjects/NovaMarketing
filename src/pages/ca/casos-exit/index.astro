@@ -18,7 +18,7 @@ try {
   const casesRes = await strapiClient.getCaseStudies('ca');
   cases = casesRes.data
     .map(i => i.attributes ?? i)
-    .filter(c => c.isPublic);
+    .filter(c => c.isPublic && !c._static);
   
   const categoriesRes = await strapiClient.getCaseStudyCategories('ca');
   const allCategories = categoriesRes.data.map(i => i.attributes ?? i);

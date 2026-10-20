@@ -1,4 +1,5 @@
 import { type Locale } from './i18n';
+import { applyStaticOverrides } from '../data/casos';
 const STRAPI_URL = import.meta.env.STRAPI_URL || 'http://localhost:1337';
 
 // Mapeo de locales internos → locales reales en Strapi
@@ -257,7 +258,9 @@ export const strapiClient = {
     let query = `/api/articles?populate=*&locale=${STRAPI_LOCALE[locale]}&publicationState=live&sort=publishedAt:desc`;
     if (options?.category) query += `&filters[categories][slug][$eq]=${options.category}`;
     if (options?.limit) query += `&pagination[pageSize]=${options.limit}`;
-    return strapiRequest(query);
+    // Las entradas con caso estático equivalente salen con los datos del caso
+    // estático (texto correcto, enlace a la página hardcodeada).
+    return strapiRequest<StrapiResponse<CaseStudy[]>>(query).then((res: any) => ({ ...res, data: applyStaticOverrides(res?.data ?? [], locale) }));
   },
 
   getBlogPost: (slug: string, locale: Locale = 'es'): Promise<StrapiResponse<BlogPost[]>> =>
@@ -271,7 +274,9 @@ export const strapiClient = {
     let query = `/api/case-studies?populate=*&locale=${STRAPI_LOCALE[locale]}&publicationState=live&sort=publishedAt:desc`;
     if (options?.category) query += `&filters[categories][slug][$eq]=${options.category}`;
     if (options?.limit) query += `&pagination[pageSize]=${options.limit}`;
-    return strapiRequest(query);
+    // Las entradas con caso estático equivalente salen con los datos del caso
+    // estático (texto correcto, enlace a la página hardcodeada).
+    return strapiRequest<StrapiResponse<CaseStudy[]>>(query).then((res: any) => ({ ...res, data: applyStaticOverrides(res?.data ?? [], locale) }));
   },
 
   getCaseStudy: (slug: string, locale: Locale = 'es'): Promise<StrapiResponse<CaseStudy[]>> =>

@@ -19,7 +19,7 @@ try {
   // Solo mostramos los públicos
   cases = casesRes.data
     .map(i => i.attributes ?? i)
-    .filter(c => c.isPublic);
+    .filter(c => c.isPublic && !c._static);
   
   const categoriesRes = await strapiClient.getCaseStudyCategories('es');
   const allCategories = categoriesRes.data.map(i => i.attributes ?? i);

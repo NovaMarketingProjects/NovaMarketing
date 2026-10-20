@@ -21,7 +21,7 @@ const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 let cmsCases: any[] = [];
 try {
   const res = await strapiClient.getCaseStudies(locale, { limit: 100 });
-  cmsCases = (res.data ?? []).map((i: any) => i.attributes ?? i).filter((c: any) => c.isPublic && c.slug);
+  cmsCases = (res.data ?? []).map((i: any) => i.attributes ?? i).filter((c: any) => c.isPublic && c.slug && !c._static);
 } catch {}
 
 const cases = [...staticCaseCards(locale, SITE_URL), ...cmsCases].filter((c) => c.slug !== currentSlug);

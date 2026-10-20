@@ -30,6 +30,9 @@ export const PALACIO_DEL_BEBE_CASE = {
   coverSize: { w: 1895, h: 834 },
   slug: 'palacio-del-bebe',
   company: 'Palacio del Bebé',
+  // Entrada equivalente en Strapi (no pública): sus datos se sustituyen por
+  // estos en todo el sitio (ver applyStaticOverrides en src/data/casos/index.ts).
+  strapiSlugs: { es: 'caso-de-exito-palacio-del-bebe', ca: 'cas-d-exit-palacio-del-bebe' },
   categorySlug: 'seo',
   // Filtros del listado en los que aparece (el primero es la etiqueta de la tarjeta).
   listingCategories: [
