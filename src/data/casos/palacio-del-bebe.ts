@@ -48,6 +48,30 @@ export const PALACIO_DEL_BEBE_CASE = {
       'Convertir a una tienda de puericultura de Barcelona, con tienda física y ecommerce, en referente orgánico de su sector trabajando sobre una web desarrollada por un tercero. Nov 2025 – oct 2026, proyecto en curso.',
     categories: ['SEO', 'E-commerce', 'Google Ads', 'SEO Local'],
     date: 'Octubre 2026',
+    // Ficha bajo el hero: sector (con enlace si tenemos página de sector),
+    // servicios trabajados, hito y tecnología.
+    facts: {
+          "sector": {
+                "label": "Ecommerce",
+                "href": "/agencia-ecommerce/"
+          },
+          "services": [
+                {
+                      "label": "Posicionamiento SEO",
+                      "href": "/agencia-seo-para-pymes/"
+                },
+                {
+                      "label": "Google Ads y Shopping",
+                      "href": "/agencia-sem-para-pymes/"
+                },
+                {
+                      "label": "Optimización web",
+                      "href": "/diseno-web-para-pymes/"
+                }
+          ],
+          "milestone": "+47 % de tráfico orgánico y posición 1 en las búsquedas clave del sector",
+          "tech": "Ecommerce a medida (desarrollo externo)"
+    },
     cardTitle: 'Caso de éxito: Palacio del Bebé +47% de tráfico orgánico',
     cardDescription:
       'Tienda de puericultura en Barcelona con ecommerce. SEO técnico, categorías con contenido y Shopping: +47 % de tráfico orgánico y posición 1 en las búsquedas clave.',
@@ -219,6 +243,30 @@ export const PALACIO_DEL_BEBE_CASE = {
       "Convertir una botiga de puericultura de Barcelona, amb botiga física i ecommerce, en referent orgànic del seu sector treballant sobre una web desenvolupada per un tercer. Nov 2025 – oct 2026, projecte en curs.",
     categories: ['SEO', 'E-commerce', 'Google Ads', 'SEO Local'],
     date: 'Octubre 2026',
+    // Ficha bajo el hero: sector (con enlace si tenemos página de sector),
+    // servicios trabajados, hito y tecnología.
+    facts: {
+          "sector": {
+                "label": "Ecommerce",
+                "href": "/ca/agencia-ecommerce/"
+          },
+          "services": [
+                {
+                      "label": "Posicionament SEO",
+                      "href": "/ca/agencia-seo-per-pimes/"
+                },
+                {
+                      "label": "Google Ads i Shopping",
+                      "href": "/ca/agencia-sem-per-pimes/"
+                },
+                {
+                      "label": "Optimització web",
+                      "href": "/ca/disseny-web-per-pimes/"
+                }
+          ],
+          "milestone": "+47 % de trànsit orgànic i posició 1 a les cerques clau del sector",
+          "tech": "Ecommerce a mida (desenvolupament extern)"
+    },
     cardTitle: "Cas d'èxit: Palacio del Bebé +47% de trànsit orgànic",
     cardDescription:
       'Botiga de puericultura a Barcelona amb ecommerce. SEO tècnic, categories amb contingut i Shopping: +47 % de trànsit orgànic i posició 1 a les cerques clau.',

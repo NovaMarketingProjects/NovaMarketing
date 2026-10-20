@@ -9,8 +9,14 @@
  */
 import { TATTOOX_CASE } from './tattoox';
 import { PALACIO_DEL_BEBE_CASE } from './palacio-del-bebe';
+import { VOLTURA_PROJECTS_CASE } from './voltura-projects';
 
-export const STATIC_CASES = [PALACIO_DEL_BEBE_CASE, TATTOOX_CASE];
+export const STATIC_CASES = [VOLTURA_PROJECTS_CASE, PALACIO_DEL_BEBE_CASE, TATTOOX_CASE];
+
+function resolveCategories(lc: any, locale: 'es' | 'ca') {
+  if (!lc) return undefined;
+  return Array.isArray(lc) ? lc : lc[locale];
+}
 
 /** Tarjetas con la misma forma que una entrada de Strapi, para SuccessCard. */
 export function staticCaseCards(locale: 'es' | 'ca', siteUrl: string) {
@@ -22,7 +28,9 @@ export function staticCaseCards(locale: 'es' | 'ca', siteUrl: string) {
       description: t.cardDescription,
       company: c.company,
       isPublic: true,
-      categories: (c as any).listingCategories ?? [{ name: 'SEO', slug: c.categorySlug }],
+      // listingCategories puede ser un array (mismos slugs en ES y CA) o un
+      // objeto { es, ca } cuando los slugs de categoría cambian por idioma.
+      categories: resolveCategories((c as any).listingCategories, locale) ?? [{ name: 'SEO', slug: c.categorySlug }],
       // URL absoluta: getStrapiImageUrl antepone la URL del CMS a las relativas.
       cover_image: { url: siteUrl + c.cover, alternativeText: t.cardTitle },
     };

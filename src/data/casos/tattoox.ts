@@ -51,6 +51,29 @@ export const TATTOOX_CASE = {
       'Multiplicar la visibilidad orgánica de una escuela online de tatuaje con una web WordPress lenta y con problemas técnicos. Oct 2025 – oct 2026, proyecto en curso.',
     categories: ['SEO', 'GEO'],
     date: 'Octubre 2026',
+    // Ficha bajo el hero: sector (con enlace si tenemos página de sector),
+    // servicios trabajados, hito y tecnología.
+    facts: {
+          "sector": {
+                "label": "Formación online"
+          },
+          "services": [
+                {
+                      "label": "Posicionamiento SEO",
+                      "href": "/agencia-seo-para-pymes/"
+                },
+                {
+                      "label": "Posicionamiento GEO",
+                      "href": "/agencia-geo-para-pymes/"
+                },
+                {
+                      "label": "Optimización web",
+                      "href": "/diseno-web-para-pymes/"
+                }
+          ],
+          "milestone": "+156 % de tráfico orgánico y x2,4 keywords en Top 3 en 12 meses",
+          "tech": "WordPress"
+    },
     cardTitle: 'Caso de éxito: Tattoox +156% de tráfico orgánico',
     cardDescription:
       'Escuela online de tatuaje. Velocidad, hreflang, indexación, contenido y GEO: de 158.000 a 404.000 visitas al mes.',
@@ -258,6 +281,29 @@ export const TATTOOX_CASE = {
       "Multiplicar la visibilitat orgànica d'una escola online de tatuatge amb una web WordPress lenta i amb problemes tècnics. Oct 2025 – oct 2026, projecte en curs.",
     categories: ['SEO', 'GEO'],
     date: 'Octubre 2026',
+    // Ficha bajo el hero: sector (con enlace si tenemos página de sector),
+    // servicios trabajados, hito y tecnología.
+    facts: {
+          "sector": {
+                "label": "Formació online"
+          },
+          "services": [
+                {
+                      "label": "Posicionament SEO",
+                      "href": "/ca/agencia-seo-per-pimes/"
+                },
+                {
+                      "label": "Posicionament GEO",
+                      "href": "/ca/agencia-geo-per-pimes/"
+                },
+                {
+                      "label": "Optimització web",
+                      "href": "/ca/disseny-web-per-pimes/"
+                }
+          ],
+          "milestone": "+156 % de trànsit orgànic i x2,4 keywords al Top 3 en 12 mesos",
+          "tech": "WordPress"
+    },
     cardTitle: "Cas d'èxit: Tattoox +156% de trànsit orgànic",
     cardDescription:
       'Escola online de tatuatge. Velocitat, hreflang, indexació, contingut i GEO: de 158.000 a 404.000 visites al mes.',
