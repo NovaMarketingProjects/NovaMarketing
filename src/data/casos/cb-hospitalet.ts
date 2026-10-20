@@ -170,7 +170,7 @@ export const CB_HOSPITALET_CASE = {
       },
       {
         __component: 'blocks.image',
-        image: { url: IMG.galeria, alternativeText: 'Galería de fotos de un partido del torneo en la web del CB L'Hospitalet' },
+        image: { url: IMG.galeria, alternativeText: "Galería de fotos de un partido del torneo en la web del CB L'Hospitalet" },
         caption: 'Cada partido tiene su galería de fotos, que se publica el mismo día.',
       },
       {
