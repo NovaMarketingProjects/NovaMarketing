@@ -38,6 +38,8 @@ export const TATTOOX_CASE = {
   paths: { es: '/casos-exito/tattoox/', ca: '/ca/casos-exit/tattoox/' },
   cover: COVER,
   slug: 'tattoox',
+  company: 'Tattoox',
+  coverSize: { w: 1899, h: 858 },
   categorySlug: 'seo',
 
   es: {

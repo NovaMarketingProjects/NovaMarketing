@@ -1,29 +1,28 @@
 ---
 /**
- * TattooxCase.astro — Caso de éxito hardcodeado (no viene de Strapi).
+ * StaticCase.astro — Caso de éxito hardcodeado (no viene de Strapi).
  *
  * Replica el layout de src/pages/casos-exito/[slug].astro (hero cinemático,
  * contenido con PageBlocks, sidebar y "más casos") con el contenido escrito
- * aquí, en ES y CA. Las cifras salen de Semrush (oct 2025 → sep/oct 2026) y
- * PageSpeed Insights (móvil, antes/después).
+ * en un archivo de src/data/casos/*.ts (ES y CA) que se pasa como prop `data`.
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageBlocks from '../blocks/PageBlocks.astro';
 import SuccessCard from '../blog/SuccessCard.astro';
 import { strapiClient } from '../../lib/strapi';
 import { buildAlternates } from '../../lib/i18n';
-import { TATTOOX_CASE } from '../../data/casos/tattoox';
 
 interface Props {
+  data: any;
   locale: 'es' | 'ca';
 }
-const { locale } = Astro.props;
-const t = TATTOOX_CASE[locale];
+const { data, locale } = Astro.props;
+const t = data[locale];
 const isCa = locale === 'ca';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
-const alternates = buildAlternates(TATTOOX_CASE.paths.es, TATTOOX_CASE.paths.ca, SITE_URL);
-const coverUrl = TATTOOX_CASE.cover;
+const alternates = buildAlternates(data.paths.es, data.paths.ca, SITE_URL);
+const coverUrl = data.cover;
 
 // Más casos de éxito (desde Strapi, como en la plantilla dinámica)
 let latestCases: any[] = [];
@@ -82,7 +81,7 @@ const ui = isCa ? {
         src={coverUrl}
         alt={t.title} title={t.title}
         class="w-full h-full object-cover scale-105 brightness-50 contrast-[1.1] saturate-[0.8]"
-        width="1899" height="858"
+        width={data.coverSize.w} height={data.coverSize.h}
       />
       <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/20"></div>
     </div>
@@ -106,7 +105,7 @@ const ui = isCa ? {
       <div class="flex flex-wrap items-center gap-8 border-t border-white/10 pt-10">
         <div class="flex flex-col">
           <span class="text-white/40 text-[10px] font-black uppercase tracking-widest mb-1">{ui.company}</span>
-          <span class="text-white font-bold text-xl">Tattoox</span>
+          <span class="text-white font-bold text-xl">{data.company}</span>
         </div>
         <div class="flex flex-col max-w-md">
           <span class="text-white/40 text-[10px] font-black uppercase tracking-widest mb-1">{ui.goal}</span>

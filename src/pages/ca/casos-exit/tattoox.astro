@@ -1,5 +1,6 @@
 ---
 // Cas d'èxit hardcodejat (no ve de Strapi). Contingut a src/data/casos/tattoox.ts
-import TattooxCase from '../../../components/casos/TattooxCase.astro';
+import StaticCase from '../../../components/casos/StaticCase.astro';
+import { TATTOOX_CASE } from '../../../data/casos/tattoox';
 ---
-<TattooxCase locale="ca" />
+<StaticCase data={TATTOOX_CASE} locale="ca" />
