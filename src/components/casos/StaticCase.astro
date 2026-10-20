@@ -112,30 +112,30 @@ const ui = isCa ? {
 
   <!-- Ficha del proyecto: sector, servicios, hito y tecnología -->
   {t.facts && (
-    <section class="bg-zinc-50 px-6 sm:px-12 pb-4">
-      <div class="max-w-7xl mx-auto relative z-20 -mt-10">
-        <div class="bg-white border border-zinc-200 rounded-[2rem] shadow-[0_20px_60px_-30px_rgba(0,0,0,0.35)] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 divide-zinc-100 lg:divide-x">
-          <div class="p-7 sm:p-8">
-            <span class="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.25em] text-accent mb-3"><span class="w-5 h-[3px] bg-accent rounded-full"></span>{ui.factSector}</span>
+    <section class="bg-white px-6 sm:px-12 pt-12">
+      <div class="max-w-7xl mx-auto">
+        <div class="rounded-[2rem] border border-zinc-100 bg-zinc-50 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 divide-zinc-200 lg:divide-x">
+          <div class="p-8">
+            <span class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-3 block">{ui.factSector}</span>
             {t.facts.sector.href
-              ? <a href={t.facts.sector.href} class="text-base sm:text-lg font-black leading-tight text-zinc-900 hover:text-accent transition-colors uppercase tracking-tight">{t.facts.sector.label} <span class="text-accent">→</span></a>
-              : <span class="text-base sm:text-lg font-black leading-tight text-zinc-900 uppercase tracking-tight">{t.facts.sector.label}</span>}
+              ? <a href={t.facts.sector.href} class="group inline-flex items-center gap-2 text-sm font-bold text-zinc-800 uppercase tracking-tight hover:text-accent transition-colors">{t.facts.sector.label}<span class="text-accent translate-x-0 group-hover:translate-x-1 transition-transform">→</span></a>
+              : <span class="text-sm font-bold text-zinc-800 uppercase tracking-tight">{t.facts.sector.label}</span>}
           </div>
-          <div class="p-7 sm:p-8">
-            <span class="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.25em] text-accent mb-3"><span class="w-5 h-[3px] bg-accent rounded-full"></span>{ui.factServices}</span>
+          <div class="p-8">
+            <span class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-3 block">{ui.factServices}</span>
             <ul class="flex flex-col gap-1.5">
               {t.facts.services.map((s: any) => (
-                <li><a href={s.href} class="group inline-flex items-center gap-2 text-sm font-bold text-zinc-800 hover:text-accent transition-colors"><span class="w-1.5 h-1.5 rounded-full bg-accent/70 group-hover:bg-accent"></span>{s.label}</a></li>
+                <li><a href={s.href} class="group inline-flex items-center gap-2 text-sm font-bold text-zinc-800 uppercase tracking-tight hover:text-accent transition-colors">{s.label}<span class="text-accent translate-x-0 group-hover:translate-x-1 transition-transform">→</span></a></li>
               ))}
             </ul>
           </div>
-          <div class="p-7 sm:p-8">
-            <span class="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.25em] text-accent mb-3"><span class="w-5 h-[3px] bg-accent rounded-full"></span>{ui.factMilestone}</span>
-            <span class="text-base sm:text-lg font-black leading-tight text-zinc-900 tracking-tight">{t.facts.milestone}</span>
+          <div class="p-8">
+            <span class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-3 block">{ui.factMilestone}</span>
+            <span class="text-sm font-bold text-zinc-800 leading-relaxed">{t.facts.milestone}</span>
           </div>
-          <div class="p-7 sm:p-8">
-            <span class="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.25em] text-accent mb-3"><span class="w-5 h-[3px] bg-accent rounded-full"></span>{ui.factTech}</span>
-            <span class="text-sm font-bold text-zinc-800 leading-relaxed">{t.facts.tech}</span>
+          <div class="p-8">
+            <span class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-3 block">{ui.factTech}</span>
+            <span class="text-sm font-light text-zinc-600 leading-relaxed">{t.facts.tech}</span>
           </div>
         </div>
       </div>
