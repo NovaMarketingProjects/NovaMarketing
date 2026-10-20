@@ -258,9 +258,7 @@ export const strapiClient = {
     let query = `/api/articles?populate=*&locale=${STRAPI_LOCALE[locale]}&publicationState=live&sort=publishedAt:desc`;
     if (options?.category) query += `&filters[categories][slug][$eq]=${options.category}`;
     if (options?.limit) query += `&pagination[pageSize]=${options.limit}`;
-    // Las entradas con caso estático equivalente salen con los datos del caso
-    // estático (texto correcto, enlace a la página hardcodeada).
-    return strapiRequest<StrapiResponse<CaseStudy[]>>(query).then((res: any) => ({ ...res, data: applyStaticOverrides(res?.data ?? [], locale) }));
+    return strapiRequest(query);
   },
 
   getBlogPost: (slug: string, locale: Locale = 'es'): Promise<StrapiResponse<BlogPost[]>> =>
