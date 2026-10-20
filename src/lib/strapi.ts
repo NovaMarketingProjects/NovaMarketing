@@ -222,6 +222,8 @@ async function strapiRequest<T>(path: string): Promise<T> {
 // Helper para obtener la URL completa de una imagen (compatible con Strapi v4 y v5)
 export function getStrapiImageUrl(image?: any): string | undefined {
   if (!image) return undefined;
+  // Imágenes del propio sitio (casos hardcodeados): ruta relativa, sin prefijo del CMS.
+  if (image.local && typeof image.url === 'string') return image.url;
   // Strapi v4: { data: { attributes: { url } } }
   const v4url = image?.data?.attributes?.url;
   if (v4url) return v4url.startsWith('http') ? v4url : `${STRAPI_URL}${v4url}`;

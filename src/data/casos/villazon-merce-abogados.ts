@@ -34,6 +34,9 @@ const IMG = {
   posiciones: '/casos/villazon-merce-abogados/posiciones-villazon-merce-semrush.webp',
   psEscritorio: '/casos/villazon-merce-abogados/pagespeed-escritorio-villazon-merce.webp',
   psMovil: '/casos/villazon-merce-abogados/pagespeed-movil-villazon-merce.webp',
+  delito: '/casos/villazon-merce-abogados/pagina-delito-lesiones-villazon-merce.webp',
+  subtipos: '/casos/villazon-merce-abogados/subtipos-delito-lesiones-villazon-merce.webp',
+  blog: '/casos/villazon-merce-abogados/articulo-blog-villazon-merce.webp',
 };
 // Portada (hero, tarjeta del listado y og:image): ruta relativa al sitio.
 const COVER = '/casos/villazon-merce-abogados/villazon-merce-abogados-web.webp';
@@ -197,6 +200,27 @@ export const VILLAZON_MERCE_CASE = {
             desc: 'Revisión de posiciones, rastreo, llamadas y formularios cada dos semanas durante el arranque, con nuevas páginas y artículos según lo que muestran los datos.',
           },
         ],
+      },
+      {
+        __component: 'blocks.html',
+        content: `
+<h2>Así quedó la web</h2>
+<p>Tres secciones que resumen el diseño: la cabecera de cada página de delito, con el abogado y el contacto siempre a la vista; los subtipos de cada delito con pena, multa y claves de defensa; y los artículos del blog, con una respuesta rápida al principio y las cifras clave destacadas.</p>`,
+      },
+      {
+        __component: 'blocks.image',
+        image: { url: IMG.delito, local: true, alternativeText: 'Cabecera de la página de delito de lesiones de Villazón Mercé Abogados, con la tarjeta del abogado y los botones de llamar y WhatsApp' },
+        caption: 'Cada página de delito abre con el abogado identificado (nombre y número de colegiado), teléfono y WhatsApp. Quien llega con urgencia contacta sin bajar.',
+      },
+      {
+        __component: 'blocks.image',
+        image: { url: IMG.subtipos, local: true, alternativeText: 'Sección de subtipos del delito de lesiones con pestañas por artículo del Código Penal, pena, multa alternativa y claves de defensa y acusación' },
+        caption: 'Subtipos de cada delito por artículo del Código Penal, con pena, multa alternativa, persecución y claves de defensa y de acusación. Contenido redactado por Nova y revisado por el abogado.',
+      },
+      {
+        __component: 'blocks.image',
+        image: { url: IMG.blog, local: true, alternativeText: 'Artículo del blog de Villazón Mercé Abogados con respuesta rápida, cifras clave destacadas, índice de contenidos y llamada a la acción' },
+        caption: 'Los artículos del blog abren con una respuesta rápida y las cifras clave, el formato que citan las respuestas de IA, con índice lateral y contacto siempre visible.',
       },
       {
         __component: 'blocks.html',
@@ -410,6 +434,27 @@ ${psTable(['PageSpeed Insights', 'Móvil', 'Escritorio'], PS_ES)}
             desc: "Revisió de posicions, rastreig, trucades i formularis cada dues setmanes durant l'arrencada, amb noves pàgines i articles segons el que mostren les dades.",
           },
         ],
+      },
+      {
+        __component: 'blocks.html',
+        content: `
+<h2>Així va quedar el web</h2>
+<p>Tres seccions que resumeixen el disseny: la capçalera de cada pàgina de delicte, amb l'advocat i el contacte sempre a la vista; els subtipus de cada delicte amb pena, multa i claus de defensa; i els articles del blog, amb una resposta ràpida al principi i les xifres clau destacades.</p>`,
+      },
+      {
+        __component: 'blocks.image',
+        image: { url: IMG.delito, local: true, alternativeText: "Capçalera de la pàgina de delicte de lesions de Villazón Mercé Abogados, amb la targeta de l'advocat i els botons de trucar i WhatsApp" },
+        caption: "Cada pàgina de delicte obre amb l'advocat identificat (nom i número de col·legiat), telèfon i WhatsApp. Qui arriba amb urgència contacta sense baixar.",
+      },
+      {
+        __component: 'blocks.image',
+        image: { url: IMG.subtipos, local: true, alternativeText: 'Secció de subtipus del delicte de lesions amb pestanyes per article del Codi Penal, pena, multa alternativa i claus de defensa i acusació' },
+        caption: "Subtipus de cada delicte per article del Codi Penal, amb pena, multa alternativa, persecució i claus de defensa i d'acusació. Contingut redactat per Nova i revisat per l'advocat.",
+      },
+      {
+        __component: 'blocks.image',
+        image: { url: IMG.blog, local: true, alternativeText: "Article del blog de Villazón Mercé Abogados amb resposta ràpida, xifres clau destacades, índex de continguts i crida a l'acció" },
+        caption: "Els articles del blog obren amb una resposta ràpida i les xifres clau, el format que citen les respostes d'IA, amb índex lateral i contacte sempre visible.",
       },
       {
         __component: 'blocks.html',

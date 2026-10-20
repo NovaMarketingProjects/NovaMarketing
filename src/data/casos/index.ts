@@ -43,7 +43,7 @@ export function applyStaticOverrides<T extends { attributes?: any }>(items: T[],
       description: t.cardDescription,
       company: sc.company,
       isPublic: true,
-      cover_image: { url: siteUrl + sc.cover, alternativeText: t.cardTitle },
+      cover_image: { url: sc.cover, local: true, alternativeText: t.cardTitle },
       // Categorías del caso estático (si las define) para que las páginas de
       // sector lo recojan aunque la entrada de Strapi tenga otras.
       categories: resolveCategories(sc.listingCategories, locale) ?? c.categories,
@@ -64,7 +64,7 @@ export function applyStaticOverrides<T extends { attributes?: any }>(items: T[],
       description: t.cardDescription,
       company: sc.company,
       isPublic: true,
-      cover_image: { url: siteUrl + sc.cover, alternativeText: t.cardTitle },
+      cover_image: { url: sc.cover, local: true, alternativeText: t.cardTitle },
       categories: resolveCategories(sc.listingCategories, locale) ?? [{ name: 'SEO', slug: sc.categorySlug }],
       sectors: sectorsOf(sc),
       _static: true,
@@ -91,8 +91,8 @@ export function staticCaseCards(locale: 'es' | 'ca', siteUrl: string) {
       // listingCategories puede ser un array (mismos slugs en ES y CA) o un
       // objeto { es, ca } cuando los slugs de categoría cambian por idioma.
       categories: resolveCategories((c as any).listingCategories, locale) ?? [{ name: 'SEO', slug: c.categorySlug }],
-      // URL absoluta: getStrapiImageUrl antepone la URL del CMS a las relativas.
-      cover_image: { url: siteUrl + c.cover, alternativeText: t.cardTitle },
+      // Ruta relativa marcada como local: getStrapiImageUrl no le antepone la URL del CMS.
+      cover_image: { url: c.cover, local: true, alternativeText: t.cardTitle },
     };
   });
 }
