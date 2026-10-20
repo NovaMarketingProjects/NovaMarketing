@@ -2,14 +2,14 @@
  * Contenido del caso de éxito de Clustag (hardcodeado, no viene de Strapi).
  *
  * Clustag (fabricante de soluciones RFID para intralogística) lanzó una web
- * nueva en WordPress sin tener en cuenta el SEO y perdió prácticamente toda su
- * visibilidad orgánica. Entramos a mediados de 2025 para recuperarla sobre esa
+ * nueva en WordPress en un dominio nuevo con las redirecciones desde el dominio
+ * anterior mal hechas, y perdió prácticamente toda su visibilidad orgánica. Entramos a mediados de 2025 para recuperarla sobre esa
  * misma WordPress: técnico, redirecciones, arquitectura, contenido y velocidad.
  * Web en inglés y español. Proyecto en curso.
  *
  * Fuentes de las cifras:
  *  - Semrush, 31 mar 2025 → 16 oct 2026. Tráfico orgánico mensual: 0 → 678.
- *    Tráfico de marca: 0 → 649. Keywords: 4 (11-20: 3, 21-50: 1) → 44 (Top 3: 3,
+ *    (El tráfico de marca, 0 → 649, no se publica por decisión del cliente.) Keywords: 4 (11-20: 3, 21-50: 1) → 44 (Top 3: 3,
  *    4-10: 5, 11-20: 7, 21-50: 18, 51-100: 5), 2 apariciones en AI Overviews y
  *    4 SERP features.
  *  - PageSpeed Insights. Antes: móvil 37 (FCP 5,0 s, LCP 8,6 s, TBT 550 ms,
@@ -77,12 +77,12 @@ export const CLUSTAG_CASE = {
   },
 
   es: {
-    metaTitle: 'Caso de éxito: Clustag, de 0 a 678 visitas orgánicas tras una web sin SEO',
+    metaTitle: 'Caso de éxito: Clustag, de 0 a 678 visitas orgánicas tras una migración mal redirigida',
     metaDescription:
-      'Clustag lanzó una web nueva en WordPress sin SEO y perdió su tráfico orgánico. Cómo lo recuperamos: redirecciones, arquitectura, contenido y velocidad (53 → 98 en PageSpeed). De 4 a 44 keywords y 678 visitas al mes.',
+      'Clustag lanzó una web nueva en WordPress con las redirecciones del dominio anterior mal hechas y perdió su tráfico orgánico. Cómo lo recuperamos: redirecciones, arquitectura, contenido y velocidad (53 → 98 en PageSpeed). De 4 a 44 keywords y 678 visitas al mes.',
     title: 'Caso de éxito: Clustag, de 0 a 678 visitas orgánicas al mes',
     description:
-      'Recuperar la visibilidad orgánica que un fabricante de soluciones RFID perdió al lanzar una web nueva sin tener en cuenta el SEO, trabajando sobre esa misma WordPress. Mediados de 2025 – octubre 2026, proyecto en curso.',
+      'Recuperar la visibilidad orgánica que un fabricante de soluciones RFID perdió al lanzar una web nueva con las redirecciones del dominio anterior mal hechas, trabajando sobre esa misma WordPress. Mediados de 2025 – octubre 2026, proyecto en curso.',
     categories: ['SEO', 'Consultoría SEO'],
     date: 'Octubre 2026',
     facts: {
@@ -100,7 +100,7 @@ export const CLUSTAG_CASE = {
     },
     cardTitle: 'Caso de éxito: Clustag, de 0 a 678 visitas orgánicas al mes',
     cardDescription:
-      'Fabricante de soluciones RFID que perdió su SEO al lanzar una web nueva. Recuperación técnica, de arquitectura y de contenido sobre su WordPress: de 4 a 44 keywords y PageSpeed de 53 a 98.',
+      'Fabricante de soluciones RFID que perdió su SEO al cambiar de dominio con las redirecciones mal hechas. Recuperación técnica, de arquitectura y de contenido sobre su WordPress: de 4 a 44 keywords y PageSpeed de 53 a 98.',
 
     blocks: [
       {
@@ -108,7 +108,7 @@ export const CLUSTAG_CASE = {
         content: `
 <h2>El punto de partida</h2>
 <p><strong>Clustag</strong> fabrica soluciones RFID para intralogística: túneles de lectura, estaciones y software para que fábricas, almacenes y retailers controlen su inventario prenda a prenda, caja a caja. Vende a empresas de medio mundo, con una web en inglés y español, y un ciclo de venta largo en el que el comprador técnico investiga mucho antes de contactar.</p>
-<p>A principios de 2025 lanzaron una web nueva en WordPress. Más bonita, más moderna, pero hecha sin tener en cuenta el SEO: las URLs cambiaron sin redirecciones, se perdieron páginas que posicionaban y la estructura nueva no respondía a lo que buscaba su cliente. El resultado fue el habitual en estos casos: <strong>el tráfico orgánico acumulado durante años desapareció</strong>. En marzo de 2025 la web posicionaba para 4 keywords y el tráfico orgánico era, a efectos prácticos, cero.</p>
+<p>A principios de 2025 lanzaron una web nueva en WordPress, en un dominio nuevo. Más bonita, más moderna, pero con un error de migración que vemos a menudo: <strong>las redirecciones desde el dominio anterior no se hicieron bien</strong>. Las URLs antiguas no apuntaban a sus equivalentes nuevas, Google no traspasó la autoridad acumulada y la estructura nueva tampoco respondía a lo que buscaba su cliente. El resultado fue que el tráfico orgánico acumulado durante años desapareció. En marzo de 2025 la web posicionaba para 4 keywords y el tráfico orgánico era, a efectos prácticos, cero.</p>
 <p>Llegaron a nosotros a mediados de 2025 con un objetivo claro: recuperar la visibilidad perdida sin volver a rehacer la web. Es el tipo de encargo en el que el <a href="/agencia-seo-para-pymes/">posicionamiento SEO</a> tiene que trabajar sobre lo que hay, y en el que una <a href="/agencia-industrial/">empresa industrial</a> con ventas <a href="/agencia-b2b/">B2B</a> necesita, más que volumen, aparecer en las pocas búsquedas técnicas que hace quien decide una compra.</p>`,
       },
       {
@@ -127,7 +127,7 @@ export const CLUSTAG_CASE = {
 <h2>Qué nos encontramos en la auditoría</h2>
 <p>Antes de tocar nada auditamos la web nueva y la comparamos con lo que había posicionado la antigua. Los frenos eran estos:</p>
 <ul>
-  <li><strong>Migración sin redirecciones.</strong> Las URLs de la web antigua devolvían error. Google había perdido el rastro de las páginas que posicionaban, y con ellas la autoridad acumulada.</li>
+  <li><strong>Redirecciones de dominio mal hechas.</strong> Las URLs del dominio anterior no redirigían a sus equivalentes en el nuevo, o lo hacían a la home o en cadena. Google había perdido el rastro de las páginas que posicionaban, y con ellas la autoridad acumulada.</li>
   <li><strong>Arquitectura pensada para el diseño, no para la búsqueda.</strong> Productos y soluciones agrupados de una forma que no coincidía con cómo busca un responsable de logística o de retail.</li>
   <li><strong>Contenido escaso.</strong> Páginas de producto con poco texto y sin responder a las preguntas técnicas del comprador: compatibilidades, rendimiento de lectura, integración.</li>
   <li><strong>Velocidad baja.</strong> PageSpeed de 37 en móvil y 53 en escritorio, con un LCP de 8,6 segundos en móvil y más de medio segundo de bloqueo por scripts.</li>
@@ -138,7 +138,7 @@ export const CLUSTAG_CASE = {
         __component: 'blocks.comparison',
         before_label: 'Marzo 2025',
         before_content:
-          'Web nueva en WordPress lanzada sin SEO: URLs antiguas rotas, 4 keywords posicionadas, tráfico orgánico cero, PageSpeed de 37 en móvil y 53 en escritorio.',
+          'Web nueva en WordPress en un dominio nuevo, con las redirecciones desde el dominio anterior mal hechas: 4 keywords posicionadas, tráfico orgánico cero, PageSpeed de 37 en móvil y 53 en escritorio.',
         after_label: 'Octubre 2026',
         after_content:
           'Misma WordPress, optimizada: redirecciones, arquitectura y contenido recuperados, 44 keywords (8 en el Top 10), 678 visitas orgánicas al mes, PageSpeed de 98 en escritorio y presencia en las respuestas de IA de Google.',
@@ -159,7 +159,7 @@ export const CLUSTAG_CASE = {
           },
           {
             title: 'Redirecciones y SEO técnico',
-            desc: 'Mapeo completo de URLs antiguas a nuevas con redirecciones 301, corrección de canónicos, sitemap, robots y limpieza de errores de rastreo. Es la fase que frena la caída.',
+            desc: 'Mapeo completo de las URLs del dominio anterior a sus equivalentes en el nuevo, con redirecciones 301 directas, corrección de canónicos, sitemap, robots y limpieza de errores de rastreo. Es la fase que frena la caída.',
           },
           {
             title: 'Arquitectura por soluciones',
@@ -222,7 +222,7 @@ ${psTable(['Mejora del Page Speed (escritorio)', 'Antes', 'Después'], PS_ES)}
     <tr><td>Citas en respuestas de IA (AI Overviews)</td><td>0</td><td><strong>2</strong></td></tr>
   </tbody>
 </table>
-<p>En un sector tan específico como el RFID industrial, 44 keywords no es un número pequeño: son las búsquedas técnicas que hace un responsable de logística antes de pedir una demo. Y el tráfico de marca creció con ellas, de cero a 649 búsquedas de "Clustag" al mes, señal de que la marca empieza a reconocerse en el sector.</p>`,
+<p>En un sector tan específico como el RFID industrial, 44 keywords no es un número pequeño: son las búsquedas técnicas que hace un responsable de logística antes de pedir una demo.</p>`,
       },
       {
         __component: 'blocks.image',
@@ -240,7 +240,7 @@ ${psTable(['Mejora del Page Speed (escritorio)', 'Antes', 'Después'], PS_ES)}
         type: 'atencion',
         title: 'La lección: una web nueva sin plan SEO cuesta años de trabajo',
         content:
-          'Cambiar de web sin mapear URLs, redirecciones y contenidos es la causa más frecuente de pérdida de tráfico que vemos. Recuperarlo es posible, pero lleva meses; evitarlo cuesta unos días de planificación antes del lanzamiento.',
+          'Cambiar de web o de dominio sin mapear bien las redirecciones es la causa más frecuente de pérdida de tráfico que vemos. Recuperarlo es posible, pero lleva meses; evitarlo cuesta unos días de planificación antes del lanzamiento.',
       },
       {
         __component: 'blocks.html',
@@ -261,12 +261,12 @@ ${psTable(['Mejora del Page Speed (escritorio)', 'Antes', 'Después'], PS_ES)}
   },
 
   ca: {
-    metaTitle: "Cas d'èxit: Clustag, de 0 a 678 visites orgàniques després d'un web sense SEO",
+    metaTitle: "Cas d'èxit: Clustag, de 0 a 678 visites orgàniques després d'una migració mal redirigida",
     metaDescription:
-      "Clustag va llançar un web nou en WordPress sense SEO i va perdre el trànsit orgànic. Com el vam recuperar: redireccions, arquitectura, contingut i velocitat (53 → 98 a PageSpeed). De 4 a 44 keywords i 678 visites al mes.",
+      "Clustag va llançar un web nou en WordPress amb les redireccions del domini anterior mal fetes i va perdre el trànsit orgànic. Com el vam recuperar: redireccions, arquitectura, contingut i velocitat (53 → 98 a PageSpeed). De 4 a 44 keywords i 678 visites al mes.",
     title: "Cas d'èxit: Clustag, de 0 a 678 visites orgàniques al mes",
     description:
-      "Recuperar la visibilitat orgànica que un fabricant de solucions RFID va perdre en llançar un web nou sense tenir en compte el SEO, treballant sobre aquesta mateixa WordPress. Mitjan 2025 – octubre 2026, projecte en curs.",
+      "Recuperar la visibilitat orgànica que un fabricant de solucions RFID va perdre en llançar un web nou amb les redireccions del domini anterior mal fetes, treballant sobre aquesta mateixa WordPress. Mitjan 2025 – octubre 2026, projecte en curs.",
     categories: ['SEO', 'Consultoria SEO'],
     date: 'Octubre 2026',
     facts: {
@@ -284,7 +284,7 @@ ${psTable(['Mejora del Page Speed (escritorio)', 'Antes', 'Después'], PS_ES)}
     },
     cardTitle: "Cas d'èxit: Clustag, de 0 a 678 visites orgàniques al mes",
     cardDescription:
-      'Fabricant de solucions RFID que va perdre el SEO en llançar un web nou. Recuperació tècnica, d’arquitectura i de contingut sobre la seva WordPress: de 4 a 44 keywords i PageSpeed de 53 a 98.',
+      'Fabricant de solucions RFID que va perdre el SEO en canviar de domini amb les redireccions mal fetes. Recuperació tècnica, d’arquitectura i de contingut sobre la seva WordPress: de 4 a 44 keywords i PageSpeed de 53 a 98.',
 
     blocks: [
       {
@@ -292,7 +292,7 @@ ${psTable(['Mejora del Page Speed (escritorio)', 'Antes', 'Después'], PS_ES)}
         content: `
 <h2>El punt de partida</h2>
 <p><strong>Clustag</strong> fabrica solucions RFID per a intralogística: túnels de lectura, estacions i programari perquè fàbriques, magatzems i retailers controlin l'inventari peça a peça, caixa a caixa. Ven a empreses de mig món, amb un web en anglès i castellà, i un cicle de venda llarg en què el comprador tècnic investiga molt abans de contactar.</p>
-<p>A principis de 2025 van llançar un web nou en WordPress. Més bonic, més modern, però fet sense tenir en compte el SEO: les URL van canviar sense redireccions, es van perdre pàgines que posicionaven i l'estructura nova no responia al que cercava el seu client. El resultat va ser l'habitual en aquests casos: <strong>el trànsit orgànic acumulat durant anys va desaparèixer</strong>. El març de 2025 el web posicionava per a 4 keywords i el trànsit orgànic era, a efectes pràctics, zero.</p>
+<p>A principis de 2025 van llançar un web nou en WordPress, en un domini nou. Més bonic, més modern, però amb un error de migració que veiem sovint: <strong>les redireccions des del domini anterior no es van fer bé</strong>. Les URL antigues no apuntaven a les seves equivalents noves, Google no va traspassar l'autoritat acumulada i l'estructura nova tampoc no responia al que cercava el seu client. El resultat va ser que el trànsit orgànic acumulat durant anys va desaparèixer. El març de 2025 el web posicionava per a 4 keywords i el trànsit orgànic era, a efectes pràctics, zero.</p>
 <p>Van arribar a nosaltres a mitjan 2025 amb un objectiu clar: recuperar la visibilitat perduda sense tornar a refer el web. És el tipus d'encàrrec en què el <a href="/ca/agencia-seo-per-pimes/">posicionament SEO</a> ha de treballar sobre el que hi ha, i en què una <a href="/ca/agencia-industrial/">empresa industrial</a> amb vendes <a href="/ca/agencia-b2b/">B2B</a> necessita, més que volum, aparèixer a les poques cerques tècniques que fa qui decideix una compra.</p>`,
       },
       {
@@ -311,7 +311,7 @@ ${psTable(['Mejora del Page Speed (escritorio)', 'Antes', 'Después'], PS_ES)}
 <h2>Què ens vam trobar a l'auditoria</h2>
 <p>Abans de tocar res vam auditar el web nou i el vam comparar amb el que havia posicionat l'antic. Els frens eren aquests:</p>
 <ul>
-  <li><strong>Migració sense redireccions.</strong> Les URL del web antic tornaven error. Google havia perdut el rastre de les pàgines que posicionaven, i amb elles l'autoritat acumulada.</li>
+  <li><strong>Redireccions de domini mal fetes.</strong> Les URL del domini anterior no redirigien a les seves equivalents al nou, o ho feien a la home o en cadena. Google havia perdut el rastre de les pàgines que posicionaven, i amb elles l'autoritat acumulada.</li>
   <li><strong>Arquitectura pensada per al disseny, no per a la cerca.</strong> Productes i solucions agrupats d'una manera que no coincidia amb com cerca un responsable de logística o de retail.</li>
   <li><strong>Contingut escàs.</strong> Pàgines de producte amb poc text i sense respondre les preguntes tècniques del comprador: compatibilitats, rendiment de lectura, integració.</li>
   <li><strong>Velocitat baixa.</strong> PageSpeed de 37 en mòbil i 53 en escriptori, amb un LCP de 8,6 segons en mòbil i més de mig segon de bloqueig per scripts.</li>
@@ -322,7 +322,7 @@ ${psTable(['Mejora del Page Speed (escritorio)', 'Antes', 'Después'], PS_ES)}
         __component: 'blocks.comparison',
         before_label: 'Març 2025',
         before_content:
-          'Web nou en WordPress llançat sense SEO: URL antigues trencades, 4 keywords posicionades, trànsit orgànic zero, PageSpeed de 37 en mòbil i 53 en escriptori.',
+          'Web nou en WordPress en un domini nou, amb les redireccions des del domini anterior mal fetes: 4 keywords posicionades, trànsit orgànic zero, PageSpeed de 37 en mòbil i 53 en escriptori.',
         after_label: 'Octubre 2026',
         after_content:
           "Mateixa WordPress, optimitzada: redireccions, arquitectura i contingut recuperats, 44 keywords (8 al Top 10), 678 visites orgàniques al mes, PageSpeed de 98 en escriptori i presència a les respostes d'IA de Google.",
@@ -343,7 +343,7 @@ ${psTable(['Mejora del Page Speed (escritorio)', 'Antes', 'Después'], PS_ES)}
           },
           {
             title: 'Redireccions i SEO tècnic',
-            desc: "Mapatge complet d'URL antigues a noves amb redireccions 301, correcció de canòniques, sitemap, robots i neteja d'errors de rastreig. És la fase que frena la caiguda.",
+            desc: "Mapatge complet de les URL del domini anterior a les seves equivalents al nou, amb redireccions 301 directes, correcció de canòniques, sitemap, robots i neteja d'errors de rastreig. És la fase que frena la caiguda.",
           },
           {
             title: 'Arquitectura per solucions',
@@ -406,7 +406,7 @@ ${psTable(['Millora del Page Speed (escriptori)', 'Abans', 'Després'], PS_CA)}
     <tr><td>Cites a respostes d'IA (AI Overviews)</td><td>0</td><td><strong>2</strong></td></tr>
   </tbody>
 </table>
-<p>En un sector tan específic com l'RFID industrial, 44 keywords no és un nombre petit: són les cerques tècniques que fa un responsable de logística abans de demanar una demo. I el trànsit de marca va créixer amb elles, de zero a 649 cerques de "Clustag" al mes, senyal que la marca comença a reconèixer-se al sector.</p>`,
+<p>En un sector tan específic com l'RFID industrial, 44 keywords no és un nombre petit: són les cerques tècniques que fa un responsable de logística abans de demanar una demo.</p>`,
       },
       {
         __component: 'blocks.image',
@@ -424,7 +424,7 @@ ${psTable(['Millora del Page Speed (escriptori)', 'Abans', 'Després'], PS_CA)}
         type: 'atencion',
         title: "La lliçó: un web nou sense pla SEO costa anys de feina",
         content:
-          "Canviar de web sense mapar URL, redireccions i continguts és la causa més freqüent de pèrdua de trànsit que veiem. Recuperar-lo és possible, però triga mesos; evitar-ho costa uns dies de planificació abans del llançament.",
+          "Canviar de web o de domini sense mapar bé les redireccions és la causa més freqüent de pèrdua de trànsit que veiem. Recuperar-lo és possible, però triga mesos; evitar-ho costa uns dies de planificació abans del llançament.",
       },
       {
         __component: 'blocks.html',
