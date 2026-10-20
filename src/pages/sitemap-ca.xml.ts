@@ -17,6 +17,7 @@ const STATIC_PAGES: { path: string; lastmod: string }[] = [
   { path: '/ca/casos-exit/voltura-projects/', lastmod: '2026-10-20' },
   { path: '/ca/casos-exit/cb-hospitalet/', lastmod: '2026-10-20' },
   { path: '/ca/casos-exit/clustag/', lastmod: '2026-10-20' },
+  { path: '/ca/casos-exit/villazon-merce-abogados/', lastmod: '2026-10-20' },
   { path: '/ca/blog/', lastmod: '2026-07-20' },
   { path: '/ca/agencia-de-marketing-digital-a-barcelona/', lastmod: '2026-07-23' },
   { path: '/ca/agencia-de-marketing-digital-a-sabadell/', lastmod: '2026-07-20' },

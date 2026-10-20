@@ -12,8 +12,9 @@ import { PALACIO_DEL_BEBE_CASE } from './palacio-del-bebe';
 import { VOLTURA_PROJECTS_CASE } from './voltura-projects';
 import { CB_HOSPITALET_CASE } from './cb-hospitalet';
 import { CLUSTAG_CASE } from './clustag';
+import { VILLAZON_MERCE_CASE } from './villazon-merce-abogados';
 
-export const STATIC_CASES = [CLUSTAG_CASE, CB_HOSPITALET_CASE, VOLTURA_PROJECTS_CASE, PALACIO_DEL_BEBE_CASE, TATTOOX_CASE];
+export const STATIC_CASES = [VILLAZON_MERCE_CASE, CLUSTAG_CASE, CB_HOSPITALET_CASE, VOLTURA_PROJECTS_CASE, PALACIO_DEL_BEBE_CASE, TATTOOX_CASE];
 
 /**
  * Sustituye, en la respuesta de Strapi, las entradas que tienen un caso
