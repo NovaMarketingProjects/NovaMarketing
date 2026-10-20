@@ -41,15 +41,15 @@ export const TATTOOX_CASE = {
   categorySlug: 'seo',
 
   es: {
-    metaTitle: 'Caso de éxito SEO de Tattoox | +156 % de tráfico orgánico en un año',
+    metaTitle: 'Caso de éxito: Tattoox +156% de tráfico orgánico',
     metaDescription:
       'Cómo llevamos a Tattoox de 158.000 a 404.000 visitas orgánicas al mes en 12 meses: velocidad web, hreflang, indexación, contenido y presencia en respuestas de IA.',
-    title: 'Cómo Tattoox creció un 156 % en tráfico orgánico en un año',
+    title: 'Caso de éxito: Tattoox +156% de tráfico orgánico',
     description:
       'Multiplicar la visibilidad orgánica de una escuela online de tatuaje con una web WordPress lenta y con problemas técnicos. Oct 2025 – oct 2026, proyecto en curso.',
     categories: ['SEO', 'GEO'],
     date: 'Octubre 2026',
-    cardTitle: 'Cómo Tattoox creció un 156 % en tráfico orgánico en un año',
+    cardTitle: 'Caso de éxito: Tattoox +156% de tráfico orgánico',
     cardDescription:
       'Escuela online de tatuaje. Velocidad, hreflang, indexación, contenido y GEO: de 158.000 a 404.000 visitas al mes.',
 
@@ -254,15 +254,15 @@ export const TATTOOX_CASE = {
   },
 
   ca: {
-    metaTitle: "Cas d'èxit SEO de Tattoox | +156 % de trànsit orgànic en un any",
+    metaTitle: "Cas d'èxit: Tattoox +156% de trànsit orgànic",
     metaDescription:
       'Com vam portar Tattoox de 158.000 a 404.000 visites orgàniques al mes en 12 mesos: velocitat web, hreflang, indexació, contingut i presència a les respostes d’IA.',
-    title: 'Com Tattoox va créixer un 156 % en trànsit orgànic en un any',
+    title: "Cas d'èxit: Tattoox +156% de trànsit orgànic",
     description:
       "Multiplicar la visibilitat orgànica d'una escola online de tatuatge amb una web WordPress lenta i amb problemes tècnics. Oct 2025 – oct 2026, projecte en curs.",
     categories: ['SEO', 'GEO'],
     date: 'Octubre 2026',
-    cardTitle: 'Com Tattoox va créixer un 156 % en trànsit orgànic en un any',
+    cardTitle: "Cas d'èxit: Tattoox +156% de trànsit orgànic",
     cardDescription:
       'Escola online de tatuatge. Velocitat, hreflang, indexació, contingut i GEO: de 158.000 a 404.000 visites al mes.',
 
