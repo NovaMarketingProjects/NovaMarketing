@@ -10,8 +10,9 @@
 import { TATTOOX_CASE } from './tattoox';
 import { PALACIO_DEL_BEBE_CASE } from './palacio-del-bebe';
 import { VOLTURA_PROJECTS_CASE } from './voltura-projects';
+import { CB_HOSPITALET_CASE } from './cb-hospitalet';
 
-export const STATIC_CASES = [VOLTURA_PROJECTS_CASE, PALACIO_DEL_BEBE_CASE, TATTOOX_CASE];
+export const STATIC_CASES = [CB_HOSPITALET_CASE, VOLTURA_PROJECTS_CASE, PALACIO_DEL_BEBE_CASE, TATTOOX_CASE];
 
 /**
  * Sustituye, en la respuesta de Strapi, las entradas que tienen un caso
