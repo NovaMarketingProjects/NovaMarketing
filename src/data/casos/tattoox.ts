@@ -236,13 +236,7 @@ export const TATTOOX_CASE = {
         content: `
 <h2>Y lo que importa, más alumnos</h2>
 <p>El tráfico es un medio. Lo que buscaba Tattoox eran matrículas, y el aumento de solicitudes de información y de inscripciones en los cursos durante este año ha sido <strong>significativo</strong>, con el SEO consolidado como el canal principal de captación de la escuela.</p>
-<p>El proyecto sigue en curso: ahora el trabajo se centra en la versión en inglés, en ampliar la cobertura de las especializaciones y en seguir ganando presencia en los motores de respuesta por IA.</p>
-<h3>Servicios aplicados en este proyecto</h3>
-<ul>
-  <li><a href="/agencia-seo-para-pymes/">Posicionamiento SEO para pymes</a>. Auditoría, SEO técnico, arquitectura y contenidos.</li>
-  <li><a href="/agencia-geo-para-pymes/">Posicionamiento GEO en IA</a>. Presencia en las respuestas generadas por inteligencia artificial.</li>
-  <li><a href="/diseno-web-para-pymes/">Diseño y optimización web</a>. Velocidad y Core Web Vitals sobre WordPress.</li>
-</ul>`,
+<p>El proyecto sigue en curso: ahora el trabajo se centra en la versión en inglés, en ampliar la cobertura de las especializaciones y en seguir ganando presencia en los motores de respuesta por IA.</p>`,
       },
       {
         __component: 'blocks.cta',
@@ -449,13 +443,7 @@ export const TATTOOX_CASE = {
         content: `
 <h2>I el que importa, més alumnes</h2>
 <p>El trànsit és un mitjà. El que buscava Tattoox eren matrícules, i l'augment de sol·licituds d'informació i d'inscripcions als cursos durant aquest any ha estat <strong>significatiu</strong>, amb el SEO consolidat com el canal principal de captació de l'escola.</p>
-<p>El projecte continua en curs: ara la feina se centra en la versió en anglès, a ampliar la cobertura de les especialitzacions i a continuar guanyant presència als motors de resposta per IA.</p>
-<h3>Serveis aplicats en aquest projecte</h3>
-<ul>
-  <li><a href="/ca/agencia-seo-per-pimes/">Posicionament SEO per a pimes</a>. Auditoria, SEO tècnic, arquitectura i continguts.</li>
-  <li><a href="/ca/agencia-geo-per-pimes/">Posicionament GEO en IA</a>. Presència a les respostes generades per intel·ligència artificial.</li>
-  <li><a href="/ca/disseny-web-per-pimes/">Disseny i optimització web</a>. Velocitat i Core Web Vitals sobre WordPress.</li>
-</ul>`,
+<p>El projecte continua en curs: ara la feina se centra en la versió en anglès, a ampliar la cobertura de les especialitzacions i a continuar guanyant presència als motors de resposta per IA.</p>`,
       },
       {
         __component: 'blocks.cta',

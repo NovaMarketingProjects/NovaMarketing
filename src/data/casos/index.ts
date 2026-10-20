@@ -22,7 +22,7 @@ export function staticCaseCards(locale: 'es' | 'ca', siteUrl: string) {
       description: t.cardDescription,
       company: c.company,
       isPublic: true,
-      categories: [{ name: 'SEO', slug: c.categorySlug }],
+      categories: (c as any).listingCategories ?? [{ name: 'SEO', slug: c.categorySlug }],
       // URL absoluta: getStrapiImageUrl antepone la URL del CMS a las relativas.
       cover_image: { url: siteUrl + c.cover, alternativeText: t.cardTitle },
     };

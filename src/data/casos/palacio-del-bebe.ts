@@ -31,6 +31,13 @@ export const PALACIO_DEL_BEBE_CASE = {
   slug: 'palacio-del-bebe',
   company: 'Palacio del Bebé',
   categorySlug: 'seo',
+  // Filtros del listado en los que aparece (el primero es la etiqueta de la tarjeta).
+  listingCategories: [
+    { name: 'SEO', slug: 'seo' },
+    { name: 'e-commerce', slug: 'e-commerce' },
+    { name: 'Google Ads', slug: 'google-ads' },
+    { name: 'SEO Local', slug: 'seo-local' },
+  ],
 
   es: {
     metaTitle: 'Caso de éxito: Palacio del Bebé +47% de tráfico orgánico',
@@ -39,7 +46,7 @@ export const PALACIO_DEL_BEBE_CASE = {
     title: 'Caso de éxito: Palacio del Bebé +47% de tráfico orgánico',
     description:
       'Convertir a una tienda de puericultura de Barcelona, con tienda física y ecommerce, en referente orgánico de su sector trabajando sobre una web desarrollada por un tercero. Nov 2025 – oct 2026, proyecto en curso.',
-    categories: ['SEO', 'Google Ads'],
+    categories: ['SEO', 'E-commerce', 'Google Ads', 'SEO Local'],
     date: 'Octubre 2026',
     cardTitle: 'Caso de éxito: Palacio del Bebé +47% de tráfico orgánico',
     cardDescription:
@@ -61,7 +68,7 @@ export const PALACIO_DEL_BEBE_CASE = {
         items: [
           { value: '+47%', label: 'Tráfico orgánico mensual' },
           { value: '+23%', label: 'Keywords en Top 3 de Google' },
-          { value: 'Nº 1', label: 'En las búsquedas clave del sector' },
+          { value: '#1', label: 'En seis búsquedas clave del sector' },
           { value: '+2.500', label: 'Búsquedas de marca al mes, partiendo de cero' },
         ],
       },
@@ -71,7 +78,7 @@ export const PALACIO_DEL_BEBE_CASE = {
 <h2>Qué nos encontramos en la auditoría</h2>
 <p>Antes de proponer nada hicimos una <a href="/agencia-seo-para-pymes/">auditoría SEO</a> completa de la tienda. Estos eran los frenos principales:</p>
 <ul>
-  <li><strong>Web lenta.</strong> Core Web Vitals en rojo en móvil, que es desde donde compra la mayoría de padres y madres.</li>
+  <li><strong>Web lenta.</strong> Core Web Vitals en rojo en móvil, que es desde donde compra la mayoría de padres y madres. Es lo primero que miramos en cualquier trabajo de <a href="/diseno-web-para-pymes/">optimización web</a>, porque sin velocidad el resto del SEO rinde menos.</li>
   <li><strong>Errores técnicos.</strong> URLs duplicadas por filtros y variantes de producto, canónicos incorrectos, páginas sin valor indexadas y productos agotados que seguían respondiendo con error.</li>
   <li><strong>Categorías sin contenido.</strong> Las páginas de cochecitos, sillas o cunas eran solo un listado de productos, sin un texto que explicara a Google (ni al cliente) qué se vende y para quién.</li>
   <li><strong>Fichas copiadas del fabricante.</strong> Las mismas descripciones que decenas de tiendas, así que ninguna razón para posicionar la de Palacio del Bebé.</li>
@@ -190,14 +197,7 @@ export const PALACIO_DEL_BEBE_CASE = {
         content: `
 <h2>Y lo que importa, más pedidos y más visitas a tienda</h2>
 <p>El tráfico y las posiciones son el medio. Lo que buscaba Palacio del Bebé eran pedidos online y clientes en la tienda, y los dos han crecido de forma sostenida durante el año, con el canal orgánico como principal fuente de visitas cualificadas.</p>
-<p>El proyecto sigue en curso: ahora trabajamos la cobertura de las marcas, el contenido de ayuda a la compra y la ampliación de las campañas de Shopping a nuevas categorías.</p>
-<h3>Servicios aplicados en este proyecto</h3>
-<ul>
-  <li><a href="/agencia-seo-para-pymes/">Posicionamiento SEO para pymes</a>. Auditoría, SEO técnico coordinado con el desarrollador externo, arquitectura y contenidos.</li>
-  <li><a href="/agencia-sem-para-pymes/">Google Ads y Shopping para pymes</a>. Campañas de producto para las categorías de más margen.</li>
-  <li><a href="/diseno-web-para-pymes/">Diseño y optimización web</a>. Velocidad y Core Web Vitals del ecommerce.</li>
-  <li><a href="/agencia-de-marketing-digital-en-barcelona/">Agencia de marketing digital en Barcelona</a>. Visibilidad local para la tienda física.</li>
-</ul>`,
+<p>El proyecto sigue en curso: ahora trabajamos la cobertura de las marcas, el contenido de ayuda a la compra y la ampliación de las campañas de Shopping a nuevas categorías.</p>`,
       },
       {
         __component: 'blocks.cta',
@@ -217,7 +217,7 @@ export const PALACIO_DEL_BEBE_CASE = {
     title: "Cas d'èxit: Palacio del Bebé +47% de trànsit orgànic",
     description:
       "Convertir una botiga de puericultura de Barcelona, amb botiga física i ecommerce, en referent orgànic del seu sector treballant sobre una web desenvolupada per un tercer. Nov 2025 – oct 2026, projecte en curs.",
-    categories: ['SEO', 'Google Ads'],
+    categories: ['SEO', 'E-commerce', 'Google Ads', 'SEO Local'],
     date: 'Octubre 2026',
     cardTitle: "Cas d'èxit: Palacio del Bebé +47% de trànsit orgànic",
     cardDescription:
@@ -239,7 +239,7 @@ export const PALACIO_DEL_BEBE_CASE = {
         items: [
           { value: '+47%', label: 'Trànsit orgànic mensual' },
           { value: '+23%', label: 'Keywords al Top 3 de Google' },
-          { value: 'Núm. 1', label: 'A les cerques clau del sector' },
+          { value: '#1', label: 'En sis cerques clau del sector' },
           { value: '+2.500', label: 'Cerques de marca al mes, partint de zero' },
         ],
       },
@@ -249,7 +249,7 @@ export const PALACIO_DEL_BEBE_CASE = {
 <h2>Què ens vam trobar a l'auditoria</h2>
 <p>Abans de proposar res vam fer una <a href="/ca/agencia-seo-per-pimes/">auditoria SEO</a> completa de la botiga. Aquests eren els frens principals:</p>
 <ul>
-  <li><strong>Web lenta.</strong> Core Web Vitals en vermell en mòbil, que és des d'on compra la majoria de pares i mares.</li>
+  <li><strong>Web lenta.</strong> Core Web Vitals en vermell en mòbil, que és des d'on compra la majoria de pares i mares. És el primer que mirem en qualsevol feina d'<a href="/ca/disseny-web-per-pimes/">optimització web</a>, perquè sense velocitat la resta del SEO rendeix menys.</li>
   <li><strong>Errors tècnics.</strong> URL duplicades per filtres i variants de producte, canòniques incorrectes, pàgines sense valor indexades i productes esgotats que continuaven responent amb error.</li>
   <li><strong>Categories sense contingut.</strong> Les pàgines de cotxets, cadires o bressols eren només un llistat de productes, sense cap text que expliqués a Google (ni al client) què es ven i per a qui.</li>
   <li><strong>Fitxes copiades del fabricant.</strong> Les mateixes descripcions que desenes de botigues, així que cap raó per posicionar la de Palacio del Bebé.</li>
@@ -368,14 +368,7 @@ export const PALACIO_DEL_BEBE_CASE = {
         content: `
 <h2>I el que importa, més comandes i més visites a la botiga</h2>
 <p>El trànsit i les posicions són el mitjà. El que buscava Palacio del Bebé eren comandes online i clients a la botiga, i tots dos han crescut de manera sostinguda durant l'any, amb el canal orgànic com a principal font de visites qualificades.</p>
-<p>El projecte continua en curs: ara treballem la cobertura de les marques, el contingut d'ajuda a la compra i l'ampliació de les campanyes de Shopping a noves categories.</p>
-<h3>Serveis aplicats en aquest projecte</h3>
-<ul>
-  <li><a href="/ca/agencia-seo-per-pimes/">Posicionament SEO per a pimes</a>. Auditoria, SEO tècnic coordinat amb el desenvolupador extern, arquitectura i continguts.</li>
-  <li><a href="/ca/agencia-sem-per-pimes/">Google Ads i Shopping per a pimes</a>. Campanyes de producte per a les categories de més marge.</li>
-  <li><a href="/ca/disseny-web-per-pimes/">Disseny i optimització web</a>. Velocitat i Core Web Vitals de l'ecommerce.</li>
-  <li><a href="/ca/agencia-de-marketing-digital-a-barcelona/">Agència de màrqueting digital a Barcelona</a>. Visibilitat local per a la botiga física.</li>
-</ul>`,
+<p>El projecte continua en curs: ara treballem la cobertura de les marques, el contingut d'ajuda a la compra i l'ampliació de les campanyes de Shopping a noves categories.</p>`,
       },
       {
         __component: 'blocks.cta',
