@@ -11,7 +11,8 @@
  *  - Páginas de equipo más vistas el 18 dic: Real Madrid 189, Baskonia 170,
  *    FC Barcelona 158, KK Mega 121.
  *
- * Pendiente: tabla de PageSpeed (el cliente enviará capturas).
+ * Pendiente: tabla de PageSpeed (el cliente enviará capturas). Las capturas de
+ * la página de partido, la galería y la gráfica de GA sí están incluidas.
  */
 
 // Las imágenes de los bloques llevan URL absoluta: PageBlocks antepone la URL
@@ -20,6 +21,9 @@ const SITE = 'https://novamarketing.es';
 const IMG = {
   grups: `${SITE}/casos/cb-hospitalet/grups-torneig-junior-hospitalet.webp`,
   equipo: `${SITE}/casos/cb-hospitalet/pagina-equipo-real-madrid-torneig-junior.webp`,
+  partido: `${SITE}/casos/cb-hospitalet/pagina-partido-torneig-junior-hospitalet.webp`,
+  galeria: `${SITE}/casos/cb-hospitalet/galeria-fotos-partido-torneig-junior.webp`,
+  visitas: `${SITE}/casos/cb-hospitalet/visitas-web-torneig-junior-diciembre-2025.webp`,
 };
 // Portada (hero, tarjeta del listado y og:image): ruta relativa al sitio.
 const COVER = '/casos/cb-hospitalet/torneig-junior-hospitalet-web.webp';
@@ -160,6 +164,16 @@ export const CB_HOSPITALET_CASE = {
         caption: 'Cada equipo tiene su página con foto oficial, plantilla y partidos.',
       },
       {
+        __component: 'blocks.image',
+        image: { url: IMG.partido, alternativeText: "Página de partido CB L'Hospitalet 49 - Real Madrid 127 en la web del torneo, con marcador, fase, hora, acta, estadísticas, árbitros y patrocinadores" },
+        caption: 'Página de partido: marcador, fase y hora, acceso al acta y a las estadísticas, árbitros y oficiales de mesa, y los patrocinadores al pie.',
+      },
+      {
+        __component: 'blocks.image',
+        image: { url: IMG.galeria, alternativeText: 'Galería de fotos de un partido del torneo en la web del CB L'Hospitalet' },
+        caption: 'Cada partido tiene su galería de fotos, que se publica el mismo día.',
+      },
+      {
         __component: 'blocks.html',
         content: `
 <h2>Los resultados: 18.000 páginas vistas en el mes del torneo</h2>
@@ -176,6 +190,11 @@ export const CB_HOSPITALET_CASE = {
   </tbody>
 </table>
 <p>En el conjunto de diciembre, entre la semana previa y los días de competición, la web superó las <strong>18.000 páginas vistas</strong>. Y más de la mitad del tráfico fue a secciones interiores: las páginas de equipo más visitadas fueron las del Real Madrid, Baskonia, FC Barcelona y KK Mega, además del calendario y las páginas de partido.</p>`,
+      },
+      {
+        __component: 'blocks.image',
+        image: { url: IMG.visitas, alternativeText: 'Gráfica de Google Analytics con las páginas vistas por día de la web del torneo en diciembre de 2025, con el pico del 18 al 20' },
+        caption: 'Páginas vistas por día en diciembre de 2025 (Google Analytics). El pico coincide con los tres días de torneo.',
       },
       {
         __component: 'blocks.big-stat',
@@ -322,6 +341,16 @@ export const CB_HOSPITALET_CASE = {
         caption: 'Cada equip té la seva pàgina amb foto oficial, plantilla i partits.',
       },
       {
+        __component: 'blocks.image',
+        image: { url: IMG.partido, alternativeText: "Pàgina de partit CB L'Hospitalet 49 - Real Madrid 127 al web del torneig, amb marcador, fase, hora, acta, estadístiques, àrbitres i patrocinadors" },
+        caption: "Pàgina de partit: marcador, fase i hora, accés a l'acta i a les estadístiques, àrbitres i oficials de taula, i els patrocinadors al peu.",
+      },
+      {
+        __component: 'blocks.image',
+        image: { url: IMG.galeria, alternativeText: "Galeria de fotos d'un partit del torneig al web del CB L'Hospitalet" },
+        caption: 'Cada partit té la seva galeria de fotos, que es publica el mateix dia.',
+      },
+      {
         __component: 'blocks.html',
         content: `
 <h2>Els resultats: 18.000 pàgines vistes el mes del torneig</h2>
@@ -338,6 +367,11 @@ export const CB_HOSPITALET_CASE = {
   </tbody>
 </table>
 <p>En el conjunt del desembre, entre la setmana prèvia i els dies de competició, el web va superar les <strong>18.000 pàgines vistes</strong>. I més de la meitat del trànsit va anar a seccions interiors: les pàgines d'equip més visitades van ser les del Real Madrid, el Baskonia, el FC Barcelona i el KK Mega, a més del calendari i les pàgines de partit.</p>`,
+      },
+      {
+        __component: 'blocks.image',
+        image: { url: IMG.visitas, alternativeText: 'Gràfica de Google Analytics amb les pàgines vistes per dia del web del torneig el desembre de 2025, amb el pic del 18 al 20' },
+        caption: 'Pàgines vistes per dia el desembre de 2025 (Google Analytics). El pic coincideix amb els tres dies de torneig.',
       },
       {
         __component: 'blocks.big-stat',
