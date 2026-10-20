@@ -8,8 +8,7 @@
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageBlocks from '../blocks/PageBlocks.astro';
-import SuccessCard from '../blog/SuccessCard.astro';
-import { strapiClient } from '../../lib/strapi';
+import MoreCases from './MoreCases.astro';
 import { buildAlternates } from '../../lib/i18n';
 
 interface Props {
@@ -24,12 +23,6 @@ const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates(data.paths.es, data.paths.ca, SITE_URL);
 const coverUrl = data.cover;
 
-// Más casos de éxito (desde Strapi, como en la plantilla dinámica)
-let latestCases: any[] = [];
-try {
-  const res = await strapiClient.getCaseStudies(locale, { limit: 5 });
-  latestCases = (res.data ?? []).map((i: any) => i.attributes ?? i).filter((c: any) => c.isPublic).slice(0, 4);
-} catch {}
 
 const ui = isCa ? {
   back: 'TORNAR A CASOS', backHref: '/ca/casos-exit/',
@@ -208,18 +201,7 @@ const ui = isCa ? {
     </div>
   </main>
 
-  {latestCases.length > 0 && (
-    <section class="py-16 px-6 sm:px-12 bg-zinc-50 border-t border-zinc-100">
-      <div class="max-w-7xl mx-auto">
-        <div class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-8">{ui.more}</div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {latestCases.map((cs: any) => (
-            <SuccessCard caseStudy={cs} locale={locale} />
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
+  <MoreCases locale={locale} currentSlug={data.slug} />
 </BaseLayout>
 
 <style>
