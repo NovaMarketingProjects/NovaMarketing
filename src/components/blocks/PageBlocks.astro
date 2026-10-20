@@ -645,11 +645,9 @@ function embedUrl(url: string): string {
 }
 .pb-metrics__grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .pb-metrics__grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+/* 4 métricas: siempre en dos filas de dos. En la columna de contenido (~800px)
+   cuatro columnas aplastan valores como "53 → 98". */
 .pb-metrics__grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-
-@media (min-width: 768px) {
-  .pb-metrics__grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-}
 
 .pb-metric {
   display: flex;
