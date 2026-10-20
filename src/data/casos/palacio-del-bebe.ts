@@ -14,12 +14,11 @@
  * la gráfica de tráfico de Semrush (su eje muestra valores absolutos).
  */
 
-// Las imágenes de los bloques llevan URL absoluta: PageBlocks antepone la URL
-// del CMS a cualquier ruta relativa (en el resto de casos son imágenes de Strapi).
-const SITE = 'https://novamarketing.es';
+// Imágenes de los bloques: ruta relativa al sitio con local: true, para que
+// PageBlocks no les anteponga la URL del CMS.
 const IMG = {
-  carricoches: `${SITE}/casos/palacio-del-bebe/carricoches-de-bebe-posicion-1-semrush.webp`,
-  tiendaBcn: `${SITE}/casos/palacio-del-bebe/tienda-de-bebe-barcelona-posicion-1-semrush.webp`,
+  carricoches: '/casos/palacio-del-bebe/carricoches-de-bebe-posicion-1-semrush.webp',
+  tiendaBcn: '/casos/palacio-del-bebe/tienda-de-bebe-barcelona-posicion-1-semrush.webp',
 };
 // Portada (hero, tarjeta del listado y og:image): ruta relativa al sitio.
 const COVER = '/casos/palacio-del-bebe/palacio-del-bebe-web.webp';
@@ -184,12 +183,12 @@ export const PALACIO_DEL_BEBE_CASE = {
       },
       {
         __component: 'blocks.image',
-        image: { url: IMG.carricoches, alternativeText: 'Evolución en Semrush de la búsqueda "carricoches de bebé": de la posición 24 a la 1 para la categoría de cochecitos de Palacio del Bebé' },
+        image: { url: IMG.carricoches, local: true, alternativeText: 'Evolución en Semrush de la búsqueda "carricoches de bebé": de la posición 24 a la 1 para la categoría de cochecitos de Palacio del Bebé' },
         caption: 'La categoría de cochecitos pasa de la posición 24 a la 1 para "carricoches de bebé" tras reescribir el contenido y reforzar el enlazado interno (Semrush).',
       },
       {
         __component: 'blocks.image',
-        image: { url: IMG.tiendaBcn, alternativeText: 'Evolución en Semrush de la búsqueda "tienda de bebé Barcelona": posición 1 desde julio de 2026' },
+        image: { url: IMG.tiendaBcn, local: true, alternativeText: 'Evolución en Semrush de la búsqueda "tienda de bebé Barcelona": posición 1 desde julio de 2026' },
         caption: '"Tienda de bebé Barcelona": posición 1 desde julio de 2026 (Semrush).',
       },
       {
@@ -379,12 +378,12 @@ export const PALACIO_DEL_BEBE_CASE = {
       },
       {
         __component: 'blocks.image',
-        image: { url: IMG.carricoches, alternativeText: 'Evolució a Semrush de la cerca "carricoches de bebé": de la posició 24 a la 1 per a la categoria de cotxets de Palacio del Bebé' },
+        image: { url: IMG.carricoches, local: true, alternativeText: 'Evolució a Semrush de la cerca "carricoches de bebé": de la posició 24 a la 1 per a la categoria de cotxets de Palacio del Bebé' },
         caption: 'La categoria de cotxets passa de la posició 24 a la 1 per a "carricoches de bebé" després de reescriure el contingut i reforçar l\'enllaçat intern (Semrush).',
       },
       {
         __component: 'blocks.image',
-        image: { url: IMG.tiendaBcn, alternativeText: 'Evolució a Semrush de la cerca "tienda de bebé Barcelona": posició 1 des de juliol de 2026' },
+        image: { url: IMG.tiendaBcn, local: true, alternativeText: 'Evolució a Semrush de la cerca "tienda de bebé Barcelona": posició 1 des de juliol de 2026' },
         caption: '"Tienda de bebé Barcelona": posició 1 des de juliol de 2026 (Semrush).',
       },
       {

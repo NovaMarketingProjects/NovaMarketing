@@ -19,13 +19,12 @@
  * Por acuerdo con el cliente no se mencionan leads ni presupuestos.
  */
 
-// Las imágenes de los bloques llevan URL absoluta: PageBlocks antepone la URL
-// del CMS a cualquier ruta relativa (en el resto de casos son imágenes de Strapi).
-const SITE = 'https://novamarketing.es';
+// Imágenes de los bloques: ruta relativa al sitio con local: true, para que
+// PageBlocks no les anteponga la URL del CMS.
 const IMG = {
-  keywords: `${SITE}/casos/voltura-projects/keywords-voltura-projects-semrush.webp`,
-  psMovil: `${SITE}/casos/voltura-projects/pagespeed-movil-voltura-projects.webp`,
-  psEscritorio: `${SITE}/casos/voltura-projects/pagespeed-escritorio-voltura-projects.webp`,
+  keywords: '/casos/voltura-projects/keywords-voltura-projects-semrush.webp',
+  psMovil: '/casos/voltura-projects/pagespeed-movil-voltura-projects.webp',
+  psEscritorio: '/casos/voltura-projects/pagespeed-escritorio-voltura-projects.webp',
 };
 // Portada (hero, tarjeta del listado y og:image): ruta relativa al sitio.
 const COVER = '/casos/voltura-projects/voltura-projects-web.webp';
@@ -214,7 +213,7 @@ ${pageSpeedTable(['PageSpeed Insights', 'Móvil', 'Escritorio'], PS_ROWS_ES)}
       },
       {
         __component: 'blocks.image',
-        image: { url: IMG.psMovil, alternativeText: 'PageSpeed Insights de volturaprojects.es en móvil: 94 de rendimiento, 91 de accesibilidad, 100 en prácticas recomendadas y 100 en SEO' },
+        image: { url: IMG.psMovil, local: true, alternativeText: 'PageSpeed Insights de volturaprojects.es en móvil: 94 de rendimiento, 91 de accesibilidad, 100 en prácticas recomendadas y 100 en SEO' },
         caption: 'PageSpeed Insights en móvil, octubre de 2026: 94 de rendimiento y 100 en SEO.',
       },
       {
@@ -247,7 +246,7 @@ ${pageSpeedTable(['PageSpeed Insights', 'Móvil', 'Escritorio'], PS_ROWS_ES)}
       },
       {
         __component: 'blocks.image',
-        image: { url: IMG.keywords, alternativeText: 'Gráfica de Semrush con la evolución de las keywords orgánicas de volturaprojects.es por posición, de marzo a octubre de 2026' },
+        image: { url: IMG.keywords, local: true, alternativeText: 'Gráfica de Semrush con la evolución de las keywords orgánicas de volturaprojects.es por posición, de marzo a octubre de 2026' },
         caption: 'Keywords orgánicas de volturaprojects.es por rango de posición (Semrush). Antes de marzo de 2026 no existía la web.',
       },
       {
@@ -444,7 +443,7 @@ ${pageSpeedTable(['PageSpeed Insights', 'Mòbil', 'Escriptori'], PS_ROWS_CA)}
       },
       {
         __component: 'blocks.image',
-        image: { url: IMG.psMovil, alternativeText: 'PageSpeed Insights de volturaprojects.es en mòbil: 94 de rendiment, 91 d’accessibilitat, 100 en pràctiques recomanades i 100 en SEO' },
+        image: { url: IMG.psMovil, local: true, alternativeText: 'PageSpeed Insights de volturaprojects.es en mòbil: 94 de rendiment, 91 d’accessibilitat, 100 en pràctiques recomanades i 100 en SEO' },
         caption: "PageSpeed Insights en mòbil, octubre de 2026: 94 de rendiment i 100 en SEO.",
       },
       {
@@ -477,7 +476,7 @@ ${pageSpeedTable(['PageSpeed Insights', 'Mòbil', 'Escriptori'], PS_ROWS_CA)}
       },
       {
         __component: 'blocks.image',
-        image: { url: IMG.keywords, alternativeText: "Gràfica de Semrush amb l'evolució de les keywords orgàniques de volturaprojects.es per posició, de març a octubre de 2026" },
+        image: { url: IMG.keywords, local: true, alternativeText: "Gràfica de Semrush amb l'evolució de les keywords orgàniques de volturaprojects.es per posició, de març a octubre de 2026" },
         caption: 'Keywords orgàniques de volturaprojects.es per rang de posició (Semrush). Abans de març de 2026 no existia la web.',
       },
       {

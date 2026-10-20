@@ -15,15 +15,14 @@
  * la página de partido, la galería y la gráfica de GA sí están incluidas.
  */
 
-// Las imágenes de los bloques llevan URL absoluta: PageBlocks antepone la URL
-// del CMS a cualquier ruta relativa (en el resto de casos son imágenes de Strapi).
-const SITE = 'https://novamarketing.es';
+// Imágenes de los bloques: ruta relativa al sitio con local: true, para que
+// PageBlocks no les anteponga la URL del CMS.
 const IMG = {
-  grups: `${SITE}/casos/cb-hospitalet/grups-torneig-junior-hospitalet.webp`,
-  equipo: `${SITE}/casos/cb-hospitalet/pagina-equipo-real-madrid-torneig-junior.webp`,
-  partido: `${SITE}/casos/cb-hospitalet/pagina-partido-torneig-junior-hospitalet.webp`,
-  galeria: `${SITE}/casos/cb-hospitalet/galeria-fotos-partido-torneig-junior.webp`,
-  visitas: `${SITE}/casos/cb-hospitalet/visitas-web-torneig-junior-diciembre-2025.webp`,
+  grups: '/casos/cb-hospitalet/grups-torneig-junior-hospitalet.webp',
+  equipo: '/casos/cb-hospitalet/pagina-equipo-real-madrid-torneig-junior.webp',
+  partido: '/casos/cb-hospitalet/pagina-partido-torneig-junior-hospitalet.webp',
+  galeria: '/casos/cb-hospitalet/galeria-fotos-partido-torneig-junior.webp',
+  visitas: '/casos/cb-hospitalet/visitas-web-torneig-junior-diciembre-2025.webp',
 };
 // Portada (hero, tarjeta del listado y og:image): ruta relativa al sitio.
 const COVER = '/casos/cb-hospitalet/torneig-junior-hospitalet-web.webp';
@@ -155,22 +154,22 @@ export const CB_HOSPITALET_CASE = {
       },
       {
         __component: 'blocks.image',
-        image: { url: IMG.grups, alternativeText: "Sección de grupos de la web del 46è Torneig de Bàsquet Junior Ciutat de L'Hospitalet, con los ocho equipos repartidos en dos grupos" },
+        image: { url: IMG.grups, local: true, alternativeText: "Sección de grupos de la web del 46è Torneig de Bàsquet Junior Ciutat de L'Hospitalet, con los ocho equipos repartidos en dos grupos" },
         caption: 'Grupos del torneo: Real Madrid, CB L\'Hospitalet, Valencia Basket y Zalgiris en el A; FC Barcelona, KK Mega Superbet, Baskonia y Joventut en el B.',
       },
       {
         __component: 'blocks.image',
-        image: { url: IMG.equipo, alternativeText: 'Página del Real Madrid en la web del torneo, con la foto oficial de la plantilla junior' },
+        image: { url: IMG.equipo, local: true, alternativeText: 'Página del Real Madrid en la web del torneo, con la foto oficial de la plantilla junior' },
         caption: 'Cada equipo tiene su página con foto oficial, plantilla y partidos.',
       },
       {
         __component: 'blocks.image',
-        image: { url: IMG.partido, alternativeText: "Página de partido CB L'Hospitalet 49 - Real Madrid 127 en la web del torneo, con marcador, fase, hora, acta, estadísticas, árbitros y patrocinadores" },
+        image: { url: IMG.partido, local: true, alternativeText: "Página de partido CB L'Hospitalet 49 - Real Madrid 127 en la web del torneo, con marcador, fase, hora, acta, estadísticas, árbitros y patrocinadores" },
         caption: 'Página de partido: marcador, fase y hora, acceso al acta y a las estadísticas, árbitros y oficiales de mesa, y los patrocinadores al pie.',
       },
       {
         __component: 'blocks.image',
-        image: { url: IMG.galeria, alternativeText: "Galería de fotos de un partido del torneo en la web del CB L'Hospitalet" },
+        image: { url: IMG.galeria, local: true, alternativeText: "Galería de fotos de un partido del torneo en la web del CB L'Hospitalet" },
         caption: 'Cada partido tiene su galería de fotos, que se publica el mismo día.',
       },
       {
@@ -193,7 +192,7 @@ export const CB_HOSPITALET_CASE = {
       },
       {
         __component: 'blocks.image',
-        image: { url: IMG.visitas, alternativeText: 'Gráfica de Google Analytics con las páginas vistas por día de la web del torneo en diciembre de 2025, con el pico del 18 al 20' },
+        image: { url: IMG.visitas, local: true, alternativeText: 'Gráfica de Google Analytics con las páginas vistas por día de la web del torneo en diciembre de 2025, con el pico del 18 al 20' },
         caption: 'Páginas vistas por día en diciembre de 2025 (Google Analytics). El pico coincide con los tres días de torneo.',
       },
       {
@@ -332,22 +331,22 @@ export const CB_HOSPITALET_CASE = {
       },
       {
         __component: 'blocks.image',
-        image: { url: IMG.grups, alternativeText: "Secció de grups del web del 46è Torneig de Bàsquet Junior Ciutat de L'Hospitalet, amb els vuit equips repartits en dos grups" },
+        image: { url: IMG.grups, local: true, alternativeText: "Secció de grups del web del 46è Torneig de Bàsquet Junior Ciutat de L'Hospitalet, amb els vuit equips repartits en dos grups" },
         caption: "Grups del torneig: Real Madrid, CB L'Hospitalet, València Basket i Zalgiris a l'A; FC Barcelona, KK Mega Superbet, Baskonia i Joventut al B.",
       },
       {
         __component: 'blocks.image',
-        image: { url: IMG.equipo, alternativeText: 'Pàgina del Real Madrid al web del torneig, amb la foto oficial de la plantilla júnior' },
+        image: { url: IMG.equipo, local: true, alternativeText: 'Pàgina del Real Madrid al web del torneig, amb la foto oficial de la plantilla júnior' },
         caption: 'Cada equip té la seva pàgina amb foto oficial, plantilla i partits.',
       },
       {
         __component: 'blocks.image',
-        image: { url: IMG.partido, alternativeText: "Pàgina de partit CB L'Hospitalet 49 - Real Madrid 127 al web del torneig, amb marcador, fase, hora, acta, estadístiques, àrbitres i patrocinadors" },
+        image: { url: IMG.partido, local: true, alternativeText: "Pàgina de partit CB L'Hospitalet 49 - Real Madrid 127 al web del torneig, amb marcador, fase, hora, acta, estadístiques, àrbitres i patrocinadors" },
         caption: "Pàgina de partit: marcador, fase i hora, accés a l'acta i a les estadístiques, àrbitres i oficials de taula, i els patrocinadors al peu.",
       },
       {
         __component: 'blocks.image',
-        image: { url: IMG.galeria, alternativeText: "Galeria de fotos d'un partit del torneig al web del CB L'Hospitalet" },
+        image: { url: IMG.galeria, local: true, alternativeText: "Galeria de fotos d'un partit del torneig al web del CB L'Hospitalet" },
         caption: 'Cada partit té la seva galeria de fotos, que es publica el mateix dia.',
       },
       {
@@ -370,7 +369,7 @@ export const CB_HOSPITALET_CASE = {
       },
       {
         __component: 'blocks.image',
-        image: { url: IMG.visitas, alternativeText: 'Gràfica de Google Analytics amb les pàgines vistes per dia del web del torneig el desembre de 2025, amb el pic del 18 al 20' },
+        image: { url: IMG.visitas, local: true, alternativeText: 'Gràfica de Google Analytics amb les pàgines vistes per dia del web del torneig el desembre de 2025, amb el pic del 18 al 20' },
         caption: 'Pàgines vistes per dia el desembre de 2025 (Google Analytics). El pic coincideix amb els tres dies de torneig.',
       },
       {

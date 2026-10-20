@@ -9,12 +9,11 @@
  * (`__component: 'blocks.*'`) para que PageBlocks los pinte igual que en el blog.
  */
 
-// Las imágenes de los bloques llevan URL absoluta: PageBlocks antepone la URL
-// del CMS a cualquier ruta relativa (en el resto de casos son imágenes de Strapi).
-const SITE = 'https://novamarketing.es';
+// Imágenes de los bloques: ruta relativa al sitio con local: true, para que
+// PageBlocks no les anteponga la URL del CMS.
 const IMG = {
-  trafico: `${SITE}/casos/tattoox/trafico-organico-tattoox-semrush.webp`,
-  keywords: `${SITE}/casos/tattoox/keywords-tattoox-semrush.webp`,
+  trafico: '/casos/tattoox/trafico-organico-tattoox-semrush.webp',
+  keywords: '/casos/tattoox/keywords-tattoox-semrush.webp',
 };
 // Portada (hero, tarjeta del listado y og:image): ruta relativa al sitio.
 const COVER = '/casos/tattoox/tattoox-web.webp';
@@ -206,7 +205,7 @@ export const TATTOOX_CASE = {
       },
       {
         __component: 'blocks.image',
-        image: { url: IMG.keywords, alternativeText: 'Evolución de las keywords de Tattoox por posición en Google según Semrush, octubre 2025 a octubre 2026' },
+        image: { url: IMG.keywords, local: true, alternativeText: 'Evolución de las keywords de Tattoox por posición en Google según Semrush, octubre 2025 a octubre 2026' },
         caption: 'Keywords orgánicas de tattoox.es por rango de posición (Semrush). El bloque de Top 3 crece mientras se vacían las posiciones lejanas.',
       },
       {
@@ -228,7 +227,7 @@ export const TATTOOX_CASE = {
       },
       {
         __component: 'blocks.image',
-        image: { url: IMG.trafico, alternativeText: 'Gráfica de tráfico orgánico mensual de tattoox.es en Semrush, de octubre de 2025 a octubre de 2026' },
+        image: { url: IMG.trafico, local: true, alternativeText: 'Gráfica de tráfico orgánico mensual de tattoox.es en Semrush, de octubre de 2025 a octubre de 2026' },
         caption: 'Tráfico orgánico de tattoox.es (Semrush). La curva arranca con las correcciones técnicas y acelera con el contenido y el enlazado interno.',
       },
       {
@@ -436,7 +435,7 @@ export const TATTOOX_CASE = {
       },
       {
         __component: 'blocks.image',
-        image: { url: IMG.keywords, alternativeText: "Evolució de les keywords de Tattoox per posició a Google segons Semrush, d'octubre de 2025 a octubre de 2026" },
+        image: { url: IMG.keywords, local: true, alternativeText: "Evolució de les keywords de Tattoox per posició a Google segons Semrush, d'octubre de 2025 a octubre de 2026" },
         caption: 'Keywords orgàniques de tattoox.es per rang de posició (Semrush). El bloc de Top 3 creix mentre es buiden les posicions llunyanes.',
       },
       {
@@ -458,7 +457,7 @@ export const TATTOOX_CASE = {
       },
       {
         __component: 'blocks.image',
-        image: { url: IMG.trafico, alternativeText: "Gràfica de trànsit orgànic mensual de tattoox.es a Semrush, d'octubre de 2025 a octubre de 2026" },
+        image: { url: IMG.trafico, local: true, alternativeText: "Gràfica de trànsit orgànic mensual de tattoox.es a Semrush, d'octubre de 2025 a octubre de 2026" },
         caption: 'Trànsit orgànic de tattoox.es (Semrush). La corba arrenca amb les correccions tècniques i accelera amb el contingut i l’enllaçat intern.',
       },
       {
