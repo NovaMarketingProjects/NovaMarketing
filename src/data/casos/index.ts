@@ -27,11 +27,14 @@ export const STATIC_CASES = [VILLAZON_MERCE_CASE, CLUSTAG_CASE, CB_HOSPITALET_CA
  */
 export function applyStaticOverrides<T extends { attributes?: any }>(items: T[], locale: 'es' | 'ca'): T[] {
   const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
-  return items.map((item: any) => {
+  const sectorsOf = (sc: any) => (sc.sectorSlugs ?? []).map((slug: string) => ({ slug, name: slug }));
+  const matched = new Set<any>();
+  const overridden = items.map((item: any) => {
     const c = item?.attributes ?? item;
     if (!c?.slug) return item;
     const sc: any = STATIC_CASES.find((s: any) => s.strapiSlugs?.[locale] === c.slug);
     if (!sc) return item;
+    matched.add(sc);
     const t = sc[locale];
     const merged = {
       ...c,
@@ -44,10 +47,30 @@ export function applyStaticOverrides<T extends { attributes?: any }>(items: T[],
       // Categorías del caso estático (si las define) para que las páginas de
       // sector lo recojan aunque la entrada de Strapi tenga otras.
       categories: resolveCategories(sc.listingCategories, locale) ?? c.categories,
+      sectors: [...(c.sectors ?? []), ...sectorsOf(sc)],
       _static: true,
     };
     return item?.attributes ? { ...item, attributes: merged } : merged;
   });
+  // Casos estáticos sin entrada en Strapi: se añaden como entradas sintéticas
+  // (también _static) para que las páginas de sector, servicios y home los
+  // muestren. Van primero, como en los listados.
+  const synthesized = STATIC_CASES.filter((sc: any) => !matched.has(sc)).map((sc: any) => {
+    const t = sc[locale];
+    return {
+      id: `static-${sc.slug}`,
+      slug: sc.slug,
+      title: t.cardTitle,
+      description: t.cardDescription,
+      company: sc.company,
+      isPublic: true,
+      cover_image: { url: siteUrl + sc.cover, alternativeText: t.cardTitle },
+      categories: resolveCategories(sc.listingCategories, locale) ?? [{ name: 'SEO', slug: sc.categorySlug }],
+      sectors: sectorsOf(sc),
+      _static: true,
+    } as any;
+  });
+  return [...synthesized, ...overridden];
 }
 
 function resolveCategories(lc: any, locale: 'es' | 'ca') {

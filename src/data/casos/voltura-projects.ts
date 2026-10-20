@@ -71,6 +71,8 @@ export const VOLTURA_PROJECTS_CASE = {
   // estos en todo el sitio (ver applyStaticOverrides en src/data/casos/index.ts).
   strapiSlugs: { es: 'caso-de-exito-voltura-projects', ca: 'cas-d-exit-voltura-projects' },
   categorySlug: 'diseno-web',
+  // Páginas de sector en las que aparece (slugs de SECTOR_SLUGS de esas páginas).
+  sectorSlugs: ['constructoras'],
   // Filtros del listado por idioma (el primero es la etiqueta de la tarjeta).
   listingCategories: {
     es: [

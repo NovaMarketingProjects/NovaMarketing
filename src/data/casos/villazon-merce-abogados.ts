@@ -75,6 +75,8 @@ export const VILLAZON_MERCE_CASE = {
   slug: 'villazon-merce-abogados',
   company: 'Villazón Mercé Abogados',
   categorySlug: 'diseno-web',
+  // Páginas de sector en las que aparece (slugs de SECTOR_SLUGS de esas páginas).
+  sectorSlugs: ['abogados'],
   listingCategories: {
     es: [
       { name: 'Diseño web', slug: 'diseno-web' },

@@ -65,6 +65,8 @@ export const CLUSTAG_CASE = {
   slug: 'clustag',
   company: 'Clustag',
   categorySlug: 'seo',
+  // Páginas de sector en las que aparece (slugs de SECTOR_SLUGS de esas páginas).
+  sectorSlugs: ['industrial', 'b2b'],
   listingCategories: {
     es: [
       { name: 'SEO', slug: 'seo' },

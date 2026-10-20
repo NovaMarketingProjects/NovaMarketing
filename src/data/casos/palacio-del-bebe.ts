@@ -33,6 +33,8 @@ export const PALACIO_DEL_BEBE_CASE = {
   // estos en todo el sitio (ver applyStaticOverrides en src/data/casos/index.ts).
   strapiSlugs: { es: 'caso-de-exito-palacio-del-bebe', ca: 'cas-d-exit-palacio-del-bebe' },
   categorySlug: 'seo',
+  // Páginas de sector en las que aparece (slugs de SECTOR_SLUGS de esas páginas).
+  sectorSlugs: ['ecommerce'],
   // Filtros del listado en los que aparece (el primero es la etiqueta de la tarjeta).
   listingCategories: [
     { name: 'SEO', slug: 'seo' },
