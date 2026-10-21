@@ -20,6 +20,7 @@ const STATIC_PAGES: { path: string; lastmod: string }[] = [
   { path: '/ca/casos-exit/villazon-merce-abogados/', lastmod: '2026-10-20' },
   { path: '/ca/casos-exit/cas-d-exit-dipole-rfid/', lastmod: '2026-10-21' },
   { path: '/ca/casos-exit/cts-formacion/', lastmod: '2026-10-21' },
+  { path: '/ca/casos-exit/cas-d-exit-superwagen/', lastmod: '2026-10-22' },
   { path: '/ca/blog/', lastmod: '2026-07-20' },
   { path: '/ca/agencia-de-marketing-digital-a-barcelona/', lastmod: '2026-07-23' },
   { path: '/ca/agencia-de-marketing-digital-a-sabadell/', lastmod: '2026-07-20' },
