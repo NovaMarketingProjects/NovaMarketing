@@ -359,21 +359,20 @@ function embedUrl(url: string): string {
   position: absolute;
   top: 1rem;
   z-index: 2;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  /* Píldora ajustada al texto con el mismo padding a ambos lados: sin min-width ni
+     centrado flex, el texto no puede quedar desplazado dentro de la píldora. */
+  display: inline-block;
   box-sizing: border-box;
-  min-width: 5.5rem;
+  padding: 0 0.85rem;
   height: 1.75rem;
-  padding: 0 0.9rem;
+  line-height: 1.75rem;
   border-radius: 9999px;
-  font-family: 'Montserrat', 'Montserrat Fallback', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 800;
-  line-height: 1;
-  /* Sin letter-spacing ni mayúsculas forzadas: el texto queda centrado igual en cualquier navegador. */
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
   letter-spacing: 0;
   text-align: center;
+  text-transform: none;
   white-space: nowrap;
   pointer-events: none;
   box-shadow: 0 2px 8px rgba(0,0,0,.2);
