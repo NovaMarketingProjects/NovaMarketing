@@ -18,8 +18,8 @@
  * El +213 % del texto anterior se ha sustituido por las cifras de Semrush.
  */
 
-// Portada: la misma imagen que ya tenía la entrada de Strapi (Cloudinary).
-const COVER = 'https://res.cloudinary.com/dejmjx6rb/image/upload/v1775724176/caso_de_exito_superwasgen_19a86029fe.webp';
+// Portada (hero, tarjeta del listado y og:image): captura de la home, ruta relativa al sitio.
+const COVER = '/casos/superwagen/superwagen-web.webp';
 
 const G = (v: string) => `<td style="color:#15803d;background:#f0fdf4;font-weight:800">${v}</td>`;
 const R = (v: string) => `<td style="color:#b91c1c;background:#fef2f2;font-weight:600">${v}</td>`;
@@ -27,7 +27,7 @@ const R = (v: string) => `<td style="color:#b91c1c;background:#fef2f2;font-weigh
 export const SUPERWAGEN_CASE = {
   paths: { es: '/casos-exito/caso-de-exito-superwagen/', ca: '/ca/casos-exit/cas-d-exit-superwagen/' },
   cover: COVER,
-  coverSize: { w: 1280, h: 848 },
+  coverSize: { w: 1893, h: 727 },
   // Se mantienen las URL ya indexadas de la entrada de Strapi (distintas por idioma).
   slug: 'caso-de-exito-superwagen',
   slugs: { es: 'caso-de-exito-superwagen', ca: 'cas-d-exit-superwagen' },
