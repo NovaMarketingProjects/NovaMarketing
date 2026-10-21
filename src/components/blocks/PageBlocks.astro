@@ -99,7 +99,7 @@ function embedUrl(url: string): string {
           <img src={imgUrl(block.before)} alt={block.before.alternativeText ?? ''} title={block.before.alternativeText ?? ''} loading="lazy" class="pb-compare__img pb-compare__img--before" />
           <span class="pb-compare__label pb-compare__label--before">{block.before_label ?? 'Antes'}</span>
           <span class="pb-compare__label pb-compare__label--after">{block.after_label ?? 'Después'}</span>
-          <div class="pb-compare__line" aria-hidden="true"><span class="pb-compare__handle">⟷</span></div>
+          <div class="pb-compare__line" aria-hidden="true"><span class="pb-compare__handle"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 3 12 9 18"></polyline><polyline points="15 6 21 12 15 18"></polyline></svg></span></div>
           <input type="range" min="0" max="100" value="50" class="pb-compare__range" aria-label={block.aria_label ?? 'Comparar antes y después'} />
         </div>
         {block.caption && <figcaption class="pb-figcaption">{block.caption}</figcaption>}
@@ -301,8 +301,12 @@ function embedUrl(url: string): string {
   display: block;
   pointer-events: none;
 }
-/* La imagen "antes" se recorta por la derecha según --pos; debajo queda la "después". */
-.pb-compare__img--before { clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+/* La imagen "antes" se recorta por la derecha según --pos; debajo queda la "después".
+   Empieza en blanco y negro y gana color a medida que la línea avanza a la derecha. */
+.pb-compare__img--before {
+  clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+  filter: grayscale(calc(100% - var(--pos)));
+}
 .pb-compare__line {
   position: absolute;
   top: 0;
@@ -327,8 +331,6 @@ function embedUrl(url: string): string {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
-  font-weight: 900;
   box-shadow: 0 4px 16px rgba(0,0,0,.3);
 }
 .pb-compare__label {
