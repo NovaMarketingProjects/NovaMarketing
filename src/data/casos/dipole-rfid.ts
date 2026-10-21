@@ -69,6 +69,7 @@ export const DIPOLE_RFID_CASE = {
     categories: ['SEO', 'Consultoría SEO'],
     date: 'Octubre 2026',
     facts: {
+      period: "Desde 2019",
       sectors: [
         { label: 'Marketing para empresas industriales', href: '/agencia-industrial/' },
         { label: 'Marketing para B2B', href: '/agencia-b2b/' },
@@ -297,6 +298,7 @@ export const DIPOLE_RFID_CASE = {
     categories: ['SEO', 'Consultoria SEO'],
     date: 'Octubre 2026',
     facts: {
+      period: "Des de 2019",
       sectors: [
         { label: 'Màrqueting per a empreses industrials', href: '/ca/agencia-industrial/' },
         { label: 'Màrqueting per a B2B', href: '/ca/agencia-b2b/' },

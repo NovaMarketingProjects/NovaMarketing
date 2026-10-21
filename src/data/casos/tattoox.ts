@@ -53,6 +53,7 @@ export const TATTOOX_CASE = {
     // Ficha bajo el hero: sector (con enlace si tenemos página de sector),
     // servicios trabajados, hito y tecnología.
     facts: {
+      period: "Octubre 2025 – actualidad, en curso",
           "sector": {
                 "label": "Marketing para formación online"
           },
@@ -283,6 +284,7 @@ export const TATTOOX_CASE = {
     // Ficha bajo el hero: sector (con enlace si tenemos página de sector),
     // servicios trabajados, hito y tecnología.
     facts: {
+      period: "Octubre 2025 – actualitat, en curs",
           "sector": {
                 "label": "Màrqueting per a formació online"
           },

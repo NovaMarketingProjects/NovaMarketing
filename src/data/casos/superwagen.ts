@@ -60,6 +60,7 @@ export const SUPERWAGEN_CASE = {
     categories: ['SEO Local', 'SEO', 'Google Ads'],
     date: 'Abril 2025',
     facts: {
+      period: "Diciembre 2023 – abril 2025",
       sector: { label: 'Marketing para concesionarios' },
       services: [
         { label: 'Posicionamiento SEO', href: '/agencia-seo-para-pymes/' },
@@ -236,6 +237,7 @@ export const SUPERWAGEN_CASE = {
     categories: ['SEO Local', 'SEO', 'Google Ads'],
     date: 'Abril 2025',
     facts: {
+      period: "Desembre 2023 – abril 2025",
       sector: { label: 'Màrqueting per a concessionaris' },
       services: [
         { label: 'Posicionament SEO', href: '/ca/agencia-seo-per-pimes/' },

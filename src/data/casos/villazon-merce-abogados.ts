@@ -105,6 +105,7 @@ export const VILLAZON_MERCE_CASE = {
     categories: ['Diseño web', 'SEO', 'SEO Local', 'Google Ads'],
     date: 'Octubre 2026',
     facts: {
+      period: "Lanzamiento en agosto 2026 – en curso",
       sectors: [{ label: 'Marketing para abogados', href: '/agencia-abogados/' }],
       services: [
         { label: 'Diseño y desarrollo web', href: '/diseno-web-para-pymes/' },
@@ -339,6 +340,7 @@ ${psTable(['PageSpeed Insights', 'Móvil', 'Escritorio'], PS_ES)}
     categories: ['Disseny web', 'SEO', 'SEO Local', 'Google Ads'],
     date: 'Octubre 2026',
     facts: {
+      period: "Llançament l’agost 2026 – en curs",
       sectors: [{ label: 'Màrqueting per a advocats', href: '/ca/agencia-advocats/' }],
       services: [
         { label: 'Disseny i desenvolupament web', href: '/ca/disseny-web-per-pimes/' },

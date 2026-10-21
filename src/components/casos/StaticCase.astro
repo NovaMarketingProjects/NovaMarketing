@@ -43,7 +43,7 @@ const ui = isCa ? {
     { label: 'Posicionament GEO en IA', href: '/ca/agencia-geo-per-pimes/' },
   ],
   more: "Més casos d'èxit",
-  factSector: 'Sector', factServices: 'Serveis treballats', factMilestone: 'Fita', factTech: 'Tecnologia',
+  factPeriod: 'Dates', factSector: 'Sector', factServices: 'Serveis treballats', factMilestone: 'Fita', factTech: 'Tecnologia',
 } : {
   back: 'VOLVER A CASOS', backHref: '/casos-exito/',
   company: 'Empresa', goal: 'Objetivo cumplido',
@@ -60,7 +60,7 @@ const ui = isCa ? {
     { label: 'Posicionamiento GEO en IA', href: '/agencia-geo-para-pymes/' },
   ],
   more: 'Más casos de éxito',
-  factSector: 'Sector', factServices: 'Servicios trabajados', factMilestone: 'Hito', factTech: 'Tecnología',
+  factPeriod: 'Fechas', factSector: 'Sector', factServices: 'Servicios trabajados', factMilestone: 'Hito', factTech: 'Tecnología',
 };
 ---
 
@@ -113,37 +113,41 @@ const ui = isCa ? {
     </div>
   </header>
 
-  <!-- Ficha del proyecto: sector, servicios, hito y tecnología -->
+  <!-- Ficha del proyecto: fechas, sector, servicios, hito y tecnología (ancho completo) -->
   {t.facts && (
-    <section class="bg-white px-6 sm:px-12 pt-12">
-      <div class="max-w-7xl mx-auto">
-        <div class="rounded-[2rem] border border-zinc-100 bg-zinc-50 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 divide-zinc-200 lg:divide-x">
-          <div class="p-8">
-            <span class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-3 block">{ui.factSector}</span>
-            <ul class="flex flex-col gap-1.5">
-              {(t.facts.sectors ?? [t.facts.sector]).map((sec: any) => (
-                <li>{sec.href
-                  ? <a href={sec.href} class="group inline-flex items-center gap-2 text-sm font-bold text-zinc-800 uppercase tracking-tight hover:text-accent transition-colors">{sec.label}<span class="text-accent translate-x-0 group-hover:translate-x-1 transition-transform">→</span></a>
-                  : <span class="text-sm font-bold text-zinc-800 uppercase tracking-tight">{sec.label}</span>}</li>
-              ))}
-            </ul>
+    <section class="bg-white px-4 sm:px-6 lg:px-8 pt-10">
+      <div class="w-full rounded-[2rem] border border-zinc-100 bg-zinc-50 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 divide-y sm:divide-y-0 divide-zinc-200 lg:divide-x">
+        {t.facts.period && (
+          <div class="px-7 py-6">
+            <span class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-3 block">{ui.factPeriod}</span>
+            <span class="text-sm font-light text-zinc-600 leading-relaxed">{t.facts.period}</span>
           </div>
-          <div class="p-8">
-            <span class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-3 block">{ui.factServices}</span>
-            <ul class="flex flex-col gap-1.5">
-              {t.facts.services.map((s: any) => (
-                <li><a href={s.href} class="group inline-flex items-center gap-2 text-sm font-bold text-zinc-800 uppercase tracking-tight hover:text-accent transition-colors">{s.label}<span class="text-accent translate-x-0 group-hover:translate-x-1 transition-transform">→</span></a></li>
-              ))}
-            </ul>
-          </div>
-          <div class="p-8">
-            <span class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-3 block">{ui.factMilestone}</span>
-            <span class="text-sm font-bold text-zinc-800 leading-relaxed">{t.facts.milestone}</span>
-          </div>
-          <div class="p-8">
-            <span class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-3 block">{ui.factTech}</span>
-            <span class="text-sm font-light text-zinc-600 leading-relaxed">{t.facts.tech}</span>
-          </div>
+        )}
+        <div class="px-7 py-6">
+          <span class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-3 block">{ui.factSector}</span>
+          <ul class="flex flex-col gap-1">
+            {(t.facts.sectors ?? [t.facts.sector]).map((sec: any) => (
+              <li>{sec.href
+                ? <a href={sec.href} class="group inline-flex items-start gap-1.5 text-sm font-light text-zinc-600 leading-relaxed hover:text-accent transition-colors">{sec.label}<span class="text-accent translate-x-0 group-hover:translate-x-1 transition-transform">→</span></a>
+                : <span class="text-sm font-light text-zinc-600 leading-relaxed">{sec.label}</span>}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="px-7 py-6">
+          <span class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-3 block">{ui.factServices}</span>
+          <ul class="flex flex-col gap-1">
+            {t.facts.services.map((s: any) => (
+              <li><a href={s.href} class="group inline-flex items-start gap-1.5 text-sm font-light text-zinc-600 leading-relaxed hover:text-accent transition-colors">{s.label}<span class="text-accent translate-x-0 group-hover:translate-x-1 transition-transform">→</span></a></li>
+            ))}
+          </ul>
+        </div>
+        <div class="px-7 py-6">
+          <span class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-3 block">{ui.factMilestone}</span>
+          <span class="text-sm font-light text-zinc-600 leading-relaxed">{t.facts.milestone}</span>
+        </div>
+        <div class="px-7 py-6">
+          <span class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400 mb-3 block">{ui.factTech}</span>
+          <span class="text-sm font-light text-zinc-600 leading-relaxed">{t.facts.tech}</span>
         </div>
       </div>
     </section>

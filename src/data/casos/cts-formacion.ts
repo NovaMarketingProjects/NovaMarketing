@@ -95,6 +95,7 @@ export const CTS_FORMACION_CASE = {
     categories: ['Diseño web', 'SEO'],
     date: 'Octubre 2026',
     facts: {
+      period: "2026 – actualidad, en curso",
       sector: { label: 'Marketing para centros de formación' },
       services: [
         { label: 'Diseño y desarrollo web', href: '/diseno-web-para-pymes/' },
@@ -291,6 +292,7 @@ ${psTable(['Mejora del Page Speed (móvil)', 'Antes', 'Después'], PS_ES)}
     categories: ['Disseny web', 'SEO'],
     date: 'Octubre 2026',
     facts: {
+      period: "2026 – actualitat, en curs",
       sector: { label: 'Màrqueting per a centres de formació' },
       services: [
         { label: 'Disseny i desenvolupament web', href: '/ca/disseny-web-per-pimes/' },

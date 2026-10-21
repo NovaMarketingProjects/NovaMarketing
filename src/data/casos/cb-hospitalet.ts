@@ -58,6 +58,7 @@ export const CB_HOSPITALET_CASE = {
     categories: ['Diseño web', 'Marketing digital'],
     date: 'Diciembre 2025',
     facts: {
+      period: "Otoño 2025 – diciembre 2025",
       sector: { label: 'Marketing para clubes deportivos' },
       services: [
         { label: 'Diseño y desarrollo web', href: '/diseno-web-para-pymes/' },
@@ -235,6 +236,7 @@ export const CB_HOSPITALET_CASE = {
     categories: ['Disseny web', 'Màrqueting digital'],
     date: 'Desembre 2025',
     facts: {
+      period: "Tardor 2025 – desembre 2025",
       sector: { label: 'Màrqueting per a clubs esportius' },
       services: [
         { label: 'Disseny i desenvolupament web', href: '/ca/disseny-web-per-pimes/' },

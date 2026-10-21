@@ -88,6 +88,7 @@ export const CLUSTAG_CASE = {
     categories: ['SEO', 'Consultoría SEO'],
     date: 'Octubre 2026',
     facts: {
+      period: "Mediados de 2025 – actualidad, en curso",
       sectors: [
         { label: 'Marketing para empresas industriales', href: '/agencia-industrial/' },
         { label: 'Marketing para B2B', href: '/agencia-b2b/' },
@@ -272,6 +273,7 @@ ${psTable(['Mejora del Page Speed (escritorio)', 'Antes', 'Después'], PS_ES)}
     categories: ['SEO', 'Consultoria SEO'],
     date: 'Octubre 2026',
     facts: {
+      period: "Mitjan 2025 – actualitat, en curs",
       sectors: [
         { label: 'Màrqueting per a empreses industrials', href: '/ca/agencia-industrial/' },
         { label: 'Màrqueting per a B2B', href: '/ca/agencia-b2b/' },

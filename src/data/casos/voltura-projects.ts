@@ -99,6 +99,7 @@ export const VOLTURA_PROJECTS_CASE = {
     // Ficha bajo el hero: sector (con enlace si tenemos página de sector),
     // servicios trabajados, hito y tecnología.
     facts: {
+      period: "Inicio 2026, lanzamiento en marzo 2026 – en curso",
           "sector": {
                 "label": "Marketing para constructoras",
                 "href": "/agencia-constructoras/"
@@ -329,6 +330,7 @@ ${pageSpeedTable(['PageSpeed Insights', 'Móvil', 'Escritorio'], PS_ROWS_ES)}
     // Ficha bajo el hero: sector (con enlace si tenemos página de sector),
     // servicios trabajados, hito y tecnología.
     facts: {
+      period: "Inici 2026, llançament el març 2026 – en curs",
           "sector": {
                 "label": "Màrqueting per a constructores",
                 "href": "/ca/agencia-constructores/"

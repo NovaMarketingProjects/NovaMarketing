@@ -55,6 +55,7 @@ export const PALACIO_DEL_BEBE_CASE = {
     // Ficha bajo el hero: sector (con enlace si tenemos página de sector),
     // servicios trabajados, hito y tecnología.
     facts: {
+      period: "Noviembre 2025 – actualidad, en curso",
           "sector": {
                 "label": "Marketing para ecommerce",
                 "href": "/agencia-ecommerce/"
@@ -250,6 +251,7 @@ export const PALACIO_DEL_BEBE_CASE = {
     // Ficha bajo el hero: sector (con enlace si tenemos página de sector),
     // servicios trabajados, hito y tecnología.
     facts: {
+      period: "Novembre 2025 – actualitat, en curs",
           "sector": {
                 "label": "Màrqueting per a ecommerce",
                 "href": "/ca/agencia-ecommerce/"
