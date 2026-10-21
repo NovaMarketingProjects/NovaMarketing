@@ -357,26 +357,29 @@ function embedUrl(url: string): string {
 }
 .pb-compare__label {
   position: absolute;
-  top: 0.75rem;
+  top: 1rem;
+  z-index: 2;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 1.6rem;
-  line-height: 1;
-  /* El letter-spacing deja un hueco tras la última letra: se compensa con menos padding a la derecha. */
-  padding: 0 calc(0.75rem - 0.2em) 0 0.75rem;
-  border-radius: 9999px;
   box-sizing: border-box;
+  min-width: 5.5rem;
+  height: 1.75rem;
+  padding: 0 0.9rem;
+  border-radius: 9999px;
   font-family: 'Montserrat', 'Montserrat Fallback', sans-serif;
-  font-size: 0.6rem;
-  font-weight: 900;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  font-size: 0.7rem;
+  font-weight: 800;
+  line-height: 1;
+  /* Sin letter-spacing ni mayúsculas forzadas: el texto queda centrado igual en cualquier navegador. */
+  letter-spacing: 0;
+  text-align: center;
+  white-space: nowrap;
   pointer-events: none;
-  z-index: 2;
+  box-shadow: 0 2px 8px rgba(0,0,0,.2);
 }
-.pb-compare__label--before { left: 0.75rem; background: #b91c1c; color: #fff; }
-.pb-compare__label--after { right: 0.75rem; background: #15803d; color: #fff; }
+.pb-compare__label--before { left: 1rem; background: #b91c1c; color: #fff; }
+.pb-compare__label--after { right: 1rem; background: #15803d; color: #fff; }
 /* El range cubre todo el bloque: arrastrar en cualquier punto mueve la línea. */
 .pb-compare__range {
   position: absolute;
