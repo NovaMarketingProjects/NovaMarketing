@@ -91,6 +91,21 @@ function embedUrl(url: string): string {
       </figure>
     )}
 
+    {/* ── Image compare (antes / después con línea deslizante) ── */}
+    {block.__component === 'blocks.image-compare' && block.before && block.after && (
+      <figure class="pb-compare-wrap">
+        <div class="pb-compare" data-compare style="--pos: 50%">
+          <img src={imgUrl(block.after)} alt={block.after.alternativeText ?? ''} title={block.after.alternativeText ?? ''} loading="lazy" class="pb-compare__img pb-compare__img--after" />
+          <img src={imgUrl(block.before)} alt={block.before.alternativeText ?? ''} title={block.before.alternativeText ?? ''} loading="lazy" class="pb-compare__img pb-compare__img--before" />
+          <span class="pb-compare__label pb-compare__label--before">{block.before_label ?? 'Antes'}</span>
+          <span class="pb-compare__label pb-compare__label--after">{block.after_label ?? 'Después'}</span>
+          <div class="pb-compare__line" aria-hidden="true"><span class="pb-compare__handle">⟷</span></div>
+          <input type="range" min="0" max="100" value="50" class="pb-compare__range" aria-label={block.aria_label ?? 'Comparar antes y después'} />
+        </div>
+        {block.caption && <figcaption class="pb-figcaption">{block.caption}</figcaption>}
+      </figure>
+    )}
+
     {/* ── Callout ── */}
     {block.__component === 'blocks.callout' && (
       <div class={`pb-callout pb-callout--${block.type ?? 'dato'}`}>
@@ -261,6 +276,93 @@ function embedUrl(url: string): string {
 
 .pb-space > * + * {
   margin-top: 3rem;
+}
+
+/* ── Image compare ── */
+.pb-compare-wrap { margin: 2.5rem 0; }
+.pb-compare {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 7.5;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid #e4e4e7;
+  background: #f4f4f5;
+  user-select: none;
+  touch-action: pan-y;
+}
+.pb-compare__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+  display: block;
+  pointer-events: none;
+}
+/* La imagen "antes" se recorta por la derecha según --pos; debajo queda la "después". */
+.pb-compare__img--before { clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+.pb-compare__line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pos);
+  width: 3px;
+  background: #fff;
+  transform: translateX(-50%);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.25), 0 0 16px rgba(0,0,0,.35);
+  pointer-events: none;
+}
+.pb-compare__handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 9999px;
+  background: #fff;
+  color: #09090b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 900;
+  box-shadow: 0 4px 16px rgba(0,0,0,.3);
+}
+.pb-compare__label {
+  position: absolute;
+  top: 0.75rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: 9999px;
+  font-family: 'Montserrat', 'Montserrat Fallback', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  pointer-events: none;
+  z-index: 2;
+}
+.pb-compare__label--before { left: 0.75rem; background: #b91c1c; color: #fff; }
+.pb-compare__label--after { right: 0.75rem; background: #15803d; color: #fff; }
+/* El range cubre todo el bloque: arrastrar en cualquier punto mueve la línea. */
+.pb-compare__range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: ew-resize;
+  -webkit-appearance: none;
+  appearance: none;
+  z-index: 3;
+}
+.pb-compare__range::-webkit-slider-thumb { -webkit-appearance: none; width: 3rem; height: 100%; }
+.pb-compare__range::-moz-range-thumb { width: 3rem; height: 100%; border: 0; background: transparent; }
+@media (max-width: 640px) {
+  .pb-compare { aspect-ratio: 4 / 3; }
 }
 
 /* ── HTML / sb-content (estilos tipográficos compartidos) ── */
@@ -1197,4 +1299,21 @@ function wrapPbTables() {
 }
 document.addEventListener('DOMContentLoaded', wrapPbTables);
 document.addEventListener('astro:page-load', wrapPbTables);
+</script>
+
+<script>
+// Comparador antes/después: el range (invisible, a pantalla completa) mueve la línea.
+function initPbCompare() {
+  document.querySelectorAll<HTMLElement>('[data-compare]').forEach((box) => {
+    if (box.dataset.ready) return;
+    box.dataset.ready = '1';
+    const range = box.querySelector<HTMLInputElement>('.pb-compare__range');
+    if (!range) return;
+    const apply = () => box.style.setProperty('--pos', range.value + '%');
+    range.addEventListener('input', apply);
+    apply();
+  });
+}
+document.addEventListener('DOMContentLoaded', initPbCompare);
+document.addEventListener('astro:page-load', initPbCompare);
 </script>

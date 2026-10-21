@@ -32,6 +32,7 @@ const IMG = {
 };
 // Portada (hero, tarjeta del listado y og:image): ruta relativa al sitio.
 const COVER = '/casos/cts-formacion/cts-formacion-web.webp';
+const IMG_DESPUES_HOME = COVER;
 
 const R = (v: string) => `<td style="color:#b91c1c;background:#fef2f2;font-weight:600">${v}</td>`;
 const G = (v: string) => `<td style="color:#15803d;background:#f0fdf4;font-weight:800">${v}</td>`;
@@ -151,29 +152,31 @@ export const CTS_FORMACION_CASE = {
         __component: 'blocks.html',
         content: `
 <h2>Antes y después, pantalla a pantalla</h2>
-<p>La mejor forma de entender el rediseño es comparar las tres pantallas que más usa un alumno: la home, el catálogo y la ficha de curso.</p>
+<p>La mejor forma de entender el rediseño es comparar las tres pantallas que más usa un alumno: la home, el catálogo y la ficha de curso. Arrastra la línea de cada imagen para pasar de la web antigua a la nueva.</p>
 <h3>La home</h3>`,
       },
       {
-        __component: 'blocks.image',
-        image: { url: IMG.antesHome, local: true, alternativeText: 'Home antigua de CTS Formación: cabecera roja, menú en mayúsculas, imágenes circulares de stock y un bloque de texto con llamada a la acción' },
-        caption: 'Antes: la home antigua, con cabecera roja, menú en mayúsculas y fotos de stock. Sin buscador ni acceso directo al catálogo.',
+        __component: 'blocks.image-compare',
+        before: { url: IMG.antesHome, local: true, alternativeText: 'Home antigua de CTS Formación: cabecera roja, menú en mayúsculas, imágenes circulares de stock y un bloque de texto con llamada a la acción' },
+        after: { url: IMG_DESPUES_HOME, local: true, alternativeText: 'Home nueva de CTS Formación: buscador de cursos protagonista, categorías como accesos directos y cifras del centro' },
+        before_label: 'Antes',
+        after_label: 'Después',
+        aria_label: 'Comparar la home antigua y la nueva',
+        caption: 'La home antigua, con cabecera roja, menú en mayúsculas y fotos de stock, frente a la nueva: buscador de cursos en el centro, categorías como accesos directos, cifras del centro y botón de "Pedir info" siempre visible.',
       },
       {
         __component: 'blocks.html',
         content: `
-<p>La home nueva pone el buscador de cursos en el centro, con las categorías principales como accesos directos, las cifras del centro (más de 200 cursos, más de 20 años, más de 5.000 alumnos, 98 % de satisfacción) y un botón de "Pedir info" siempre visible. Es la imagen de portada de este caso.</p>
 <h3>El catálogo</h3>`,
       },
       {
-        __component: 'blocks.image',
-        image: { url: IMG.antesCatalogo, local: true, alternativeText: 'Catálogo antiguo de CTS Formación: listado de categorías a la izquierda, filtro de precio y cursos presentados como productos con títulos numerados' },
-        caption: 'Antes: el catálogo como tienda, con títulos numerados y el precio como único filtro útil.',
-      },
-      {
-        __component: 'blocks.image',
-        image: { url: IMG.despuesCategoria, local: true, alternativeText: 'Página de categoría nueva de CTS Formación, Sociosanitario y Sanidad: texto introductorio, 24 cursos disponibles, buscador y filtros por modalidad, categoría, público y precio, y tarjetas con horas, modalidad y precio' },
-        caption: 'Después: cada categoría tiene su página con texto propio, contador de cursos, buscador y filtros por modalidad, público y precio, y tarjetas con horas, modalidad y precio a la vista.',
+        __component: 'blocks.image-compare',
+        before: { url: IMG.antesCatalogo, local: true, alternativeText: 'Catálogo antiguo de CTS Formación: listado de categorías a la izquierda, filtro de precio y cursos presentados como productos con títulos numerados' },
+        after: { url: IMG.despuesCategoria, local: true, alternativeText: 'Página de categoría nueva de CTS Formación, Sociosanitario y Sanidad: texto introductorio, 24 cursos disponibles, buscador y filtros por modalidad, categoría, público y precio, y tarjetas con horas, modalidad y precio' },
+        before_label: 'Antes',
+        after_label: 'Después',
+        aria_label: 'Comparar el catálogo antiguo y la página de categoría nueva',
+        caption: 'El catálogo como tienda, con títulos numerados y el precio como único filtro, frente a la página de categoría nueva: texto propio, contador de cursos, buscador, filtros por modalidad, público y precio, y tarjetas con horas, modalidad y precio.',
       },
       {
         __component: 'blocks.html',
@@ -181,14 +184,13 @@ export const CTS_FORMACION_CASE = {
 <h3>La ficha de curso</h3>`,
       },
       {
-        __component: 'blocks.image',
-        image: { url: IMG.antesFicha, local: true, alternativeText: 'Ficha de curso antigua de CTS Formación: título numerado en mayúsculas, precio, texto legal del certificado y formulario de contacto' },
-        caption: 'Antes: ficha con título numerado, precio y referencia legal, sin horas, modalidad ni beneficios claros.',
-      },
-      {
-        __component: 'blocks.image',
-        image: { url: IMG.despuesFicha, local: true, alternativeText: 'Ficha de curso nueva de CTS Formación, curso homologado de agente inmobiliario: etiquetas de categoría, modalidad y homologación, resumen, precio, duración, tutorías, certificado y botón de matrícula' },
-        caption: 'Después: etiquetas de categoría, modalidad y homologación, resumen del curso, y una tarjeta lateral con precio, duración, modalidad, tutorías, certificado y botón de matrícula o información.',
+        __component: 'blocks.image-compare',
+        before: { url: IMG.antesFicha, local: true, alternativeText: 'Ficha de curso antigua de CTS Formación: título numerado en mayúsculas, precio, texto legal del certificado y formulario de contacto' },
+        after: { url: IMG.despuesFicha, local: true, alternativeText: 'Ficha de curso nueva de CTS Formación, curso homologado de agente inmobiliario: etiquetas de categoría, modalidad y homologación, resumen, precio, duración, tutorías, certificado y botón de matrícula' },
+        before_label: 'Antes',
+        after_label: 'Después',
+        aria_label: 'Comparar la ficha de curso antigua y la nueva',
+        caption: 'La ficha antigua, con título numerado, precio y referencia legal, frente a la nueva: etiquetas de categoría, modalidad y homologación, resumen del curso y tarjeta lateral con precio, duración, tutorías, certificado y botón de matrícula.',
       },
       {
         __component: 'blocks.html',
@@ -346,29 +348,31 @@ ${psTable(['Mejora del Page Speed (móvil)', 'Antes', 'Después'], PS_ES)}
         __component: 'blocks.html',
         content: `
 <h2>Abans i després, pantalla a pantalla</h2>
-<p>La millor manera d'entendre el redisseny és comparar les tres pantalles que més fa servir un alumne: la home, el catàleg i la fitxa de curs.</p>
+<p>La millor manera d'entendre el redisseny és comparar les tres pantalles que més fa servir un alumne: la home, el catàleg i la fitxa de curs. Arrossega la línia de cada imatge per passar del web antic al nou.</p>
 <h3>La home</h3>`,
       },
       {
-        __component: 'blocks.image',
-        image: { url: IMG.antesHome, local: true, alternativeText: "Home antiga de CTS Formació: capçalera vermella, menú en majúscules, imatges circulars d'estoc i un bloc de text amb crida a l'acció" },
-        caption: "Abans: la home antiga, amb capçalera vermella, menú en majúscules i fotos d'estoc. Sense cercador ni accés directe al catàleg.",
+        __component: 'blocks.image-compare',
+        before: { url: IMG.antesHome, local: true, alternativeText: "Home antiga de CTS Formació: capçalera vermella, menú en majúscules, imatges circulars d'estoc i un bloc de text amb crida a l'acció" },
+        after: { url: IMG_DESPUES_HOME, local: true, alternativeText: 'Home nova de CTS Formació: cercador de cursos protagonista, categories com a accessos directes i xifres del centre' },
+        before_label: 'Abans',
+        after_label: 'Després',
+        aria_label: 'Comparar la home antiga i la nova',
+        caption: "La home antiga, amb capçalera vermella, menú en majúscules i fotos d'estoc, davant de la nova: cercador de cursos al centre, categories com a accessos directes, xifres del centre i botó de \"Pedir info\" sempre visible.",
       },
       {
         __component: 'blocks.html',
         content: `
-<p>La home nova posa el cercador de cursos al centre, amb les categories principals com a accessos directes, les xifres del centre (més de 200 cursos, més de 20 anys, més de 5.000 alumnes, 98 % de satisfacció) i un botó de "Pedir info" sempre visible. És la imatge de portada d'aquest cas.</p>
 <h3>El catàleg</h3>`,
       },
       {
-        __component: 'blocks.image',
-        image: { url: IMG.antesCatalogo, local: true, alternativeText: "Catàleg antic de CTS Formació: llistat de categories a l'esquerra, filtre de preu i cursos presentats com a productes amb títols numerats" },
-        caption: 'Abans: el catàleg com a botiga, amb títols numerats i el preu com a únic filtre útil.',
-      },
-      {
-        __component: 'blocks.image',
-        image: { url: IMG.despuesCategoria, local: true, alternativeText: 'Pàgina de categoria nova de CTS Formació, Sociosanitari i Sanitat: text introductori, 24 cursos disponibles, cercador i filtres per modalitat, categoria, públic i preu, i targetes amb hores, modalitat i preu' },
-        caption: 'Després: cada categoria té la seva pàgina amb text propi, comptador de cursos, cercador i filtres per modalitat, públic i preu, i targetes amb hores, modalitat i preu a la vista.',
+        __component: 'blocks.image-compare',
+        before: { url: IMG.antesCatalogo, local: true, alternativeText: "Catàleg antic de CTS Formació: llistat de categories a l'esquerra, filtre de preu i cursos presentats com a productes amb títols numerats" },
+        after: { url: IMG.despuesCategoria, local: true, alternativeText: 'Pàgina de categoria nova de CTS Formació, Sociosanitari i Sanitat: text introductori, 24 cursos disponibles, cercador i filtres per modalitat, categoria, públic i preu, i targetes amb hores, modalitat i preu' },
+        before_label: 'Abans',
+        after_label: 'Després',
+        aria_label: 'Comparar el catàleg antic i la pàgina de categoria nova',
+        caption: 'El catàleg com a botiga, amb títols numerats i el preu com a únic filtre, davant de la pàgina de categoria nova: text propi, comptador de cursos, cercador, filtres per modalitat, públic i preu, i targetes amb hores, modalitat i preu.',
       },
       {
         __component: 'blocks.html',
@@ -376,14 +380,13 @@ ${psTable(['Mejora del Page Speed (móvil)', 'Antes', 'Después'], PS_ES)}
 <h3>La fitxa de curs</h3>`,
       },
       {
-        __component: 'blocks.image',
-        image: { url: IMG.antesFicha, local: true, alternativeText: 'Fitxa de curs antiga de CTS Formació: títol numerat en majúscules, preu, text legal del certificat i formulari de contacte' },
-        caption: 'Abans: fitxa amb títol numerat, preu i referència legal, sense hores, modalitat ni beneficis clars.',
-      },
-      {
-        __component: 'blocks.image',
-        image: { url: IMG.despuesFicha, local: true, alternativeText: "Fitxa de curs nova de CTS Formació, curs homologat d'agent immobiliari: etiquetes de categoria, modalitat i homologació, resum, preu, durada, tutories, certificat i botó de matrícula" },
-        caption: "Després: etiquetes de categoria, modalitat i homologació, resum del curs, i una targeta lateral amb preu, durada, modalitat, tutories, certificat i botó de matrícula o informació.",
+        __component: 'blocks.image-compare',
+        before: { url: IMG.antesFicha, local: true, alternativeText: 'Fitxa de curs antiga de CTS Formació: títol numerat en majúscules, preu, text legal del certificat i formulari de contacte' },
+        after: { url: IMG.despuesFicha, local: true, alternativeText: "Fitxa de curs nova de CTS Formació, curs homologat d'agent immobiliari: etiquetes de categoria, modalitat i homologació, resum, preu, durada, tutories, certificat i botó de matrícula" },
+        before_label: 'Abans',
+        after_label: 'Després',
+        aria_label: 'Comparar la fitxa de curs antiga i la nova',
+        caption: 'La fitxa antiga, amb títol numerat, preu i referència legal, davant de la nova: etiquetes de categoria, modalitat i homologació, resum del curs i targeta lateral amb preu, durada, tutories, certificat i botó de matrícula.',
       },
       {
         __component: 'blocks.html',
