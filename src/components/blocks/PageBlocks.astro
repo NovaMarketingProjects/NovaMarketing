@@ -358,8 +358,15 @@ function embedUrl(url: string): string {
 .pb-compare__label {
   position: absolute;
   top: 0.75rem;
-  padding: 0.3rem 0.65rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.6rem;
+  line-height: 1;
+  /* El letter-spacing deja un hueco tras la última letra: se compensa con menos padding a la derecha. */
+  padding: 0 calc(0.75rem - 0.2em) 0 0.75rem;
   border-radius: 9999px;
+  box-sizing: border-box;
   font-family: 'Montserrat', 'Montserrat Fallback', sans-serif;
   font-size: 0.6rem;
   font-weight: 900;
