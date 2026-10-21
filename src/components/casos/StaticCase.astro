@@ -9,6 +9,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageBlocks from '../blocks/PageBlocks.astro';
 import MoreCases from './MoreCases.astro';
+import { staticSlug } from '../../data/casos';
 import { buildAlternates } from '../../lib/i18n';
 
 interface Props {
@@ -22,6 +23,8 @@ const isCa = locale === 'ca';
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates(data.paths.es, data.paths.ca, SITE_URL);
 const coverUrl = data.cover;
+// La portada puede ser absoluta (p. ej. Cloudinary) o relativa al sitio.
+const ogImageUrl = coverUrl.startsWith('http') ? coverUrl : `${SITE_URL}${coverUrl}`;
 
 
 const ui = isCa ? {
@@ -65,7 +68,7 @@ const ui = isCa ? {
   title={t.metaTitle}
   description={t.metaDescription}
   ogDescription={t.metaDescription}
-  ogImage={`${SITE_URL}${coverUrl}`}
+  ogImage={ogImageUrl}
   locale={locale}
   alternates={alternates}
 >
@@ -205,7 +208,7 @@ const ui = isCa ? {
     </div>
   </main>
 
-  <MoreCases locale={locale} currentSlug={data.slug} />
+  <MoreCases locale={locale} currentSlug={staticSlug(data, locale)} />
 </BaseLayout>
 
 <style>

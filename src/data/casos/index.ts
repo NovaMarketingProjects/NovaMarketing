@@ -13,8 +13,9 @@ import { VOLTURA_PROJECTS_CASE } from './voltura-projects';
 import { CB_HOSPITALET_CASE } from './cb-hospitalet';
 import { CLUSTAG_CASE } from './clustag';
 import { VILLAZON_MERCE_CASE } from './villazon-merce-abogados';
+import { DIPOLE_RFID_CASE } from './dipole-rfid';
 
-export const STATIC_CASES = [VILLAZON_MERCE_CASE, CLUSTAG_CASE, CB_HOSPITALET_CASE, VOLTURA_PROJECTS_CASE, PALACIO_DEL_BEBE_CASE, TATTOOX_CASE];
+export const STATIC_CASES = [DIPOLE_RFID_CASE, VILLAZON_MERCE_CASE, CLUSTAG_CASE, CB_HOSPITALET_CASE, VOLTURA_PROJECTS_CASE, PALACIO_DEL_BEBE_CASE, TATTOOX_CASE];
 
 /**
  * Sustituye, en la respuesta de Strapi, las entradas que tienen un caso
@@ -38,7 +39,7 @@ export function applyStaticOverrides<T extends { attributes?: any }>(items: T[],
     const t = sc[locale];
     const merged = {
       ...c,
-      slug: sc.slug,
+      slug: staticSlug(sc, locale),
       title: t.cardTitle,
       description: t.cardDescription,
       company: sc.company,
@@ -59,7 +60,7 @@ export function applyStaticOverrides<T extends { attributes?: any }>(items: T[],
     const t = sc[locale];
     return {
       id: `static-${sc.slug}`,
-      slug: sc.slug,
+      slug: staticSlug(sc, locale),
       title: t.cardTitle,
       description: t.cardDescription,
       company: sc.company,
@@ -73,6 +74,11 @@ export function applyStaticOverrides<T extends { attributes?: any }>(items: T[],
   return [...synthesized, ...overridden];
 }
 
+/** Slug de la página en cada idioma: `slugs.{es,ca}` si el caso lo define, si no `slug`. */
+export function staticSlug(sc: any, locale: 'es' | 'ca'): string {
+  return sc.slugs?.[locale] ?? sc.slug;
+}
+
 function resolveCategories(lc: any, locale: 'es' | 'ca') {
   if (!lc) return undefined;
   return Array.isArray(lc) ? lc : lc[locale];
@@ -83,7 +89,7 @@ export function staticCaseCards(locale: 'es' | 'ca', siteUrl: string) {
   return STATIC_CASES.map((c) => {
     const t = c[locale];
     return {
-      slug: c.slug,
+      slug: staticSlug(c, locale),
       title: t.cardTitle,
       description: t.cardDescription,
       company: c.company,
