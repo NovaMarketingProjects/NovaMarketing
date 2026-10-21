@@ -54,7 +54,7 @@ export const TATTOOX_CASE = {
     // servicios trabajados, hito y tecnología.
     facts: {
           "sector": {
-                "label": "Formación online"
+                "label": "Marketing para formación online"
           },
           "services": [
                 {
@@ -284,7 +284,7 @@ export const TATTOOX_CASE = {
     // servicios trabajados, hito y tecnología.
     facts: {
           "sector": {
-                "label": "Formació online"
+                "label": "Màrqueting per a formació online"
           },
           "services": [
                 {

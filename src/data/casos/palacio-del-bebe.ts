@@ -56,7 +56,7 @@ export const PALACIO_DEL_BEBE_CASE = {
     // servicios trabajados, hito y tecnología.
     facts: {
           "sector": {
-                "label": "Ecommerce",
+                "label": "Marketing para ecommerce",
                 "href": "/agencia-ecommerce/"
           },
           "services": [
@@ -251,7 +251,7 @@ export const PALACIO_DEL_BEBE_CASE = {
     // servicios trabajados, hito y tecnología.
     facts: {
           "sector": {
-                "label": "Ecommerce",
+                "label": "Màrqueting per a ecommerce",
                 "href": "/ca/agencia-ecommerce/"
           },
           "services": [

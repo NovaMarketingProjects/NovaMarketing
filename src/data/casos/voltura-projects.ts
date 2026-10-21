@@ -100,7 +100,7 @@ export const VOLTURA_PROJECTS_CASE = {
     // servicios trabajados, hito y tecnología.
     facts: {
           "sector": {
-                "label": "Constructoras y reformas",
+                "label": "Marketing para constructoras",
                 "href": "/agencia-constructoras/"
           },
           "services": [
@@ -330,7 +330,7 @@ ${pageSpeedTable(['PageSpeed Insights', 'Móvil', 'Escritorio'], PS_ROWS_ES)}
     // servicios trabajados, hito y tecnología.
     facts: {
           "sector": {
-                "label": "Constructores i reformes",
+                "label": "Màrqueting per a constructores",
                 "href": "/ca/agencia-constructores/"
           },
           "services": [

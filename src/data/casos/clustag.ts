@@ -89,8 +89,8 @@ export const CLUSTAG_CASE = {
     date: 'Octubre 2026',
     facts: {
       sectors: [
-        { label: 'Empresas industriales', href: '/agencia-industrial/' },
-        { label: 'B2B', href: '/agencia-b2b/' },
+        { label: 'Marketing para empresas industriales', href: '/agencia-industrial/' },
+        { label: 'Marketing para B2B', href: '/agencia-b2b/' },
       ],
       services: [
         { label: 'Posicionamiento SEO', href: '/agencia-seo-para-pymes/' },
@@ -273,8 +273,8 @@ ${psTable(['Mejora del Page Speed (escritorio)', 'Antes', 'Después'], PS_ES)}
     date: 'Octubre 2026',
     facts: {
       sectors: [
-        { label: 'Empreses industrials', href: '/ca/agencia-industrial/' },
-        { label: 'B2B', href: '/ca/agencia-b2b/' },
+        { label: 'Màrqueting per a empreses industrials', href: '/ca/agencia-industrial/' },
+        { label: 'Màrqueting per a B2B', href: '/ca/agencia-b2b/' },
       ],
       services: [
         { label: 'Posicionament SEO', href: '/ca/agencia-seo-per-pimes/' },

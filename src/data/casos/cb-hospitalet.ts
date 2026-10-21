@@ -58,7 +58,7 @@ export const CB_HOSPITALET_CASE = {
     categories: ['Diseño web', 'Marketing digital'],
     date: 'Diciembre 2025',
     facts: {
-      sector: { label: 'Clubes y eventos deportivos' },
+      sector: { label: 'Marketing para clubes deportivos' },
       services: [
         { label: 'Diseño y desarrollo web', href: '/diseno-web-para-pymes/' },
         { label: 'Marketing digital en Barcelona', href: '/agencia-de-marketing-digital-en-barcelona/' },
@@ -235,7 +235,7 @@ export const CB_HOSPITALET_CASE = {
     categories: ['Disseny web', 'Màrqueting digital'],
     date: 'Desembre 2025',
     facts: {
-      sector: { label: 'Clubs i esdeveniments esportius' },
+      sector: { label: 'Màrqueting per a clubs esportius' },
       services: [
         { label: 'Disseny i desenvolupament web', href: '/ca/disseny-web-per-pimes/' },
         { label: 'Màrqueting digital a Barcelona', href: '/ca/agencia-de-marketing-digital-a-barcelona/' },
