@@ -99,7 +99,7 @@ function embedUrl(url: string): string {
           <img src={imgUrl(block.before)} alt={block.before.alternativeText ?? ''} title={block.before.alternativeText ?? ''} loading="lazy" class="pb-compare__img pb-compare__img--before" />
           <span class="pb-compare__label pb-compare__label--before">{block.before_label ?? 'Antes'}</span>
           <span class="pb-compare__label pb-compare__label--after">{block.after_label ?? 'Después'}</span>
-          <div class="pb-compare__line" aria-hidden="true"><span class="pb-compare__handle"><svg xmlns="http://www.w3.org/2000/svg" width="34" height="16" viewBox="0 0 34 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2 2 8l6 6"/><path d="M26 2l6 6-6 6"/><path d="M14 4v8M20 4v8" stroke-width="2" opacity=".55"/></svg></span></div>
+          <div class="pb-compare__line" aria-hidden="true"><span class="pb-compare__handle"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="16" viewBox="0 0 28 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2 3 8l6 6"/><path d="M19 2l6 6-6 6"/></svg></span></div>
           <input type="range" min="0" max="100" value="50" class="pb-compare__range" aria-label={block.aria_label ?? 'Comparar antes y después'} />
         </div>
         {block.caption && <figcaption class="pb-figcaption">{block.caption}</figcaption>}
@@ -329,13 +329,21 @@ function embedUrl(url: string): string {
   background: #09090b;
   color: #fff;
   border: 2px solid #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  box-sizing: border-box;
+  display: block;
   box-shadow: 0 8px 24px rgba(0,0,0,.35), 0 0 0 4px rgba(255,255,255,.18);
   transition: transform .2s ease, background-color .2s ease, box-shadow .2s ease;
 }
-.pb-compare__handle svg { width: 34px; height: 16px; display: block; flex: none; }
+/* Icono centrado de forma absoluta: no depende del centrado flex ni del borde. */
+.pb-compare__handle svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 28px;
+  height: 16px;
+  transform: translate(-50%, -50%);
+  display: block;
+}
 .pb-compare:hover .pb-compare__handle,
 .pb-compare:focus-within .pb-compare__handle {
   background: #3b82f6;
@@ -345,7 +353,7 @@ function embedUrl(url: string): string {
 .pb-compare__range:focus-visible { outline: none; }
 @media (max-width: 640px) {
   .pb-compare__handle { width: 3.5rem; height: 2.25rem; }
-  .pb-compare__handle svg { width: 28px; height: 14px; }
+  .pb-compare__handle svg { width: 24px; height: 14px; }
 }
 .pb-compare__label {
   position: absolute;
