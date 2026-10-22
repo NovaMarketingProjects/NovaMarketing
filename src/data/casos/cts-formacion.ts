@@ -7,14 +7,14 @@
  * Rediseño completo: la web antigua estaba en una plataforma de un proveedor
  * externo (no se nombra). Web nueva a medida en Next.js, en castellano, catalán,
  * inglés y chino, con panel propio para cursos, categorías y blog. Lanzada en
- * 2026 (mes no facilitado); proyecto en curso.
+ * septiembre de 2026; proyecto en curso.
  *
  * Fuentes de las cifras:
  *  - PageSpeed Insights. Antes (móvil): 46 / 97 / 100 / 85, FCP 9,9 s, LCP 14,0 s,
  *    TBT 410 ms, CLS 0, SI 9,9 s. Después (móvil): 100 / 100 / 100 / 100, FCP
  *    0,3 s, LCP 0,6 s, TBT 30 ms, CLS 0, SI 0,8 s. Después (escritorio): 98 / 93 /
  *    100 / 92, FCP 0,3 s, LCP 0,8 s, TBT 30 ms, CLS 0, SI 1,5 s.
- *  - Leads: +25 % en los primeros meses tras el lanzamiento (dato del cliente).
+ *  - Leads: +25 % desde el lanzamiento en septiembre de 2026 (dato del cliente).
  *  - Cifras del cliente (home): +200 cursos, +20 años, +5.000 alumnos, 98 % satisfacción.
  */
 
@@ -88,21 +88,21 @@ export const CTS_FORMACION_CASE = {
   es: {
     metaTitle: 'Caso de éxito: CTS Formación, rediseño web de 46 a 100 en PageSpeed y +25 % de leads',
     metaDescription:
-      'Rediseñamos la web de CTS Formación, centro de formación en Barcelona con más de 200 cursos: Next.js a medida en cuatro idiomas, catálogo con buscador y filtros, panel propio y SEO. De 46 a 100 en PageSpeed móvil y +25 % de leads en los primeros meses.',
+      'Rediseñamos la web de CTS Formación, centro de formación en Barcelona con más de 200 cursos: Next.js a medida en cuatro idiomas, catálogo con buscador y filtros, panel propio y SEO. De 46 a 100 en PageSpeed móvil y +25 % de leads desde el lanzamiento.',
     title: 'Caso de éxito: CTS Formación, rediseño web con +25 % de leads',
     description:
-      'Sustituir la web de un centro de formación con más de 200 cursos, lenta, anticuada y sin SEO, por una web a medida en cuatro idiomas con catálogo navegable, panel propio y 100 en PageSpeed. Lanzada en 2026, proyecto en curso.',
+      'Sustituir la web de un centro de formación con más de 200 cursos, lenta, anticuada y sin SEO, por una web a medida en cuatro idiomas con catálogo navegable, panel propio y 100 en PageSpeed. Lanzada en septiembre de 2026, proyecto en curso.',
     categories: ['Diseño web', 'SEO'],
     date: 'Octubre 2026',
     facts: {
-      period: "2026 – actualidad, en curso",
+      period: "Septiembre 2026 – actualidad, en curso",
       sector: { label: 'Marketing para centros de formación' },
       services: [
         { label: 'Diseño y desarrollo web', href: '/diseno-web-para-pymes/' },
         { label: 'Posicionamiento SEO', href: '/agencia-seo-para-pymes/' },
         { label: 'Marketing digital en Barcelona', href: '/agencia-de-marketing-digital-en-barcelona/' },
       ],
-      milestone: 'De 46 a 100 en PageSpeed móvil y +25 % de leads en los primeros meses',
+      milestone: 'De 46 a 100 en PageSpeed móvil y +25 % de leads desde el lanzamiento',
       tech: 'Next.js a medida, 4 idiomas, panel propio de cursos y blog',
     },
     cardTitle: 'Caso de éxito: CTS Formación, rediseño web con +25 % de leads',
@@ -123,7 +123,7 @@ export const CTS_FORMACION_CASE = {
         title: 'Resultados del rediseño',
         items: [
           { value: '100', label: 'PageSpeed en móvil (antes 46)' },
-          { value: '+25%', label: 'Leads en los primeros meses' },
+          { value: '+25%', label: 'Leads desde el lanzamiento' },
           { value: '+200', label: 'Cursos migrados y reescritos' },
           { value: '4', label: 'Idiomas: castellano, catalán, inglés y chino' },
         ],
@@ -147,7 +147,7 @@ export const CTS_FORMACION_CASE = {
           'Plataforma de un proveedor externo, diseño anticuado, catálogo como tienda con títulos numerados, sin páginas de categoría ni SEO, un solo idioma y 46 en PageSpeed móvil con un LCP de 14 segundos.',
         after_label: 'Después',
         after_content:
-          'Web propia a medida en Next.js, en castellano, catalán, inglés y chino, con buscador y filtros por modalidad, categoría, público y precio, páginas de categoría con contenido, fichas de curso reescritas, panel propio y 100 en PageSpeed móvil. +25 % de leads en los primeros meses.',
+          'Web propia a medida en Next.js, en castellano, catalán, inglés y chino, con buscador y filtros por modalidad, categoría, público y precio, páginas de categoría con contenido, fichas de curso reescritas, panel propio y 100 en PageSpeed móvil. +25 % de leads desde el lanzamiento.',
       },
       {
         __component: 'blocks.html',
@@ -261,14 +261,14 @@ ${psTable(['Mejora del Page Speed (móvil)', 'Antes', 'Después'], PS_ES)}
       {
         __component: 'blocks.big-stat',
         value: '+25%',
-        label: 'de leads en los primeros meses tras el lanzamiento',
+        label: 'de leads desde el lanzamiento en septiembre de 2026',
         description: 'Solicitudes de información y matrícula desde la web, según los datos del centro, con el mismo catálogo y sin inversión adicional en publicidad.',
       },
       {
         __component: 'blocks.html',
         content: `
 <h2>Y lo que importa, más solicitudes de información</h2>
-<p>Una web de formación se mide en solicitudes de información y matrículas. En los primeros meses tras el lanzamiento, los leads desde la web han crecido un <strong>25 %</strong> respecto a la web anterior: el buscador y los filtros llevan al alumno al curso adecuado, la ficha responde a lo que necesita saber y el botón de información está siempre a mano.</p>
+<p>Una web de formación se mide en solicitudes de información y matrículas. Desde el lanzamiento, en septiembre de 2026, los leads desde la web han crecido un <strong>25 %</strong> respecto a la web anterior: el buscador y los filtros llevan al alumno al curso adecuado, la ficha responde a lo que necesita saber y el botón de información está siempre a mano.</p>
 <p>El proyecto sigue en curso: ahora el trabajo es de <a href="/agencia-seo-para-pymes/">posicionamiento SEO</a> continuado sobre la nueva estructura (categorías, modalidades, empresas y autónomos), ampliación del blog y seguimiento de las conversiones por curso.</p>`,
       },
       {
@@ -285,21 +285,21 @@ ${psTable(['Mejora del Page Speed (móvil)', 'Antes', 'Después'], PS_ES)}
   ca: {
     metaTitle: "Cas d'èxit: CTS Formació, redisseny web de 46 a 100 a PageSpeed i +25 % de leads",
     metaDescription:
-      "Redissenyem el web de CTS Formació, centre de formació a Barcelona amb més de 200 cursos: Next.js a mida en quatre idiomes, catàleg amb cercador i filtres, panell propi i SEO. De 46 a 100 a PageSpeed mòbil i +25 % de leads els primers mesos.",
+      "Redissenyem el web de CTS Formació, centre de formació a Barcelona amb més de 200 cursos: Next.js a mida en quatre idiomes, catàleg amb cercador i filtres, panell propi i SEO. De 46 a 100 a PageSpeed mòbil i +25 % de leads des del llançament.",
     title: "Cas d'èxit: CTS Formació, redisseny web amb +25 % de leads",
     description:
-      "Substituir el web d'un centre de formació amb més de 200 cursos, lent, antiquat i sense SEO, per un web a mida en quatre idiomes amb catàleg navegable, panell propi i 100 a PageSpeed. Llançat el 2026, projecte en curs.",
+      "Substituir el web d'un centre de formació amb més de 200 cursos, lent, antiquat i sense SEO, per un web a mida en quatre idiomes amb catàleg navegable, panell propi i 100 a PageSpeed. Llançat el setembre de 2026, projecte en curs.",
     categories: ['Disseny web', 'SEO'],
     date: 'Octubre 2026',
     facts: {
-      period: "2026 – actualitat, en curs",
+      period: "Setembre 2026 – actualitat, en curs",
       sector: { label: 'Màrqueting per a centres de formació' },
       services: [
         { label: 'Disseny i desenvolupament web', href: '/ca/disseny-web-per-pimes/' },
         { label: 'Posicionament SEO', href: '/ca/agencia-seo-per-pimes/' },
         { label: 'Màrqueting digital a Barcelona', href: '/ca/agencia-de-marketing-digital-a-barcelona/' },
       ],
-      milestone: 'De 46 a 100 a PageSpeed mòbil i +25 % de leads els primers mesos',
+      milestone: 'De 46 a 100 a PageSpeed mòbil i +25 % de leads des del llançament',
       tech: 'Next.js a mida, 4 idiomes, panell propi de cursos i blog',
     },
     cardTitle: "Cas d'èxit: CTS Formació, redisseny web amb +25 % de leads",
@@ -320,7 +320,7 @@ ${psTable(['Mejora del Page Speed (móvil)', 'Antes', 'Después'], PS_ES)}
         title: 'Resultats del redisseny',
         items: [
           { value: '100', label: 'PageSpeed en mòbil (abans 46)' },
-          { value: '+25%', label: 'Leads els primers mesos' },
+          { value: '+25%', label: 'Leads des del llançament' },
           { value: '+200', label: 'Cursos migrats i reescrits' },
           { value: '4', label: 'Idiomes: castellà, català, anglès i xinès' },
         ],
@@ -344,7 +344,7 @@ ${psTable(['Mejora del Page Speed (móvil)', 'Antes', 'Después'], PS_ES)}
           "Plataforma d'un proveïdor extern, disseny antiquat, catàleg com a botiga amb títols numerats, sense pàgines de categoria ni SEO, un sol idioma i 46 a PageSpeed mòbil amb un LCP de 14 segons.",
         after_label: 'Després',
         after_content:
-          'Web propi a mida en Next.js, en castellà, català, anglès i xinès, amb cercador i filtres per modalitat, categoria, públic i preu, pàgines de categoria amb contingut, fitxes de curs reescrites, panell propi i 100 a PageSpeed mòbil. +25 % de leads els primers mesos.',
+          'Web propi a mida en Next.js, en castellà, català, anglès i xinès, amb cercador i filtres per modalitat, categoria, públic i preu, pàgines de categoria amb contingut, fitxes de curs reescrites, panell propi i 100 a PageSpeed mòbil. +25 % de leads des del llançament.',
       },
       {
         __component: 'blocks.html',
@@ -458,14 +458,14 @@ ${psTable(['Millora del Page Speed (mòbil)', 'Abans', 'Després'], PS_CA)}
       {
         __component: 'blocks.big-stat',
         value: '+25%',
-        label: 'de leads els primers mesos després del llançament',
+        label: 'de leads des del llançament el setembre de 2026',
         description: "Sol·licituds d'informació i matrícula des del web, segons les dades del centre, amb el mateix catàleg i sense inversió addicional en publicitat.",
       },
       {
         __component: 'blocks.html',
         content: `
 <h2>I el que importa, més sol·licituds d'informació</h2>
-<p>Un web de formació es mesura en sol·licituds d'informació i matrícules. Els primers mesos després del llançament, els leads des del web han crescut un <strong>25 %</strong> respecte del web anterior: el cercador i els filtres porten l'alumne al curs adequat, la fitxa respon al que necessita saber i el botó d'informació és sempre a mà.</p>
+<p>Un web de formació es mesura en sol·licituds d'informació i matrícules. Des del llançament, el setembre de 2026, els leads des del web han crescut un <strong>25 %</strong> respecte del web anterior: el cercador i els filtres porten l'alumne al curs adequat, la fitxa respon al que necessita saber i el botó d'informació és sempre a mà.</p>
 <p>El projecte continua en curs: ara la feina és de <a href="/ca/agencia-seo-per-pimes/">posicionament SEO</a> continuat sobre la nova estructura (categories, modalitats, empreses i autònoms), ampliació del blog i seguiment de les conversions per curs.</p>`,
       },
       {
