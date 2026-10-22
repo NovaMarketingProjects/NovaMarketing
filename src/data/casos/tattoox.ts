@@ -42,9 +42,9 @@ export const TATTOOX_CASE = {
   categorySlug: 'seo',
 
   es: {
-    metaTitle: 'Caso de éxito: Tattoox +156% de tráfico orgánico',
+    metaTitle: "▷ Caso de éxito SEO: Tattoox, +156 % de tráfico en un año",
     metaDescription:
-      'Cómo llevamos a Tattoox de 158.000 a 404.000 visitas orgánicas al mes en 12 meses: velocidad web, hreflang, indexación, contenido y presencia en respuestas de IA.',
+      "Cómo llevamos la escuela online Tattoox de 158.000 a 404.000 visitas orgánicas al mes con velocidad, hreflang, indexación, contenido y GEO.",
     title: 'Caso de éxito: Tattoox +156% de tráfico orgánico',
     description:
       'Multiplicar la visibilidad orgánica de una escuela online de tatuaje con una web WordPress lenta y con problemas técnicos. Oct 2025 – oct 2026, proyecto en curso.',
@@ -273,9 +273,9 @@ export const TATTOOX_CASE = {
   },
 
   ca: {
-    metaTitle: "Cas d'èxit: Tattoox +156% de trànsit orgànic",
+    metaTitle: "▷ Cas d'èxit SEO: Tattoox, +156 % de trànsit en un any",
     metaDescription:
-      'Com vam portar Tattoox de 158.000 a 404.000 visites orgàniques al mes en 12 mesos: velocitat web, hreflang, indexació, contingut i presència a les respostes d’IA.',
+      "Com vam portar l'escola online Tattoox de 158.000 a 404.000 visites orgàniques al mes amb velocitat, hreflang, indexació, contingut i GEO.",
     title: "Cas d'èxit: Tattoox +156% de trànsit orgànic",
     description:
       "Multiplicar la visibilitat orgànica d'una escola online de tatuatge amb una web WordPress lenta i amb problemes tècnics. Oct 2025 – oct 2026, projecte en curs.",

@@ -79,9 +79,9 @@ export const CLUSTAG_CASE = {
   },
 
   es: {
-    metaTitle: 'Caso de éxito: Clustag, de 0 a 678 visitas orgánicas tras una migración mal redirigida',
+    metaTitle: "▷ Caso de éxito: Clustag, SEO recuperado tras migrar",
     metaDescription:
-      'Clustag lanzó una web nueva en WordPress con las redirecciones del dominio anterior mal hechas y perdió su tráfico orgánico. Cómo lo recuperamos: redirecciones, arquitectura, contenido y velocidad (53 → 98 en PageSpeed). De 4 a 44 keywords y 678 visitas al mes.',
+      "Clustag perdió su tráfico al cambiar de dominio con redirecciones mal hechas. Lo recuperamos: de 4 a 44 keywords y PageSpeed de 53 a 98.",
     title: 'Caso de éxito: Clustag, de 0 a 678 visitas orgánicas al mes',
     description:
       'Recuperar la visibilidad orgánica que un fabricante de soluciones RFID perdió al lanzar una web nueva con las redirecciones del dominio anterior mal hechas, trabajando sobre esa misma WordPress. Mediados de 2025 – octubre 2026, proyecto en curso.',
@@ -264,9 +264,9 @@ ${psTable(['Mejora del Page Speed (escritorio)', 'Antes', 'Después'], PS_ES)}
   },
 
   ca: {
-    metaTitle: "Cas d'èxit: Clustag, de 0 a 678 visites orgàniques després d'una migració mal redirigida",
+    metaTitle: "▷ Cas d'èxit: Clustag, SEO recuperat després de migrar",
     metaDescription:
-      "Clustag va llançar un web nou en WordPress amb les redireccions del domini anterior mal fetes i va perdre el trànsit orgànic. Com el vam recuperar: redireccions, arquitectura, contingut i velocitat (53 → 98 a PageSpeed). De 4 a 44 keywords i 678 visites al mes.",
+      "Clustag va perdre el trànsit en canviar de domini amb redireccions mal fetes. El vam recuperar: de 4 a 44 keywords i PageSpeed de 53 a 98.",
     title: "Cas d'èxit: Clustag, de 0 a 678 visites orgàniques al mes",
     description:
       "Recuperar la visibilitat orgànica que un fabricant de solucions RFID va perdre en llançar un web nou amb les redireccions del domini anterior mal fetes, treballant sobre aquesta mateixa WordPress. Mitjan 2025 – octubre 2026, projecte en curs.",

@@ -44,9 +44,9 @@ export const PALACIO_DEL_BEBE_CASE = {
   ],
 
   es: {
-    metaTitle: 'Caso de éxito: Palacio del Bebé +47% de tráfico orgánico',
+    metaTitle: "▷ Caso de éxito SEO: Palacio del Bebé, +47 % de tráfico",
     metaDescription:
-      'Cómo una tienda de puericultura de Barcelona con ecommerce creció un 47 % en tráfico orgánico en un año: SEO técnico sobre un desarrollo externo, categorías con contenido y Google Shopping en paralelo.',
+      "Tienda de puericultura en Barcelona: SEO técnico, categorías con contenido y Google Shopping. +47 % de tráfico orgánico y nº 1 en sus búsquedas clave.",
     title: 'Caso de éxito: Palacio del Bebé +47% de tráfico orgánico',
     description:
       'Convertir a una tienda de puericultura de Barcelona, con tienda física y ecommerce, en referente orgánico de su sector trabajando sobre una web desarrollada por un tercero. Nov 2025 – oct 2026, proyecto en curso.',
@@ -240,9 +240,9 @@ export const PALACIO_DEL_BEBE_CASE = {
   },
 
   ca: {
-    metaTitle: "Cas d'èxit: Palacio del Bebé +47% de trànsit orgànic",
+    metaTitle: "▷ Cas d'èxit SEO: Palacio del Bebé, +47 % de trànsit",
     metaDescription:
-      "Com una botiga de puericultura de Barcelona amb ecommerce va créixer un 47 % en trànsit orgànic en un any: SEO tècnic sobre un desenvolupament extern, categories amb contingut i Google Shopping en paral·lel.",
+      "Botiga de puericultura a Barcelona: SEO tècnic, categories amb contingut i Google Shopping. +47 % de trànsit orgànic i núm. 1 a les cerques clau.",
     title: "Cas d'èxit: Palacio del Bebé +47% de trànsit orgànic",
     description:
       "Convertir una botiga de puericultura de Barcelona, amb botiga física i ecommerce, en referent orgànic del seu sector treballant sobre una web desenvolupada per un tercer. Nov 2025 – oct 2026, projecte en curs.",

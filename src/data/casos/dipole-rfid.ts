@@ -60,9 +60,9 @@ export const DIPOLE_RFID_CASE = {
   },
 
   es: {
-    metaTitle: 'Caso de éxito: Dipole RFID, líder orgánico del RFID en España',
+    metaTitle: "▷ Caso de éxito SEO: Dipole RFID, nº 1 en RFID en España",
     metaDescription:
-      'Cómo convertimos a Dipole RFID en la referencia orgánica del RFID en España: de 450 a 1.126 keywords y 6.390 visitas al mes, primera página para todo el catálogo y nº 1 por delante de los fabricantes. Hoy sigue en cabeza.',
+      "De 450 a 1.126 keywords y 6.390 visitas al mes: así lidera Dipole RFID en Google por delante de los fabricantes, y sigue en el nº 1.",
     title: 'Caso de éxito: Dipole RFID, líder orgánico del RFID en España',
     description:
       'Trasladar a Google el liderazgo que Dipole RFID ya tenía en el mercado: primera página para todo su catálogo, por delante de los fabricantes, y convertir la web en el punto de consulta del sector. SEO y contenidos desde 2019.',
@@ -289,9 +289,9 @@ export const DIPOLE_RFID_CASE = {
   },
 
   ca: {
-    metaTitle: "Cas d'èxit: Dipole RFID, líder orgànic de l'RFID a Espanya",
+    metaTitle: "▷ Cas d'èxit SEO: Dipole RFID, núm. 1 en RFID a Espanya",
     metaDescription:
-      "Com vam convertir Dipole RFID en la referència orgànica de l'RFID a Espanya: de 450 a 1.126 keywords i 6.390 visites al mes, primera pàgina per a tot el catàleg i núm. 1 per davant dels fabricants. Avui continua al capdavant.",
+      "De 450 a 1.126 keywords i 6.390 visites al mes: així lidera Dipole RFID a Google per davant dels fabricants, i continua al núm. 1.",
     title: "Cas d'èxit: Dipole RFID, líder orgànic de l'RFID a Espanya",
     description:
       "Traslladar a Google el lideratge que Dipole RFID ja tenia al mercat: primera pàgina per a tot el seu catàleg, per davant dels fabricants, i convertir el web en el punt de consulta del sector. SEO i continguts des de 2019.",

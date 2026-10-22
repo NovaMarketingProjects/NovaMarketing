@@ -49,9 +49,9 @@ export const CB_HOSPITALET_CASE = {
   },
 
   es: {
-    metaTitle: "Caso de éxito: CB L'Hospitalet, 18.000 visitas en la web del torneo",
+    metaTitle: "▷ Caso de éxito: web del Torneig Junior CB L'Hospitalet",
     metaDescription:
-      "Diseñamos y desarrollamos en WordPress la web del 46è Torneig de Bàsquet Junior Ciutat de L'Hospitalet: grupos, calendario, páginas de equipo, marcadores en directo y patrocinadores. 18.000 páginas vistas en diciembre.",
+      "Web en WordPress para el 46è Torneig de Bàsquet Junior Ciutat de L'Hospitalet: grupos, equipos, marcadores y patrocinadores. 18.000 visitas en diciembre.",
     title: "Caso de éxito: CB L'Hospitalet, 18.000 visitas en la web del torneo",
     description:
       "Sustituir la web anticuada del Torneig de Bàsquet Junior Ciutat de L'Hospitalet por una web a la altura de las canteras del CB Hospitalet, FC Barcelona o Zalgiris, lista para la 46ª edición. Otoño 2025, entregada a tiempo.",
@@ -227,9 +227,9 @@ export const CB_HOSPITALET_CASE = {
   },
 
   ca: {
-    metaTitle: "Cas d'èxit: CB L'Hospitalet, 18.000 visites al web del torneig",
+    metaTitle: "▷ Cas d'èxit: web del Torneig Júnior CB L'Hospitalet",
     metaDescription:
-      "Dissenyem i desenvolupem en WordPress el web del 46è Torneig de Bàsquet Junior Ciutat de L'Hospitalet: grups, calendari, pàgines d'equip, marcadors en directe i patrocinadors. 18.000 pàgines vistes el desembre.",
+      "Web en WordPress per al 46è Torneig de Bàsquet Junior Ciutat de L'Hospitalet: grups, equips, marcadors i patrocinadors. 18.000 visites el desembre.",
     title: "Cas d'èxit: CB L'Hospitalet, 18.000 visites al web del torneig",
     description:
       "Substituir el web antiquat del Torneig de Bàsquet Junior Ciutat de L'Hospitalet per un web a l'altura dels planters del CB Hospitalet, el FC Barcelona o el Zalgiris, a punt per a la 46a edició. Tardor 2025, lliurat a temps.",

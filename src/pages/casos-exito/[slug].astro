@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { CASE_SEO_OVERRIDES } from '../../data/casos/seo-overrides';
 import PageHeader from '../../components/blog/PageHeader.astro';
 import SuccessCard from '../../components/blog/SuccessCard.astro';
 import MoreCases from '../../components/casos/MoreCases.astro';
@@ -126,9 +127,9 @@ const ctaTitle = caseCategories.some((c: string) => c.includes('seo') || c.inclu
 ---
 
 <BaseLayout
-  title={pageType === 'case-study' ? (caseStudy.metatitle || `${caseStudy.title} | Caso de Éxito | Nova Marketing`) : `${categoryData.name} | Casos de éxito | Nova Marketing`}
-  description={pageType === 'case-study' ? (caseStudy.metadescription || caseStudy.description) : `Mira cómo hemos ayudado a empresas en ${categoryData.name.toLowerCase()} a crecer.`}
-  ogDescription={pageType === 'case-study' ? (caseStudy.metadescription || caseStudy.description) : undefined}
+  title={pageType === 'case-study' ? (CASE_SEO_OVERRIDES[caseStudy.slug]?.title || caseStudy.metatitle || `${caseStudy.title} | Caso de Éxito | Nova Marketing`) : `${categoryData.name} | Casos de éxito | Nova Marketing`}
+  description={pageType === 'case-study' ? (CASE_SEO_OVERRIDES[caseStudy.slug]?.description || caseStudy.metadescription || caseStudy.description) : `Mira cómo hemos ayudado a empresas en ${categoryData.name.toLowerCase()} a crecer.`}
+  ogDescription={pageType === 'case-study' ? (CASE_SEO_OVERRIDES[caseStudy.slug]?.description || caseStudy.metadescription || caseStudy.description) : undefined}
   ogImage={coverUrl || undefined}
   locale="es"
   alternates={alternates}

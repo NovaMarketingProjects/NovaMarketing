@@ -88,9 +88,9 @@ export const VOLTURA_PROJECTS_CASE = {
   },
 
   es: {
-    metaTitle: 'Caso de éxito: Voltura Projects, web a medida y 122 keywords en 7 meses',
+    metaTitle: "▷ Caso de éxito: Voltura Projects, web y SEO desde cero",
     metaDescription:
-      'Diseñamos y desarrollamos desde cero la web de Voltura Projects, empresa de reformas y rehabilitación en Barcelona: Next.js con 94/100 en PageSpeed, ES + CA, 17 landings de ciudad y 122 keywords en 7 meses.',
+      "Web a medida en Next.js para una empresa de reformas de Barcelona: 94/100 en PageSpeed, 17 landings de ciudad y 122 keywords en 7 meses.",
     title: 'Caso de éxito: Voltura Projects, web a medida y 122 keywords en 7 meses',
     description:
       'Diseñar y desarrollar desde cero la web de una empresa de reformas y rehabilitación de Barcelona que trabajaba solo por recomendación, y posicionarla en Google y en las respuestas de IA en sus primeros siete meses. Lanzamiento marzo 2026, en curso.',
@@ -319,9 +319,9 @@ ${pageSpeedTable(['PageSpeed Insights', 'Móvil', 'Escritorio'], PS_ROWS_ES)}
   },
 
   ca: {
-    metaTitle: "Cas d'èxit: Voltura Projects, web a mida i 122 keywords en 7 mesos",
+    metaTitle: "▷ Cas d'èxit: Voltura Projects, web i SEO des de zero",
     metaDescription:
-      "Dissenyem i desenvolupem des de zero la web de Voltura Projects, empresa de reformes i rehabilitació a Barcelona: Next.js amb 94/100 a PageSpeed, ES + CA, 17 landings de ciutat i 122 keywords en 7 mesos.",
+      "Web a mida en Next.js per a una empresa de reformes de Barcelona: 94/100 a PageSpeed, 17 landings de ciutat i 122 keywords en 7 mesos.",
     title: "Cas d'èxit: Voltura Projects, web a mida i 122 keywords en 7 mesos",
     description:
       "Dissenyar i desenvolupar des de zero la web d'una empresa de reformes i rehabilitació de Barcelona que treballava només per recomanació, i posicionar-la a Google i a les respostes d'IA en els seus primers set mesos. Llançament març 2026, en curs.",

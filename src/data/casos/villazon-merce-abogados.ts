@@ -96,9 +96,9 @@ export const VILLAZON_MERCE_CASE = {
   },
 
   es: {
-    metaTitle: 'Caso de éxito: Villazón Mercé Abogados, 191 keywords en dos meses con una web nueva',
+    metaTitle: "▷ Caso de éxito: Villazón Mercé Abogados, web y SEO",
     metaDescription:
-      'Diseñamos y desarrollamos a medida la web de Villazón Mercé Abogados, bufete penalista en Barcelona: Next.js con 98 en PageSpeed, ES + CA, una página por delito, SEO local y Google Ads para urgencias. 191 keywords en dos meses.',
+      "Web a medida para un bufete penalista de Barcelona: una página por delito, SEO local y Google Ads. 191 keywords en dos meses y 98 en PageSpeed.",
     title: 'Caso de éxito: Villazón Mercé Abogados, 191 keywords en dos meses con una web nueva',
     description:
       'Sustituir la web anticuada de un bufete penalista de Barcelona por una web a medida que transmita confianza y posicione cada delito, con SEO local y Google Ads para urgencias. Lanzamiento agosto 2026, en curso.',
@@ -331,9 +331,9 @@ ${psTable(['PageSpeed Insights', 'Móvil', 'Escritorio'], PS_ES)}
   },
 
   ca: {
-    metaTitle: "Cas d'èxit: Villazón Mercé Abogados, 191 keywords en dos mesos amb un web nou",
+    metaTitle: "▷ Cas d'èxit: Villazón Mercé Abogados, web i SEO",
     metaDescription:
-      "Dissenyem i desenvolupem a mida el web de Villazón Mercé Abogados, bufet penalista a Barcelona: Next.js amb 98 a PageSpeed, ES + CA, una pàgina per delicte, SEO local i Google Ads per a urgències. 191 keywords en dos mesos.",
+      "Web a mida per a un bufet penalista de Barcelona: una pàgina per delicte, SEO local i Google Ads. 191 keywords en dos mesos i 98 a PageSpeed.",
     title: "Cas d'èxit: Villazón Mercé Abogados, 191 keywords en dos mesos amb un web nou",
     description:
       "Substituir el web antiquat d'un bufet penalista de Barcelona per un web a mida que transmeti confiança i posicioni cada delicte, amb SEO local i Google Ads per a urgències. Llançament agost 2026, en curs.",

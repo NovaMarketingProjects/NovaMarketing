@@ -86,9 +86,9 @@ export const CTS_FORMACION_CASE = {
   },
 
   es: {
-    metaTitle: 'Caso de éxito: CTS Formación, rediseño web de 46 a 100 en PageSpeed y +25 % de leads',
+    metaTitle: "▷ Caso de éxito: CTS Formación, rediseño y +25 % de leads",
     metaDescription:
-      'Rediseñamos la web de CTS Formación, centro de formación en Barcelona con más de 200 cursos: Next.js a medida en cuatro idiomas, catálogo con buscador y filtros, panel propio y SEO. De 46 a 100 en PageSpeed móvil y +25 % de leads desde el lanzamiento.',
+      "Rediseño a medida para un centro de formación de Barcelona con +200 cursos: buscador, 4 idiomas y panel propio. PageSpeed de 46 a 100 y +25 % de leads.",
     title: 'Caso de éxito: CTS Formación, rediseño web con +25 % de leads',
     description:
       'Sustituir la web de un centro de formación con más de 200 cursos, lenta, anticuada y sin SEO, por una web a medida en cuatro idiomas con catálogo navegable, panel propio y 100 en PageSpeed. Lanzada en septiembre de 2026, proyecto en curso.',
@@ -283,9 +283,9 @@ ${psTable(['Mejora del Page Speed (móvil)', 'Antes', 'Después'], PS_ES)}
   },
 
   ca: {
-    metaTitle: "Cas d'èxit: CTS Formació, redisseny web de 46 a 100 a PageSpeed i +25 % de leads",
+    metaTitle: "▷ Cas d'èxit: CTS Formació, redisseny i +25 % de leads",
     metaDescription:
-      "Redissenyem el web de CTS Formació, centre de formació a Barcelona amb més de 200 cursos: Next.js a mida en quatre idiomes, catàleg amb cercador i filtres, panell propi i SEO. De 46 a 100 a PageSpeed mòbil i +25 % de leads des del llançament.",
+      "Redisseny a mida per a un centre de formació de Barcelona amb +200 cursos: cercador, 4 idiomes i panell propi. PageSpeed de 46 a 100 i +25 % de leads.",
     title: "Cas d'èxit: CTS Formació, redisseny web amb +25 % de leads",
     description:
       "Substituir el web d'un centre de formació amb més de 200 cursos, lent, antiquat i sense SEO, per un web a mida en quatre idiomes amb catàleg navegable, panell propi i 100 a PageSpeed. Llançat el setembre de 2026, projecte en curs.",

@@ -51,9 +51,9 @@ export const SUPERWAGEN_CASE = {
   },
 
   es: {
-    metaTitle: 'Caso de éxito: Superwagen, +323 % de tráfico orgánico y más de 50 leads al mes',
+    metaTitle: "▷ Caso de éxito: Superwagen, +323 % de tráfico orgánico",
     metaDescription:
-      'SEO local, SEO por modelos y Google Ads para Superwagen, concesionario oficial Audi y Volkswagen en Sabadell y Sant Cugat: +323 % de tráfico orgánico, Top 10 +45 % y de 10-15 a más de 50 leads al mes con un 40 % menos de inversión publicitaria.',
+      "SEO local, SEO por modelos y Google Ads para un concesionario Audi y VW de Sabadell y Sant Cugat: de 10-15 a más de 50 leads al mes.",
     title: 'Caso de éxito: Superwagen, +323 % de tráfico orgánico y más de 50 leads al mes',
     description:
       'Alinear la visibilidad en Google de un concesionario oficial Audi y Volkswagen con su peso real en Sabadell y Sant Cugat: SEO local, SEO por modelos y Google Ads de vehículos de ocasión. Diciembre 2023 – abril 2025.',
@@ -228,9 +228,9 @@ export const SUPERWAGEN_CASE = {
   },
 
   ca: {
-    metaTitle: "Cas d'èxit: Superwagen, +323 % de trànsit orgànic i més de 50 leads al mes",
+    metaTitle: "▷ Cas d'èxit: Superwagen, +323 % de trànsit orgànic",
     metaDescription:
-      "SEO local, SEO per models i Google Ads per a Superwagen, concessionari oficial Audi i Volkswagen a Sabadell i Sant Cugat: +323 % de trànsit orgànic, Top 10 +45 % i de 10-15 a més de 50 leads al mes amb un 40 % menys d'inversió publicitària.",
+      "SEO local, SEO per models i Google Ads per a un concessionari Audi i VW de Sabadell i Sant Cugat: de 10-15 a més de 50 leads al mes.",
     title: "Cas d'èxit: Superwagen, +323 % de trànsit orgànic i més de 50 leads al mes",
     description:
       "Alinear la visibilitat a Google d'un concessionari oficial Audi i Volkswagen amb el seu pes real a Sabadell i Sant Cugat: SEO local, SEO per models i Google Ads de vehicles d'ocasió. Desembre 2023 – abril 2025.",
