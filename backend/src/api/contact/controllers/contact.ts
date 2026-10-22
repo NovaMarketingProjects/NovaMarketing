@@ -20,6 +20,10 @@ const escapeHtmlBlock = (value: unknown): string =>
 // por el emisor.
 const SINGLE_EMAIL = /^[^\s@,;:<>"]{1,64}@[^\s@,;:<>"]{1,253}\.[A-Za-z]{2,}$/;
 
+// Teléfono: dígitos, espacios, +, paréntesis, puntos y guiones (la longitud en
+// cifras se comprueba aparte).
+const PHONE = /^[0-9+\s().-]{9,40}$/;
+
 // Devuelve el string recortado si es un string no vacío dentro del límite, o null.
 const boundedString = (value: unknown, max: number): string | null => {
   if (typeof value !== 'string') return null;
@@ -88,8 +92,15 @@ export default {
       ctx.body = { error: 'Name and a single valid email address are required' };
       return;
     }
-    const safeUrl = boundedString(url, 500);
+    // Teléfono obligatorio en todos los formularios: solo dígitos y separadores
+    // habituales, con al menos 9 cifras.
     const safePhone = boundedString(phone, 40);
+    if (!safePhone || !PHONE.test(safePhone) || safePhone.replace(/\D/g, '').length < 9) {
+      ctx.status = 400;
+      ctx.body = { error: 'A valid phone number is required' };
+      return;
+    }
+    const safeUrl = boundedString(url, 500);
     const safeMsg = boundedString(msg, 5000);
 
     const SMTP_USER = process.env.SMTP_USER || '';

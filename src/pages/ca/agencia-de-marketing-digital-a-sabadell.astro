@@ -701,8 +701,8 @@ const pageSchema = localAgencySchema({
                                 <input type="text" name="name" aria-label="Nom" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
                             </div>
                             <div class="flex flex-col gap-3">
-                                <label class="opacity-30">TELÈFON</label>
-                                <input type="tel" name="phone" aria-label="Telèfon" class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                                <label class="opacity-30">TELÈFON *</label>
+                                <input type="tel" name="phone" required autocomplete="tel" inputmode="tel" minlength="9" pattern="[0-9+\s.\(\)\-]{9,20}" title="Introdueix un telèfon vàlid (mínim 9 xifres)" aria-label="Telèfon" class="border-b border-black/10 py-2 focus:border-accent outline-none">
                             </div>
                         </div>
                         <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">

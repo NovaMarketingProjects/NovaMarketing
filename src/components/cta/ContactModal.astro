@@ -14,7 +14,8 @@ const t = {
     name: 'Nombre *',
     email: 'Email Profesional *',
     web: 'Web / URL',
-    phone: 'Teléfono',
+    phone: 'Teléfono *',
+    phoneTitle: 'Introduce un teléfono válido (mínimo 9 cifras)',
     msg: 'Mensaje',
     terms: 'Acepto y he leído los términos y condiciones',
     submit: 'ENVIAR SOLICITUD',
@@ -24,7 +25,8 @@ const t = {
     name: 'Nom *',
     email: 'Email Professional *',
     web: 'Web / URL',
-    phone: 'Telèfon',
+    phone: 'Telèfon *',
+    phoneTitle: 'Introdueix un telèfon vàlid (mínim 9 xifres)',
     msg: 'Missatge',
     terms: 'Accepto i he llegit els termes i condicions',
     submit: 'ENVIAR SOL·LICITUD',
@@ -35,7 +37,8 @@ const t = {
     name: 'Nombre *',
     email: 'Email Profesional *',
     web: 'Web / URL',
-    phone: 'Teléfono',
+    phone: 'Teléfono *',
+    phoneTitle: 'Introduce un teléfono válido (mínimo 9 cifras)',
     msg: 'Mensaje',
     terms: 'Acepto y he leído los términos y condiciones',
     submit: 'ENVIAR SOLICITUD',
@@ -89,7 +92,7 @@ const t = {
                 </div>
                 <div class="flex flex-col gap-3">
                     <label class="opacity-30">{t.phone}</label>
-                    <input type="tel" name="phone" aria-label="Teléfono" class="border-b border-black/10 py-2 focus:border-accent outline-none">
+                    <input type="tel" name="phone" required autocomplete="tel" inputmode="tel" minlength="9" pattern="[0-9+\s.\(\)\-]{9,20}" title={t.phoneTitle} aria-label="Teléfono" class="border-b border-black/10 py-2 focus:border-accent outline-none">
                 </div>
             </div>
 
