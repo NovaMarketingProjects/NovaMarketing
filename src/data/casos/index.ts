@@ -16,8 +16,9 @@ import { VILLAZON_MERCE_CASE } from './villazon-merce-abogados';
 import { DIPOLE_RFID_CASE } from './dipole-rfid';
 import { CTS_FORMACION_CASE } from './cts-formacion';
 import { SUPERWAGEN_CASE } from './superwagen';
+import { LOREMAR_CASE } from './loremar';
 
-export const STATIC_CASES = [SUPERWAGEN_CASE, CTS_FORMACION_CASE, DIPOLE_RFID_CASE, VILLAZON_MERCE_CASE, CLUSTAG_CASE, CB_HOSPITALET_CASE, VOLTURA_PROJECTS_CASE, PALACIO_DEL_BEBE_CASE, TATTOOX_CASE];
+export const STATIC_CASES = [LOREMAR_CASE, SUPERWAGEN_CASE, CTS_FORMACION_CASE, DIPOLE_RFID_CASE, VILLAZON_MERCE_CASE, CLUSTAG_CASE, CB_HOSPITALET_CASE, VOLTURA_PROJECTS_CASE, PALACIO_DEL_BEBE_CASE, TATTOOX_CASE];
 
 /**
  * Sustituye, en la respuesta de Strapi, las entradas que tienen un caso

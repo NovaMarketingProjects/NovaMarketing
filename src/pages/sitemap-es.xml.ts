@@ -20,6 +20,7 @@ const STATIC_PAGES: { path: string; lastmod: string }[] = [
   { path: '/casos-exito/caso-de-exito-dipole-rfid/', lastmod: '2026-10-21' },
   { path: '/casos-exito/cts-formacion/', lastmod: '2026-10-21' },
   { path: '/casos-exito/caso-de-exito-superwagen/', lastmod: '2026-10-22' },
+  { path: '/casos-exito/restaurante-loremar/', lastmod: '2026-10-22' },
   { path: '/blog/', lastmod: '2026-07-20' },
   { path: '/agencia-de-marketing-digital-en-barcelona/', lastmod: '2026-07-23' },
   { path: '/agencia-de-marketing-digital-en-sabadell/', lastmod: '2026-07-20' },
