@@ -21,6 +21,9 @@ const SINGLE_EMAIL = /^[^\s@,;:<>"]{1,64}@[^\s@,;:<>"]{1,253}\.[A-Za-z]{2,}$/;
 // Teléfono: dígitos, espacios, +, paréntesis, puntos y guiones (la longitud en
 // cifras se comprueba aparte).
 const PHONE = /^[0-9+\s().-]{9,40}$/;
+// Web: dominio válido, con o sin protocolo y www (miempresa.com,
+// https://www.miempresa.es/ruta). Misma regla que el formulario.
+const WEB_DOMAIN = /^(https?:\/\/)?(www\.)?([a-z0-9áéíóúàèòïüñç-]+\.)+[a-z]{2,24}(:\d{2,5})?(\/\S*)?$/i;
 // Devuelve el string recortado si es un string no vacío dentro del límite, o null.
 const boundedString = (value, max) => {
     if (typeof value !== 'string')
@@ -72,7 +75,7 @@ exports.default = {
         ctx.body = { ok: true };
     },
     async send(ctx) {
-        const { name, email, url, phone, msg, source, eventId } = ctx.request.body;
+        const { name, email, url, phone, msg, source, eventId, business, no_web } = ctx.request.body;
         // Validación: nombre no vacío y UNA sola dirección de correo válida. El
         // valor validado es el único que llega a `to`/`replyTo`, de modo que
         // nodemailer nunca parsea una lista de destinatarios del emisor.
@@ -91,7 +94,16 @@ exports.default = {
             ctx.body = { error: 'A valid phone number is required' };
             return;
         }
-        const safeUrl = boundedString(url, 500);
+        // Web obligatoria y válida; si el usuario marca "No tengo web" (no_web),
+        // se exige en su lugar el nombre del negocio.
+        const noWeb = no_web === '1' || no_web === 'on' || no_web === true || no_web === 1;
+        const safeUrl = noWeb ? null : boundedString(url, 500);
+        const safeBusiness = noWeb ? boundedString(business, 120) : null;
+        if (noWeb ? !safeBusiness || safeBusiness.length < 2 : !safeUrl || !WEB_DOMAIN.test(safeUrl)) {
+            ctx.status = 400;
+            ctx.body = { error: noWeb ? 'Business name is required' : 'A valid website is required' };
+            return;
+        }
         const safeMsg = boundedString(msg, 5000);
         const SMTP_USER = process.env.SMTP_USER || '';
         const CONTACT_TO = process.env.CONTACT_TO || 'hola@novamarketing.es';
@@ -109,6 +121,7 @@ exports.default = {
             `Nombre:   ${safeName}`,
             `Email:    ${safeEmail}`,
             safeUrl ? `Web:      ${safeUrl}` : null,
+            safeBusiness ? `Negocio:  ${safeBusiness} (no tiene web)` : null,
             safePhone ? `Telefono: ${safePhone}` : null,
             safeMsg ? `Mensaje:  ${safeMsg}` : null,
             `Pagina:   ${pageSource}`,

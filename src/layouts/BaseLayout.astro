@@ -9,6 +9,7 @@ import Header from '../components/global/Header.astro';
 import Footer from '../components/global/Footer.astro';
 import CtaSticky from '../components/cta/CtaSticky.astro';
 import ContactModal from '../components/cta/ContactModal.astro';
+import WebFieldEnhancer from '../components/cta/WebFieldEnhancer.astro';
 import CookieBanner from '../components/global/CookieBanner.astro';
 import '../styles/global.css';
 
@@ -249,6 +250,7 @@ const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 
   <CtaSticky locale={locale} settings={settings} />
   <ContactModal locale={locale} />
+  <WebFieldEnhancer />
   <CookieBanner locale={locale} />
 
   <!-- Global v5 Scripts (Particles + Cursor + Reveal) -->

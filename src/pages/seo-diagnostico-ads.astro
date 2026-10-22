@@ -133,9 +133,8 @@ const faqs = [
           <!-- Paso 1 -->
           <div class="diag-step" data-step="1">
             <div class="text-[9px] font-black uppercase tracking-[0.3em] text-accent mb-2">Paso 1 de 3</div>
-            <div class="text-xl font-black uppercase tracking-tighter mb-5 leading-tight">¿Cuál es tu web?</div>
+            <div class="text-xl font-black uppercase tracking-tighter mb-5 leading-tight" data-webfield-label data-business-text="¿Cómo se llama tu negocio?">¿Cuál es tu web?</div>
             <input type="text" name="url" id="diag-url" placeholder="www.tuempresa.com" class="w-full border-b-2 border-zinc-200 py-3 focus:border-accent outline-none transition-colors bg-transparent text-base placeholder:text-zinc-300" />
-            <p class="text-[11px] text-zinc-400 font-light mt-2">Si todavía no tienes web, escribe el nombre de tu negocio.</p>
             <button type="button" class="diag-next w-full btn-mktg-v5 !py-3.5 text-sm mt-6" data-next="2">
               Analizar mi web →
             </button>
@@ -367,13 +366,14 @@ const faqs = [
 
   document.querySelectorAll<HTMLElement>('.diag-next').forEach(btn => {
     btn.addEventListener('click', () => {
-      const url = document.getElementById('diag-url') as HTMLInputElement | null;
-      if (url && url.value.trim() && !/\.[a-zA-Z]{2,}/.test(url.value.trim()) && url.value.trim().length < 3) {
-        url.setCustomValidity('Escribe tu web o el nombre de tu negocio');
-        url.reportValidity();
-        return;
+      // Valida todos los campos activos del paso actual (web, o nombre del
+      // negocio si se marcó "No tengo web") antes de avanzar: un campo
+      // inválido en un paso oculto bloquearía el envío sin mostrar el error.
+      const step = btn.closest('.diag-step');
+      const fields = step ? [...step.querySelectorAll<HTMLInputElement>('input, select, textarea')] : [];
+      for (const el of fields) {
+        if (!el.disabled && !el.checkValidity()) { el.reportValidity(); return; }
       }
-      url?.setCustomValidity('');
       showStep(Number(btn.dataset.next));
     });
   });

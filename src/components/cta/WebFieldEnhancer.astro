@@ -1,0 +1,118 @@
+---
+/**
+ * WebFieldEnhancer.astro — comportamiento común del campo "Web" en todos los
+ * formularios de contacto (cualquier <form> con un input name="url").
+ *
+ * - La web pasa a ser obligatoria y tiene que ser un dominio válido
+ *   (miempresa.com, www.miempresa.es, https://miempresa.com/ruta…).
+ * - Añade una casilla "No tengo web". Al marcarla, el campo de web se oculta y
+ *   se desactiva (no se valida ni se envía) y aparece "Nombre del negocio",
+ *   obligatorio, con name="business". La casilla se envía como no_web=1.
+ *
+ * El CMS (/api/contact) aplica la misma regla: web válida o nombre de negocio.
+ */
+---
+
+<style is:global>
+  .webfield-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.35rem;
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: normal;
+    text-transform: none;
+    color: #71717a;
+    cursor: pointer;
+    user-select: none;
+    opacity: 1;
+  }
+  .webfield-toggle input { accent-color: #3b82f6; width: 0.95rem; height: 0.95rem; flex: none; }
+  .webfield-hidden { display: none !important; }
+</style>
+
+<script>
+  const DOMAIN = /^(https?:\/\/)?(www\.)?([a-z0-9áéíóúàèòïüñç-]+\.)+[a-z]{2,24}(:\d{2,5})?(\/\S*)?$/i;
+
+  const isCa = () => (document.documentElement.lang || '').toLowerCase().startsWith('ca');
+  const txt = () => isCa()
+    ? { noWeb: 'No tinc web', business: 'Nom del negoci *', invalid: 'Introdueix una web vàlida, per exemple: lamevaempresa.com', businessReq: 'Indica el nom del teu negoci' }
+    : { noWeb: 'No tengo web', business: 'Nombre del negocio *', invalid: 'Introduce una web válida, por ejemplo: miempresa.com', businessReq: 'Indica el nombre de tu negocio' };
+
+  function enhance(form: HTMLFormElement) {
+    if (form.dataset.webfield === '1') return;
+    const url = form.querySelector<HTMLInputElement>('input[name="url"]');
+    if (!url) return;
+    form.dataset.webfield = '1';
+    const t = txt();
+    const wrapper = (url.closest('div') as HTMLElement) || url.parentElement!;
+    // Título del campo: un elemento marcado con data-webfield-label (p. ej. el
+    // titular de un paso) o, si no, el <label> del bloque.
+    const label = (wrapper.querySelector('[data-webfield-label]') as HTMLElement | null) || wrapper.querySelector('label');
+    const custom = !!label?.hasAttribute('data-webfield-label');
+    const webLabelText = label ? (custom ? label.textContent!.trim() : label.textContent!.replace(/\*/g, '').trim() + ' *') : '';
+    const businessLabelText = custom ? (label!.getAttribute('data-business-text') || t.business) : t.business;
+    if (label) label.textContent = webLabelText;
+
+    url.required = true;
+    url.setAttribute('autocomplete', 'url');
+    url.setAttribute('inputmode', 'url');
+    if (!url.placeholder) url.placeholder = isCa() ? 'www.lamevaempresa.com' : 'www.miempresa.com';
+
+    // Campo "Nombre del negocio" con el mismo estilo que el de la web.
+    const business = document.createElement('input');
+    business.type = 'text';
+    business.name = 'business';
+    business.className = url.className;
+    business.setAttribute('aria-label', t.business.replace(' *', ''));
+    business.setAttribute('autocomplete', 'organization');
+    business.maxLength = 120;
+    business.disabled = true;
+    business.classList.add('webfield-hidden');
+    url.insertAdjacentElement('afterend', business);
+
+    // Casilla "No tengo web".
+    const toggle = document.createElement('label');
+    toggle.className = 'webfield-toggle';
+    const cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.name = 'no_web';
+    cb.value = '1';
+    toggle.append(cb, document.createTextNode(t.noWeb));
+    business.insertAdjacentElement('afterend', toggle);
+
+    const validateUrl = () => {
+      const v = url.value.trim();
+      url.setCustomValidity(!url.disabled && v && !DOMAIN.test(v) ? t.invalid : '');
+    };
+    const validateBusiness = () => {
+      business.setCustomValidity(!business.disabled && business.value.trim().length < 2 ? t.businessReq : '');
+    };
+    url.addEventListener('input', validateUrl);
+    url.addEventListener('blur', validateUrl);
+    business.addEventListener('input', validateBusiness);
+
+    cb.addEventListener('change', () => {
+      const noWeb = cb.checked;
+      url.disabled = noWeb;
+      url.required = !noWeb;
+      url.classList.toggle('webfield-hidden', noWeb);
+      business.disabled = !noWeb;
+      business.required = noWeb;
+      business.classList.toggle('webfield-hidden', !noWeb);
+      if (label) label.textContent = noWeb ? businessLabelText : webLabelText;
+      validateUrl();
+      validateBusiness();
+      (noWeb ? business : url).focus({ preventScroll: true });
+    });
+
+    // Validación final justo antes de enviar (por si el navegador no disparó input).
+    form.addEventListener('submit', () => { validateUrl(); validateBusiness(); }, true);
+    validateUrl();
+  }
+
+  function init() { document.querySelectorAll<HTMLFormElement>('form').forEach(enhance); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+  document.addEventListener('astro:page-load', init);
+</script>
