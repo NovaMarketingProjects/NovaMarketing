@@ -1,6 +1,7 @@
 import { Context } from 'koa';
 import nodemailer from 'nodemailer';
 import { sendOpenAiConversion } from '../../../utils/openai-ads';
+import { leadSourceBlock, classifyTouch } from '../../../utils/lead-source';
 
 // Escapa un valor para interpolarlo con seguridad en el cuerpo HTML del correo.
 const escapeHtml = (value: unknown): string =>
@@ -84,7 +85,7 @@ export default {
   },
 
   async send(ctx: Context) {
-    const { name, email, url, phone, msg, source, eventId, business, no_web } = ctx.request.body as any;
+    const { name, email, url, phone, msg, source, eventId, business, no_web, attribution } = ctx.request.body as any;
 
     // Validación: nombre no vacío y UNA sola dirección de correo válida. El
     // valor validado es el único que llega a `to`/`replyTo`, de modo que
@@ -128,6 +129,14 @@ export default {
     // El valor de `source`/`referer` se trunca y se usa solo como texto plano.
     const pageSource = boundedString(source, 500) || boundedString(ctx.request.headers['referer'] as string, 500) || '-';
 
+    // Canal de la visita actual (Google Ads, ChatGPT Ads, orgánico…), para el asunto.
+    let leadChannel = 'Origen desconocido';
+    try {
+      if (typeof attribution === 'string' && attribution.length <= 8000) {
+        leadChannel = classifyTouch(JSON.parse(attribution)?.session);
+      }
+    } catch { /* sin datos de origen */ }
+
     const adminText = [
       'NUEVA CONSULTA - Nova Marketing',
       '================================',
@@ -139,14 +148,16 @@ export default {
       safeMsg   ? `Mensaje:  ${safeMsg}`   : null,
       `Pagina:   ${pageSource}`,
       `Fecha:    ${now}`,
-    ].filter(Boolean).join('\n');
+      // Origen del contacto: canal, dispositivo, visitas, UTM y click IDs.
+      ...leadSourceBlock(attribution, ctx.request.headers['user-agent'] as string, ctx.request.headers['accept-language'] as string),
+    ].filter((l) => l !== null && l !== undefined).join('\n');
 
     // Admin notification — plain text, no encoding issues
     try {
       await transporter.sendMail({
         from: `"nova." <${SMTP_USER}>`,
         to: CONTACT_TO,
-        subject: 'Nueva consulta en Nova Marketing',
+        subject: `Nueva consulta en Nova Marketing · ${leadChannel}`,
         text: adminText,
         replyTo: safeEmail,
       });

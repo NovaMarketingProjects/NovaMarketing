@@ -1,0 +1,86 @@
+---
+/**
+ * LeadAttribution.astro — origen del contacto para el email al administrador.
+ *
+ * En cada página guarda, solo en el navegador del visitante:
+ *  - Primera visita (localStorage, 90 días): fecha, página de entrada,
+ *    referrer, parámetros UTM e identificadores de clic de anuncios.
+ *  - Visita actual (sessionStorage): lo mismo para esta sesión, más páginas
+ *    vistas e inicio de la sesión.
+ *  - Número de visitas (sesiones) desde la primera.
+ * Al enviar cualquier formulario añade un campo oculto name="attribution" con
+ * esos datos y el dispositivo (pantalla, idioma, zona horaria, táctil). Los
+ * formularios lo envían a /api/contact con el resto del FormData; el CMS
+ * clasifica el canal (Google Ads, ChatGPT Ads, orgánico, IA, redes…).
+ * No se envía nada a terceros.
+ */
+---
+
+<script is:inline>
+(function () {
+  var FIRST_KEY = 'nova_attr_first', SESSION_KEY = 'nova_attr_session', VISITS_KEY = 'nova_attr_visits';
+  var TTL = 90 * 24 * 3600 * 1000;
+  // Si el navegador bloquea el almacenamiento, se usa memoria (solo esta página).
+  var LS, SS;
+  try { LS = window.localStorage; SS = window.sessionStorage; LS.getItem('x'); } catch (e) {
+    var mem = {}; LS = SS = { getItem: function (k) { return mem[k] || null; }, setItem: function (k, v) { mem[k] = v; } };
+  }
+  var CLICK_IDS = ['gclid', 'gbraid', 'wbraid', 'gad_source', 'fbclid', 'msclkid', 'ttclid', 'li_fat_id', 'twclid', 'oai_click_id'];
+  var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'utm_id'];
+
+  function read(store, key) { try { return JSON.parse(store.getItem(key) || 'null'); } catch (e) { return null; } }
+  function write(store, key, val) { try { store.setItem(key, JSON.stringify(val)); } catch (e) {} }
+
+  function touch() {
+    var p = new URLSearchParams(location.search), utm = {}, ids = {}, i;
+    for (i = 0; i < UTM.length; i++) if (p.get(UTM[i])) utm[UTM[i].slice(4)] = p.get(UTM[i]).slice(0, 150);
+    for (i = 0; i < CLICK_IDS.length; i++) if (p.get(CLICK_IDS[i])) ids[CLICK_IDS[i]] = p.get(CLICK_IDS[i]).slice(0, 200);
+    var ref = '';
+    try { ref = document.referrer && new URL(document.referrer).host !== location.host ? document.referrer.slice(0, 300) : ''; } catch (e) {}
+    return { ts: new Date().toISOString(), landing: (location.pathname + location.search).slice(0, 300), referrer: ref, utm: utm, ids: ids };
+  }
+  function hasSignal(t) { return t.referrer || Object.keys(t.utm).length || Object.keys(t.ids).length; }
+
+  var now = Date.now(), current = touch();
+
+  // Primera visita: se guarda una vez y caduca a los 90 días.
+  var first = read(LS, FIRST_KEY);
+  if (!first || now - Date.parse(first.ts) > TTL) { first = current; write(LS, FIRST_KEY, first); }
+
+  // Sesión: nueva si no existe; si llega con campaña/referrer externo, se actualiza la fuente.
+  var session = read(SS, SESSION_KEY);
+  if (!session) {
+    session = { touch: current, startedAt: now, pages: 0 };
+    write(LS, VISITS_KEY, (read(LS, VISITS_KEY) || 0) + 1);
+  } else if (hasSignal(current)) {
+    session.touch = current;
+  }
+  session.pages = (session.pages || 0) + 1;
+  write(SS, SESSION_KEY, session);
+
+  function payload() {
+    var s = read(SS, SESSION_KEY) || session;
+    return JSON.stringify({
+      first: read(LS, FIRST_KEY) || first,
+      session: s.touch,
+      pages: s.pages,
+      secondsOnSite: Math.round((Date.now() - (s.startedAt || now)) / 1000),
+      visits: read(LS, VISITS_KEY) || 1,
+      device: {
+        w: screen.width, h: screen.height, vw: innerWidth, dpr: devicePixelRatio || 1,
+        touch: ('ontouchstart' in window) || navigator.maxTouchPoints > 0,
+        lang: navigator.language, tz: (Intl.DateTimeFormat().resolvedOptions().timeZone || '')
+      }
+    });
+  }
+
+  // Antes de que cualquier formulario lea su FormData, añadir/actualizar el campo oculto.
+  document.addEventListener('submit', function (e) {
+    var form = e.target;
+    if (!form || form.tagName !== 'FORM' || !form.querySelector('input[name="email"]')) return;
+    var input = form.querySelector('input[name="attribution"]');
+    if (!input) { input = document.createElement('input'); input.type = 'hidden'; input.name = 'attribution'; form.appendChild(input); }
+    input.value = payload();
+  }, true);
+})();
+</script>

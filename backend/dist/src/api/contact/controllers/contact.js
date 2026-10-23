@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const nodemailer_1 = __importDefault(require("nodemailer"));
 const openai_ads_1 = require("../../../utils/openai-ads");
+const lead_source_1 = require("../../../utils/lead-source");
 // Escapa un valor para interpolarlo con seguridad en el cuerpo HTML del correo.
 const escapeHtml = (value) => String(value !== null && value !== void 0 ? value : '')
     .replace(/&/g, '&amp;')
@@ -75,7 +76,8 @@ exports.default = {
         ctx.body = { ok: true };
     },
     async send(ctx) {
-        const { name, email, url, phone, msg, source, eventId, business, no_web } = ctx.request.body;
+        var _a;
+        const { name, email, url, phone, msg, source, eventId, business, no_web, attribution } = ctx.request.body;
         // Validación: nombre no vacío y UNA sola dirección de correo válida. El
         // valor validado es el único que llega a `to`/`replyTo`, de modo que
         // nodemailer nunca parsea una lista de destinatarios del emisor.
@@ -115,6 +117,14 @@ exports.default = {
         });
         // El valor de `source`/`referer` se trunca y se usa solo como texto plano.
         const pageSource = boundedString(source, 500) || boundedString(ctx.request.headers['referer'], 500) || '-';
+        // Canal de la visita actual (Google Ads, ChatGPT Ads, orgánico…), para el asunto.
+        let leadChannel = 'Origen desconocido';
+        try {
+            if (typeof attribution === 'string' && attribution.length <= 8000) {
+                leadChannel = (0, lead_source_1.classifyTouch)((_a = JSON.parse(attribution)) === null || _a === void 0 ? void 0 : _a.session);
+            }
+        }
+        catch { /* sin datos de origen */ }
         const adminText = [
             'NUEVA CONSULTA - Nova Marketing',
             '================================',
@@ -126,13 +136,15 @@ exports.default = {
             safeMsg ? `Mensaje:  ${safeMsg}` : null,
             `Pagina:   ${pageSource}`,
             `Fecha:    ${now}`,
-        ].filter(Boolean).join('\n');
+            // Origen del contacto: canal, dispositivo, visitas, UTM y click IDs.
+            ...(0, lead_source_1.leadSourceBlock)(attribution, ctx.request.headers['user-agent'], ctx.request.headers['accept-language']),
+        ].filter((l) => l !== null && l !== undefined).join('\n');
         // Admin notification — plain text, no encoding issues
         try {
             await transporter.sendMail({
                 from: `"nova." <${SMTP_USER}>`,
                 to: CONTACT_TO,
-                subject: 'Nueva consulta en Nova Marketing',
+                subject: `Nueva consulta en Nova Marketing · ${leadChannel}`,
                 text: adminText,
                 replyTo: safeEmail,
             });
