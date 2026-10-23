@@ -8,7 +8,7 @@ interface Props {
 }
 const { locale = 'es' } = Astro.props;
 
-const t = {
+const dict = {
   es: {
     title: 'CUÉNTANOS TU PROYECTO',
     name: 'Nombre *',
@@ -17,7 +17,9 @@ const t = {
     phone: 'Teléfono *',
     phoneTitle: 'Introduce un teléfono válido (mínimo 9 cifras)',
     msg: 'Mensaje',
-    terms: 'Acepto y he leído los términos y condiciones',
+    terms: 'He leído y acepto la',
+    termsLink: 'política de privacidad',
+    privacyHref: '/privacidad/',
     submit: 'ENVIAR SOLICITUD',
   },
   ca: {
@@ -28,22 +30,14 @@ const t = {
     phone: 'Telèfon *',
     phoneTitle: 'Introdueix un telèfon vàlid (mínim 9 xifres)',
     msg: 'Missatge',
-    terms: 'Accepto i he llegit els termes i condicions',
+    terms: 'He llegit i accepto la',
+    termsLink: 'política de privacitat',
+    privacyHref: '/ca/privacitat/',
     submit: 'ENVIAR SOL·LICITUD',
   }
-}[locale as 'es' | 'ca'] || {
-  es: {
-    title: 'CUÉNTANOS TU PROYECTO',
-    name: 'Nombre *',
-    email: 'Email Profesional *',
-    web: 'Web / URL',
-    phone: 'Teléfono *',
-    phoneTitle: 'Introduce un teléfono válido (mínimo 9 cifras)',
-    msg: 'Mensaje',
-    terms: 'Acepto y he leído los términos y condiciones',
-    submit: 'ENVIAR SOLICITUD',
-  }
 };
+// Idioma desconocido: textos en castellano (antes el fallback devolvía {es: …} y el modal salía vacío).
+const t = (dict as Record<string, typeof dict.es>)[locale as string] || dict.es;
 ---
 
 <!-- Sending overlay -->
@@ -105,7 +99,7 @@ const t = {
             <div class="flex items-start gap-2 mt-4">
                 <input type="checkbox" id="terms-agree" name="terms" required class="mt-1 accent-accent">
                 <label for="terms-agree" class="text-xs text-zinc-500 font-light cursor-pointer select-none">
-                    {t.terms}
+                    {t.terms} <a href={t.privacyHref} class="underline hover:text-accent transition-colors">{t.termsLink}</a>.
                 </label>
             </div>
 

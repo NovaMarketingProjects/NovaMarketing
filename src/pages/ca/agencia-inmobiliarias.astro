@@ -512,7 +512,7 @@ const pageSchema = localAgencySchema({
                     <form class="space-y-8" id="contact-form">
                         <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
                             <div class="flex flex-col gap-3">
-                                <label class="opacity-30">NOM</label>
+                                <label class="opacity-30">NOM *</label>
                                 <input type="text" name="name" aria-label="Nom" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
                             </div>
                             <div class="flex flex-col gap-3">
@@ -521,7 +521,7 @@ const pageSchema = localAgencySchema({
                             </div>
                         </div>
                         <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
-                            <label class="opacity-30">EMAIL PROFESSIONAL</label>
+                            <label class="opacity-30">EMAIL PROFESSIONAL *</label>
                             <input type="email" name="email" aria-label="Correu electrònic" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
                         </div>
                         <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
@@ -531,6 +531,10 @@ const pageSchema = localAgencySchema({
                         <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
                             <label class="opacity-30">CONSULTA</label>
                             <textarea name="msg" aria-label="Missatge" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="Què necessita la teva immobiliària?"></textarea>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <input type="checkbox" id="contact-form-terms" name="terms" required class="mt-1 accent-accent">
+                            <label for="contact-form-terms" class="text-xs text-zinc-500 font-light cursor-pointer select-none normal-case tracking-normal">He llegit i accepto la <a href="/ca/privacitat/" class="underline hover:text-accent transition-colors">política de privacitat</a>.</label>
                         </div>
                         <button type="submit" class="w-full btn-mktg-v5 !py-6">VULL MÉS CAPTACIONS</button>
                     </form>
