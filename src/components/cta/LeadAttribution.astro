@@ -78,9 +78,19 @@
   document.addEventListener('submit', function (e) {
     var form = e.target;
     if (!form || form.tagName !== 'FORM' || !form.querySelector('input[name="email"]')) return;
-    var input = form.querySelector('input[name="attribution"]');
-    if (!input) { input = document.createElement('input'); input.type = 'hidden'; input.name = 'attribution'; form.appendChild(input); }
-    input.value = payload();
+    var hidden = function (name) {
+      var el = form.querySelector('input[name="' + name + '"]');
+      if (!el) { el = document.createElement('input'); el.type = 'hidden'; el.name = name; form.appendChild(el); }
+      return el;
+    };
+    hidden('attribution').value = payload();
+    // Todos los formularios envían la página exacta y un id de conversión, aunque
+    // su código no los añada (los que sí lo hacen los sobrescriben con el suyo).
+    hidden('source').value = location.href.slice(0, 500);
+    var ev = hidden('eventId');
+    if (!ev.value) ev.value = (window.oaiqNewEventId && window.oaiqNewEventId()) || String(Date.now());
+    // La página /gracias/ dispara la conversión del píxel solo si encuentra este id.
+    try { SS.setItem('oaiq_event_id', ev.value); } catch (err) {}
   }, true);
 })();
 </script>

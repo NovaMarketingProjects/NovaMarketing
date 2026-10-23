@@ -128,14 +128,15 @@ exports.default = {
         const adminText = [
             'NUEVA CONSULTA - Nova Marketing',
             '================================',
-            `Nombre:   ${safeName}`,
-            `Email:    ${safeEmail}`,
-            safeUrl ? `Web:      ${safeUrl}` : null,
-            safeBusiness ? `Negocio:  ${safeBusiness} (no tiene web)` : null,
-            safePhone ? `Telefono: ${safePhone}` : null,
-            safeMsg ? `Mensaje:  ${safeMsg}` : null,
-            `Pagina:   ${pageSource}`,
-            `Fecha:    ${now}`,
+            // Mismas líneas en todos los formularios; "-" cuando un dato no llega.
+            `Nombre:    ${safeName}`,
+            `Email:     ${safeEmail}`,
+            `Teléfono:  ${safePhone || '-'}`,
+            `Web:       ${safeUrl || (safeBusiness ? 'no tiene web' : '-')}`,
+            `Negocio:   ${safeBusiness || '-'}`,
+            `Mensaje:   ${safeMsg || '-'}`,
+            `Página:    ${pageSource}`,
+            `Fecha:     ${now}`,
             // Origen del contacto: canal, dispositivo, visitas, UTM y click IDs.
             ...(0, lead_source_1.leadSourceBlock)(attribution, ctx.request.headers['user-agent'], ctx.request.headers['accept-language']),
         ].filter((l) => l !== null && l !== undefined).join('\n');
