@@ -6,7 +6,7 @@
  *
  * Canales:
  *  - Google Ads: gclid / gbraid / wbraid / gad_source, o utm google + cpc.
- *  - ChatGPT Ads: utm_source chatgpt|openai con medium de pago, u oai_click_id.
+ *  - ChatGPT Ads: oppref / olref (los añade OpenAI), o utm_source chatgpt|openai con medium de pago.
  *  - Meta Ads (fbclid o utm facebook/instagram de pago), Microsoft Ads (msclkid),
  *    TikTok/LinkedIn/X Ads por sus click IDs.
  *  - IA (orgánico): referrer o utm de chatgpt.com, perplexity, gemini, copilot…
@@ -58,7 +58,8 @@ function classifyTouch(t) {
     const refHost = hostOf(t.referrer);
     if (ids.gclid || ids.gbraid || ids.wbraid || ids.gad_source || (/google/.test(source) && PAID.test(medium)))
         return 'Google Ads';
-    if (ids.oai_click_id || (/chatgpt|openai/.test(source) && PAID.test(medium)))
+    // ChatGPT Ads añade oppref y olref a la URL de destino de sus anuncios.
+    if (ids.oppref || ids.olref || (/chatgpt|openai/.test(source) && PAID.test(medium)))
         return 'ChatGPT Ads';
     if (ids.fbclid && (PAID.test(medium) || /facebook|instagram|meta|fb|ig/.test(source)))
         return 'Meta Ads';
@@ -113,6 +114,23 @@ function describeDevice(ua, d) {
     return `${type} · ${os} · ${browser}${screen}`;
 }
 exports.describeDevice = describeDevice;
+// Parámetros de seguimiento que ya se muestran aparte (UTM, click IDs).
+const TRACKING_PARAM = /^(utm_[a-z]+|gclid|gbraid|wbraid|gad_source|gad_campaignid|fbclid|msclkid|ttclid|li_fat_id|twclid|oppref|olref)$/i;
+/** Página de entrada sin los parámetros de seguimiento, que se listan en sus propias líneas. */
+function cleanLanding(landing) {
+    const l = clean(landing, 300);
+    if (!l)
+        return '-';
+    try {
+        const u = new URL(l, 'https://novamarketing.es');
+        [...u.searchParams.keys()].forEach((k) => { if (TRACKING_PARAM.test(k))
+            u.searchParams.delete(k); });
+        return u.pathname + (u.searchParams.toString() ? `?${u.searchParams}` : '');
+    }
+    catch {
+        return l;
+    }
+}
 function touchLines(label, t) {
     if (!t)
         return [];
@@ -120,7 +138,7 @@ function touchLines(label, t) {
     const date = t.ts ? new Date(t.ts).toLocaleString('es-ES', { timeZone: 'Europe/Madrid', day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : '';
     const lines = [
         `${label}: ${classifyTouch(t)}${date ? ` (${date})` : ''}`,
-        `  Entrada:   ${clean(t.landing, 300) || '-'}`,
+        `  Entrada:   ${cleanLanding(t.landing)}`,
         `  Referrer:  ${clean(t.referrer, 300) || '(ninguno)'}`,
     ];
     const utmParts = ['source', 'medium', 'campaign', 'term', 'content'].filter((k) => utm[k]).map((k) => `${k}=${clean(utm[k], 120)}`);

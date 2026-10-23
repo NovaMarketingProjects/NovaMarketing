@@ -25,7 +25,7 @@
   try { LS = window.localStorage; SS = window.sessionStorage; LS.getItem('x'); } catch (e) {
     var mem = {}; LS = SS = { getItem: function (k) { return mem[k] || null; }, setItem: function (k, v) { mem[k] = v; } };
   }
-  var CLICK_IDS = ['gclid', 'gbraid', 'wbraid', 'gad_source', 'fbclid', 'msclkid', 'ttclid', 'li_fat_id', 'twclid', 'oai_click_id'];
+  var CLICK_IDS = ['gclid', 'gbraid', 'wbraid', 'gad_source', 'fbclid', 'msclkid', 'ttclid', 'li_fat_id', 'twclid', 'oppref', 'olref'];
   var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'utm_id'];
 
   function read(store, key) { try { return JSON.parse(store.getItem(key) || 'null'); } catch (e) { return null; } }
@@ -34,7 +34,7 @@
   function touch() {
     var p = new URLSearchParams(location.search), utm = {}, ids = {}, i;
     for (i = 0; i < UTM.length; i++) if (p.get(UTM[i])) utm[UTM[i].slice(4)] = p.get(UTM[i]).slice(0, 150);
-    for (i = 0; i < CLICK_IDS.length; i++) if (p.get(CLICK_IDS[i])) ids[CLICK_IDS[i]] = p.get(CLICK_IDS[i]).slice(0, 200);
+    for (i = 0; i < CLICK_IDS.length; i++) if (p.get(CLICK_IDS[i])) ids[CLICK_IDS[i]] = p.get(CLICK_IDS[i]).slice(0, 400);
     var ref = '';
     try { ref = document.referrer && new URL(document.referrer).host !== location.host ? document.referrer.slice(0, 300) : ''; } catch (e) {}
     return { ts: new Date().toISOString(), landing: (location.pathname + location.search).slice(0, 300), referrer: ref, utm: utm, ids: ids };
