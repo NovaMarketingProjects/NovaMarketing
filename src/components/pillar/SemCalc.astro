@@ -13,8 +13,37 @@ interface Props {
   close?: number;   // % de contactos que acaban en venta
   cvr?: number;     // % de visitas que se convierten en contacto
   caption?: string;
+  locale?: 'es' | 'ca';
 }
-const { ticket = 1200, margin = 35, share = 40, close = 25, cvr = 5, caption } = Astro.props;
+const { ticket = 1200, margin = 35, share = 40, close = 25, cvr = 5, caption, locale = 'es' } = Astro.props;
+
+const T = locale === 'ca' ? {
+  ticket: "Valor mitjà d'una venda",
+  margin: 'Marge brut',
+  share: 'Part del marge per captar el client',
+  close: 'Contactes que acaben en venda',
+  cvr: 'Visites que es converteixen en contacte',
+  mSale: 'Marge per venda',
+  cpaClient: 'Cost màxim per client',
+  cpaLead: 'Cost màxim per contacte',
+  cpc: 'Cost per clic assumible',
+  data: 'Dades del negoci',
+  example: 'exemple',
+  note: "Si a les teves cerques el clic costa bastant més que aquesta xifra, abans d'invertir cal millorar la conversió de la pàgina, revisar el marge o canviar l'enfocament de les campanyes.",
+} : {
+  ticket: 'Valor medio de una venta',
+  margin: 'Margen bruto',
+  share: 'Parte del margen para captar al cliente',
+  close: 'Contactos que acaban en venta',
+  cvr: 'Visitas que se convierten en contacto',
+  mSale: 'Margen por venta',
+  cpaClient: 'Coste máximo por cliente',
+  cpaLead: 'Coste máximo por contacto',
+  cpc: 'Coste por clic asumible',
+  data: 'Datos del negocio',
+  example: 'ejemplo',
+  note: 'Si en tus búsquedas el clic cuesta bastante más que esta cifra, antes de invertir hay que mejorar la conversión de la página, revisar el margen o cambiar el enfoque de las campañas.',
+};
 
 const eur = (v: number, d = 0) => v.toLocaleString('es-ES', { minimumFractionDigits: d, maximumFractionDigits: d, useGrouping: 'always' } as Intl.NumberFormatOptions) + ' €';
 const mSale = (ticket * margin) / 100;
@@ -23,24 +52,24 @@ const cpaLead = (cpaClient * close) / 100;
 const cpc = (cpaLead * cvr) / 100;
 
 const inputs = [
-  { key: 'ticket', label: 'Valor medio de una venta', value: ticket, min: 50, max: 10000, step: 50, unit: '€' },
-  { key: 'margin', label: 'Margen bruto', value: margin, min: 5, max: 90, step: 1, unit: '%' },
-  { key: 'share', label: 'Parte del margen para captar al cliente', value: share, min: 5, max: 100, step: 5, unit: '%' },
-  { key: 'close', label: 'Contactos que acaban en venta', value: close, min: 1, max: 100, step: 1, unit: '%' },
-  { key: 'cvr', label: 'Visitas que se convierten en contacto', value: cvr, min: 0.5, max: 30, step: 0.5, unit: '%' },
+  { key: 'ticket', label: T.ticket, value: ticket, min: 50, max: 10000, step: 50, unit: '€' },
+  { key: 'margin', label: T.margin, value: margin, min: 5, max: 90, step: 1, unit: '%' },
+  { key: 'share', label: T.share, value: share, min: 5, max: 100, step: 5, unit: '%' },
+  { key: 'close', label: T.close, value: close, min: 1, max: 100, step: 1, unit: '%' },
+  { key: 'cvr', label: T.cvr, value: cvr, min: 0.5, max: 30, step: 0.5, unit: '%' },
 ];
 const outputs = [
-  { key: 'mSale', label: 'Margen por venta', value: eur(mSale) },
-  { key: 'cpaClient', label: 'Coste máximo por cliente', value: eur(cpaClient) },
-  { key: 'cpaLead', label: 'Coste máximo por contacto', value: eur(cpaLead) },
-  { key: 'cpc', label: 'Coste por clic asumible', value: eur(cpc, 2), main: true },
+  { key: 'mSale', label: T.mSale, value: eur(mSale) },
+  { key: 'cpaClient', label: T.cpaClient, value: eur(cpaClient) },
+  { key: 'cpaLead', label: T.cpaLead, value: eur(cpaLead) },
+  { key: 'cpc', label: T.cpc, value: eur(cpc, 2), main: true },
 ];
 ---
 
 <figure class="pd-figure mt-12 reveal" data-sem-calc>
   <div class="grid lg:grid-cols-[1.1fr_1fr] gap-6 items-stretch">
     <div class="bg-white border border-black/5 rounded-3xl p-6 sm:p-8 shadow-[0_20px_60px_rgba(0,0,0,0.05)]">
-      <p class="text-xs font-black uppercase tracking-[0.2em] text-zinc-900 mb-6">Datos del negocio <span class="text-accent">· ejemplo</span></p>
+      <p class="text-xs font-black uppercase tracking-[0.2em] text-zinc-900 mb-6">{T.data} <span class="text-accent">· {T.example}</span></p>
       <div class="space-y-5">
         {inputs.map((f) => (
           <label class="block">
@@ -62,7 +91,7 @@ const outputs = [
           </li>
         ))}
       </ol>
-      <p class="text-xs text-zinc-400 font-light leading-relaxed mt-6">Si en tus búsquedas el clic cuesta bastante más que esta cifra, antes de invertir hay que mejorar la conversión de la página, revisar el margen o cambiar el enfoque de las campañas.</p>
+      <p class="text-xs text-zinc-400 font-light leading-relaxed mt-6">{T.note}</p>
     </div>
   </div>
   {caption && <figcaption class="pd-caption" set:html={caption} />}

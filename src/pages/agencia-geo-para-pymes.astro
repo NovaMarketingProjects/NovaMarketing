@@ -60,6 +60,16 @@ const pageSchema = localAgencySchema({
   hasMap: 'https://maps.app.goo.gl/9fbB12UcK32bgjj89',
   aggregateRating: { ratingValue: '5.0', reviewCount: '12' },
   breadcrumbName: 'Agencia GEO para PYMEs',
+  mainService: {
+    name: 'Posicionamiento GEO para pymes',
+    serviceType: 'GEO / AEO',
+    description: 'Diagnóstico y mejora de la presencia de tu marca en las respuestas de ChatGPT, Gemini, Perplexity y Google, con mediciones periódicas.',
+    offers: [
+      { name: 'Diagnóstico inicial de visibilidad en IA', price: 1800 },
+      { name: 'Optimización de marca y contenidos para IA', price: 400, from: true, monthly: true },
+      { name: 'Seguimiento GEO para proyectos de mayor alcance', price: 900, from: true, monthly: true },
+    ],
+  },
   faqs,
 });
 ---
@@ -83,10 +93,11 @@ const pageSchema = localAgencySchema({
         <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
         Optimización para motores generativos
       </span>
-      <h1 class="uppercase font-extrabold tracking-tighter leading-[0.9] mb-8 text-gradient flex flex-col items-center text-center">
-        <span class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl">Agencia GEO para pymes: </span>
-        <span class="text-xl sm:text-3xl md:text-4xl mt-3 text-mktg-gradient">mejora tu presencia en las respuestas de la IA</span>
-      </h1>
+      <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
+                <span class="lg:whitespace-nowrap">Agencia GEO </span>
+                <span class="lg:whitespace-nowrap">Posicionamiento </span>
+                <span class="lg:whitespace-nowrap text-mktg-gradient">en IA</span>
+            </h1>
       <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed max-w-3xl mx-auto mb-8">
         Revisamos qué responden ChatGPT, Gemini, Claude, Perplexity y Google cuando tus clientes preguntan por lo que vendes, y trabajamos la información y las fuentes que hacen que tu empresa aparezca bien descrita.
       </p>

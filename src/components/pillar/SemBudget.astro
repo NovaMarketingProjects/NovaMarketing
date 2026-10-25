@@ -7,8 +7,12 @@
 import '../../styles/pillar.css';
 
 interface Row { label: string; fee: number; ads: number; note?: string; }
-interface Props { rows: Row[]; title?: string; caption?: string; legend?: [string, string]; }
-const { rows, title, caption, legend = ['Honorarios de gestión', 'Presupuesto en anuncios (va a Google)'] } = Astro.props;
+interface Props { rows: Row[]; title?: string; caption?: string; legend?: [string, string]; locale?: 'es' | 'ca'; }
+const { rows, title, caption, locale = 'es' } = Astro.props;
+const T = locale === 'ca'
+  ? { legend: ['Honoraris de gestió', 'Pressupost en anuncis (va a Google)'] as [string, string], month: 'mes', fee: 'de gestió', ads: 'en anuncis' }
+  : { legend: ['Honorarios de gestión', 'Presupuesto en anuncios (va a Google)'] as [string, string], month: 'mes', fee: 'de gestión', ads: 'en anuncios' };
+const legend = Astro.props.legend ?? T.legend;
 const top = Math.max(...rows.map((r) => r.fee + r.ads));
 const eur = (v: number) => v.toLocaleString('es-ES', { useGrouping: 'always' } as Intl.NumberFormatOptions) + ' €';
 ---
@@ -29,7 +33,7 @@ const eur = (v: number) => v.toLocaleString('es-ES', { useGrouping: 'always' } a
         <div>
           <div class="flex items-baseline justify-between gap-4 mb-1.5">
             <span class="text-sm font-semibold text-zinc-800">{r.label}</span>
-            <span class="text-sm font-black text-zinc-900 tabular-nums whitespace-nowrap">{eur(total)} / mes</span>
+            <span class="text-sm font-black text-zinc-900 tabular-nums whitespace-nowrap">{eur(total)} / {T.month}</span>
           </div>
           <div class="h-7 rounded-full bg-zinc-100 overflow-hidden">
             <div class="pd-bar h-full flex" style={`width:${((total / top) * 100).toFixed(1)}%;--i:${i}`}>
@@ -37,7 +41,7 @@ const eur = (v: number) => v.toLocaleString('es-ES', { useGrouping: 'always' } a
               <div class="h-full flex-1 bg-gradient-to-r from-accent to-blue-400 flex items-center justify-center text-[10px] font-black text-white">{100 - feePct} %</div>
             </div>
           </div>
-          <p class="text-[11px] text-zinc-400 font-light mt-1">{eur(r.fee)} de gestión + {eur(r.ads)} en anuncios{r.note ? ` · ${r.note}` : ''}</p>
+          <p class="text-[11px] text-zinc-400 font-light mt-1">{eur(r.fee)} {T.fee} + {eur(r.ads)} {T.ads}{r.note ? ` · ${r.note}` : ''}</p>
         </div>
       );
     })}

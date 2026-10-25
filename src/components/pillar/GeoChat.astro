@@ -7,8 +7,9 @@
 import '../../styles/pillar.css';
 
 interface Item { name: string; desc: string; highlight?: boolean; label?: string; }
-interface Props { question: string; intro?: string; items: Item[]; sources?: string[]; caption?: string; }
-const { question, intro, items, sources = [], caption } = Astro.props;
+interface Props { question: string; intro?: string; items: Item[]; sources?: string[]; caption?: string; locale?: 'es' | 'ca'; }
+const { question, intro, items, sources = [], caption, locale = 'es' } = Astro.props;
+const sourcesLabel = locale === 'ca' ? 'Fonts' : 'Fuentes';
 ---
 
 <figure class="pd-figure reveal">
@@ -35,7 +36,7 @@ const { question, intro, items, sources = [], caption } = Astro.props;
         </ol>
         {sources.length > 0 && (
           <div class="flex flex-wrap gap-1.5 mt-4 pd-rise" style={`--i:${items.length + 2}`}>
-            <span class="text-[10px] font-black uppercase tracking-widest text-zinc-400 mr-1 self-center">Fuentes</span>
+            <span class="text-[10px] font-black uppercase tracking-widest text-zinc-400 mr-1 self-center">{sourcesLabel}</span>
             {sources.map((s) => <span class="text-[11px] text-zinc-600 bg-zinc-50 border border-zinc-200 rounded-full px-2.5 py-0.5">{s}</span>)}
           </div>
         )}

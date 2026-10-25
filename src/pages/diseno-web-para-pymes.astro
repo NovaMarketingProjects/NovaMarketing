@@ -64,6 +64,16 @@ const pageSchema = localAgencySchema({
   hasMap: 'https://maps.app.goo.gl/9fbB12UcK32bgjj89',
   aggregateRating: { ratingValue: '5.0', reviewCount: '12' },
   breadcrumbName: 'Diseño Web para PYMEs',
+  mainService: {
+    name: 'Diseño de páginas web para pymes',
+    serviceType: 'Diseño web',
+    description: 'Webs corporativas, landing pages y tiendas online para pymes, con SEO desde la planificación, propiedad del cliente y sin permanencia.',
+    offers: [
+      { name: 'Landing page', price: 400, from: true },
+      { name: 'Web a medida', price: 120, from: true, monthly: true, description: 'En 12 cuotas.' },
+      { name: 'Tienda online', price: 130, from: true, monthly: true, description: 'En 12 cuotas.' },
+    ],
+  },
   faqs,
 });
 ---
@@ -87,10 +97,10 @@ const pageSchema = localAgencySchema({
         <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
         Diseño web para pymes
       </span>
-      <h1 class="uppercase font-extrabold tracking-tighter leading-[0.9] mb-8 text-gradient flex flex-col items-center text-center">
-        <span class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl">Diseño de páginas web para pymes</span>
-        <span class="text-xl sm:text-3xl md:text-4xl mt-3 text-mktg-gradient">que necesitan una web útil para su negocio</span>
-      </h1>
+      <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
+                <span class="lg:whitespace-nowrap">Diseño Páginas Web </span>
+                <span class="lg:whitespace-nowrap text-mktg-gradient">para PYMEs</span>
+            </h1>
       <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed max-w-3xl mx-auto mb-8">
         Diseñamos y desarrollamos webs corporativas, landing pages y tiendas online que explican bien lo que haces, cargan rápido y llevan a tus visitas a contactar o comprar.
       </p>

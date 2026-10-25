@@ -75,6 +75,46 @@ export function organizationSchema(settings: GlobalSettings) {
 }
 
 // ── Landing local de agencia (grafo completo interconectado) ──
+/**
+ * Servicio principal de una página de servicio, con sus tarifas.
+ * Cada oferta es un precio cerrado (price) o un "desde" (minPrice); monthly marca las cuotas mensuales.
+ * Los precios se publican sin IVA, como en la página.
+ */
+export interface MainService {
+  name: string;
+  serviceType: string;
+  description: string;
+  offers: { name: string; price: number; from?: boolean; monthly?: boolean; description?: string }[];
+}
+
+function mainServiceNode(svc: MainService, pageUrl: string, providerId: string, areaServed: string[]) {
+  return {
+    '@type': 'Service',
+    '@id': `${pageUrl}#servicio-principal`,
+    name: svc.name,
+    serviceType: svc.serviceType,
+    description: svc.description,
+    url: pageUrl,
+    provider: { '@id': providerId },
+    areaServed: areaServed.map((name) => ({ '@type': 'Place', name })),
+    offers: svc.offers.map((o) => ({
+      '@type': 'Offer',
+      name: o.name,
+      ...(o.description ? { description: o.description } : {}),
+      url: pageUrl,
+      priceCurrency: 'EUR',
+      ...(o.from ? {} : { price: o.price }),
+      priceSpecification: {
+        '@type': o.monthly ? 'UnitPriceSpecification' : 'PriceSpecification',
+        ...(o.from ? { minPrice: o.price } : { price: o.price }),
+        priceCurrency: 'EUR',
+        valueAddedTaxIncluded: false,
+        ...(o.monthly ? { unitCode: 'MON', referenceQuantity: { '@type': 'QuantitativeValue', value: 1, unitCode: 'MON' } } : {}),
+      },
+    })),
+  };
+}
+
 // Un único @graph con Organization, Person, WebSite, WebPage,
 // LocalBusiness/ProfessionalService, Service[], BreadcrumbList y FAQPage.
 export function localAgencySchema(opts: {
@@ -94,8 +134,9 @@ export function localAgencySchema(opts: {
   aggregateRating?: { ratingValue: string; reviewCount: string }; // datos reales de GBP
   reviews?: { author: string; date: string; body: string }[];     // reseñas literales de GBP (todas 5★)
   breadcrumbName?: string;       // nombre del segundo nivel del breadcrumb (por defecto "Agencia de marketing digital en {city}")
+  mainService?: MainService;     // servicio principal de la página (páginas de servicio): Service con sus tarifas
 }) {
-  const { pageUrl, lang, cityName, postalCode, geo, areaServed, title, description, datePublished, dateModified, faqs, streetAddress, hasMap, aggregateRating, reviews, breadcrumbName } = opts;
+  const { pageUrl, lang, cityName, postalCode, geo, areaServed, title, description, datePublished, dateModified, faqs, streetAddress, hasMap, aggregateRating, reviews, breadcrumbName, mainService } = opts;
   const orgId = `${SITE_URL}/#organization`;
   const personId = `${SITE_URL}/#sergio-garcia`;
   const logoId = `${SITE_URL}/#logo`;
@@ -182,6 +223,7 @@ export function localAgencySchema(opts: {
         dateModified,
         isPartOf: { '@id': websiteId },
         about: { '@id': lbId },
+        ...(mainService ? { mainEntity: { '@id': `${pageUrl}#servicio-principal` } } : {}),
         breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
       },
       {
@@ -260,6 +302,7 @@ export function localAgencySchema(opts: {
           })),
         },
       },
+      ...(mainService ? [mainServiceNode(mainService, pageUrl, lbId, areaServed)] : []),
       ...services.map(s => ({
         '@type': 'Service',
         '@id': `${pageUrl}#${s.id}`,

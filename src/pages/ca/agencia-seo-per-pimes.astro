@@ -2,65 +2,44 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { buildAlternates } from '../../lib/i18n';
 import { localAgencySchema } from '../../lib/schema';
-import { strapiClient } from '../../lib/strapi';
 import LogoMarquee from '../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../components/sections/FaqHome.astro';
 import CityPills from '../../components/global/CityPills.astro';
 import GoogleReviews from '../../components/global/GoogleReviews.astro';
+import MoreCases from '../../components/casos/MoreCases.astro';
+import PSection from '../../components/pillar/PSection.astro';
+import PCards from '../../components/pillar/PCards.astro';
+import PFlow from '../../components/pillar/PFlow.astro';
+import PBars from '../../components/pillar/PBars.astro';
+import PMatrix from '../../components/pillar/PMatrix.astro';
+import PStack from '../../components/pillar/PStack.astro';
+import PFunnel from '../../components/pillar/PFunnel.astro';
+import PTree from '../../components/pillar/PTree.astro';
+import PLines from '../../components/pillar/PLines.astro';
+import PCounter from '../../components/pillar/PCounter.astro';
+import PSerp from '../../components/pillar/PSerp.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-seo-para-pymes/', '/ca/agencia-seo-per-pimes/', SITE_URL);
 
-let allCases: any[] = [];
-try {
-  const casesRes = await strapiClient.getCaseStudies('ca');
-  allCases = casesRes.data.map((i: any) => i.attributes ?? i).filter((c: any) => {
-    const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase());
-    return cats.some((s: string) => s.includes('seo'));
-  });
-} catch {}
-
-const steps = [
-  { title: "Auditoria SEO Completa", desc: "Analitzem la teva web, la teva visibilitat actual a Google i la teva competència directa. Detectem errors tècnics, keywords rendibles sense explotar i oportunitats de venda que la teva competència ja està capturant. Aquest és el teu punt de partida real." },
-  { title: "Estratègia SEO Documentada", desc: "Reps un full de ruta per escrit. Quines keywords atacar, quin contingut crear, què arreglar a la teva web i quins resultats esperar en 3, 6 i 12 mesos. Saps en què s'inverteix cada euro abans d'invertir-lo." },
-  { title: "Optimització Tècnica i Continguts", desc: "Arreglem el que impedeix a Google entendre la teva web i creem el contingut que posiciona. Velocitat, indexació, arquitectura, pàgines de servei i articles pensats per atraure clients, no només visites." },
-  { title: "Autoritat i Enllaços", desc: "Google posiciona qui considera una referència. Aconseguim enllaços de mitjans i directoris rellevants del teu sector que augmenten l'autoritat del teu domini i empenyen les teves posicions." },
-  { title: "Mesura i Ajust Continu", desc: "Monitoritzem mes a mes les teves posicions, el teu trànsit i els teus leads. A l'informe veus quines keywords pugen, quants clients arriben des de Google i què toca ajustar el mes següent." }
-];
-
-const criteria = [
-  { title: "Demana casos d'èxit verificables", desc: "Un mur de logos no demostra res. Demana casos amb dades concretes. Quina keyword, quina posició va assolir, en quant de temps i amb quina inversió. Una agència SEO seriosa hauria de poder ensenyar-te resultats de negocis com el teu. Si no poden ensenyar-te'n ni un, segueix buscant." },
-  { title: "Pregunta qui portarà el teu compte", desc: "En moltes agències ven un director i executa un júnior amb 30 comptes. Exigeix conèixer la persona que treballarà el teu projecte abans de signar. A nova parles sempre amb el consultor que executa la teva estratègia SEO, presencialment o per videotrucada." },
-  { title: "Exigeix la propietat dels teus actius", desc: "La web, el domini, l'analítica i la fitxa de Google Business Profile han d'estar al teu nom. És més habitual del que sembla que una pime porti anys pagant i descobreixi en canviar d'agència que no és propietària ni del seu propi domini. Això no és un servei, és una dependència." },
-  { title: "Desconfia de qui garanteix la posició 1 a Google", desc: "Ningú pot garantir la posició 1. Qui ho promet, o menteix o fa servir tècniques que acabaran penalitzant la teva web. El que és seriós és garantir mètode, transparència i feina verificable mes a mes." },
-  { title: "Revisa què mesura l'informe mensual", desc: "Si l'informe parla d'impressions i posicions però no de trucades, formularis i vendes, l'agència està mesurant la seva activitat i no el teu negoci. El SEO d'una pime es mesura en clients nous i pressupostos sol·licitats." },
-  { title: "Fuig de les permanències llargues", desc: "Una permanència de 12 mesos protegeix l'agència, no a tu. La feina ben feta reté clients sense necessitat de contractes que els lliguin. Per això a nova treballem mes a mes." },
-  { title: "Que pensi també en la IA", desc: "Cada cop més clients pregunten a ChatGPT o Perplexity en lloc de buscar a Google. Una agència SEO que ignora el posicionament en IA està optimitzant només la meitat del tauler. Nosaltres integrem SEO i GEO en una sola estratègia." }
-];
+const ICON = {
+  search: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z',
+  code: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4',
+  target: 'M12 3a9 9 0 100 18 9 9 0 000-18zm0 5a4 4 0 100 8 4 4 0 000-8z',
+  doc: 'M9 12h6m-6 4h6M9 8h2m8-3v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2h6l4 4z',
+  link: 'M13.828 10.172a4 4 0 010 5.656l-3 3a4 4 0 01-5.656-5.656l1.5-1.5m7.328-1.672a4 4 0 000-5.656 4 4 0 00-5.656 0l-1.5 1.5',
+  chart: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z',
+  money: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+  users: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z',
+};
 
 const faqs = [
-  { question: "Què inclou el servei d'una agència SEO per a pimes?", answer: "Inclou una auditoria inicial, una estratègia documentada i l'execució i mesura mensual de cada acció. Optimització tècnica de la web, keyword research, creació de continguts, link building, SEO local amb la fitxa de Google i un informe mensual amb posicions, trànsit i leads. No apliquem plantilles, cada sector competeix de manera diferent." },
-  { question: "Quant costa una agència SEO per a pimes?", answer: "L'auditoria SEO costa 1.800 euros i els plans mensuals van des de 400 euros al mes per a pimes i des de 900 euros al mes per a empreses mitjanes o sectors molt competits. Treballem amb pressupostos tancats a mida. Abans de signar saps exactament què es fa, qui ho fa i quin resultat es persegueix." },
-  { question: "Quant triga el SEO a donar resultats?", answer: "Els primers moviments de posicions solen veure's entre el segon i el tercer mes, i els resultats consolidats entre el sisè i el dotzè. El termini exacte depèn del teu punt de partida i de la competència del teu sector. Al full de ruta inicial et diem què esperar a cada fase, amb terminis realistes i sense promeses de fum." },
-  { question: "Podeu garantir la primera posició a Google?", answer: "No, i qui t'ho garanteixi t'està mentint. L'algoritme de Google canvia constantment i ningú el controla. El que sí garantim és mètode, transparència i feina verificable. Cada mes veus a l'informe què s'ha fet, quines posicions han canviat i quants clients han arribat des de Google." },
-  { question: "Què és el SEO local i el necessito?", answer: "El SEO local fa que apareguis quan algú busca el teu servei a prop teu, tant als resultats de Google com al mapa. Si els teus clients són a la teva ciutat o la teva comarca, és la palanca més rendible. Inclou optimitzar la teva fitxa de Google Business Profile, les ressenyes i el contingut local de la teva web." },
-  { question: "Com mesureu els resultats del SEO?", answer: "Mesurem leads i vendes, no només posicions. Cada trucada, formulari o comanda queda atribuïda al seu canal d'origen. Configurem l'analítica des del primer dia i a l'informe mensual veus resultats de negoci. A més tens accés total als teus comptes i eines, les dades són teves." },
-  { question: "Treballeu amb permanència?", answer: "No, treballem mes a mes. Si el servei no t'aporta valor, pots cancel·lar-lo quan vulguis. La nostra permanència real és el resultat que veus als informes cada mes." }
-];
-
-const sectors = [
-  { icon: '🛒', title: 'SEO per a ecommerce', href: '/ca/agencia-ecommerce/seo/', desc: 'Arquitectura de categories, fitxes optimitzades i SEO de producte. Que qui busca comprar et trobi a tu i no a la teva competència.' },
-  { icon: '🏠', title: 'SEO per a immobiliàries', href: '/ca/agencia-inmobiliarias/seo/', desc: 'Captació de propietaris i compradors amb landings per zona i SEO local per barri. Trànsit que filtra curiosos de clients reals.' },
-  { icon: '🍽️', title: 'SEO per a restaurants', href: '/ca/agencia-restaurantes/seo/', desc: 'Aquí mana la fitxa de Google i les ressenyes. Pack local complet per aparèixer quan algú busca on menjar a prop.' },
-  { icon: '🧠', title: 'SEO per a psicòlegs', desc: 'El pacient busca confiança abans que preu. Contingut amb autoritat clínica i SEO local per especialitat que converteix cerques en primeres visites.' },
-  { icon: '🌿', title: 'SEO per a terapeutes', desc: 'Molta competència genèrica i poca especialitzada. Posicionem la teva consulta per teràpia i zona amb contingut que educa i converteix.' },
-  { icon: '🦷', title: 'SEO per a dentistes', desc: 'Sector saturat i amb alta exigència d\'autoritat. Guanyen els qui combinen SEO local impecable, ressenyes gestionades i contingut clínic real.' },
-  { icon: '💪', title: 'SEO per a gimnasos', desc: 'Captació estacional amb pics al gener i al setembre. Posicionament local i contingut que omple classes tot l\'any.' },
-  { icon: '🏗️', title: 'SEO per a constructores', desc: 'Competència local ferotge i leads de valor alt. Fitxa de Google impecable, landings per zona i keywords que porten pressupostos, no visites.' },
-  { icon: '⚖️', title: 'SEO per a advocats', desc: 'Cerques d\'altíssima intenció i CPCs caríssims a Ads. El SEO capta la consulta amb contingut que resol el dubte legal abans que la competència.' },
-  { icon: '🏨', title: 'SEO per a hotels', href: '/ca/agencia-hotels/seo/', desc: 'Reduir la dependència de les OTAs és l\'objectiu. SEO per a reserva directa, fitxa optimitzada i visibilitat a Google Hotels.' },
-  { icon: '🏭', title: 'SEO per a B2B', href: '/ca/agencia-b2b/seo/', desc: 'Cicles de venda llargs i pocs decisors. Aquí no importa el volum, importa aparèixer a les deu cerques tècniques del responsable de compres.' },
-  { icon: '⚙️', title: 'SEO per a Empreses Industrials', href: '/ca/agencia-industrial/seo/', desc: "Contingut tècnic i fitxa de producte optimitzada per captar cerques de compradors tècnics. Posicionament pensat per a leads qualificats, no només trànsit." },
+  { question: `Quan es pot començar a notar la feina SEO?`, answer: `Els primers moviments de posicions se solen veure entre el segon i el tercer mes, i els resultats consolidats entre el sisè i el dotzè. Depèn del punt de partida de la teva web, de la competència del sector i de quantes millores es poden aplicar al principi. A l'auditoria et diem què esperar a cada fase, sense terminis inventats.` },
+  { question: `Què inclou la quota mensual?`, answer: `Inclou la feina acordada al pla de cada mes: millores tècniques, optimització i creació de continguts, enllaçat intern, SEO local i, als plans que ho preveuen, captació d'enllaços. També la mesura i un informe mensual amb el que s'ha fet, l'evolució de les pàgines treballades i els contactes que arriben des de Google.` },
+  { question: `Podeu treballar sobre la meva web actual?`, answer: `Sí. La majoria de projectes parteixen d'una web existent, ja sigui WordPress, Shopify, PrestaShop o un desenvolupament a mida. Només recomanem refer-la quan la tecnologia impedeix aplicar les millores necessàries, i en aquest cas planifiquem la migració per no perdre el posicionament aconseguit.` },
+  { question: `Què necessiteu del meu equip?`, answer: `Accessos a la web, Google Search Console, Google Analytics i el Perfil d'Empresa a Google, i una persona de contacte que conegui el negoci. Al principi et demanarem informació sobre els teus serveis, clients i marges. Després, sobretot, revisions puntuals dels continguts que publiquem.` },
+  { question: `Com es relacionen el SEO i la visibilitat en IA?`, answer: `Els assistents d'IA i les respostes generades de Google es basen en contingut que ja està ben posicionat, ben estructurat i citat per altres fonts. Una bona feina SEO és la base del GEO. Si vols treballar de manera específica la teva presència a ChatGPT, Gemini o Perplexity, ho fem dins del nostre servei d'agència GEO.` },
+  { question: `Quines condicions té el servei?`, answer: `Treballem mes a mes, sense permanència. Abans de començar reps un pressupost tancat per escrit amb l'abast de cada mes. Els comptes, la web i les dades són sempre teus, i si decideixes acabar el servei et lliurem tota la feina i la documentació.` },
 ];
 
 const pageSchema = localAgencySchema({
@@ -73,11 +52,21 @@ const pageSchema = localAgencySchema({
   title: "▷ Agència SEO per a Pimes | Posicionament a Google Estratègic",
   description: "Especialistes en SEO per a pimes amb informes clars ✅ Estratègies a mida i resultats mesurables 💡 Coneix com podem ajudar-te a Google",
   datePublished: '2026-07-15',
-  dateModified: '2026-07-15',
+  dateModified: '2026-10-25',
   streetAddress: 'Carrer del General Mendoza, 10',
   hasMap: 'https://maps.app.goo.gl/9fbB12UcK32bgjj89',
   aggregateRating: { ratingValue: '5.0', reviewCount: '12' },
   breadcrumbName: 'Agència SEO per a pimes',
+  mainService: {
+    name: 'Posicionament SEO per a pimes',
+    serviceType: 'Posicionament SEO',
+    description: 'Auditoria, estratègia i acompanyament SEO mensual per a pimes: SEO tècnic, continguts, autoritat i SEO local, mesurat en contactes i vendes.',
+    offers: [
+      { name: 'Auditoria i estratègia SEO inicial', price: 1800 },
+      { name: 'Acompanyament SEO mensual', price: 400, from: true, monthly: true },
+      { name: 'SEO per a projectes de més abast', price: 900, from: true, monthly: true },
+    ],
+  },
   faqs,
 });
 ---
@@ -90,757 +79,508 @@ const pageSchema = localAgencySchema({
   schemas={[pageSchema]}
 >
 
-    <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
-    <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
-        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
-        <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
-        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+  <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
+  <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+    <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+    <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
 
-        <div class="max-w-5xl mx-auto reveal">
-            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
-                <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
-                Posicionament Web per a Pimes
-            </span>
-            <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
+    <div class="max-w-5xl mx-auto reveal relative">
+      <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
+        <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+        Posicionament web per a pimes
+      </span>
+      <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
                 <span class="lg:whitespace-nowrap">Agència SEO </span>
                 <span class="lg:whitespace-nowrap text-mktg-gradient">per a Pimes</span>
             </h1>
-            <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
-                Apareix quan els teus clients busquen el teu servei a Google. Servei de posicionament SEO per a pimes amb estratègia a mida, preus clars i resultats que es mesuren en vendes.
-            </p>
-            <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
-                {['Sense permanències', 'Tracte directe amb el consultor', 'Informes de negoci'].map(item => (
-                    <span class="inline-flex items-center gap-2 text-[11px] sm:text-xs font-black uppercase tracking-widest text-zinc-700">
-                        <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
-                        </svg>
-                        {item}
-                    </span>
-                ))}
-            </div>
-            <div class="flex justify-center mt-4">
-                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                    PARLEM DEL TEU NEGOCI
-                </a>
-            </div>
+      <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed max-w-3xl mx-auto mb-8">
+        Fem que la teva empresa aparegui quan els teus clients busquen el que vens, i mesurem la feina en contactes i vendes, no en informes de posicions.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
+        {['Sense permanències', 'Tracte directe amb el consultor', 'Informes de negoci'].map((item) => (
+          <span class="inline-flex items-center gap-2 text-[11px] sm:text-xs font-black uppercase tracking-widest text-zinc-700">
+            <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            {item}
+          </span>
+        ))}
+      </div>
+      <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">PARLEM DEL TEU NEGOCI</a>
+    </div>
+  </section>
+
+  <LogoMarquee />
+
+  <!-- ═══ OPORTUNITAT ═══════════════════════════════════════════════════ -->
+  <PSection kicker="Per què SEO" title="Converteix les cerques dels teus clients en oportunitats de negoci" layout="split">
+    <Fragment slot="intro">
+      <p>Cada dia algú escriu a Google el servei que ofereixes, el problema que resols o el nom de la teva categoria de producte. <strong>Aquesta cerca és una necessitat expressada en el moment exacte en què existeix</strong>, i l'empresa que apareix amb una resposta clara se sol quedar el contacte.</p>
+      <p>Nova és una agència SEO especialitzada en pimes. Treballem el posicionament orgànic com un canal comercial més, connectat amb la teva web, la teva <a href="/ca/agencia-sem-per-pimes/">publicitat a Google</a> i la teva <a href="/ca/agencia-geo-per-pimes/">presència a les respostes de la IA</a>, amb un objectiu que es pot mesurar. Quants clients nous arriben cada mes des del cercador.</p>
+    </Fragment>
+    <PSerp
+      slot="aside"
+      query="reformes integrals a Sabadell"
+      results={[
+        { url: 'latevaempresa.cat › reformes-integrals', title: 'Reformes integrals a Sabadell · Pressupost en 48 h', desc: 'Pisos, locals i cases. Preus orientatius, terminis i projectes reals al Vallès.', highlight: true, label: 'La teva empresa' },
+        { url: 'competidor-a.com', title: 'Empresa de reformes | Reformes a Barcelona i rodalia', desc: "Més de 20 anys d'experiència en reformes de tota mena." },
+        { url: 'directori-reformes.cat › sabadell', title: 'Les 10 millors empreses de reformes a Sabadell', desc: 'Compara opinions i demana pressupost a diverses empreses.' },
+      ]}
+      caption="Il·lustració. L'objectiu és que la teva pàgina sigui la resposta més clara a la cerca del teu client."
+    />
+    <PFlow
+      steps={[
+        { label: 'Cerca amb intenció', sub: '«empresa de reformes a Sabadell»' },
+        { label: 'La teva pàgina a Google', sub: 'resultat orgànic o mapa' },
+        { label: 'Pàgina que respon', sub: 'servei, preu, proves' },
+        { label: 'Contacte o venda', sub: 'trucada, formulari, comanda' },
+      ]}
+      caption="El recorregut que optimitzem. Si falla una baula, el trànsit no es converteix en negoci."
+    />
+  </PSection>
+
+  <!-- ═══ QUÈ FRENA EL POSICIONAMENT ═══════════════════════════════════ -->
+  <PSection kicker="Diagnòstic" title="Què està frenant el posicionament de la teva empresa" tone="soft">
+    <Fragment slot="intro">
+      <p>Quan una web no capta clients des de Google gairebé mai hi ha una sola causa. Aquests són els sis bloquejos que trobem més sovint a les webs de pimes, i cadascun es corregeix de manera diferent.</p>
+    </Fragment>
+    <PCards
+      tone="soft"
+      items={[
+        { icon: ICON.search, title: `Les teves pàgines importants no apareixen a Google`, html: `Pàgines de servei sense indexar, bloquejades per error o tan amagades a la navegació que Google gairebé no les visita. Si una pàgina no és a l'índex, no pot posicionar per bo que sigui el seu contingut.` },
+        { icon: ICON.users, title: `Reps visites que no es converteixen en contactes`, html: `Trànsit de cerques informatives que no tenen relació amb el que vens, o pàgines que posicionen però no expliquen per què triar-te. Aquí el problema sol ser a la <a href="/ca/disseny-web-per-pimes/">web i la seva conversió</a>, no al SEO.` },
+        { icon: ICON.target, title: `La teva competència ocupa les cerques més rendibles`, html: `Els teus competidors tenen una pàgina específica per a cada servei i zona, i tu una sola pàgina genèrica que intenta posicionar per tot. Google prefereix la resposta més precisa.` },
+        { icon: ICON.code, title: `La teva web arrossega problemes tècnics`, html: `Lentitud al mòbil, contingut duplicat, redireccions en cadena o plantilles que generen centenars d'URL sense valor. Problemes invisibles per a l'usuari que gasten el rastreig de Google. Si no saps per on començar, revisa <a href="/ca/blog/com-saber-si-la-teva-web-esta-ben-feta/">com saber si la teva web està ben feta</a>.` },
+        { icon: ICON.doc, title: `Els teus continguts no responen al que busca el client`, html: `Textos escrits des de l'empresa i no des del dubte del client. Sense preus orientatius, sense terminis, sense exemples. Entendre la <a href="/ca/blog/que-es-la-intencio-de-cerca-en-el-seo/">intenció de cerca</a> és el que separa una pàgina que posiciona d'una que només existeix.` },
+        { icon: ICON.money, title: `Dependència de la publicitat per aconseguir visites`, html: `Si apagues els anuncis i els contactes desapareixen, el teu negoci lloga la seva visibilitat. El SEO construeix un canal propi que redueix aquesta dependència. T'expliquem quan convé cada canal a <a href="/ca/blog/que-necesita-una-pime-seo-o-sem/">què necessita una pime, SEO o SEM</a>.` },
+      ]}
+    />
+    <PLines
+      title="Visites mensuals segons el canal"
+      series={[
+        { label: 'Només publicitat', points: [10, 48, 50, 49, 51, 50, 49, 8, 6, 5, 5, 5], color: '#a1a1aa' },
+        { label: 'Posicionament SEO', points: [8, 10, 14, 19, 25, 31, 38, 44, 50, 56, 61, 66] },
+      ]}
+      xLabels={['Mes 1', '', '', 'Mes 4', '', '', '', 'Mes 8', '', '', '', 'Mes 12']}
+      marker={{ at: 7, label: 'Es pausa la inversió en anuncis' }}
+      caption="Esquema il·lustratiu, no són dades d'un client. La publicitat dona visites immediates que s'aturen quan deixes de pagar; el SEO triga més a arrencar i s'acumula."
+    />
+  </PSection>
+
+  <!-- ═══ MOMENT DE LA PIME ════════════════════════════════════════════ -->
+  <PSection kicker="Punt de partida" title="Una estratègia SEO adaptada al moment de la teva pime">
+    <Fragment slot="intro">
+      <p>No és el mateix una web que no ha treballat mai el SEO que una que ha perdut la meitat del trànsit després d'una actualització de Google. L'ordre de les prioritats canvia segons el moment de la teva empresa.</p>
+    </Fragment>
+    <PCards
+      variant="numbered"
+      items={[
+        { title: `Empreses que comencen a treballar el seu posicionament`, html: `Primer, que Google pugui rastrejar i indexar bé la web. Després, una pàgina sòlida per a cada servei principal i el <a href="#seo-local">Perfil d'Empresa</a> complet. Són les millores que abans es noten.` },
+        { title: `Negocis amb el trànsit estancat`, html: `Revisem quines pàgines tenen potencial i no acaben de pujar, quines cerques es reparteixen entre diverses URL i quins continguts de la competència responen millor. Sol haver-hi marge sense crear res des de zero.` },
+        { title: `Webs que han perdut visibilitat`, html: `Creuem les dates de caiguda amb actualitzacions de Google, canvis a la web i migracions. Fins que no sabem la causa no toquem res, perquè una correcció equivocada pot agreujar la pèrdua.` },
+        { title: `Pimes que volen obrir nous mercats`, html: `Noves ciutats, nous serveis o un segon idioma. Planifiquem l'arquitectura abans de publicar perquè cada mercat tingui les seves pàgines pròpies i no competeixin entre si.` },
+        { title: `Empreses que necessiten canviar d'agència SEO`, html: `Fem una revisió independent de la feina anterior, recuperem els accessos que faltin i mantenim el que funciona. El canvi no ha de suposar començar de zero.` },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ AUDITORIA ══════════════════════════════════════════════════════ -->
+  <PSection id="auditoria" kicker="Auditoria SEO" title="L'auditoria que ordena les teves prioritats" tone="soft" layout="split">
+    <Fragment slot="intro">
+      <p>Abans de proposar res, auditem. L'auditoria mesura la teva visibilitat real, revisa la salut tècnica de la web i la compara amb els teus competidors directes. <strong>No lliurem un llistat de cent errors automàtics</strong>, sinó un diagnòstic que entén qualsevol gerent, amb les tasques ordenades pel que aporten i el que costen.</p>
+      <p>Si ja treballes amb una altra agència, també serveix com a segona opinió independent sobre la teva inversió actual.</p>
+    </Fragment>
+    <PMatrix
+      slot="aside"
+      xLabel="Esforç"
+      yLabel="Impacte"
+      quadrants={['Fer primer', 'Planificar', 'Si sobra temps', 'Descartar']}
+      points={[
+        { label: 'Desbloquejar la indexació', x: 14, y: 86 },
+        { label: 'Títols de servei', x: 30, y: 70 },
+        { label: 'Nova arquitectura', x: 78, y: 82 },
+        { label: 'Pàgines per zona', x: 64, y: 62 },
+        { label: 'Retocs menors', x: 26, y: 24 },
+      ]}
+      caption="Exemple de com prioritzem les tasques d'una auditoria segons impacte i esforç."
+    />
+    <PCards
+      variant="rows"
+      tone="soft"
+      items={[
+        { title: `Rastreig i indexació de les pàgines rellevants`, html: `Comprovem quines pàgines veu Google, quines indexa i quines queden fora, amb dades de Search Console i un rastreig complet de la web.` },
+        { title: `Arquitectura i distribució de l'autoritat interna`, html: `Analitzem a quants clics de la portada són les teves pàgines de negoci i quants enllaços interns reben. Les pàgines que més venen han de ser les més fàcils de trobar.` },
+        { title: `Rendiment de continguts i paraules clau`, html: `Quines pàgines atrauen trànsit, quines posicionen a prop del top 10 sense entrar-hi i quines competeixen entre si per la mateixa cerca.` },
+        { title: `Comparativa de visibilitat amb els teus competidors`, html: `Mesurem la teva visibilitat davant de tres competidors directes i detectem les cerques que ells capten i tu no.` },
+        { title: `Pla d'acció segons impacte i esforç`, html: `Acabem amb un pla ordenat i una videotrucada per repassar-lo. Sabràs què fer la primera setmana i què no mereix la inversió.` },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ CERQUES ══════════════════════════════════════════════════════ -->
+  <PSection kicker="Recerca de paraules clau" title="Trobem les cerques que acosten clients al teu negoci">
+    <Fragment slot="intro">
+      <p>No perseguim les paraules amb més volum, sinó les que fa algú que és a prop de contractar. Una cerca amb 50 consultes al mes i una intenció de compra clara pot aportar més clients que una altra amb 5.000 visites curioses.</p>
+    </Fragment>
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+      <PCards
+        cols={2}
+        variant="check"
+        class="lg:grid-cols-1 !mt-12"
+        items={[
+          { title: `Paraules clau amb intenció de contractació`, html: `Cerques amb servei, ubicació, preu o comparativa. Són les que abans es converteixen en trucades i pressupostos.` },
+          { title: `Consultes que intervenen en la decisió de compra`, html: `Dubtes sobre terminis, costos o alternatives que el client resol abans de demanar pressupost. Respondre'ls et posa a la seva llista.` },
+          { title: `Oportunitats que la teva competència encara no cobreix`, html: `Cerques amb demanda real en què ningú del teu sector té una pàgina específica. Solen ser les victòries més ràpides.` },
+          { title: `Assignació de cerques a cada pàgina`, html: `Cada cerca important té una única pàgina responsable. Així evitem que dues URL de la teva web es treguin posicions entre si.` },
+        ]}
+      />
+      <div class="mt-12 space-y-10">
+        <PFunnel
+          stages={[
+            { label: 'Informativa', sub: '«com saber si la meva web està ben feta»', side: 'Atrau visites i confiança.' },
+            { label: 'Comparativa', sub: '«agència SEO o consultor freelance»', side: 'Et col·loca a la llista curta.' },
+            { label: 'Contractació', sub: '«agència SEO per a pimes a Barcelona»', side: 'Genera contactes.' },
+          ]}
+          caption="Les tres intencions que cobrim, de la més àmplia a la més propera a la compra."
+        />
+        <PTree
+          root="Web d'una empresa de reformes"
+          branches={[
+            { label: 'Reformes integrals', leaves: ['reformes integrals Sabadell', 'preu reforma pis'] },
+            { label: 'Reforma de banys', leaves: ['reforma bany complet', 'canviar banyera per plat de dutxa'] },
+          ]}
+          caption="Cada grup de cerques té la seva pròpia pàgina."
+        />
+      </div>
+    </div>
+  </PSection>
+
+  <!-- ═══ BASE TÈCNICA ═══════════════════════════════════════════════════ -->
+  <PSection kicker="SEO tècnic" title="Una base tècnica que permet créixer" tone="soft" layout="split">
+    <Fragment slot="intro">
+      <p>El contingut i els enllaços només rendeixen si la web és tècnicament sòlida. És la part menys visible del SEO i la que més es nota quan falla.</p>
+    </Fragment>
+    <PStack
+      slot="aside"
+      layers={[
+        { label: 'Clients des de Google', sub: 'contactes i vendes' },
+        { label: 'Autoritat', sub: 'enllaços i mencions' },
+        { label: 'Contingut', sub: 'pàgines que responen' },
+        { label: 'Rendiment', sub: 'velocitat i experiència' },
+        { label: 'Rastreig i indexació', sub: 'Google troba i entén' },
+      ]}
+      caption="Cada capa es recolza en l'anterior."
+    />
+    <PCards
+      tone="soft"
+      items={[
+        { icon: ICON.search, title: `Control d'indexació i contingut duplicat`, html: `Canòniques, etiquetes noindex, paràmetres d'URL i sitemaps coherents, perquè Google dediqui el seu temps a les pàgines que importen.` },
+        { icon: ICON.link, title: `Enllaçat intern i profunditat de navegació`, html: `Enllaços contextuals entre pàgines relacionades i cap pàgina de negoci a més de tres clics de la portada.` },
+        { icon: ICON.chart, title: `Velocitat i experiència de pàgina`, html: `Optimitzem imatges, codi i servidor per complir les Core Web Vitals al mòbil. A <a href="/ca/casos-exit/clustag/">Clustag</a> vam passar de 53 a 98 al PageSpeed d'escriptori.` },
+        { icon: ICON.code, title: `Dades estructurades segons el contingut`, html: `Marcatge d'organització, serveis, productes, articles i preguntes freqüents, sempre fidel al que es veu a la pàgina.` },
+        { icon: ICON.target, title: `Migracions i redireccions sense perdre el rumb`, html: `Mapa de redireccions URL a URL, control abans i després del llançament i seguiment de posicions. Si has de refer la web, ho coordinem amb el <a href="/ca/disseny-web-per-pimes/">disseny web per a pimes</a> des del principi.` },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ CONTINGUTS ═════════════════════════════════════════════════════ -->
+  <PSection kicker="Continguts SEO" title="Continguts que expliquen, posicionen i ajuden a decidir">
+    <Fragment slot="intro">
+      <p>Un bon contingut SEO respon la pregunta del client millor que la competència i li deixa clar quin és el pas següent. Treballem quatre tipus de contingut, cadascun amb un objectiu diferent.</p>
+    </Fragment>
+    <PCards
+      cols={2}
+      items={[
+        { icon: ICON.doc, tag: 'Contractació', title: `Pàgines de servei orientades a la contractació`, html: `Què inclou el servei, per a qui és, quant costa aproximadament, com es treballa i quins resultats ha aconseguit. És la pàgina que converteix la cerca en contacte.` },
+        { icon: ICON.money, tag: 'Venda en línia', title: `Categories i fitxes per a negocis que venen en línia`, html: `Textos de categoria que ajuden a triar, fitxes amb la informació que el comprador necessita i filtres que no generen duplicats. Ho detallem al nostre servei de <a href="/ca/agencia-ecommerce/seo/">posicionament per a botigues en línia</a>.` },
+        { icon: ICON.users, tag: 'Autoritat', title: `Contingut especialitzat amb experiència pròpia`, html: `Articles amb dades, exemples i l'opinió de qui treballa al sector. Google i els assistents d'IA prioritzen aquest contingut davant del genèric. Pots veure'n exemples al nostre <a href="/ca/blog/">blog de màrqueting per a pimes</a>.` },
+        { icon: ICON.chart, tag: 'Optimització', title: `Actualització de pàgines que ja tenen potencial`, html: `Pàgines entre les posicions 5 i 20 que amb una millora de contingut, títols o enllaços interns poden entrar al top. Sol ser la feina amb millor retorn a curt termini.` },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ AUTORITAT ══════════════════════════════════════════════════════ -->
+  <PSection kicker="Autoritat i enllaços" title="Reforça l'autoritat de la teva marca al teu sector" tone="dark">
+    <Fragment slot="intro">
+      <p>Google posiciona millor les empreses que altres webs citen com a referència. Aconseguim enllaços i mencions que tinguin sentit per al teu negoci, no un volum d'enllaços de baixa qualitat que et pot perjudicar.</p>
+    </Fragment>
+    <PFlow
+      tone="dark"
+      steps={[
+        { label: 'Contingut citable', sub: 'dades, guies, casos' },
+        { label: 'Mencions', sub: 'mitjans i sector' },
+        { label: 'Enllaços rellevants', sub: 'cap a les teves pàgines clau' },
+        { label: 'Més autoritat', sub: 'millors posicions' },
+      ]}
+    />
+    <PCards
+      tone="dark"
+      cols={2}
+      variant="numbered"
+      items={[
+        { title: `Anàlisi dels enllaços que rep la teva web`, html: `Quines webs t'enllacen, a quines pàgines i amb quina qualitat, comparat amb els teus competidors.` },
+        { title: `Recuperació d'enllaços i mencions desaprofitats`, html: `Enllaços que apunten a pàgines que ja no existeixen i mitjans que et citen sense enllaçar-te. Són les oportunitats més ràpides.` },
+        { title: `Selecció d'oportunitats rellevants per al teu negoci`, html: `Associacions, proveïdors, mitjans locals i del sector. Prioritzem la rellevància temàtica per sobre de les mètriques d'autoritat.` },
+        { title: `Coordinació entre contingut i captació d'enllaços`, html: `Creem peces que mereixen ser citades i dirigim aquesta autoritat cap a les pàgines que generen negoci mitjançant l'enllaçat intern.` },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ SEO LOCAL ══════════════════════════════════════════════════════ -->
+  <PSection id="seo-local" kicker="SEO local" title="SEO local perquè et trobin a prop">
+    <Fragment slot="intro">
+      <p>Si els teus clients són a la teva ciutat o comarca, el mapa de Google i les cerques amb ubicació són la palanca més rendible. Treballem el Perfil d'Empresa i la web alhora, perquè Google els avalua junts.</p>
+    </Fragment>
+    <PCards
+      cols={2}
+      items={[
+        { icon: ICON.target, title: `Optimització del Perfil d'Empresa a Google`, html: `Categories, serveis, fotos, horaris i publicacions. Si una altra persona gestiona la teva fitxa, t'ensenyem a <a href="/ca/blog/donar-acces-al-teu-perfil-dempresa-a-google/">donar accés al teu Perfil d'Empresa</a> sense compartir contrasenyes.` },
+        { icon: ICON.doc, title: `Pàgines per a serveis i zones de cobertura reals`, html: `Una pàgina per ciutat només quan atens de veritat aquella zona i pots explicar-hi alguna cosa pròpia. Així treballem a <a href="/ca/agencia-seo-per-pimes/sabadell/">Sabadell</a>, <a href="/ca/agencia-seo-per-pimes/terrassa/">Terrassa</a> o <a href="/ca/agencia-seo-per-pimes/sant-cugat/">Sant Cugat</a>.` },
+        { icon: ICON.search, title: `Coherència de les dades del teu negoci`, html: `Nom, adreça i telèfon idèntics a la web, al Perfil d'Empresa i als directoris. Les incoherències resten confiança a Google.` },
+        { icon: ICON.users, title: `Reputació i ressenyes dins de l'estratègia local`, html: `Un sistema per demanar ressenyes a temps i respondre-les. T'ho expliquem pas a pas a <a href="/ca/blog/com-aconseguir-mes-ressenyes-a-google-per-a-la-teva-pime/">com aconseguir més ressenyes a Google</a>.` },
+      ]}
+    />
+    <div class="mt-12 text-center reveal">
+      <p class="text-xs font-black uppercase tracking-[0.25em] text-zinc-400 mb-4">Agència SEO a la teva zona</p>
+      <CityPills base="/ca/agencia-seo-per-pimes/" lang="ca" itemPrefix="Agència SEO a" homeLabel="Tot Espanya" />
+    </div>
+  </PSection>
+
+  <!-- ═══ ESPECIALITZACIÓ ════════════════════════════════════════════════ -->
+  <PSection kicker="Experiència sectorial" title="Especialització segons com ven la teva empresa" tone="soft">
+    <Fragment slot="intro">
+      <p>Cada model de negoci es busca de manera diferent. Ajustem l'estratègia a com compren els teus clients i tenim pàgines específiques per als sectors en què més treballem.</p>
+    </Fragment>
+    <PCards
+      tone="soft"
+      cols={2}
+      items={[
+        { icon: ICON.users, title: `SEO per a serveis professionals`, html: `El client busca confiança abans que preu. Contingut amb autoritat i SEO local per especialitat per a <a href="/ca/agencia-advocats/seo/">advocats</a>, <a href="/ca/agencia-dentistes/seo/">dentistes</a>, <a href="/ca/agencia-psicolegs/seo/">psicòlegs</a> i <a href="/ca/agencia-terapeutes/seo/">terapeutes</a>.` },
+        { icon: ICON.money, title: `SEO per a ecommerce`, html: `Arquitectura de categories, fitxes de producte i control de filtres. Ho apliquem a <a href="/ca/casos-exit/palacio-del-bebe/">Palacio del Bebé</a> i ho detallem a la pàgina de <a href="/ca/agencia-ecommerce/seo/">SEO per a ecommerce</a>.` },
+        { icon: ICON.chart, title: `SEO per a empreses B2B i industrials`, html: `Pocs decisors i cerques molt tècniques. Importa aparèixer a les deu consultes del responsable de compres. Més informació a <a href="/ca/agencia-b2b/seo/">SEO B2B</a> i <a href="/ca/agencia-industrial/seo/">SEO industrial</a>.` },
+        { icon: ICON.target, title: `SEO per a negocis amb presència local`, html: `Perfil d'Empresa, ressenyes i pàgines per zona per a <a href="/ca/agencia-restaurantes/seo/">restaurants</a>, <a href="/ca/agencia-gimnasos/seo/">gimnasos</a>, <a href="/ca/agencia-inmobiliarias/seo/">immobiliàries</a>, <a href="/ca/agencia-constructores/seo/">constructores</a> i <a href="/ca/agencia-hotels/seo/">hotels</a>.` },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ RESULTATS ═════════════════════════════════════════════════════ -->
+  <PSection kicker="Casos reals" title="Resultats de projectes de posicionament orgànic" width="wide">
+    <Fragment slot="intro">
+      <p>Dades de projectes que hem portat, amb el seu punt de partida i el període de treball. Cada cas explica què vam fer i per què va funcionar.</p>
+    </Fragment>
+    <div class="grid lg:grid-cols-2 gap-8 items-start">
+      <PBars
+        title="Creixement del trànsit orgànic"
+        rows={[
+          { label: 'Superwagen', value: 323, display: '+323 %', href: '/ca/casos-exit/cas-d-exit-superwagen/', note: 'i de 10-15 a més de 50 leads al mes des del SEO' },
+          { label: 'Tattoox', value: 156, display: '+156 %', href: '/ca/casos-exit/tattoox/', note: 'en 12 mesos, amb x2,4 keywords al top 3' },
+          { label: 'Dipole RFID (paraules clau)', value: 150, display: '+150 %', href: '/ca/casos-exit/cas-d-exit-dipole-rfid/', note: 'de 450 a 1.126 keywords posicionades' },
+          { label: 'Palacio del Bebé', value: 47, display: '+47 %', href: '/ca/casos-exit/palacio-del-bebe/', note: 'i posició 1 a les cerques clau del sector' },
+        ]}
+      />
+      <PCounter
+        stats={[
+          { value: 6390, label: 'visites orgàniques al mes a Dipole RFID', href: '/ca/casos-exit/cas-d-exit-dipole-rfid/' },
+          { value: 678, label: 'visites orgàniques al mes a Clustag, partint de zero', href: '/ca/casos-exit/clustag/' },
+          { value: 191, label: 'keywords en dos mesos amb la web nova de Villazón Mercé', href: '/ca/casos-exit/villazon-merce-abogados/' },
+          { value: 50, prefix: '+', label: 'leads al mes des del SEO a Superwagen', href: '/ca/casos-exit/cas-d-exit-superwagen/' },
+        ]}
+        cols={2}
+      />
+    </div>
+    <MoreCases locale="ca" categories={['seo']} embed />
+  </PSection>
+
+  <!-- ═══ INDICADORS ════════════════════════════════════════════════════ -->
+  <PSection kicker="Mesura" title="Els indicadors que fem servir per prendre decisions" tone="soft">
+    <Fragment slot="intro">
+      <p>Les posicions són un mitjà, no l'objectiu. Seguim quatre indicadors en ordre, perquè cadascun anticipa el següent. Si vols entendre d'on arriba avui el teu trànsit, comença per <a href="/ca/blog/don-ve-el-trafic-web/">d'on ve el trànsit de la teva web</a>.</p>
+    </Fragment>
+    <div class="grid lg:grid-cols-[1fr_1.1fr] gap-10 items-start">
+      <PCards
+        tone="soft"
+        variant="numbered"
+        cols={2}
+        class="lg:grid-cols-1"
+        items={[
+          { title: `Visibilitat en cerques rellevants`, html: `Impressions i posicions a les cerques que hem definit com a objectiu, no a totes.` },
+          { title: `Trànsit orgànic que arriba a pàgines de negoci`, html: `Visites a pàgines de servei, categories i productes, separades del trànsit del blog.` },
+          { title: `Contactes i vendes atribuïbles al canal orgànic`, html: `Trucades, formularis i comandes amb origen a Google, mesurats amb GA4 i l'atribució de cada formulari.` },
+          { title: `Evolució de les pàgines que estem treballant`, html: `Cada millora té data. Comparem l'abans i el després per saber què funciona i repetir-ho.` },
+        ]}
+      />
+      <PLines
+        title="Com es mouen els indicadors"
+        series={[
+          { label: 'Visibilitat', points: [10, 18, 28, 38, 47, 55, 62, 68, 73, 77] },
+          { label: 'Trànsit de negoci', points: [8, 9, 12, 18, 26, 34, 42, 50, 57, 63], color: '#8b5cf6' },
+          { label: 'Contactes', points: [5, 5, 6, 8, 12, 17, 24, 31, 39, 46], color: '#16a34a' },
+        ]}
+        xLabels={['Inici', '', '', 'Mes 3', '', '', 'Mes 6', '', '', 'Mes 9']}
+        caption="Esquema il·lustratiu. La visibilitat puja primer; el trànsit i els contactes la segueixen amb unes setmanes de retard."
+      />
+    </div>
+  </PSection>
+
+  <!-- ═══ ARRENCADA ═══════════════════════════════════════════════════════ -->
+  <PSection kicker="Com treballem" title="Què passa quan comences a treballar amb Nova">
+    <PFlow
+      highlight={false}
+      steps={[
+        { label: 'Objectius i accessos' },
+        { label: 'Primeres prioritats' },
+        { label: 'Execució' },
+        { label: 'Resultats i pas següent' },
+      ]}
+    />
+    <PCards
+      cols={4}
+      variant="numbered"
+      items={[
+        { title: `Coneixem els teus objectius i revisem els accessos`, html: `Una sessió per entendre els teus serveis, marges i clients, i revisió de Search Console, Analytics i el Perfil d'Empresa.` },
+        { title: `Acordem les primeres prioritats`, html: `A partir de l'<a href="#auditoria">auditoria inicial</a> triem les tasques de més impacte per als primers mesos i te les enviem per escrit.` },
+        { title: `Executem les millores amb el teu equip`, html: `Apliquem els canvis a la web o els preparem per al teu desenvolupador. Tu només valides els continguts que parlen del teu negoci.` },
+        { title: `Revisem resultats i propers passos`, html: `Cada mes, un informe amb el que s'ha fet i el seu efecte, i una conversa sobre què ajustar el mes següent.` },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ INVERSIÓ ══════════════════════════════════════════════════════ -->
+  <PSection kicker="Preus" title="Quant invertir en el SEO de la teva pime" tone="soft" width="wide">
+    <Fragment slot="intro">
+      <p>Tarifes orientatives, sense IVA i sense permanència. Abans de començar reps un pressupost tancat per escrit. Si vols veure com encaixa el SEO en el pressupost total de màrqueting, llegeix <a href="/ca/blog/quant-ha-dinvertir-una-pime-en-marketing/">quant ha d'invertir una pime en màrqueting</a>.</p>
+    </Fragment>
+    <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch reveal">
+      {[
+        { title: 'Auditoria i estratègia inicial', price: '1.800 €', note: 'pagament únic · 3 a 4 setmanes', items: ['Revisió tècnica completa', 'Visibilitat i competència', 'Recerca de paraules clau', "Pla d'acció prioritzat", 'Videotrucada de lliurament'] },
+        { title: 'Acompanyament SEO mensual', price: 'des de 400 € / mes', note: 'negocis locals i petites empreses', items: ['Optimització tècnica contínua', 'Continguts i enllaçat intern', "SEO local i Perfil d'Empresa", 'Informe mensual de contactes', 'Línia directa amb el consultor'], featured: true },
+        { title: 'Projectes de més abast o complexitat', price: 'des de 900 € / mes', note: 'empreses mitjanes i sectors competits', items: ['Estratègia SEO i GEO conjunta', 'Més volum de continguts', "Captació d'enllaços", 'Diverses seus o idiomes', 'Reunió mensual de negoci'] },
+      ].map((p, i) => (
+        <div class:list={['pd-rise rounded-3xl p-7 sm:p-8 flex flex-col border', p.featured ? 'bg-zinc-950 text-white border-zinc-950 shadow-2xl' : 'bg-white border-black/5 shadow-[0_15px_40px_rgba(0,0,0,0.06)]']} style={`--i:${i}`}>
+          <h3 class:list={['text-lg font-black tracking-tight leading-snug mb-3', p.featured ? 'text-white' : 'text-zinc-900']}>{p.title}</h3>
+          <div class="text-2xl font-black text-accent">{p.price}</div>
+          <div class:list={['text-[11px] font-light mt-1 mb-6', p.featured ? 'text-zinc-400' : 'text-zinc-400']}>{p.note}</div>
+          <ul class="space-y-2.5 flex-1">
+            {p.items.map((it) => (
+              <li class:list={['flex items-start gap-2.5 text-sm font-light', p.featured ? 'text-zinc-300' : 'text-zinc-600']}>
+                <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>{it}
+              </li>
+            ))}
+          </ul>
+          <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 !py-4 !text-[11px] !tracking-widest font-black mt-8 text-center">DEMANAR PRESSUPOST</a>
         </div>
-    </section>
+      ))}
+    </div>
+    <PCards
+      variant="rows"
+      tone="soft"
+      items={[
+        { title: `Què determina el pressupost de la teva empresa`, html: `La mida de la web, la competència de les teves cerques, el nombre de serveis i zones, l'estat tècnic de partida i quant contingut cal crear. Una clínica amb una seu no necessita el mateix que un ecommerce amb 3.000 productes.` },
+      ]}
+    />
+  </PSection>
 
-    <LogoMarquee />
+  <!-- ═══ CONSULTOR ══════════════════════════════════════════════════════ -->
+  <PSection kicker="Qui hi ha darrere" title="Un consultor responsable de l'evolució de la teva web" layout="split">
+    <Fragment slot="intro">
+      <p>A Nova no hi ha capes comercials entre tu i qui treballa la teva web. La mateixa persona fa l'auditoria, defineix l'estratègia i respon a la reunió mensual.</p>
+    </Fragment>
+    <img slot="aside" src="/sergio-galos-agencia-seo-per-pimes.webp" alt="Sergio Galo's, consultor SEO per a pimes" title="Sergio Galo's, consultor SEO per a pimes" class="w-full max-w-xs mx-auto h-auto rounded-3xl" loading="lazy" width="473" height="591" />
+    <PCards
+      cols={3}
+      items={[
+        { icon: ICON.users, title: `Qui dirigeix la teva estratègia SEO`, html: `Sergio Galo's, consultor de màrqueting digital i SEO i fundador de Nova, amb anys posicionant pimes d'indústria, salut, ecommerce i serveis professionals.` },
+        { icon: ICON.link, title: `Com ens coordinem amb el teu equip`, html: `Un canal directe per als dubtes, reunions presencials a Barcelona o per videotrucada a la resta d'Espanya, i coordinació amb el teu desenvolupador si en tens.` },
+        { icon: ICON.chart, title: `Quina informació reps sobre la feina feta`, html: `Un informe mensual amb les tasques fetes, l'evolució de les pàgines treballades i els contactes des de Google. I accés permanent a les teves eines.` },
+      ]}
+    />
+  </PSection>
 
-    <!-- ═══ INTRO: PER QUÈ SEO ═══════════════════════════════════════════ -->
-    <section class="py-16 sm:py-24 bg-white px-4 sm:px-6 border-b border-black/5">
-        <div class="max-w-6xl mx-auto reveal grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-16 items-center">
-            <div>
-                <p class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4">Per què SEO?</p>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
-                    L'agència de posicionament SEO per a la teva pime
-                </h2>
-                <div class="space-y-6 text-zinc-600 font-light text-base sm:text-lg leading-relaxed">
-                    <p>
-                        <strong class="font-semibold text-zinc-900">El SEO és el canal que segueix portant clients quan deixes de pagar per anuncis</strong>. Cada cerca del teu servei a Google és un client amb intenció de compra, i qui apareix primer se l'emporta. A diferència de la publicitat, el posicionament és un actiu que s'acumula mes a mes.
-                    </p>
-                    <p>
-                        Nova és una <strong class="font-semibold text-zinc-900">agència SEO especialitzada en pimes</strong>. Treballem amb un nombre limitat de clients, cada compte el porta directament el consultor fundador i tota l'estratègia s'orienta a una sola mètrica que importa. <strong class="font-semibold text-zinc-900">Quants clients nous arriben des de Google cada mes</strong>.
-                    </p>
-                </div>
+  <!-- ═══ RESSENYES ════════════════════════════════════════════════════════ -->
+  <GoogleReviews locale="ca" title="El que valoren les empreses que treballen amb nosaltres" />
+
+  <!-- ═══ FAQS ═══════════════════════════════════════════════════════════ -->
+  <FaqHome title="Resol els teus dubtes abans de contractar SEO" items={faqs} emitSchema={false} />
+
+  <!-- ═══ CONTACTE ═══════════════════════════════════════════════════════ -->
+  <section id="contacto" class="py-20 sm:py-32 px-4 sm:px-6 relative bg-accent">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
+      <div class="reveal text-white">
+        <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">Primer pas</span>
+        <h2 class="text-4xl sm:text-6xl font-black uppercase tracking-tighter leading-[0.85] mb-10">Comencem per les oportunitats de la teva web</h2>
+        <ol class="space-y-5">
+          {[
+            ["Explica'ns què ven la teva empresa", 'Els teus serveis principals i el tipus de client que busques.'],
+            ['Comparteix la teva web i els teus mercats prioritaris', "Les zones, idiomes o línies de negoci que més t'interessen."],
+            ['Revisem què està limitant el teu creixement', 'Mirem la teva visibilitat actual i la de la teva competència.'],
+            ['Rep una proposta amb prioritats clares', 'Per escrit, amb abast, terminis i preu tancat.'],
+          ].map(([t, d], i) => (
+            <li class="flex gap-4">
+              <span class="w-8 h-8 rounded-full bg-white/15 border border-white/30 flex items-center justify-center text-xs font-black flex-shrink-0">{i + 1}</span>
+              <div>
+                <h3 class="text-base sm:text-lg font-black tracking-tight">{t}</h3>
+                <p class="text-sm font-light text-white/80">{d}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <div class="reveal">
+        <div class="bg-white p-8 sm:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
+          <form class="space-y-8" id="contact-form">
+            <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
+              <div class="flex flex-col gap-3">
+                <label class="opacity-30">NOM *</label>
+                <input type="text" name="name" aria-label="Nom" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+              </div>
+              <div class="flex flex-col gap-3">
+                <label class="opacity-30">TELÈFON *</label>
+                <input type="tel" name="phone" required autocomplete="tel" inputmode="tel" minlength="9" pattern="[0-9+\s.\(\)\-]{9,20}" title="Introdueix un telèfon vàlid (mínim 9 xifres)" aria-label="Telèfon" class="border-b border-black/10 py-2 focus:border-accent outline-none">
+              </div>
             </div>
-            <div class="hidden md:block">
-                <img src="/sergio-galos-agencia-seo-per-pimes.webp" alt="Sergio Galo's, consultor SEO per a pimes" title="Sergio Galo's, consultor SEO per a pimes" class="w-full h-auto" loading="lazy" width="473" height="591" />
+            <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+              <label class="opacity-30">EMAIL PROFESSIONAL *</label>
+              <input type="email" name="email" aria-label="Correu electrònic" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
             </div>
-        </div>
-    </section>
-
-    <!-- ═══ SERVEIS SEO ══════════════════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50 border-b border-black/5 px-4 sm:px-6">
-        <div class="max-w-7xl mx-auto text-center reveal">
-            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Què fem</span>
-            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Servei de posicionament SEO per a pimes
-            </h2>
-            <div class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-16 space-y-4">
-                <p>
-                    El <strong class="font-semibold text-zinc-700">posicionament SEO</strong> no és una sola tasca, és un sistema. Aquestes són les nou peces que treballem perquè la teva pime passi de ser invisible a Google a captar clients cada mes des del cercador.
-                </p>
-                <p>
-                    Cada peça s'activa segons el que digui la teva auditoria. No pagues per un paquet tancat d'accions, pagues per les que el teu negoci necessita.
-                </p>
+            <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+              <label class="opacity-30">WEB *</label>
+              <input type="text" name="url" aria-label="Lloc web" placeholder="www.latevaempresa.com" class="border-b border-black/10 py-2 focus:border-accent outline-none">
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[
-                    { icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z', t: 'Auditoria SEO', d: 'Radiografia tècnica, de contingut i d\'autoritat de la teva web abans de tocar res. El punt de partida de qualsevol estratègia.' },
-                    { icon: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4', t: 'SEO tècnic', d: 'Velocitat, indexació, Core Web Vitals i arquitectura. Que Google pugui rastrejar i entendre el teu lloc sense friccions.' },
-                    { icon: 'M12 3a9 9 0 100 18 9 9 0 000-18zm0 5a4 4 0 100 8 4 4 0 000-8z', t: 'Keyword research', d: 'Identifiquem què busquen els teus clients potencials, amb quin volum i quines oportunitats estan sense cobrir al teu sector.' },
-                    { icon: 'M9 12h6m-6 4h6M9 8h2m8-3v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2h6l4 4z', t: 'Continguts SEO', d: 'Creem i optimitzem el contingut que posiciona. Pàgines de servei, articles i arquitectura editorial pensada per vendre.' },
-                    { icon: 'M13.828 10.172a4 4 0 010 5.656l-3 3a4 4 0 01-5.656-5.656l1.5-1.5m7.328-1.672a4 4 0 000-5.656 4 4 0 00-5.656 0l-1.5 1.5', t: 'Link building', d: 'Aconseguim enllaços de qualitat en mitjans rellevants per augmentar l\'autoritat del teu domini de manera orgànica i sostinguda.' },
-                    { icon: 'M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z', t: 'SEO local', d: 'Posicionem el teu negoci a Google Maps i a les cerques de la teva zona. Imprescindible si els teus clients són a prop teu.' },
-                    { icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z', t: 'Analítica i mesura', d: 'Configurem GA4 i Search Console per atribuir cada lead a la seva keyword. Decisions amb dades, no amb intuïcions.' },
-                    { icon: 'M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z', t: 'SEO més GEO', d: 'Cada cop més clients pregunten a la IA en lloc de buscar a Google. Integrem posicionament a Google i a la IA en una sola estratègia.' },
-                    { icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15', t: 'Migracions SEO', d: 'Canvis de domini, redissenys o salts de plataforma sense perdre el posicionament que tant ha costat aconseguir.' },
-                ].map(c => (
-                    <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-left">
-                        <div class="flex items-center gap-3 mb-3">
-                            <div class="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0">
-                                <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d={c.icon}/></svg>
-                            </div>
-                            <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900">{c.t}</h3>
-                        </div>
-                        <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.d}</p>
-                    </div>
-                ))}
+            <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+              <label class="opacity-30">CONSULTA</label>
+              <textarea name="msg" aria-label="Missatge" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="Quines cerques vols dominar a Google?"></textarea>
             </div>
-
-            <div class="mt-12 text-center reveal">
-                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                    PARLEM DEL TEU NEGOCI
-                </a>
+            <div class="flex items-start gap-2">
+              <input type="checkbox" id="contact-form-terms" name="terms" required class="mt-1 accent-accent">
+              <label for="contact-form-terms" class="text-xs text-zinc-500 font-light cursor-pointer select-none normal-case tracking-normal">He llegit i accepto la <a href="/ca/privacitat/" class="underline hover:text-accent transition-colors">política de privacitat</a>.</label>
             </div>
-        </div>
-    </section>
-
-    <!-- ═══ ESTRATÈGIA SEO ════════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-16 sm:mb-24 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Com treballem</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Estratègia SEO per posicionar la teva pime a Google
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    Una metodologia documentada per passar de ser invisible a Google a captar clients des del cercador, pas a pas i sense fum.
-                </p>
-            </div>
-
-            <div id="timeline-container" class="relative">
-                <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
-                <div id="progress-bar" class="hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100"></div>
-
-                <div class="space-y-16 md:space-y-24 flex flex-col items-center">
-                    {steps.map((step, index) => (
-                        <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
-                            <div class:list={["flex-1 w-full", index % 2 === 0 ? "md:order-1 md:text-right" : "md:order-3 md:text-left"]}>
-                                <div class="p-8 sm:p-10 bg-zinc-50 border border-black/5 rounded-3xl hover:border-accent/10 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
-                                    <h3 class="text-xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{index + 1}. {step.title}</h3>
-                                    <div class:list={["h-0.5 bg-accent w-full mb-4 opacity-80", index % 2 === 0 ? "md:ml-auto" : ""]}></div>
-                                    <p class:list={["text-sm text-zinc-500 font-light max-w-md", index % 2 === 0 ? "md:ml-auto" : ""]}>{step.desc}</p>
-                                    <div class="absolute -bottom-6 -right-5 text-8xl font-black text-black/[0.02] select-none z-0 group-hover:scale-105 transition-transform duration-500">0{index+1}</div>
-                                </div>
-                            </div>
-                            <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all">
-                                0{index + 1}
-                            </div>
-                            <div class:list={["hidden md:block md:flex-1", index % 2 === 0 ? "md:order-3" : "md:order-1"]}></div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ AUDITORIA SEO ═════════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5 overflow-hidden">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-[6fr_4fr] gap-12 lg:gap-16 items-start">
-
-            <div class="reveal lg:col-span-2">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Punt de partida</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
-                    Auditoria de posicionament SEO per a la teva pime
-                </h2>
-            </div>
-
-            <div class="reveal">
-                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed mb-8">
-                    <p>
-                        Abans de proposar-te res, auditem. Saps en quina posició surt la teva web quan algú busca el teu servei? Quines keywords et porten clients i quines s'emporta la teva competència? Gairebé cap pime ho sap amb dades, i aquí comença tot.
-                    </p>
-                    <p>
-                        La nostra <strong class="font-semibold text-zinc-900">auditoria de posicionament SEO</strong> mesura la teva visibilitat real a Google, revisa la salut tècnica de la teva web i analitza la teva competència directa, i acaba amb un pla d'acció prioritzat. Què arreglar primer, quin impacte té i quant esforç costa.
-                    </p>
-                    <p>
-                        A diferència de les auditories automàtiques que generen un PDF amb cent errors irrellevants, aquí cada punt el revisa un consultor sènior amb anys d'experiència en pimes. El resultat no és un llistat tècnic, és un diagnòstic de negoci que entén qualsevol gerent.
-                    </p>
-                    <p>
-                        Si ja treballes amb una altra agència, l'auditoria també serveix com a segona opinió independent. Sabràs si la teva inversió actual en SEO està ben dirigida o si estàs pagant per activitat que no genera clients.
-                    </p>
-                </div>
-                <ul class="space-y-3">
-                    {[
-                        'Salut tècnica de la teva web amb indexació, velocitat i Core Web Vitals',
-                        'Posicions actuals per a les teves cerques clau',
-                        'Anàlisi de la teva competència directa a Google',
-                        'Keywords rendibles que encara no ataques',
-                        'Punts de fuga en la conversió de la teva web',
-                        "Pla d'acció SEO prioritzat per impacte real",
-                    ].map(item => (
-                        <li class="flex items-start gap-3 text-sm text-zinc-700 font-light">
-                            <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            {item}
-                        </li>
-                    ))}
-                </ul>
-                <div class="mt-16">
-                    <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                        VULL LA MEVA AUDITORIA SEO
-                    </a>
-                </div>
-            </div>
-
-            <div class="reveal flex flex-col gap-4">
-                {[
-                    { bg: 'bg-purple-100', color: 'text-purple-600', icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z', t: 'Revisió tècnica completa', d: 'Indexació, velocitat, Core Web Vitals, errors de rastreig i arquitectura. Tot el que impedeix a Google entendre la teva web, documentat.' },
-                    { bg: 'bg-green-100', color: 'text-green-600', icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6', t: "Pla d'acció prioritzat", d: 'No una llista infinita de tasques, sinó un pla ordenat per impacte i esforç. Sabràs què arreglar la primera setmana i què no mereix ni un euro.' },
-                    { bg: 'bg-purple-100', color: 'text-purple-600', icon: 'M12 3a9 9 0 100 18 9 9 0 000-18zm0 5a4 4 0 100 8 4 4 0 000-8z', t: 'Keywords amb intenció de compra', d: 'Identifiquem les cerques que fan els teus clients quan volen contractar, no només les de més volum. Trànsit que converteix.' },
-                    { bg: 'bg-amber-100', color: 'text-amber-600', icon: 'M9 12h6m-6 4h6M9 8h2m8-3v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2h6l4 4z', t: 'Auditoria de continguts', d: 'Detectem quines pàgines posicionen, quines canibalitzen keywords entre si i quin contingut falta per cobrir les cerques del teu client.' },
-                    { bg: 'bg-blue-100', color: 'text-blue-600', icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z', t: 'Benchmark davant la teva competència', d: 'Comparem la teva visibilitat amb la dels teus tres competidors directes. Quines keywords els porten clients i què pots copiar o fer millor.' },
-                ].map(card => (
-                    <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
-                        <div class:list={["w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0", card.bg]}>
-                            <svg class:list={["w-5 h-5", card.color]} fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d={card.icon}/></svg>
-                        </div>
-                        <div>
-                            <h3 class="text-sm font-black text-zinc-900 mb-1">{card.t}</h3>
-                            <p class="text-xs text-zinc-500 font-light leading-relaxed">{card.d}</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ═══ QUÈ INCLOU L'AUDITORIA SEO ═══════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-12 sm:mb-16 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Pas a pas</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
-                    Què inclou l'auditoria SEO de nova
-                </h2>
-            </div>
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch reveal">
-                {[
-                    { n: '1', t: 'Radiografia de la teva visibilitat a Google', d: 'Analitzem en quina posició surts per a les cerques que fan els teus clients, quin trànsit reps i quines keywords s\'està emportant la teva competència.' },
-                    { n: '2', t: 'Diagnòstic tècnic i de continguts', d: 'Creuem les dades amb la salut tècnica de la teva web i el teu contingut per explicar exactament què t\'està frenant al cercador.' },
-                    { n: '3', t: 'Full de ruta per posicionar', d: 'Tanques l\'auditoria amb un document d\'accions ordenades per impacte i una videotrucada on repassem cada punt amb tu.' },
-                ].map((st, i) => (
-                    <div class="flex items-center gap-4 lg:gap-6">
-                        {i > 0 && <div class="hidden lg:flex text-3xl text-accent font-black select-none">→</div>}
-                        <div class="bg-white border border-black/5 rounded-2xl p-8 shadow-[0_15px_40px_rgba(0,0,0,0.06)] flex-1 text-center h-full">
-                            <div class="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto mb-4 text-accent font-black text-lg">{st.n}</div>
-                            <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3">{st.t}</h3>
-                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{st.d}</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
-            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto text-center mt-16 reveal">
-                La nostra auditoria SEO és el primer pas de qualsevol estratègia de posicionament a Google. Analitza com et veu avui el cercador, explica per què la teva competència surt abans que tu i et deixa un full de ruta clar per començar a captar clients des de les cerques. És la mateixa auditoria amb què arranquen tots els nostres plans de SEO per a pimes, i també pots contractar-la sola com a segona opinió. Sense tecnicismes innecessaris. Surts sabent on ets i què fer a continuació.
-            </p>
-            <div class="mt-12 text-center reveal">
-                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                    VULL LA MEVA AUDITORIA SEO
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ PREUS SEO ════════════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-12 sm:mb-16 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Tarifes clares</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Preus de posicionament SEO per a pimes
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto">
-                    Tarifes orientatives i sense lletra petita. El preu d'una agència SEO varia segons la mida de la teva web, la competència del teu sector i el teu punt de partida a Google, així que abans de començar reps un pressupost tancat per escrit. Si et preguntes quant costa el posicionament SEO, aquests són els nostres rangs reals. El cost no porta sorpreses ni permanències.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
-                {[
-                    { small: 'Preu', name: 'Auditoria SEO', price: '1.800€', meta: ['Lliurament en 3 a 4 setmanes', 'Per a qualsevol pime que vulgui saber on és'], items: ['Sessió inicial d\'objectius', 'Revisió tècnica completa', 'Posicions i visibilitat actual', 'Keyword research del teu sector', 'Auditoria de continguts', 'Comparativa amb 3 competidors', 'Accions ordenades per impacte', 'Videotrucada de lliurament'], cta: 'Vull auditar la meva web' },
-                    { small: 'Preu', name: 'SEO PIME', price: 'des de 400€ / mes', meta: ['Primers moviments en uns 3 mesos', 'Per a negocis locals i petites empreses'], items: ['Auditoria SEO inicial', 'Optimització tècnica contínua', 'Continguts que posicionen', 'SEO local i fitxa de Google', 'Enllaçat intern optimitzat', 'Ressenyes i senyals de confiança', 'Informe mensual de posicions i leads', 'Línia directa amb el consultor', 'Sense permanència'], cta: 'Vull posicionar la meva web' },
-                    { small: 'Preu', name: 'SEO Big Pime', price: 'des de 900€ / mes', meta: ['Primers moviments en uns 2 mesos', 'Per a empreses mitjanes i sectors competits'], items: ['Tot el pla SEO PIME', 'Estratègia SEO i GEO conjunta', 'Redacció professional ampliada', 'Link building en mitjans', 'Optimització de més de 100 URL', 'Cobertura multiseu o internacional', 'Reunió mensual de negoci', 'Objectiu, primeres posicions'], cta: 'Vull posicionar la meva empresa' },
-                ].map(p => (
-                    <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-10 flex flex-col shadow-[0_15px_40px_rgba(0,0,0,0.06)] hover:shadow-xl transition-shadow duration-300 reveal">
-                        <h3 class="leading-tight mb-2">
-                            <span class="block text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-1">{p.small} </span>
-                            <span class="block text-xl font-black uppercase tracking-tight text-zinc-900">{p.name}</span>
-                        </h3>
-                        <div class="text-lg font-bold text-zinc-900">{p.price}</div>
-                        <div class="text-[10px] text-zinc-400 font-light mt-1 mb-6">* Preu sense IVA</div>
-                        <div class="text-xs text-zinc-500 font-light mb-8 space-y-1.5">
-                            {p.meta.map(m => <div>{m}</div>)}
-                        </div>
-                        <div class="text-xs font-black uppercase tracking-widest text-zinc-400 pb-3 border-b border-zinc-100">Què inclou</div>
-                        <ul class="divide-y divide-zinc-100 flex-1">
-                            {p.items.map(item => (
-                                <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light">
-                                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                                    <span>{item}</span>
-                                </li>
-                            ))}
-                        </ul>
-                        <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 !py-4 !text-[11px] !tracking-widest font-black mt-10 text-center">
-                            {p.cta}
-                        </a>
-                    </div>
-                ))}
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ SECTORS ═══════════════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50 px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-14 sm:mb-20 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Experiència sectorial</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Posicionament SEO per al teu sector
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    Cada sector es busca diferent a Google. Treballem amb sectors on ja sabem quines keywords converteixen i què és llençar els diners.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
-                {sectors.map(s => (
-                    <div class="bg-white border border-black/5 rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                        <div class="text-3xl mb-4">{s.icon}</div>
-                        <h3 class="text-base uppercase tracking-tight text-zinc-900 mb-3 leading-tight font-montserrat-semibold">
-                            {s.href ? <a href={s.href} class="hover:text-accent transition-colors">{s.title}</a> : s.title}
-                        </h3>
-                        <p class="text-sm text-zinc-500 font-light leading-relaxed">{s.desc}</p>
-                    </div>
-                ))}
-            </div>
-
-            <div class="mt-14 text-center reveal">
-                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                    VULL SORTIR A GOOGLE
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ CITA ══════════════════════════════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-zinc-950 px-4 sm:px-6">
-        <div class="max-w-4xl mx-auto text-center reveal">
-            <blockquote class="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.15] mb-8">
-                “Cada dia els teus clients busquen el teu servei a Google. Si no apareixes, la venda se l'emporta un altre. No necessites més anuncis. Necessites posicionar-te.”
-            </blockquote>
-            <p class="text-sm text-zinc-400 font-light mb-10">Sergio Galo's · Consultor SEO per a pimes</p>
-            <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                PARLEM DEL TEU NEGOCI
-            </a>
-        </div>
-    </section>
-
-    <!-- ═══ PER QUÈ NOVA (COMPARATIVA) ═════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-12 sm:mb-16 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Per què nova</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Què diferencia nova d'una altra agència SEO
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    El SEO està ple d'informes bonics que no porten clients. Nosaltres el treballem amb mètode, transparència i resultats que es veuen a la teva caixa, no només a les gràfiques.
-                </p>
-            </div>
-
-            <div class="reveal overflow-x-auto rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
-                <table class="w-full min-w-[640px] text-left border-collapse bg-white">
-                    <thead>
-                        <tr class="bg-black text-white">
-                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Criteri</th>
-                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Nova</th>
-                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Altres agències</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-zinc-100">
-                        {[
-                            { c: "Qui serà el teu contacte", o: "Gestor júnior amb 20-30 comptes", n: "Sergio Galo's" },
-                            { c: "Estratègia", o: "Plantilles estandarditzades", n: "Full de ruta SEO a mida per escrit" },
-                            { c: "Velocitat de resposta", o: "Tiquets i setmanes d'espera", n: "Línia directa amb qui decideix" },
-                            { c: "Permanència", o: "6-12 mesos habituals", n: "Mes a mes, sense permanència" },
-                            { c: "Especialització", o: "De multinacionals a autònoms, tot val", n: "Cent per cent enfocats en pimes" },
-                            { c: "Visibilitat en IA (GEO)", o: "Només SEO tradicional a Google", n: "SEO + GEO integrats amb mètode propi" },
-                            { c: "Transparència de preus", o: "Pressupostos opacs amb extres sorpresa", n: "Preu tancat per escrit abans de començar" },
-                        ].map(row => (
-                            <tr class="hover:bg-zinc-50/50 transition-colors">
-                                <td class="px-6 py-5 text-sm font-bold text-zinc-900">{row.c}</td>
-                                <td class="px-6 py-5 text-sm font-bold text-accent">{row.n}</td>
-                                <td class="px-6 py-5 text-sm text-zinc-500 font-light">{row.o}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-
-            <p class="text-xs sm:text-sm text-zinc-400 font-light leading-relaxed mt-6 reveal">
-                Un consultor SEO extern et dona accés a experiència sènior sense els costos fixos de contractar un perfil propi, sense procés de selecció i sense període d'adaptació.
-            </p>
-        </div>
-    </section>
-
-    <!-- ═══ COM TRIAR AGÈNCIA SEO ════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-4xl mx-auto">
-            <div class="mb-12 sm:mb-16 reveal text-center">
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Com contractar una agència SEO sense que et venguin fum
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    Hi ha centenars d'agències SEO i la majoria de pimes tria malament la primera vegada. Aquests són els set criteris que hauries d'exigir a qualsevol agència, inclosa la nostra.
-                </p>
-            </div>
-
-            <div class="divide-y divide-zinc-100 reveal">
-                {criteria.map((c, i) => (
-                    <div class="py-6 sm:py-8 flex gap-6 sm:gap-8 items-start">
-                        <div class="text-2xl sm:text-3xl font-black tracking-tighter text-accent flex-shrink-0 w-10 leading-none">0{i + 1}</div>
-                        <div>
-                            <h3 class="text-base sm:text-lg font-black uppercase tracking-tight text-zinc-900 mb-2">{c.title}</h3>
-                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.desc}</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ QUI HI HA DARRERE ═══════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-5xl mx-auto reveal">
-            <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] grid md:grid-cols-[280px_1fr] gap-8 sm:gap-12 items-center">
-                <div class="rounded-2xl overflow-hidden bg-zinc-100">
-                    <img src="/sergio-galos-agencia-seo-per-pimes.webp" alt="Sergio Galo's, consultor SEO per a pimes" title="Sergio Galo's, consultor SEO per a pimes" class="w-full h-full object-cover object-top" loading="lazy" width="473" height="591" />
-                </div>
-                <div>
-                    <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Qui hi ha darrere</span>
-                    <h2 class="text-2xl sm:text-4xl font-black tracking-tighter uppercase text-zinc-900 leading-[0.95] mb-6">
-                        Sergio Galo's <br>
-                        <span class="text-lg sm:text-2xl">El teu consultor SEO per a pimes</span>
-                    </h2>
-                    <div class="space-y-4 text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
-                        <p>
-                            Soc <strong class="font-semibold text-zinc-900">Sergio Galo's</strong>, consultor de marketing digital i SEO i fundador de Nova Marketing. Porto anys posicionant pimes en alguns dels sectors més competitius, des d'indústria B2B i salut fins a ecommerce i serveis professionals.
-                        </p>
-                        <p>
-                            Quan contractes posicionament SEO amb nova parles sempre amb mi. Jo faig l'auditoria, jo dissenyo l'estratègia i jo responc a la reunió mensual. Sense capes comercials ni gestors que canvien cada trimestre.
-                        </p>
-                    </div>
-                    <a href="https://www.linkedin.com/company/nova-marketing-pymes/" target="_blank" rel="noopener" class="inline-block mt-6 text-[12px] font-black tracking-widest text-accent hover:underline">
-                        Veure perfil a LinkedIn →
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ CASOS D'ÈXIT (CMS) ═══════════════════════════════════ -->
-    {allCases.length > 0 && (
-    <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6 overflow-hidden">
-      <div class="max-w-7xl mx-auto">
-        <div class="mb-12 reveal">
-          <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultats provats</span>
-          <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
-            Casos d'èxit de posicionament<br class="hidden md:inline" /> SEO per a pimes
-          </h2>
-        </div>
-        <div class="cases-carousel relative overflow-hidden">
-          <div class="cases-track flex gap-6 transition-transform duration-500 ease-in-out">
-            {allCases.map((cs: any) => {
-              const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
-              const caseUrl = cs.isPublic && cs.slug ? `/ca/casos-exit/${cs.slug}/` : null;
-              return (
-                <div class="cases-slide flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
-                  <div>
-                    {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
-                    <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors leading-tight">
-                      {caseUrl ? (
-                        <a href={caseUrl} class="hover:text-accent transition-colors">{cs.title}</a>
-                      ) : (
-                        <span class="group-hover:text-accent transition-colors">{cs.title}</span>
-                      )}
-                    </h3>
-                    <p class="text-xs text-zinc-500 font-light leading-relaxed">{cs.description}</p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+            <button type="submit" class="w-full btn-mktg-v5 !py-6">VULL POSICIONAR LA MEVA WEB</button>
+          </form>
         </div>
       </div>
-    </section>
-    )}
-    <script>
-      function initCasesCarousel() {
-        const track = document.querySelector('.cases-track');
-        if (!track) return;
-        const slides = track.querySelectorAll('.cases-slide');
-        if (slides.length <= 4) return;
-        let current = 0;
-        const total = slides.length;
-        function getVisible() {
-          if (window.innerWidth >= 1024) return 4;
-          if (window.innerWidth >= 640) return 2;
-          return 1;
-        }
-        let slideWidth = slides[0].offsetWidth + 24;
-        window.addEventListener('resize', () => { slideWidth = slides[0].offsetWidth + 24; }, { passive: true });
-        function next() {
-          const visible = getVisible();
-          const maxIndex = total - visible;
-          current = current >= maxIndex ? 0 : current + 1;
-          track.style.transform = `translateX(-${current * slideWidth}px)`;
-        }
-        const interval = setInterval(next, 5000);
-        document.addEventListener('astro:before-preparation', () => clearInterval(interval));
-      }
-      document.addEventListener('DOMContentLoaded', initCasesCarousel);
-      document.addEventListener('astro:page-load', initCasesCarousel);
-    </script>
-
-    <!-- ═══ RECOMANATS PER LA IA ═════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5 overflow-hidden">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-
-            <div class="reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Ens avala la IA</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
-                    L'agència SEO que recomana la IA
-                </h2>
-                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed">
-                    <p>
-                        Quan algú pregunta per una <strong class="font-semibold text-zinc-900">agència SEO per a pimes</strong> a ChatGPT, Gemini o Claude, nova apareix entre les agències recomanades. És la millor prova que sabem posicionar, perquè ho apliquem primer en nosaltres mateixos.
-                    </p>
-                    <p>
-                        Als assistents d'IA no els pots comprar un anunci per sortir primer. Recomanen el que troben. Casos reals publicats, una manera de treballar transparent, una especialització clara i clients que parlen de nosaltres.
-                    </p>
-                    <p>
-                        Prova-ho tu mateix. Obre ChatGPT i pregunta-li quina agència SEO et recomana per a la teva pime. Si et surt nova, ja saps qui pot fer el mateix pel teu negoci.
-                    </p>
-                </div>
-            </div>
-
-            <div class="reveal lg:-mr-[12%] xl:-mr-[18%]">
-                <img src="/agencia-seo-per-pimes.webp" alt="Nova Marketing, agència SEO per a pimes recomanada per la IA" title="Nova Marketing, agència SEO per a pimes recomanada per la IA" class="w-full h-auto" loading="lazy" width="1000" height="667" />
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ═══ CONSELLS SEO ═══════════════════════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-4xl mx-auto reveal">
-            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Consells aplicables avui</span>
-            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Com millorar el SEO de la teva pime aquesta setmana
-            </h2>
-            <p class="text-zinc-500 font-light text-base leading-relaxed mb-10">
-                Si encara no estàs a punt per contractar una agència SEO, comença per aquí. Són accions que qualsevol pime pot aplicar pel seu compte i que ja mouen l'agulla a Google.
-            </p>
-            <ul class="space-y-6">
-                {[
-                    { lead: 'Completa la teva fitxa de Google al 100%.', text: 'Categories, serveis, horaris, fotos reals i publicacions. És la palanca de SEO local més rendible i és gratis.' },
-                    { lead: 'Demana ressenyes de manera sistemàtica.', text: 'Un client content no ressenya sol. Demana-l\'hi el mateix dia que acaba el servei, amb enllaç directe a la teva fitxa.' },
-                    { lead: 'Mesura de veritat.', text: 'Si no tens conversions configurades a GA4, estàs decidint a cegues. Comença per marcar trucades i formularis.' },
-                    { lead: 'Respon a la teva web els dubtes dels teus clients.', text: 'Cada pregunta freqüent és una pàgina que pot posicionar i que a més t\'estalvia trucades.' },
-                ].map(tip => (
-                    <li class="flex items-start gap-4">
-                        <svg class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                        <p class="text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
-                            <strong class="font-bold text-zinc-900">{tip.lead}</strong> {tip.text}
-                        </p>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    </section>
-
-    <!-- ═══ RESSENYES GOOGLE ═════════════════════════════════════ -->
-    <GoogleReviews locale="ca" title="El que diuen els nostres clients sobre el posicionament SEO de Nova" />
-
-    <!-- ═══ SERVICIOS COMPLEMENTARIOS ═══════════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-12 sm:mb-16 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Més enllà del SEO</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Serveis complementaris de la nostra agència SEO per a la teva pime
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    El posicionament funciona millor quan tot el màrqueting empeny en la mateixa direcció. Aquests són els serveis que el complementen.
-                </p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal">
-                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
-                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
-                        <a href="/ca/" class="hover:text-accent transition-colors">Agència de Màrqueting Digital per a Pimes</a>
-                    </h3>
-                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        L'estratègia completa. Combinem SEO, publicitat, web i visibilitat en IA en un sol pla orientat que la teva pime guanyi clients cada mes.
-                    </p>
-                    <a href="/ca/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
-                </div>
-                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
-                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
-                        <a href="/ca/agencia-sem-per-pimes/" class="hover:text-accent transition-colors">Agència SEM per a Pimes</a>
-                    </h3>
-                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        Anuncis a Google per captar clients des de la primera setmana mentre el SEO guanya posicions. Fee fix i el compte sempre al teu nom.
-                    </p>
-                    <a href="/ca/agencia-sem-per-pimes/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
-                </div>
-                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
-                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
-                        <a href="/ca/disseny-web-per-pimes/" class="hover:text-accent transition-colors">Disseny Web per a Pimes</a>
-                    </h3>
-                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        El SEO comença en una bona web. Pàgines ràpides, adaptades a mòbil i enfocades a convertir en clients les visites que porta el posicionament.
-                    </p>
-                    <a href="/ca/disseny-web-per-pimes/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
-                </div>
-                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
-                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
-                        <a href="/ca/agencia-geo-per-pimes/" class="hover:text-accent transition-colors">Agència GEO per a Pimes</a>
-                    </h3>
-                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        Els teus clients ja pregunten a ChatGPT i Gemini quina empresa contractar. Treballem el teu posicionament GEO perquè la IA recomani el teu negoci.
-                    </p>
-                    <a href="/ca/agencia-geo-per-pimes/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ DÓNDE TRABAJAMOS ═══════════════════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-4xl mx-auto text-center reveal">
-            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">On treballem</span>
-            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Agència SEO amb seu a Barcelona i clients a tota Espanya
-            </h2>
-            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
-                La nostra base és a Barcelona i la majoria de projectes són de la ciutat i la seva àrea metropolitana, on ens reunim presencialment. Però el posicionament SEO no entén de quilòmetres. Treballem amb pimes de tot Espanya per videotrucada amb el mateix nivell de seguiment.
-            </p>
-            <CityPills base="/ca/agencia-seo-per-pimes/" lang="ca" itemPrefix="agència SEO a" homeLabel="Agència SEO" />
-        </div>
-    </section>
-
-    <!-- ═══ FAQS ════════════════════════════════════════════════ -->
-    <FaqHome title="Preguntes sobre la nostra agència SEO per a pimes" items={faqs} emitSchema={false} />
-
-    <!-- ═══ CONTACTE ════════════════════════════════════════════ -->
-    <section id="contacto" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
-            <div class="reveal text-white">
-                <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">CREIXEMENT GARANTIT</span>
-                <h2 class="text-5xl sm:text-7xl font-black uppercase tracking-tighter leading-[0.8] mb-8">
-                   SURT PRIMER <br>A GOOGLE
-                </h2>
-                <p class="font-light max-w-md text-base sm:text-xl">Consulta'm i et diré en quina posició és avui la teva web, i com pujar-la.</p>
-            </div>
-
-            <div class="reveal">
-                <div class="bg-white p-8 sm:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
-                    <form class="space-y-8" id="contact-form">
-                        <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
-                            <div class="flex flex-col gap-3">
-                                <label class="opacity-30">NOM *</label>
-                                <input type="text" name="name" aria-label="Nom" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
-                            </div>
-                            <div class="flex flex-col gap-3">
-                                <label class="opacity-30">TELÈFON *</label>
-                                <input type="tel" name="phone" required autocomplete="tel" inputmode="tel" minlength="9" pattern="[0-9+\s.\(\)\-]{9,20}" title="Introdueix un telèfon vàlid (mínim 9 xifres)" aria-label="Telèfon" class="border-b border-black/10 py-2 focus:border-accent outline-none">
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
-                            <label class="opacity-30">EMAIL PROFESSIONAL *</label>
-                            <input type="email" name="email" aria-label="Correu electrònic" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
-                        </div>
-                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
-                            <label class="opacity-30">WEB *</label>
-                            <input type="text" name="url" aria-label="Lloc web" placeholder="www.latevaempresa.com" class="border-b border-black/10 py-2 focus:border-accent outline-none">
-                        </div>
-                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
-                            <label class="opacity-30">CONSULTA</label>
-                            <textarea name="msg" aria-label="Missatge" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="Quines cerques vols dominar a Google?"></textarea>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <input type="checkbox" id="contact-form-terms" name="terms" required class="mt-1 accent-accent">
-                            <label for="contact-form-terms" class="text-xs text-zinc-500 font-light cursor-pointer select-none normal-case tracking-normal">He llegit i accepto la <a href="/ca/privacitat/" class="underline hover:text-accent transition-colors">política de privacitat</a>.</label>
-                        </div>
-                        <button type="submit" class="w-full btn-mktg-v5 !py-6">VULL POSICIONAR LA MEVA WEB</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
+  </section>
 
 </BaseLayout>
 
 <script>
-    document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const btn = form.querySelector('button');
-        if (btn) { btn.innerHTML = 'ENVIANT...'; btn.disabled = true; }
-        const data = Object.fromEntries(new FormData(form));
-        try {
-            const res = await fetch('https://cms.novamarketing.es/api/contact', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
-            });
-            if (res.ok) {
-                window.location.href = '/ca/gracies/';
-            } else { throw new Error(); }
-        } catch {
-            if (btn) { btn.innerHTML = 'ERROR — TORNA-HO A INTENTAR'; btn.disabled = false; btn.style.background = '#ef4444'; }
-        }
-    });
-function initTimeline() {
-        const progressBar = document.getElementById('progress-bar');
-        const timeline = document.getElementById('timeline-container');
-        if (!progressBar || !timeline) return;
-
-        function updateProgress() {
-            // lecturas primero (evita reflows forzados intercalando lectura/escritura)
-            const rect = timeline.getBoundingClientRect();
-            const winHeight = window.innerHeight;
-            const nodes = timeline.querySelectorAll('.node-circle');
-            const nodeTops = Array.from(nodes, (node) => node.getBoundingClientRect().top);
-            // escrituras después
-            const topPassed = (winHeight / 2) - rect.top;
-            let percentage = (topPassed / rect.height) * 100;
-            percentage = Math.max(0, Math.min(100, percentage));
-            progressBar.style.height = `${percentage}%`;
-            nodes.forEach((node, i) => {
-                if (nodeTops[i] < winHeight / 2) {
-                    node.classList.add('!border-accent', '!bg-accent', '!text-white');
-                } else {
-                    node.classList.remove('!border-accent', '!bg-accent', '!text-white');
-                }
-            });
-        }
-
-        let progressTick = false;
-        function onProgressScroll() {
-            if (progressTick) return;
-            progressTick = true;
-            requestAnimationFrame(() => { updateProgress(); progressTick = false; });
-        }
-        window.addEventListener('scroll', onProgressScroll, { passive: true });
-        document.addEventListener('astro:page-load', updateProgress);
-        updateProgress();
+  document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const btn = form.querySelector('button');
+    if (btn) { btn.innerHTML = 'ENVIANT...'; btn.disabled = true; }
+    const data = Object.fromEntries(new FormData(form));
+    try {
+      const res = await fetch('https://cms.novamarketing.es/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (res.ok) {
+        window.location.href = '/ca/gracies/';
+      } else { throw new Error(); }
+    } catch {
+      if (btn) { btn.innerHTML = 'ERROR — TORNA-HO A INTENTAR'; btn.disabled = false; btn.style.background = '#ef4444'; }
     }
-    document.addEventListener('DOMContentLoaded', initTimeline);
-    document.addEventListener('astro:page-load', initTimeline);
+  });
 </script>

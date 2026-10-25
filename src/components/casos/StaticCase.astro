@@ -20,6 +20,45 @@ const { data, locale } = Astro.props;
 const t = data[locale];
 const isCa = locale === 'ca';
 
+// Enlace de vuelta a la página del servicio principal del caso, con un texto
+// descriptivo que varía entre casos (para no repetir siempre el mismo anchor).
+const RELATED: Record<string, { href: Record<'es' | 'ca', string>; lines: Record<'es' | 'ca', [string, string, string][]> }> = {
+  seo: {
+    href: { es: '/agencia-seo-para-pymes/', ca: '/ca/agencia-seo-per-pimes/' },
+    lines: {
+      es: [
+        ['Este proyecto forma parte de nuestro ', 'servicio de posicionamiento SEO para pymes', ', donde explicamos cómo trabajamos, qué incluye y cuánto cuesta.'],
+        ['¿Tu web está en una situación parecida? En nuestra ', 'agencia SEO para pymes', ' te contamos el método, los plazos y las tarifas.'],
+        ['Así trabajamos el ', 'SEO para pymes que quieren crecer en Google', ', con auditoría, prioridades claras y medición en contactos.'],
+      ],
+      ca: [
+        ['Aquest projecte forma part del nostre ', 'servei de posicionament SEO per a pimes', ', on expliquem com treballem, què inclou i quant costa.'],
+        ["La teva web és en una situació semblant? A la nostra ", 'agència SEO per a pimes', " t'expliquem el mètode, els terminis i les tarifes."],
+        ['Així treballem el ', 'SEO per a pimes que volen créixer a Google', ', amb auditoria, prioritats clares i mesura en contactes.'],
+      ],
+    },
+  },
+  'diseno-web': {
+    href: { es: '/diseno-web-para-pymes/', ca: '/ca/disseny-web-per-pimes/' },
+    lines: {
+      es: [
+        ['Este proyecto forma parte de nuestro ', 'servicio de diseño web para pymes', ', donde explicamos el proceso, los plazos y los precios.'],
+        ['¿Necesitas una web que trabaje para tu negocio? Te explicamos paso a paso cómo hacemos el ', 'diseño de páginas web para pymes', '.'],
+        ['Mira cómo planificamos una ', 'web para pymes con el SEO incorporado desde el inicio', ', qué incluye y cuánto cuesta.'],
+      ],
+      ca: [
+        ['Aquest projecte forma part del nostre ', 'servei de disseny web per a pimes', ', on expliquem el procés, els terminis i els preus.'],
+        ['Necessites una web que treballi per al teu negoci? T’expliquem pas a pas com fem el ', 'disseny de pàgines web per a pimes', '.'],
+        ['Mira com planifiquem una ', 'web per a pimes amb el SEO incorporat des de l’inici', ', què inclou i quant costa.'],
+      ],
+    },
+  },
+};
+const relKey = data.categorySlug === 'diseno-web' ? 'diseno-web' : 'seo';
+const rel = RELATED[relKey];
+const relIdx = [...String(data.slug)].reduce((a, c) => a + c.charCodeAt(0), 0) % rel.lines[locale].length;
+const [relBefore, relAnchor, relAfter] = rel.lines[locale][relIdx];
+
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates(data.paths.es, data.paths.ca, SITE_URL);
 const coverUrl = data.cover;
@@ -159,6 +198,19 @@ const ui = isCa ? {
 
       <article class="max-w-none">
         <PageBlocks blocks={t.blocks} />
+
+        <!-- Servicio relacionado -->
+        <aside class="reveal mt-16 rounded-3xl border border-accent/15 bg-accent/5 p-7 sm:p-9 flex flex-col sm:flex-row sm:items-center gap-5">
+          <div class="flex-1">
+            <p class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-2">{isCa ? 'Servei relacionat' : 'Servicio relacionado'}</p>
+            <p class="text-base sm:text-lg text-zinc-700 font-light leading-relaxed">
+              {relBefore}<a href={rel.href[locale]} class="font-semibold text-accent underline decoration-accent/30 underline-offset-4 hover:decoration-accent">{relAnchor}</a>{relAfter}
+            </p>
+          </div>
+          <a href={rel.href[locale]} class="self-start sm:self-center inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent text-white hover:scale-105 transition-transform flex-shrink-0" aria-label={relAnchor} title={relAnchor}>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-5-5 5 5-5 5"/></svg>
+          </a>
+        </aside>
 
         <!-- Final CTA -->
         <div class="reveal mt-32 relative group overflow-hidden p-8 sm:p-14 rounded-[3rem] bg-zinc-950 border border-white/10 transition-all duration-700 hover:border-accent/40 hover:shadow-[0_0_80px_-20px_rgba(59,130,246,0.3)]">

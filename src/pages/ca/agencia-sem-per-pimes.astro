@@ -2,65 +2,51 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { buildAlternates } from '../../lib/i18n';
 import { localAgencySchema } from '../../lib/schema';
-import { strapiClient } from '../../lib/strapi';
 import LogoMarquee from '../../components/sections/LogoMarquee.astro';
 import FaqHome from '../../components/sections/FaqHome.astro';
 import CityPills from '../../components/global/CityPills.astro';
 import GoogleReviews from '../../components/global/GoogleReviews.astro';
+import MoreCases from '../../components/casos/MoreCases.astro';
+import PSection from '../../components/pillar/PSection.astro';
+import PCards from '../../components/pillar/PCards.astro';
+import PFlow from '../../components/pillar/PFlow.astro';
+import PBars from '../../components/pillar/PBars.astro';
+import PMatrix from '../../components/pillar/PMatrix.astro';
+import PStack from '../../components/pillar/PStack.astro';
+import PVenn from '../../components/pillar/PVenn.astro';
+import PFunnel from '../../components/pillar/PFunnel.astro';
+import PTree from '../../components/pillar/PTree.astro';
+import PLines from '../../components/pillar/PLines.astro';
+import PCounter from '../../components/pillar/PCounter.astro';
+import PSerp from '../../components/pillar/PSerp.astro';
+import SemCalc from '../../components/pillar/SemCalc.astro';
+import SemBudget from '../../components/pillar/SemBudget.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-sem-para-pymes/', '/ca/agencia-sem-per-pimes/', SITE_URL);
 
-let allCases: any[] = [];
-try {
-  const casesRes = await strapiClient.getCaseStudies('ca');
-  allCases = casesRes.data.map((i: any) => i.attributes ?? i).filter((c: any) => {
-    const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase());
-    return cats.some((s: string) => s.includes('google-ads'));
-  });
-} catch {}
-
-const steps = [
-  { title: "Auditoria de Compte i Mercat", desc: "Analitzem el teu compte de Google Ads si ja en tens un, la teva web i el que fa la teva competència als anuncis. Detectem pressupost malbaratat, cerques que no converteixen i oportunitats que ningú està pujant. Aquest és el teu punt de partida real." },
-  { title: "Estratègia de Campanyes Documentada", desc: "Reps un pla per escrit. Quines campanyes llançar, quines cerques atacar, quin pressupost necessites i quin cost per client és raonable al teu sector. Saps en què s'inverteix cada euro abans d'invertir-lo." },
-  { title: "Estructura, Anuncis i Landings", desc: "Muntem les campanyes amb una estructura neta, redactem anuncis que responen al que busca el teu client i preparem la pàgina de destinació per convertir aquell clic en un contacte. L'anunci porta la visita, la landing tanca el lead." },
-  { title: "Optimització de Pujes i Pressupost", desc: "Revisem les campanyes cada setmana. Tallem les cerques que gasten sense vendre, pugem la puja on hi ha negoci i ajustem horaris, zones i dispositius perquè cada euro treballi on converteix." },
-  { title: "Mesura i Escalat", desc: "Monitorem mes a mes els teus leads, el teu cost per contacte i el teu retorn. A l'informe veus quants clients arriben des dels anuncis, quant costa cadascun i quines campanyes mereixen més pressupost el mes següent." }
-];
-
-const criteria = [
-  { title: "Demana casos d'èxit verificables", desc: "Un mur de logos no demostra res. Demana casos amb dades concretes. Quina inversió, quin cost per lead, quants clients va generar i en quant de temps. Una agència de Google Ads seriosa hauria de poder ensenyar-te resultats de negocis com el teu. Si no poden ensenyar-te'n ni un, segueix buscant." },
-  { title: "Pregunta qui portarà el teu compte", desc: "En moltes agències ven un director i executa un júnior amb 30 comptes. Exigeix conèixer la persona que gestionarà les teves campanyes abans de signar. A nova parles sempre amb el consultor que optimitza el teu compte, presencialment o per videotrucada." },
-  { title: "Exigeix que el compte de Google Ads sigui teu", desc: "El compte, l'historial de dades i el píxel de conversió han d'estar al teu nom. Moltes agències creen el compte sota la seva propietat i en marxar perds tot l'aprenentatge acumulat i comences de zero. Això no és un servei, és un segrest de dades." },
-  { title: "Desconfia de qui cobra un percentatge opac de la teva inversió", desc: "Si l'agència guanya més com més gastes, el seu incentiu és que gastis més, no que venguis més. Exigeix saber exactament quant pagues de gestió i quant va a Google. A nova el fee és fix i el cent per cent del teu pressupost publicitari va als teus anuncis." },
-  { title: "Revisa què mesura l'informe mensual", desc: "Si l'informe parla d'impressions i clics però no de trucades, formularis i vendes, l'agència està mesurant la seva activitat i no el teu negoci. Les campanyes d'una pime es mesuren en clients nous i en el que costa aconseguir cadascun." },
-  { title: "Fuig de les permanències llargues", desc: "Una permanència de 12 mesos protegeix l'agència, no a tu. A Google Ads els resultats es veuen en setmanes, així que no hi ha excusa per lligar-te un any. Per això a nova treballem mes a mes." },
-  { title: "Que no depengui tot de pagar", desc: "Google Ads porta clients des del primer dia, però quan atures la inversió s'aturen els leads. Una bona agència t'ajuda a fer servir les dades de les campanyes per construir també SEO i visibilitat a la IA. Nosaltres integrem els tres canals en una sola estratègia." }
-];
+const ICON = {
+  search: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z',
+  cart: 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z',
+  phone: 'M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z',
+  target: 'M12 3a9 9 0 100 18 9 9 0 000-18zm0 5a4 4 0 100 8 4 4 0 000-8z',
+  doc: 'M9 12h6m-6 4h6M9 8h2m8-3v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2h6l4 4z',
+  chart: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z',
+  money: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+  users: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z',
+  video: 'M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z',
+  eye: 'M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z',
+  repeat: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15',
+  shield: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
+  key: 'M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z',
+  chat: 'M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+};
 
 const faqs = [
-  { question: "Què inclou el servei d'una agència de Google Ads per a pimes?", answer: "Inclou una auditoria inicial, una estratègia documentada i la gestió i optimització setmanal de les teves campanyes. Estructura de compte, redacció d'anuncis, ajust de pujes i pressupost, revisió de termes de cerca, optimització de la pàgina de destinació i un informe mensual amb leads, cost per contacte i retorn. No apliquem plantilles, cada sector competeix de manera diferent a les subhastes." },
-  { question: "Quant costa una agència de Google Ads per a pimes?", answer: "L'auditoria del teu compte costa 900 euros i la gestió mensual comença en 150 euros al mes amb fee fix, sense percentatges sobre la teva inversió. A això s'hi suma el teu pressupost publicitari, que va íntegre a Google i recomanem que parteixi d'entre 300 i 500 euros al mes. Abans de començar reps un pressupost tancat per escrit." },
-  { question: "Quant triga Google Ads a donar resultats?", answer: "És el canal més ràpid que existeix. Les campanyes poden estar mostrant anuncis en qüestió de dies i els primers leads solen arribar les primeres setmanes. L'algoritme necessita entre un i dos mesos de dades per optimitzar del tot, i és llavors quan el cost per client comença a baixar de veritat." },
-  { question: "El compte de Google Ads serà meu?", answer: "Sí, sempre. El compte, l'historial, les conversions i les audiències queden al teu nom des del primer dia. Si algun dia deixes de treballar amb nosaltres, t'emportes tot l'aprenentatge acumulat. Ens sembla el mínim, encara que al sector no sigui l'habitual." },
-  { question: "Quant hauria d'invertir la meva pime en Google Ads?", answer: "Depèn del teu sector i del que costi cada clic a les teves cerques. Com a regla general, recomanem partir d'entre 300 i 500 euros al mes de pressupost publicitari perquè l'algoritme tingui dades suficients per optimitzar. A l'auditoria et diem la xifra concreta per al teu cas i quin retorn és raonable esperar." },
-  { question: "Com mesureu els resultats de les campanyes?", answer: "Mesurem leads i vendes, no només clics. Cada trucada, formulari o comanda queda atribuïda a la seva campanya i la seva cerca d'origen. Configurem les conversions des del primer dia i a l'informe mensual veus quants clients han arribat i quant ha costat cadascun. Les dades són teves i tens accés total al compte." },
-  { question: "Treballeu amb permanència?", answer: "No, treballem mes a mes. Si el servei no t'aporta valor, pots cancel·lar-lo quan vulguis. La nostra permanència real és el resultat que veus als informes cada mes." }
-];
-
-const sectors = [
-  { icon: '🛒', title: 'Google Ads per a ecommerce', href: '/ca/agencia-ecommerce/google-ads/', desc: 'Shopping i Performance Max amb feed optimitzat. Que el teu producte surti amb foto i preu just quan algú busca comprar-lo.' },
-  { icon: '🏠', title: 'Google Ads per a immobiliàries', href: '/ca/agencia-inmobiliarias/google-ads/', desc: 'Captació de propietaris i compradors amb campanyes per zona i anuncis que filtren curiosos abans del clic.' },
-  { icon: '🍽️', title: 'Google Ads per a restaurants', href: '/ca/agencia-restaurantes/google-ads/', desc: 'Campanyes locals que apareixen quan algú busca on menjar a prop, connectades amb la teva fitxa de Google i les reserves.' },
-  { icon: '🧠', title: 'Google Ads per a psicòlegs', desc: 'El pacient busca ajuda amb urgència i tria entre el primer que veu. Anuncis per especialitat que converteixen cerques en primeres visites.' },
-  { icon: '🌿', title: 'Google Ads per a terapeutes', desc: 'Clics cars si competeixes en genèric. Campanyes per teràpia i zona que paguen només per les cerques que porten pacients.' },
-  { icon: '🦷', title: 'Google Ads per a dentistes', desc: 'Un dels CPCs més cars del mercat. Aquí guanya qui millor filtra les cerques i millor converteix la landing, no qui més gasta.' },
-  { icon: '💪', title: 'Google Ads per a gimnasos', desc: 'Campanyes estacionals amb pics al gener i al setembre. Promocions locals que omplen classes sense cremar pressupost la resta de l\'any.' },
-  { icon: '🏗️', title: 'Google Ads per a constructores', desc: 'Leads de valor alt i molta competència local. Campanyes per servei i zona amb anuncis que porten pressupostos, no curiosos.' },
-  { icon: '⚖️', title: 'Google Ads per a advocats', desc: 'Cerques d\'altíssima intenció amb els clics més cars de Google. Estructura quirúrgica per pagar només pels casos que t\'interessen.' },
-  { icon: '🏨', title: 'Google Ads per a hotels', href: '/ca/agencia-hotels/google-ads/', desc: 'Campanyes de marca per frenar les OTAs i captar la reserva directa, més visibilitat a Google Hotels.' },
-  { icon: '🏭', title: 'Google Ads per a B2B', href: '/ca/agencia-b2b/google-ads/', desc: 'Pocs decisors i cicles llargs. Campanyes de cerca tècnica i remarketing que acompanyen el responsable de compres fins al contacte.' },
-  { icon: '⚙️', title: 'Google Ads per a Empreses Industrials', href: '/ca/agencia-industrial/google-ads/', desc: "Campanyes de cerca que posen la teva empresa davant del responsable de compres que ja et busca, pagant només per leads qualificats reals." },
+  { question: 'Quin pressupost necessita la meva pime per començar?', answer: "Com a orientació, recomanem començar amb entre 300 i 500 euros al mes de pressupost en anuncis, que va íntegre a Google, més els honoraris de gestió, des de 150 euros al mes sense IVA. La xifra real depèn del que costa cada clic a les teves cerques i del teu marge. Abans de començar fem els números amb tu i, si no surten, t'ho diem." },
+  { question: 'Quan hi haurà prou dades per avaluar les campanyes?', answer: 'Els anuncis poden començar a mostrar-se en pocs dies i els primers contactes solen arribar les primeres setmanes. Per valorar amb criteri el cost per contacte i la qualitat dels leads calen, en general, entre un i dos mesos de dades, més si el pressupost és baix o el teu cicle de venda és llarg.' },
+  { question: 'Podeu continuar amb un compte que ja existeix?', answer: "Sí, i sol ser el més recomanable, perquè l'historial del compte té valor. Comencem amb una revisió de la configuració, les conversions, les campanyes i les cerques reals que han activat els teus anuncis. Mantenim el que funciona i corregim la resta per ordre d'impacte, sense esborrar el compte ni començar de zero." },
+  { question: "Com es pausa o s'acaba el servei?", answer: "Treballem mes a mes, sense permanència. Si vols pausar les campanyes per temporada o acabar el servei, ens ho dius i ho deixem endreçat. El compte de Google Ads sempre és al teu nom, així que conserves l'historial, les conversions i les audiències, i el pots reprendre tu o amb qui decideixis." },
 ];
 
 const pageSchema = localAgencySchema({
@@ -73,11 +59,21 @@ const pageSchema = localAgencySchema({
   title: "▷ Google Ads per a Pimes | Campanyes SEM amb fee fix",
   description: "Campanyes Google Ads per a pimes amb compte propi i fee fix ✅ Resultats mesurats en leads i vendes ⭐ Informació detallada i clara",
   datePublished: '2026-07-15',
-  dateModified: '2026-07-15',
+  dateModified: '2026-10-25',
   streetAddress: 'Carrer del General Mendoza, 10',
   hasMap: 'https://maps.app.goo.gl/9fbB12UcK32bgjj89',
   aggregateRating: { ratingValue: '5.0', reviewCount: '12' },
   breadcrumbName: 'Agència de Google Ads per a pimes',
+  mainService: {
+    name: 'Gestió de Google Ads per a pimes',
+    serviceType: 'SEM / Google Ads',
+    description: 'Campanyes de Google Ads per a pimes orientades a contactes i vendes, amb el compte a nom del client, honoraris fixos i sense permanència.',
+    offers: [
+      { name: 'Revisió inicial del compte de Google Ads', price: 900 },
+      { name: 'Gestió i optimització de Google Ads', price: 150, from: true, monthly: true, description: 'Honoraris de gestió; el pressupost dels anuncis es paga a part a Google.' },
+      { name: 'Gestió de comptes amb més inversió', price: 400, from: true, monthly: true },
+    ],
+  },
   faqs,
 });
 ---
@@ -90,757 +86,527 @@ const pageSchema = localAgencySchema({
   schemas={[pageSchema]}
 >
 
-    <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
-    <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
-        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
-        <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
-        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+  <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
+  <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+    <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+    <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
 
-        <div class="max-w-5xl mx-auto reveal">
-            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
-                <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
-                Publicitat a Google per a Pimes
-            </span>
+    <div class="max-w-5xl mx-auto reveal relative">
+      <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
+        <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+        Publicitat a Google per a pimes
+      </span>
             <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
                 <span class="lg:whitespace-nowrap">Agència SEM </span>
                 <span class="lg:whitespace-nowrap text-mktg-gradient">per a Pimes</span>
             </h1>
-            <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
-                Apareix avui mateix quan els teus clients busquen el teu servei a Google. Campanyes de Google Ads per a pimes amb fee fix, el compte al teu nom i resultats que es mesuren en vendes.
-            </p>
-            <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
-                {['Sense permanències', 'Fee fix sense percentatges', 'El compte és teu'].map(item => (
-                    <span class="inline-flex items-center gap-2 text-[11px] sm:text-xs font-black uppercase tracking-widest text-zinc-700">
-                        <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
-                        </svg>
-                        {item}
-                    </span>
-                ))}
-            </div>
-            <div class="flex justify-center mt-4">
-                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                    PARLEM DEL TEU NEGOCI
-                </a>
-            </div>
+      <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed max-w-3xl mx-auto mb-8">
+        Campanyes a Google pensades per aconseguir pressupostos, vendes i trucades que la teva empresa pugui atendre, amb el compte al teu nom i uns honoraris fixos que no depenen de quant gastis.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
+        {['Sense permanències', 'Honoraris fixos', 'El compte és teu'].map((item) => (
+          <span class="inline-flex items-center gap-2 text-[11px] sm:text-xs font-black uppercase tracking-widest text-zinc-700">
+            <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            {item}
+          </span>
+        ))}
+      </div>
+      <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">PARLEM DEL TEU NEGOCI</a>
+    </div>
+  </section>
+
+  <LogoMarquee />
+
+  <!-- ═══ OBJECTIU ═══════════════════════════════════════════════════════ -->
+  <PSection kicker="Per què Google Ads" title="La teva inversió publicitària ha de respondre a un objectiu clar">
+    <Fragment slot="intro">
+      <p>Google Ads permet aparèixer avui mateix davant de qui busca el que vens. Aquesta rapidesa és el seu avantatge i també el seu risc: <strong>una campanya sense un objectiu concret gasta igual de ràpid que una de ben plantejada</strong>, només que sense tornar clients.</p>
+      <p>A Nova comencem pel que la teva empresa necessita aconseguir i construïm les campanyes cap enrere. Quines cerques mereixen inversió, quin missatge necessita cada anunci i què ha de passar a la pàgina perquè el clic acabi en contacte. Si dubtes entre pagar per anuncis o treballar el posicionament, t'ho expliquem a <a href="/ca/blog/que-necesita-una-pime-seo-o-sem/">què necessita una pime, SEO o SEM</a>. Moltes vegades la resposta és combinar la publicitat amb el <a href="/ca/agencia-seo-per-pimes/">posicionament SEO</a>.</p>
+    </Fragment>
+    <PFlow
+      steps={[
+        { label: 'Objectiu de negoci', sub: 'pressupostos, vendes, trucades' },
+        { label: 'Campanya adequada', sub: 'cerca, Shopping, vídeo' },
+        { label: 'Pàgina de destinació', sub: 'respon a la cerca' },
+        { label: 'Conversió mesurada', sub: 'contacte, venda, oportunitat' },
+      ]}
+      caption="L'ordre en què plantegem un compte. Primer l'objectiu; la campanya és l'eina per arribar-hi."
+    />
+  </PSection>
+
+  <!-- ═══ OBJECTIUS ══════════════════════════════════════════════════════ -->
+  <PSection kicker="Objectius" title="Què vols aconseguir amb les teves campanyes" tone="soft">
+    <Fragment slot="intro">
+      <p>Cada objectiu demana una configuració diferent: tipus de campanya, manera de pujar, pàgina de destinació i el que comptem com a conversió. Per això ho acordem abans de tocar el compte.</p>
+    </Fragment>
+    <PCards
+      tone="soft"
+      cols={2}
+      items={[
+        { icon: ICON.doc, title: 'Sol·licituds de pressupost', html: "Per a empreses de serveis amb un tiquet alt, com reformes, instal·lacions o assessories. Busquem persones que ja saben què necessiten i volen preu. Mesurem formularis complets, no clics, i filtrem les cerques de bricolatge o de feina. Ho apliquem en sectors com les <a href=\"/ca/agencia-constructores/google-ads/\">constructores</a> o les <a href=\"/ca/agencia-inmobiliarias/google-ads/\">immobiliàries</a>, on un sol contracte pot justificar mesos d'inversió." },
+        { icon: ICON.cart, title: 'Vendes a la teva botiga en línia', html: "Si vens en línia, l'objectiu és facturar amb rendibilitat, no acumular visites. Treballem el catàleg, les campanyes de Shopping i la mesura d'ingressos per saber quins productes tornen el que s'hi ha invertit. Ho detallem al nostre servei de <a href=\"/ca/agencia-ecommerce/google-ads/\">Google Ads per a ecommerce</a>, amb la vista posada en el marge de cada producte." },
+        { icon: ICON.phone, title: 'Trucades i contactes per al teu negoci', html: "Clíniques, despatxos, restaurants o centres esportius solen rebre clients per telèfon. Activem anuncis amb trucada, horaris ajustats a quan pots atendre i zones reals de servei. Tenim enfocaments específics per a <a href=\"/ca/agencia-dentistes/google-ads/\">dentistes</a>, <a href=\"/ca/agencia-advocats/google-ads/\">advocats</a>, <a href=\"/ca/agencia-restaurantes/google-ads/\">restaurants</a> i <a href=\"/ca/agencia-gimnasos/google-ads/\">gimnasos</a>." },
+        { icon: ICON.users, title: "Oportunitats comercials per al teu equip de vendes", html: "En empreses B2B o industrials, l'anunci no tanca la venda; obre una conversa. Prioritzem cerques tècniques, formularis amb dades útils per al comercial i el seguiment de quins contactes acaben en oferta. Més detall a <a href=\"/ca/agencia-b2b/google-ads/\">Google Ads B2B</a> i a <a href=\"/ca/agencia-industrial/google-ads/\">Google Ads per a empreses industrials</a>." },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ NÚMEROS ════════════════════════════════════════════════════════ -->
+  <PSection id="numeros" kicker="Viabilitat" title="Abans d'invertir, comprovem si els números quadren">
+    <Fragment slot="intro">
+      <p>Hi ha negocis on Google Ads funciona molt bé i d'altres on el clic costa més del que deixa el client. <strong>Preferim saber-ho abans que gastis</strong> que descobrir-ho tres mesos després. Fem aquest càlcul amb les teves dades reals a la primera conversa.</p>
+      <p>Prova de moure els valors. El resultat és el cost per clic a partir del qual les campanyes deixen de compensar amb aquest plantejament.</p>
+    </Fragment>
+    <SemCalc locale="ca" caption="Exemple amb valors il·lustratius d'una empresa de serveis, no són dades d'un client. Canvia cada valor per acostar-lo al teu negoci." />
+    <PCards
+      cols={2}
+      variant="numbered"
+      items={[
+        { title: 'Marge dels teus productes o serveis', html: "El que importa no és el preu de venda, sinó el que queda després dels costos. Amb un marge alt pots pagar clics cars i continuar guanyant; amb un d'estret, cada euro de publicitat ha d'estar molt ben dirigit. Per això et preguntem pel marge aproximat de cada línia abans de proposar campanyes o pressupost." },
+        { title: "Cost d'adquisició que pot assumir la teva empresa", html: "A partir del marge i de quants contactes acaben en venda calculem quant pots pagar com a màxim per un client nou. Si, a més, aquest client repeteix o contracta altres serveis, el límit puja. Aquesta xifra és la referència amb què jutgem cada campanya, no el nombre de clics." },
+        { title: 'Demanda i competència a les cerques', html: "Revisem quanta gent busca el teu servei a la teva zona, quant costa aproximadament el clic i qui més s'hi anuncia. Una cerca amb poca demanda però molt precisa pot ser rendible; una altra amb molt volum i competidors amb més pressupost pot no ser-ho per a una pime. Entendre la <a href=\"/ca/blog/que-es-la-intencio-de-cerca-en-el-seo/\">intenció de cerca</a> ajuda a separar-les." },
+        { title: 'Capacitat per atendre els contactes rebuts', html: "Més contactes només són una bona notícia si algú els atén a temps. Si el teu equip triga dos dies a tornar una trucada o no pot assumir més feina en temporada alta, ho tenim en compte en fixar el pressupost i els horaris. Una campanya no ha de generar més demanda de la que pots convertir en clients." },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ COMPTE ACTUAL ══════════════════════════════════════════════════ -->
+  <PSection id="auditoria" kicker="Revisió de compte" title="El teu compte de Google Ads està aprofitant el pressupost?" tone="soft" layout="split">
+    <Fragment slot="intro">
+      <p>Si ja inverteixes en Google Ads, el primer pas és mirar on va cada euro. La nostra revisió de compte recorre campanyes, cerques reals, conversions i pàgines de destinació, i acaba amb un pla ordenat per estalvi i impacte.</p>
+      <p>També serveix com a <strong>segona opinió independent</strong> si treballes amb una altra agència i no tens clar què estàs pagant.</p>
+    </Fragment>
+    <PBars
+      slot="aside"
+      title="On se sol perdre el pressupost"
+      rows={[
+        { label: 'Cerques sense relació amb el que vens', value: 34, display: 'Alt' },
+        { label: 'Conversions que no mesuren negoci', value: 26, display: 'Alt' },
+        { label: 'Landing genèrica o lenta', value: 20, display: 'Mitjà' },
+        { label: 'Campanyes solapades', value: 12, display: 'Mitjà' },
+        { label: 'Horaris i zones sense ajustar', value: 8, display: 'Baix' },
+      ]}
+      caption="Esquema il·lustratiu dels problemes que més revisem, ordenats pel pes que solen tenir. No són percentatges d'un compte real."
+    />
+    <PCards
+      variant="rows"
+      tone="soft"
+      items={[
+        { title: 'Inversió destinada a cerques poc rellevants', html: "L'informe de termes de cerca mostra el que la gent va escriure realment abans de clicar el teu anunci. És habitual trobar-hi cerques de feina, de formació, de productes que no vens o d'altres ciutats. Cadascuna resta pressupost a les que sí que porten clients, i es corregeix amb paraules clau més ben triades i negatives." },
+        { title: 'Campanyes que competeixen entre elles', html: "Quan diverses campanyes o grups d'anuncis pugen per la mateixa cerca, Google tria quin mostra i les dades es reparteixen. El resultat és que no saps què funciona i de vegades pagues més pel clic. Reordenem l'estructura perquè cada cerca important tingui una única campanya responsable." },
+        { title: 'Conversions mal configurades o incompletes', html: "Si el compte compta com a conversió una visita a la pàgina de contacte, un clic al telèfon o un mateix formulari dues vegades, les pujes automàtiques optimitzen cap a una cosa que no és negoci. Comprovem què es mesura, com es mesura i si els números del compte quadren amb els contactes que rep la teva empresa." },
+        { title: 'Pàgines de destinació que frenen els resultats', html: "Molts anuncis porten a la portada o a una pàgina que no parla del que s'ha buscat, carrega lenta al mòbil o amaga el formulari. El clic està pagat, però el contacte no arriba. Revisem cada pàgina que rep trànsit de pagament i marquem què cal canviar primer." },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ CERCA ══════════════════════════════════════════════════════════ -->
+  <PSection kicker="Campanyes de cerca" title="Captar la demanda que ja existeix" layout="split">
+    <Fragment slot="intro">
+      <p>Les campanyes de cerca són la base de gairebé qualsevol compte de pime. Apareixen quan algú escriu a Google exactament el que ofereixes, és a dir, quan la necessitat ja existeix. <strong>No cal convèncer ningú que et necessita</strong>, només que ets la millor opció.</p>
+    </Fragment>
+    <PSerp
+      slot="aside"
+      query="reforma de bany a Sabadell preu"
+      results={[
+        { url: 'latevaempresa.cat › reforma-banys', title: 'Reforma de bany a Sabadell · Pressupost en 48 h', desc: 'Plat de dutxa, enrajolat i lampisteria. Preu tancat i visita sense compromís al Vallès.', highlight: true, label: 'Anunci' },
+        { url: 'competidor-a.com', title: 'Reformes integrals | Demana pressupost', desc: 'Reformem tota la teva casa. Més de 20 anys d\'experiència.', label: 'Anunci' },
+        { url: 'directori-reformes.cat › sabadell', title: 'Preus de reforma de bany a Sabadell', desc: 'Compara pressupostos de diverses empreses de la zona.' },
+      ]}
+      caption="Il·lustració. Un anunci específic per al servei i la zona respon millor que un de genèric de la mateixa empresa."
+    />
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+      <PCards
+        cols={2}
+        variant="check"
+        class="lg:grid-cols-1 !mt-12"
+        items={[
+          { title: 'Campanyes de cerca per servei', html: "Separem cada servei important en la seva pròpia campanya o grup d'anuncis, amb el seu pressupost, les seves paraules clau i la seva pàgina. Així pots decidir quant invertir en cada línia i comparar quin servei porta clients a millor cost, en lloc de barrejar-ho tot en una sola campanya." },
+          { title: 'Separació entre cerques de marca i genèriques', html: "Qui busca el nom de la teva empresa ja et coneix; qui busca el servei, encara no. Barrejar-les inflaria els resultats de manera enganyosa. Les separem per veure quant aporta de veritat la publicitat i per protegir la teva marca quan altres hi pugen, una cosa habitual en els <a href=\"/ca/agencia-hotels/google-ads/\">hotels</a> davant de les plataformes de reserves." },
+          { title: "Paraules clau segons la intenció de l'usuari", html: "No és el mateix «quant costa reformar un bany» que «empresa reforma bany Sabadell». Prioritzem les cerques amb intenció de contractar, controlem les concordances per no obrir la porta a variacions sense sentit i reservem les més informatives per al SEO." },
+          { title: 'Termes negatius per filtrar trànsit', html: "Mantenim llistes de paraules negatives per campanya i per compte: feina, gratis, cursos, segona mà, ciutats on no treballes o serveis que no ofereixes. Les revisem de manera contínua amb els termes reals, perquè cada setmana apareixen cerques noves." },
+        ]}
+      />
+      <div class="mt-12">
+        <PTree
+          root="Compte d'una empresa de reformes"
+          branches={[
+            { label: 'Campanya · Reforma de banys', leaves: ['reforma bany complet', 'canviar banyera per plat'] },
+            { label: 'Campanya · Reformes integrals', leaves: ['reforma integral pis', 'reforma habitatge preu'] },
+            { label: 'Campanya · Marca', leaves: ["nom de l'empresa"] },
+          ]}
+          caption="Exemple d'estructura. Cada servei té la seva campanya, els seus grups d'anuncis i les seves paraules clau; la marca va a part."
+        />
+      </div>
+    </div>
+  </PSection>
+
+  <!-- ═══ ECOMMERCE ══════════════════════════════════════════════════════ -->
+  <PSection kicker="Shopping i Performance Max" title="Publicitat per vendre productes en línia" tone="soft" layout="split">
+    <Fragment slot="intro">
+      <p>En una botiga en línia l'anunci mostra el producte amb foto i preu abans del clic. Això fa que <strong>la qualitat del catàleg pesi tant com la campanya</strong>. Treballem totes dues coses alhora i mesurem ingressos i marge, no només comandes.</p>
+      <p>Si la teva botiga també ven a través de xarxes socials, ho coordinem amb <a href="/ca/agencia-ecommerce/meta-ads/">Meta Ads per a botigues en línia</a>.</p>
+    </Fragment>
+    <PStack
+      slot="aside"
+      layers={[
+        { label: 'Vendes amb marge', sub: 'ingressos mesurats per producte' },
+        { label: 'Shopping i Performance Max', sub: 'campanyes segons objectiu' },
+        { label: 'Merchant Center', sub: 'catàleg aprovat i sense errors' },
+        { label: 'Dades de producte', sub: 'títols, preus, estoc, imatges' },
+      ]}
+      caption="Cada capa depèn de l'anterior. Un catàleg amb errors limita qualsevol campanya."
+    />
+    <PCards
+      tone="soft"
+      cols={2}
+      items={[
+        { icon: ICON.doc, title: 'Preparació del catàleg a Merchant Center', html: "Revisem el feed de productes: títols que inclouen el que la gent busca, categories correctes, preus i estoc sincronitzats, imatges vàlides i productes sense rebuigs. Google decideix en quines cerques mostra cada producte a partir d'aquestes dades, així que un bon catàleg és la meitat de la feina." },
+        { icon: ICON.cart, title: 'Campanyes de Google Shopping', html: "Organitzem els productes en grups segons categoria, marge o rendiment per pujar més pels que compensen i menys pels que no. Revisem les cerques que activen cada producte i hi afegim negatives, igual que a les campanyes de text. És la manera més controlada de vendre un catàleg a Google." },
+        { icon: ICON.chart, title: 'Performance Max segons els objectius del negoci', html: "Performance Max reparteix la inversió entre cerca, Shopping, YouTube i altres espais de manera automàtica. Funciona bé quan té bons senyals: conversions correctes, valor de cada venda i un catàleg net. Sense aquests senyals pot gastar en trànsit de poca qualitat, així que la fem servir quan les dades ho justifiquen." },
+        { icon: ICON.money, title: 'Decisions d\'inversió per producte i marge', html: "No tots els productes mereixen la mateixa inversió. Separem els que deixen més marge, els més venuts i els que només consumeixen pressupost, i ajustem l'objectiu de retorn de cada grup. Així el compte s'alinea amb el que realment deixa diners a la teva botiga." },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ AUDIÈNCIES ═════════════════════════════════════════════════════ -->
+  <PSection kicker="YouTube, Display i remarketing" title="Arribar a noves audiències i recuperar-ne l'atenció" layout="split">
+    <Fragment slot="intro">
+      <p>La cerca capta qui ja et busca. Per arribar abans a qui encara no coneix la teva proposta, o per recuperar qui va visitar la teva web i no va contactar, hi ha altres formats. <strong>Els activem només quan el pressupost i l'objectiu ho justifiquen</strong>; per a moltes pimes, la cerca ben treballada és suficient al principi.</p>
+      <p>Quan l'objectiu és generar demanda a les xarxes socials, també treballem amb Meta Ads, per exemple per a <a href="/ca/agencia-gimnasos/meta-ads/">centres esportius i gimnasos</a> o per al <a href="/ca/agencia-restaurantes/meta-ads/">sector de la restauració</a>.</p>
+    </Fragment>
+    <PVenn
+      slot="aside"
+      sets={[
+        { label: 'Cerca', sub: 'demanda que ja existeix' },
+        { label: 'Shopping i PMax', sub: 'producte i catàleg' },
+        { label: 'YouTube i Display', sub: 'descobriment' },
+      ]}
+      center="El teu client"
+      caption="Cada format cobreix un moment diferent. Combinem només els que encaixen amb el teu objectiu i el teu pressupost."
+    />
+    <PCards
+      cols={2}
+      items={[
+        { icon: ICON.video, title: 'YouTube per presentar la teva proposta', html: "Un vídeo curt pot explicar en segons el que un anunci de text no explica: com treballes, com és el teu producte o què et diferencia. El fem servir per a segments concrets, com persones interessades en temes relacionats amb el teu servei o visitants de la teva web, i mesurem si després augmenten les cerques de la teva marca i els contactes." },
+        { icon: ICON.eye, title: "Display dins d'una estratègia de cobertura", html: "Els anuncis gràfics en webs i aplicacions són barats per impressió, però fàcils de malbaratar. Els activem amb audiències ben definides i objectius de cobertura clars, com reforçar el record de marca en una zona o en un sector, mai com a substitut de les campanyes que generen contactes." },
+        { icon: ICON.repeat, title: 'Remarketing quan sigui viable i pertinent', html: "Tornar a mostrar anuncis a qui ja ha visitat la teva web funciona bé quan la decisió de compra triga dies o setmanes. Requereix un volum mínim de visites i el consentiment de galetes ben configurat. Si la teva web encara no té aquest trànsit, t'ho diem i no l'activem." },
+        { icon: ICON.shield, title: 'Control d\'ubicacions i qualitat del trànsit', html: "Revisem en quines webs, aplicacions i canals apareixen els teus anuncis i excloem els que porten clics accidentals o sense interès, com jocs infantils o pàgines de baixa qualitat. Així el pressupost de cobertura arriba a persones que poden convertir-se en clients." },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ ANUNCIS ════════════════════════════════════════════════════════ -->
+  <PSection kicker="Redacció d'anuncis" title="Anuncis que connecten amb el que busca el teu client" tone="dark">
+    <Fragment slot="intro">
+      <p>A la pàgina de resultats el teu anunci competeix amb tres o quatre més en un parell de línies. Guanya el que respon millor a la cerca i dona motius per triar-lo. Escrivim els anuncis a partir dels dubtes reals dels teus clients, no de frases fetes del sector.</p>
+    </Fragment>
+    <PCards
+      tone="dark"
+      cols={2}
+      variant="numbered"
+      items={[
+        { title: 'Missatges segons servei i necessitat', html: "Cada grup d'anuncis té textos que repeteixen el que la persona ha buscat i responen al que la preocupa: urgència, preu, zona o especialitat. Un anunci per a «advocat d'herències» no pot ser el mateix que per a «advocat laboral». Ho veiem sovint en serveis de salut com els de <a href=\"/ca/agencia-psicolegs/google-ads/\">psicòlegs</a> o <a href=\"/ca/agencia-terapeutes/google-ads/\">terapeutes</a>, on el to importa tant com l'oferta." },
+        { title: 'Propostes de valor que es poden acreditar', html: "«Líders del sector» o «la millor qualitat» no convencen ningú. Fem servir arguments que pots demostrar: anys d'experiència, termini de resposta, garantia, preu tancat, valoracions de clients. Si un anunci promet alguna cosa, la pàgina de destinació l'ha de confirmar." },
+        { title: "Recursos d'anunci útils per decidir", html: "Enllaços a serveis concrets, textos destacats, extractes de serveis, trucada, ubicació o formulari. Els recursos amplien l'anunci i donen informació abans del clic, cosa que filtra qui no encaixa. Triem només els que aporten alguna cosa al teu client i els mantenim actualitzats." },
+        { title: "Proves de missatges i crides a l'acció", html: "Provem variants de titulars i crides a l'acció, com «demana pressupost» davant de «consulta preus», i deixem les que aconsegueixen més contactes de qualitat, no només més clics. Canviem una cosa cada vegada per saber què ha funcionat i aplicar-ho a la resta del compte." },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ LANDING ════════════════════════════════════════════════════════ -->
+  <PSection kicker="Pàgina de destinació" title="Del clic al contacte: la pàgina de destinació" layout="split">
+    <Fragment slot="intro">
+      <p>L'anunci porta la visita; la pàgina decideix si es converteix en contacte. Una millora en la conversió de la pàgina redueix el cost de cada client sense tocar el pressupost, per això la revisem amb la mateixa atenció que les campanyes.</p>
+      <p>Si la web necessita canvis de fons, ho coordinem amb el nostre servei de <a href="/ca/disseny-web-per-pimes/">disseny web per a pimes</a>. I si vols fer-ne una primera revisió pel teu compte, comença per <a href="/ca/blog/com-saber-si-la-teva-web-esta-ben-feta/">com saber si la teva web està ben feta</a>.</p>
+    </Fragment>
+    <PFlow
+      slot="aside"
+      steps={[
+        { label: 'Cerca', sub: '«dentista urgències Terrassa»' },
+        { label: 'Anunci', sub: 'urgències avui a Terrassa' },
+        { label: 'Pàgina', sub: 'urgències, horari, telèfon' },
+        { label: 'Trucada', sub: 'cita el mateix dia' },
+      ]}
+      caption="Exemple de coherència. Cada pas repeteix i confirma el que la persona buscava."
+    />
+    <PCards
+      cols={2}
+      items={[
+        { icon: ICON.target, title: 'Coherència entre cerca, anunci i pàgina', html: "Si algú busca un servei concret i arriba a la portada, ha de tornar a buscar. La pàgina de destinació ha de parlar exactament del que prometia l'anunci, amb el mateix vocabulari i la mateixa oferta. Aquesta coherència també millora el nivell de qualitat que assigna Google i, amb ell, el cost del clic." },
+        { icon: ICON.doc, title: 'Formularis i vies de contacte senzilles', html: "Demanem només les dades necessàries per respondre, col·loquem el telèfon i el botó de contacte a la vista al mòbil i oferim alternatives com WhatsApp quan el teu equip el pot atendre. Cada camp de més és un motiu per abandonar, sobretot al mòbil." },
+        { icon: ICON.shield, title: 'Proves de confiança a prop de la decisió', html: "Ressenyes, casos, anys d'experiència, certificacions, fotos reals de l'equip o de la feina. Les col·loquem al costat del formulari o del botó de trucada, que és on apareix el dubte. Una persona que no et coneix necessita motius per donar-te el seu telèfon." },
+        { icon: ICON.chart, title: 'Millores de conversió basades en el comportament', html: "Analitzem fins on baixa la gent, on abandona el formulari i quina diferència hi ha entre mòbil i ordinador. Amb aquestes dades proposem canvis concrets i en comprovem l'efecte sobre els contactes, en lloc de redissenyar per intuïció." },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ MESURA ═════════════════════════════════════════════════════════ -->
+  <PSection kicker="Mesura" title="Mesura per saber quines campanyes aporten negoci" tone="soft">
+    <Fragment slot="intro">
+      <p>Les pujes automàtiques de Google aprenen del que els dius que és una conversió. Si els dones dades pobres, optimitzen cap a contactes pobres. <strong>Mesurar bé és la condició perquè tota la resta funcioni.</strong> Per entendre d'on arriba avui el teu trànsit, revisa <a href="/ca/blog/don-ve-el-trafic-web/">d'on ve el trànsit de la teva web</a>.</p>
+    </Fragment>
+    <div class="grid lg:grid-cols-[1.1fr_1fr] gap-10 items-start">
+      <PCards
+        tone="soft"
+        variant="rows"
+        class="!mt-12"
+        items={[
+          { title: 'Configuració de conversions rellevants', html: "Definim què compta com a conversió: formulari enviat, trucada de més d'una certa durada, compra amb el seu import, reserva. Ho configurem amb Google Tag Manager i GA4, eliminem duplicats i comprovem que cada acció es registra una sola vegada i a la campanya correcta." },
+          { title: 'Diferència entre contactes i oportunitats qualificades', html: "No tots els contactes valen el mateix. Un formulari d'algú de fora de la teva zona o que demana una cosa que no fas compta igual al compte si no el distingim. Et demanem una valoració senzilla dels contactes rebuts per saber quines campanyes porten els bons." },
+          { title: 'Connexió amb els resultats comercials quan sigui possible', html: "Si fas servir un CRM o pots marcar quins contactes es converteixen en clients, importem aquesta informació a Google Ads. Així les pujes s'orienten a vendes reals i no a formularis. Quan no és possible, busquem una alternativa manual que doni una referència fiable." },
+          { title: "Revisió de l'atribució i de la qualitat de les dades", html: "Comparem el que diu Google Ads amb GA4 i amb el que rep la teva empresa. Les diferències són normals, però s'han de poder explicar. Revisem el consentiment de galetes, els models d'atribució i les conversions de marca per no atribuir a la publicitat el que hauria arribat igualment. Si, a més, vols saber com et mencionen els assistents d'IA, ho treballem com a <a href=\"/ca/agencia-geo-per-pimes/\">agència GEO</a>." },
+        ]}
+      />
+      <div class="mt-12">
+        <PFunnel
+          stages={[
+            { label: 'Clics', sub: 'visites des dels anuncis', side: 'El que mesura la plataforma.' },
+            { label: 'Contactes', sub: 'formularis i trucades', side: 'El que sol mesurar un compte.' },
+            { label: 'Oportunitats', sub: 'contactes que encaixen', side: 'El que valora el teu equip.' },
+            { label: 'Clients', sub: 'vendes tancades', side: 'El que paga la inversió.' },
+          ]}
+          caption="Esquema il·lustratiu. Com més avall arriba la mesura, millors decisions prenen les campanyes."
+        />
+      </div>
+    </div>
+  </PSection>
+
+  <!-- ═══ ESCALAR ════════════════════════════════════════════════════════ -->
+  <PSection kicker="Optimització" title="Com decidim on invertir-hi més" layout="split">
+    <Fragment slot="intro">
+      <p>Optimitzar no és canviar coses cada dia. És llegir les dades amb perspectiva i moure el pressupost cap al que funciona. Creuem dues preguntes: <strong>aquesta campanya és rendible?</strong> i <strong>té recorregut per créixer?</strong></p>
+    </Fragment>
+    <PMatrix
+      slot="aside"
+      xLabel="Volum disponible"
+      yLabel="Rendibilitat"
+      quadrants={['Mantenir i vigilar', 'Ampliar la inversió', 'Revisar o pausar', 'Millorar abans de créixer']}
+      points={[
+        { label: 'Servei de nínxol', x: 22, y: 80 },
+        { label: 'Servei principal', x: 74, y: 78 },
+        { label: 'Cerca genèrica', x: 76, y: 28 },
+        { label: 'Zona secundària', x: 22, y: 22 },
+      ]}
+      caption="Exemple de com classifiquem les campanyes d'un compte segons rendibilitat i volum."
+    />
+    <PCards
+      cols={3}
+      variant="numbered"
+      items={[
+        { title: 'Ajustos de pujes segons els resultats', html: "Triem l'estratègia de puja segons les dades disponibles: més control al principi i objectius de cost o de retorn quan hi ha prou volum. També ajustem per dispositiu, horari i zona quan les dades mostren diferències clares, no per suposicions." },
+        { title: 'Redistribució del pressupost entre campanyes', html: "Cada mes revisem quines campanyes aconsegueixen clients a un cost acceptable i quines no. Movem pressupost de les segones a les primeres abans de demanar més inversió. Sovint hi ha marge de millora sense augmentar la despesa total." },
+        { title: 'Condicions per ampliar la inversió', html: "Proposem invertir-hi més només quan es compleixen tres condicions: el cost per client és dins del límit, la campanya es queda sense pressupost en cerques bones i el teu equip pot atendre més contactes. Si en falta alguna, primer la resolem." },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ ARRENCADA ══════════════════════════════════════════════════════ -->
+  <PSection kicker="Primeres setmanes" title="Què passa durant l'arrencada de les teves campanyes" tone="soft">
+    <Fragment slot="intro">
+      <p>Les primeres setmanes d'un compte nou o reestructurat són d'aprenentatge. Els costos poden moure's més del normal i convé no treure'n conclusions massa aviat. T'expliquem en cada moment què és esperable i què no.</p>
+    </Fragment>
+    <div class="grid lg:grid-cols-[1fr_1.1fr] gap-10 items-start">
+      <PCards
+        tone="soft"
+        variant="numbered"
+        class="lg:grid-cols-1"
+        cols={2}
+        items={[
+          { title: 'Preparació d\'accessos, mesura i materials', html: "Demanem accés al teu compte de Google Ads o el creem al teu nom, revisem Analytics, Tag Manager i Merchant Center si escau, i configurem les conversions. Recollim amb tu textos, ofertes, imatges i zones de servei. No es llança res fins que la mesura funciona." },
+          { title: 'Llançament i primeres comprovacions', html: "Activem les campanyes amb un pressupost controlat i revisem els primers dies que els anuncis s'aproven, que les cerques que entren tenen sentit i que les conversions es registren. És quan més paraules negatives hi afegim." },
+          { title: 'Lectura de dades i ajustos inicials', html: "Passades unes setmanes, amb prou dades, ajustem pujes, repartiment del pressupost entre campanyes, anuncis i pàgina de destinació. T'expliquem què hem vist, què hem canviat i què esperem del mes següent." },
+        ]}
+      />
+      <PLines
+        title="Cost per contacte a l'arrencada"
+        series={[
+          { label: 'Cost per contacte', points: [82, 74, 78, 66, 60, 55, 50, 47, 45, 44], color: '#a1a1aa' },
+          { label: 'Contactes', points: [8, 14, 18, 24, 30, 36, 40, 44, 46, 48] },
+        ]}
+        xLabels={['Setmana 1', '', '', 'Setmana 4', '', '', '', 'Setmana 8', '', '']}
+        marker={{ at: 3, label: 'Primers ajustos amb dades' }}
+        caption="Esquema il·lustratiu, no són dades d'un client. Al principi el cost oscil·la; amb ajustos i aprenentatge tendeix a estabilitzar-se."
+      />
+    </div>
+  </PSection>
+
+  <!-- ═══ CONTROL ════════════════════════════════════════════════════════ -->
+  <PSection kicker="Transparència" title="Una col·laboració en què conserves el control" layout="split">
+    <Fragment slot="intro">
+      <p>El teu compte publicitari és un actiu de la teva empresa: guarda l'historial, les conversions i les audiències d'anys d'inversió. Per això treballem de manera que en cap moment depenguis de nosaltres per accedir-hi.</p>
+      <p>Nova és una <a href="/ca/">agència de màrqueting digital per a pimes</a> amb seu a Barcelona. Portem campanyes a <a href="/ca/agencia-sem-per-pimes/barcelona/">Barcelona</a>, <a href="/ca/agencia-sem-per-pimes/sabadell/">Sabadell</a>, <a href="/ca/agencia-sem-per-pimes/sant-cugat/">Sant Cugat</a> i <a href="/ca/agencia-sem-per-pimes/terrassa/">Terrassa</a> amb reunions presencials, i a la resta d'Espanya per videotrucada.</p>
+    </Fragment>
+    <img slot="aside" src="/sergio-galos-agencia-sem-per-pimes.webp" alt="Sergio Galo's, consultor de Google Ads per a pimes" title="Sergio Galo's, consultor de Google Ads per a pimes" class="w-full max-w-xs mx-auto h-auto rounded-3xl" loading="lazy" width="473" height="591" />
+    <PCards
+      cols={3}
+      items={[
+        { icon: ICON.key, title: 'Propietat i accés al teu compte publicitari', html: "El compte de Google Ads sempre és al teu nom i amb la teva forma de pagament. Nosaltres hi accedim com a gestors des del nostre compte d'administrador, i tu mantens l'accés complet. Si un dia ho deixem, retires el nostre accés i ho conserves tot." },
+        { icon: ICON.money, title: 'Visibilitat sobre inversió i honoraris', html: "Google et factura directament el pressupost en anuncis i nosaltres et facturem els honoraris de gestió, fixos i per separat. No cobrem un percentatge del que inverteixes, així que el nostre interès no és que gastis més, sinó que cada euro rendeixi." },
+        { icon: ICON.chat, title: 'Comunicació amb la persona que gestiona les teves campanyes', html: "Parles directament amb Sergio Galo's, consultor i fundador de Nova, que és qui revisa i ajusta les teves campanyes. Sense capes comercials ni gestors que canvien cada trimestre. Reps un informe mensual amb contactes i costos, i tenim una conversa per decidir els passos següents." },
+      ]}
+    />
+    <div class="mt-12 text-center reveal">
+      <p class="text-xs font-black uppercase tracking-[0.25em] text-zinc-400 mb-4">Google Ads a la teva zona</p>
+      <CityPills base="/ca/agencia-sem-per-pimes/" lang="ca" itemPrefix="Google Ads a" homeLabel="Tot Espanya" />
+    </div>
+  </PSection>
+
+  <!-- ═══ RESULTATS ══════════════════════════════════════════════════════ -->
+  <PSection kicker="Casos reals" title="Resultats de campanyes: què val la pena comparar" tone="soft" width="wide">
+    <Fragment slot="intro">
+      <p>Qualsevol agència pot ensenyar una gràfica que puja. Per valorar uns resultats de publicitat, també els nostres, convé mirar tres coses alhora i desconfiar de les xifres que arriben sense context.</p>
+    </Fragment>
+    <PCards
+      tone="soft"
+      cols={3}
+      items={[
+        { icon: ICON.users, title: "Contactes qualificats i cost per adquisició", html: "El que és rellevant és quants contactes útils arriben i quant costa cadascun, comparat amb el que la teva empresa pot pagar per un client. Cent contactes barats que no encaixen valen menys que vint de bons. Pregunta sempre com s'ha mesurat la qualitat." },
+        { icon: ICON.cart, title: 'Vendes, ingressos i retorn publicitari', html: "En ecommerce, el retorn de la inversió publicitària indica quant es factura per euro invertit, però no inclou costos ni marge. Un retorn alt amb productes de marge baix pot ser menys rendible que un de moderat amb marge alt. Per això el comparem sempre amb el teu marge." },
+        { icon: ICON.chart, title: "Context d'inversió, període i punt de partida", html: "Un resultat sense pressupost, dates ni situació inicial no permet comparar. No és el mateix millorar un compte mal configurat que fer créixer un que ja funcionava, ni un mes de temporada alta que un any sencer." },
+      ]}
+    />
+    <div class="grid lg:grid-cols-[1fr_1.2fr] gap-10 items-center">
+      <PCounter
+        cols={2}
+        stats={[
+          { value: 40, prefix: '-', suffix: ' %', label: "d'inversió publicitària necessària a Superwagen", href: '/ca/casos-exit/cas-d-exit-superwagen/', source: 'Resultat conjunt de Google Ads i SEO' },
+          { value: 16, suffix: ' mesos', label: "de feina, de desembre de 2023 a abril de 2025", href: '/ca/casos-exit/cas-d-exit-superwagen/', source: 'Concessionari Audi i Volkswagen' },
+        ]}
+      />
+      <div class="pillar-prose text-base mt-12 reveal">
+        <p>A <a href="/ca/casos-exit/cas-d-exit-superwagen/">Superwagen</a>, concessionari oficial Audi i Volkswagen a Sabadell i Sant Cugat, no vam augmentar el pressupost: vam centrar les campanyes de Google Ads en els vehicles d'ocasió, amb estoc real, segmentació geogràfica precisa i ofertes del mes. Combinat amb la feina de SEO local i per models, el concessionari va necessitar un 40 % menys d'inversió publicitària. És un resultat dels dos canals treballant junts, no només de la publicitat.</p>
+      </div>
+    </div>
+    <MoreCases locale="ca" categories={['google-ads']} embed />
+  </PSection>
+
+  <!-- ═══ PREUS ══════════════════════════════════════════════════════════ -->
+  <PSection kicker="Preus" title="Quant costa treballar Google Ads amb Nova" width="wide">
+    <Fragment slot="intro">
+      <p>Tres conceptes separats, sense IVA i sense permanència. Abans de començar reps un pressupost tancat per escrit. Si vols veure com encaixa la publicitat en el conjunt del teu màrqueting, llegeix <a href="/ca/blog/quant-ha-dinvertir-una-pime-en-marketing/">quant ha d'invertir una pime en màrqueting</a>.</p>
+    </Fragment>
+    <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch reveal">
+      {[
+        { title: 'Configuració o revisió inicial del compte', price: '900 €', note: "pagament únic · revisió d'un compte existent", text: "Si ja hi inverteixes, revisem campanyes, cerques, conversions i pàgines de destinació, i et lliurem un pla prioritzat en una videotrucada. Si comences de zero, la configuració del compte i de la mesura està inclosa en la gestió mensual.", items: ["Revisió d'estructura i cerques", 'Comprovació de conversions', 'Anàlisi de pàgines de destinació', 'Pla ordenat per impacte'] },
+        { title: 'Honoraris de gestió i optimització', price: 'des de 150 € / mes', note: 'des de 400 € / mes en comptes més grans', text: "Una quota fixa segons el nombre de campanyes, serveis i formats, no un percentatge del que inverteixes. Inclou la gestió contínua del compte, els anuncis, la revisió de cerques, l'informe mensual i la línia directa amb el consultor.", items: ['Optimització contínua', 'Anuncis i recursos', 'Informe mensual de contactes i costos', 'Sense permanència, mes a mes'], featured: true },
+        { title: 'Pressupost destinat als anuncis', price: 'el decideixes tu', note: 'orientatiu: des de 300-500 € / mes', text: "És el que pagues a Google pels clics, i Google el factura directament a la teva empresa. Va íntegre als anuncis. La xifra adequada depèn del cost del clic al teu sector i del teu marge; la calculem amb tu abans de començar.", items: ['Facturat per Google', 'Ajustable cada mes', 'Sense comissions sobre la inversió'] },
+      ].map((p, i) => (
+        <div class:list={['pd-rise rounded-3xl p-7 sm:p-8 flex flex-col border', p.featured ? 'bg-zinc-950 text-white border-zinc-950 shadow-2xl' : 'bg-white border-black/5 shadow-[0_15px_40px_rgba(0,0,0,0.06)]']} style={`--i:${i}`}>
+          <h3 class:list={['text-lg font-black tracking-tight leading-snug mb-3', p.featured ? 'text-white' : 'text-zinc-900']}>{p.title}</h3>
+          <div class="text-2xl font-black text-accent">{p.price}</div>
+          <div class="text-[11px] font-light mt-1 mb-4 text-zinc-400">{p.note}</div>
+          <p class:list={['text-sm font-light leading-relaxed mb-6', p.featured ? 'text-zinc-300' : 'text-zinc-500']}>{p.text}</p>
+          <ul class="space-y-2.5 flex-1">
+            {p.items.map((it) => (
+              <li class:list={['flex items-start gap-2.5 text-sm font-light', p.featured ? 'text-zinc-300' : 'text-zinc-600']}>
+                <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>{it}
+              </li>
+            ))}
+          </ul>
+          <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 !py-4 !text-[11px] !tracking-widest font-black mt-8 text-center">DEMANAR PRESSUPOST</a>
         </div>
-    </section>
+      ))}
+    </div>
+    <SemBudget
+      locale="ca"
+      title="Com es reparteix la inversió mensual"
+      rows={[
+        { label: 'Negoci local amb un servei', fee: 150, ads: 400 },
+        { label: 'Pime amb diversos serveis', fee: 250, ads: 1000 },
+        { label: 'Compte amb Shopping o diverses zones', fee: 400, ads: 2500 },
+      ]}
+      caption="Exemple amb xifres il·lustratives, sense IVA. Els honoraris són fixos; a mesura que creix el pressupost en anuncis, la gestió hi pesa proporcionalment menys. El teu pressupost real el calculem amb tu."
+    />
+  </PSection>
 
-    <LogoMarquee />
+  <!-- ═══ RESSENYES ══════════════════════════════════════════════════════ -->
+  <GoogleReviews locale="ca" title="L'experiència de les empreses que ens confien les seves campanyes" />
 
-    <!-- ═══ INTRO: PER QUÈ GOOGLE ADS ═════════════════════════════════════ -->
-    <section class="py-16 sm:py-24 bg-white px-4 sm:px-6 border-b border-black/5">
-        <div class="max-w-6xl mx-auto reveal grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-16 items-center">
-            <div>
-                <p class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4">Per què Google Ads?</p>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
-                    L'agència de Google Ads per a la teva pime
-                </h2>
-                <div class="space-y-6 text-zinc-600 font-light text-base sm:text-lg leading-relaxed">
-                    <p>
-                        <strong class="font-semibold text-zinc-900">Google Ads és el canal més ràpid per aconseguir clients</strong>. Mentre el SEO triga mesos a posicionar, un anunci ben muntat apareix avui davant de qui està buscant el teu servei amb la cartera a la mà. La qüestió no és si funciona, és quant pagues per cada clic i què en fas.
-                    </p>
-                    <p>
-                        Nova és una <strong class="font-semibold text-zinc-900">agència SEM especialitzada en pimes</strong>. Treballem amb un nombre limitat de clients, cada compte el porta directament el consultor fundador i tota la gestió s'orienta a una sola mètrica que importa. <strong class="font-semibold text-zinc-900">Quant et costa aconseguir cada client nou des dels anuncis</strong>.
-                    </p>
-                </div>
+  <!-- ═══ FAQS ═══════════════════════════════════════════════════════════ -->
+  <FaqHome title="Dubtes habituals abans d'activar la inversió" items={faqs} emitSchema={false} />
+
+  <!-- ═══ CONTACTE ═══════════════════════════════════════════════════════ -->
+  <section id="contacto" class="py-20 sm:py-32 px-4 sm:px-6 relative bg-accent">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
+      <div class="reveal text-white">
+        <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">Primer pas</span>
+        <h2 class="text-4xl sm:text-6xl font-black uppercase tracking-tighter leading-[0.85] mb-10">Revisem si Google Ads encaixa en el teu negoci</h2>
+        <ol class="space-y-5">
+          {[
+            ['Què vens i en quines zones', 'Els teus serveis o productes principals i on són els teus clients.'],
+            ['Quins resultats necessites aconseguir', "Pressupostos, vendes, trucades o oportunitats per al teu equip comercial."],
+            ['Quina inversió estàs valorant', 'Fem els números amb el teu marge per veure si encaixen.'],
+            ['Quina proposta de campanyes té sentit per a la teva empresa', 'Per escrit, amb campanyes, pressupost recomanat i honoraris tancats.'],
+          ].map(([t, d], i) => (
+            <li class="flex gap-4">
+              <span class="w-8 h-8 rounded-full bg-white/15 border border-white/30 flex items-center justify-center text-xs font-black flex-shrink-0">{i + 1}</span>
+              <div>
+                <h3 class="text-base sm:text-lg font-black tracking-tight">{t}</h3>
+                <p class="text-sm font-light text-white/80">{d}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <div class="reveal">
+        <div class="bg-white p-8 sm:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
+          <form class="space-y-8" id="contact-form">
+            <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
+              <div class="flex flex-col gap-3">
+                <label class="opacity-30">NOM *</label>
+                <input type="text" name="name" aria-label="Nom" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+              </div>
+              <div class="flex flex-col gap-3">
+                <label class="opacity-30">TELÈFON *</label>
+                <input type="tel" name="phone" required autocomplete="tel" inputmode="tel" minlength="9" pattern="[0-9+\s.\(\)\-]{9,20}" title="Introdueix un telèfon vàlid (mínim 9 xifres)" aria-label="Telèfon" class="border-b border-black/10 py-2 focus:border-accent outline-none">
+              </div>
             </div>
-            <div class="hidden md:block">
-                <img src="/sergio-galos-agencia-sem-per-pimes.webp" alt="Sergio Galo's, consultor de Google Ads per a pimes" title="Sergio Galo's, consultor de Google Ads per a pimes" class="w-full h-auto" loading="lazy" width="473" height="591" />
+            <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+              <label class="opacity-30">EMAIL PROFESSIONAL *</label>
+              <input type="email" name="email" aria-label="Correu electrònic" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
             </div>
-        </div>
-    </section>
-
-    <!-- ═══ SERVEIS SEM ══════════════════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50 border-b border-black/5 px-4 sm:px-6">
-        <div class="max-w-7xl mx-auto text-center reveal">
-            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Què fem</span>
-            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Servei de Google Ads per a pimes
-            </h2>
-            <div class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-16 space-y-4">
-                <p>
-                    Gestionar <strong class="font-semibold text-zinc-700">Google Ads</strong> no és activar una campanya i deixar-la córrer, és un sistema. Aquestes són les nou peces que treballem perquè cada euro del teu pressupost torni convertit en clients.
-                </p>
-                <p>
-                    Cada peça s'activa segons el que digui la teva auditoria. No pagues per un paquet tancat d'accions, pagues per les que el teu negoci necessita.
-                </p>
+            <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+              <label class="opacity-30">WEB *</label>
+              <input type="text" name="url" aria-label="Lloc web" placeholder="www.latevaempresa.com" class="border-b border-black/10 py-2 focus:border-accent outline-none">
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[
-                    { icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z', t: 'Auditoria de Google Ads', d: 'Radiografia del teu compte, el teu pressupost i la teva competència abans de tocar res. El punt de partida de qualsevol estratègia d\'anuncis.' },
-                    { icon: 'M12 3a9 9 0 100 18 9 9 0 000-18zm0 5a4 4 0 100 8 4 4 0 000-8z', t: 'Campanyes de cerca', d: 'Anuncis de text que apareixen just quan algú busca el teu servei. El cor de la captació de leads per a una pime.' },
-                    { icon: 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z', t: 'Google Shopping', d: 'Els teus productes amb foto i preu als resultats de compra. Feed optimitzat perquè el clic arribi ja mig convençut.' },
-                    { icon: 'M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z', t: 'Display i YouTube', d: 'Anuncis visuals i de vídeo per donar a conèixer la teva marca a qui encara no et busca, amb segmentació fina i sense cremar pressupost.' },
-                    { icon: 'M13 10V3L4 14h7v7l9-11h-7z', t: 'Performance Max', d: 'La campanya automatitzada de Google, ben alimentada i ben vigilada. Potent amb dades bones, un forat de pressupost sense elles.' },
-                    { icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15', t: 'Remarketing', d: 'Tornem a impactar qui va visitar la teva web i no va contactar. Els leads més barats solen estar a la segona visita.' },
-                    { icon: 'M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z', t: 'Landings i CRO', d: 'L\'anunci porta la visita i la landing la converteix. Optimitzem la pàgina de destinació perquè el clic acabi en formulari o trucada.' },
-                    { icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z', t: 'Mesura de conversions', d: 'Configurem les conversions i GA4 per atribuir cada lead a la seva campanya i la seva cerca. Decisions amb dades, no amb intuïcions.' },
-                    { icon: 'M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z', t: 'Google Ads més SEO', d: 'Les dades de les teves campanyes revelen quines cerques venen. Les fem servir per construir SEO i que cada cop depenguis menys de pagar.' },
-                ].map(c => (
-                    <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-left">
-                        <div class="flex items-center gap-3 mb-3">
-                            <div class="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0">
-                                <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d={c.icon}/></svg>
-                            </div>
-                            <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900">{c.t}</h3>
-                        </div>
-                        <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.d}</p>
-                    </div>
-                ))}
+            <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+              <label class="opacity-30">CONSULTA</label>
+              <textarea name="msg" aria-label="Missatge" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="Què vols anunciar a Google?"></textarea>
             </div>
-
-            <div class="mt-12 text-center reveal">
-                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                    PARLEM DEL TEU NEGOCI
-                </a>
+            <div class="flex items-start gap-2">
+              <input type="checkbox" id="contact-form-terms" name="terms" required class="mt-1 accent-accent">
+              <label for="contact-form-terms" class="text-xs text-zinc-500 font-light cursor-pointer select-none normal-case tracking-normal">He llegit i accepto la <a href="/ca/privacitat/" class="underline hover:text-accent transition-colors">política de privacitat</a>.</label>
             </div>
-        </div>
-    </section>
-
-    <!-- ═══ ESTRATÈGIA SEM ════════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-16 sm:mb-24 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Com treballem</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Estratègia de Google Ads per captar clients des del primer mes
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    Una metodologia documentada per convertir el teu pressupost publicitari en leads i vendes, pas a pas i sense fum.
-                </p>
-            </div>
-
-            <div id="timeline-container" class="relative">
-                <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
-                <div id="progress-bar" class="hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100"></div>
-
-                <div class="space-y-16 md:space-y-24 flex flex-col items-center">
-                    {steps.map((step, index) => (
-                        <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
-                            <div class:list={["flex-1 w-full", index % 2 === 0 ? "md:order-1 md:text-right" : "md:order-3 md:text-left"]}>
-                                <div class="p-8 sm:p-10 bg-zinc-50 border border-black/5 rounded-3xl hover:border-accent/10 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
-                                    <h3 class="text-xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{index + 1}. {step.title}</h3>
-                                    <div class:list={["h-0.5 bg-accent w-full mb-4 opacity-80", index % 2 === 0 ? "md:ml-auto" : ""]}></div>
-                                    <p class:list={["text-sm text-zinc-500 font-light max-w-md", index % 2 === 0 ? "md:ml-auto" : ""]}>{step.desc}</p>
-                                    <div class="absolute -bottom-6 -right-5 text-8xl font-black text-black/[0.02] select-none z-0 group-hover:scale-105 transition-transform duration-500">0{index+1}</div>
-                                </div>
-                            </div>
-                            <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all">
-                                0{index + 1}
-                            </div>
-                            <div class:list={["hidden md:block md:flex-1", index % 2 === 0 ? "md:order-3" : "md:order-1"]}></div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ AUDITORIA GOOGLE ADS ═════════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5 overflow-hidden">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-[6fr_4fr] gap-12 lg:gap-16 items-start">
-
-            <div class="reveal lg:col-span-2">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Punt de partida</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
-                    Auditoria de Google Ads per a la teva pime
-                </h2>
-            </div>
-
-            <div class="reveal">
-                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed mb-8">
-                    <p>
-                        Abans de proposar-te res, auditem. Saps quant et costa cada lead que arriba dels teus anuncis? Quines cerques et porten clients i quines només gasten pressupost? Gairebé cap pime ho sap amb dades, i aquí comença tot.
-                    </p>
-                    <p>
-                        La nostra <strong class="font-semibold text-zinc-900">auditoria de Google Ads</strong> revisa el teu compte campanya a campanya, mesura quina part de la teva inversió està treballant i quina part es perd en cerques que mai compraran, i acaba amb un pla d'acció prioritzat. Què tallar primer, quin impacte té i quant pots estalviar.
-                    </p>
-                    <p>
-                        A diferència de les revisions automàtiques que generen un PDF amb recomanacions genèriques de Google, aquí cada punt el revisa un consultor sènior amb anys d'experiència en pimes. El resultat no és un llistat tècnic, és un diagnòstic de negoci que entén qualsevol gerent.
-                    </p>
-                    <p>
-                        Si ja treballes amb una altra agència, l'auditoria també serveix com a segona opinió independent. Sabràs si la teva inversió actual en publicitat està ben dirigida o si estàs pagant per clics que no generen clients.
-                    </p>
-                </div>
-                <ul class="space-y-3">
-                    {[
-                        'Estructura del compte i qualitat de les campanyes',
-                        'Termes de cerca que gasten sense convertir',
-                        'Anàlisi dels anuncis de la teva competència',
-                        'Cerques rendibles que encara no ataques',
-                        'Punts de fuga a la landing que rep els clics',
-                        'Pla d\'acció prioritzat per estalvi i impacte',
-                    ].map(item => (
-                        <li class="flex items-start gap-3 text-sm text-zinc-700 font-light">
-                            <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            {item}
-                        </li>
-                    ))}
-                </ul>
-                <div class="mt-16">
-                    <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                        VULL LA MEVA AUDITORIA DE GOOGLE ADS
-                    </a>
-                </div>
-            </div>
-
-            <div class="reveal flex flex-col gap-4">
-                {[
-                    { bg: 'bg-purple-100', color: 'text-purple-600', icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z', t: 'Revisió completa del compte', d: 'Estructura, campanyes, grups d\'anuncis, pujes i configuració. Tot el que encareix els teus clics, documentat.' },
-                    { bg: 'bg-green-100', color: 'text-green-600', icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6', t: 'Pla d\'acció prioritzat', d: 'No una llista infinita de tasques, sinó un pla ordenat per estalvi i impacte. Sabràs què tallar la primera setmana i on reinvertir aquells diners.' },
-                    { bg: 'bg-purple-100', color: 'text-purple-600', icon: 'M12 3a9 9 0 100 18 9 9 0 000-18zm0 5a4 4 0 100 8 4 4 0 000-8z', t: 'Cerques amb intenció de compra', d: 'Identifiquem les cerques que fan els teus clients quan volen contractar i les separem de les que només consumeixen pressupost.' },
-                    { bg: 'bg-amber-100', color: 'text-amber-600', icon: 'M9 12h6m-6 4h6M9 8h2m8-3v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2h6l4 4z', t: 'Auditoria d\'anuncis i landings', d: 'Revisem quins anuncis converteixen, quins cremen pressupost i si la pàgina que rep el clic està preparada per convertir-lo en lead.' },
-                    { bg: 'bg-blue-100', color: 'text-blue-600', icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z', t: 'Benchmark davant la teva competència', d: 'Comparem els teus anuncis amb els dels teus tres competidors directes. Què prometen, on pugen i què pots fer millor.' },
-                ].map(card => (
-                    <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
-                        <div class:list={["w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0", card.bg]}>
-                            <svg class:list={["w-5 h-5", card.color]} fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d={card.icon}/></svg>
-                        </div>
-                        <div>
-                            <h3 class="text-sm font-black text-zinc-900 mb-1">{card.t}</h3>
-                            <p class="text-xs text-zinc-500 font-light leading-relaxed">{card.d}</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ═══ QUÈ INCLOU L'AUDITORIA GOOGLE ADS ═══════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-12 sm:mb-16 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Pas a pas</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
-                    Què inclou l'auditoria de Google Ads de nova
-                </h2>
-            </div>
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch reveal">
-                {[
-                    { n: '1', t: 'Radiografia de la teva inversió en anuncis', d: 'Analitzem quant inverteixes, quines campanyes porten leads, quant costa cadascun i quina part del pressupost es perd en cerques sense intenció.' },
-                    { n: '2', t: 'Diagnòstic d\'anuncis i landings', d: 'Creuem les dades del compte amb els teus anuncis i la teva pàgina de destinació per explicar exactament què està encarint cada client.' },
-                    { n: '3', t: 'Full de ruta per rendibilitzar', d: 'Tanques l\'auditoria amb un document d\'accions ordenades per estalvi i impacte i una videotrucada on repassem cada punt amb tu.' },
-                ].map((st, i) => (
-                    <div class="flex items-center gap-4 lg:gap-6">
-                        {i > 0 && <div class="hidden lg:flex text-3xl text-accent font-black select-none">→</div>}
-                        <div class="bg-white border border-black/5 rounded-2xl p-8 shadow-[0_15px_40px_rgba(0,0,0,0.06)] flex-1 text-center h-full">
-                            <div class="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto mb-4 text-accent font-black text-lg">{st.n}</div>
-                            <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3">{st.t}</h3>
-                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{st.d}</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
-            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto text-center mt-16 reveal">
-                La nostra auditoria de Google Ads és el primer pas de qualsevol estratègia de publicitat al cercador. Analitza com està treballant avui el teu pressupost, explica per què la teva competència aconsegueix leads més barats que tu i et deixa un full de ruta clar per deixar de malbaratar inversió. És la mateixa auditoria amb què arrenquen tots els nostres plans de Google Ads per a pimes, i també pots contractar-la solta com a segona opinió. Sense tecnicismes innecessaris. Surts sabent on van els teus diners i què fer a continuació.
-            </p>
-            <div class="mt-12 text-center reveal">
-                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                    VULL LA MEVA AUDITORIA DE GOOGLE ADS
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ PREUS SEM ════════════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-12 sm:mb-16 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Tarifes clares</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Preus de Google Ads per a pimes
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto">
-                    Tarifes orientatives i sense lletra petita. Cobrem un fee de gestió fix, sense percentatges sobre la teva inversió, així que el cent per cent del teu pressupost publicitari va directe a Google. Abans de començar reps un pressupost tancat per escrit amb el fee, el pressupost recomanat i el cost per client esperable al teu sector. El cost no porta sorpreses ni permanències.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
-                {[
-                    { small: 'Preu', name: 'Auditoria Google Ads', price: '900€', meta: ['Lliurament en 1 a 2 setmanes', 'Per a qualsevol pime que ja inverteix en anuncis'], items: ['Sessió inicial d\'objectius', 'Revisió completa del compte', 'Termes de cerca que malbaraten', 'Anàlisi d\'anuncis i pujes', 'Auditoria de la landing de destinació', 'Comparativa amb 3 competidors', 'Accions ordenades per estalvi', 'Videotrucada de lliurament'], cta: 'Vull auditar el meu compte' },
-                    { small: 'Preu', name: 'Google Ads PIME', price: 'des de 150€ / mes', meta: ['Més el teu pressupost publicitari, que va íntegre a Google', 'Per a negocis locals i petites empreses'], items: ['Configuració inicial del compte', 'Campanyes de cerca a mida', 'Redacció d\'anuncis', 'Mesura de conversions', 'Revisió setmanal de termes', 'Optimització de pujes i zones', 'Informe mensual de leads i costos', 'Línia directa amb el consultor', 'Sense permanència'], cta: 'Vull llançar les meves campanyes' },
-                    { small: 'Preu', name: 'Google Ads Big Pime', price: 'des de 400€ / mes', meta: ['Per a comptes amb més inversió i diverses línies de negoci', 'Per a empreses mitjanes i sectors competits'], items: ['Tot el pla Google Ads PIME', 'Shopping i Performance Max', 'Display, YouTube i remarketing', 'Optimització de landings i CRO', 'Estratègia conjunta amb SEO', 'Cobertura multiseu o internacional', 'Reunió mensual de negoci', 'Objectiu, baixar el cost per client'], cta: 'Vull escalar les meves campanyes' },
-                ].map(p => (
-                    <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-10 flex flex-col shadow-[0_15px_40px_rgba(0,0,0,0.06)] hover:shadow-xl transition-shadow duration-300 reveal">
-                        <h3 class="leading-tight mb-2">
-                            <span class="block text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-1">{p.small} </span>
-                            <span class="block text-xl font-black uppercase tracking-tight text-zinc-900">{p.name}</span>
-                        </h3>
-                        <div class="text-lg font-bold text-zinc-900">{p.price}</div>
-                        <div class="text-[10px] text-zinc-400 font-light mt-1 mb-6">* Preu sense IVA</div>
-                        <div class="text-xs text-zinc-500 font-light mb-8 space-y-1.5">
-                            {p.meta.map(m => <div>{m}</div>)}
-                        </div>
-                        <div class="text-xs font-black uppercase tracking-widest text-zinc-400 pb-3 border-b border-zinc-100">Què inclou</div>
-                        <ul class="divide-y divide-zinc-100 flex-1">
-                            {p.items.map(item => (
-                                <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light">
-                                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                                    <span>{item}</span>
-                                </li>
-                            ))}
-                        </ul>
-                        <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 !py-4 !text-[11px] !tracking-widest font-black mt-10 text-center">
-                            {p.cta}
-                        </a>
-                    </div>
-                ))}
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ SECTORS ═══════════════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50 px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-14 sm:mb-20 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Experiència sectorial</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Google Ads per al teu sector
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    Cada sector puja diferent a Google. Treballem amb sectors on ja sabem quines cerques converteixen i què és llençar el pressupost.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
-                {sectors.map(s => (
-                    <div class="bg-white border border-black/5 rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                        <div class="text-3xl mb-4">{s.icon}</div>
-                        <h3 class="text-base uppercase tracking-tight text-zinc-900 mb-3 leading-tight font-montserrat-semibold">
-                            {s.href ? <a href={s.href} class="hover:text-accent transition-colors">{s.title}</a> : s.title}
-                        </h3>
-                        <p class="text-sm text-zinc-500 font-light leading-relaxed">{s.desc}</p>
-                    </div>
-                ))}
-            </div>
-
-            <div class="mt-14 text-center reveal">
-                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                    VULL ANUNCIAR-ME A GOOGLE
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ CITA ══════════════════════════════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-zinc-950 px-4 sm:px-6">
-        <div class="max-w-4xl mx-auto text-center reveal">
-            <blockquote class="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.15] mb-8">
-                “Cada dia els teus clients busquen el teu servei a Google. Amb Google Ads pots aparèixer allà demà mateix. La qüestió és quant pagues per cada clic i què en fas.”
-            </blockquote>
-            <p class="text-sm text-zinc-400 font-light mb-10">Sergio Galo's · Consultor de Google Ads per a pimes</p>
-            <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                PARLEM DEL TEU NEGOCI
-            </a>
-        </div>
-    </section>
-
-    <!-- ═══ PER QUÈ NOVA (COMPARATIVA) ═════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-12 sm:mb-16 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Per què nova</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Què diferencia nova d'una altra agència SEM
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    Google Ads està ple de comptes mal gestionats que cremen pressupost en silenci. Nosaltres el treballem amb mètode, transparència i resultats que es veuen a la teva caixa, no només a les gràfiques.
-                </p>
-            </div>
-
-            <div class="reveal overflow-x-auto rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
-                <table class="w-full min-w-[640px] text-left border-collapse bg-white">
-                    <thead>
-                        <tr class="bg-black text-white">
-                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Criteri</th>
-                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Nova</th>
-                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Altres agències</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-zinc-100">
-                        {[
-                            { c: "Qui serà el teu contacte", o: "Gestor júnior amb 20-30 comptes", n: "Sergio Galo's" },
-                            { c: "Model de cobrament", o: "Percentatge de la teva inversió publicitària", n: "Fee fix, el 100% del teu pressupost va a Google" },
-                            { c: "Propietat del compte", o: "Compte a nom de l'agència", n: "El compte i les dades són teus des del dia u" },
-                            { c: "Velocitat de resposta", o: "Tickets i setmanes d'espera", n: "Línia directa amb qui decideix" },
-                            { c: "Permanència", o: "6-12 mesos habituals", n: "Mes a mes, sense permanència" },
-                            { c: "Especialització", o: "De multinacionals a autònoms, tot val", n: "Cent per cent enfocats en pimes" },
-                            { c: "Transparència de preus", o: "Pressupostos opacs amb extres sorpresa", n: "Preu tancat per escrit abans de començar" },
-                        ].map(row => (
-                            <tr class="hover:bg-zinc-50/50 transition-colors">
-                                <td class="px-6 py-5 text-sm font-bold text-zinc-900">{row.c}</td>
-                                <td class="px-6 py-5 text-sm font-bold text-accent">{row.n}</td>
-                                <td class="px-6 py-5 text-sm text-zinc-500 font-light">{row.o}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-
-            <p class="text-xs sm:text-sm text-zinc-400 font-light leading-relaxed mt-6 reveal">
-                Un consultor de Google Ads extern et dona accés a experiència sènior sense els costos fixos de contractar un perfil propi, sense procés de selecció i sense període d'adaptació.
-            </p>
-        </div>
-    </section>
-
-    <!-- ═══ COM TRIAR AGÈNCIA SEM ════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-4xl mx-auto">
-            <div class="mb-12 sm:mb-16 reveal text-center">
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Com contractar una agència de Google Ads sense que et venguin fum
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    Hi ha centenars d'agències SEM i la majoria de pimes tria malament la primera vegada. Aquests són els set criteris que hauries d'exigir a qualsevol agència, inclosa la nostra.
-                </p>
-            </div>
-
-            <div class="divide-y divide-zinc-100 reveal">
-                {criteria.map((c, i) => (
-                    <div class="py-6 sm:py-8 flex gap-6 sm:gap-8 items-start">
-                        <div class="text-2xl sm:text-3xl font-black tracking-tighter text-accent flex-shrink-0 w-10 leading-none">0{i + 1}</div>
-                        <div>
-                            <h3 class="text-base sm:text-lg font-black uppercase tracking-tight text-zinc-900 mb-2">{c.title}</h3>
-                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.desc}</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ QUI HI HA AL DARRERE ═══════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-5xl mx-auto reveal">
-            <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] grid md:grid-cols-[280px_1fr] gap-8 sm:gap-12 items-center">
-                <div class="rounded-2xl overflow-hidden bg-zinc-100">
-                    <img src="/sergio-galos-agencia-sem-per-pimes.webp" alt="Sergio Galo's, consultor de Google Ads per a pimes" title="Sergio Galo's, consultor de Google Ads per a pimes" class="w-full h-full object-cover object-top" loading="lazy" width="473" height="591" />
-                </div>
-                <div>
-                    <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Qui hi ha al darrere</span>
-                    <h2 class="text-2xl sm:text-4xl font-black tracking-tighter uppercase text-zinc-900 leading-[0.95] mb-6">
-                        Sergio Galo's <br>
-                        <span class="text-lg sm:text-2xl">El teu consultor de Google Ads per a pimes</span>
-                    </h2>
-                    <div class="space-y-4 text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
-                        <p>
-                            Soc <strong class="font-semibold text-zinc-900">Sergio Galo's</strong>, consultor de màrqueting digital i fundador de Nova Marketing. Porto anys gestionant campanyes de Google Ads per a pimes en alguns dels sectors més competitius, des d'indústria B2B i salut fins a ecommerce i serveis professionals.
-                        </p>
-                        <p>
-                            Quan contractes Google Ads amb nova parles sempre amb mi. Jo faig l'auditoria, jo munto les campanyes i jo responc a la reunió mensual. Sense capes comercials ni gestors que canvien cada trimestre.
-                        </p>
-                    </div>
-                    <a href="https://www.linkedin.com/company/nova-marketing-pymes/" target="_blank" rel="noopener" class="inline-block mt-6 text-[12px] font-black tracking-widest text-accent hover:underline">
-                        Veure perfil a LinkedIn →
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ CASOS D'ÈXIT (CMS) ═══════════════════════════════════ -->
-    {allCases.length > 0 && (
-    <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6 overflow-hidden">
-      <div class="max-w-7xl mx-auto">
-        <div class="mb-12 reveal">
-          <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultats provats</span>
-          <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
-            Casos d'èxit de Google Ads<br class="hidden md:inline" /> per a pimes
-          </h2>
-        </div>
-        <div class="cases-carousel relative overflow-hidden">
-          <div class="cases-track flex gap-6 transition-transform duration-500 ease-in-out">
-            {allCases.map((cs: any) => {
-              const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
-              const caseUrl = cs.isPublic && cs.slug ? `/ca/casos-exit/${cs.slug}/` : null;
-              return (
-                <div class="cases-slide flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
-                  <div>
-                    {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
-                    <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors leading-tight">
-                      {caseUrl ? (
-                        <a href={caseUrl} class="hover:text-accent transition-colors">{cs.title}</a>
-                      ) : (
-                        <span class="group-hover:text-accent transition-colors">{cs.title}</span>
-                      )}
-                    </h3>
-                    <p class="text-xs text-zinc-500 font-light leading-relaxed">{cs.description}</p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+            <button type="submit" class="w-full btn-mktg-v5 !py-6">VULL LLANÇAR LES MEVES CAMPANYES</button>
+          </form>
         </div>
       </div>
-    </section>
-    )}
-    <script>
-      function initCasesCarousel() {
-        const track = document.querySelector('.cases-track');
-        if (!track) return;
-        const slides = track.querySelectorAll('.cases-slide');
-        if (slides.length <= 4) return;
-        let current = 0;
-        const total = slides.length;
-        function getVisible() {
-          if (window.innerWidth >= 1024) return 4;
-          if (window.innerWidth >= 640) return 2;
-          return 1;
-        }
-        let slideWidth = slides[0].offsetWidth + 24;
-        window.addEventListener('resize', () => { slideWidth = slides[0].offsetWidth + 24; }, { passive: true });
-        function next() {
-          const visible = getVisible();
-          const maxIndex = total - visible;
-          current = current >= maxIndex ? 0 : current + 1;
-          track.style.transform = `translateX(-${current * slideWidth}px)`;
-        }
-        const interval = setInterval(next, 5000);
-        document.addEventListener('astro:before-preparation', () => clearInterval(interval));
-      }
-      document.addEventListener('DOMContentLoaded', initCasesCarousel);
-      document.addEventListener('astro:page-load', initCasesCarousel);
-    </script>
-
-    <!-- ═══ RECOMANATS PER LA IA ═════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5 overflow-hidden">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-
-            <div class="reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Ens avala la IA</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
-                    L'agència de Google Ads que recomana la IA
-                </h2>
-                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed">
-                    <p>
-                        Quan algú pregunta per una <strong class="font-semibold text-zinc-900">agència de Google Ads per a pimes</strong> a ChatGPT, Gemini o Claude, nova apareix entre les agències recomanades. És la millor prova que sabem generar visibilitat, perquè ho apliquem primer en nosaltres mateixos.
-                    </p>
-                    <p>
-                        Als assistents d'IA no els pots comprar un anunci per sortir primer. Recomanen el que troben. Casos reals publicats, una manera de treballar transparent, una especialització clara i clients que parlen de nosaltres.
-                    </p>
-                    <p>
-                        Prova-ho tu mateix. Obre ChatGPT i pregunta-li quina agència de Google Ads et recomana per a la teva pime. Si et surt nova, ja saps qui pot fer el mateix pel teu negoci.
-                    </p>
-                </div>
-            </div>
-
-            <div class="reveal flex justify-center">
-                <img src="/agencia-sem-per-pimes.webp" alt="Nova Marketing, agència de Google Ads per a pimes recomanada per la IA" title="Nova Marketing, agència de Google Ads per a pimes recomanada per la IA" class="w-full max-w-sm lg:max-w-md h-auto" loading="lazy" width="1000" height="1000" />
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ═══ CONSELLS GOOGLE ADS ═══════════════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-4xl mx-auto reveal">
-            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Consells aplicables avui</span>
-            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Com millorar les teves campanyes de Google Ads aquesta setmana
-            </h2>
-            <p class="text-zinc-500 font-light text-base leading-relaxed mb-10">
-                Si encara no estàs a punt per contractar una agència SEM, comença per aquí. Són accions que qualsevol pime pot aplicar pel seu compte i que ja redueixen el pressupost malbaratat.
-            </p>
-            <ul class="space-y-6">
-                {[
-                    { lead: 'Revisa l\'informe de termes de cerca.', text: 'Allà veus les cerques reals que activen els teus anuncis. Afegeix com a negativa tota la que no tingui intenció de compra. És la fuga de pressupost més comuna.' },
-                    { lead: 'Configura bé les conversions.', text: 'Si Google no sap què és un lead per a tu, optimitza cap a clics barats que no venen. Marca trucades i formularis abans de tocar res més.' },
-                    { lead: 'No enviïs el trànsit a la home.', text: 'Cada campanya mereix una pàgina de destinació que parli exactament del que promet l\'anunci. La home dispersa i la landing converteix.' },
-                    { lead: 'Ajusta horaris i ubicacions.', text: 'Si el teu negoci atén a la teva comarca i en horari laboral, no paguis clics de matinada ni d\'altres províncies. Dos ajustos que estalvien des del primer dia.' },
-                ].map(tip => (
-                    <li class="flex items-start gap-4">
-                        <svg class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                        <p class="text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
-                            <strong class="font-bold text-zinc-900">{tip.lead}</strong> {tip.text}
-                        </p>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    </section>
-
-    <!-- ═══ RESSENYES GOOGLE ═════════════════════════════════════════ -->
-    <GoogleReviews locale="ca" title="El que diuen els nostres clients sobre les campanyes de Google Ads de Nova" />
-
-    <!-- ═══ SERVICIOS COMPLEMENTARIOS ═══════════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-12 sm:mb-16 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Més enllà del SEM</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Serveis complementaris de la nostra agència SEM per a la teva pime
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    La teva captació funciona millor quan tot el màrqueting empeny en la mateixa direcció. Aquests són els serveis que la complementen.
-                </p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal">
-                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
-                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
-                        <a href="/ca/" class="hover:text-accent transition-colors">Agència de Màrqueting Digital per a Pimes</a>
-                    </h3>
-                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        L'estratègia completa. Combinem SEO, publicitat, web i visibilitat en IA en un sol pla orientat que la teva pime guanyi clients cada mes.
-                    </p>
-                    <a href="/ca/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
-                </div>
-                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
-                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
-                        <a href="/ca/agencia-seo-per-pimes/" class="hover:text-accent transition-colors">Agència SEO per a Pimes</a>
-                    </h3>
-                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        Apareix a Google quan els teus clients busquen el teu servei. Posicionament orgànic que s'acumula mes a mes i redueix la teva dependència de pagar per cada clic.
-                    </p>
-                    <a href="/ca/agencia-seo-per-pimes/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
-                </div>
-                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
-                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
-                        <a href="/ca/disseny-web-per-pimes/" class="hover:text-accent transition-colors">Disseny Web per a Pimes</a>
-                    </h3>
-                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        Una web ràpida, adaptada a mòbil i enfocada a convertir en clients cada visita que arriba de les teves campanyes i el teu posicionament.
-                    </p>
-                    <a href="/ca/disseny-web-per-pimes/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
-                </div>
-                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
-                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
-                        <a href="/ca/agencia-geo-per-pimes/" class="hover:text-accent transition-colors">Agència GEO per a Pimes</a>
-                    </h3>
-                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        Els teus clients ja pregunten a ChatGPT i Gemini quina empresa contractar. Treballem el teu posicionament GEO perquè la IA recomani el teu negoci.
-                    </p>
-                    <a href="/ca/agencia-geo-per-pimes/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÉS →</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ DÓNDE TRABAJAMOS ═══════════════════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-4xl mx-auto text-center reveal">
-            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">On treballem</span>
-            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Agència SEM amb seu a Barcelona i clients a tota Espanya
-            </h2>
-            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
-                La nostra base és a Barcelona i la majoria de projectes són de la ciutat i la seva àrea metropolitana, on ens reunim presencialment. Però les campanyes de Google Ads no entenen de quilòmetres. Treballem amb pimes de tot Espanya per videotrucada amb el mateix nivell de seguiment.
-            </p>
-            <CityPills base="/ca/agencia-sem-per-pimes/" lang="ca" itemPrefix="agència SEM a" homeLabel="Agència SEM" />
-        </div>
-    </section>
-
-    <!-- ═══ FAQS ════════════════════════════════════════════════ -->
-    <FaqHome title="Preguntes sobre la nostra agència de Google Ads per a pimes" items={faqs} emitSchema={false} />
-
-    <!-- ═══ CONTACTE ════════════════════════════════════════════ -->
-    <section id="contacto" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
-            <div class="reveal text-white">
-                <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">CREIXEMENT GARANTIT</span>
-                <h2 class="text-5xl sm:text-7xl font-black uppercase tracking-tighter leading-[0.8] mb-8">
-                   APAREIX AVUI <br>A GOOGLE
-                </h2>
-                <p class="font-light max-w-md text-base sm:text-xl">Consulta'm i et diré quant costaria cada client al teu sector, i com baixar-lo.</p>
-            </div>
-
-            <div class="reveal">
-                <div class="bg-white p-8 sm:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
-                    <form class="space-y-8" id="contact-form">
-                        <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
-                            <div class="flex flex-col gap-3">
-                                <label class="opacity-30">NOM *</label>
-                                <input type="text" name="name" aria-label="Nom" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
-                            </div>
-                            <div class="flex flex-col gap-3">
-                                <label class="opacity-30">TELÈFON *</label>
-                                <input type="tel" name="phone" required autocomplete="tel" inputmode="tel" minlength="9" pattern="[0-9+\s.\(\)\-]{9,20}" title="Introdueix un telèfon vàlid (mínim 9 xifres)" aria-label="Telèfon" class="border-b border-black/10 py-2 focus:border-accent outline-none">
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
-                            <label class="opacity-30">EMAIL PROFESSIONAL *</label>
-                            <input type="email" name="email" aria-label="Correu electrònic" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
-                        </div>
-                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
-                            <label class="opacity-30">WEB *</label>
-                            <input type="text" name="url" aria-label="Lloc web" placeholder="www.latevaempresa.com" class="border-b border-black/10 py-2 focus:border-accent outline-none">
-                        </div>
-                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
-                            <label class="opacity-30">CONSULTA</label>
-                            <textarea name="msg" aria-label="Missatge" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="Què vols anunciar a Google?"></textarea>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <input type="checkbox" id="contact-form-terms" name="terms" required class="mt-1 accent-accent">
-                            <label for="contact-form-terms" class="text-xs text-zinc-500 font-light cursor-pointer select-none normal-case tracking-normal">He llegit i accepto la <a href="/ca/privacitat/" class="underline hover:text-accent transition-colors">política de privacitat</a>.</label>
-                        </div>
-                        <button type="submit" class="w-full btn-mktg-v5 !py-6">VULL LLANÇAR LES MEVES CAMPANYES</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
+  </section>
 
 </BaseLayout>
 
 <script>
-    document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const btn = form.querySelector('button');
-        if (btn) { btn.innerHTML = 'ENVIANT...'; btn.disabled = true; }
-        const data = Object.fromEntries(new FormData(form));
-        try {
-            const res = await fetch('https://cms.novamarketing.es/api/contact', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
-            });
-            if (res.ok) {
-                window.location.href = '/ca/gracies/';
-            } else { throw new Error(); }
-        } catch {
-            if (btn) { btn.innerHTML = 'ERROR — TORNA-HO A PROVAR'; btn.disabled = false; btn.style.background = '#ef4444'; }
-        }
-    });
-function initTimeline() {
-        const progressBar = document.getElementById('progress-bar');
-        const timeline = document.getElementById('timeline-container');
-        if (!progressBar || !timeline) return;
-
-        function updateProgress() {
-            // lecturas primero (evita reflows forzados intercalando lectura/escritura)
-            const rect = timeline.getBoundingClientRect();
-            const winHeight = window.innerHeight;
-            const nodes = timeline.querySelectorAll('.node-circle');
-            const nodeTops = Array.from(nodes, (node) => node.getBoundingClientRect().top);
-            // escrituras después
-            const topPassed = (winHeight / 2) - rect.top;
-            let percentage = (topPassed / rect.height) * 100;
-            percentage = Math.max(0, Math.min(100, percentage));
-            progressBar.style.height = `${percentage}%`;
-            nodes.forEach((node, i) => {
-                if (nodeTops[i] < winHeight / 2) {
-                    node.classList.add('!border-accent', '!bg-accent', '!text-white');
-                } else {
-                    node.classList.remove('!border-accent', '!bg-accent', '!text-white');
-                }
-            });
-        }
-
-        let progressTick = false;
-        function onProgressScroll() {
-            if (progressTick) return;
-            progressTick = true;
-            requestAnimationFrame(() => { updateProgress(); progressTick = false; });
-        }
-        window.addEventListener('scroll', onProgressScroll, { passive: true });
-        document.addEventListener('astro:page-load', updateProgress);
-        updateProgress();
+  document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const btn = form.querySelector('button');
+    if (btn) { btn.innerHTML = 'ENVIANT...'; btn.disabled = true; }
+    const data = Object.fromEntries(new FormData(form));
+    try {
+      const res = await fetch('https://cms.novamarketing.es/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (res.ok) {
+        window.location.href = '/ca/gracies/';
+      } else { throw new Error(); }
+    } catch {
+      if (btn) { btn.innerHTML = 'ERROR — TORNA-HO A PROVAR'; btn.disabled = false; btn.style.background = '#ef4444'; }
     }
-    document.addEventListener('DOMContentLoaded', initTimeline);
-    document.addEventListener('astro:page-load', initTimeline);
+  });
 </script>

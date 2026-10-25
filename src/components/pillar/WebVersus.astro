@@ -6,14 +6,15 @@
 import '../../styles/pillar.css';
 
 interface Row { label: string; a: string; b: string; }
-interface Props { a: { label: string; href?: string }; b: { label: string; href?: string }; rows: Row[]; caption?: string; }
-const { a, b, rows, caption } = Astro.props;
+interface Props { a: { label: string; href?: string }; b: { label: string; href?: string }; rows: Row[]; caption?: string; locale?: 'es' | 'ca'; }
+const { a, b, rows, caption, locale = 'es' } = Astro.props;
+const criterionLabel = locale === 'ca' ? 'Criteri' : 'Criterio';
 ---
 
 <figure class="pd-figure mt-12 reveal">
   <div class="overflow-hidden rounded-3xl border border-black/5 bg-white shadow-[0_15px_40px_rgba(0,0,0,0.06)]">
     <div class="grid grid-cols-2 sm:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)_minmax(0,1fr)] bg-zinc-950 text-white">
-      <span class="hidden sm:block px-5 py-4 text-[10px] font-black uppercase tracking-[0.25em] text-zinc-400">Criterio</span>
+      <span class="hidden sm:block px-5 py-4 text-[10px] font-black uppercase tracking-[0.25em] text-zinc-400">{criterionLabel}</span>
       {[a, b].map((c) => (
         <span class="px-5 py-4 text-sm font-black tracking-tight">
           {c.href ? <a href={c.href} class="underline decoration-white/30 underline-offset-4 hover:decoration-white">{c.label}</a> : c.label}

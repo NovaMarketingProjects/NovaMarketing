@@ -64,6 +64,16 @@ const pageSchema = localAgencySchema({
   hasMap: 'https://maps.app.goo.gl/9fbB12UcK32bgjj89',
   aggregateRating: { ratingValue: '5.0', reviewCount: '12' },
   breadcrumbName: 'Agencia de Google Ads para PYMEs',
+  mainService: {
+    name: 'Gestión de Google Ads para pymes',
+    serviceType: 'SEM / Google Ads',
+    description: 'Campañas de Google Ads para pymes orientadas a contactos y ventas, con la cuenta a nombre del cliente, honorarios fijos y sin permanencia.',
+    offers: [
+      { name: 'Revisión inicial de la cuenta de Google Ads', price: 900 },
+      { name: 'Gestión y optimización de Google Ads', price: 150, from: true, monthly: true, description: 'Honorarios de gestión; el presupuesto de anuncios se paga aparte a Google.' },
+      { name: 'Gestión de cuentas con más inversión', price: 400, from: true, monthly: true },
+    ],
+  },
   faqs,
 });
 ---
@@ -87,10 +97,10 @@ const pageSchema = localAgencySchema({
         <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
         Publicidad en Google para pymes
       </span>
-      <h1 class="uppercase font-extrabold tracking-tighter leading-[0.9] mb-8 text-gradient flex flex-col items-center text-center">
-        <span class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl">Agencia SEM para pymes:</span>{' '}
-        <span class="text-xl sm:text-3xl md:text-4xl mt-3 text-mktg-gradient">Google Ads orientado a resultados de negocio</span>
-      </h1>
+      <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
+                <span class="lg:whitespace-nowrap">Agencia SEM </span>
+                <span class="lg:whitespace-nowrap text-mktg-gradient">para PYMEs</span>
+            </h1>
       <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed max-w-3xl mx-auto mb-8">
         Campañas en Google pensadas para conseguir presupuestos, ventas y llamadas que tu empresa pueda atender, con la cuenta a tu nombre y honorarios fijos que no dependen de cuánto gastes.
       </p>

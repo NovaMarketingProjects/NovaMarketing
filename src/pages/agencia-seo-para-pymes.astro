@@ -57,6 +57,16 @@ const pageSchema = localAgencySchema({
   hasMap: 'https://maps.app.goo.gl/9fbB12UcK32bgjj89',
   aggregateRating: { ratingValue: '5.0', reviewCount: '12' },
   breadcrumbName: 'Agencia SEO para PYMEs',
+  mainService: {
+    name: 'Posicionamiento SEO para pymes',
+    serviceType: 'Posicionamiento SEO',
+    description: 'Auditoría, estrategia y acompañamiento SEO mensual para pymes: SEO técnico, contenidos, autoridad y SEO local, medido en contactos y ventas.',
+    offers: [
+      { name: 'Auditoría y estrategia SEO inicial', price: 1800 },
+      { name: 'Acompañamiento SEO mensual', price: 400, from: true, monthly: true },
+      { name: 'SEO para proyectos de mayor alcance', price: 900, from: true, monthly: true },
+    ],
+  },
   faqs,
 });
 ---
@@ -80,10 +90,10 @@ const pageSchema = localAgencySchema({
         <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
         Posicionamiento web para pymes
       </span>
-      <h1 class="uppercase font-extrabold tracking-tighter leading-[0.9] mb-8 text-gradient flex flex-col items-center text-center">
-        <span class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl">Agencia SEO para pymes</span>
-        <span class="text-xl sm:text-3xl md:text-4xl mt-3 text-mktg-gradient">que quieren crecer en Google</span>
-      </h1>
+      <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
+                <span class="lg:whitespace-nowrap">Agencia SEO </span>
+                <span class="lg:whitespace-nowrap text-mktg-gradient">para PYMEs</span>
+            </h1>
       <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed max-w-3xl mx-auto mb-8">
         Hacemos que tu empresa aparezca cuando tus clientes buscan lo que vendes, y medimos el trabajo en contactos y ventas, no en informes de posiciones.
       </p>
