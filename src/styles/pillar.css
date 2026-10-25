@@ -1,0 +1,56 @@
+/*
+ * Páginas pilar (SEO, SEM, GEO, diseño web): prosa, tarjetas y diagramas.
+ * Las animaciones solo se disparan cuando BaseLayout añade .active a un .reveal
+ * que entra al hacer scroll; sin JS (o ya visibles al cargar) todo se ve en su
+ * estado final.
+ */
+
+.pillar-prose { color: #52525b; font-weight: 300; line-height: 1.75; }
+.pillar-prose p + p { margin-top: 1.1rem; }
+.pillar-prose strong { font-weight: 600; color: #18181b; }
+.pillar-prose a,
+.pc-body a,
+.pd-caption a {
+  color: var(--color-accent);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--color-accent) 35%, transparent);
+  text-underline-offset: 3px;
+  transition: text-decoration-color .2s;
+}
+.pillar-prose a:hover,
+.pc-body a:hover,
+.pd-caption a:hover { text-decoration-color: var(--color-accent); }
+
+/* Pie de los diagramas */
+.pd-figure { margin: 0; }
+.pd-caption { margin-top: .9rem; font-size: .8rem; line-height: 1.5; color: #71717a; font-weight: 300; text-align: center; }
+
+/* Escalonado común: cada hijo animado usa --i */
+@keyframes pd-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes pd-grow-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes pd-grow-y { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes pd-draw { from { stroke-dashoffset: var(--len, 1000); } to { stroke-dashoffset: 0; } }
+@keyframes pd-pop { 0% { opacity: 0; transform: scale(.6); } 70% { transform: scale(1.06); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes pd-pulse { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-accent) 35%, transparent); } 50% { box-shadow: 0 0 0 10px transparent; } }
+
+.reveal.active .pd-rise { animation: pd-rise .7s cubic-bezier(.16,1,.3,1) both; animation-delay: calc(var(--i, 0) * 110ms + 150ms); }
+.reveal.active .pd-pop { animation: pd-pop .6s cubic-bezier(.16,1,.3,1) both; animation-delay: calc(var(--i, 0) * 120ms + 200ms); }
+.reveal.active .pd-bar { transform-origin: left center; animation: pd-grow-x 1.1s cubic-bezier(.16,1,.3,1) both; animation-delay: calc(var(--i, 0) * 130ms + 200ms); }
+.reveal.active .pd-col { transform-origin: bottom center; animation: pd-grow-y 1s cubic-bezier(.16,1,.3,1) both; animation-delay: calc(var(--i, 0) * 120ms + 200ms); }
+.reveal.active .pd-line { stroke-dasharray: var(--len, 1000); animation: pd-draw 1.6s ease-out both; animation-delay: calc(var(--i, 0) * 200ms + 200ms); }
+.reveal.active .pd-arc { animation: pd-draw 1.4s cubic-bezier(.16,1,.3,1) both; animation-delay: calc(var(--i, 0) * 200ms + 250ms); }
+.pd-live { animation: pd-pulse 2.4s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal.active .pd-rise, .reveal.active .pd-pop, .reveal.active .pd-bar,
+  .reveal.active .pd-col, .reveal.active .pd-line, .reveal.active .pd-arc, .pd-live { animation: none !important; }
+}
+
+/* Fila de tarjetas H3 con efecto de luz que sigue al cursor */
+.pc-card { position: relative; overflow: hidden; }
+.pc-card::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--color-accent) 9%, transparent), transparent 45%);
+}
+.pc-card:hover::before { opacity: 1; }

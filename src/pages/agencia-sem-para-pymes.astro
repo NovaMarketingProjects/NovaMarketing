@@ -2,65 +2,51 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { buildAlternates } from '../lib/i18n';
 import { localAgencySchema } from '../lib/schema';
-import { strapiClient } from '../lib/strapi';
 import LogoMarquee from '../components/sections/LogoMarquee.astro';
 import FaqHome from '../components/sections/FaqHome.astro';
 import CityPills from '../components/global/CityPills.astro';
 import GoogleReviews from '../components/global/GoogleReviews.astro';
+import MoreCases from '../components/casos/MoreCases.astro';
+import PSection from '../components/pillar/PSection.astro';
+import PCards from '../components/pillar/PCards.astro';
+import PFlow from '../components/pillar/PFlow.astro';
+import PBars from '../components/pillar/PBars.astro';
+import PMatrix from '../components/pillar/PMatrix.astro';
+import PStack from '../components/pillar/PStack.astro';
+import PVenn from '../components/pillar/PVenn.astro';
+import PFunnel from '../components/pillar/PFunnel.astro';
+import PTree from '../components/pillar/PTree.astro';
+import PLines from '../components/pillar/PLines.astro';
+import PCounter from '../components/pillar/PCounter.astro';
+import PSerp from '../components/pillar/PSerp.astro';
+import SemCalc from '../components/pillar/SemCalc.astro';
+import SemBudget from '../components/pillar/SemBudget.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-sem-para-pymes/', '/ca/agencia-sem-per-pimes/', SITE_URL);
 
-let allCases: any[] = [];
-try {
-  const casesRes = await strapiClient.getCaseStudies('es');
-  allCases = casesRes.data.map((i: any) => i.attributes ?? i).filter((c: any) => {
-    const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase());
-    return cats.some((s: string) => s.includes('google-ads'));
-  });
-} catch {}
-
-const steps = [
-  { title: "Auditoría de Cuenta y Mercado", desc: "Analizamos tu cuenta de Google Ads si ya tienes una, tu web y lo que hace tu competencia en los anuncios. Detectamos presupuesto desperdiciado, búsquedas que no convierten y oportunidades que nadie está pujando. Ese es tu punto de partida real." },
-  { title: "Estrategia de Campañas Documentada", desc: "Recibes un plan por escrito. Qué campañas lanzar, qué búsquedas atacar, qué presupuesto necesitas y qué coste por cliente es razonable en tu sector. Sabes en qué se invierte cada euro antes de invertirlo." },
-  { title: "Estructura, Anuncios y Landings", desc: "Montamos las campañas con una estructura limpia, redactamos anuncios que responden a lo que busca tu cliente y preparamos la página de destino para convertir ese clic en un contacto. El anuncio trae la visita, la landing cierra el lead." },
-  { title: "Optimización de Pujas y Presupuesto", desc: "Revisamos las campañas cada semana. Cortamos las búsquedas que gastan sin vender, subimos la puja donde hay negocio y ajustamos horarios, zonas y dispositivos para que cada euro trabaje donde convierte." },
-  { title: "Medición y Escalado", desc: "Monitorizamos mes a mes tus leads, tu coste por contacto y tu retorno. En el informe ves cuántos clientes llegan desde los anuncios, cuánto cuesta cada uno y qué campañas merecen más presupuesto el mes siguiente." }
-];
-
-const criteria = [
-  { title: "Pide casos de éxito verificables", desc: "Un muro de logos no demuestra nada. Pide casos con datos concretos. Qué inversión, qué coste por lead, cuántos clientes generó y en cuánto tiempo. Una agencia de Google Ads seria debería poder enseñarte resultados de negocios como el tuyo. Si no pueden enseñarte ni uno, sigue buscando." },
-  { title: "Pregunta quién llevará tu cuenta", desc: "En muchas agencias vende un director y ejecuta un junior con 30 cuentas. Exige conocer a la persona que gestionará tus campañas antes de firmar. En nova hablas siempre con el consultor que optimiza tu cuenta, presencialmente o por videollamada." },
-  { title: "Exige que la cuenta de Google Ads sea tuya", desc: "La cuenta, el historial de datos y el píxel de conversión deben estar a tu nombre. Muchas agencias crean la cuenta bajo su propiedad y al irte pierdes todo el aprendizaje acumulado y empiezas de cero. Eso no es un servicio, es un secuestro de datos." },
-  { title: "Desconfía de quien cobra un porcentaje opaco de tu inversión", desc: "Si la agencia gana más cuanto más gastas, su incentivo es que gastes más, no que vendas más. Exige saber exactamente cuánto pagas de gestión y cuánto va a Google. En nova el fee es fijo y el cien por cien de tu presupuesto publicitario va a tus anuncios." },
-  { title: "Revisa qué mide el informe mensual", desc: "Si el informe habla de impresiones y clics pero no de llamadas, formularios y ventas, la agencia está midiendo su actividad y no tu negocio. Las campañas de una pyme se miden en clientes nuevos y en lo que cuesta conseguir cada uno." },
-  { title: "Huye de las permanencias largas", desc: "Una permanencia de 12 meses protege a la agencia, no a ti. En Google Ads los resultados se ven en semanas, así que no hay excusa para atarte un año. Por eso en nova trabajamos mes a mes." },
-  { title: "Que no dependa todo de pagar", desc: "Google Ads trae clientes desde el primer día, pero cuando paras la inversión paran los leads. Una buena agencia te ayuda a usar los datos de las campañas para construir también SEO y visibilidad en la IA. Nosotros integramos los tres canales en una sola estrategia." }
-];
+const ICON = {
+  search: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z',
+  cart: 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z',
+  phone: 'M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z',
+  target: 'M12 3a9 9 0 100 18 9 9 0 000-18zm0 5a4 4 0 100 8 4 4 0 000-8z',
+  doc: 'M9 12h6m-6 4h6M9 8h2m8-3v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2h6l4 4z',
+  chart: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z',
+  money: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+  users: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z',
+  video: 'M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z',
+  eye: 'M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z',
+  repeat: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15',
+  shield: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
+  key: 'M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z',
+  chat: 'M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+};
 
 const faqs = [
-  { question: "¿Qué incluye el servicio de una agencia de Google Ads para PYMEs?", answer: "Incluye una auditoría inicial, una estrategia documentada y la gestión y optimización semanal de tus campañas. Estructura de cuenta, redacción de anuncios, ajuste de pujas y presupuesto, revisión de términos de búsqueda, optimización de la página de destino y un informe mensual con leads, coste por contacto y retorno. No aplicamos plantillas, cada sector compite de forma distinta en las subastas." },
-  { question: "¿Cuánto cuesta una agencia de Google Ads para PYMEs?", answer: "La auditoría de tu cuenta cuesta 900 euros y la gestión mensual empieza en 150 euros al mes con fee fijo, sin porcentajes sobre tu inversión. A eso se suma tu presupuesto publicitario, que va íntegro a Google y recomendamos que parta de entre 300 y 500 euros al mes. Antes de empezar recibes un presupuesto cerrado por escrito." },
-  { question: "¿Cuánto tarda Google Ads en dar resultados?", answer: "Es el canal más rápido que existe. Las campañas pueden estar mostrando anuncios en cuestión de días y los primeros leads suelen llegar en las primeras semanas. El algoritmo necesita entre uno y dos meses de datos para optimizar del todo, y ahí es cuando el coste por cliente empieza a bajar de verdad." },
-  { question: "¿La cuenta de Google Ads será mía?", answer: "Sí, siempre. La cuenta, el historial, las conversiones y las audiencias quedan a tu nombre desde el primer día. Si algún día dejas de trabajar con nosotros, te llevas todo el aprendizaje acumulado. Nos parece lo mínimo, aunque en el sector no sea lo habitual." },
-  { question: "¿Cuánto debería invertir mi pyme en Google Ads?", answer: "Depende de tu sector y de lo que cueste cada clic en tus búsquedas. Como regla general, recomendamos partir de entre 300 y 500 euros al mes de presupuesto publicitario para que el algoritmo tenga datos suficientes para optimizar. En la auditoría te decimos la cifra concreta para tu caso y qué retorno es razonable esperar." },
-  { question: "¿Cómo medís los resultados de las campañas?", answer: "Medimos leads y ventas, no solo clics. Cada llamada, formulario o pedido queda atribuido a su campaña y su búsqueda de origen. Configuramos las conversiones desde el primer día y en el informe mensual ves cuántos clientes han llegado y cuánto ha costado cada uno. Los datos son tuyos y tienes acceso total a la cuenta." },
-  { question: "¿Trabajáis con permanencia?", answer: "No, trabajamos mes a mes. Si el servicio no te aporta valor, puedes cancelarlo cuando quieras. Nuestra permanencia real es el resultado que ves en los informes cada mes." }
-];
-
-const sectors = [
-  { icon: '🛒', title: 'Google Ads para ecommerce', href: '/agencia-ecommerce/google-ads/', desc: 'Shopping y Performance Max con feed optimizado. Que tu producto salga con foto y precio justo cuando alguien busca comprarlo.' },
-  { icon: '🏠', title: 'Google Ads para inmobiliarias', href: '/agencia-inmobiliarias/google-ads/', desc: 'Captación de propietarios y compradores con campañas por zona y anuncios que filtran curiosos antes del clic.' },
-  { icon: '🍽️', title: 'Google Ads para restaurantes', href: '/agencia-restaurantes/google-ads/', desc: 'Campañas locales que aparecen cuando alguien busca dónde comer cerca, conectadas con tu ficha de Google y las reservas.' },
-  { icon: '🧠', title: 'Google Ads para psicólogos', desc: 'El paciente busca ayuda con urgencia y elige entre lo primero que ve. Anuncios por especialidad que convierten búsquedas en primeras visitas.' },
-  { icon: '🌿', title: 'Google Ads para terapeutas', desc: 'Clics caros si compites en genérico. Campañas por terapia y zona que pagan solo por las búsquedas que traen pacientes.' },
-  { icon: '🦷', title: 'Google Ads para dentistas', desc: 'Uno de los CPCs más caros del mercado. Aquí gana quien mejor filtra las búsquedas y mejor convierte la landing, no quien más gasta.' },
-  { icon: '💪', title: 'Google Ads para gimnasios', desc: 'Campañas estacionales con picos en enero y septiembre. Promociones locales que llenan clases sin quemar presupuesto el resto del año.' },
-  { icon: '🏗️', title: 'Google Ads para constructoras', desc: 'Leads de valor alto y mucha competencia local. Campañas por servicio y zona con anuncios que traen presupuestos, no curiosos.' },
-  { icon: '⚖️', title: 'Google Ads para abogados', desc: 'Búsquedas de altísima intención con los clics más caros de Google. Estructura quirúrgica para pagar solo por los casos que te interesan.' },
-  { icon: '🏨', title: 'Google Ads para hoteles', href: '/agencia-hoteles/google-ads/', desc: 'Campañas de marca para frenar a las OTAs y captar la reserva directa, más visibilidad en Google Hotels.' },
-  { icon: '🏭', title: 'Google Ads para B2B', href: '/agencia-b2b/google-ads/', desc: 'Pocos decisores y ciclos largos. Campañas de búsqueda técnica y remarketing que acompañan al responsable de compras hasta el contacto.' },
-  { icon: '⚙️', title: 'Google Ads para Empresas Industriales', href: '/agencia-industrial/google-ads/', desc: 'Campañas de búsqueda que ponen tu empresa delante del responsable de compras que ya te está buscando, pagando solo por leads cualificados reales.' },
+  { question: '¿Qué presupuesto necesita mi pyme para empezar?', answer: 'Como orientación, recomendamos empezar con entre 300 y 500 euros al mes de presupuesto en anuncios, que va íntegro a Google, más los honorarios de gestión, desde 150 euros al mes sin IVA. La cifra real depende de lo que cuesta cada clic en tus búsquedas y de tu margen. Antes de empezar hacemos los números contigo y, si no salen, te lo decimos.' },
+  { question: '¿Cuándo habrá datos suficientes para evaluar las campañas?', answer: 'Los anuncios pueden empezar a mostrarse en pocos días y los primeros contactos suelen llegar en las primeras semanas. Para valorar con criterio el coste por contacto y la calidad de los leads hacen falta, por lo general, entre uno y dos meses de datos, más si el presupuesto es bajo o tu ciclo de venta es largo.' },
+  { question: '¿Podéis continuar con una cuenta que ya existe?', answer: 'Sí, y suele ser lo más recomendable, porque el historial de la cuenta tiene valor. Empezamos con una revisión de la configuración, las conversiones, las campañas y las búsquedas reales que han activado tus anuncios. Mantenemos lo que funciona y corregimos lo demás por orden de impacto, sin borrar la cuenta ni empezar de cero.' },
+  { question: '¿Cómo se pausa o se finaliza el servicio?', answer: 'Trabajamos mes a mes, sin permanencia. Si quieres pausar las campañas por temporada o terminar el servicio, nos lo dices y lo dejamos ordenado. La cuenta de Google Ads siempre está a tu nombre, así que conservas el historial, las conversiones y las audiencias, y puedes retomarla tú o con quien decidas.' },
 ];
 
 const pageSchema = localAgencySchema({
@@ -69,11 +55,11 @@ const pageSchema = localAgencySchema({
   cityName: 'Barcelona',
   postalCode: '08035',
   geo: { lat: 41.4114, lng: 2.1526 },
-  areaServed: ["España", "Barcelona", "Sabadell", "Sant Cugat del Vallès", "Terrassa", "Vallès Occidental"],
-  title: "▷ Agencia Google Ads para PYMEs | Campañas SEM con resultados claros",
-  description: "Campañas Google Ads para PYMEs con fee fijo ✅ cuenta propia y seguimiento detallado de leads y ventas. Conoce cómo trabajamos en SEM",
+  areaServed: ['España', 'Barcelona', 'Sabadell', 'Sant Cugat del Vallès', 'Terrassa', 'Vallès Occidental'],
+  title: '▷ Agencia Google Ads para PYMEs | Campañas SEM con resultados claros',
+  description: 'Campañas Google Ads para PYMEs con fee fijo ✅ cuenta propia y seguimiento detallado de leads y ventas. Conoce cómo trabajamos en SEM',
   datePublished: '2026-07-15',
-  dateModified: '2026-07-15',
+  dateModified: '2026-10-25',
   streetAddress: 'Carrer del General Mendoza, 10',
   hasMap: 'https://maps.app.goo.gl/9fbB12UcK32bgjj89',
   aggregateRating: { ratingValue: '5.0', reviewCount: '12' },
@@ -90,757 +76,526 @@ const pageSchema = localAgencySchema({
   schemas={[pageSchema]}
 >
 
-    <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
-    <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
-        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
-        <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
-        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+  <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
+  <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+    <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+    <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
 
-        <div class="max-w-5xl mx-auto reveal">
-            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
-                <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
-                Publicidad en Google para Pymes
-            </span>
-            <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
-                <span class="lg:whitespace-nowrap">Agencia SEM </span>
-                <span class="lg:whitespace-nowrap text-mktg-gradient">para PYMEs</span>
-            </h1>
-            <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
-                Aparece hoy mismo cuando tus clientes buscan tu servicio en Google. Campañas de Google Ads para PYMEs con fee fijo, la cuenta a tu nombre y resultados que se miden en ventas.
-            </p>
-            <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
-                {['Sin permanencias', 'Fee fijo sin porcentajes', 'La cuenta es tuya'].map(item => (
-                    <span class="inline-flex items-center gap-2 text-[11px] sm:text-xs font-black uppercase tracking-widest text-zinc-700">
-                        <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
-                        </svg>
-                        {item}
-                    </span>
-                ))}
-            </div>
-            <div class="flex justify-center mt-4">
-                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                    HABLEMOS DE TU NEGOCIO
-                </a>
-            </div>
+    <div class="max-w-5xl mx-auto reveal relative">
+      <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
+        <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+        Publicidad en Google para pymes
+      </span>
+      <h1 class="uppercase font-extrabold tracking-tighter leading-[0.9] mb-8 text-gradient flex flex-col items-center text-center">
+        <span class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl">Agencia SEM para pymes:</span>{' '}
+        <span class="text-xl sm:text-3xl md:text-4xl mt-3 text-mktg-gradient">Google Ads orientado a resultados de negocio</span>
+      </h1>
+      <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed max-w-3xl mx-auto mb-8">
+        Campañas en Google pensadas para conseguir presupuestos, ventas y llamadas que tu empresa pueda atender, con la cuenta a tu nombre y honorarios fijos que no dependen de cuánto gastes.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
+        {['Sin permanencias', 'Honorarios fijos', 'La cuenta es tuya'].map((item) => (
+          <span class="inline-flex items-center gap-2 text-[11px] sm:text-xs font-black uppercase tracking-widest text-zinc-700">
+            <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            {item}
+          </span>
+        ))}
+      </div>
+      <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">HABLEMOS DE TU NEGOCIO</a>
+    </div>
+  </section>
+
+  <LogoMarquee />
+
+  <!-- ═══ OBJETIVO ═══════════════════════════════════════════════════════ -->
+  <PSection kicker="Por qué Google Ads" title="Tu inversión publicitaria debe responder a un objetivo claro">
+    <Fragment slot="intro">
+      <p>Google Ads permite aparecer hoy mismo delante de quien busca lo que vendes. Esa rapidez es su ventaja y también su riesgo: <strong>una campaña sin objetivo concreto gasta igual de rápido que una bien planteada</strong>, solo que sin devolver clientes.</p>
+      <p>En Nova empezamos por lo que tu empresa necesita conseguir y construimos las campañas hacia atrás. Qué búsquedas merecen inversión, qué mensaje necesita cada anuncio y qué debe pasar en la página para que el clic acabe en contacto. Si dudas entre pagar por anuncios o trabajar el posicionamiento, te lo explicamos en <a href="/blog/que-necesita-una-pyme-seo-o-sem/">qué necesita una pyme, SEO o SEM</a>. Muchas veces la respuesta es combinar la publicidad con el <a href="/agencia-seo-para-pymes/">posicionamiento SEO</a>.</p>
+    </Fragment>
+    <PFlow
+      steps={[
+        { label: 'Objetivo de negocio', sub: 'presupuestos, ventas, llamadas' },
+        { label: 'Campaña adecuada', sub: 'búsqueda, Shopping, vídeo' },
+        { label: 'Página de destino', sub: 'responde a la búsqueda' },
+        { label: 'Conversión medida', sub: 'contacto, venta, oportunidad' },
+      ]}
+      caption="El orden en el que planteamos una cuenta. Primero el objetivo; la campaña es la herramienta para llegar a él."
+    />
+  </PSection>
+
+  <!-- ═══ OBJETIVOS ══════════════════════════════════════════════════════ -->
+  <PSection kicker="Objetivos" title="Qué quieres conseguir con tus campañas" tone="soft">
+    <Fragment slot="intro">
+      <p>Cada objetivo pide una configuración distinta: tipo de campaña, forma de pujar, página de destino y lo que contamos como conversión. Por eso lo acordamos antes de tocar la cuenta.</p>
+    </Fragment>
+    <PCards
+      tone="soft"
+      cols={2}
+      items={[
+        { icon: ICON.doc, title: 'Solicitudes de presupuesto', html: 'Para empresas de servicios con un ticket alto, como reformas, instalaciones o asesorías. Buscamos personas que ya saben lo que necesitan y quieren precio. Medimos formularios completos, no clics, y filtramos las búsquedas de bricolaje o empleo. Lo aplicamos en sectores como <a href="/agencia-constructoras/google-ads/">constructoras</a> o <a href="/agencia-inmobiliarias/google-ads/">inmobiliarias</a>, donde un solo contrato puede justificar meses de inversión.' },
+        { icon: ICON.cart, title: 'Ventas en tu tienda online', html: 'Si vendes online, el objetivo es facturar con rentabilidad, no acumular visitas. Trabajamos el catálogo, las campañas de Shopping y la medición de ingresos para saber qué productos devuelven lo invertido. Lo detallamos en nuestro servicio de <a href="/agencia-ecommerce/google-ads/">Google Ads para ecommerce</a>, con la vista puesta en el margen de cada producto.' },
+        { icon: ICON.phone, title: 'Llamadas y contactos para tu negocio', html: 'Clínicas, despachos, restaurantes o centros deportivos suelen recibir clientes por teléfono. Activamos anuncios con llamada, horarios ajustados a cuándo puedes atender y zonas reales de servicio. Tenemos enfoques específicos para <a href="/agencia-dentistas/google-ads/">dentistas</a>, <a href="/agencia-abogados/google-ads/">abogados</a>, <a href="/agencia-restaurantes/google-ads/">restaurantes</a> y <a href="/agencia-gimnasios/google-ads/">gimnasios</a>.' },
+        { icon: ICON.users, title: 'Oportunidades comerciales para tu equipo de ventas', html: 'En empresas B2B o industriales, el anuncio no cierra la venta; abre una conversación. Priorizamos búsquedas técnicas, formularios con datos útiles para el comercial y el seguimiento de qué contactos acaban en oferta. Más detalle en <a href="/agencia-b2b/google-ads/">Google Ads B2B</a> y <a href="/agencia-industrial/google-ads/">Google Ads para empresas industriales</a>.' },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ NÚMEROS ════════════════════════════════════════════════════════ -->
+  <PSection id="numeros" kicker="Viabilidad" title="Antes de invertir, comprobamos si los números encajan">
+    <Fragment slot="intro">
+      <p>Hay negocios donde Google Ads funciona muy bien y otros donde el clic cuesta más de lo que el cliente deja. <strong>Preferimos saberlo antes de que gastes</strong> que descubrirlo tres meses después. Hacemos este cálculo con tus datos reales en la primera conversación.</p>
+      <p>Prueba a mover los valores. El resultado es el coste por clic a partir del cual las campañas dejan de compensar con ese planteamiento.</p>
+    </Fragment>
+    <SemCalc caption="Ejemplo con valores ilustrativos de una empresa de servicios, no son datos de un cliente. Cambia cada valor para aproximarlo a tu negocio." />
+    <PCards
+      cols={2}
+      variant="numbered"
+      items={[
+        { title: 'Margen de tus productos o servicios', html: 'Lo que importa no es el precio de venta, sino lo que queda después de costes. Con un margen alto puedes pagar clics caros y seguir ganando; con uno estrecho, cada euro de publicidad tiene que estar muy bien dirigido. Por eso te preguntamos por el margen aproximado de cada línea antes de proponer campañas o presupuesto.' },
+        { title: 'Coste de adquisición que puede asumir tu empresa', html: 'A partir del margen y de cuántos contactos acaban en venta calculamos cuánto puedes pagar como máximo por un cliente nuevo. Si además ese cliente repite o contrata otros servicios, el límite sube. Esa cifra es la referencia con la que juzgamos cada campaña, no el número de clics.' },
+        { title: 'Demanda y competencia en las búsquedas', html: 'Revisamos cuánta gente busca tu servicio en tu zona, cuánto cuesta aproximadamente el clic y quién más se anuncia. Una búsqueda con poca demanda pero muy precisa puede ser rentable; otra con mucho volumen y competidores con más presupuesto puede no serlo para una pyme. Entender la <a href="/blog/que-es-la-intencion-de-busqueda-en-el-seo/">intención de búsqueda</a> ayuda a separar ambas.' },
+        { title: 'Capacidad para atender los contactos recibidos', html: 'Más contactos solo son buena noticia si alguien los atiende a tiempo. Si tu equipo tarda dos días en devolver una llamada o no puede asumir más trabajo en temporada alta, lo tenemos en cuenta al fijar el presupuesto y los horarios. Una campaña no debe generar más demanda de la que puedes convertir en clientes.' },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ CUENTA ACTUAL ══════════════════════════════════════════════════ -->
+  <PSection id="auditoria" kicker="Revisión de cuenta" title="¿Tu cuenta de Google Ads está aprovechando el presupuesto?" tone="soft" layout="split">
+    <Fragment slot="intro">
+      <p>Si ya inviertes en Google Ads, el primer paso es mirar dónde va cada euro. Nuestra revisión de cuenta recorre campañas, búsquedas reales, conversiones y páginas de destino, y termina con un plan ordenado por ahorro e impacto.</p>
+      <p>También sirve como <strong>segunda opinión independiente</strong> si trabajas con otra agencia y no tienes claro qué estás pagando.</p>
+    </Fragment>
+    <PBars
+      slot="aside"
+      title="Dónde suele perderse el presupuesto"
+      rows={[
+        { label: 'Búsquedas sin relación con lo que vendes', value: 34, display: 'Alto' },
+        { label: 'Conversiones que no miden negocio', value: 26, display: 'Alto' },
+        { label: 'Landing genérica o lenta', value: 20, display: 'Medio' },
+        { label: 'Campañas solapadas', value: 12, display: 'Medio' },
+        { label: 'Horarios y zonas sin ajustar', value: 8, display: 'Bajo' },
+      ]}
+      caption="Esquema ilustrativo de los problemas que más revisamos, ordenados por el peso que suelen tener. No son porcentajes de una cuenta real."
+    />
+    <PCards
+      variant="rows"
+      tone="soft"
+      items={[
+        { title: 'Inversión destinada a búsquedas poco relevantes', html: 'El informe de términos de búsqueda muestra lo que la gente escribió realmente antes de pulsar tu anuncio. Es habitual encontrar búsquedas de empleo, de formación, de productos que no vendes o de otras ciudades. Cada una de ellas resta presupuesto a las que sí traen clientes, y se corrige con palabras clave mejor elegidas y negativas.' },
+        { title: 'Campañas que compiten entre sí', html: 'Cuando varias campañas o grupos de anuncios pujan por la misma búsqueda, Google elige cuál muestra y los datos se reparten. El resultado es que no sabes qué funciona y a veces pagas más por el clic. Reordenamos la estructura para que cada búsqueda importante tenga una única campaña responsable.' },
+        { title: 'Conversiones mal configuradas o incompletas', html: 'Si la cuenta cuenta como conversión una visita a la página de contacto, un clic en el teléfono o un mismo formulario dos veces, las pujas automáticas optimizan hacia algo que no es negocio. Comprobamos qué se mide, cómo se mide y si los números de la cuenta cuadran con los contactos que recibe tu empresa.' },
+        { title: 'Páginas de destino que frenan los resultados', html: 'Muchos anuncios llevan a la portada o a una página que no habla de lo buscado, carga lenta en el móvil o esconde el formulario. El clic está pagado, pero el contacto no llega. Revisamos cada página que recibe tráfico de pago y marcamos qué cambiar primero.' },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ BÚSQUEDA ═══════════════════════════════════════════════════════ -->
+  <PSection kicker="Campañas de búsqueda" title="Captar la demanda que ya existe" layout="split">
+    <Fragment slot="intro">
+      <p>Las campañas de búsqueda son la base de casi cualquier cuenta de pyme. Aparecen cuando alguien escribe en Google exactamente lo que ofreces, es decir, cuando la necesidad ya existe. <strong>No hay que convencer a nadie de que te necesita</strong>, solo de que eres la mejor opción.</p>
+    </Fragment>
+    <PSerp
+      slot="aside"
+      query="reforma de baño en Sabadell precio"
+      results={[
+        { url: 'tuempresa.es › reforma-banos', title: 'Reforma de baño en Sabadell · Presupuesto en 48 h', desc: 'Plato de ducha, alicatado y fontanería. Precio cerrado y visita sin compromiso en el Vallès.', highlight: true, label: 'Anuncio' },
+        { url: 'competidor-a.com', title: 'Reformas integrales | Pide presupuesto', desc: 'Reformamos tu casa completa. Más de 20 años de experiencia.', label: 'Anuncio' },
+        { url: 'directorio-reformas.es › sabadell', title: 'Precios de reforma de baño en Sabadell', desc: 'Compara presupuestos de varias empresas de la zona.' },
+      ]}
+      caption="Ilustración. Un anuncio específico para el servicio y la zona responde mejor que uno genérico de la misma empresa."
+    />
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+      <PCards
+        cols={2}
+        variant="check"
+        class="lg:grid-cols-1 !mt-12"
+        items={[
+          { title: 'Campañas de búsqueda por servicio', html: 'Separamos cada servicio importante en su propia campaña o grupo de anuncios, con su presupuesto, sus palabras clave y su página. Así puedes decidir cuánto invertir en cada línea y comparar qué servicio trae clientes a mejor coste, en lugar de mezclarlo todo en una sola campaña.' },
+          { title: 'Separación entre búsquedas de marca y genéricas', html: 'Quien busca el nombre de tu empresa ya te conoce; quien busca el servicio, todavía no. Mezclar ambas inflaría los resultados de forma engañosa. Las separamos para ver cuánto aporta de verdad la publicidad y para proteger tu marca cuando otros pujan por ella, algo habitual en <a href="/agencia-hoteles/google-ads/">hoteles</a> frente a las plataformas de reservas.' },
+          { title: 'Palabras clave según la intención del usuario', html: 'No es lo mismo «cuánto cuesta reformar un baño» que «empresa reforma baño Sabadell». Priorizamos las búsquedas con intención de contratar, controlamos las coincidencias para no abrir la puerta a variaciones sin sentido y reservamos las más informativas para el SEO.' },
+          { title: 'Términos negativos para filtrar tráfico', html: 'Mantenemos listas de palabras negativas por campaña y por cuenta: empleo, gratis, cursos, segunda mano, ciudades donde no trabajas o servicios que no ofreces. Las revisamos de forma continua con los términos reales, porque cada semana aparecen búsquedas nuevas.' },
+        ]}
+      />
+      <div class="mt-12">
+        <PTree
+          root="Cuenta de una empresa de reformas"
+          branches={[
+            { label: 'Campaña · Reforma de baños', leaves: ['reforma baño completo', 'cambiar bañera por plato'] },
+            { label: 'Campaña · Reformas integrales', leaves: ['reforma integral piso', 'reforma vivienda precio'] },
+            { label: 'Campaña · Marca', leaves: ['nombre de la empresa'] },
+          ]}
+          caption="Ejemplo de estructura. Cada servicio tiene su campaña, sus grupos de anuncios y sus palabras clave; la marca va aparte."
+        />
+      </div>
+    </div>
+  </PSection>
+
+  <!-- ═══ ECOMMERCE ══════════════════════════════════════════════════════ -->
+  <PSection kicker="Shopping y Performance Max" title="Publicidad para vender productos online" tone="soft" layout="split">
+    <Fragment slot="intro">
+      <p>En una tienda online el anuncio muestra el producto con foto y precio antes del clic. Eso hace que <strong>la calidad del catálogo pese tanto como la campaña</strong>. Trabajamos ambos a la vez y medimos ingresos y margen, no solo pedidos.</p>
+      <p>Si tu tienda también vende a través de redes sociales, lo coordinamos con <a href="/agencia-ecommerce/meta-ads/">Meta Ads para ecommerce</a>.</p>
+    </Fragment>
+    <PStack
+      slot="aside"
+      layers={[
+        { label: 'Ventas con margen', sub: 'ingresos medidos por producto' },
+        { label: 'Shopping y Performance Max', sub: 'campañas según objetivo' },
+        { label: 'Merchant Center', sub: 'catálogo aprobado y sin errores' },
+        { label: 'Datos de producto', sub: 'títulos, precios, stock, imágenes' },
+      ]}
+      caption="Cada capa depende de la anterior. Un catálogo con errores limita cualquier campaña."
+    />
+    <PCards
+      tone="soft"
+      cols={2}
+      items={[
+        { icon: ICON.doc, title: 'Preparación del catálogo en Merchant Center', html: 'Revisamos el feed de productos: títulos que incluyen lo que la gente busca, categorías correctas, precios y stock sincronizados, imágenes válidas y productos sin rechazos. Google decide en qué búsquedas mostrar cada producto a partir de esos datos, así que un buen catálogo es la mitad del trabajo.' },
+        { icon: ICON.cart, title: 'Campañas de Google Shopping', html: 'Organizamos los productos en grupos según categoría, margen o rendimiento para pujar más por los que compensan y menos por los que no. Revisamos las búsquedas que activan cada producto y añadimos negativas, igual que en las campañas de texto. Es la forma más controlada de vender un catálogo en Google.' },
+        { icon: ICON.chart, title: 'Performance Max según los objetivos del negocio', html: 'Performance Max reparte la inversión entre búsqueda, Shopping, YouTube y otros espacios de forma automática. Funciona bien cuando tiene buenas señales: conversiones correctas, valor de cada venta y un catálogo limpio. Sin ellas puede gastar en tráfico de poca calidad, así que la usamos cuando los datos lo justifican.' },
+        { icon: ICON.money, title: 'Decisiones de inversión por producto y margen', html: 'No todos los productos merecen la misma inversión. Separamos los que dejan más margen, los más vendidos y los que solo consumen presupuesto, y ajustamos el objetivo de retorno de cada grupo. Así la cuenta se alinea con lo que realmente deja dinero a tu tienda.' },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ AUDIENCIAS ═════════════════════════════════════════════════════ -->
+  <PSection kicker="YouTube, Display y remarketing" title="Llegar a nuevas audiencias y recuperar su atención" layout="split">
+    <Fragment slot="intro">
+      <p>La búsqueda capta a quien ya te busca. Para llegar antes a quien todavía no conoce tu propuesta, o para recuperar a quien visitó tu web y no contactó, existen otros formatos. <strong>Los activamos solo cuando el presupuesto y el objetivo lo justifican</strong>; para muchas pymes, la búsqueda bien trabajada es suficiente al principio.</p>
+      <p>Cuando el objetivo es generar demanda en redes sociales, trabajamos también con Meta Ads, por ejemplo para <a href="/agencia-gimnasios/meta-ads/">gimnasios</a> o <a href="/agencia-restaurantes/meta-ads/">restaurantes</a>.</p>
+    </Fragment>
+    <PVenn
+      slot="aside"
+      sets={[
+        { label: 'Búsqueda', sub: 'demanda que ya existe' },
+        { label: 'Shopping y PMax', sub: 'producto y catálogo' },
+        { label: 'YouTube y Display', sub: 'descubrimiento' },
+      ]}
+      center="Tu cliente"
+      caption="Cada formato cubre un momento distinto. Combinamos solo los que encajan con tu objetivo y tu presupuesto."
+    />
+    <PCards
+      cols={2}
+      items={[
+        { icon: ICON.video, title: 'YouTube para presentar tu propuesta', html: 'Un vídeo corto puede explicar en segundos lo que un anuncio de texto no cuenta: cómo trabajas, cómo es tu producto o qué te diferencia. Lo usamos para segmentos concretos, como personas interesadas en temas relacionados con tu servicio o visitantes de tu web, y medimos si después aumentan las búsquedas de tu marca y los contactos.' },
+        { icon: ICON.eye, title: 'Display dentro de una estrategia de cobertura', html: 'Los anuncios gráficos en webs y aplicaciones son baratos por impresión, pero fáciles de desperdiciar. Los activamos con audiencias bien definidas y objetivos de cobertura claros, como reforzar el recuerdo de marca en una zona o en un sector, nunca como sustituto de las campañas que generan contactos.' },
+        { icon: ICON.repeat, title: 'Remarketing cuando sea viable y pertinente', html: 'Volver a mostrar anuncios a quien ya visitó tu web funciona bien cuando la decisión de compra tarda días o semanas. Requiere un volumen mínimo de visitas y el consentimiento de cookies bien configurado. Si tu web todavía no tiene ese tráfico, te lo decimos y no lo activamos.' },
+        { icon: ICON.shield, title: 'Control de ubicaciones y calidad del tráfico', html: 'Revisamos en qué webs, aplicaciones y canales aparecen tus anuncios y excluimos los que traen clics accidentales o sin interés, como juegos infantiles o páginas de baja calidad. Así el presupuesto de cobertura llega a personas que pueden convertirse en clientes.' },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ ANUNCIOS ═══════════════════════════════════════════════════════ -->
+  <PSection kicker="Redacción de anuncios" title="Anuncios que conectan con lo que busca tu cliente" tone="dark">
+    <Fragment slot="intro">
+      <p>En la página de resultados tu anuncio compite con otros tres o cuatro en un par de líneas. Gana el que mejor responde a la búsqueda y da motivos para elegirle. Escribimos los anuncios a partir de las dudas reales de tus clientes, no de frases hechas del sector.</p>
+    </Fragment>
+    <PCards
+      tone="dark"
+      cols={2}
+      variant="numbered"
+      items={[
+        { title: 'Mensajes según servicio y necesidad', html: 'Cada grupo de anuncios tiene textos que repiten lo que la persona buscó y responden a lo que le preocupa: urgencia, precio, zona o especialidad. Un anuncio para «abogado de herencias» no puede ser el mismo que para «abogado laboral». Lo vemos a menudo en servicios de salud como <a href="/agencia-psicologos/google-ads/">psicólogos</a> o <a href="/agencia-terapeutas/google-ads/">terapeutas</a>, donde el tono importa tanto como la oferta.' },
+        { title: 'Propuestas de valor que se pueden acreditar', html: '«Líderes del sector» o «la mejor calidad» no convencen a nadie. Usamos argumentos que puedes demostrar: años de experiencia, plazo de respuesta, garantía, precio cerrado, valoraciones de clientes. Si un anuncio promete algo, la página de destino tiene que confirmarlo.' },
+        { title: 'Recursos de anuncio útiles para decidir', html: 'Enlaces a servicios concretos, textos destacados, extractos de servicios, llamada, ubicación o formulario. Los recursos amplían el anuncio y dan información antes del clic, lo que filtra a quien no encaja. Elegimos solo los que aportan algo a tu cliente y los mantenemos actualizados.' },
+        { title: 'Pruebas de mensajes y llamadas a la acción', html: 'Probamos variantes de titulares y llamadas a la acción, como «pide presupuesto» frente a «consulta precios», y dejamos las que consiguen más contactos de calidad, no solo más clics. Cambiamos una cosa cada vez para saber qué ha funcionado y aplicarlo en el resto de la cuenta.' },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ LANDING ════════════════════════════════════════════════════════ -->
+  <PSection kicker="Página de destino" title="Del clic al contacto: la página de destino" layout="split">
+    <Fragment slot="intro">
+      <p>El anuncio trae la visita; la página decide si se convierte en contacto. Una mejora en la conversión de la página reduce el coste de cada cliente sin tocar el presupuesto, por eso la revisamos con la misma atención que las campañas.</p>
+      <p>Si la web necesita cambios de fondo, lo coordinamos con nuestro servicio de <a href="/diseno-web-para-pymes/">diseño web para pymes</a>. Y si quieres hacer una primera revisión por tu cuenta, empieza por <a href="/blog/como-saber-si-tu-web-esta-bien-hecha/">cómo saber si tu web está bien hecha</a>.</p>
+    </Fragment>
+    <PFlow
+      slot="aside"
+      steps={[
+        { label: 'Búsqueda', sub: '«dentista urgencias Terrassa»' },
+        { label: 'Anuncio', sub: 'urgencias hoy en Terrassa' },
+        { label: 'Página', sub: 'urgencias, horario, teléfono' },
+        { label: 'Llamada', sub: 'cita el mismo día' },
+      ]}
+      caption="Ejemplo de coherencia. Cada paso repite y confirma lo que la persona buscaba."
+    />
+    <PCards
+      cols={2}
+      items={[
+        { icon: ICON.target, title: 'Coherencia entre búsqueda, anuncio y página', html: 'Si alguien busca un servicio concreto y llega a la portada, tiene que buscar de nuevo. La página de destino debe hablar exactamente de lo que prometía el anuncio, con el mismo vocabulario y la misma oferta. Esa coherencia también mejora el nivel de calidad que Google asigna y, con él, el coste del clic.' },
+        { icon: ICON.doc, title: 'Formularios y vías de contacto sencillas', html: 'Pedimos solo los datos necesarios para responder, colocamos el teléfono y el botón de contacto a la vista en el móvil y ofrecemos alternativas como WhatsApp cuando tu equipo puede atenderlo. Cada campo de más es una razón para abandonar, sobre todo en móvil.' },
+        { icon: ICON.shield, title: 'Pruebas de confianza cerca de la decisión', html: 'Reseñas, casos, años de experiencia, certificaciones, fotos reales del equipo o del trabajo. Las colocamos junto al formulario o al botón de llamada, que es donde aparece la duda. Una persona que no te conoce necesita motivos para darte su teléfono.' },
+        { icon: ICON.chart, title: 'Mejoras de conversión basadas en el comportamiento', html: 'Analizamos hasta dónde baja la gente, dónde abandona el formulario y qué diferencia hay entre móvil y ordenador. Con esos datos proponemos cambios concretos y comprobamos su efecto sobre los contactos, en lugar de rediseñar por intuición.' },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ MEDICIÓN ═══════════════════════════════════════════════════════ -->
+  <PSection kicker="Medición" title="Medición para saber qué campañas aportan negocio" tone="soft">
+    <Fragment slot="intro">
+      <p>Las pujas automáticas de Google aprenden de lo que les dices que es una conversión. Si les das datos pobres, optimizan hacia contactos pobres. <strong>Medir bien es la condición para que todo lo demás funcione.</strong> Para entender de dónde llega hoy tu tráfico, revisa <a href="/blog/donde-viene-el-trafico/">de dónde viene el tráfico de tu web</a>.</p>
+    </Fragment>
+    <div class="grid lg:grid-cols-[1.1fr_1fr] gap-10 items-start">
+      <PCards
+        tone="soft"
+        variant="rows"
+        class="!mt-12"
+        items={[
+          { title: 'Configuración de conversiones relevantes', html: 'Definimos qué cuenta como conversión: formulario enviado, llamada de más de cierta duración, compra con su importe, reserva. Lo configuramos con Google Tag Manager y GA4, eliminamos duplicados y comprobamos que cada acción se registra una sola vez y en la campaña correcta.' },
+          { title: 'Diferencia entre contactos y oportunidades cualificadas', html: 'No todos los contactos valen lo mismo. Un formulario de alguien fuera de tu zona o que pide algo que no haces cuenta igual en la cuenta si no lo distinguimos. Te pedimos una valoración sencilla de los contactos recibidos para saber qué campañas traen los buenos.' },
+          { title: 'Conexión con los resultados comerciales cuando sea posible', html: 'Si usas un CRM o puedes marcar qué contactos se convierten en clientes, importamos esa información a Google Ads. Así las pujas se orientan a ventas reales y no a formularios. Cuando no es posible, buscamos una alternativa manual que dé una referencia fiable.' },
+          { title: 'Revisión de atribución y calidad de los datos', html: 'Comparamos lo que dice Google Ads con GA4 y con lo que recibe tu empresa. Las diferencias son normales, pero deben poder explicarse. Revisamos el consentimiento de cookies, los modelos de atribución y las conversiones de marca para no atribuir a la publicidad lo que habría llegado igualmente. Si además quieres saber cómo te mencionan los asistentes de IA, lo trabajamos como <a href="/agencia-geo-para-pymes/">agencia GEO</a>.' },
+        ]}
+      />
+      <div class="mt-12">
+        <PFunnel
+          stages={[
+            { label: 'Clics', sub: 'visitas desde los anuncios', side: 'Lo que mide la plataforma.' },
+            { label: 'Contactos', sub: 'formularios y llamadas', side: 'Lo que suele medir una cuenta.' },
+            { label: 'Oportunidades', sub: 'contactos que encajan', side: 'Lo que valora tu equipo.' },
+            { label: 'Clientes', sub: 'ventas cerradas', side: 'Lo que paga la inversión.' },
+          ]}
+          caption="Esquema ilustrativo. Cuanto más abajo llega la medición, mejores decisiones toman las campañas."
+        />
+      </div>
+    </div>
+  </PSection>
+
+  <!-- ═══ ESCALAR ════════════════════════════════════════════════════════ -->
+  <PSection kicker="Optimización" title="Cómo decidimos dónde invertir más" layout="split">
+    <Fragment slot="intro">
+      <p>Optimizar no es cambiar cosas cada día. Es leer los datos con perspectiva y mover el presupuesto hacia lo que funciona. Cruzamos dos preguntas: <strong>¿esta campaña es rentable?</strong> y <strong>¿tiene recorrido para crecer?</strong></p>
+    </Fragment>
+    <PMatrix
+      slot="aside"
+      xLabel="Volumen disponible"
+      yLabel="Rentabilidad"
+      quadrants={['Mantener y vigilar', 'Ampliar inversión', 'Revisar o pausar', 'Mejorar antes de crecer']}
+      points={[
+        { label: 'Servicio de nicho', x: 22, y: 80 },
+        { label: 'Servicio principal', x: 74, y: 78 },
+        { label: 'Búsqueda genérica', x: 76, y: 28 },
+        { label: 'Zona secundaria', x: 22, y: 22 },
+      ]}
+      caption="Ejemplo de cómo clasificamos las campañas de una cuenta según rentabilidad y volumen."
+    />
+    <PCards
+      cols={3}
+      variant="numbered"
+      items={[
+        { title: 'Ajustes de pujas según los resultados', html: 'Elegimos la estrategia de puja según los datos disponibles: más control al principio y objetivos de coste o de retorno cuando hay volumen suficiente. Ajustamos también por dispositivo, horario y zona cuando los datos muestran diferencias claras, no por suposiciones.' },
+        { title: 'Redistribución del presupuesto entre campañas', html: 'Cada mes revisamos qué campañas consiguen clientes a un coste aceptable y cuáles no. Movemos presupuesto de las segundas a las primeras antes de pedir más inversión. A menudo hay margen de mejora sin aumentar el gasto total.' },
+        { title: 'Condiciones para ampliar la inversión', html: 'Proponemos invertir más solo cuando se cumplen tres condiciones: el coste por cliente está dentro del límite, la campaña se queda sin presupuesto en búsquedas buenas y tu equipo puede atender más contactos. Si falta alguna, primero la resolvemos.' },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ ARRANQUE ═══════════════════════════════════════════════════════ -->
+  <PSection kicker="Primeras semanas" title="Qué ocurre durante el arranque de tus campañas" tone="soft">
+    <Fragment slot="intro">
+      <p>Las primeras semanas de una cuenta nueva o reestructurada son de aprendizaje. Los costes pueden moverse más de lo normal y conviene no sacar conclusiones demasiado pronto. Te explicamos en cada momento qué es esperable y qué no.</p>
+    </Fragment>
+    <div class="grid lg:grid-cols-[1fr_1.1fr] gap-10 items-start">
+      <PCards
+        tone="soft"
+        variant="numbered"
+        class="lg:grid-cols-1"
+        cols={2}
+        items={[
+          { title: 'Preparación de accesos, medición y materiales', html: 'Pedimos acceso a tu cuenta de Google Ads o la creamos a tu nombre, revisamos Analytics, Tag Manager y Merchant Center si aplica, y configuramos las conversiones. Reunimos contigo textos, ofertas, imágenes y zonas de servicio. Nada se lanza hasta que la medición funciona.' },
+          { title: 'Lanzamiento y primeras comprobaciones', html: 'Activamos las campañas con un presupuesto controlado y revisamos en los primeros días que los anuncios se aprueban, que las búsquedas que entran tienen sentido y que las conversiones se registran. Es cuando más palabras negativas añadimos.' },
+          { title: 'Lectura de datos y ajustes iniciales', html: 'Pasadas unas semanas, con datos suficientes, ajustamos pujas, reparto del presupuesto entre campañas, anuncios y página de destino. Te contamos qué hemos visto, qué hemos cambiado y qué esperamos del mes siguiente.' },
+        ]}
+      />
+      <PLines
+        title="Coste por contacto en el arranque"
+        series={[
+          { label: 'Coste por contacto', points: [82, 74, 78, 66, 60, 55, 50, 47, 45, 44], color: '#a1a1aa' },
+          { label: 'Contactos', points: [8, 14, 18, 24, 30, 36, 40, 44, 46, 48] },
+        ]}
+        xLabels={['Semana 1', '', '', 'Semana 4', '', '', '', 'Semana 8', '', '']}
+        marker={{ at: 3, label: 'Primeros ajustes con datos' }}
+        caption="Esquema ilustrativo, no son datos de un cliente. Al principio el coste oscila; con ajustes y aprendizaje tiende a estabilizarse."
+      />
+    </div>
+  </PSection>
+
+  <!-- ═══ CONTROL ════════════════════════════════════════════════════════ -->
+  <PSection kicker="Transparencia" title="Una colaboración donde conservas el control" layout="split">
+    <Fragment slot="intro">
+      <p>Tu cuenta publicitaria es un activo de tu empresa: guarda el historial, las conversiones y las audiencias de años de inversión. Por eso trabajamos de forma que en ningún momento dependas de nosotros para acceder a ella.</p>
+      <p>Nova es una <a href="/">agencia de marketing digital para pymes</a> con sede en Barcelona. Llevamos campañas en <a href="/agencia-sem-para-pymes/barcelona/">Barcelona</a>, <a href="/agencia-sem-para-pymes/sabadell/">Sabadell</a>, <a href="/agencia-sem-para-pymes/sant-cugat/">Sant Cugat</a> y <a href="/agencia-sem-para-pymes/terrassa/">Terrassa</a> con reuniones presenciales, y en el resto de España por videollamada.</p>
+    </Fragment>
+    <img slot="aside" src="/sergio-galos-agencia-sem-para-pymes.webp" alt="Sergio Galo's, consultor de Google Ads para PYMEs" title="Sergio Galo's, consultor de Google Ads para PYMEs" class="w-full max-w-xs mx-auto h-auto rounded-3xl" loading="lazy" width="473" height="591" />
+    <PCards
+      cols={3}
+      items={[
+        { icon: ICON.key, title: 'Propiedad y acceso a tu cuenta publicitaria', html: 'La cuenta de Google Ads está siempre a tu nombre y con tu forma de pago. Nosotros accedemos como gestores desde nuestra cuenta de administrador, y tú mantienes el acceso completo. Si un día terminamos, retiras nuestro acceso y lo conservas todo.' },
+        { icon: ICON.money, title: 'Visibilidad sobre inversión y honorarios', html: 'Google te factura directamente el presupuesto en anuncios y nosotros te facturamos los honorarios de gestión, fijos y por separado. No cobramos un porcentaje de lo que inviertes, así que nuestro interés no es que gastes más, sino que cada euro rinda.' },
+        { icon: ICON.chat, title: 'Comunicación con la persona que gestiona tus campañas', html: 'Hablas directamente con Sergio Galo\'s, consultor y fundador de Nova, que es quien revisa y ajusta tus campañas. Sin capas comerciales ni gestores que cambian cada trimestre. Recibes un informe mensual con contactos y costes, y tenemos una conversación para decidir los siguientes pasos.' },
+      ]}
+    />
+    <div class="mt-12 text-center reveal">
+      <p class="text-xs font-black uppercase tracking-[0.25em] text-zinc-400 mb-4">Google Ads en tu zona</p>
+      <CityPills base="/agencia-sem-para-pymes/" lang="es" itemPrefix="Google Ads en" homeLabel="Toda España" />
+    </div>
+  </PSection>
+
+  <!-- ═══ RESULTADOS ═════════════════════════════════════════════════════ -->
+  <PSection kicker="Casos reales" title="Resultados de campañas: qué merece la pena comparar" tone="soft" width="wide">
+    <Fragment slot="intro">
+      <p>Cualquier agencia puede enseñar una gráfica que sube. Para valorar unos resultados de publicidad, también los nuestros, conviene mirar tres cosas a la vez y desconfiar de las cifras que llegan sin contexto.</p>
+    </Fragment>
+    <PCards
+      tone="soft"
+      cols={3}
+      items={[
+        { icon: ICON.users, title: 'Contactos cualificados y coste por adquisición', html: 'Lo relevante es cuántos contactos útiles llegan y cuánto cuesta cada uno, comparado con lo que tu empresa puede pagar por un cliente. Cien contactos baratos que no encajan valen menos que veinte buenos. Pregunta siempre cómo se ha medido la calidad.' },
+        { icon: ICON.cart, title: 'Ventas, ingresos y retorno publicitario', html: 'En ecommerce, el retorno de la inversión publicitaria indica cuánto se factura por euro invertido, pero no incluye costes ni margen. Un retorno alto con productos de margen bajo puede ser menos rentable que uno moderado con margen alto. Por eso lo comparamos siempre con tu margen.' },
+        { icon: ICON.chart, title: 'Contexto de inversión, periodo y punto de partida', html: 'Un resultado sin presupuesto, fechas ni situación inicial no permite comparar. No es lo mismo mejorar una cuenta mal configurada que hacer crecer una que ya funcionaba, ni un mes de temporada alta que un año completo.' },
+      ]}
+    />
+    <div class="grid lg:grid-cols-[1fr_1.2fr] gap-10 items-center">
+      <PCounter
+        cols={2}
+        stats={[
+          { value: 40, prefix: '-', suffix: ' %', label: 'de inversión publicitaria necesaria en Superwagen', href: '/casos-exito/caso-de-exito-superwagen/', source: 'Resultado conjunto de Google Ads y SEO' },
+          { value: 16, suffix: ' meses', label: 'de trabajo, de diciembre de 2023 a abril de 2025', href: '/casos-exito/caso-de-exito-superwagen/', source: 'Concesionario Audi y Volkswagen' },
+        ]}
+      />
+      <div class="pillar-prose text-base mt-12 reveal">
+        <p>En <a href="/casos-exito/caso-de-exito-superwagen/">Superwagen</a>, concesionario oficial Audi y Volkswagen en Sabadell y Sant Cugat, no aumentamos el presupuesto: centramos las campañas de Google Ads en los vehículos de ocasión, con stock real, segmentación geográfica precisa y ofertas del mes. Combinado con el trabajo de SEO local y por modelos, el concesionario necesitó un 40 % menos de inversión publicitaria. Es un resultado de ambos canales trabajando juntos, no solo de la publicidad.</p>
+      </div>
+    </div>
+    <MoreCases locale="es" categories={['google-ads']} embed />
+  </PSection>
+
+  <!-- ═══ PRECIOS ════════════════════════════════════════════════════════ -->
+  <PSection kicker="Precios" title="Cuánto cuesta trabajar Google Ads con Nova" width="wide">
+    <Fragment slot="intro">
+      <p>Tres conceptos separados, sin IVA y sin permanencia. Antes de empezar recibes un presupuesto cerrado por escrito. Si quieres ver cómo encaja la publicidad en el conjunto de tu marketing, lee <a href="/blog/cuanto-tiene-que-invertir-una-pyme-en-marketing/">cuánto tiene que invertir una pyme en marketing</a>.</p>
+    </Fragment>
+    <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch reveal">
+      {[
+        { title: 'Configuración o revisión inicial de la cuenta', price: '900 €', note: 'pago único · revisión de una cuenta existente', text: 'Si ya inviertes, revisamos campañas, búsquedas, conversiones y páginas de destino, y te entregamos un plan priorizado en una videollamada. Si empiezas desde cero, la configuración de la cuenta y de la medición está incluida en la gestión mensual.', items: ['Revisión de estructura y búsquedas', 'Comprobación de conversiones', 'Análisis de páginas de destino', 'Plan ordenado por impacto'] },
+        { title: 'Honorarios de gestión y optimización', price: 'desde 150 € / mes', note: 'desde 400 € / mes en cuentas mayores', text: 'Una cuota fija según el número de campañas, servicios y formatos, no un porcentaje de lo que inviertes. Incluye la gestión continua de la cuenta, los anuncios, la revisión de búsquedas, el informe mensual y la línea directa con el consultor.', items: ['Optimización continua', 'Anuncios y recursos', 'Informe mensual de contactos y costes', 'Sin permanencia, mes a mes'], featured: true },
+        { title: 'Presupuesto destinado a los anuncios', price: 'lo decides tú', note: 'orientativo: desde 300-500 € / mes', text: 'Es lo que pagas a Google por los clics, y Google lo factura directamente a tu empresa. Va íntegro a los anuncios. La cifra adecuada depende del coste del clic en tu sector y de tu margen; la calculamos contigo antes de empezar.', items: ['Facturado por Google', 'Ajustable cada mes', 'Sin comisiones sobre la inversión'] },
+      ].map((p, i) => (
+        <div class:list={['pd-rise rounded-3xl p-7 sm:p-8 flex flex-col border', p.featured ? 'bg-zinc-950 text-white border-zinc-950 shadow-2xl' : 'bg-white border-black/5 shadow-[0_15px_40px_rgba(0,0,0,0.06)]']} style={`--i:${i}`}>
+          <h3 class:list={['text-lg font-black tracking-tight leading-snug mb-3', p.featured ? 'text-white' : 'text-zinc-900']}>{p.title}</h3>
+          <div class="text-2xl font-black text-accent">{p.price}</div>
+          <div class="text-[11px] font-light mt-1 mb-4 text-zinc-400">{p.note}</div>
+          <p class:list={['text-sm font-light leading-relaxed mb-6', p.featured ? 'text-zinc-300' : 'text-zinc-500']}>{p.text}</p>
+          <ul class="space-y-2.5 flex-1">
+            {p.items.map((it) => (
+              <li class:list={['flex items-start gap-2.5 text-sm font-light', p.featured ? 'text-zinc-300' : 'text-zinc-600']}>
+                <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>{it}
+              </li>
+            ))}
+          </ul>
+          <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 !py-4 !text-[11px] !tracking-widest font-black mt-8 text-center">PEDIR PRESUPUESTO</a>
         </div>
-    </section>
+      ))}
+    </div>
+    <SemBudget
+      title="Cómo se reparte la inversión mensual"
+      rows={[
+        { label: 'Negocio local con un servicio', fee: 150, ads: 400 },
+        { label: 'Pyme con varios servicios', fee: 250, ads: 1000 },
+        { label: 'Cuenta con Shopping o varias zonas', fee: 400, ads: 2500 },
+      ]}
+      caption="Ejemplo con cifras ilustrativas, sin IVA. Los honorarios son fijos; a medida que crece el presupuesto en anuncios, la gestión pesa proporcionalmente menos. Tu presupuesto real lo calculamos contigo."
+    />
+  </PSection>
 
-    <LogoMarquee />
+  <!-- ═══ RESEÑAS ════════════════════════════════════════════════════════ -->
+  <GoogleReviews locale="es" title="La experiencia de las empresas que nos confían sus campañas" />
 
-    <!-- ═══ INTRO: POR QUÉ GOOGLE ADS ═════════════════════════════════════ -->
-    <section class="py-16 sm:py-24 bg-white px-4 sm:px-6 border-b border-black/5">
-        <div class="max-w-6xl mx-auto reveal grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-16 items-center">
-            <div>
-                <p class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4">¿Por qué Google Ads?</p>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
-                    La agencia de Google Ads para tu pyme
-                </h2>
-                <div class="space-y-6 text-zinc-600 font-light text-base sm:text-lg leading-relaxed">
-                    <p>
-                        <strong class="font-semibold text-zinc-900">Google Ads es el canal más rápido para conseguir clientes</strong>. Mientras el SEO tarda meses en posicionar, un anuncio bien montado aparece hoy delante de quien está buscando tu servicio con la cartera en la mano. La cuestión no es si funciona, es cuánto pagas por cada clic y qué haces con él.
-                    </p>
-                    <p>
-                        Nova es una <strong class="font-semibold text-zinc-900">agencia SEM especializada en PYMEs</strong>. Trabajamos con un número limitado de clientes, cada cuenta la lleva directamente el consultor fundador y toda la gestión se orienta a una sola métrica que importa. <strong class="font-semibold text-zinc-900">Cuánto te cuesta conseguir cada cliente nuevo desde los anuncios</strong>.
-                    </p>
-                </div>
+  <!-- ═══ FAQS ═══════════════════════════════════════════════════════════ -->
+  <FaqHome title="Dudas habituales antes de activar la inversión" items={faqs} emitSchema={false} />
+
+  <!-- ═══ CONTACTO ═══════════════════════════════════════════════════════ -->
+  <section id="contacto" class="py-20 sm:py-32 px-4 sm:px-6 relative bg-accent">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
+      <div class="reveal text-white">
+        <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">Primer paso</span>
+        <h2 class="text-4xl sm:text-6xl font-black uppercase tracking-tighter leading-[0.85] mb-10">Revisemos si Google Ads encaja en tu negocio</h2>
+        <ol class="space-y-5">
+          {[
+            ['Qué vendes y en qué zonas', 'Tus servicios o productos principales y dónde están tus clientes.'],
+            ['Qué resultados necesitas conseguir', 'Presupuestos, ventas, llamadas u oportunidades para tu equipo comercial.'],
+            ['Qué inversión estás valorando', 'Hacemos los números con tu margen para ver si encajan.'],
+            ['Qué propuesta de campañas tiene sentido para tu empresa', 'Por escrito, con campañas, presupuesto recomendado y honorarios cerrados.'],
+          ].map(([t, d], i) => (
+            <li class="flex gap-4">
+              <span class="w-8 h-8 rounded-full bg-white/15 border border-white/30 flex items-center justify-center text-xs font-black flex-shrink-0">{i + 1}</span>
+              <div>
+                <h3 class="text-base sm:text-lg font-black tracking-tight">{t}</h3>
+                <p class="text-sm font-light text-white/80">{d}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <div class="reveal">
+        <div class="bg-white p-8 sm:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
+          <form class="space-y-8" id="contact-form">
+            <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
+              <div class="flex flex-col gap-3">
+                <label class="opacity-30">NOMBRE *</label>
+                <input type="text" name="name" aria-label="Nombre" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+              </div>
+              <div class="flex flex-col gap-3">
+                <label class="opacity-30">TELÉFONO *</label>
+                <input type="tel" name="phone" required autocomplete="tel" inputmode="tel" minlength="9" pattern="[0-9+\s.\(\)\-]{9,20}" title="Introduce un teléfono válido (mínimo 9 cifras)" aria-label="Teléfono" class="border-b border-black/10 py-2 focus:border-accent outline-none">
+              </div>
             </div>
-            <div class="hidden md:block">
-                <img src="/sergio-galos-agencia-sem-para-pymes.webp" alt="Sergio Galo's, consultor de Google Ads para PYMEs" title="Sergio Galo's, consultor de Google Ads para PYMEs" class="w-full h-auto" loading="lazy" width="473" height="591" />
+            <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+              <label class="opacity-30">EMAIL PROFESIONAL *</label>
+              <input type="email" name="email" aria-label="Correo electrónico" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
             </div>
-        </div>
-    </section>
-
-    <!-- ═══ SERVICIOS SEM ══════════════════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50 border-b border-black/5 px-4 sm:px-6">
-        <div class="max-w-7xl mx-auto text-center reveal">
-            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Qué hacemos</span>
-            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Servicio de Google Ads para PYMEs
-            </h2>
-            <div class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-16 space-y-4">
-                <p>
-                    Gestionar <strong class="font-semibold text-zinc-700">Google Ads</strong> no es activar una campaña y dejarla correr, es un sistema. Estas son las nueve piezas que trabajamos para que cada euro de tu presupuesto vuelva convertido en clientes.
-                </p>
-                <p>
-                    Cada pieza se activa según lo que diga tu auditoría. No pagas por un paquete cerrado de acciones, pagas por las que tu negocio necesita.
-                </p>
+            <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+              <label class="opacity-30">WEB *</label>
+              <input type="text" name="url" aria-label="Sitio web" placeholder="www.tuempresa.com" class="border-b border-black/10 py-2 focus:border-accent outline-none">
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[
-                    { icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z', t: 'Auditoría de Google Ads', d: 'Radiografía de tu cuenta, tu presupuesto y tu competencia antes de tocar nada. El punto de partida de cualquier estrategia de anuncios.' },
-                    { icon: 'M12 3a9 9 0 100 18 9 9 0 000-18zm0 5a4 4 0 100 8 4 4 0 000-8z', t: 'Campañas de búsqueda', d: 'Anuncios de texto que aparecen justo cuando alguien busca tu servicio. El corazón de la captación de leads para una pyme.' },
-                    { icon: 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z', t: 'Google Shopping', d: 'Tus productos con foto y precio en los resultados de compra. Feed optimizado para que el clic llegue ya medio convencido.' },
-                    { icon: 'M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z', t: 'Display y YouTube', d: 'Anuncios visuales y de vídeo para dar a conocer tu marca a quien todavía no te busca, con segmentación fina y sin quemar presupuesto.' },
-                    { icon: 'M13 10V3L4 14h7v7l9-11h-7z', t: 'Performance Max', d: 'La campaña automatizada de Google, bien alimentada y bien vigilada. Potente con datos buenos, un agujero de presupuesto sin ellos.' },
-                    { icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15', t: 'Remarketing', d: 'Volvemos a impactar a quien visitó tu web y no contactó. Los leads más baratos suelen estar en la segunda visita.' },
-                    { icon: 'M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z', t: 'Landings y CRO', d: 'El anuncio trae la visita y la landing la convierte. Optimizamos la página de destino para que el clic acabe en formulario o llamada.' },
-                    { icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z', t: 'Medición de conversiones', d: 'Configuramos las conversiones y GA4 para atribuir cada lead a su campaña y su búsqueda. Decisiones con datos, no con intuiciones.' },
-                    { icon: 'M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z', t: 'Google Ads más SEO', d: 'Los datos de tus campañas revelan qué búsquedas venden. Los usamos para construir SEO y que cada vez dependas menos de pagar.' },
-                ].map(c => (
-                    <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-left">
-                        <div class="flex items-center gap-3 mb-3">
-                            <div class="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0">
-                                <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d={c.icon}/></svg>
-                            </div>
-                            <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900">{c.t}</h3>
-                        </div>
-                        <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.d}</p>
-                    </div>
-                ))}
+            <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+              <label class="opacity-30">CONSULTA</label>
+              <textarea name="msg" aria-label="Mensaje" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="¿Qué quieres anunciar en Google?"></textarea>
             </div>
-
-            <div class="mt-12 text-center reveal">
-                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                    HABLEMOS DE TU NEGOCIO
-                </a>
+            <div class="flex items-start gap-2">
+              <input type="checkbox" id="contact-form-terms" name="terms" required class="mt-1 accent-accent">
+              <label for="contact-form-terms" class="text-xs text-zinc-500 font-light cursor-pointer select-none normal-case tracking-normal">He leído y acepto la <a href="/privacidad/" class="underline hover:text-accent transition-colors">política de privacidad</a>.</label>
             </div>
-        </div>
-    </section>
-
-    <!-- ═══ ESTRATEGIA SEM ════════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-16 sm:mb-24 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Cómo trabajamos</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Estrategia de Google Ads para captar clientes desde el primer mes
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    Una metodología documentada para convertir tu presupuesto publicitario en leads y ventas, paso a paso y sin humo.
-                </p>
-            </div>
-
-            <div id="timeline-container" class="relative">
-                <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
-                <div id="progress-bar" class="hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100"></div>
-
-                <div class="space-y-16 md:space-y-24 flex flex-col items-center">
-                    {steps.map((step, index) => (
-                        <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
-                            <div class:list={["flex-1 w-full", index % 2 === 0 ? "md:order-1 md:text-right" : "md:order-3 md:text-left"]}>
-                                <div class="p-8 sm:p-10 bg-zinc-50 border border-black/5 rounded-3xl hover:border-accent/10 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
-                                    <h3 class="text-xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{index + 1}. {step.title}</h3>
-                                    <div class:list={["h-0.5 bg-accent w-full mb-4 opacity-80", index % 2 === 0 ? "md:ml-auto" : ""]}></div>
-                                    <p class:list={["text-sm text-zinc-500 font-light max-w-md", index % 2 === 0 ? "md:ml-auto" : ""]}>{step.desc}</p>
-                                    <div class="absolute -bottom-6 -right-5 text-8xl font-black text-black/[0.02] select-none z-0 group-hover:scale-105 transition-transform duration-500">0{index+1}</div>
-                                </div>
-                            </div>
-                            <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all">
-                                0{index + 1}
-                            </div>
-                            <div class:list={["hidden md:block md:flex-1", index % 2 === 0 ? "md:order-3" : "md:order-1"]}></div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ AUDITORÍA GOOGLE ADS ═════════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5 overflow-hidden">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-[6fr_4fr] gap-12 lg:gap-16 items-start">
-
-            <div class="reveal lg:col-span-2">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Punto de partida</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
-                    Auditoría de Google Ads para tu PYME
-                </h2>
-            </div>
-
-            <div class="reveal">
-                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed mb-8">
-                    <p>
-                        Antes de proponerte nada, auditamos. ¿Sabes cuánto te cuesta cada lead que llega de tus anuncios? ¿Qué búsquedas te traen clientes y cuáles solo gastan presupuesto? Casi ninguna pyme lo sabe con datos, y ahí empieza todo.
-                    </p>
-                    <p>
-                        Nuestra <strong class="font-semibold text-zinc-900">auditoría de Google Ads</strong> revisa tu cuenta campaña a campaña, mide qué parte de tu inversión está trabajando y qué parte se pierde en búsquedas que nunca comprarán, y termina con un plan de acción priorizado. Qué cortar primero, qué impacto tiene y cuánto puedes ahorrar.
-                    </p>
-                    <p>
-                        A diferencia de las revisiones automáticas que generan un PDF con recomendaciones genéricas de Google, aquí cada punto lo revisa un consultor senior con años de experiencia en pymes. El resultado no es un listado técnico, es un diagnóstico de negocio que entiende cualquier gerente.
-                    </p>
-                    <p>
-                        Si ya trabajas con otra agencia, la auditoría también sirve como segunda opinión independiente. Sabrás si tu inversión actual en publicidad está bien dirigida o si estás pagando por clics que no generan clientes.
-                    </p>
-                </div>
-                <ul class="space-y-3">
-                    {[
-                        'Estructura de la cuenta y calidad de las campañas',
-                        'Términos de búsqueda que gastan sin convertir',
-                        'Análisis de los anuncios de tu competencia',
-                        'Búsquedas rentables que aún no atacas',
-                        'Puntos de fuga en la landing que recibe los clics',
-                        'Plan de acción priorizado por ahorro e impacto',
-                    ].map(item => (
-                        <li class="flex items-start gap-3 text-sm text-zinc-700 font-light">
-                            <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            {item}
-                        </li>
-                    ))}
-                </ul>
-                <div class="mt-16">
-                    <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                        QUIERO MI AUDITORÍA DE GOOGLE ADS
-                    </a>
-                </div>
-            </div>
-
-            <div class="reveal flex flex-col gap-4">
-                {[
-                    { bg: 'bg-purple-100', color: 'text-purple-600', icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z', t: 'Revisión completa de la cuenta', d: 'Estructura, campañas, grupos de anuncios, pujas y configuración. Todo lo que encarece tus clics, documentado.' },
-                    { bg: 'bg-green-100', color: 'text-green-600', icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6', t: 'Plan de acción priorizado', d: 'No una lista infinita de tareas, sino un plan ordenado por ahorro e impacto. Sabrás qué cortar la primera semana y dónde reinvertir ese dinero.' },
-                    { bg: 'bg-purple-100', color: 'text-purple-600', icon: 'M12 3a9 9 0 100 18 9 9 0 000-18zm0 5a4 4 0 100 8 4 4 0 000-8z', t: 'Búsquedas con intención de compra', d: 'Identificamos las búsquedas que hacen tus clientes cuando quieren contratar y las separamos de las que solo consumen presupuesto.' },
-                    { bg: 'bg-amber-100', color: 'text-amber-600', icon: 'M9 12h6m-6 4h6M9 8h2m8-3v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2h6l4 4z', t: 'Auditoría de anuncios y landings', d: 'Revisamos qué anuncios convierten, cuáles queman presupuesto y si la página que recibe el clic está preparada para convertirlo en lead.' },
-                    { bg: 'bg-blue-100', color: 'text-blue-600', icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z', t: 'Benchmark frente a tu competencia', d: 'Comparamos tus anuncios con los de tus tres competidores directos. Qué prometen, dónde pujan y qué puedes hacer mejor.' },
-                ].map(card => (
-                    <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
-                        <div class:list={["w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0", card.bg]}>
-                            <svg class:list={["w-5 h-5", card.color]} fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d={card.icon}/></svg>
-                        </div>
-                        <div>
-                            <h3 class="text-sm font-black text-zinc-900 mb-1">{card.t}</h3>
-                            <p class="text-xs text-zinc-500 font-light leading-relaxed">{card.d}</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ═══ QUÉ INCLUYE LA AUDITORÍA GOOGLE ADS ═══════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-12 sm:mb-16 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Paso a paso</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
-                    Qué incluye la auditoría de Google Ads de nova
-                </h2>
-            </div>
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch reveal">
-                {[
-                    { n: '1', t: 'Radiografía de tu inversión en anuncios', d: 'Analizamos cuánto inviertes, qué campañas traen leads, cuánto cuesta cada uno y qué parte del presupuesto se pierde en búsquedas sin intención.' },
-                    { n: '2', t: 'Diagnóstico de anuncios y landings', d: 'Cruzamos los datos de la cuenta con tus anuncios y tu página de destino para explicar exactamente qué está encareciendo cada cliente.' },
-                    { n: '3', t: 'Hoja de ruta para rentabilizar', d: 'Cierras la auditoría con un documento de acciones ordenadas por ahorro e impacto y una videollamada donde repasamos cada punto contigo.' },
-                ].map((st, i) => (
-                    <div class="flex items-center gap-4 lg:gap-6">
-                        {i > 0 && <div class="hidden lg:flex text-3xl text-accent font-black select-none">→</div>}
-                        <div class="bg-white border border-black/5 rounded-2xl p-8 shadow-[0_15px_40px_rgba(0,0,0,0.06)] flex-1 text-center h-full">
-                            <div class="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto mb-4 text-accent font-black text-lg">{st.n}</div>
-                            <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3">{st.t}</h3>
-                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{st.d}</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
-            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto text-center mt-16 reveal">
-                Nuestra auditoría de Google Ads es el primer paso de cualquier estrategia de publicidad en el buscador. Analiza cómo está trabajando hoy tu presupuesto, explica por qué tu competencia consigue leads más baratos que tú y te deja una hoja de ruta clara para dejar de desperdiciar inversión. Es la misma auditoría con la que arrancan todos nuestros planes de Google Ads para pymes, y también puedes contratarla suelta como segunda opinión. Sin tecnicismos innecesarios. Sales sabiendo dónde va tu dinero y qué hacer a continuación.
-            </p>
-            <div class="mt-12 text-center reveal">
-                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                    QUIERO MI AUDITORÍA DE GOOGLE ADS
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ PRECIOS SEM ════════════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-12 sm:mb-16 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Tarifas claras</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Precios de Google Ads para PYMEs
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto">
-                    Tarifas orientativas y sin letra pequeña. Cobramos un fee de gestión fijo, sin porcentajes sobre tu inversión, así que el cien por cien de tu presupuesto publicitario va directo a Google. Antes de empezar recibes un presupuesto cerrado por escrito con el fee, el presupuesto recomendado y el coste por cliente esperable en tu sector. El coste no lleva sorpresas ni permanencias.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
-                {[
-                    { small: 'Precio', name: 'Auditoría Google Ads', price: '900€', meta: ['Entrega en 1 a 2 semanas', 'Para cualquier pyme que ya invierte en anuncios'], items: ['Sesión inicial de objetivos', 'Revisión completa de la cuenta', 'Términos de búsqueda que desperdician', 'Análisis de anuncios y pujas', 'Auditoría de la landing de destino', 'Comparativa con 3 competidores', 'Acciones ordenadas por ahorro', 'Videollamada de entrega'], cta: 'Quiero auditar mi cuenta' },
-                    { small: 'Precio', name: 'Google Ads PYME', price: 'desde 150€ / mes', meta: ['Más tu presupuesto publicitario, que va íntegro a Google', 'Para negocios locales y pequeñas empresas'], items: ['Configuración inicial de la cuenta', 'Campañas de búsqueda a medida', 'Redacción de anuncios', 'Medición de conversiones', 'Revisión semanal de términos', 'Optimización de pujas y zonas', 'Informe mensual de leads y costes', 'Línea directa con el consultor', 'Sin permanencia'], cta: 'Quiero lanzar mis campañas' },
-                    { small: 'Precio', name: 'Google Ads Big Pyme', price: 'desde 400€ / mes', meta: ['Para cuentas con más inversión y varias líneas de negocio', 'Para empresas medianas y sectores competidos'], items: ['Todo el plan Google Ads PYME', 'Shopping y Performance Max', 'Display, YouTube y remarketing', 'Optimización de landings y CRO', 'Estrategia conjunta con SEO', 'Cobertura multisede o internacional', 'Reunión mensual de negocio', 'Objetivo, bajar el coste por cliente'], cta: 'Quiero escalar mis campañas' },
-                ].map(p => (
-                    <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-10 flex flex-col shadow-[0_15px_40px_rgba(0,0,0,0.06)] hover:shadow-xl transition-shadow duration-300 reveal">
-                        <h3 class="leading-tight mb-2">
-                            <span class="block text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-1">{p.small} </span>
-                            <span class="block text-xl font-black uppercase tracking-tight text-zinc-900">{p.name}</span>
-                        </h3>
-                        <div class="text-lg font-bold text-zinc-900">{p.price}</div>
-                        <div class="text-[10px] text-zinc-400 font-light mt-1 mb-6">* Precio sin IVA</div>
-                        <div class="text-xs text-zinc-500 font-light mb-8 space-y-1.5">
-                            {p.meta.map(m => <div>{m}</div>)}
-                        </div>
-                        <div class="text-xs font-black uppercase tracking-widest text-zinc-400 pb-3 border-b border-zinc-100">Qué incluye</div>
-                        <ul class="divide-y divide-zinc-100 flex-1">
-                            {p.items.map(item => (
-                                <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light">
-                                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                                    <span>{item}</span>
-                                </li>
-                            ))}
-                        </ul>
-                        <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 !py-4 !text-[11px] !tracking-widest font-black mt-10 text-center">
-                            {p.cta}
-                        </a>
-                    </div>
-                ))}
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ SECTORES ═══════════════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50 px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-14 sm:mb-20 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Experiencia sectorial</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Google Ads para tu sector
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    Cada sector puja distinto en Google. Trabajamos con sectores donde ya sabemos qué búsquedas convierten y qué es tirar el presupuesto.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
-                {sectors.map(s => (
-                    <div class="bg-white border border-black/5 rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                        <div class="text-3xl mb-4">{s.icon}</div>
-                        <h3 class="text-base uppercase tracking-tight text-zinc-900 mb-3 leading-tight font-montserrat-semibold">
-                            {s.href ? <a href={s.href} class="hover:text-accent transition-colors">{s.title}</a> : s.title}
-                        </h3>
-                        <p class="text-sm text-zinc-500 font-light leading-relaxed">{s.desc}</p>
-                    </div>
-                ))}
-            </div>
-
-            <div class="mt-14 text-center reveal">
-                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                    QUIERO ANUNCIARME EN GOOGLE
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ CITA ══════════════════════════════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-zinc-950 px-4 sm:px-6">
-        <div class="max-w-4xl mx-auto text-center reveal">
-            <blockquote class="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.15] mb-8">
-                “Cada día tus clientes buscan tu servicio en Google. Con Google Ads puedes aparecer ahí mañana mismo. La cuestión es cuánto pagas por cada clic y qué haces con él.”
-            </blockquote>
-            <p class="text-sm text-zinc-400 font-light mb-10">Sergio Galo's · Consultor de Google Ads para PYMEs</p>
-            <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                HABLEMOS DE TU NEGOCIO
-            </a>
-        </div>
-    </section>
-
-    <!-- ═══ POR QUÉ NOVA (COMPARATIVA) ═════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-12 sm:mb-16 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Por qué nova</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Qué diferencia a nova de otra agencia SEM
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    Google Ads está lleno de cuentas mal gestionadas que queman presupuesto en silencio. Nosotros lo trabajamos con método, transparencia y resultados que se ven en tu caja, no solo en las gráficas.
-                </p>
-            </div>
-
-            <div class="reveal overflow-x-auto rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
-                <table class="w-full min-w-[640px] text-left border-collapse bg-white">
-                    <thead>
-                        <tr class="bg-black text-white">
-                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Criterio</th>
-                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Nova</th>
-                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Otras agencias</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-zinc-100">
-                        {[
-                            { c: "Quién será tu contacto", o: "Gestor junior con 20-30 cuentas", n: "Sergio Galo's" },
-                            { c: "Modelo de cobro", o: "Porcentaje de tu inversión publicitaria", n: "Fee fijo, el 100% de tu presupuesto va a Google" },
-                            { c: "Propiedad de la cuenta", o: "Cuenta a nombre de la agencia", n: "La cuenta y los datos son tuyos desde el día uno" },
-                            { c: "Velocidad de respuesta", o: "Tickets y semanas de espera", n: "Línea directa con quien decide" },
-                            { c: "Permanencia", o: "6-12 meses habituales", n: "Mes a mes, sin permanencia" },
-                            { c: "Especialización", o: "De multinacionales a autónomos, todo vale", n: "Cien por cien enfocados en PYMEs" },
-                            { c: "Transparencia de precios", o: "Presupuestos opacos con extras sorpresa", n: "Precio cerrado por escrito antes de empezar" },
-                        ].map(row => (
-                            <tr class="hover:bg-zinc-50/50 transition-colors">
-                                <td class="px-6 py-5 text-sm font-bold text-zinc-900">{row.c}</td>
-                                <td class="px-6 py-5 text-sm font-bold text-accent">{row.n}</td>
-                                <td class="px-6 py-5 text-sm text-zinc-500 font-light">{row.o}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-
-            <p class="text-xs sm:text-sm text-zinc-400 font-light leading-relaxed mt-6 reveal">
-                Un consultor de Google Ads externo te da acceso a experiencia senior sin los costes fijos de contratar un perfil propio, sin proceso de selección y sin periodo de adaptación.
-            </p>
-        </div>
-    </section>
-
-    <!-- ═══ CÓMO ELEGIR AGENCIA SEM ════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-4xl mx-auto">
-            <div class="mb-12 sm:mb-16 reveal text-center">
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Cómo contratar una agencia de Google Ads sin que te vendan humo
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    Hay cientos de agencias SEM y la mayoría de PYMEs elige mal la primera vez. Estos son los siete criterios que deberías exigir a cualquier agencia, incluida la nuestra.
-                </p>
-            </div>
-
-            <div class="divide-y divide-zinc-100 reveal">
-                {criteria.map((c, i) => (
-                    <div class="py-6 sm:py-8 flex gap-6 sm:gap-8 items-start">
-                        <div class="text-2xl sm:text-3xl font-black tracking-tighter text-accent flex-shrink-0 w-10 leading-none">0{i + 1}</div>
-                        <div>
-                            <h3 class="text-base sm:text-lg font-black uppercase tracking-tight text-zinc-900 mb-2">{c.title}</h3>
-                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.desc}</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ QUIÉN ESTÁ DETRÁS ═══════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-5xl mx-auto reveal">
-            <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] grid md:grid-cols-[280px_1fr] gap-8 sm:gap-12 items-center">
-                <div class="rounded-2xl overflow-hidden bg-zinc-100">
-                    <img src="/sergio-galos-agencia-sem-para-pymes.webp" alt="Sergio Galo's, consultor de Google Ads para PYMEs" title="Sergio Galo's, consultor de Google Ads para PYMEs" class="w-full h-full object-cover object-top" loading="lazy" width="473" height="591" />
-                </div>
-                <div>
-                    <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Quién está detrás</span>
-                    <h2 class="text-2xl sm:text-4xl font-black tracking-tighter uppercase text-zinc-900 leading-[0.95] mb-6">
-                        Sergio Galo's <br>
-                        <span class="text-lg sm:text-2xl">Tu consultor de Google Ads para PYMEs</span>
-                    </h2>
-                    <div class="space-y-4 text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
-                        <p>
-                            Soy <strong class="font-semibold text-zinc-900">Sergio Galo's</strong>, consultor de marketing digital y fundador de Nova Marketing. Llevo años gestionando campañas de Google Ads para PYMEs en algunos de los sectores más competitivos, desde industria B2B y salud hasta ecommerce y servicios profesionales.
-                        </p>
-                        <p>
-                            Cuando contratas Google Ads con nova hablas siempre conmigo. Yo hago la auditoría, yo monto las campañas y yo respondo en la reunión mensual. Sin capas comerciales ni gestores que cambian cada trimestre.
-                        </p>
-                    </div>
-                    <a href="https://www.linkedin.com/company/nova-marketing-pymes/" target="_blank" rel="noopener" class="inline-block mt-6 text-[12px] font-black tracking-widest text-accent hover:underline">
-                        Ver perfil en LinkedIn →
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ CASOS DE ÉXITO (CMS) ═══════════════════════════════════ -->
-    {allCases.length > 0 && (
-    <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6 overflow-hidden">
-      <div class="max-w-7xl mx-auto">
-        <div class="mb-12 reveal">
-          <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultados probados</span>
-          <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
-            Casos de éxito de Google Ads<br class="hidden md:inline" /> para PYMEs
-          </h2>
-        </div>
-        <div class="cases-carousel relative overflow-hidden">
-          <div class="cases-track flex gap-6 transition-transform duration-500 ease-in-out">
-            {allCases.map((cs: any) => {
-              const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
-              const caseUrl = cs.isPublic && cs.slug ? `/casos-exito/${cs.slug}/` : null;
-              return (
-                <div class="cases-slide flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
-                  <div>
-                    {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
-                    <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors leading-tight">
-                      {caseUrl ? (
-                        <a href={caseUrl} class="hover:text-accent transition-colors">{cs.title}</a>
-                      ) : (
-                        <span class="group-hover:text-accent transition-colors">{cs.title}</span>
-                      )}
-                    </h3>
-                    <p class="text-xs text-zinc-500 font-light leading-relaxed">{cs.description}</p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+            <button type="submit" class="w-full btn-mktg-v5 !py-6">QUIERO LANZAR MIS CAMPAÑAS</button>
+          </form>
         </div>
       </div>
-    </section>
-    )}
-    <script>
-      function initCasesCarousel() {
-        const track = document.querySelector('.cases-track');
-        if (!track) return;
-        const slides = track.querySelectorAll('.cases-slide');
-        if (slides.length <= 4) return;
-        let current = 0;
-        const total = slides.length;
-        function getVisible() {
-          if (window.innerWidth >= 1024) return 4;
-          if (window.innerWidth >= 640) return 2;
-          return 1;
-        }
-        let slideWidth = slides[0].offsetWidth + 24;
-        window.addEventListener('resize', () => { slideWidth = slides[0].offsetWidth + 24; }, { passive: true });
-        function next() {
-          const visible = getVisible();
-          const maxIndex = total - visible;
-          current = current >= maxIndex ? 0 : current + 1;
-          track.style.transform = `translateX(-${current * slideWidth}px)`;
-        }
-        const interval = setInterval(next, 5000);
-        document.addEventListener('astro:before-preparation', () => clearInterval(interval));
-      }
-      document.addEventListener('DOMContentLoaded', initCasesCarousel);
-      document.addEventListener('astro:page-load', initCasesCarousel);
-    </script>
-
-    <!-- ═══ RECOMENDADOS POR LA IA ═════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5 overflow-hidden">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-
-            <div class="reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Nos avala la IA</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
-                    La agencia de Google Ads que recomienda la IA
-                </h2>
-                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed">
-                    <p>
-                        Cuando alguien pregunta por una <strong class="font-semibold text-zinc-900">agencia de Google Ads para PYMEs</strong> a ChatGPT, Gemini o Claude, nova aparece entre las agencias recomendadas. Es la mejor prueba de que sabemos generar visibilidad, porque lo aplicamos primero en nosotros mismos.
-                    </p>
-                    <p>
-                        A los asistentes de IA no les puedes comprar un anuncio para salir primero. Recomiendan lo que encuentran. Casos reales publicados, una forma de trabajar transparente, una especialización clara y clientes que hablan de nosotros.
-                    </p>
-                    <p>
-                        Pruébalo tú mismo. Abre ChatGPT y pregúntale qué agencia de Google Ads te recomienda para tu PYME. Si te sale nova, ya sabes quién puede hacer lo mismo por tu negocio.
-                    </p>
-                </div>
-            </div>
-
-            <div class="reveal flex justify-center">
-                <img src="/agencia-sem-para-pymes.webp" alt="Nova Marketing, agencia de Google Ads para PYMEs recomendada por la IA" title="Nova Marketing, agencia de Google Ads para PYMEs recomendada por la IA" class="w-full max-w-sm lg:max-w-md h-auto" loading="lazy" width="1000" height="1000" />
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ═══ CONSEJOS GOOGLE ADS ═══════════════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-4xl mx-auto reveal">
-            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Consejos aplicables hoy</span>
-            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Cómo mejorar tus campañas de Google Ads esta semana
-            </h2>
-            <p class="text-zinc-500 font-light text-base leading-relaxed mb-10">
-                Si todavía no estás listo para contratar una agencia SEM, empieza por aquí. Son acciones que cualquier pyme puede aplicar por su cuenta y que ya reducen el presupuesto desperdiciado.
-            </p>
-            <ul class="space-y-6">
-                {[
-                    { lead: 'Revisa el informe de términos de búsqueda.', text: 'Ahí ves las búsquedas reales que activan tus anuncios. Añade como negativa toda la que no tenga intención de compra. Es la fuga de presupuesto más común.' },
-                    { lead: 'Configura bien las conversiones.', text: 'Si Google no sabe qué es un lead para ti, optimiza hacia clics baratos que no venden. Marca llamadas y formularios antes de tocar nada más.' },
-                    { lead: 'No envíes el tráfico a la home.', text: 'Cada campaña merece una página de destino que hable exactamente de lo que promete el anuncio. La home dispersa y la landing convierte.' },
-                    { lead: 'Ajusta horarios y ubicaciones.', text: 'Si tu negocio atiende en tu comarca y en horario laboral, no pagues clics de madrugada ni de otras provincias. Dos ajustes que ahorran desde el primer día.' },
-                ].map(tip => (
-                    <li class="flex items-start gap-4">
-                        <svg class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                        <p class="text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
-                            <strong class="font-bold text-zinc-900">{tip.lead}</strong> {tip.text}
-                        </p>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    </section>
-
-    <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
-    <GoogleReviews locale="es" title="Lo que dicen nuestros clientes sobre las campañas de Google Ads de Nova" />
-
-    <!-- ═══ SERVICIOS COMPLEMENTARIOS ═══════════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-12 sm:mb-16 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Más allá del SEM</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Servicios complementarios de nuestra agencia SEM para tu pyme
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    Tu captación funciona mejor cuando todo el marketing empuja en la misma dirección. Estos son los servicios que la complementan.
-                </p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal">
-                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
-                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
-                        <a href="/" class="hover:text-accent transition-colors">Agencia de Marketing Digital para PYMEs</a>
-                    </h3>
-                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        La estrategia completa. Combinamos SEO, publicidad, web y visibilidad en IA en un solo plan orientado a que tu pyme gane clientes cada mes.
-                    </p>
-                    <a href="/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
-                </div>
-                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
-                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
-                        <a href="/agencia-seo-para-pymes/" class="hover:text-accent transition-colors">Agencia SEO para PYMEs</a>
-                    </h3>
-                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        Aparece en Google cuando tus clientes buscan tu servicio. Posicionamiento orgánico que se acumula mes a mes y reduce tu dependencia de pagar por cada clic.
-                    </p>
-                    <a href="/agencia-seo-para-pymes/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
-                </div>
-                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
-                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
-                        <a href="/diseno-web-para-pymes/" class="hover:text-accent transition-colors">Diseño Web para PYMEs</a>
-                    </h3>
-                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        Una web rápida, adaptada a móvil y enfocada a convertir en clientes cada visita que llega de tus campañas y tu posicionamiento.
-                    </p>
-                    <a href="/diseno-web-para-pymes/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
-                </div>
-                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
-                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
-                        <a href="/agencia-geo-para-pymes/" class="hover:text-accent transition-colors">Agencia GEO para PYMEs</a>
-                    </h3>
-                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        Tus clientes ya preguntan a ChatGPT y Gemini qué empresa contratar. Trabajamos tu posicionamiento GEO para que la IA recomiende tu negocio.
-                    </p>
-                    <a href="/agencia-geo-para-pymes/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ DÓNDE TRABAJAMOS ═══════════════════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-4xl mx-auto text-center reveal">
-            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Dónde trabajamos</span>
-            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Agencia SEM con sede en Barcelona y clientes en toda España
-            </h2>
-            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
-                Nuestra base está en Barcelona y la mayoría de proyectos son de la ciudad y su área metropolitana, donde nos reunimos presencialmente. Pero las campañas de Google Ads no entienden de kilómetros. Trabajamos con PYMEs de toda España por videollamada con el mismo nivel de seguimiento.
-            </p>
-            <CityPills base="/agencia-sem-para-pymes/" lang="es" itemPrefix="agencia SEM en" homeLabel="Agencia SEM" />
-        </div>
-    </section>
-
-    <!-- ═══ FAQS ════════════════════════════════════════════════ -->
-    <FaqHome title="Preguntas sobre nuestra agencia de Google Ads para PYMEs" items={faqs} emitSchema={false} />
-
-    <!-- ═══ CONTACTO ════════════════════════════════════════════ -->
-    <section id="contacto" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
-            <div class="reveal text-white">
-                <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">CRECIMIENTO GARANTIZADO</span>
-                <h2 class="text-5xl sm:text-7xl font-black uppercase tracking-tighter leading-[0.8] mb-8">
-                   APARECE HOY <br>EN GOOGLE
-                </h2>
-                <p class="font-light max-w-md text-base sm:text-xl">Consúltame y te diré cuánto costaría cada cliente en tu sector, y cómo bajarlo.</p>
-            </div>
-
-            <div class="reveal">
-                <div class="bg-white p-8 sm:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
-                    <form class="space-y-8" id="contact-form">
-                        <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
-                            <div class="flex flex-col gap-3">
-                                <label class="opacity-30">NOMBRE *</label>
-                                <input type="text" name="name" aria-label="Nombre" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
-                            </div>
-                            <div class="flex flex-col gap-3">
-                                <label class="opacity-30">TELÉFONO *</label>
-                                <input type="tel" name="phone" required autocomplete="tel" inputmode="tel" minlength="9" pattern="[0-9+\s.\(\)\-]{9,20}" title="Introduce un teléfono válido (mínimo 9 cifras)" aria-label="Teléfono" class="border-b border-black/10 py-2 focus:border-accent outline-none">
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
-                            <label class="opacity-30">EMAIL PROFESIONAL *</label>
-                            <input type="email" name="email" aria-label="Correo electrónico" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
-                        </div>
-                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
-                            <label class="opacity-30">WEB *</label>
-                            <input type="text" name="url" aria-label="Sitio web" placeholder="www.tuempresa.com" class="border-b border-black/10 py-2 focus:border-accent outline-none">
-                        </div>
-                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
-                            <label class="opacity-30">CONSULTA</label>
-                            <textarea name="msg" aria-label="Mensaje" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="¿Qué quieres anunciar en Google?"></textarea>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <input type="checkbox" id="contact-form-terms" name="terms" required class="mt-1 accent-accent">
-                            <label for="contact-form-terms" class="text-xs text-zinc-500 font-light cursor-pointer select-none normal-case tracking-normal">He leído y acepto la <a href="/privacidad/" class="underline hover:text-accent transition-colors">política de privacidad</a>.</label>
-                        </div>
-                        <button type="submit" class="w-full btn-mktg-v5 !py-6">QUIERO LANZAR MIS CAMPAÑAS</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
+  </section>
 
 </BaseLayout>
 
 <script>
-    document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const btn = form.querySelector('button');
-        if (btn) { btn.innerHTML = 'ENVIANDO...'; btn.disabled = true; }
-        const data = Object.fromEntries(new FormData(form));
-        try {
-            const res = await fetch('https://cms.novamarketing.es/api/contact', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
-            });
-            if (res.ok) {
-                window.location.href = '/gracias/';
-            } else { throw new Error(); }
-        } catch {
-            if (btn) { btn.innerHTML = 'ERROR — INTÉNTALO DE NUEVO'; btn.disabled = false; btn.style.background = '#ef4444'; }
-        }
-    });
-function initTimeline() {
-        const progressBar = document.getElementById('progress-bar');
-        const timeline = document.getElementById('timeline-container');
-        if (!progressBar || !timeline) return;
-
-        function updateProgress() {
-            // lecturas primero (evita reflows forzados intercalando lectura/escritura)
-            const rect = timeline.getBoundingClientRect();
-            const winHeight = window.innerHeight;
-            const nodes = timeline.querySelectorAll('.node-circle');
-            const nodeTops = Array.from(nodes, (node) => node.getBoundingClientRect().top);
-            // escrituras después
-            const topPassed = (winHeight / 2) - rect.top;
-            let percentage = (topPassed / rect.height) * 100;
-            percentage = Math.max(0, Math.min(100, percentage));
-            progressBar.style.height = `${percentage}%`;
-            nodes.forEach((node, i) => {
-                if (nodeTops[i] < winHeight / 2) {
-                    node.classList.add('!border-accent', '!bg-accent', '!text-white');
-                } else {
-                    node.classList.remove('!border-accent', '!bg-accent', '!text-white');
-                }
-            });
-        }
-
-        let progressTick = false;
-        function onProgressScroll() {
-            if (progressTick) return;
-            progressTick = true;
-            requestAnimationFrame(() => { updateProgress(); progressTick = false; });
-        }
-        window.addEventListener('scroll', onProgressScroll, { passive: true });
-        document.addEventListener('astro:page-load', updateProgress);
-        updateProgress();
+  document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const btn = form.querySelector('button');
+    if (btn) { btn.innerHTML = 'ENVIANDO...'; btn.disabled = true; }
+    const data = Object.fromEntries(new FormData(form));
+    try {
+      const res = await fetch('https://cms.novamarketing.es/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (res.ok) {
+        window.location.href = '/gracias/';
+      } else { throw new Error(); }
+    } catch {
+      if (btn) { btn.innerHTML = 'ERROR — INTÉNTALO DE NUEVO'; btn.disabled = false; btn.style.background = '#ef4444'; }
     }
-    document.addEventListener('DOMContentLoaded', initTimeline);
-    document.addEventListener('astro:page-load', initTimeline);
+  });
 </script>

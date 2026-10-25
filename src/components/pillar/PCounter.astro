@@ -1,0 +1,58 @@
+---
+/**
+ * Cifras destacadas con animación de contador al entrar en pantalla.
+ * El HTML ya trae el valor final (sin JS se ve tal cual).
+ */
+import '../../styles/pillar.css';
+
+interface Stat { value: number; decimals?: number; prefix?: string; suffix?: string; label: string; href?: string; source?: string; }
+interface Props { stats: Stat[]; tone?: 'light' | 'dark'; caption?: string; cols?: 2 | 3 | 4; }
+const { stats, tone = 'light', caption, cols } = Astro.props;
+const LG = { 2: 'lg:grid-cols-2', 3: 'lg:grid-cols-3', 4: 'lg:grid-cols-4' } as const;
+const lg = LG[cols ?? (stats.length >= 4 ? 4 : 3)];
+const dark = tone === 'dark';
+const fmt = (v: number, d = 0) => v.toLocaleString('es-ES', { minimumFractionDigits: d, maximumFractionDigits: d, useGrouping: 'always' } as Intl.NumberFormatOptions);
+---
+
+<figure class="pd-figure mt-12 reveal">
+  <div class:list={['grid grid-cols-2 gap-4 sm:gap-6', lg]}>
+    {stats.map((s, i) => (
+      <div class:list={['pd-rise rounded-2xl border p-5 sm:p-6', dark ? 'bg-white/5 border-white/10' : 'bg-white border-black/5 shadow-[0_15px_40px_rgba(0,0,0,0.05)]']} style={`--i:${i}`}>
+        <div class="text-3xl sm:text-4xl font-black tracking-tighter text-accent tabular-nums leading-none">
+          {s.prefix}<span class="pd-count" data-to={s.value} data-dec={s.decimals ?? 0}>{fmt(s.value, s.decimals)}</span>{s.suffix}
+        </div>
+        <p class:list={['text-xs sm:text-sm font-light leading-snug mt-3', dark ? 'text-zinc-300' : 'text-zinc-600']}>
+          {s.href ? <a href={s.href} class="underline decoration-zinc-300 underline-offset-2 hover:text-accent">{s.label}</a> : s.label}
+        </p>
+        {s.source && <p class:list={['text-[10px] mt-1', dark ? 'text-zinc-500' : 'text-zinc-400']}>{s.source}</p>}
+      </div>
+    ))}
+  </div>
+  {caption && <figcaption class="pd-caption" set:html={caption} />}
+</figure>
+
+<script>
+  function initCounters() {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const els = document.querySelectorAll<HTMLElement>('.pd-count:not([data-done])');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return;
+        const el = en.target as HTMLElement;
+        io.unobserve(el);
+        el.dataset.done = '1';
+        const to = Number(el.dataset.to), dec = Number(el.dataset.dec || 0), t0 = performance.now(), dur = 1400;
+        const step = (t: number) => {
+          const p = Math.min(1, (t - t0) / dur), v = to * (1 - Math.pow(1 - p, 3));
+          el.textContent = v.toLocaleString('es-ES', { minimumFractionDigits: dec, maximumFractionDigits: dec, useGrouping: 'always' } as Intl.NumberFormatOptions);
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.4 });
+    // Solo se anima lo que aún no se ha visto (lo visible al cargar queda con su valor final).
+    els.forEach((el) => { if (el.getBoundingClientRect().top > innerHeight) io.observe(el); else el.dataset.done = '1'; });
+  }
+  initCounters();
+  document.addEventListener('astro:page-load', initCounters);
+</script>

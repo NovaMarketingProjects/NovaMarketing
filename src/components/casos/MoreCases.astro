@@ -14,8 +14,12 @@ import { staticCaseCards } from '../../data/casos';
 interface Props {
   locale: 'es' | 'ca';
   currentSlug?: string;
+  /** Solo casos con alguna categoría cuyo slug contenga uno de estos textos (p. ej. ['seo']). */
+  categories?: string[];
+  /** Sin fondo ni márgenes propios, para incrustarlo dentro de otra sección. */
+  embed?: boolean;
 }
-const { locale, currentSlug } = Astro.props;
+const { locale, currentSlug, categories, embed = false } = Astro.props;
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 
 let cmsCases: any[] = [];
@@ -24,16 +28,17 @@ try {
   cmsCases = (res.data ?? []).map((i: any) => i.attributes ?? i).filter((c: any) => c.isPublic && c.slug && !c._static);
 } catch {}
 
-const cases = [...staticCaseCards(locale, SITE_URL), ...cmsCases].filter((c) => c.slug !== currentSlug);
+const matches = (c: any) => !categories?.length || (c.categories || []).some((cat: any) => categories.some((k) => String(cat.slug || '').toLowerCase().includes(k)));
+const cases = [...staticCaseCards(locale, SITE_URL), ...cmsCases].filter((c) => c.slug !== currentSlug && matches(c));
 const title = locale === 'ca' ? "Més casos d'èxit" : 'Más casos de éxito';
 const uid = `more-cases-${Math.random().toString(36).slice(2, 8)}`;
 ---
 
 {cases.length > 0 && (
-  <section class="py-16 px-6 sm:px-12 bg-zinc-50 border-t border-zinc-100" data-more-cases id={uid}>
+  <section class:list={[embed ? 'mt-12' : 'py-16 px-6 sm:px-12 bg-zinc-50 border-t border-zinc-100']} data-more-cases id={uid}>
     <div class="max-w-7xl mx-auto">
       <div class="flex items-center justify-between mb-8 gap-4">
-        <div class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400">{title}</div>
+        <div class="text-[10px] font-black tracking-[0.25em] uppercase text-zinc-400">{embed ? `${cases.length} ${locale === 'ca' ? 'casos' : 'casos'}` : title}</div>
         <div class="flex items-center gap-2">
           <button type="button" data-dir="-1" aria-label={locale === 'ca' ? 'Anterior' : 'Anterior'} class="w-10 h-10 rounded-full border border-zinc-200 bg-white text-zinc-700 hover:bg-black hover:text-white hover:border-black transition-colors flex items-center justify-center disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-zinc-700 disabled:hover:border-zinc-200">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
@@ -46,7 +51,7 @@ const uid = `more-cases-${Math.random().toString(36).slice(2, 8)}`;
       <div class="more-cases-track flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 -mx-6 px-6 sm:mx-0 sm:px-0" data-track>
         {cases.map((cs: any) => (
           <div class="snap-start shrink-0 w-[82%] sm:w-[calc(50%-10px)] lg:w-[calc(33.333%-14px)] xl:w-[calc(25%-15px)]">
-            <SuccessCard caseStudy={cs} locale={locale} />
+            <SuccessCard caseStudy={cs} locale={locale} titleTag={embed ? 'p' : 'h2'} />
           </div>
         ))}
       </div>

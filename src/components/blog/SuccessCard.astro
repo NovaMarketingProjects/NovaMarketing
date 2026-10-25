@@ -5,9 +5,11 @@ import { getStrapiImageUrl } from '../../lib/strapi';
 interface Props {
   caseStudy: CaseStudy;
   locale: 'es' | 'ca';
+  /** Etiqueta del título; 'p' cuando la tarjeta va dentro de una página con su propio esquema de encabezados. */
+  titleTag?: 'h2' | 'h3' | 'p';
 }
 
-const { caseStudy, locale } = Astro.props;
+const { caseStudy, locale, titleTag: TitleTag = 'h2' } = Astro.props;
 const prefix = locale === 'ca' ? '/ca' : '';
 const caseUrl = locale === 'ca' ? `/ca/casos-exit/${caseStudy.slug}/` : `/casos-exito/${caseStudy.slug}/`;
 const imageUrl = getStrapiImageUrl(caseStudy.cover_image) || '/og-default.jpg';
@@ -42,9 +44,9 @@ const company = caseStudy.company || '';
   <!-- Content Section -->
   <div class="p-5 flex flex-col flex-1 bg-white">
     <div class="mb-3 flex-1">
-       <h2 class="text-sm font-black uppercase tracking-tight text-zinc-900 leading-tight group-hover:text-accent transition-colors line-clamp-2">
+       <TitleTag class="text-sm font-black uppercase tracking-tight text-zinc-900 leading-tight group-hover:text-accent transition-colors line-clamp-2">
          {caseStudy.title}
-       </h2>
+       </TitleTag>
        <p class="text-zinc-500 font-light text-xs line-clamp-2 mt-2 leading-relaxed">
          {caseStudy.description}
        </p>

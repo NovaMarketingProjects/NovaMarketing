@@ -1,0 +1,38 @@
+---
+/**
+ * Sección de página pilar: kicker + H2 + contenido.
+ * tone: fondo (white | soft | dark). layout: 'center' centra cabecera e intro;
+ * 'split' pone la cabecera a la izquierda y el slot "aside" a la derecha.
+ */
+import '../../styles/pillar.css';
+
+interface Props {
+  id?: string;
+  kicker?: string;
+  title: string;
+  tone?: 'white' | 'soft' | 'dark';
+  layout?: 'center' | 'left' | 'split';
+  width?: 'narrow' | 'normal' | 'wide';
+}
+const { id, kicker, title, tone = 'white', layout = 'left', width = 'normal' } = Astro.props;
+const bg = tone === 'dark' ? 'bg-zinc-950 text-white' : tone === 'soft' ? 'bg-zinc-50' : 'bg-white';
+const max = width === 'narrow' ? 'max-w-4xl' : width === 'wide' ? 'max-w-7xl' : 'max-w-6xl';
+const center = layout === 'center';
+const hasAside = Astro.slots.has('aside');
+---
+
+<section id={id} class:list={['py-20 sm:py-28 px-4 sm:px-6 border-t', tone === 'dark' ? 'border-white/5' : 'border-black/5', bg]}>
+  <div class:list={['mx-auto', max]}>
+    <div class:list={[layout === 'split' && hasAside ? 'grid lg:grid-cols-[1.1fr_1fr] gap-10 lg:gap-16 items-center' : '']}>
+      <div class:list={['reveal', center ? 'text-center max-w-3xl mx-auto' : 'max-w-3xl']}>
+        {kicker && <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">{kicker}</span>}
+        <h2 class:list={['text-[1.75rem] sm:text-4xl lg:text-5xl font-extrabold tracking-tighter uppercase leading-[0.95] mb-6', tone === 'dark' ? 'text-white' : 'text-zinc-900']}>{title}</h2>
+        <div class:list={['pillar-prose text-base sm:text-lg', tone === 'dark' && '!text-zinc-300']}>
+          <slot name="intro" />
+        </div>
+      </div>
+      {layout === 'split' && hasAside && <div class="reveal"><slot name="aside" /></div>}
+    </div>
+    <slot />
+  </div>
+</section>

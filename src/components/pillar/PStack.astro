@@ -1,0 +1,27 @@
+---
+/**
+ * Capas apiladas (la base abajo): cada capa se apoya en la anterior.
+ * Se dibuja de arriba (más estrecha) a abajo (más ancha).
+ */
+import '../../styles/pillar.css';
+
+interface Layer { label: string; sub?: string; }
+interface Props { layers: Layer[]; caption?: string; }
+const { layers, caption } = Astro.props;
+const n = layers.length;
+---
+
+<figure class="pd-figure reveal">
+  <div class="flex flex-col items-center gap-2">
+    {layers.map((l, i) => (
+      <div
+        class:list={['pd-rise rounded-2xl px-5 py-4 text-center border', i === 0 ? 'bg-accent text-white border-accent' : 'bg-white border-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.05)]']}
+        style={`width:${Math.round(58 + (i / Math.max(1, n - 1)) * 42)}%;--i:${n - 1 - i}`}
+      >
+        <span class:list={['block text-sm font-black tracking-tight', i === 0 ? 'text-white' : 'text-zinc-900']}>{l.label}</span>
+        {l.sub && <span class:list={['block text-xs font-light mt-0.5', i === 0 ? 'text-white/80' : 'text-zinc-500']}>{l.sub}</span>}
+      </div>
+    ))}
+  </div>
+  {caption && <figcaption class="pd-caption" set:html={caption} />}
+</figure>

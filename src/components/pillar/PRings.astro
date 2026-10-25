@@ -1,0 +1,30 @@
+---
+/**
+ * Anillos de puntuación 0-100 (p. ej. PageSpeed antes/después) con trazo animado.
+ */
+import '../../styles/pillar.css';
+
+interface Ring { value: number; label: string; sub?: string; href?: string; }
+interface Props { rings: Ring[]; caption?: string; }
+const { rings, caption } = Astro.props;
+const R = 42, C = 2 * Math.PI * R;
+const color = (v: number) => (v >= 90 ? '#16a34a' : v >= 50 ? '#f59e0b' : '#ef4444');
+---
+
+<figure class="pd-figure mt-12 reveal">
+  <div class="flex flex-wrap justify-center gap-6 sm:gap-10">
+    {rings.map((r, i) => (
+      <div class="pd-rise flex flex-col items-center w-32 sm:w-36" style={`--i:${i}`}>
+        <svg viewBox="0 0 100 100" class="w-28 h-28 sm:w-32 sm:h-32 -rotate-90" role="img" aria-label={`${r.label}: ${r.value}`}>
+          <circle cx="50" cy="50" r={R} fill="none" stroke="#f4f4f5" stroke-width="9" />
+          <circle class="pd-arc" cx="50" cy="50" r={R} fill="none" stroke={color(r.value)} stroke-width="9" stroke-linecap="round"
+            stroke-dasharray={`${(C * r.value) / 100} ${C}`} style={`--len:${(C * r.value) / 100};--i:${i}`} />
+          <text x="50" y="50" text-anchor="middle" dominant-baseline="central" transform="rotate(90 50 50)" font-size="26" font-weight="900" fill={color(r.value)}>{r.value}</text>
+        </svg>
+        <p class="text-xs font-black text-zinc-900 mt-3 text-center leading-tight">{r.href ? <a href={r.href} class="hover:text-accent underline decoration-zinc-300 underline-offset-2">{r.label}</a> : r.label}</p>
+        {r.sub && <p class="text-[11px] text-zinc-500 font-light text-center">{r.sub}</p>}
+      </div>
+    ))}
+  </div>
+  {caption && <figcaption class="pd-caption" set:html={caption} />}
+</figure>

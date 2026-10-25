@@ -1,0 +1,35 @@
+---
+/**
+ * Embudo por etapas: cada etapa algo más estrecha que la anterior.
+ * `side` añade una nota a la derecha de cada etapa (en escritorio).
+ */
+import '../../styles/pillar.css';
+
+interface Stage { label: string; sub?: string; side?: string; }
+interface Props { stages: Stage[]; caption?: string; }
+const { stages, caption } = Astro.props;
+const n = stages.length;
+---
+
+<figure class="pd-figure reveal">
+  <div class="space-y-2">
+    {stages.map((s, i) => {
+      const w = 100 - (i / Math.max(1, n - 1)) * 46;
+      return (
+        <div class="grid md:grid-cols-[1fr_minmax(0,0.8fr)] gap-2 md:gap-6 items-center">
+          <div class="flex justify-center">
+            <div
+              class="pd-bar rounded-xl py-3.5 px-4 text-center text-white"
+              style={`width:${w}%;--i:${i};background:color-mix(in srgb, var(--color-accent) ${100 - i * 12}%, #1e3a8a);transform-origin:center`}
+            >
+              <span class="block text-sm font-black tracking-tight">{s.label}</span>
+              {s.sub && <span class="block text-[11px] font-light text-white/80">{s.sub}</span>}
+            </div>
+          </div>
+          {s.side && <p class="pd-rise text-xs sm:text-sm text-zinc-500 font-light leading-snug text-center md:text-left" style={`--i:${i}`}>{s.side}</p>}
+        </div>
+      );
+    })}
+  </div>
+  {caption && <figcaption class="pd-caption" set:html={caption} />}
+</figure>

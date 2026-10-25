@@ -2,65 +2,51 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { buildAlternates } from '../lib/i18n';
 import { localAgencySchema } from '../lib/schema';
-import { strapiClient } from '../lib/strapi';
 import LogoMarquee from '../components/sections/LogoMarquee.astro';
 import FaqHome from '../components/sections/FaqHome.astro';
 import CityPills from '../components/global/CityPills.astro';
-import GoogleReviews from '../components/global/GoogleReviews.astro';
+import MoreCases from '../components/casos/MoreCases.astro';
+import PageBlocks from '../components/blocks/PageBlocks.astro';
+import PSection from '../components/pillar/PSection.astro';
+import PCards from '../components/pillar/PCards.astro';
+import PFlow from '../components/pillar/PFlow.astro';
+import PMatrix from '../components/pillar/PMatrix.astro';
+import PStack from '../components/pillar/PStack.astro';
+import PFunnel from '../components/pillar/PFunnel.astro';
+import PTree from '../components/pillar/PTree.astro';
+import PRings from '../components/pillar/PRings.astro';
+import PCounter from '../components/pillar/PCounter.astro';
+import WebGantt from '../components/pillar/WebGantt.astro';
+import WebVersus from '../components/pillar/WebVersus.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/diseno-web-para-pymes/', '/ca/disseny-web-per-pimes/', SITE_URL);
 
-let allCases: any[] = [];
-try {
-  const casesRes = await strapiClient.getCaseStudies('es');
-  allCases = casesRes.data.map((i: any) => i.attributes ?? i).filter((c: any) => {
-    const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase());
-    return cats.some((s: string) => s === 'diseno-web');
-  });
-} catch {}
-
-const steps = [
-  { title: "Briefing y Objetivos de Negocio", desc: "Antes de diseñar nada, entendemos tu negocio. Qué vendes, a quién, qué hace tu competencia y qué tiene que conseguir la web. Una web sin objetivo es un folleto caro. La tuya nace con una misión concreta, convertir visitas en clientes." },
-  { title: "Arquitectura y Contenidos", desc: "Definimos qué páginas necesita tu web, cómo se organizan y qué dice cada una. La estructura se piensa para el usuario y para Google a la vez, con las keywords de tu sector integradas desde el primer boceto." },
-  { title: "Diseño y Desarrollo", desc: "Diseñamos una web que transmite confianza en tres segundos y la desarrollamos con código limpio y rápido. Adaptada a móvil desde el primer píxel, porque ahí está la mayoría de tus visitas." },
-  { title: "SEO Técnico y Velocidad", desc: "Cada web sale optimizada de serie. Core Web Vitals en verde, datos estructurados, indexación correcta y tiempos de carga que no espantan ni a tus clientes ni a Google. Lo que otros venden como extra, aquí es el estándar." },
-  { title: "Lanzamiento y Mantenimiento", desc: "Publicamos, medimos y no desaparecemos. Analítica configurada desde el día uno, copias de seguridad, actualizaciones y soporte directo. Tu web es un activo vivo que mejora cada mes, no un proyecto que se entrega y se olvida." }
-];
-
-const criteria = [
-  { title: "Pide webs reales que pueda visitar", desc: "Un portfolio de capturas bonitas no demuestra nada. Pide direcciones de webs vivas, entra desde el móvil y comprueba cómo cargan. Una agencia de diseño web seria debería poder enseñarte proyectos de negocios como el tuyo funcionando hoy." },
-  { title: "Pregunta quién hará tu web", desc: "En muchas agencias vende un comercial y ejecuta una plantilla comprada. Exige saber quién diseña, quién desarrolla y con quién hablarás durante el proyecto. En nova hablas siempre con el consultor que lleva tu proyecto." },
-  { title: "Exige la propiedad de tu web y tu dominio", desc: "El dominio, el hosting, la web y sus contenidos deben estar a tu nombre. Hay pymes que llevan años pagando y descubren al querer cambiar de agencia que no son dueñas ni de su propio dominio. Eso no es un servicio, es una dependencia." },
-  { title: "Desconfía de las webs a 300 euros", desc: "Una web tirada de precio suele ser una plantilla clonada, lenta y sin ningún trabajo de SEO. La acabas pagando dos veces, la segunda cuando alguien tiene que rehacerla para que funcione. Lo barato en diseño web es lo que no genera clientes." },
-  { title: "Revisa qué pasa después del lanzamiento", desc: "Una web sin mantenimiento envejece mal. Actualizaciones, seguridad, copias y pequeños cambios forman parte del servicio. Pregunta qué incluye el soporte y cuánto cuesta cada cambio antes de firmar, no después." },
-  { title: "Huye de las permanencias largas", desc: "Una permanencia de 24 meses protege a la agencia, no a ti. El trabajo bien hecho retiene clientes sin contratos que los aten. Por eso en nova trabajamos sin permanencias." },
-  { title: "Que la web nazca preparada para SEO y para la IA", desc: "Una web bonita que Google no entiende es invisible. Y cada vez más clientes preguntan a ChatGPT antes de buscar. Exige datos estructurados, contenido citable y velocidad de serie. Nosotros diseñamos cada web para posicionar en Google y en la IA desde el primer día." }
-];
+const ICON = {
+  building: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
+  bolt: 'M13 10V3L4 14h7v7l9-11h-7z',
+  bag: 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z',
+  refresh: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15',
+  chart: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z',
+  doc: 'M9 12h6m-6 4h6M9 8h2m8-3v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2h6l4 4z',
+  compass: 'M12 3a9 9 0 100 18 9 9 0 000-18zm3.5 5.5l-2 5-5 2 2-5 5-2z',
+  code: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4',
+  palette: 'M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01',
+  layers: 'M4 6h16M4 12h16M4 18h7',
+  device: 'M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z',
+  access: 'M12 4a2 2 0 100 4 2 2 0 000-4zM5 9l7 1 7-1M12 10v4m0 0l-3 6m3-6l3 6',
+  wp: 'M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z',
+  plug: 'M13.828 10.172a4 4 0 010 5.656l-3 3a4 4 0 01-5.656-5.656l1.5-1.5m7.328-1.672a4 4 0 000-5.656 4 4 0 00-5.656 0l-1.5 1.5',
+  pencil: 'M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z',
+  users: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z',
+};
 
 const faqs = [
-  { question: "¿Cuánto cuesta una página web para una pyme?", answer: "Depende del proyecto. Una landing page para campañas parte de 400 euros, una web a medida desde 120 euros al mes en 12 cuotas y una tienda online desde 130 euros al mes en 12 cuotas. Antes de empezar recibes un presupuesto cerrado por escrito y sabes exactamente qué incluye cada opción." },
-  { question: "¿Cuánto se tarda en hacer una web?", answer: "Una web corporativa suele estar lista en 3 a 5 semanas y una tienda online en 6 a 8, contando desde que recibimos los contenidos y materiales de tu negocio. En el briefing inicial te damos un calendario con fechas concretas de entrega y revisiones." },
-  { question: "¿La web, el dominio y el hosting serán míos?", answer: "Sí, siempre. El dominio se registra a tu nombre, los contenidos son tuyos y tienes acceso completo a todo. Si algún día dejas de trabajar con nosotros, te llevas tu web entera. Nos parece lo mínimo, aunque en el sector no sea lo habitual." },
-  { question: "¿Con qué tecnología hacéis las webs?", answer: "La que más convenga a tu proyecto. WordPress cuando necesitas gestionar contenido con autonomía, desarrollo a medida cuando la velocidad y el SEO son críticos, y plataformas de ecommerce consolidadas para las tiendas online. La tecnología es un medio, el criterio es qué convierte mejor para tu negocio." },
-  { question: "¿La web incluye SEO?", answer: "Toda web que sale de nova incluye la base SEO de serie. Estructura pensada con keywords, velocidad optimizada, datos estructurados, indexación correcta y textos orientados a las búsquedas de tus clientes. Si después quieres competir por posiciones, nuestro servicio de posicionamiento SEO continúa el trabajo desde esa base." },
-  { question: "¿Qué pasa si necesito cambios después del lanzamiento?", answer: "Tienes un periodo de ajustes incluido tras el lanzamiento y después puedes contratar mantenimiento mensual o pedir cambios puntuales con presupuesto cerrado. Nunca te quedas solo con la web." },
-  { question: "¿Trabajáis con permanencia?", answer: "No. Pagas por el trabajo entregado, en pago único o en 12 cuotas, sin permanencias ni cuotas ocultas. Nuestra permanencia real es que la web te genere clientes cada mes." }
-];
-
-const sectors = [
-  { icon: '🛒', title: 'Diseño web para ecommerce', href: '/agencia-ecommerce/diseno-web/', desc: 'Tiendas online rápidas, con fichas que venden y un proceso de compra sin fricciones. El diseño trabaja para el carrito, no contra él.' },
-  { icon: '🏠', title: 'Diseño web para inmobiliarias', href: '/agencia-inmobiliarias/diseno-web/', desc: 'Buscadores de propiedades claros, fichas con la información que decide y formularios que convierten visitas en visitas al piso.' },
-  { icon: '🍽️', title: 'Diseño web para restaurantes', href: '/agencia-restaurantes/diseno-web/', desc: 'Carta legible desde el móvil, reservas en dos toques y una web conectada con tu ficha de Google. El comensal decide en segundos.' },
-  { icon: '🧠', title: 'Diseño web para psicólogos', desc: 'El paciente busca confianza antes que precio. Webs serenas, con autoridad clínica y una primera cita a un clic de distancia.' },
-  { icon: '🌿', title: 'Diseño web para terapeutas', desc: 'Tu web es tu consulta antes de la consulta. Diseño que transmite lo que haces y contenido que convierte dudas en primeras visitas.' },
-  { icon: '🦷', title: 'Diseño web para dentistas', desc: 'Sector saturado donde la web decide. Casos reales, reseñas visibles y cita online para convertir la búsqueda en paciente.' },
-  { icon: '💪', title: 'Diseño web para gimnasios', desc: 'Horarios claros, tarifas sin letra pequeña y alta online. Una web que llena clases en enero y las mantiene el resto del año.' },
-  { icon: '🏗️', title: 'Diseño web para constructoras', desc: 'Proyectos documentados con fotos reales y formularios que filtran curiosos. La web que convierte visitas en presupuestos.' },
-  { icon: '⚖️', title: 'Diseño web para abogados', desc: 'Autoridad y claridad. Webs por especialidad que resuelven la duda legal del cliente y lo llevan a la consulta.' },
-  { icon: '🏨', title: 'Diseño web para hoteles', href: '/agencia-hoteles/diseno-web/', desc: 'Reserva directa sin depender de las OTAs. Webs con motor de reservas, fotos que venden y velocidad de carga impecable.' },
-  { icon: '🏭', title: 'Diseño web para B2B', href: '/agencia-b2b/diseno-web/', desc: 'Fichas técnicas descargables, casos de éxito y formularios pensados para el responsable de compras. Webs que generan presupuestos.' },
-  { icon: '⚙️', title: 'Diseño web para Empresas Industriales', href: '/agencia-industrial/diseno-web/', desc: 'Catálogo técnico claro, fichas de producto y formularios pensados para convertir la visita de un comprador técnico en leads cualificados.' },
+  { question: '¿Cuánto tiempo llevará crear mi web?', answer: 'Una landing page suele estar lista en una o dos semanas, una web corporativa en tres a cinco semanas y una tienda online en seis a ocho. El plazo cuenta desde que tenemos los textos, fotos y accesos necesarios, y depende sobre todo de lo rápido que se revisen las propuestas. Antes de empezar recibes un calendario con las fechas de cada entrega y cada revisión.' },
+  { question: '¿Quién será propietario del dominio, la web y el alojamiento?', answer: 'Tú. El dominio se registra a nombre de tu empresa, el alojamiento se contrata a tu nombre o se te transfiere al terminar, y la web, los textos y las imágenes que hayamos creado para el proyecto son tuyos. Al entregar te damos todos los accesos de administrador. Si algún día cambias de proveedor, te llevas la web entera sin pedir permiso a nadie.' },
+  { question: '¿Podré modificar los contenidos?', answer: 'Sí. Preparamos un panel de edición para que tu equipo pueda cambiar textos, imágenes, precios, entradas del blog o productos sin tocar código, y te formamos para hacerlo. Los cambios que afectan a la estructura o al diseño, como crear un tipo de página nuevo, sí conviene hacerlos con nosotros para no romper nada.' },
+  { question: '¿Cómo protegéis el posicionamiento durante un rediseño?', answer: 'Antes de tocar nada exportamos las páginas que reciben visitas y enlaces, y decidimos qué se conserva, qué se fusiona y qué se elimina. Cada URL antigua que cambia tiene su redirección a la nueva. Tras publicar revisamos Search Console y las posiciones de las páginas importantes durante las semanas siguientes para corregir cualquier caída a tiempo.' },
+  { question: '¿Qué sucede si necesito ampliar el proyecto?', answer: 'La web se construye para crecer. Puedes añadir páginas, servicios, idiomas, una tienda o integraciones más adelante. Cada ampliación se presupuesta por separado y por escrito antes de hacerla, y si tienes mantenimiento contratado, los cambios pequeños ya entran en él. Así no pagas hoy por funciones que quizá no necesites.' },
 ];
 
 const pageSchema = localAgencySchema({
@@ -69,11 +55,11 @@ const pageSchema = localAgencySchema({
   cityName: 'Barcelona',
   postalCode: '08035',
   geo: { lat: 41.4114, lng: 2.1526 },
-  areaServed: ["España", "Barcelona", "Sabadell", "Sant Cugat del Vallès", "Terrassa", "Vallès Occidental"],
-  title: "▷ Diseño Web para PYMEs | Páginas rápidas y optimizadas",
-  description: "Diseño web para PYMEs: webs rápidas, optimizadas para SEO ✅ y pensadas para convertir visitas en clientes. Más información sobre nuestro enfoque profesional",
+  areaServed: ['España', 'Barcelona', 'Sabadell', 'Sant Cugat del Vallès', 'Terrassa', 'Vallès Occidental'],
+  title: '▷ Diseño Web para PYMEs | Páginas rápidas y optimizadas',
+  description: 'Diseño web para PYMEs: webs rápidas, optimizadas para SEO ✅ y pensadas para convertir visitas en clientes. Más información sobre nuestro enfoque profesional',
   datePublished: '2026-07-16',
-  dateModified: '2026-07-16',
+  dateModified: '2026-10-25',
   streetAddress: 'Carrer del General Mendoza, 10',
   hasMap: 'https://maps.app.goo.gl/9fbB12UcK32bgjj89',
   aggregateRating: { ratingValue: '5.0', reviewCount: '12' },
@@ -90,758 +76,514 @@ const pageSchema = localAgencySchema({
   schemas={[pageSchema]}
 >
 
-    <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
-    <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
-        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
-        <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
-        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+  <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
+  <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+    <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+    <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
 
-        <div class="max-w-5xl mx-auto reveal">
-            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
-                <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
-                Diseño Web para Pymes
-            </span>
-            <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
-                <span class="lg:whitespace-nowrap">Diseño Páginas Web </span>
-                <span class="lg:whitespace-nowrap text-mktg-gradient">para PYMEs</span>
-            </h1>
-            <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
-                Tu web es tu mejor comercial o tu peor enemigo. Diseñamos páginas web para PYMEs rápidas, optimizadas para Google y pensadas para convertir visitas en clientes.
-            </p>
-            <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
-                {['Sin permanencias', 'La web y el dominio son tuyos', 'SEO incluido de serie'].map(item => (
-                    <span class="inline-flex items-center gap-2 text-[11px] sm:text-xs font-black uppercase tracking-widest text-zinc-700">
-                        <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
-                        </svg>
-                        {item}
-                    </span>
-                ))}
-            </div>
-            <div class="flex justify-center mt-4">
-                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                    HABLEMOS DE TU NEGOCIO
-                </a>
-            </div>
+    <div class="max-w-5xl mx-auto reveal relative">
+      <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
+        <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+        Diseño web para pymes
+      </span>
+      <h1 class="uppercase font-extrabold tracking-tighter leading-[0.9] mb-8 text-gradient flex flex-col items-center text-center">
+        <span class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl">Diseño de páginas web para pymes</span>
+        <span class="text-xl sm:text-3xl md:text-4xl mt-3 text-mktg-gradient">que necesitan una web útil para su negocio</span>
+      </h1>
+      <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed max-w-3xl mx-auto mb-8">
+        Diseñamos y desarrollamos webs corporativas, landing pages y tiendas online que explican bien lo que haces, cargan rápido y llevan a tus visitas a contactar o comprar.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
+        {['La web y el dominio a tu nombre', 'Sin permanencia', 'SEO desde la planificación'].map((item) => (
+          <span class="inline-flex items-center gap-2 text-[11px] sm:text-xs font-black uppercase tracking-widest text-zinc-700">
+            <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            {item}
+          </span>
+        ))}
+      </div>
+      <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">HABLEMOS DE TU WEB</a>
+    </div>
+  </section>
+
+  <LogoMarquee />
+
+  <!-- ═══ OBJETIVO ═══════════════════════════════════════════════════════ -->
+  <PSection kicker="Antes de diseñar" title="Tu próxima web empieza por lo que necesita conseguir tu empresa">
+    <Fragment slot="intro">
+      <p>Una web no se encarga para tener web. Se encarga para que lleguen más peticiones de presupuesto, para vender online, para filtrar mejor a los clientes o para dejar de explicar lo mismo por teléfono cada día. <strong>Ese objetivo decide qué páginas hacen falta, qué se cuenta en cada una y qué tiene que hacer el visitante al final.</strong></p>
+      <p>Por eso empezamos por tu negocio y no por la plantilla. Diseñamos la web como parte de tu captación de clientes, conectada con el <a href="/agencia-seo-para-pymes/">posicionamiento en Google</a> y con el resto del <a href="/">marketing digital de tu pyme</a>, para que el trabajo no termine el día del lanzamiento.</p>
+    </Fragment>
+    <PFlow
+      steps={[
+        { label: 'Objetivo de negocio', sub: 'contactos, ventas, reservas' },
+        { label: 'Estructura', sub: 'qué páginas y en qué orden' },
+        { label: 'Contenido', sub: 'qué dice cada página' },
+        { label: 'Diseño', sub: 'marca, lectura y uso' },
+        { label: 'Lanzamiento', sub: 'medido desde el primer día' },
+      ]}
+      caption="El orden en el que trabajamos. El diseño visual llega cuando ya sabemos qué tiene que conseguir cada página."
+    />
+  </PSection>
+
+  <!-- ═══ TIPO DE PROYECTO ═══════════════════════════════════════════════ -->
+  <PSection kicker="Tipos de proyecto" title="Elige el tipo de proyecto que encaja contigo" tone="soft">
+    <Fragment slot="intro">
+      <p>La mayoría de pymes llega con una de estas cuatro necesidades. Si no tienes claro cuál es la tuya, lo vemos juntos en la primera conversación. A veces lo que parece un rediseño completo se resuelve con una buena landing, y al revés.</p>
+    </Fragment>
+    <PCards
+      tone="soft"
+      cols={2}
+      items={[
+        { icon: ICON.building, tag: 'Desde 120 €/mes · 3 a 5 semanas', title: 'Web corporativa para presentar tu empresa', html: 'Para empresas de servicios, despachos, clínicas o fabricantes que necesitan explicar qué hacen, para quién y por qué son de fiar. Incluye páginas de servicio, quiénes sois, casos o proyectos y contacto. Es el formato habitual en <a href="/agencia-b2b/diseno-web/">empresas B2B</a> e <a href="/agencia-industrial/diseno-web/">industriales</a>, donde el comprador compara mucho antes de llamar.' },
+        { icon: ICON.bolt, tag: 'Desde 400 € · 1 a 2 semanas', title: 'Landing page para una oferta o campaña', html: 'Una sola página con un único objetivo, pensada para recibir tráfico de anuncios o de una campaña concreta. Sin menú que distraiga, con la oferta clara, pruebas de confianza y un formulario o botón de llamada siempre a mano. Funciona especialmente bien junto a una <a href="/agencia-sem-para-pymes/">campaña de Google Ads</a> bien segmentada.' },
+        { icon: ICON.bag, tag: 'Desde 130 €/mes · 6 a 8 semanas', title: 'Tienda online para vender productos', html: 'Catálogo, fichas de producto, carrito, pago, envíos y gestión de pedidos, todo pensado para que el comprador no abandone por el camino. Te ayudamos a decidir la plataforma según tu catálogo y tu forma de trabajar. Tienes más detalle en nuestro <a href="/agencia-ecommerce/diseno-web/">diseño de tiendas online</a>.' },
+        { icon: ICON.refresh, tag: 'Según alcance', title: 'Rediseño de una web que se ha quedado atrás', html: 'Para webs lentas, difíciles de editar o que ya no representan a la empresa. Partimos de lo que funciona hoy y protegemos el posicionamiento conseguido. Si dudas de si hace falta, repasa antes <a href="/blog/como-saber-si-tu-web-esta-bien-hecha/">cómo saber si tu web está bien hecha</a>.' },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ WEB EXISTENTE ══════════════════════════════════════════════════ -->
+  <PSection kicker="Rediseño" title="Si ya tienes web, decidimos qué merece conservarse" layout="split">
+    <Fragment slot="intro">
+      <p>Rehacer una web no significa tirar todo lo anterior. Antes de diseñar revisamos los datos de Analytics y Search Console, el contenido publicado y la tecnología, y clasificamos cada página según lo que aporta y lo que costaría mejorarla.</p>
+      <p>Esa revisión evita el error más caro de un rediseño, perder en una semana el tráfico que costó años conseguir.</p>
+    </Fragment>
+    <PMatrix
+      slot="aside"
+      xLabel="Trabajo necesario"
+      yLabel="Valor para el negocio"
+      quadrants={['Conservar', 'Mejorar', 'Redirigir o fusionar', 'Eliminar']}
+      points={[
+        { label: 'Servicio que posiciona', x: 18, y: 86 },
+        { label: 'Guía con visitas', x: 32, y: 66 },
+        { label: 'Página de contacto', x: 72, y: 80 },
+        { label: 'Noticias duplicadas', x: 26, y: 28 },
+        { label: 'Promoción caducada', x: 76, y: 18 },
+      ]}
+      caption="Ejemplo de cómo clasificamos las páginas de una web existente antes de un rediseño."
+    />
+    <PCards
+      variant="rows"
+      items={[
+        { title: 'Páginas que atraen visitas y contactos', html: 'Identificamos qué URLs reciben tráfico desde Google, cuáles tienen enlaces de otras webs y desde cuáles llegan los formularios y las llamadas. Esas páginas se conservan con su dirección o se redirigen a su equivalente nueva. Si no sabes de dónde llega hoy tu tráfico, empieza por <a href="/blog/donde-viene-el-trafico/">de dónde viene el tráfico de tu web</a>.' },
+        { title: 'Contenidos y recursos que siguen siendo útiles', html: 'Artículos que todavía responden dudas reales, fichas técnicas, preguntas frecuentes o proyectos que demuestran experiencia. Muchos solo necesitan una actualización de datos y formato. Lo que está obsoleto o repetido se fusiona con otra página o se elimina, siempre con su redirección.' },
+        { title: 'Problemas de navegación y conversión', html: 'Menús con demasiadas opciones, servicios escondidos, formularios largos o un teléfono que no se puede pulsar en móvil. Revisamos el recorrido de una visita real hasta el contacto y anotamos cada punto donde se pierde gente, porque eso es lo primero que el nuevo diseño tiene que resolver.' },
+        { title: 'Tecnología que condiciona el nuevo proyecto', html: 'Plataforma, alojamiento, plugins, integraciones y quién tiene los accesos. A veces la web puede rehacerse sobre la misma base y otras la tecnología es el problema. En <a href="/casos-exito/clustag/">Clustag</a> mantuvimos su WordPress y lo optimizamos, y en <a href="/casos-exito/cts-formacion/">CTS Formación</a> hubo que salir de la plataforma de un proveedor externo.' },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ MAPA DE LA WEB ═════════════════════════════════════════════════ -->
+  <PSection kicker="Arquitectura" title="Del objetivo de negocio al mapa de la web" tone="soft">
+    <Fragment slot="intro">
+      <p>Con el objetivo claro dibujamos el mapa de la web, qué páginas tendrá, cómo se agrupan y cómo se enlazan entre sí. Es un documento sencillo que validas antes de que exista una sola línea de diseño, y el que más problemas evita después.</p>
+    </Fragment>
+    <PTree
+      root="Web de un despacho profesional"
+      branches={[
+        { label: 'Servicios', leaves: ['Una página por servicio', 'Precios orientativos'] },
+        { label: 'Sectores o casos', leaves: ['Proyectos reales', 'Testimonios'] },
+        { label: 'Sobre el equipo', leaves: ['Experiencia', 'Colegiaciones'] },
+        { label: 'Recursos', leaves: ['Guías y artículos', 'Preguntas frecuentes'] },
+        { label: 'Contacto', leaves: ['Formulario', 'Teléfono y ubicación'] },
+      ]}
+      caption="Esquema ilustrativo de un mapa web. Cada proyecto tiene el suyo, según sus servicios y clientes."
+    />
+    <PCards
+      tone="soft"
+      cols={2}
+      variant="numbered"
+      items={[
+        { title: 'Qué necesita encontrar cada tipo de cliente', html: 'Un paciente nuevo busca tratamientos, precio y cita; un responsable de compras busca fichas técnicas y referencias. Definimos quién visita tu web y qué pregunta trae, como hacemos en las webs para <a href="/agencia-dentistas/diseno-web/">clínicas dentales</a>, <a href="/agencia-psicologos/diseno-web/">psicólogos</a> o <a href="/agencia-terapeutas/diseno-web/">terapeutas</a>, donde la confianza pesa más que el precio.' },
+        { title: 'Cómo organizamos servicios y contenidos', html: 'Una página propia para cada servicio importante, agrupadas de forma que el visitante no tenga que adivinar. En <a href="/casos-exito/villazon-merce-abogados/">Villazón Mercé Abogados</a> creamos una página por cada área penal, y en <a href="/casos-exito/voltura-projects/">Voltura Projects</a>, páginas para las ciudades donde trabajan. Más ejemplos en nuestras webs para <a href="/agencia-abogados/diseno-web/">abogados</a>.' },
+        { title: 'Qué recorrido conduce al contacto o la compra', html: 'Definimos el camino desde la página por la que se entra hasta el formulario, la llamada, la reserva o el pedido, y lo acortamos todo lo posible. En las webs de <a href="/agencia-restaurantes/diseno-web/">restaurantes</a> y <a href="/agencia-hoteles/diseno-web/">hoteles</a>, por ejemplo, la reserva tiene que estar a uno o dos toques desde cualquier página.' },
+        { title: 'Qué páginas necesita el lanzamiento', html: 'No todo tiene que estar el primer día. Separamos lo imprescindible para publicar, normalmente portada, servicios, quiénes somos, contacto y textos legales, de lo que puede llegar después, como el blog o nuevas secciones. Así la web sale antes y crece con datos reales de uso.' },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ TEXTOS ═════════════════════════════════════════════════════════ -->
+  <PSection kicker="Contenidos" title="Textos que explican por qué elegir tu empresa">
+    <Fragment slot="intro">
+      <p>El diseño atrae la mirada, pero quien decide es el texto. Redactamos o editamos los contenidos contigo, porque nadie conoce mejor que tu equipo lo que preguntan los clientes y por qué acaban eligiéndoos.</p>
+      <p>Escribimos para personas que llegan con prisa desde el móvil, con frases cortas, respuestas concretas y la información que suele faltar en las webs de pymes, como plazos, precios orientativos o cómo se trabaja.</p>
+    </Fragment>
+    <PCards
+      cols={2}
+      items={[
+        { icon: ICON.compass, title: 'Una propuesta de valor fácil de entender', html: 'En la primera pantalla el visitante tiene que saber qué haces, para quién y qué debe hacer a continuación. Lo resumimos en un titular y una frase de apoyo, sin expresiones huecas como "soluciones integrales" o "calidad y profesionalidad", que no ayudan a nadie a decidir.' },
+        { icon: ICON.doc, title: 'Servicios descritos desde la necesidad del cliente', html: 'Cada página de servicio empieza por el problema que resuelve y después explica qué incluye, cómo se trabaja, cuánto tarda y qué cuesta aproximadamente. Es la diferencia entre un catálogo de servicios y una página que responde a lo que el cliente está buscando en Google.' },
+        { icon: ICON.chart, title: 'Experiencia y pruebas que generan confianza', html: 'Proyectos con fotos reales, reseñas, años en el sector, certificaciones y datos medibles. En webs de <a href="/agencia-constructoras/diseno-web/">constructoras</a> o <a href="/agencia-inmobiliarias/diseno-web/">inmobiliarias</a> los proyectos documentados pesan más que cualquier eslogan. Nosotros hacemos lo mismo con nuestros <a href="/casos-exito/">casos de éxito</a>.' },
+        { icon: ICON.bolt, title: 'Llamadas a la acción según cada página', html: 'No todas las páginas piden lo mismo. Un servicio invita a pedir presupuesto, un artículo a seguir leyendo o descargar una guía, y la página de un <a href="/agencia-gimnasios/diseno-web/">gimnasio</a> a probar una clase. Cada llamada se adapta al momento del visitante y se mide para saber cuál funciona.' },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ DISEÑO ═════════════════════════════════════════════════════════ -->
+  <PSection kicker="Diseño" title="Un diseño que representa tu marca y facilita el uso" tone="soft">
+    <Fragment slot="intro">
+      <p>Un buen diseño web no es el más llamativo, es el que hace que tu empresa parezca lo que es y que cualquiera encuentre lo que busca sin pensar. Partimos de tu identidad y la adaptamos a cómo se lee y se usa una web hoy, sobre todo en el móvil.</p>
+    </Fragment>
+    <div class="mt-12 reveal">
+      <PageBlocks blocks={[{
+        __component: 'blocks.image-compare',
+        before: { url: '/casos/cts-formacion/antes-home-cts-formacion.webp', local: true, alternativeText: 'Home antigua de CTS Formación con cabecera roja, menú en mayúsculas e imágenes de stock' },
+        after: { url: '/casos/cts-formacion/cts-formacion-web.webp', local: true, alternativeText: 'Home nueva de CTS Formación con el buscador de cursos como protagonista y las categorías como accesos directos' },
+        before_label: 'Antes',
+        after_label: 'Después',
+        aria_label: 'Comparar la home antigua y la nueva de CTS Formación',
+        caption: 'Rediseño real de CTS Formación. Desliza para comparar la portada antigua con la nueva, centrada en encontrar un curso.',
+      }]} />
+    </div>
+    <PCards
+      tone="soft"
+      cols={2}
+      items={[
+        { icon: ICON.palette, title: 'Identidad visual aplicada a la web', html: 'Llevamos tu logotipo, colores y tipografías a un sistema pensado para pantalla, con botones, tarjetas, formularios e iconos coherentes en todas las páginas. Si tu marca es antigua o no tienes manual, definimos una base sencilla para que la web no parezca una plantilla más.' },
+        { icon: ICON.layers, title: 'Jerarquía para leer y encontrar información', html: 'Titulares que resumen, párrafos cortos, listas, espacio en blanco y un orden que guía la vista de lo importante a lo secundario. La mayoría de visitas escanean antes de leer, así que diseñamos para que lo esencial se entienda aunque solo se lean los titulares.' },
+        { icon: ICON.device, title: 'Experiencia en móvil, tableta y ordenador', html: 'Diseñamos primero para el móvil, que es por donde llega buena parte de las visitas, y después ampliamos a tableta y ordenador. Teléfono que se pulsa, menús que se abren con el pulgar, formularios cortos y textos que se leen sin hacer zoom.' },
+        { icon: ICON.access, title: 'Accesibilidad en los elementos de interacción', html: 'Contraste suficiente, tamaños de texto legibles, botones grandes, formularios con etiquetas claras y navegación posible con teclado. Son detalles que ayudan a personas con dificultades visuales o motoras y, de paso, hacen la web más cómoda para todos.' },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ TECNOLOGÍA ═════════════════════════════════════════════════════ -->
+  <PSection kicker="Tecnología" title="La tecnología adecuada para gestionar tu proyecto">
+    <Fragment slot="intro">
+      <p>Trabajamos con WordPress y con desarrollo a medida. No defendemos una tecnología por costumbre, elegimos la que mejor encaja con tu web, con quién la va a editar y con lo que tiene que conectar.</p>
+    </Fragment>
+    <WebVersus
+      a={{ label: 'WordPress' }}
+      b={{ label: 'Desarrollo a medida' }}
+      rows={[
+        { label: 'Encaja con', a: 'Webs con mucho contenido, blog activo y equipos que ya conocen el panel.', b: 'Webs donde la velocidad, el SEO o una funcionalidad propia son prioritarios.' },
+        { label: 'Edición', a: 'Panel conocido y gran ecosistema de plugins.', b: 'Panel propio, solo con los campos que tu equipo necesita.' },
+        { label: 'Rendimiento', a: 'Bueno si se cuida la plantilla y se limitan los plugins.', b: 'Muy alto de partida, sin código que no se usa.' },
+        { label: 'Mantenimiento', a: 'Actualizaciones frecuentes de núcleo y plugins.', b: 'Menos piezas de terceros que actualizar.' },
+      ]}
+      caption="Resumen orientativo. La decisión final depende de cada proyecto y la razonamos por escrito en la propuesta."
+    />
+    <PCards
+      cols={2}
+      items={[
+        { icon: ICON.wp, title: 'Cuándo tiene sentido trabajar con WordPress', html: 'Cuando la web va a publicar contenido con frecuencia, tu equipo ya lo conoce o necesitas funciones que existen como plugin probado. Bien configurado, WordPress puede ser rápido. En <a href="/casos-exito/clustag/">Clustag</a> llevamos su web de 53 a 98 en PageSpeed de escritorio sin cambiar de plataforma. Lo explicamos con detalle en <a href="/agencia-inmobiliarias/wordpress/">webs en WordPress</a>.' },
+        { icon: ICON.code, title: 'Cuándo conviene un desarrollo a medida', html: 'Cuando necesitas un buscador, un catálogo con filtros, varios idiomas o el máximo rendimiento sin depender de plugins. Las webs de <a href="/casos-exito/villazon-merce-abogados/">Villazón Mercé</a> y <a href="/casos-exito/voltura-projects/">Voltura Projects</a> son desarrollos propios con 98 y 100 en PageSpeed de escritorio. Más en <a href="/agencia-inmobiliarias/desarrollo-propio/">desarrollo web propio</a>.' },
+        { icon: ICON.plug, title: 'Integraciones con las herramientas de tu empresa', html: 'Conectamos los formularios con tu CRM o tu correo, y la web con tu sistema de reservas, tu programa de facturación o tu herramienta de email marketing. Así los contactos no se pierden en una bandeja de entrada. Si todavía no usas CRM, mira <a href="/blog/los-7-mejores-crm-para-una-pyme/">los mejores CRM para una pyme</a>.' },
+        { icon: ICON.pencil, title: 'Edición de contenidos sin depender de un desarrollador', html: 'Textos, imágenes, precios, entradas del blog o productos se cambian desde un panel, sin tocar código. En <a href="/casos-exito/restaurante-loremar/">Restaurante Loremar</a> el propio equipo actualiza la carta cuando cambia un plato, y la web mantiene un 94 en PageSpeed.' },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ SEO ════════════════════════════════════════════════════════════ -->
+  <PSection kicker="SEO" title="SEO incorporado desde la planificación" tone="soft" layout="split">
+    <Fragment slot="intro">
+      <p>El SEO no se añade al final como un plugin. Se decide en el mapa de la web, en los textos y en la forma de construirla. Una web que nace bien estructurada posiciona antes y cuesta menos de mejorar después.</p>
+      <p>Si quieres seguir creciendo en buscadores tras el lanzamiento, lo continuamos con nuestro servicio de <a href="/agencia-seo-para-pymes/">agencia SEO</a> y, para aparecer en las respuestas de ChatGPT o Gemini, con el de <a href="/agencia-geo-para-pymes/">posicionamiento en IA</a>.</p>
+    </Fragment>
+    <PStack
+      slot="aside"
+      layers={[
+        { label: 'Contactos desde Google', sub: 'el objetivo' },
+        { label: 'Contenido que responde', sub: 'una búsqueda, una página' },
+        { label: 'Encabezados y enlaces', sub: 'Google entiende la web' },
+        { label: 'Rendimiento', sub: 'carga rápida en móvil' },
+        { label: 'Rastreo e indexación', sub: 'Google puede leerla' },
+      ]}
+      caption="Esquema ilustrativo. Cada capa se apoya en la anterior y las de abajo se resuelven al construir la web."
+    />
+    <PCards
+      tone="soft"
+      cols={2}
+      variant="check"
+      items={[
+        { title: 'Estructura de páginas según las búsquedas del cliente', html: 'Antes de cerrar el mapa web investigamos cómo busca tu cliente. Si busca cada servicio por separado o con el nombre de su ciudad, cada uno tendrá su propia página. Así evitamos una única página genérica que intenta posicionar por todo y no lo consigue.' },
+        { title: 'Encabezados, metadatos y enlaces internos', html: 'Un único H1 por página, encabezados que resumen cada sección, títulos y descripciones pensados para el resultado de Google y enlaces entre páginas relacionadas. También datos estructurados de empresa, servicios, productos o preguntas frecuentes, siempre fieles al contenido.' },
+        { title: 'Control de rastreo e indexación', html: 'Sitemap, robots.txt, etiquetas canónicas y noindex donde corresponde, para que Google dedique su tiempo a las páginas que importan. Revisamos que ninguna página de pruebas, filtro o duplicado acabe en el índice, y damos de alta la web en Search Console.' },
+        { title: 'Redirecciones cuando sustituimos una web existente', html: 'Preparamos un mapa de redirecciones URL a URL antes de publicar, lo probamos en el entorno de pruebas y lo revisamos el día del lanzamiento. Después seguimos las páginas importantes en Search Console para corregir cualquier error antes de que afecte a las posiciones.' },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ RENDIMIENTO ════════════════════════════════════════════════════ -->
+  <PSection kicker="Calidad" title="Rendimiento y calidad antes de publicar">
+    <Fragment slot="intro">
+      <p>Una web lenta pierde visitas antes de que se vea el contenido, y un formulario roto pierde contactos sin que nadie se entere. Por eso ninguna web sale sin pasar una lista de comprobaciones de velocidad, funcionamiento y compatibilidad.</p>
+      <p>Estos son resultados reales de PageSpeed Insights en proyectos nuestros, antes y después de trabajar la web.</p>
+    </Fragment>
+    <PRings
+      rings={[
+        { value: 46, label: 'CTS Formación', sub: 'antes · móvil', href: '/casos-exito/cts-formacion/' },
+        { value: 100, label: 'CTS Formación', sub: 'después · móvil', href: '/casos-exito/cts-formacion/' },
+        { value: 53, label: 'Clustag', sub: 'antes · escritorio', href: '/casos-exito/clustag/' },
+        { value: 98, label: 'Clustag', sub: 'después · escritorio', href: '/casos-exito/clustag/' },
+        { value: 100, label: 'Voltura Projects', sub: 'web nueva · escritorio', href: '/casos-exito/voltura-projects/' },
+      ]}
+      caption="Puntuación de rendimiento en PageSpeed Insights. Datos reales de cada caso, con el detalle en su página."
+    />
+    <PCards
+      cols={4}
+      variant="numbered"
+      items={[
+        { title: 'Optimización de imágenes y recursos', html: 'Imágenes en formatos modernos y al tamaño en que se muestran, carga diferida de lo que está fuera de pantalla, tipografías ligeras y solo el código que cada página necesita. Es lo que más se nota en móvil.' },
+        { title: 'Comprobación de velocidad y Core Web Vitals', html: 'Medimos cada plantilla con PageSpeed Insights en móvil y escritorio, y corregimos lo que retrasa la carga, mueve el contenido o bloquea la interacción antes de dar la web por terminada.' },
+        { title: 'Pruebas de formularios, enlaces y navegación', html: 'Enviamos cada formulario y comprobamos que el aviso llega a quien debe. Revisamos enlaces rotos, menús, botones de llamada y WhatsApp, y la medición de conversiones en Analytics.' },
+        { title: 'Revisión en dispositivos y navegadores', html: 'Probamos la web en móviles Android e iPhone, tabletas y ordenadores, con Chrome, Safari, Firefox y Edge. Lo que se ve bien en la pantalla del diseñador también tiene que verse bien en la de tu cliente.' },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ ECOMMERCE ══════════════════════════════════════════════════════ -->
+  <PSection kicker="Tiendas online" title="Si vas a vender online, resolvemos todo el recorrido de compra" tone="soft" layout="split">
+    <Fragment slot="intro">
+      <p>Una tienda online no es una web con un carrito. Cada paso, desde que alguien entra en una categoría hasta que recibe la confirmación del pedido, puede hacer que compre o que se vaya. Diseñamos el recorrido completo y lo dejamos conectado con tu forma de trabajar.</p>
+      <p>Es un proyecto de 6 a 8 semanas, desde 130 € al mes en 12 cuotas. Si tienes un catálogo amplio o técnico, lo adaptamos como en nuestro <a href="/agencia-ecommerce/diseno-web/">diseño web para ecommerce</a>.</p>
+    </Fragment>
+    <PFunnel
+      slot="aside"
+      stages={[
+        { label: 'Catálogo', sub: 'categorías y filtros', side: 'El comprador encuentra el producto.' },
+        { label: 'Ficha de producto', sub: 'fotos, datos, precio', side: 'Resuelve sus dudas.' },
+        { label: 'Carrito', sub: 'costes claros', side: 'Sin sorpresas al final.' },
+        { label: 'Pago', sub: 'rápido y seguro', side: 'Pedido confirmado.' },
+      ]}
+      caption="Esquema ilustrativo del recorrido de compra que diseñamos y probamos."
+    />
+    <PCards
+      tone="soft"
+      cols={2}
+      items={[
+        { icon: ICON.layers, title: 'Catálogo y fichas de producto', html: 'Categorías pensadas como las piensa tu cliente, filtros útiles que no generan páginas duplicadas y fichas con fotos de calidad, medidas, materiales, plazos de entrega y preguntas frecuentes. La ficha tiene que responder lo que respondería un vendedor en la tienda física.' },
+        { icon: ICON.bag, title: 'Carrito y proceso de pago', html: 'Compra como invitado, pocos campos, costes de envío visibles desde el principio y pasos claros hasta la confirmación. Probamos el proceso completo con pedidos de prueba antes de abrir la tienda para que nada falle el primer día.' },
+        { icon: ICON.chart, title: 'Envíos, impuestos y métodos de cobro', html: 'Configuramos tarifas de envío por zona o peso, recogida en tienda si la ofreces, IVA según el destino y los métodos de pago que tus clientes esperan, como tarjeta, Bizum, PayPal o transferencia. Todo coherente con cómo trabaja tu contabilidad.' },
+        { icon: ICON.plug, title: 'Gestión de pedidos e integraciones', html: 'Emails de confirmación y envío, estados de pedido y avisos de stock. Si trabajas con ERP, programa de facturación, almacén o transportista, estudiamos la integración para que no tengas que copiar pedidos a mano de un sistema a otro.' },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ PROCESO ════════════════════════════════════════════════════════ -->
+  <PSection kicker="Calendario" title="Así avanzará tu proyecto de principio a fin">
+    <Fragment slot="intro">
+      <p>Una web corporativa se entrega en 3 a 5 semanas. Trabajamos por fases con una validación al final de cada una, así nunca llegas al final del proyecto con sorpresas sobre la estructura o el diseño.</p>
+    </Fragment>
+    <WebGantt
+      weeks={5}
+      phases={[
+        { label: 'Alcance y materiales', sub: 'objetivos, accesos, textos y fotos', start: 1, end: 1 },
+        { label: 'Estructura y propuesta visual', sub: 'mapa web y diseño de portada', start: 1, end: 2 },
+        { label: 'Desarrollo y revisión', sub: 'maquetación, contenidos y ajustes', start: 2, end: 4 },
+        { label: 'Publicación y comprobaciones', sub: 'lanzamiento, redirecciones y medición', start: 4, end: 5 },
+      ]}
+      caption="Ejemplo de calendario para una web corporativa. Una landing page se resuelve en 1 a 2 semanas y una tienda online en 6 a 8. El plazo depende de que los materiales y las revisiones lleguen a tiempo."
+    />
+    <PCards
+      cols={4}
+      variant="numbered"
+      items={[
+        { title: 'Definición del alcance y recopilación de materiales', html: 'Una reunión para concretar objetivos, páginas y funcionalidades, que quedan por escrito. Te pasamos una lista de lo que necesitamos, como logotipo, textos existentes, fotos y accesos al dominio y a la web actual.' },
+        { title: 'Validación de estructura y propuesta visual', html: 'Te presentamos el mapa web y el diseño de la portada y de una página interna. Hasta que no los validas no seguimos, porque cambiar la estructura después cuesta mucho más que hacerlo ahora.' },
+        { title: 'Desarrollo y revisión de la web', html: 'Construimos el resto de páginas en un entorno de pruebas al que tienes acceso. Recibes la web completa para revisarla y recogemos tus comentarios en una ronda ordenada de ajustes.' },
+        { title: 'Publicación y comprobaciones del lanzamiento', html: 'Publicamos en tu dominio, activamos redirecciones, Analytics y Search Console, y repetimos las pruebas de formularios y velocidad sobre la web real. Los días siguientes vigilamos que todo funcione.' },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ COLABORACIÓN ═══════════════════════════════════════════════════ -->
+  <PSection kicker="Trabajo en equipo" title="Qué necesitamos de tu equipo y qué resolvemos nosotros" tone="soft">
+    <Fragment slot="intro">
+      <p>Tú conoces tu negocio y nosotros sabemos hacer webs. El proyecto avanza rápido cuando cada parte sabe qué le toca desde el primer día. La mayoría de retrasos en una web vienen de materiales que no llegan o de revisiones que se alargan.</p>
+    </Fragment>
+    <PCards
+      tone="soft"
+      cols={3}
+      items={[
+        { icon: ICON.doc, title: 'Contenidos y materiales de partida', html: 'Te pedimos lo que solo tú tienes, como información de servicios, fotos de proyectos y del equipo, logotipo y datos legales. Nosotros redactamos o adaptamos los textos a partir de una entrevista y te decimos qué imágenes faltan, para que no tengas que escribir la web desde cero.' },
+        { icon: ICON.users, title: 'Responsables de revisión y aprobación', html: 'Pedimos una persona de contacto con capacidad para aprobar y, como mucho, otra que revise. Cuantas más personas opinan sobre cada pantalla, más se alarga el proyecto y menos coherente queda el resultado. Las decisiones técnicas y de diseño las proponemos nosotros, explicando su porqué.' },
+        { icon: ICON.layers, title: 'Organización de entregas y comentarios', html: 'Cada entrega llega con fecha y con lo que hay que revisar. Los comentarios se recogen en un único documento o sobre la propia web de pruebas, agrupados por página, para que nada se pierda en hilos de correo y cada ronda de ajustes quede cerrada.' },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ ENTREGA ════════════════════════════════════════════════════════ -->
+  <PSection kicker="Entrega" title="Qué recibirás con la entrega de tu web" layout="split">
+    <Fragment slot="intro">
+      <p>Al terminar no te quedas con una web que solo nosotros sabemos manejar. Te entregamos el control completo, la formación para el día a día y la documentación para que cualquier profesional pueda continuar el trabajo si algún día lo necesitas.</p>
+    </Fragment>
+    <PFlow
+      slot="aside"
+      highlight={false}
+      steps={[
+        { label: 'Accesos', sub: 'dominio, web, alojamiento' },
+        { label: 'Formación', sub: 'sesión práctica' },
+        { label: 'Documentación', sub: 'configuración y guía' },
+      ]}
+    />
+    <PCards
+      variant="rows"
+      items={[
+        { title: 'Accesos y propiedad de los activos acordados', html: 'Dominio registrado a nombre de tu empresa, alojamiento a tu nombre o transferido, acceso de administrador a la web y propiedad de Analytics y Search Console. Los textos, diseños e imágenes creados para el proyecto son tuyos. Sin permanencia y sin dependencias.' },
+        { title: 'Formación para las tareas habituales', html: 'Una sesión práctica, que puedes grabar, sobre cómo cambiar textos e imágenes, crear una entrada del blog, añadir un producto o revisar los contactos recibidos. Practicas con tu propia web, no con una demo, y te quedas con una guía breve para consultarla después.' },
+        { title: 'Documentación y configuración del proyecto', html: 'Un documento con la tecnología usada, los plugins o servicios conectados, dónde está alojada la web, cómo se hacen las copias de seguridad, qué redirecciones se crearon y qué eventos se miden en Analytics. Es lo que necesita cualquier profesional para seguir trabajando sobre ella.' },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ DESPUÉS ════════════════════════════════════════════════════════ -->
+  <PSection kicker="Después del lanzamiento" title="Después del lanzamiento, la web sigue evolucionando" tone="soft">
+    <Fragment slot="intro">
+      <p>El día del lanzamiento la web empieza a recibir visitas reales, y con ellas los primeros datos sobre qué funciona. Puedes contratar un mantenimiento mensual, pedir cambios puntuales con presupuesto cerrado o gestionarla por tu cuenta. En cualquier caso, la web es tuya.</p>
+    </Fragment>
+    <PCards
+      tone="soft"
+      cols={3}
+      items={[
+        { icon: ICON.refresh, title: 'Mantenimiento y actualizaciones', html: 'Actualizaciones de seguridad, copias de seguridad, revisión del alojamiento y del certificado SSL, y pequeños cambios de contenido cuando los necesites. Una web sin mantenimiento acumula vulnerabilidades y errores que suelen aparecer en el peor momento.' },
+        { icon: ICON.chart, title: 'Seguimiento de contactos y comportamiento', html: 'Medimos formularios, llamadas y clics en WhatsApp, y desde qué canal llega cada contacto. Así sabes si la web cumple su objetivo y puedes decidir con datos dónde invertir, en <a href="/agencia-seo-para-pymes/">SEO</a>, en <a href="/agencia-sem-para-pymes/">publicidad en Google</a> o en nuevos contenidos.' },
+        { icon: ICON.layers, title: 'Nuevas páginas y mejoras según las necesidades', html: 'Nuevos servicios, páginas para otras ciudades, landing pages para campañas, un segundo idioma o una tienda. La web se construye para crecer, así que cada ampliación encaja en la estructura existente y se presupuesta por separado antes de hacerla.' },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ PRESUPUESTO ════════════════════════════════════════════════════ -->
+  <PSection kicker="Precios" title="Cómo calculamos el presupuesto de tu página web" width="wide">
+    <Fragment slot="intro">
+      <p>Tarifas orientativas, sin IVA y sin permanencia. Antes de empezar recibes un presupuesto cerrado por escrito con todo lo que incluye. Si quieres compararlo con otras opciones del mercado, lee <a href="/blog/cuanto-cuesta-una-web-para-una-pyme-en-2026/">cuánto cuesta una web para una pyme en 2026</a>.</p>
+    </Fragment>
+    <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch reveal">
+      {[
+        { title: 'Landing page', price: 'desde 400 €', note: 'pago único · 1 a 2 semanas', items: ['Una página con un objetivo', 'Textos orientados a la acción', 'Formulario y llamada en un toque', 'Medición de conversiones', 'Lista para campañas'] },
+        { title: 'Web a medida', price: 'desde 120 € / mes', note: 'en 12 cuotas · 3 a 5 semanas', items: ['Mapa web y contenidos', 'Diseño propio para tu marca', 'SEO desde la planificación', 'Analítica configurada', 'Formación para editarla'], featured: true },
+        { title: 'Tienda online', price: 'desde 130 € / mes', note: 'en 12 cuotas · 6 a 8 semanas', items: ['Todo lo de la web a medida', 'Catálogo y fichas de producto', 'Carrito, pago y envíos', 'Emails de pedido', 'Formación para gestionarla'] },
+      ].map((p, i) => (
+        <div class:list={['pd-rise rounded-3xl p-7 sm:p-8 flex flex-col border', p.featured ? 'bg-zinc-950 text-white border-zinc-950 shadow-2xl' : 'bg-white border-black/5 shadow-[0_15px_40px_rgba(0,0,0,0.06)]']} style={`--i:${i}`}>
+          <p class:list={['text-lg font-black tracking-tight leading-snug mb-3', p.featured ? 'text-white' : 'text-zinc-900']}>{p.title}</p>
+          <div class="text-2xl font-black text-accent">{p.price}</div>
+          <div class="text-[11px] font-light mt-1 mb-6 text-zinc-400">{p.note}</div>
+          <ul class="space-y-2.5 flex-1">
+            {p.items.map((it) => (
+              <li class:list={['flex items-start gap-2.5 text-sm font-light', p.featured ? 'text-zinc-300' : 'text-zinc-600']}>
+                <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>{it}
+              </li>
+            ))}
+          </ul>
+          <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 !py-4 !text-[11px] !tracking-widest font-black mt-8 text-center">PEDIR PRESUPUESTO</a>
         </div>
-    </section>
+      ))}
+    </div>
+    <PCards
+      variant="rows"
+      items={[
+        { title: 'Alcance, funcionalidades y número de páginas', html: 'No cuesta lo mismo una web de cinco páginas que una con treinta servicios, dos idiomas y un buscador. El número de plantillas distintas, las funcionalidades especiales y las integraciones mueven el precio más que el número de páginas en sí.' },
+        { title: 'Diseño, contenidos e integraciones incluidos', html: 'El presupuesto detalla si incluye la redacción de textos, la búsqueda o edición de imágenes, la migración de contenidos de la web anterior y la conexión con tu CRM, tu sistema de reservas o tu programa de gestión. Así sabes qué entra y qué no antes de firmar.' },
+        { title: 'Costes iniciales y servicios recurrentes', html: 'Separamos lo que pagas por crear la web, en pago único o en 12 cuotas, de lo que se paga cada año o cada mes, como el dominio, el alojamiento, las licencias de plugins o el mantenimiento opcional. Sin cuotas ocultas ni permanencias.' },
+      ]}
+    />
+  </PSection>
 
-    <LogoMarquee />
+  <!-- ═══ PROYECTOS ══════════════════════════════════════════════════════ -->
+  <PSection kicker="Casos reales" title="Proyectos web para conocer nuestro trabajo" tone="soft" width="wide">
+    <Fragment slot="intro">
+      <p>Webs vivas que puedes visitar, con datos medidos después del lanzamiento. Cada caso explica de dónde partía el cliente, qué hicimos y qué resultados ha tenido.</p>
+    </Fragment>
+    <PCounter
+      cols={3}
+      stats={[
+        { value: 100, label: 'en PageSpeed móvil para CTS Formación, que partía de 46', href: '/casos-exito/cts-formacion/' },
+        { value: 25, prefix: '+', suffix: ' %', label: 'de leads en CTS Formación desde el lanzamiento', href: '/casos-exito/cts-formacion/' },
+        { value: 678, label: 'visitas orgánicas al mes en Clustag, partiendo de cero', href: '/casos-exito/clustag/' },
+        { value: 191, label: 'keywords en dos meses con la web nueva de Villazón Mercé Abogados', href: '/casos-exito/villazon-merce-abogados/' },
+        { value: 122, label: 'keywords en 7 meses para Voltura Projects, una web creada desde cero', href: '/casos-exito/voltura-projects/' },
+        { value: 18000, label: "páginas vistas en diciembre en la web del CB L'Hospitalet", href: '/casos-exito/cb-hospitalet/' },
+      ]}
+    />
+    <MoreCases locale="es" categories={['diseno-web']} embed />
+    <div class="mt-12 text-center reveal">
+      <p class="text-xs font-black uppercase tracking-[0.25em] text-zinc-400 mb-4">Diseño web en tu zona</p>
+      <CityPills base="/diseno-web-para-pymes/" lang="es" itemPrefix="Diseño web en" homeLabel="Toda España" />
+    </div>
+  </PSection>
 
-    <!-- ═══ INTRO: POR QUÉ TU WEB ═══════════════════════════════════════ -->
-    <section class="py-16 sm:py-24 bg-white px-4 sm:px-6 border-b border-black/5">
-        <div class="max-w-6xl mx-auto reveal grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-16 items-center">
-            <div>
-                <p class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4">¿Por qué tu web importa?</p>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
-                    La agencia de diseño web para tu pyme
-                </h2>
-                <div class="space-y-6 text-zinc-600 font-light text-base sm:text-lg leading-relaxed">
-                    <p>
-                        <strong class="font-semibold text-zinc-900">Tu web trabaja las 24 horas, la pregunta es si trabaja a favor o en contra</strong>. Antes de llamarte, tu cliente te ha buscado, ha entrado en tu página desde el móvil y ha decidido en segundos si eres de fiar. Una web lenta o anticuada le manda directo a tu competencia.
-                    </p>
-                    <p>
-                        Nova es una <strong class="font-semibold text-zinc-900">agencia de diseño web especializada en PYMEs</strong>. No hacemos webs para ganar premios de diseño, las hacemos con un objetivo medible. <strong class="font-semibold text-zinc-900">Que cada visita tenga la máxima probabilidad de convertirse en un cliente</strong>.
-                    </p>
-                </div>
+  <!-- ═══ FAQS ═══════════════════════════════════════════════════════════ -->
+  <FaqHome title="Preguntas que conviene resolver antes de empezar" items={faqs} emitSchema={false} />
+
+  <!-- ═══ CONTACTO ═══════════════════════════════════════════════════════ -->
+  <section id="contacto" class="py-20 sm:py-32 px-4 sm:px-6 relative bg-accent">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
+      <div class="reveal text-white">
+        <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">Primer paso</span>
+        <h2 class="text-4xl sm:text-6xl font-black uppercase tracking-tighter leading-[0.85] mb-10">Cuéntanos qué necesita hacer tu próxima web</h2>
+        <ol class="space-y-5">
+          {[
+            ['Comparte tu punto de partida y tus objetivos', 'Tu web actual si la tienes, qué vendes, a quién y qué quieres que consiga la nueva.'],
+            ['Recibe una propuesta de alcance, plazos y presupuesto', 'Por escrito, con las páginas, la tecnología, el calendario y el precio cerrado.'],
+          ].map(([t, d], i) => (
+            <li class="flex gap-4">
+              <span class="w-8 h-8 rounded-full bg-white/15 border border-white/30 flex items-center justify-center text-xs font-black flex-shrink-0">{i + 1}</span>
+              <div>
+                <h3 class="text-base sm:text-lg font-black tracking-tight">{t}</h3>
+                <p class="text-sm font-light text-white/80">{d}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <div class="reveal">
+        <div class="bg-white p-8 sm:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
+          <form class="space-y-8" id="contact-form">
+            <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
+              <div class="flex flex-col gap-3">
+                <label class="opacity-30">NOMBRE *</label>
+                <input type="text" name="name" aria-label="Nombre" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+              </div>
+              <div class="flex flex-col gap-3">
+                <label class="opacity-30">TELÉFONO *</label>
+                <input type="tel" name="phone" required autocomplete="tel" inputmode="tel" minlength="9" pattern="[0-9+\s.\(\)\-]{9,20}" title="Introduce un teléfono válido (mínimo 9 cifras)" aria-label="Teléfono" class="border-b border-black/10 py-2 focus:border-accent outline-none">
+              </div>
             </div>
-            <div class="hidden md:block">
-                <img src="/sergio-galos-diseno-web-para-pymes.webp" alt="Sergio Galo's, consultor de diseño web para PYMEs" title="Sergio Galo's, consultor de diseño web para PYMEs" class="w-full h-auto" loading="lazy" width="473" height="591" />
+            <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+              <label class="opacity-30">EMAIL PROFESIONAL *</label>
+              <input type="email" name="email" aria-label="Correo electrónico" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
             </div>
-        </div>
-    </section>
-
-    <!-- ═══ SERVICIOS WEB ══════════════════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50 border-b border-black/5 px-4 sm:px-6">
-        <div class="max-w-7xl mx-auto text-center reveal">
-            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Qué hacemos</span>
-            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Servicio de diseño web para PYMEs
-            </h2>
-            <div class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-16 space-y-4">
-                <p>
-                    Una <strong class="font-semibold text-zinc-700">página web que vende</strong> no es solo diseño, es un sistema. Estas son las nueve piezas que trabajamos para que tu web deje de ser una tarjeta de visita y se convierta en tu mejor canal de captación.
-                </p>
-                <p>
-                    Cada pieza se activa según lo que necesite tu proyecto. No pagas por un paquete cerrado de acciones, pagas por las que tu negocio necesita.
-                </p>
+            <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+              <label class="opacity-30">WEB *</label>
+              <input type="text" name="url" aria-label="Sitio web" placeholder="www.tuempresa.com" class="border-b border-black/10 py-2 focus:border-accent outline-none">
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[
-                    { icon: 'M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z', t: 'Webs corporativas', d: 'La web de empresa que presenta tu negocio, transmite confianza y convierte. Estructura pensada para el cliente y para Google.' },
-                    { icon: 'M13 10V3L4 14h7v7l9-11h-7z', t: 'Landing pages', d: 'Páginas de aterrizaje para tus campañas con un solo objetivo. Que el clic acabe en llamada o formulario, sin distracciones.' },
-                    { icon: 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z', t: 'Tiendas online', d: 'Ecommerce rápido con fichas optimizadas, pasarela de pago fiable y un proceso de compra que no pierde carritos por el camino.' },
-                    { icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15', t: 'Rediseño web', d: 'Renovamos webs anticuadas sin perder el posicionamiento conseguido. Migración cuidada, redirecciones y mejora medible.' },
-                    { icon: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4', t: 'WordPress y a medida', d: 'WordPress cuando necesitas autonomía para editar y desarrollo a medida cuando velocidad y SEO son críticos. El criterio manda.' },
-                    { icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6', t: 'Velocidad y Core Web Vitals', d: 'Webs que cargan en verde. La velocidad decide si el visitante se queda y es factor de posicionamiento en Google.' },
-                    { icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z', t: 'SEO desde el diseño', d: 'Arquitectura, keywords, datos estructurados e indexación integrados desde el primer boceto, no parcheados después.' },
-                    { icon: 'M9 12h6m-6 4h6M9 8h2m8-3v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2h6l4 4z', t: 'Textos que venden', d: 'Redactamos los contenidos de tu web orientados a lo que busca tu cliente. El diseño atrae y el texto convierte.' },
-                    { icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z', t: 'Mantenimiento y soporte', d: 'Actualizaciones, seguridad, copias diarias y cambios sin esperas. Tu web siempre al día y tú a lo tuyo, tu negocio.' },
-                ].map(c => (
-                    <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-left">
-                        <div class="flex items-center gap-3 mb-3">
-                            <div class="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0">
-                                <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d={c.icon}/></svg>
-                            </div>
-                            <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900">{c.t}</h3>
-                        </div>
-                        <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.d}</p>
-                    </div>
-                ))}
+            <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+              <label class="opacity-30">CONSULTA</label>
+              <textarea name="msg" aria-label="Mensaje" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="¿Qué necesita tu web?"></textarea>
             </div>
-
-            <div class="mt-12 text-center reveal">
-                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                    HABLEMOS DE TU NEGOCIO
-                </a>
+            <div class="flex items-start gap-2">
+              <input type="checkbox" id="contact-form-terms" name="terms" required class="mt-1 accent-accent">
+              <label for="contact-form-terms" class="text-xs text-zinc-500 font-light cursor-pointer select-none normal-case tracking-normal">He leído y acepto la <a href="/privacidad/" class="underline hover:text-accent transition-colors">política de privacidad</a>.</label>
             </div>
-        </div>
-    </section>
-
-    <!-- ═══ METODOLOGÍA WEB ════════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-16 sm:mb-24 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Cómo trabajamos</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Así creamos la web que convierte visitas en clientes
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    Una metodología documentada para pasar de una web que solo existe a una web que vende, paso a paso y sin humo.
-                </p>
-            </div>
-
-            <div id="timeline-container" class="relative">
-                <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
-                <div id="progress-bar" class="hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100"></div>
-
-                <div class="space-y-16 md:space-y-24 flex flex-col items-center">
-                    {steps.map((step, index) => (
-                        <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
-                            <div class:list={["flex-1 w-full", index % 2 === 0 ? "md:order-1 md:text-right" : "md:order-3 md:text-left"]}>
-                                <div class="p-8 sm:p-10 bg-zinc-50 border border-black/5 rounded-3xl hover:border-accent/10 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
-                                    <h3 class="text-xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{index + 1}. {step.title}</h3>
-                                    <div class:list={["h-0.5 bg-accent w-full mb-4 opacity-80", index % 2 === 0 ? "md:ml-auto" : ""]}></div>
-                                    <p class:list={["text-sm text-zinc-500 font-light max-w-md", index % 2 === 0 ? "md:ml-auto" : ""]}>{step.desc}</p>
-                                    <div class="absolute -bottom-6 -right-5 text-8xl font-black text-black/[0.02] select-none z-0 group-hover:scale-105 transition-transform duration-500">0{index+1}</div>
-                                </div>
-                            </div>
-                            <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all">
-                                0{index + 1}
-                            </div>
-                            <div class:list={["hidden md:block md:flex-1", index % 2 === 0 ? "md:order-3" : "md:order-1"]}></div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ AUDITORÍA WEB ═════════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5 overflow-hidden">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-[6fr_4fr] gap-12 lg:gap-16 items-start">
-
-            <div class="reveal lg:col-span-2">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Punto de partida</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
-                    Auditoría web gratuita para tu PYME
-                </h2>
-            </div>
-
-            <div class="reveal">
-                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed mb-8">
-                    <p>
-                        Antes de proponerte nada, revisamos lo que ya tienes. ¿Sabes cuántos segundos tarda tu web en cargar desde un móvil? ¿Cuántas visitas recibe y cuántas acaban en un contacto? Casi ninguna pyme lo sabe con datos, y ahí empieza todo.
-                    </p>
-                    <p>
-                        Nuestra <strong class="font-semibold text-zinc-900">auditoría web gratuita</strong> revisa tu página actual con ojos de cliente y de consultor. Velocidad, diseño, textos, SEO y conversión, y termina con un diagnóstico claro. Qué conservar, qué mejorar y qué está costándote clientes cada semana.
-                    </p>
-                    <p>
-                        A diferencia de los análisis automáticos que generan un PDF con cien avisos irrelevantes, aquí tu web la revisa un consultor senior con años de experiencia en pymes. El resultado no es un listado técnico, es un diagnóstico de negocio que entiende cualquier gerente.
-                    </p>
-                    <p>
-                        Si estás pensando en renovar tu web o te la está haciendo otra agencia, la auditoría también sirve como segunda opinión independiente antes de invertir.
-                    </p>
-                </div>
-                <ul class="space-y-3">
-                    {[
-                        'Velocidad de carga y Core Web Vitals desde el móvil',
-                        'Primera impresión y confianza que transmite el diseño',
-                        'Textos y llamadas a la acción que convierten o espantan',
-                        'Salud SEO con indexación y visibilidad en Google',
-                        'Puntos de fuga en el camino de la visita al contacto',
-                        'Diagnóstico priorizado con lo que más impacto tiene',
-                    ].map(item => (
-                        <li class="flex items-start gap-3 text-sm text-zinc-700 font-light">
-                            <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            {item}
-                        </li>
-                    ))}
-                </ul>
-                <div class="mt-16">
-                    <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                        QUIERO MI AUDITORÍA WEB GRATIS
-                    </a>
-                </div>
-            </div>
-
-            <div class="reveal flex flex-col gap-4">
-                {[
-                    { bg: 'bg-purple-100', color: 'text-purple-600', icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6', t: 'Test de velocidad real', d: 'Medimos cuánto tarda tu web desde un móvil con conexión normal, que es como llega tu cliente. Cada segundo de más son ventas de menos.' },
-                    { bg: 'bg-green-100', color: 'text-green-600', icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z', t: 'Revisión con ojos de cliente', d: 'Entramos en tu web como lo haría alguien que no te conoce. Qué entiende en tres segundos, qué le genera dudas y por qué se va sin contactar.' },
-                    { bg: 'bg-purple-100', color: 'text-purple-600', icon: 'M12 3a9 9 0 100 18 9 9 0 000-18zm0 5a4 4 0 100 8 4 4 0 000-8z', t: 'Salud SEO de tu web', d: 'Comprobamos si Google entiende tu página, qué keywords trabaja y qué visibilidad estás dejando escapar frente a tu competencia.' },
-                    { bg: 'bg-amber-100', color: 'text-amber-600', icon: 'M9 12h6m-6 4h6M9 8h2m8-3v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2h6l4 4z', t: 'Análisis de conversión', d: 'Revisamos formularios, botones y llamadas a la acción. Detectamos dónde pierde clientes tu web y qué cambio tendría más impacto.' },
-                    { bg: 'bg-blue-100', color: 'text-blue-600', icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z', t: 'Comparativa con tu competencia', d: 'Ponemos tu web al lado de la de tus tres competidores directos. Qué hacen mejor, qué haces mejor tú y dónde está la oportunidad.' },
-                ].map(card => (
-                    <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
-                        <div class:list={["w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0", card.bg]}>
-                            <svg class:list={["w-5 h-5", card.color]} fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d={card.icon}/></svg>
-                        </div>
-                        <div>
-                            <h3 class="text-sm font-black text-zinc-900 mb-1">{card.t}</h3>
-                            <p class="text-xs text-zinc-500 font-light leading-relaxed">{card.d}</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ═══ QUÉ INCLUYE LA AUDITORÍA WEB ═══════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-12 sm:mb-16 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Paso a paso</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
-                    Qué incluye la auditoría web de nova
-                </h2>
-            </div>
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch reveal">
-                {[
-                    { n: '1', t: 'Radiografía de tu web actual', d: 'Analizamos velocidad, diseño, contenidos y SEO de tu página tal y como la ve hoy tu cliente y como la ve Google.' },
-                    { n: '2', t: 'Diagnóstico de conversión', d: 'Cruzamos los datos con el recorrido real del usuario para explicar exactamente dónde y por qué tu web pierde clientes.' },
-                    { n: '3', t: 'Hoja de ruta con presupuesto', d: 'Cierras la auditoría con un diagnóstico claro, la propuesta que más te conviene y un presupuesto cerrado por escrito. Sin compromiso.' },
-                ].map((st, i) => (
-                    <div class="flex items-center gap-4 lg:gap-6">
-                        {i > 0 && <div class="hidden lg:flex text-3xl text-accent font-black select-none">→</div>}
-                        <div class="bg-white border border-black/5 rounded-2xl p-8 shadow-[0_15px_40px_rgba(0,0,0,0.06)] flex-1 text-center h-full">
-                            <div class="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto mb-4 text-accent font-black text-lg">{st.n}</div>
-                            <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3">{st.t}</h3>
-                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{st.d}</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
-            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto text-center mt-16 reveal">
-                Nuestra auditoría web es el primer paso de cualquier proyecto de diseño o rediseño. Analiza cómo funciona hoy tu página, explica por qué no genera los clientes que debería y te deja claro qué opción te conviene, mejorar lo que tienes o empezar de cero. Es gratuita y sin compromiso, porque preferimos que decidas con datos y no con promesas. Sin tecnicismos innecesarios. Sales sabiendo dónde estás y qué hacer a continuación.
-            </p>
-            <div class="mt-12 text-center reveal">
-                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                    QUIERO MI AUDITORÍA WEB GRATIS
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ PRECIOS WEB ════════════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-12 sm:mb-16 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Tarifas claras</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Precios de diseño web para PYMEs
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto">
-                    Tarifas orientativas y sin letra pequeña. El precio de una web depende de su tamaño, sus funcionalidades y el contenido que haya que crear, así que antes de empezar recibes un presupuesto cerrado por escrito. Si te preguntas cuánto cuesta una página web para tu pyme, estos son nuestros rangos reales. El coste no lleva sorpresas ni permanencias.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
-                {[
-                    { small: 'Precio', name: 'Landing page', price: 'desde 400€', note: '', meta: ['Lista en 1 a 2 semanas', 'Para campañas de Google Ads y redes que necesitan convertir'], items: ['Página de aterrizaje enfocada a convertir', 'Diseño adaptado a tu campaña', 'Textos orientados a la acción', 'Formulario y llamada a un toque', 'Velocidad optimizada', 'Medición de conversiones', 'Adaptada a móvil', 'Entrega llave en mano'], cta: 'Quiero mi landing page' },
-                    { small: 'Precio', name: 'Web a medida', price: 'desde 120€ / mes', note: 'en 12 cuotas', meta: ['Entrega en 3 a 5 semanas', 'Para pymes que quieren una web propia y exclusiva'], items: ['Briefing de negocio y objetivos', 'Arquitectura y keywords', 'Diseño exclusivo para tu marca', 'Desarrollo rápido y limpio', 'Redacción de contenidos', 'SEO técnico completo', 'Analítica configurada', 'Formación para editarla', 'La web es tuya al 100%'], cta: 'Quiero mi web a medida' },
-                    { small: 'Precio', name: 'Tienda online', price: 'desde 130€ / mes', note: 'en 12 cuotas', meta: ['Entrega en 6 a 8 semanas', 'Para negocios que quieren vender online de verdad'], items: ['Todo lo de la web a medida', 'Catálogo y fichas de producto', 'Pasarela de pago segura', 'Proceso de compra optimizado', 'Envíos e impuestos configurados', 'SEO de producto y categoría', 'Emails transaccionales', 'Formación para gestionarla', 'Preparada para campañas'], cta: 'Quiero vender online' },
-                ].map(p => (
-                    <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-10 flex flex-col shadow-[0_15px_40px_rgba(0,0,0,0.06)] hover:shadow-xl transition-shadow duration-300 reveal">
-                        <h3 class="leading-tight mb-2">
-                            <span class="block text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-1">{p.small} </span>
-                            <span class="block text-xl font-black uppercase tracking-tight text-zinc-900">{p.name}</span>
-                        </h3>
-                        <div class="text-lg font-bold text-zinc-900">{p.price}</div>
-                        {p.note && <div class="text-[10px] text-zinc-400 font-light">{p.note}</div>}
-                        <div class="text-[10px] text-zinc-400 font-light mt-1 mb-6">* Precio sin IVA</div>
-                        <div class="text-xs text-zinc-500 font-light mb-8 space-y-1.5">
-                            {p.meta.map(m => <div>{m}</div>)}
-                        </div>
-                        <div class="text-xs font-black uppercase tracking-widest text-zinc-400 pb-3 border-b border-zinc-100">Qué incluye</div>
-                        <ul class="divide-y divide-zinc-100 flex-1">
-                            {p.items.map(item => (
-                                <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light">
-                                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                                    <span>{item}</span>
-                                </li>
-                            ))}
-                        </ul>
-                        <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 !py-4 !text-[11px] !tracking-widest font-black mt-10 text-center">
-                            {p.cta}
-                        </a>
-                    </div>
-                ))}
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ SECTORES ═══════════════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50 px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-14 sm:mb-20 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Experiencia sectorial</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Diseño web para tu sector
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    Cada sector convierte distinto. Trabajamos con sectores donde ya sabemos qué estructura, qué contenidos y qué llamadas a la acción funcionan.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
-                {sectors.map(s => (
-                    <div class="bg-white border border-black/5 rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                        <div class="text-3xl mb-4">{s.icon}</div>
-                        <h3 class="text-base uppercase tracking-tight text-zinc-900 mb-3 leading-tight font-montserrat-semibold">
-                            {s.href ? <a href={s.href} class="hover:text-accent transition-colors">{s.title}</a> : s.title}
-                        </h3>
-                        <p class="text-sm text-zinc-500 font-light leading-relaxed">{s.desc}</p>
-                    </div>
-                ))}
-            </div>
-
-            <div class="mt-14 text-center reveal">
-                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                    QUIERO UNA WEB QUE VENDA
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ CITA ══════════════════════════════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-zinc-950 px-4 sm:px-6">
-        <div class="max-w-4xl mx-auto text-center reveal">
-            <blockquote class="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.15] mb-8">
-                “Tu cliente visita tu web antes de llamarte. En esos segundos decide si eres de fiar o sigue buscando. No necesitas una web más bonita. Necesitas una web que venda.”
-            </blockquote>
-            <p class="text-sm text-zinc-400 font-light mb-10">Sergio Galo's · Consultor de diseño web para PYMEs</p>
-            <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                HABLEMOS DE TU NEGOCIO
-            </a>
-        </div>
-    </section>
-
-    <!-- ═══ POR QUÉ NOVA (COMPARATIVA) ═════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-12 sm:mb-16 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Por qué nova</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Qué diferencia a nova de otra agencia de diseño web
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    El diseño web está lleno de plantillas clonadas y proyectos abandonados tras el lanzamiento. Nosotros lo trabajamos con método, transparencia y resultados que se ven en tu caja, no solo en la pantalla.
-                </p>
-            </div>
-
-            <div class="reveal overflow-x-auto rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
-                <table class="w-full min-w-[640px] text-left border-collapse bg-white">
-                    <thead>
-                        <tr class="bg-black text-white">
-                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Criterio</th>
-                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Nova</th>
-                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Otras agencias</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-zinc-100">
-                        {[
-                            { c: "Quién será tu contacto", o: "Gestor junior con 20-30 proyectos", n: "Sergio Galo's" },
-                            { c: "Enfoque del diseño", o: "Web bonita como objetivo final", n: "Web pensada para convertir visitas en clientes" },
-                            { c: "Propiedad de la web", o: "Dominio y web a nombre de la agencia", n: "Todo a tu nombre desde el día uno" },
-                            { c: "SEO", o: "Extra que se cobra aparte o se ignora", n: "Incluido de serie en cada web" },
-                            { c: "Después del lanzamiento", o: "Proyecto entregado y adiós", n: "Mantenimiento, soporte y mejora continua" },
-                            { c: "Especialización", o: "De multinacionales a autónomos, todo vale", n: "Cien por cien enfocados en PYMEs" },
-                            { c: "Transparencia de precios", o: "Presupuestos opacos con extras sorpresa", n: "Precio cerrado por escrito antes de empezar" },
-                        ].map(row => (
-                            <tr class="hover:bg-zinc-50/50 transition-colors">
-                                <td class="px-6 py-5 text-sm font-bold text-zinc-900">{row.c}</td>
-                                <td class="px-6 py-5 text-sm font-bold text-accent">{row.n}</td>
-                                <td class="px-6 py-5 text-sm text-zinc-500 font-light">{row.o}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-
-            <p class="text-xs sm:text-sm text-zinc-400 font-light leading-relaxed mt-6 reveal">
-                Una agencia de diseño web externa te da acceso a experiencia senior sin los costes fijos de contratar un perfil propio, sin proceso de selección y sin periodo de adaptación.
-            </p>
-        </div>
-    </section>
-
-    <!-- ═══ CÓMO ELEGIR AGENCIA WEB ════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-4xl mx-auto">
-            <div class="mb-12 sm:mb-16 reveal text-center">
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Cómo contratar una agencia de diseño web sin que te vendan humo
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    Hay cientos de agencias de diseño web y la mayoría de PYMEs elige mal la primera vez. Estos son los siete criterios que deberías exigir a cualquier agencia, incluida la nuestra.
-                </p>
-            </div>
-
-            <div class="divide-y divide-zinc-100 reveal">
-                {criteria.map((c, i) => (
-                    <div class="py-6 sm:py-8 flex gap-6 sm:gap-8 items-start">
-                        <div class="text-2xl sm:text-3xl font-black tracking-tighter text-accent flex-shrink-0 w-10 leading-none">0{i + 1}</div>
-                        <div>
-                            <h3 class="text-base sm:text-lg font-black uppercase tracking-tight text-zinc-900 mb-2">{c.title}</h3>
-                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.desc}</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ QUIÉN ESTÁ DETRÁS ═══════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-5xl mx-auto reveal">
-            <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] grid md:grid-cols-[280px_1fr] gap-8 sm:gap-12 items-center">
-                <div class="rounded-2xl overflow-hidden bg-zinc-100">
-                    <img src="/sergio-galos-diseno-web-para-pymes.webp" alt="Sergio Galo's, consultor de diseño web para PYMEs" title="Sergio Galo's, consultor de diseño web para PYMEs" class="w-full h-full object-cover object-top" loading="lazy" width="473" height="591" />
-                </div>
-                <div>
-                    <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Quién está detrás</span>
-                    <h2 class="text-2xl sm:text-4xl font-black tracking-tighter uppercase text-zinc-900 leading-[0.95] mb-6">
-                        Sergio Galo's <br>
-                        <span class="text-lg sm:text-2xl">Tu consultor de diseño web para PYMEs</span>
-                    </h2>
-                    <div class="space-y-4 text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
-                        <p>
-                            Soy <strong class="font-semibold text-zinc-900">Sergio Galo's</strong>, consultor de marketing digital y fundador de Nova Marketing. Llevo años creando webs que venden para PYMEs de algunos de los sectores más competitivos, desde industria B2B y salud hasta ecommerce y servicios profesionales.
-                        </p>
-                        <p>
-                            Cuando contratas tu web con nova hablas siempre conmigo. Yo hago la auditoría, yo superviso el diseño y yo respondo cuando necesitas un cambio. Sin capas comerciales ni gestores que cambian cada trimestre.
-                        </p>
-                    </div>
-                    <a href="https://www.linkedin.com/company/nova-marketing-pymes/" target="_blank" rel="noopener" class="inline-block mt-6 text-[12px] font-black tracking-widest text-accent hover:underline">
-                        Ver perfil en LinkedIn →
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ CASOS DE ÉXITO (CMS) ═══════════════════════════════════ -->
-    {allCases.length > 0 && (
-    <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6 overflow-hidden">
-      <div class="max-w-7xl mx-auto">
-        <div class="mb-12 reveal">
-          <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultados probados</span>
-          <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
-            Casos de éxito de diseño web<br class="hidden md:inline" /> para PYMEs
-          </h2>
-        </div>
-        <div class="cases-carousel relative overflow-hidden">
-          <div class="cases-track flex gap-6 transition-transform duration-500 ease-in-out">
-            {allCases.map((cs: any) => {
-              const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
-              const caseUrl = cs.isPublic && cs.slug ? `/casos-exito/${cs.slug}/` : null;
-              return (
-                <div class="cases-slide flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
-                  <div>
-                    {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
-                    <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors leading-tight">
-                      {caseUrl ? (
-                        <a href={caseUrl} class="hover:text-accent transition-colors">{cs.title}</a>
-                      ) : (
-                        <span class="group-hover:text-accent transition-colors">{cs.title}</span>
-                      )}
-                    </h3>
-                    <p class="text-xs text-zinc-500 font-light leading-relaxed">{cs.description}</p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+            <button type="submit" class="w-full btn-mktg-v5 !py-6">QUIERO MI NUEVA WEB</button>
+          </form>
         </div>
       </div>
-    </section>
-    )}
-    <script>
-      function initCasesCarousel() {
-        const track = document.querySelector('.cases-track');
-        if (!track) return;
-        const slides = track.querySelectorAll('.cases-slide');
-        if (slides.length <= 4) return;
-        let current = 0;
-        const total = slides.length;
-        function getVisible() {
-          if (window.innerWidth >= 1024) return 4;
-          if (window.innerWidth >= 640) return 2;
-          return 1;
-        }
-        let slideWidth = slides[0].offsetWidth + 24;
-        window.addEventListener('resize', () => { slideWidth = slides[0].offsetWidth + 24; }, { passive: true });
-        function next() {
-          const visible = getVisible();
-          const maxIndex = total - visible;
-          current = current >= maxIndex ? 0 : current + 1;
-          track.style.transform = `translateX(-${current * slideWidth}px)`;
-        }
-        const interval = setInterval(next, 5000);
-        document.addEventListener('astro:before-preparation', () => clearInterval(interval));
-      }
-      document.addEventListener('DOMContentLoaded', initCasesCarousel);
-      document.addEventListener('astro:page-load', initCasesCarousel);
-    </script>
-
-    <!-- ═══ RECOMENDADOS POR LA IA ═════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5 overflow-hidden">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-
-            <div class="reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Nos avala la IA</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
-                    La agencia de diseño web que recomienda la IA
-                </h2>
-                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed">
-                    <p>
-                        Cuando alguien pregunta por una <strong class="font-semibold text-zinc-900">agencia de diseño web para PYMEs</strong> a ChatGPT, Gemini o Claude, nova aparece entre las agencias recomendadas. Es la mejor prueba de que nuestras webs funcionan, porque lo aplicamos primero en la nuestra.
-                    </p>
-                    <p>
-                        A los asistentes de IA no les puedes comprar un anuncio para salir primero. Recomiendan lo que encuentran. Casos reales publicados, webs vivas que pueden analizar, una especialización clara y clientes que hablan de nosotros.
-                    </p>
-                    <p>
-                        Pruébalo tú mismo. Abre ChatGPT y pregúntale qué agencia de diseño web te recomienda para tu PYME. Si te sale nova, ya sabes quién puede hacer lo mismo por tu negocio.
-                    </p>
-                </div>
-            </div>
-
-            <div class="reveal flex justify-center">
-                <img src="/diseno-web-para-pymes.webp" alt="Nova Marketing, agencia de diseño web para PYMEs recomendada por la IA" title="Nova Marketing, agencia de diseño web para PYMEs recomendada por la IA" class="w-full max-w-sm lg:max-w-md h-auto" loading="lazy" width="1000" height="667" />
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ═══ CONSEJOS WEB ═══════════════════════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-4xl mx-auto reveal">
-            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Consejos aplicables hoy</span>
-            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Cómo mejorar tu web esta semana
-            </h2>
-            <p class="text-zinc-500 font-light text-base leading-relaxed mb-10">
-                Si todavía no estás listo para renovar tu web, empieza por aquí. Son acciones que cualquier pyme puede aplicar por su cuenta y que ya mueven la aguja.
-            </p>
-            <ul class="space-y-6">
-                {[
-                    { lead: 'Abre tu web desde el móvil con datos.', text: 'Nada de wifi de oficina. Si tarda más de tres segundos o hay que hacer zoom para leer, ya sabes por dónde se van tus clientes.' },
-                    { lead: 'Pon el teléfono visible y clicable.', text: 'En móvil, tu número debe llamar con un toque. Cada paso extra entre la visita y la llamada son clientes que se pierden.' },
-                    { lead: 'Revisa tu primera pantalla.', text: 'Sin hacer scroll, tu web debe responder tres preguntas. Qué haces, para quién y qué tiene que hacer el visitante ahora. Si no, la visita se va.' },
-                    { lead: 'Quita el texto que habla de ti y no del cliente.', text: 'Menos años de experiencia y misión y visión, más respuestas a lo que tu cliente busca. El visitante quiere saber qué gana él, no quién eres tú.' },
-                ].map(tip => (
-                    <li class="flex items-start gap-4">
-                        <svg class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                        <p class="text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
-                            <strong class="font-bold text-zinc-900">{tip.lead}</strong> {tip.text}
-                        </p>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    </section>
-
-    <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
-    <GoogleReviews locale="es" title="Lo que dicen nuestros clientes sobre el diseño web de Nova" />
-
-    <!-- ═══ SERVICIOS COMPLEMENTARIOS ═══════════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-12 sm:mb-16 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Más allá del diseño web</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Servicios complementarios de nuestra agencia de diseño web para tu pyme
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    Tu captación funciona mejor cuando todo el marketing empuja en la misma dirección. Estos son los servicios que la complementan.
-                </p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal">
-                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
-                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
-                        <a href="/" class="hover:text-accent transition-colors">Agencia de Marketing Digital para PYMEs</a>
-                    </h3>
-                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        La estrategia completa. Combinamos SEO, publicidad, web y visibilidad en IA en un solo plan orientado a que tu pyme gane clientes cada mes.
-                    </p>
-                    <a href="/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
-                </div>
-                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
-                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
-                        <a href="/agencia-seo-para-pymes/" class="hover:text-accent transition-colors">Agencia SEO para PYMEs</a>
-                    </h3>
-                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        Aparece en Google cuando tus clientes buscan tu servicio. Posicionamiento orgánico que se acumula mes a mes y reduce tu dependencia de pagar por cada clic.
-                    </p>
-                    <a href="/agencia-seo-para-pymes/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
-                </div>
-                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
-                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
-                        <a href="/agencia-sem-para-pymes/" class="hover:text-accent transition-colors">Agencia SEM para PYMEs</a>
-                    </h3>
-                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        Anuncios en Google para captar clientes desde la primera semana. Fee fijo, la cuenta siempre a tu nombre y resultados medidos en leads y ventas.
-                    </p>
-                    <a href="/agencia-sem-para-pymes/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
-                </div>
-                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
-                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
-                        <a href="/agencia-geo-para-pymes/" class="hover:text-accent transition-colors">Agencia GEO para PYMEs</a>
-                    </h3>
-                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        Tus clientes ya preguntan a ChatGPT y Gemini qué empresa contratar. Trabajamos tu posicionamiento GEO para que la IA recomiende tu negocio.
-                    </p>
-                    <a href="/agencia-geo-para-pymes/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ DÓNDE TRABAJAMOS ═══════════════════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-4xl mx-auto text-center reveal">
-            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Dónde trabajamos</span>
-            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Agencia de Diseño Web con sede en Barcelona y clientes en toda España
-            </h2>
-            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
-                Nuestra base está en Barcelona y la mayoría de proyectos son de la ciudad y su área metropolitana, donde nos reunimos presencialmente. Pero el diseño web no entiende de kilómetros. Trabajamos con PYMEs de toda España por videollamada con el mismo nivel de seguimiento.
-            </p>
-            <CityPills base="/diseno-web-para-pymes/" lang="es" itemPrefix="agencia de diseño web en" homeLabel="Agencia de Diseño Web" />
-        </div>
-    </section>
-
-    <!-- ═══ FAQS ════════════════════════════════════════════════ -->
-    <FaqHome title="Preguntas sobre nuestro diseño web para PYMEs" items={faqs} emitSchema={false} />
-
-    <!-- ═══ CONTACTO ════════════════════════════════════════════ -->
-    <section id="contacto" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
-            <div class="reveal text-white">
-                <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">CRECIMIENTO GARANTIZADO</span>
-                <h2 class="text-5xl sm:text-7xl font-black uppercase tracking-tighter leading-[0.8] mb-8">
-                   UNA WEB <br>QUE VENDE
-                </h2>
-                <p class="font-light max-w-md text-base sm:text-xl">Consúltame y te diré qué le pasa hoy a tu web, y cómo convertirla en tu mejor comercial.</p>
-            </div>
-
-            <div class="reveal">
-                <div class="bg-white p-8 sm:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
-                    <form class="space-y-8" id="contact-form">
-                        <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
-                            <div class="flex flex-col gap-3">
-                                <label class="opacity-30">NOMBRE *</label>
-                                <input type="text" name="name" aria-label="Nombre" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
-                            </div>
-                            <div class="flex flex-col gap-3">
-                                <label class="opacity-30">TELÉFONO *</label>
-                                <input type="tel" name="phone" required autocomplete="tel" inputmode="tel" minlength="9" pattern="[0-9+\s.\(\)\-]{9,20}" title="Introduce un teléfono válido (mínimo 9 cifras)" aria-label="Teléfono" class="border-b border-black/10 py-2 focus:border-accent outline-none">
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
-                            <label class="opacity-30">EMAIL PROFESIONAL *</label>
-                            <input type="email" name="email" aria-label="Correo electrónico" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
-                        </div>
-                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
-                            <label class="opacity-30">WEB *</label>
-                            <input type="text" name="url" aria-label="Sitio web" placeholder="www.tuempresa.com" class="border-b border-black/10 py-2 focus:border-accent outline-none">
-                        </div>
-                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
-                            <label class="opacity-30">CONSULTA</label>
-                            <textarea name="msg" aria-label="Mensaje" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="¿Qué necesita tu web?"></textarea>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <input type="checkbox" id="contact-form-terms" name="terms" required class="mt-1 accent-accent">
-                            <label for="contact-form-terms" class="text-xs text-zinc-500 font-light cursor-pointer select-none normal-case tracking-normal">He leído y acepto la <a href="/privacidad/" class="underline hover:text-accent transition-colors">política de privacidad</a>.</label>
-                        </div>
-                        <button type="submit" class="w-full btn-mktg-v5 !py-6">QUIERO MI NUEVA WEB</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
+  </section>
 
 </BaseLayout>
 
 <script>
-    document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const btn = form.querySelector('button');
-        if (btn) { btn.innerHTML = 'ENVIANDO...'; btn.disabled = true; }
-        const data = Object.fromEntries(new FormData(form));
-        try {
-            const res = await fetch('https://cms.novamarketing.es/api/contact', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
-            });
-            if (res.ok) {
-                window.location.href = '/gracias/';
-            } else { throw new Error(); }
-        } catch {
-            if (btn) { btn.innerHTML = 'ERROR — INTÉNTALO DE NUEVO'; btn.disabled = false; btn.style.background = '#ef4444'; }
-        }
-    });
-function initTimeline() {
-        const progressBar = document.getElementById('progress-bar');
-        const timeline = document.getElementById('timeline-container');
-        if (!progressBar || !timeline) return;
-
-        function updateProgress() {
-            // lecturas primero (evita reflows forzados intercalando lectura/escritura)
-            const rect = timeline.getBoundingClientRect();
-            const winHeight = window.innerHeight;
-            const nodes = timeline.querySelectorAll('.node-circle');
-            const nodeTops = Array.from(nodes, (node) => node.getBoundingClientRect().top);
-            // escrituras después
-            const topPassed = (winHeight / 2) - rect.top;
-            let percentage = (topPassed / rect.height) * 100;
-            percentage = Math.max(0, Math.min(100, percentage));
-            progressBar.style.height = `${percentage}%`;
-            nodes.forEach((node, i) => {
-                if (nodeTops[i] < winHeight / 2) {
-                    node.classList.add('!border-accent', '!bg-accent', '!text-white');
-                } else {
-                    node.classList.remove('!border-accent', '!bg-accent', '!text-white');
-                }
-            });
-        }
-
-        let progressTick = false;
-        function onProgressScroll() {
-            if (progressTick) return;
-            progressTick = true;
-            requestAnimationFrame(() => { updateProgress(); progressTick = false; });
-        }
-        window.addEventListener('scroll', onProgressScroll, { passive: true });
-        document.addEventListener('astro:page-load', updateProgress);
-        updateProgress();
+  document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const btn = form.querySelector('button');
+    if (btn) { btn.innerHTML = 'ENVIANDO...'; btn.disabled = true; }
+    const data = Object.fromEntries(new FormData(form));
+    try {
+      const res = await fetch('https://cms.novamarketing.es/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (res.ok) {
+        window.location.href = '/gracias/';
+      } else { throw new Error(); }
+    } catch {
+      if (btn) { btn.innerHTML = 'ERROR — INTÉNTALO DE NUEVO'; btn.disabled = false; btn.style.background = '#ef4444'; }
     }
-    document.addEventListener('DOMContentLoaded', initTimeline);
-    document.addEventListener('astro:page-load', initTimeline);
+  });
 </script>

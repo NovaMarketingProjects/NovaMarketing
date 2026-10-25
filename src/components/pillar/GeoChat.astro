@@ -1,0 +1,46 @@
+---
+/**
+ * Simulación de una conversación con un asistente de IA: la pregunta del
+ * cliente y una respuesta con una lista corta de empresas y sus fuentes.
+ * Es una ilustración (aria-hidden); el pie debe decirlo.
+ */
+import '../../styles/pillar.css';
+
+interface Item { name: string; desc: string; highlight?: boolean; label?: string; }
+interface Props { question: string; intro?: string; items: Item[]; sources?: string[]; caption?: string; }
+const { question, intro, items, sources = [], caption } = Astro.props;
+---
+
+<figure class="pd-figure reveal">
+  <div class="bg-white border border-black/5 rounded-3xl p-5 sm:p-6 shadow-[0_25px_70px_rgba(0,0,0,0.08)] text-left" aria-hidden="true">
+    <div class="flex justify-end mb-4 pd-rise" style="--i:0">
+      <p class="max-w-[85%] bg-zinc-100 text-zinc-800 text-sm rounded-2xl rounded-br-md px-4 py-2.5">{question}</p>
+    </div>
+    <div class="flex gap-3">
+      <span class="w-7 h-7 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+        <svg class="w-3.5 h-3.5 text-accent" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/></svg>
+      </span>
+      <div class="flex-1 min-w-0">
+        {intro && <p class="text-sm text-zinc-600 font-light leading-relaxed mb-3 pd-rise" style="--i:1">{intro}</p>}
+        <ol class="space-y-2.5">
+          {items.map((it, i) => (
+            <li class:list={['pd-rise rounded-2xl p-3 border', it.highlight ? 'border-accent/30 bg-accent/5 ring-4 ring-accent/10' : 'border-zinc-100']} style={`--i:${i + 2}`}>
+              <div class="flex items-center gap-2 mb-0.5">
+                <span class:list={['text-sm font-semibold', it.highlight ? 'text-accent' : 'text-zinc-900']}>{i + 1}. {it.name}</span>
+                {it.label && <span class="text-[9px] font-black uppercase tracking-widest text-white bg-accent rounded-full px-2 py-0.5">{it.label}</span>}
+              </div>
+              <span class="block text-xs text-zinc-500 font-light leading-snug">{it.desc}</span>
+            </li>
+          ))}
+        </ol>
+        {sources.length > 0 && (
+          <div class="flex flex-wrap gap-1.5 mt-4 pd-rise" style={`--i:${items.length + 2}`}>
+            <span class="text-[10px] font-black uppercase tracking-widest text-zinc-400 mr-1 self-center">Fuentes</span>
+            {sources.map((s) => <span class="text-[11px] text-zinc-600 bg-zinc-50 border border-zinc-200 rounded-full px-2.5 py-0.5">{s}</span>)}
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+  {caption && <figcaption class="pd-caption" set:html={caption} />}
+</figure>

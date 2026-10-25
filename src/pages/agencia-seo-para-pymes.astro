@@ -2,65 +2,44 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { buildAlternates } from '../lib/i18n';
 import { localAgencySchema } from '../lib/schema';
-import { strapiClient } from '../lib/strapi';
 import LogoMarquee from '../components/sections/LogoMarquee.astro';
 import FaqHome from '../components/sections/FaqHome.astro';
 import CityPills from '../components/global/CityPills.astro';
 import GoogleReviews from '../components/global/GoogleReviews.astro';
+import MoreCases from '../components/casos/MoreCases.astro';
+import PSection from '../components/pillar/PSection.astro';
+import PCards from '../components/pillar/PCards.astro';
+import PFlow from '../components/pillar/PFlow.astro';
+import PBars from '../components/pillar/PBars.astro';
+import PMatrix from '../components/pillar/PMatrix.astro';
+import PStack from '../components/pillar/PStack.astro';
+import PFunnel from '../components/pillar/PFunnel.astro';
+import PTree from '../components/pillar/PTree.astro';
+import PLines from '../components/pillar/PLines.astro';
+import PCounter from '../components/pillar/PCounter.astro';
+import PSerp from '../components/pillar/PSerp.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://novamarketing.es';
 const alternates = buildAlternates('/agencia-seo-para-pymes/', '/ca/agencia-seo-per-pimes/', SITE_URL);
 
-let allCases: any[] = [];
-try {
-  const casesRes = await strapiClient.getCaseStudies('es');
-  allCases = casesRes.data.map((i: any) => i.attributes ?? i).filter((c: any) => {
-    const cats = (c.categories || []).map((cat: any) => (cat.slug || cat.attributes?.slug || '').toLowerCase());
-    return cats.some((s: string) => s.includes('seo'));
-  });
-} catch {}
-
-const steps = [
-  { title: "Auditoría SEO Completa", desc: "Analizamos tu web, tu visibilidad actual en Google y tu competencia directa. Detectamos errores técnicos, keywords rentables sin explotar y oportunidades de venta que tu competencia ya está capturando. Ese es tu punto de partida real." },
-  { title: "Estrategia SEO Documentada", desc: "Recibes una hoja de ruta por escrito. Qué keywords atacar, qué contenido crear, qué arreglar en tu web y qué resultados esperar en 3, 6 y 12 meses. Sabes en qué se invierte cada euro antes de invertirlo." },
-  { title: "Optimización Técnica y Contenidos", desc: "Arreglamos lo que impide a Google entender tu web y creamos el contenido que posiciona. Velocidad, indexación, arquitectura, páginas de servicio y artículos pensados para atraer clientes, no solo visitas." },
-  { title: "Autoridad y Enlaces", desc: "Google posiciona a quien considera una referencia. Conseguimos enlaces de medios y directorios relevantes de tu sector que aumentan la autoridad de tu dominio y empujan tus posiciones." },
-  { title: "Medición y Ajuste Continuo", desc: "Monitorizamos mes a mes tus posiciones, tu tráfico y tus leads. En el informe ves qué keywords suben, cuántos clientes llegan desde Google y qué toca ajustar el mes siguiente." }
-];
-
-const criteria = [
-  { title: "Pide casos de éxito verificables", desc: "Un muro de logos no demuestra nada. Pide casos con datos concretos. Qué keyword, qué posición alcanzó, en cuánto tiempo y con qué inversión. Una agencia SEO seria debería poder enseñarte resultados de negocios como el tuyo. Si no pueden enseñarte ni uno, sigue buscando." },
-  { title: "Pregunta quién llevará tu cuenta", desc: "En muchas agencias vende un director y ejecuta un junior con 30 cuentas. Exige conocer a la persona que trabajará tu proyecto antes de firmar. En nova hablas siempre con el consultor que ejecuta tu estrategia SEO, presencialmente o por videollamada." },
-  { title: "Exige propiedad de tus activos", desc: "La web, el dominio, la analítica y la ficha de Google Business Profile deben estar a tu nombre. Es más habitual de lo que parece que una pyme lleve años pagando y descubra al cambiar de agencia que no es dueña ni de su propio dominio. Eso no es un servicio, es una dependencia." },
-  { title: "Desconfía de quien garantiza la posición 1 en Google", desc: "Nadie puede garantizar la posición 1. Quien lo promete, o miente o usa técnicas que acabarán penalizando tu web. Lo serio es garantizar método, transparencia y trabajo verificable mes a mes." },
-  { title: "Revisa qué mide el informe mensual", desc: "Si el informe habla de impresiones y posiciones pero no de llamadas, formularios y ventas, la agencia está midiendo su actividad y no tu negocio. El SEO de una pyme se mide en clientes nuevos y presupuestos solicitados." },
-  { title: "Huye de las permanencias largas", desc: "Una permanencia de 12 meses protege a la agencia, no a ti. El trabajo bien hecho retiene clientes sin necesidad de contratos que los aten. Por eso en nova trabajamos mes a mes." },
-  { title: "Que piense también en la IA", desc: "Cada vez más clientes preguntan a ChatGPT o Perplexity en lugar de buscar en Google. Una agencia SEO que ignora el posicionamiento en IA está optimizando solo la mitad del tablero. Nosotros integramos SEO y GEO en una sola estrategia." }
-];
+const ICON = {
+  search: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z',
+  code: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4',
+  target: 'M12 3a9 9 0 100 18 9 9 0 000-18zm0 5a4 4 0 100 8 4 4 0 000-8z',
+  doc: 'M9 12h6m-6 4h6M9 8h2m8-3v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2h6l4 4z',
+  link: 'M13.828 10.172a4 4 0 010 5.656l-3 3a4 4 0 01-5.656-5.656l1.5-1.5m7.328-1.672a4 4 0 000-5.656 4 4 0 00-5.656 0l-1.5 1.5',
+  chart: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z',
+  money: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+  users: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z',
+};
 
 const faqs = [
-  { question: "¿Qué incluye el servicio de una agencia SEO para PYMEs?", answer: "Incluye una auditoría inicial, una estrategia documentada y la ejecución y medición mensual de cada acción. Optimización técnica de la web, keyword research, creación de contenidos, link building, SEO local con la ficha de Google y un informe mensual con posiciones, tráfico y leads. No aplicamos plantillas, cada sector compite de forma distinta." },
-  { question: "¿Cuánto cuesta una agencia SEO para PYMEs?", answer: "La auditoría SEO cuesta 1.800 euros y los planes mensuales van desde 400 euros al mes para pymes y desde 900 euros al mes para empresas medianas o sectores muy competidos. Trabajamos con presupuestos cerrados a medida. Antes de firmar sabes exactamente qué se hace, quién lo hace y qué resultado se persigue." },
-  { question: "¿Cuánto tarda el SEO en dar resultados?", answer: "Los primeros movimientos de posiciones suelen verse entre el segundo y el tercer mes, y los resultados consolidados entre el sexto y el duodécimo. El plazo exacto depende de tu punto de partida y de la competencia de tu sector. En la hoja de ruta inicial te decimos qué esperar en cada fase, con plazos realistas y sin promesas de humo." },
-  { question: "¿Podéis garantizar la primera posición en Google?", answer: "No, y quien te lo garantice te está mintiendo. El algoritmo de Google cambia constantemente y nadie lo controla. Lo que sí garantizamos es método, transparencia y trabajo verificable. Cada mes ves en el informe qué se ha hecho, qué posiciones han cambiado y cuántos clientes han llegado desde Google." },
-  { question: "¿Qué es el SEO local y lo necesito?", answer: "El SEO local hace que aparezcas cuando alguien busca tu servicio cerca de ti, tanto en los resultados de Google como en el mapa. Si tus clientes están en tu ciudad o tu comarca, es la palanca más rentable. Incluye optimizar tu ficha de Google Business Profile, las reseñas y el contenido local de tu web." },
-  { question: "¿Cómo medís los resultados del SEO?", answer: "Medimos leads y ventas, no solo posiciones. Cada llamada, formulario o pedido queda atribuido a su canal de origen. Configuramos la analítica desde el primer día y en el informe mensual ves resultados de negocio. Además tienes acceso total a tus cuentas y herramientas, los datos son tuyos." },
-  { question: "¿Trabajáis con permanencia?", answer: "No, trabajamos mes a mes. Si el servicio no te aporta valor, puedes cancelarlo cuando quieras. Nuestra permanencia real es el resultado que ves en los informes cada mes." }
-];
-
-const sectors = [
-  { icon: '🛒', title: 'SEO para ecommerce', href: '/agencia-ecommerce/seo/', desc: 'Arquitectura de categorías, fichas optimizadas y SEO de producto. Que quien busca comprar te encuentre a ti y no a tu competencia.' },
-  { icon: '🏠', title: 'SEO para inmobiliarias', href: '/agencia-inmobiliarias/seo/', desc: 'Captación de propietarios y compradores con landings por zona y SEO local por barrio. Tráfico que filtra curiosos de clientes reales.' },
-  { icon: '🍽️', title: 'SEO para restaurantes', href: '/agencia-restaurantes/seo/', desc: 'Aquí manda la ficha de Google y las reseñas. Pack local completo para aparecer cuando alguien busca dónde comer cerca.' },
-  { icon: '🧠', title: 'SEO para psicólogos', desc: 'El paciente busca confianza antes que precio. Contenido con autoridad clínica y SEO local por especialidad que convierte búsquedas en primeras visitas.' },
-  { icon: '🌿', title: 'SEO para terapeutas', desc: 'Mucha competencia genérica y poca especializada. Posicionamos tu consulta por terapia y zona con contenido que educa y convierte.' },
-  { icon: '🦷', title: 'SEO para dentistas', desc: 'Sector saturado y con alta exigencia de autoridad. Ganan quienes combinan SEO local impecable, reseñas gestionadas y contenido clínico real.' },
-  { icon: '💪', title: 'SEO para gimnasios', desc: 'Captación estacional con picos en enero y septiembre. Posicionamiento local y contenido que llena clases todo el año.' },
-  { icon: '🏗️', title: 'SEO para constructoras', desc: 'Competencia local feroz y leads de valor alto. Ficha de Google impecable, landings por zona y keywords que traen presupuestos, no visitas.' },
-  { icon: '⚖️', title: 'SEO para abogados', desc: 'Búsquedas de altísima intención y CPCs carísimos en Ads. El SEO capta la consulta con contenido que resuelve la duda legal antes que la competencia.' },
-  { icon: '🏨', title: 'SEO para hoteles', href: '/agencia-hoteles/seo/', desc: 'Reducir la dependencia de las OTAs es el objetivo. SEO para reserva directa, ficha optimizada y visibilidad en Google Hotels.' },
-  { icon: '🏭', title: 'SEO para B2B', href: '/agencia-b2b/seo/', desc: 'Ciclos de venta largos y pocos decisores. Aquí no importa el volumen, importa aparecer en las diez búsquedas técnicas del responsable de compras.' },
-  { icon: '⚙️', title: 'SEO para Empresas Industriales', href: '/agencia-industrial/seo/', desc: 'Contenido técnico y ficha de producto optimizada para captar búsquedas de compradores técnicos. Posicionamiento pensado para leads cualificados, no solo tráfico.' },
+  { question: '¿Cuándo puede empezar a notarse el trabajo SEO?', answer: 'Los primeros movimientos de posiciones suelen verse entre el segundo y el tercer mes, y los resultados consolidados entre el sexto y el duodécimo. Depende del punto de partida de tu web, de la competencia del sector y de cuántas mejoras se pueden aplicar al principio. En la auditoría te decimos qué esperar en cada fase, sin plazos inventados.' },
+  { question: '¿Qué incluye la cuota mensual?', answer: 'Incluye el trabajo acordado en el plan de cada mes: mejoras técnicas, optimización y creación de contenidos, enlazado interno, SEO local y, en los planes que lo contemplan, captación de enlaces. También la medición y un informe mensual con lo realizado, la evolución de las páginas trabajadas y los contactos que llegan desde Google.' },
+  { question: '¿Podéis trabajar sobre mi web actual?', answer: 'Sí. La mayoría de proyectos parten de una web existente, ya sea WordPress, Shopify, PrestaShop o un desarrollo a medida. Solo recomendamos rehacerla cuando la tecnología impide aplicar las mejoras necesarias, y en ese caso planificamos la migración para no perder el posicionamiento conseguido.' },
+  { question: '¿Qué necesitáis de mi equipo?', answer: 'Accesos a la web, Google Search Console, Google Analytics y el Perfil de Empresa en Google, y una persona de contacto que conozca el negocio. Al principio te pediremos información sobre tus servicios, clientes y márgenes. Después, sobre todo, revisiones puntuales de los contenidos que publicamos.' },
+  { question: '¿Cómo se relacionan el SEO y la visibilidad en IA?', answer: 'Los asistentes de IA y las respuestas generadas de Google se apoyan en contenido que ya está bien posicionado, bien estructurado y citado por otras fuentes. Un buen trabajo SEO es la base del GEO. Si quieres trabajar de forma específica tu presencia en ChatGPT, Gemini o Perplexity, lo hacemos dentro de nuestro servicio de agencia GEO.' },
+  { question: '¿Qué condiciones tiene el servicio?', answer: 'Trabajamos mes a mes, sin permanencia. Antes de empezar recibes un presupuesto cerrado por escrito con el alcance de cada mes. Las cuentas, la web y los datos son siempre tuyos, y si decides terminar el servicio te entregamos todo el trabajo y la documentación.' },
 ];
 
 const pageSchema = localAgencySchema({
@@ -69,11 +48,11 @@ const pageSchema = localAgencySchema({
   cityName: 'Barcelona',
   postalCode: '08035',
   geo: { lat: 41.4114, lng: 2.1526 },
-  areaServed: ["España", "Barcelona", "Sabadell", "Sant Cugat del Vallès", "Terrassa", "Vallès Occidental"],
-  title: "▷ Agencia SEO para PYMEs | Posicionamiento orgánico efectivo",
-  description: "Agencia SEO especializada en PYMEs con estrategias a medida 💡 sin permanencias y con informes claros ✅. Conoce cómo trabajamos para aparecer en Google.",
+  areaServed: ['España', 'Barcelona', 'Sabadell', 'Sant Cugat del Vallès', 'Terrassa', 'Vallès Occidental'],
+  title: '▷ Agencia SEO para PYMEs | Posicionamiento orgánico efectivo',
+  description: 'Agencia SEO especializada en PYMEs con estrategias a medida 💡 sin permanencias y con informes claros ✅. Conoce cómo trabajamos para aparecer en Google.',
   datePublished: '2026-07-15',
-  dateModified: '2026-07-15',
+  dateModified: '2026-10-25',
   streetAddress: 'Carrer del General Mendoza, 10',
   hasMap: 'https://maps.app.goo.gl/9fbB12UcK32bgjj89',
   aggregateRating: { ratingValue: '5.0', reviewCount: '12' },
@@ -90,757 +69,508 @@ const pageSchema = localAgencySchema({
   schemas={[pageSchema]}
 >
 
-    <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
-    <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
-        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
-        <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
-        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
+  <!-- ═══ HERO / H1 ═══════════════════════════════════════════════════════ -->
+  <section class="pt-24 sm:pt-40 pb-20 px-4 sm:px-6 relative overflow-hidden text-center bg-white border-b border-black/5">
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_40%,#000_75%,transparent_100%)]"></div>
+    <div class="absolute -top-10 left-1/4 w-72 h-72 bg-accent/15 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+    <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl opacity-20"></div>
 
-        <div class="max-w-5xl mx-auto reveal">
-            <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
-                <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
-                Posicionamiento Web para Pymes
-            </span>
-            <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase font-extrabold tracking-tighter leading-[0.88] mb-8 text-gradient flex flex-col items-center text-center">
-                <span class="lg:whitespace-nowrap">Agencia SEO </span>
-                <span class="lg:whitespace-nowrap text-mktg-gradient">para PYMEs</span>
-            </h1>
-            <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed w-[75%] mx-auto mb-8">
-                Aparece cuando tus clientes buscan tu servicio en Google. Servicio de posicionamiento SEO para PYMEs con estrategia a medida, precios claros y resultados que se miden en ventas.
-            </p>
-            <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
-                {['Sin permanencias', 'Trato directo con el consultor', 'Informes de negocio'].map(item => (
-                    <span class="inline-flex items-center gap-2 text-[11px] sm:text-xs font-black uppercase tracking-widest text-zinc-700">
-                        <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
-                        </svg>
-                        {item}
-                    </span>
-                ))}
-            </div>
-            <div class="flex justify-center mt-4">
-                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                    HABLEMOS DE TU NEGOCIO
-                </a>
-            </div>
+    <div class="max-w-5xl mx-auto reveal relative">
+      <span class="inline-flex items-center gap-2 bg-accent/5 backdrop-blur-sm px-4 py-2 border border-accent/10 rounded-full text-accent text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-sm">
+        <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
+        Posicionamiento web para pymes
+      </span>
+      <h1 class="uppercase font-extrabold tracking-tighter leading-[0.9] mb-8 text-gradient flex flex-col items-center text-center">
+        <span class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl">Agencia SEO para pymes</span>
+        <span class="text-xl sm:text-3xl md:text-4xl mt-3 text-mktg-gradient">que quieren crecer en Google</span>
+      </h1>
+      <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed max-w-3xl mx-auto mb-8">
+        Hacemos que tu empresa aparezca cuando tus clientes buscan lo que vendes, y medimos el trabajo en contactos y ventas, no en informes de posiciones.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
+        {['Sin permanencias', 'Trato directo con el consultor', 'Informes de negocio'].map((item) => (
+          <span class="inline-flex items-center gap-2 text-[11px] sm:text-xs font-black uppercase tracking-widest text-zinc-700">
+            <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            {item}
+          </span>
+        ))}
+      </div>
+      <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">HABLEMOS DE TU NEGOCIO</a>
+    </div>
+  </section>
+
+  <LogoMarquee />
+
+  <!-- ═══ OPORTUNIDAD ═══════════════════════════════════════════════════ -->
+  <PSection kicker="Por qué SEO" title="Convierte las búsquedas de tus clientes en oportunidades de negocio" layout="split">
+    <Fragment slot="intro">
+      <p>Cada día alguien escribe en Google el servicio que ofreces, el problema que resuelves o el nombre de tu categoría de producto. <strong>Esa búsqueda es una necesidad expresada en el momento exacto en que existe</strong>, y la empresa que aparece con una respuesta clara suele quedarse con el contacto.</p>
+      <p>Nova es una agencia SEO especializada en pymes. Trabajamos el posicionamiento orgánico como un canal comercial más, conectado con tu web, tu <a href="/agencia-sem-para-pymes/">publicidad en Google</a> y tu <a href="/agencia-geo-para-pymes/">presencia en las respuestas de la IA</a>, con un objetivo que se puede medir. Cuántos clientes nuevos llegan cada mes desde el buscador.</p>
+    </Fragment>
+    <PSerp
+      slot="aside"
+      query="reformas integrales en Sabadell"
+      results={[
+        { url: 'tuempresa.es › reformas-integrales', title: 'Reformas integrales en Sabadell · Presupuesto en 48 h', desc: 'Pisos, locales y casas. Precios orientativos, plazos y proyectos reales en el Vallès.', highlight: true, label: 'Tu empresa' },
+        { url: 'competidor-a.com', title: 'Empresa de reformas | Reformas en Barcelona y alrededores', desc: 'Más de 20 años de experiencia en reformas de todo tipo.' },
+        { url: 'directorio-reformas.es › sabadell', title: 'Las 10 mejores empresas de reformas en Sabadell', desc: 'Compara opiniones y pide presupuesto a varias empresas.' },
+      ]}
+      caption="Ilustración. El objetivo es que tu página sea la respuesta más clara a la búsqueda de tu cliente."
+    />
+    <PFlow
+      steps={[
+        { label: 'Búsqueda con intención', sub: '«agencia de reformas en Sabadell»' },
+        { label: 'Tu página en Google', sub: 'resultado orgánico o mapa' },
+        { label: 'Página que responde', sub: 'servicio, precio, pruebas' },
+        { label: 'Contacto o venta', sub: 'llamada, formulario, pedido' },
+      ]}
+      caption="El recorrido que optimizamos. Si falla un eslabón, el tráfico no se convierte en negocio."
+    />
+  </PSection>
+
+  <!-- ═══ QUÉ FRENA EL POSICIONAMIENTO ═══════════════════════════════════ -->
+  <PSection kicker="Diagnóstico" title="Qué está frenando el posicionamiento de tu empresa" tone="soft">
+    <Fragment slot="intro">
+      <p>Cuando una web no capta clientes desde Google casi nunca hay una sola causa. Estos son los seis bloqueos que encontramos con más frecuencia en webs de pymes, y cada uno se corrige de forma distinta.</p>
+    </Fragment>
+    <PCards
+      tone="soft"
+      items={[
+        { icon: ICON.search, title: 'Tus páginas importantes no aparecen en Google', html: 'Páginas de servicio sin indexar, bloqueadas por error o tan escondidas en la navegación que Google apenas las visita. Si una página no está en el índice, no puede posicionar por bueno que sea su contenido.' },
+        { icon: ICON.users, title: 'Recibes visitas que no se convierten en contactos', html: 'Tráfico de búsquedas informativas que no tienen relación con lo que vendes, o páginas que posicionan pero no explican por qué elegirte. Aquí el problema suele estar en la <a href="/diseno-web-para-pymes/">web y su conversión</a>, no en el SEO.' },
+        { icon: ICON.target, title: 'Tu competencia ocupa las búsquedas más rentables', html: 'Tus competidores tienen una página específica para cada servicio y zona, y tú una sola página genérica que intenta posicionar por todo. Google prefiere la respuesta más precisa.' },
+        { icon: ICON.code, title: 'Tu web arrastra problemas técnicos', html: 'Lentitud en móvil, contenido duplicado, redirecciones en cadena o plantillas que generan cientos de URLs sin valor. Problemas invisibles para el usuario que gastan el rastreo de Google. Si no sabes por dónde empezar, revisa <a href="/blog/como-saber-si-tu-web-esta-bien-hecha/">cómo saber si tu web está bien hecha</a>.' },
+        { icon: ICON.doc, title: 'Tus contenidos no responden a lo que busca el cliente', html: 'Textos escritos desde la empresa y no desde la duda del cliente. Sin precios orientativos, sin plazos, sin ejemplos. Entender la <a href="/blog/que-es-la-intencion-de-busqueda-en-el-seo/">intención de búsqueda</a> es lo que separa una página que posiciona de una que solo existe.' },
+        { icon: ICON.money, title: 'Dependencia de la publicidad para conseguir visitas', html: 'Si apagas los anuncios y los contactos desaparecen, tu negocio alquila su visibilidad. El SEO construye un canal propio que reduce esa dependencia. Te explicamos cuándo conviene cada canal en <a href="/blog/que-necesita-una-pyme-seo-o-sem/">qué necesita una pyme, SEO o SEM</a>.' },
+      ]}
+    />
+    <PLines
+      title="Visitas mensuales según el canal"
+      series={[
+        { label: 'Solo publicidad', points: [10, 48, 50, 49, 51, 50, 49, 8, 6, 5, 5, 5], color: '#a1a1aa' },
+        { label: 'Posicionamiento SEO', points: [8, 10, 14, 19, 25, 31, 38, 44, 50, 56, 61, 66] },
+      ]}
+      xLabels={['Mes 1', '', '', 'Mes 4', '', '', '', 'Mes 8', '', '', '', 'Mes 12']}
+      marker={{ at: 7, label: 'Se pausa la inversión en anuncios' }}
+      caption="Esquema ilustrativo, no son datos de un cliente. La publicidad da visitas inmediatas que se detienen al dejar de pagar; el SEO tarda más en arrancar y se acumula."
+    />
+  </PSection>
+
+  <!-- ═══ MOMENTO DE LA PYME ════════════════════════════════════════════ -->
+  <PSection kicker="Punto de partida" title="Una estrategia SEO adaptada al momento de tu pyme">
+    <Fragment slot="intro">
+      <p>No es lo mismo una web que nunca ha trabajado el SEO que una que ha perdido la mitad del tráfico tras una actualización de Google. El orden de las prioridades cambia según el momento de tu empresa.</p>
+    </Fragment>
+    <PCards
+      variant="numbered"
+      items={[
+        { title: 'Empresas que empiezan a trabajar su posicionamiento', html: 'Primero, que Google pueda rastrear e indexar bien la web. Después, una página sólida por cada servicio principal y el <a href="#seo-local">Perfil de Empresa</a> completo. Son las mejoras que antes se notan.' },
+        { title: 'Negocios con tráfico estancado', html: 'Revisamos qué páginas tienen potencial y no terminan de subir, qué búsquedas se reparten entre varias URLs y qué contenidos de la competencia responden mejor. Suele haber margen sin crear nada desde cero.' },
+        { title: 'Webs que han perdido visibilidad', html: 'Cruzamos fechas de caída con actualizaciones de Google, cambios en la web y migraciones. Hasta no saber la causa no tocamos nada, porque una corrección equivocada puede agravar la pérdida.' },
+        { title: 'Pymes que quieren abrir nuevos mercados', html: 'Nuevas ciudades, nuevos servicios o un segundo idioma. Planificamos la arquitectura antes de publicar para que cada mercado tenga sus páginas propias y no compitan entre sí.' },
+        { title: 'Empresas que necesitan cambiar de agencia SEO', html: 'Hacemos una revisión independiente del trabajo anterior, recuperamos los accesos que falten y mantenemos lo que funciona. El cambio no tiene por qué suponer empezar de cero.' },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ AUDITORÍA ══════════════════════════════════════════════════════ -->
+  <PSection id="auditoria" kicker="Auditoría SEO" title="La auditoría que ordena tus prioridades" tone="soft" layout="split">
+    <Fragment slot="intro">
+      <p>Antes de proponer nada, auditamos. La auditoría mide tu visibilidad real, revisa la salud técnica de la web y la compara con tus competidores directos. <strong>No entregamos un listado de cien errores automáticos</strong>, sino un diagnóstico que entiende cualquier gerente, con las tareas ordenadas por lo que aportan y lo que cuestan.</p>
+      <p>Si ya trabajas con otra agencia, también sirve como segunda opinión independiente sobre tu inversión actual.</p>
+    </Fragment>
+    <PMatrix
+      slot="aside"
+      xLabel="Esfuerzo"
+      yLabel="Impacto"
+      quadrants={['Hacer primero', 'Planificar', 'Si sobra tiempo', 'Descartar']}
+      points={[
+        { label: 'Desbloquear indexación', x: 14, y: 86 },
+        { label: 'Títulos de servicio', x: 30, y: 70 },
+        { label: 'Nueva arquitectura', x: 78, y: 82 },
+        { label: 'Páginas por zona', x: 64, y: 62 },
+        { label: 'Retoques menores', x: 26, y: 24 },
+      ]}
+      caption="Ejemplo de cómo priorizamos las tareas de una auditoría según impacto y esfuerzo."
+    />
+    <PCards
+      variant="rows"
+      tone="soft"
+      items={[
+        { title: 'Rastreo e indexación de las páginas relevantes', html: 'Comprobamos qué páginas ve Google, cuáles indexa y cuáles se quedan fuera, con datos de Search Console y un rastreo completo de la web.' },
+        { title: 'Arquitectura y distribución de la autoridad interna', html: 'Analizamos a cuántos clics de la portada están tus páginas de negocio y cuántos enlaces internos reciben. Las páginas que más venden deben ser las más fáciles de encontrar.' },
+        { title: 'Rendimiento de contenidos y palabras clave', html: 'Qué páginas atraen tráfico, cuáles posicionan cerca del top 10 sin entrar y cuáles compiten entre sí por la misma búsqueda.' },
+        { title: 'Comparativa de visibilidad con tus competidores', html: 'Medimos tu visibilidad frente a tres competidores directos y detectamos las búsquedas que ellos captan y tú no.' },
+        { title: 'Plan de acción según impacto y esfuerzo', html: 'Terminamos con un plan ordenado y una videollamada para repasarlo. Sabrás qué hacer la primera semana y qué no merece la inversión.' },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ BÚSQUEDAS ══════════════════════════════════════════════════════ -->
+  <PSection kicker="Investigación de palabras clave" title="Encontramos las búsquedas que acercan clientes a tu negocio">
+    <Fragment slot="intro">
+      <p>No perseguimos las palabras con más volumen, sino las que hace alguien que está cerca de contratar. Una búsqueda con 50 consultas al mes y clara intención de compra puede aportar más clientes que otra con 5.000 visitas curiosas.</p>
+    </Fragment>
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+      <PCards
+        cols={2}
+        variant="check"
+        class="lg:grid-cols-1 !mt-12"
+        items={[
+          { title: 'Palabras clave con intención de contratación', html: 'Búsquedas con servicio, ubicación, precio o comparativa. Son las que antes se convierten en llamadas y presupuestos.' },
+          { title: 'Consultas que intervienen en la decisión de compra', html: 'Dudas sobre plazos, costes o alternativas que el cliente resuelve antes de pedir presupuesto. Responderlas te pone en su lista.' },
+          { title: 'Oportunidades que tu competencia todavía no cubre', html: 'Búsquedas con demanda real en las que nadie de tu sector tiene una página específica. Suelen ser las victorias más rápidas.' },
+          { title: 'Asignación de búsquedas a cada página', html: 'Cada búsqueda importante tiene una única página responsable. Así evitamos que dos URLs de tu web se quiten posiciones entre sí.' },
+        ]}
+      />
+      <div class="mt-12 space-y-10">
+        <PFunnel
+          stages={[
+            { label: 'Informativa', sub: '«cómo saber si mi web está bien hecha»', side: 'Atrae visitas y confianza.' },
+            { label: 'Comparativa', sub: '«agencia SEO o consultor freelance»', side: 'Te coloca en la lista corta.' },
+            { label: 'Contratación', sub: '«agencia SEO para pymes en Barcelona»', side: 'Genera contactos.' },
+          ]}
+          caption="Las tres intenciones que cubrimos, de la más amplia a la más cercana a la compra."
+        />
+        <PTree
+          root="Web de una reformista"
+          branches={[
+            { label: 'Reformas integrales', leaves: ['reformas integrales Sabadell', 'precio reforma piso'] },
+            { label: 'Reforma de baños', leaves: ['reforma baño completo', 'cambiar bañera por plato'] },
+          ]}
+          caption="Cada grupo de búsquedas tiene su propia página."
+        />
+      </div>
+    </div>
+  </PSection>
+
+  <!-- ═══ BASE TÉCNICA ═══════════════════════════════════════════════════ -->
+  <PSection kicker="SEO técnico" title="Una base técnica que permite crecer" tone="soft" layout="split">
+    <Fragment slot="intro">
+      <p>El contenido y los enlaces solo rinden si la web es técnicamente sólida. Es la parte menos visible del SEO y la que más se nota cuando falla.</p>
+    </Fragment>
+    <PStack
+      slot="aside"
+      layers={[
+        { label: 'Clientes desde Google', sub: 'contactos y ventas' },
+        { label: 'Autoridad', sub: 'enlaces y menciones' },
+        { label: 'Contenido', sub: 'páginas que responden' },
+        { label: 'Rendimiento', sub: 'velocidad y experiencia' },
+        { label: 'Rastreo e indexación', sub: 'Google encuentra y entiende' },
+      ]}
+      caption="Cada capa se apoya en la anterior."
+    />
+    <PCards
+      tone="soft"
+      items={[
+        { icon: ICON.search, title: 'Control de indexación y contenido duplicado', html: 'Canónicas, etiquetas noindex, parámetros de URL y sitemaps coherentes, para que Google dedique su tiempo a las páginas que importan.' },
+        { icon: ICON.link, title: 'Enlazado interno y profundidad de navegación', html: 'Enlaces contextuales entre páginas relacionadas y ninguna página de negocio a más de tres clics de la portada.' },
+        { icon: ICON.chart, title: 'Velocidad y experiencia de página', html: 'Optimizamos imágenes, código y servidor para cumplir las Core Web Vitals en móvil. En <a href="/casos-exito/clustag/">Clustag</a> pasamos de 53 a 98 en PageSpeed de escritorio.' },
+        { icon: ICON.code, title: 'Datos estructurados según el contenido', html: 'Marcado de organización, servicios, productos, artículos y preguntas frecuentes, siempre fiel a lo que se ve en la página.' },
+        { icon: ICON.target, title: 'Migraciones y redirecciones sin perder el rumbo', html: 'Mapa de redirecciones URL a URL, control antes y después del lanzamiento y seguimiento de posiciones. Si vas a rehacer la web, lo coordinamos con el <a href="/diseno-web-para-pymes/">diseño web</a> desde el principio.' },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ CONTENIDOS ═════════════════════════════════════════════════════ -->
+  <PSection kicker="Contenidos SEO" title="Contenidos que explican, posicionan y ayudan a decidir">
+    <Fragment slot="intro">
+      <p>Un buen contenido SEO responde a la pregunta del cliente mejor que la competencia y le deja claro cuál es el siguiente paso. Trabajamos cuatro tipos de contenido, cada uno con un objetivo distinto.</p>
+    </Fragment>
+    <PCards
+      cols={2}
+      items={[
+        { icon: ICON.doc, tag: 'Contratación', title: 'Páginas de servicio orientadas a la contratación', html: 'Qué incluye el servicio, para quién es, cuánto cuesta aproximadamente, cómo se trabaja y qué resultados ha conseguido. Es la página que convierte la búsqueda en contacto.' },
+        { icon: ICON.money, tag: 'Venta online', title: 'Categorías y fichas para negocios que venden online', html: 'Textos de categoría que ayudan a elegir, fichas con la información que el comprador necesita y filtros que no generan duplicados. Lo detallamos en nuestro <a href="/agencia-ecommerce/seo/">SEO para ecommerce</a>.' },
+        { icon: ICON.users, tag: 'Autoridad', title: 'Contenido especializado con experiencia propia', html: 'Artículos con datos, ejemplos y opinión de quien trabaja en el sector. Google y los asistentes de IA priorizan este contenido frente al genérico. Puedes ver ejemplos en nuestro <a href="/blog/">blog de marketing para pymes</a>.' },
+        { icon: ICON.chart, tag: 'Optimización', title: 'Actualización de páginas que ya tienen potencial', html: 'Páginas entre las posiciones 5 y 20 que con una mejora de contenido, títulos o enlaces internos pueden entrar en el top. Suele ser el trabajo con mejor retorno a corto plazo.' },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ AUTORIDAD ══════════════════════════════════════════════════════ -->
+  <PSection kicker="Autoridad y enlaces" title="Refuerza la autoridad de tu marca en tu sector" tone="dark">
+    <Fragment slot="intro">
+      <p>Google posiciona mejor a las empresas que otras webs citan como referencia. Conseguimos enlaces y menciones que tengan sentido para tu negocio, no volumen de enlaces de baja calidad que pueden perjudicarte.</p>
+    </Fragment>
+    <PFlow
+      tone="dark"
+      steps={[
+        { label: 'Contenido citable', sub: 'datos, guías, casos' },
+        { label: 'Menciones', sub: 'medios y sector' },
+        { label: 'Enlaces relevantes', sub: 'hacia tus páginas clave' },
+        { label: 'Más autoridad', sub: 'mejores posiciones' },
+      ]}
+    />
+    <PCards
+      tone="dark"
+      cols={2}
+      variant="numbered"
+      items={[
+        { title: 'Análisis de los enlaces que recibe tu web', html: 'Qué webs te enlazan, a qué páginas y con qué calidad, comparado con tus competidores.' },
+        { title: 'Recuperación de enlaces y menciones desaprovechadas', html: 'Enlaces que apuntan a páginas que ya no existen y medios que te nombran sin enlazar. Son las oportunidades más rápidas.' },
+        { title: 'Selección de oportunidades relevantes para tu negocio', html: 'Asociaciones, proveedores, medios locales y del sector. Priorizamos la relevancia temática sobre las métricas de autoridad.' },
+        { title: 'Coordinación entre contenido y captación de enlaces', html: 'Creamos piezas que merecen ser citadas y dirigimos esa autoridad hacia las páginas que generan negocio mediante el enlazado interno.' },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ SEO LOCAL ══════════════════════════════════════════════════════ -->
+  <PSection id="seo-local" kicker="SEO local" title="SEO local para que te encuentren cerca">
+    <Fragment slot="intro">
+      <p>Si tus clientes están en tu ciudad o comarca, el mapa de Google y las búsquedas con ubicación son la palanca más rentable. Trabajamos el Perfil de Empresa y la web a la vez, porque Google los evalúa juntos.</p>
+    </Fragment>
+    <PCards
+      cols={2}
+      items={[
+        { icon: ICON.target, title: 'Optimización del Perfil de Empresa en Google', html: 'Categorías, servicios, fotos, horarios y publicaciones. Si otra persona gestiona tu ficha, te enseñamos a <a href="/blog/dar-acceso-a-tu-perfil-de-empresa-en-google/">dar acceso a tu Perfil de Empresa</a> sin compartir contraseñas.' },
+        { icon: ICON.doc, title: 'Páginas para servicios y zonas de cobertura reales', html: 'Una página por ciudad solo cuando atiendes de verdad esa zona y puedes contar algo propio. Así trabajamos en <a href="/agencia-seo-para-pymes/sabadell/">Sabadell</a>, <a href="/agencia-seo-para-pymes/terrassa/">Terrassa</a> o <a href="/agencia-seo-para-pymes/sant-cugat/">Sant Cugat</a>.' },
+        { icon: ICON.search, title: 'Coherencia de los datos de tu negocio', html: 'Nombre, dirección y teléfono idénticos en la web, el Perfil de Empresa y los directorios. Las incoherencias restan confianza a Google.' },
+        { icon: ICON.users, title: 'Reputación y reseñas dentro de la estrategia local', html: 'Un sistema para pedir reseñas a tiempo y responderlas. Te lo explicamos paso a paso en <a href="/blog/como-conseguir-mas-resenas-en-google-para-tu-pyme/">cómo conseguir más reseñas en Google</a>.' },
+      ]}
+    />
+    <div class="mt-12 text-center reveal">
+      <p class="text-xs font-black uppercase tracking-[0.25em] text-zinc-400 mb-4">Agencia SEO en tu zona</p>
+      <CityPills base="/agencia-seo-para-pymes/" lang="es" itemPrefix="Agencia SEO en" homeLabel="Toda España" />
+    </div>
+  </PSection>
+
+  <!-- ═══ ESPECIALIZACIÓN ════════════════════════════════════════════════ -->
+  <PSection kicker="Experiencia sectorial" title="Especialización según cómo vende tu empresa" tone="soft">
+    <Fragment slot="intro">
+      <p>Cada modelo de negocio se busca de forma distinta. Ajustamos la estrategia a cómo compran tus clientes y tenemos páginas específicas para los sectores en los que más trabajamos.</p>
+    </Fragment>
+    <PCards
+      tone="soft"
+      cols={2}
+      items={[
+        { icon: ICON.users, title: 'SEO para servicios profesionales', html: 'El cliente busca confianza antes que precio. Contenido con autoridad y SEO local por especialidad para <a href="/agencia-abogados/seo/">abogados</a>, <a href="/agencia-dentistas/seo/">dentistas</a>, <a href="/agencia-psicologos/seo/">psicólogos</a> y <a href="/agencia-terapeutas/seo/">terapeutas</a>.' },
+        { icon: ICON.money, title: 'SEO para ecommerce', html: 'Arquitectura de categorías, fichas de producto y control de filtros. Lo aplicamos en <a href="/casos-exito/palacio-del-bebe/">Palacio del Bebé</a> y lo detallamos en <a href="/agencia-ecommerce/seo/">SEO para ecommerce</a>.' },
+        { icon: ICON.chart, title: 'SEO para empresas B2B e industriales', html: 'Pocos decisores y búsquedas muy técnicas. Importa aparecer en las diez consultas del responsable de compras. Más en <a href="/agencia-b2b/seo/">SEO B2B</a> y <a href="/agencia-industrial/seo/">SEO industrial</a>.' },
+        { icon: ICON.target, title: 'SEO para negocios con presencia local', html: 'Perfil de Empresa, reseñas y páginas por zona para <a href="/agencia-restaurantes/seo/">restaurantes</a>, <a href="/agencia-gimnasios/seo/">gimnasios</a>, <a href="/agencia-inmobiliarias/seo/">inmobiliarias</a>, <a href="/agencia-constructoras/seo/">constructoras</a> y <a href="/agencia-hoteles/seo/">hoteles</a>.' },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ RESULTADOS ═════════════════════════════════════════════════════ -->
+  <PSection kicker="Casos reales" title="Resultados de proyectos de posicionamiento orgánico" width="wide">
+    <Fragment slot="intro">
+      <p>Datos de proyectos que hemos llevado, con su punto de partida y el periodo de trabajo. Cada caso explica qué hicimos y por qué funcionó.</p>
+    </Fragment>
+    <div class="grid lg:grid-cols-2 gap-8 items-start">
+      <PBars
+        title="Crecimiento del tráfico orgánico"
+        rows={[
+          { label: 'Superwagen', value: 323, display: '+323 %', href: '/casos-exito/caso-de-exito-superwagen/', note: 'y de 10-15 a más de 50 leads al mes desde SEO' },
+          { label: 'Tattoox', value: 156, display: '+156 %', href: '/casos-exito/tattoox/', note: 'en 12 meses, con x2,4 keywords en el top 3' },
+          { label: 'Dipole RFID (palabras clave)', value: 150, display: '+150 %', href: '/casos-exito/caso-de-exito-dipole-rfid/', note: 'de 450 a 1.126 keywords posicionadas' },
+          { label: 'Palacio del Bebé', value: 47, display: '+47 %', href: '/casos-exito/palacio-del-bebe/', note: 'y posición 1 en las búsquedas clave del sector' },
+        ]}
+      />
+      <PCounter
+        stats={[
+          { value: 6390, label: 'visitas orgánicas al mes en Dipole RFID', href: '/casos-exito/caso-de-exito-dipole-rfid/' },
+          { value: 678, label: 'visitas orgánicas al mes en Clustag, partiendo de cero', href: '/casos-exito/clustag/' },
+          { value: 191, label: 'keywords en dos meses con la web nueva de Villazón Mercé', href: '/casos-exito/villazon-merce-abogados/' },
+          { value: 50, prefix: '+', label: 'leads al mes desde SEO en Superwagen', href: '/casos-exito/caso-de-exito-superwagen/' },
+        ]}
+        cols={2}
+      />
+    </div>
+    <MoreCases locale="es" categories={['seo']} embed />
+  </PSection>
+
+  <!-- ═══ INDICADORES ════════════════════════════════════════════════════ -->
+  <PSection kicker="Medición" title="Los indicadores que usamos para tomar decisiones" tone="soft">
+    <Fragment slot="intro">
+      <p>Las posiciones son un medio, no el objetivo. Seguimos cuatro indicadores en orden, porque cada uno anticipa al siguiente. Si quieres entender de dónde llega hoy tu tráfico, empieza por <a href="/blog/donde-viene-el-trafico/">de dónde viene el tráfico de tu web</a>.</p>
+    </Fragment>
+    <div class="grid lg:grid-cols-[1fr_1.1fr] gap-10 items-start">
+      <PCards
+        tone="soft"
+        variant="numbered"
+        cols={2}
+        class="lg:grid-cols-1"
+        items={[
+          { title: 'Visibilidad en búsquedas relevantes', html: 'Impresiones y posiciones en las búsquedas que hemos definido como objetivo, no en todas.' },
+          { title: 'Tráfico orgánico que llega a páginas de negocio', html: 'Visitas a páginas de servicio, categorías y productos, separadas del tráfico del blog.' },
+          { title: 'Contactos y ventas atribuibles al canal orgánico', html: 'Llamadas, formularios y pedidos con origen en Google, medidos con GA4 y la atribución de cada formulario.' },
+          { title: 'Evolución de las páginas que estamos trabajando', html: 'Cada mejora tiene fecha. Comparamos antes y después para saber qué funciona y repetirlo.' },
+        ]}
+      />
+      <PLines
+        title="Cómo se mueven los indicadores"
+        series={[
+          { label: 'Visibilidad', points: [10, 18, 28, 38, 47, 55, 62, 68, 73, 77] },
+          { label: 'Tráfico de negocio', points: [8, 9, 12, 18, 26, 34, 42, 50, 57, 63], color: '#8b5cf6' },
+          { label: 'Contactos', points: [5, 5, 6, 8, 12, 17, 24, 31, 39, 46], color: '#16a34a' },
+        ]}
+        xLabels={['Inicio', '', '', 'Mes 3', '', '', 'Mes 6', '', '', 'Mes 9']}
+        caption="Esquema ilustrativo. La visibilidad sube primero; el tráfico y los contactos la siguen con unas semanas de retraso."
+      />
+    </div>
+  </PSection>
+
+  <!-- ═══ ARRANQUE ═══════════════════════════════════════════════════════ -->
+  <PSection kicker="Cómo trabajamos" title="Qué sucede cuando empiezas a trabajar con Nova">
+    <PFlow
+      highlight={false}
+      steps={[
+        { label: 'Objetivos y accesos' },
+        { label: 'Primeras prioridades' },
+        { label: 'Ejecución' },
+        { label: 'Resultados y siguiente paso' },
+      ]}
+    />
+    <PCards
+      cols={4}
+      variant="numbered"
+      items={[
+        { title: 'Conocemos tus objetivos y revisamos los accesos', html: 'Una sesión para entender tus servicios, márgenes y clientes, y revisión de Search Console, Analytics y el Perfil de Empresa.' },
+        { title: 'Acordamos las primeras prioridades', html: 'A partir de la <a href="#auditoria">auditoría</a> elegimos las tareas de más impacto para los primeros meses y te las enviamos por escrito.' },
+        { title: 'Ejecutamos las mejoras con tu equipo', html: 'Aplicamos los cambios en la web o los preparamos para tu desarrollador. Tú solo validas los contenidos que hablan de tu negocio.' },
+        { title: 'Revisamos resultados y próximos pasos', html: 'Cada mes, un informe con lo realizado y su efecto, y una conversación sobre qué ajustar el mes siguiente.' },
+      ]}
+    />
+  </PSection>
+
+  <!-- ═══ INVERSIÓN ══════════════════════════════════════════════════════ -->
+  <PSection kicker="Precios" title="Cuánto invertir en el SEO de tu pyme" tone="soft" width="wide">
+    <Fragment slot="intro">
+      <p>Tarifas orientativas, sin IVA y sin permanencia. Antes de empezar recibes un presupuesto cerrado por escrito. Si quieres ver cómo encaja el SEO en el presupuesto total de marketing, lee <a href="/blog/cuanto-tiene-que-invertir-una-pyme-en-marketing/">cuánto tiene que invertir una pyme en marketing</a>.</p>
+    </Fragment>
+    <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch reveal">
+      {[
+        { title: 'Auditoría y estrategia inicial', price: '1.800 €', note: 'pago único · 3 a 4 semanas', items: ['Revisión técnica completa', 'Visibilidad y competencia', 'Investigación de palabras clave', 'Plan de acción priorizado', 'Videollamada de entrega'] },
+        { title: 'Acompañamiento SEO mensual', price: 'desde 400 € / mes', note: 'negocios locales y pequeñas empresas', items: ['Optimización técnica continua', 'Contenidos y enlazado interno', 'SEO local y Perfil de Empresa', 'Informe mensual de contactos', 'Línea directa con el consultor'], featured: true },
+        { title: 'Proyectos de mayor alcance o complejidad', price: 'desde 900 € / mes', note: 'empresas medianas y sectores competidos', items: ['Estrategia SEO y GEO conjunta', 'Más volumen de contenidos', 'Captación de enlaces', 'Varias sedes o idiomas', 'Reunión mensual de negocio'] },
+      ].map((p, i) => (
+        <div class:list={['pd-rise rounded-3xl p-7 sm:p-8 flex flex-col border', p.featured ? 'bg-zinc-950 text-white border-zinc-950 shadow-2xl' : 'bg-white border-black/5 shadow-[0_15px_40px_rgba(0,0,0,0.06)]']} style={`--i:${i}`}>
+          <h3 class:list={['text-lg font-black tracking-tight leading-snug mb-3', p.featured ? 'text-white' : 'text-zinc-900']}>{p.title}</h3>
+          <div class="text-2xl font-black text-accent">{p.price}</div>
+          <div class:list={['text-[11px] font-light mt-1 mb-6', p.featured ? 'text-zinc-400' : 'text-zinc-400']}>{p.note}</div>
+          <ul class="space-y-2.5 flex-1">
+            {p.items.map((it) => (
+              <li class:list={['flex items-start gap-2.5 text-sm font-light', p.featured ? 'text-zinc-300' : 'text-zinc-600']}>
+                <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>{it}
+              </li>
+            ))}
+          </ul>
+          <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 !py-4 !text-[11px] !tracking-widest font-black mt-8 text-center">PEDIR PRESUPUESTO</a>
         </div>
-    </section>
+      ))}
+    </div>
+    <PCards
+      variant="rows"
+      tone="soft"
+      items={[
+        { title: 'Qué determina el presupuesto de tu empresa', html: 'El tamaño de la web, la competencia de tus búsquedas, el número de servicios y zonas, el estado técnico de partida y cuánto contenido hay que crear. Una clínica con una sede no necesita lo mismo que un ecommerce con 3.000 productos.' },
+      ]}
+    />
+  </PSection>
 
-    <LogoMarquee />
+  <!-- ═══ CONSULTOR ══════════════════════════════════════════════════════ -->
+  <PSection kicker="Quién está detrás" title="Un consultor responsable de la evolución de tu web" layout="split">
+    <Fragment slot="intro">
+      <p>En Nova no hay capas comerciales entre tú y quien trabaja tu web. La misma persona hace la auditoría, define la estrategia y responde en la reunión mensual.</p>
+    </Fragment>
+    <img slot="aside" src="/sergio-galos-agencia-seo-para-pymes.webp" alt="Sergio Galo's, consultor SEO para pymes" title="Sergio Galo's, consultor SEO para pymes" class="w-full max-w-xs mx-auto h-auto rounded-3xl" loading="lazy" width="473" height="591" />
+    <PCards
+      cols={3}
+      items={[
+        { icon: ICON.users, title: 'Quién dirige tu estrategia SEO', html: 'Sergio Galo\'s, consultor de marketing digital y SEO y fundador de Nova, con años posicionando pymes de industria, salud, ecommerce y servicios profesionales.' },
+        { icon: ICON.link, title: 'Cómo nos coordinamos con tu equipo', html: 'Un canal directo para dudas, reuniones presenciales en Barcelona o por videollamada en el resto de España, y coordinación con tu desarrollador si lo tienes.' },
+        { icon: ICON.chart, title: 'Qué información recibes sobre el trabajo realizado', html: 'Un informe mensual con las tareas hechas, la evolución de las páginas trabajadas y los contactos desde Google. Y acceso permanente a tus herramientas.' },
+      ]}
+    />
+  </PSection>
 
-    <!-- ═══ INTRO: POR QUÉ SEO ═══════════════════════════════════════════ -->
-    <section class="py-16 sm:py-24 bg-white px-4 sm:px-6 border-b border-black/5">
-        <div class="max-w-6xl mx-auto reveal grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-16 items-center">
-            <div>
-                <p class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4">¿Por qué SEO?</p>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
-                    La agencia de posicionamiento SEO para tu pyme
-                </h2>
-                <div class="space-y-6 text-zinc-600 font-light text-base sm:text-lg leading-relaxed">
-                    <p>
-                        <strong class="font-semibold text-zinc-900">El SEO es el canal que sigue trayendo clientes cuando dejas de pagar por anuncios</strong>. Cada búsqueda de tu servicio en Google es un cliente con intención de compra, y quien aparece primero se lo lleva. A diferencia de la publicidad, el posicionamiento es un activo que se acumula mes a mes.
-                    </p>
-                    <p>
-                        Nova es una <strong class="font-semibold text-zinc-900">agencia SEO especializada en PYMEs</strong>. Trabajamos con un número limitado de clientes, cada cuenta la lleva directamente el consultor fundador y toda la estrategia se orienta a una sola métrica que importa. <strong class="font-semibold text-zinc-900">Cuántos clientes nuevos llegan desde Google cada mes</strong>.
-                    </p>
-                </div>
+  <!-- ═══ RESEÑAS ════════════════════════════════════════════════════════ -->
+  <GoogleReviews locale="es" title="Lo que valoran las empresas que trabajan con nosotros" />
+
+  <!-- ═══ FAQS ═══════════════════════════════════════════════════════════ -->
+  <FaqHome title="Resuelve tus dudas antes de contratar SEO" items={faqs} emitSchema={false} />
+
+  <!-- ═══ CONTACTO ═══════════════════════════════════════════════════════ -->
+  <section id="contacto" class="py-20 sm:py-32 px-4 sm:px-6 relative bg-accent">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
+      <div class="reveal text-white">
+        <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">Primer paso</span>
+        <h2 class="text-4xl sm:text-6xl font-black uppercase tracking-tighter leading-[0.85] mb-10">Empecemos por las oportunidades de tu web</h2>
+        <ol class="space-y-5">
+          {[
+            ['Cuéntanos qué vende tu empresa', 'Tus servicios principales y el tipo de cliente que buscas.'],
+            ['Comparte tu web y tus mercados prioritarios', 'Las zonas, idiomas o líneas de negocio que más te interesan.'],
+            ['Revisemos qué está limitando tu crecimiento', 'Miramos tu visibilidad actual y la de tu competencia.'],
+            ['Recibe una propuesta con prioridades claras', 'Por escrito, con alcance, plazos y precio cerrado.'],
+          ].map(([t, d], i) => (
+            <li class="flex gap-4">
+              <span class="w-8 h-8 rounded-full bg-white/15 border border-white/30 flex items-center justify-center text-xs font-black flex-shrink-0">{i + 1}</span>
+              <div>
+                <h3 class="text-base sm:text-lg font-black tracking-tight">{t}</h3>
+                <p class="text-sm font-light text-white/80">{d}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <div class="reveal">
+        <div class="bg-white p-8 sm:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
+          <form class="space-y-8" id="contact-form">
+            <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
+              <div class="flex flex-col gap-3">
+                <label class="opacity-30">NOMBRE *</label>
+                <input type="text" name="name" aria-label="Nombre" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
+              </div>
+              <div class="flex flex-col gap-3">
+                <label class="opacity-30">TELÉFONO *</label>
+                <input type="tel" name="phone" required autocomplete="tel" inputmode="tel" minlength="9" pattern="[0-9+\s.\(\)\-]{9,20}" title="Introduce un teléfono válido (mínimo 9 cifras)" aria-label="Teléfono" class="border-b border-black/10 py-2 focus:border-accent outline-none">
+              </div>
             </div>
-            <div class="hidden md:block">
-                <img src="/sergio-galos-agencia-seo-para-pymes.webp" alt="Sergio Galo's, consultor SEO para PYMEs" title="Sergio Galo's, consultor SEO para PYMEs" class="w-full h-auto" loading="lazy" width="473" height="591" />
+            <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+              <label class="opacity-30">EMAIL PROFESIONAL *</label>
+              <input type="email" name="email" aria-label="Correo electrónico" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
             </div>
-        </div>
-    </section>
-
-    <!-- ═══ SERVICIOS SEO ══════════════════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50 border-b border-black/5 px-4 sm:px-6">
-        <div class="max-w-7xl mx-auto text-center reveal">
-            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Qué hacemos</span>
-            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Servicio de posicionamiento SEO para PYMEs
-            </h2>
-            <div class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-16 space-y-4">
-                <p>
-                    El <strong class="font-semibold text-zinc-700">posicionamiento SEO</strong> no es una sola tarea, es un sistema. Estas son las nueve piezas que trabajamos para que tu pyme pase de ser invisible en Google a captar clientes cada mes desde el buscador.
-                </p>
-                <p>
-                    Cada pieza se activa según lo que diga tu auditoría. No pagas por un paquete cerrado de acciones, pagas por las que tu negocio necesita.
-                </p>
+            <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+              <label class="opacity-30">WEB *</label>
+              <input type="text" name="url" aria-label="Sitio web" placeholder="www.tuempresa.com" class="border-b border-black/10 py-2 focus:border-accent outline-none">
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[
-                    { icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z', t: 'Auditoría SEO', d: 'Radiografía técnica, de contenido y de autoridad de tu web antes de tocar nada. El punto de partida de cualquier estrategia.' },
-                    { icon: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4', t: 'SEO técnico', d: 'Velocidad, indexación, Core Web Vitals y arquitectura. Que Google pueda rastrear y entender tu sitio sin fricciones.' },
-                    { icon: 'M12 3a9 9 0 100 18 9 9 0 000-18zm0 5a4 4 0 100 8 4 4 0 000-8z', t: 'Keyword research', d: 'Identificamos qué buscan tus clientes potenciales, con qué volumen y qué oportunidades están sin cubrir en tu sector.' },
-                    { icon: 'M9 12h6m-6 4h6M9 8h2m8-3v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2h6l4 4z', t: 'Contenidos SEO', d: 'Creamos y optimizamos el contenido que posiciona. Páginas de servicio, artículos y arquitectura editorial pensada para vender.' },
-                    { icon: 'M13.828 10.172a4 4 0 010 5.656l-3 3a4 4 0 01-5.656-5.656l1.5-1.5m7.328-1.672a4 4 0 000-5.656 4 4 0 00-5.656 0l-1.5 1.5', t: 'Link building', d: 'Conseguimos enlaces de calidad en medios relevantes para aumentar la autoridad de tu dominio de forma orgánica y sostenida.' },
-                    { icon: 'M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z', t: 'SEO local', d: 'Posicionamos tu negocio en Google Maps y en las búsquedas de tu zona. Imprescindible si tus clientes están cerca de ti.' },
-                    { icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z', t: 'Analítica y medición', d: 'Configuramos GA4 y Search Console para atribuir cada lead a su keyword. Decisiones con datos, no con intuiciones.' },
-                    { icon: 'M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z', t: 'SEO más GEO', d: 'Cada vez más clientes preguntan a la IA en vez de buscar en Google. Integramos posicionamiento en Google y en la IA en una sola estrategia.' },
-                    { icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15', t: 'Migraciones SEO', d: 'Cambios de dominio, rediseños o saltos de plataforma sin perder el posicionamiento que tanto ha costado conseguir.' },
-                ].map(c => (
-                    <div class="bg-white border border-black/5 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-left">
-                        <div class="flex items-center gap-3 mb-3">
-                            <div class="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0">
-                                <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d={c.icon}/></svg>
-                            </div>
-                            <h3 class="text-sm font-black uppercase tracking-tight text-zinc-900">{c.t}</h3>
-                        </div>
-                        <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.d}</p>
-                    </div>
-                ))}
+            <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
+              <label class="opacity-30">CONSULTA</label>
+              <textarea name="msg" aria-label="Mensaje" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="¿Qué búsquedas quieres dominar en Google?"></textarea>
             </div>
-
-            <div class="mt-12 text-center reveal">
-                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                    HABLEMOS DE TU NEGOCIO
-                </a>
+            <div class="flex items-start gap-2">
+              <input type="checkbox" id="contact-form-terms" name="terms" required class="mt-1 accent-accent">
+              <label for="contact-form-terms" class="text-xs text-zinc-500 font-light cursor-pointer select-none normal-case tracking-normal">He leído y acepto la <a href="/privacidad/" class="underline hover:text-accent transition-colors">política de privacidad</a>.</label>
             </div>
-        </div>
-    </section>
-
-    <!-- ═══ ESTRATEGIA SEO ════════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 relative overflow-hidden">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-16 sm:mb-24 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Cómo trabajamos</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Estrategia SEO para posicionar tu pyme en Google
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    Una metodología documentada para pasar de ser invisible en Google a captar clientes desde el buscador, paso a paso y sin humo.
-                </p>
-            </div>
-
-            <div id="timeline-container" class="relative">
-                <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-px bg-zinc-200 -translate-x-1/2"></div>
-                <div id="progress-bar" class="hidden md:block absolute left-1/2 top-4 w-px bg-accent -translate-x-1/2 transition-all duration-100"></div>
-
-                <div class="space-y-16 md:space-y-24 flex flex-col items-center">
-                    {steps.map((step, index) => (
-                        <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full relative reveal">
-                            <div class:list={["flex-1 w-full", index % 2 === 0 ? "md:order-1 md:text-right" : "md:order-3 md:text-left"]}>
-                                <div class="p-8 sm:p-10 bg-zinc-50 border border-black/5 rounded-3xl hover:border-accent/10 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
-                                    <h3 class="text-xl font-black uppercase tracking-tighter mb-2 text-zinc-900">{index + 1}. {step.title}</h3>
-                                    <div class:list={["h-0.5 bg-accent w-full mb-4 opacity-80", index % 2 === 0 ? "md:ml-auto" : ""]}></div>
-                                    <p class:list={["text-sm text-zinc-500 font-light max-w-md", index % 2 === 0 ? "md:ml-auto" : ""]}>{step.desc}</p>
-                                    <div class="absolute -bottom-6 -right-5 text-8xl font-black text-black/[0.02] select-none z-0 group-hover:scale-105 transition-transform duration-500">0{index+1}</div>
-                                </div>
-                            </div>
-                            <div class="md:order-2 w-12 h-12 rounded-full border-2 border-zinc-200 bg-white flex items-center justify-center font-black text-lg z-10 shrink-0 shadow-sm node-circle transition-all">
-                                0{index + 1}
-                            </div>
-                            <div class:list={["hidden md:block md:flex-1", index % 2 === 0 ? "md:order-3" : "md:order-1"]}></div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ AUDITORÍA SEO ═════════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5 overflow-hidden">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-[6fr_4fr] gap-12 lg:gap-16 items-start">
-
-            <div class="reveal lg:col-span-2">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Punto de partida</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
-                    Auditoría de posicionamiento SEO para tu PYME
-                </h2>
-            </div>
-
-            <div class="reveal">
-                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed mb-8">
-                    <p>
-                        Antes de proponerte nada, auditamos. ¿Sabes en qué posición sale tu web cuando alguien busca tu servicio? ¿Qué keywords te traen clientes y cuáles se lleva tu competencia? Casi ninguna pyme lo sabe con datos, y ahí empieza todo.
-                    </p>
-                    <p>
-                        Nuestra <strong class="font-semibold text-zinc-900">auditoría de posicionamiento SEO</strong> mide tu visibilidad real en Google, revisa la salud técnica de tu web y analiza a tu competencia directa, y termina con un plan de acción priorizado. Qué arreglar primero, qué impacto tiene y cuánto esfuerzo cuesta.
-                    </p>
-                    <p>
-                        A diferencia de las auditorías automáticas que generan un PDF con cien errores irrelevantes, aquí cada punto lo revisa un consultor senior con años de experiencia en pymes. El resultado no es un listado técnico, es un diagnóstico de negocio que entiende cualquier gerente.
-                    </p>
-                    <p>
-                        Si ya trabajas con otra agencia, la auditoría también sirve como segunda opinión independiente. Sabrás si tu inversión actual en SEO está bien dirigida o si estás pagando por actividad que no genera clientes.
-                    </p>
-                </div>
-                <ul class="space-y-3">
-                    {[
-                        'Salud técnica de tu web con indexación, velocidad y Core Web Vitals',
-                        'Posiciones actuales para tus búsquedas clave',
-                        'Análisis de tu competencia directa en Google',
-                        'Keywords rentables que aún no atacas',
-                        'Puntos de fuga en la conversión de tu web',
-                        'Plan de acción SEO priorizado por impacto real',
-                    ].map(item => (
-                        <li class="flex items-start gap-3 text-sm text-zinc-700 font-light">
-                            <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            {item}
-                        </li>
-                    ))}
-                </ul>
-                <div class="mt-16">
-                    <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                        QUIERO MI AUDITORÍA SEO
-                    </a>
-                </div>
-            </div>
-
-            <div class="reveal flex flex-col gap-4">
-                {[
-                    { bg: 'bg-purple-100', color: 'text-purple-600', icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z', t: 'Revisión técnica completa', d: 'Indexación, velocidad, Core Web Vitals, errores de rastreo y arquitectura. Todo lo que impide a Google entender tu web, documentado.' },
-                    { bg: 'bg-green-100', color: 'text-green-600', icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6', t: 'Plan de acción priorizado', d: 'No una lista infinita de tareas, sino un plan ordenado por impacto y esfuerzo. Sabrás qué arreglar la primera semana y qué no merece ni un euro.' },
-                    { bg: 'bg-purple-100', color: 'text-purple-600', icon: 'M12 3a9 9 0 100 18 9 9 0 000-18zm0 5a4 4 0 100 8 4 4 0 000-8z', t: 'Keywords con intención de compra', d: 'Identificamos las búsquedas que hacen tus clientes cuando quieren contratar, no solo las de más volumen. Tráfico que convierte.' },
-                    { bg: 'bg-amber-100', color: 'text-amber-600', icon: 'M9 12h6m-6 4h6M9 8h2m8-3v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2h6l4 4z', t: 'Auditoría de contenidos', d: 'Detectamos qué páginas posicionan, cuáles canibalizan keywords entre sí y qué contenido falta para cubrir las búsquedas de tu cliente.' },
-                    { bg: 'bg-blue-100', color: 'text-blue-600', icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm8 0V5a2 2 0 012-2h0a2 2 0 012 2v14a2 2 0 01-2 2h0a2 2 0 01-2-2zm-8 0a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z', t: 'Benchmark frente a tu competencia', d: 'Comparamos tu visibilidad con la de tus tres competidores directos. Qué keywords les traen clientes y qué puedes copiar o hacer mejor.' },
-                ].map(card => (
-                    <div class="bg-white rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-5 flex items-start gap-4">
-                        <div class:list={["w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0", card.bg]}>
-                            <svg class:list={["w-5 h-5", card.color]} fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d={card.icon}/></svg>
-                        </div>
-                        <div>
-                            <h3 class="text-sm font-black text-zinc-900 mb-1">{card.t}</h3>
-                            <p class="text-xs text-zinc-500 font-light leading-relaxed">{card.d}</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ═══ QUÉ INCLUYE LA AUDITORÍA SEO ═══════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-12 sm:mb-16 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Paso a paso</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase text-zinc-900 leading-[0.9]">
-                    Qué incluye la auditoría SEO de nova
-                </h2>
-            </div>
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch reveal">
-                {[
-                    { n: '1', t: 'Radiografía de tu visibilidad en Google', d: 'Analizamos en qué posición sales para las búsquedas que hacen tus clientes, qué tráfico recibes y qué keywords se está llevando tu competencia.' },
-                    { n: '2', t: 'Diagnóstico técnico y de contenidos', d: 'Cruzamos los datos con la salud técnica de tu web y tu contenido para explicar exactamente qué te está frenando en el buscador.' },
-                    { n: '3', t: 'Hoja de ruta para posicionar', d: 'Cierras la auditoría con un documento de acciones ordenadas por impacto y una videollamada donde repasamos cada punto contigo.' },
-                ].map((st, i) => (
-                    <div class="flex items-center gap-4 lg:gap-6">
-                        {i > 0 && <div class="hidden lg:flex text-3xl text-accent font-black select-none">→</div>}
-                        <div class="bg-white border border-black/5 rounded-2xl p-8 shadow-[0_15px_40px_rgba(0,0,0,0.06)] flex-1 text-center h-full">
-                            <div class="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto mb-4 text-accent font-black text-lg">{st.n}</div>
-                            <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3">{st.t}</h3>
-                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{st.d}</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
-            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto text-center mt-16 reveal">
-                Nuestra auditoría SEO es el primer paso de cualquier estrategia de posicionamiento en Google. Analiza cómo te ve hoy el buscador, explica por qué tu competencia sale antes que tú y te deja una hoja de ruta clara para empezar a captar clientes desde las búsquedas. Es la misma auditoría con la que arrancan todos nuestros planes de SEO para pymes, y también puedes contratarla suelta como segunda opinión. Sin tecnicismos innecesarios. Sales sabiendo dónde estás y qué hacer a continuación.
-            </p>
-            <div class="mt-12 text-center reveal">
-                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                    QUIERO MI AUDITORÍA SEO
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ PRECIOS SEO ════════════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-12 sm:mb-16 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Tarifas claras</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Precios de posicionamiento SEO para PYMEs
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-3xl mx-auto">
-                    Tarifas orientativas y sin letra pequeña. El precio de una agencia SEO varía según el tamaño de tu web, la competencia de tu sector y tu punto de partida en Google, así que antes de empezar recibes un presupuesto cerrado por escrito. Si te preguntas cuánto cuesta el posicionamiento SEO, estos son nuestros rangos reales. El coste no lleva sorpresas ni permanencias.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
-                {[
-                    { small: 'Precio', name: 'Auditoría SEO', price: '1.800€', meta: ['Entrega en 3 a 4 semanas', 'Para cualquier pyme que quiera saber dónde está'], items: ['Sesión inicial de objetivos', 'Revisión técnica completa', 'Posiciones y visibilidad actual', 'Keyword research de tu sector', 'Auditoría de contenidos', 'Comparativa con 3 competidores', 'Acciones ordenadas por impacto', 'Videollamada de entrega'], cta: 'Quiero auditar mi web' },
-                    { small: 'Precio', name: 'SEO PYME', price: 'desde 400€ / mes', meta: ['Primeros movimientos en unos 3 meses', 'Para negocios locales y pequeñas empresas'], items: ['Auditoría SEO inicial', 'Optimización técnica continua', 'Contenidos que posicionan', 'SEO local y ficha de Google', 'Enlazado interno optimizado', 'Reseñas y señales de confianza', 'Informe mensual de posiciones y leads', 'Línea directa con el consultor', 'Sin permanencia'], cta: 'Quiero posicionar mi web' },
-                    { small: 'Precio', name: 'SEO Big Pyme', price: 'desde 900€ / mes', meta: ['Primeros movimientos en unos 2 meses', 'Para empresas medianas y sectores competidos'], items: ['Todo el plan SEO PYME', 'Estrategia SEO y GEO conjunta', 'Redacción profesional ampliada', 'Link building en medios', 'Optimización de más de 100 URL', 'Cobertura multisede o internacional', 'Reunión mensual de negocio', 'Objetivo, primeras posiciones'], cta: 'Quiero posicionar mi empresa' },
-                ].map(p => (
-                    <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-10 flex flex-col shadow-[0_15px_40px_rgba(0,0,0,0.06)] hover:shadow-xl transition-shadow duration-300 reveal">
-                        <h3 class="leading-tight mb-2">
-                            <span class="block text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-1">{p.small} </span>
-                            <span class="block text-xl font-black uppercase tracking-tight text-zinc-900">{p.name}</span>
-                        </h3>
-                        <div class="text-lg font-bold text-zinc-900">{p.price}</div>
-                        <div class="text-[10px] text-zinc-400 font-light mt-1 mb-6">* Precio sin IVA</div>
-                        <div class="text-xs text-zinc-500 font-light mb-8 space-y-1.5">
-                            {p.meta.map(m => <div>{m}</div>)}
-                        </div>
-                        <div class="text-xs font-black uppercase tracking-widest text-zinc-400 pb-3 border-b border-zinc-100">Qué incluye</div>
-                        <ul class="divide-y divide-zinc-100 flex-1">
-                            {p.items.map(item => (
-                                <li class="flex items-center gap-3 py-3.5 text-sm text-zinc-600 font-light">
-                                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                                    <span>{item}</span>
-                                </li>
-                            ))}
-                        </ul>
-                        <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 !py-4 !text-[11px] !tracking-widest font-black mt-10 text-center">
-                            {p.cta}
-                        </a>
-                    </div>
-                ))}
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ SECTORES ═══════════════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50 px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-14 sm:mb-20 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Experiencia sectorial</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Posicionamiento SEO para tu sector
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    Cada sector se busca distinto en Google. Trabajamos con sectores donde ya sabemos qué keywords convierten y qué es tirar el dinero.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
-                {sectors.map(s => (
-                    <div class="bg-white border border-black/5 rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                        <div class="text-3xl mb-4">{s.icon}</div>
-                        <h3 class="text-base uppercase tracking-tight text-zinc-900 mb-3 leading-tight font-montserrat-semibold">
-                            {s.href ? <a href={s.href} class="hover:text-accent transition-colors">{s.title}</a> : s.title}
-                        </h3>
-                        <p class="text-sm text-zinc-500 font-light leading-relaxed">{s.desc}</p>
-                    </div>
-                ))}
-            </div>
-
-            <div class="mt-14 text-center reveal">
-                <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                    QUIERO SALIR EN GOOGLE
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ CITA ══════════════════════════════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-zinc-950 px-4 sm:px-6">
-        <div class="max-w-4xl mx-auto text-center reveal">
-            <blockquote class="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.15] mb-8">
-                “Cada día tus clientes buscan tu servicio en Google. Si no apareces, la venta se la lleva otro. No necesitas más anuncios. Necesitas posicionarte.”
-            </blockquote>
-            <p class="text-sm text-zinc-400 font-light mb-10">Sergio Galo's · Consultor SEO para PYMEs</p>
-            <a href="#contacto" class="contact-modal-trigger btn-mktg-v5 shadow-[0_10px_30px_rgba(37,211,102,0.3)] !py-4 sm:!py-5 !px-6 sm:!px-10 !text-[11px] !tracking-widest font-black">
-                HABLEMOS DE TU NEGOCIO
-            </a>
-        </div>
-    </section>
-
-    <!-- ═══ POR QUÉ NOVA (COMPARATIVA) ═════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-12 sm:mb-16 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Por qué nova</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Qué diferencia a nova de otra agencia SEO
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    El SEO está lleno de informes bonitos que no traen clientes. Nosotros lo trabajamos con método, transparencia y resultados que se ven en tu caja, no solo en las gráficas.
-                </p>
-            </div>
-
-            <div class="reveal overflow-x-auto rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
-                <table class="w-full min-w-[640px] text-left border-collapse bg-white">
-                    <thead>
-                        <tr class="bg-black text-white">
-                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Criterio</th>
-                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Nova</th>
-                            <th class="px-6 py-5 text-[11px] font-black uppercase tracking-widest">Otras agencias</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-zinc-100">
-                        {[
-                            { c: "Quién será tu contacto", o: "Gestor junior con 20-30 cuentas", n: "Sergio Galo's" },
-                            { c: "Estrategia", o: "Plantillas estandarizadas", n: "Hoja de ruta SEO a medida por escrito" },
-                            { c: "Velocidad de respuesta", o: "Tickets y semanas de espera", n: "Línea directa con quien decide" },
-                            { c: "Permanencia", o: "6-12 meses habituales", n: "Mes a mes, sin permanencia" },
-                            { c: "Especialización", o: "De multinacionales a autónomos, todo vale", n: "Cien por cien enfocados en PYMEs" },
-                            { c: "Visibilidad en IA (GEO)", o: "Solo SEO tradicional en Google", n: "SEO + GEO integrados con método propio" },
-                            { c: "Transparencia de precios", o: "Presupuestos opacos con extras sorpresa", n: "Precio cerrado por escrito antes de empezar" },
-                        ].map(row => (
-                            <tr class="hover:bg-zinc-50/50 transition-colors">
-                                <td class="px-6 py-5 text-sm font-bold text-zinc-900">{row.c}</td>
-                                <td class="px-6 py-5 text-sm font-bold text-accent">{row.n}</td>
-                                <td class="px-6 py-5 text-sm text-zinc-500 font-light">{row.o}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-
-            <p class="text-xs sm:text-sm text-zinc-400 font-light leading-relaxed mt-6 reveal">
-                Un consultor SEO externo te da acceso a experiencia senior sin los costes fijos de contratar un perfil propio, sin proceso de selección y sin periodo de adaptación.
-            </p>
-        </div>
-    </section>
-
-    <!-- ═══ CÓMO ELEGIR AGENCIA SEO ════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-4xl mx-auto">
-            <div class="mb-12 sm:mb-16 reveal text-center">
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Cómo contratar una agencia SEO sin que te vendan humo
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    Hay cientos de agencias SEO y la mayoría de PYMEs elige mal la primera vez. Estos son los siete criterios que deberías exigir a cualquier agencia, incluida la nuestra.
-                </p>
-            </div>
-
-            <div class="divide-y divide-zinc-100 reveal">
-                {criteria.map((c, i) => (
-                    <div class="py-6 sm:py-8 flex gap-6 sm:gap-8 items-start">
-                        <div class="text-2xl sm:text-3xl font-black tracking-tighter text-accent flex-shrink-0 w-10 leading-none">0{i + 1}</div>
-                        <div>
-                            <h3 class="text-base sm:text-lg font-black uppercase tracking-tight text-zinc-900 mb-2">{c.title}</h3>
-                            <p class="text-sm text-zinc-500 font-light leading-relaxed">{c.desc}</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ QUIÉN ESTÁ DETRÁS ═══════════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-5xl mx-auto reveal">
-            <div class="bg-white border border-black/5 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] grid md:grid-cols-[280px_1fr] gap-8 sm:gap-12 items-center">
-                <div class="rounded-2xl overflow-hidden bg-zinc-100">
-                    <img src="/sergio-galos-agencia-seo-para-pymes.webp" alt="Sergio Galo's, consultor SEO para PYMEs" title="Sergio Galo's, consultor SEO para PYMEs" class="w-full h-full object-cover object-top" loading="lazy" width="473" height="591" />
-                </div>
-                <div>
-                    <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Quién está detrás</span>
-                    <h2 class="text-2xl sm:text-4xl font-black tracking-tighter uppercase text-zinc-900 leading-[0.95] mb-6">
-                        Sergio Galo's <br>
-                        <span class="text-lg sm:text-2xl">Tu consultor SEO para PYMEs</span>
-                    </h2>
-                    <div class="space-y-4 text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
-                        <p>
-                            Soy <strong class="font-semibold text-zinc-900">Sergio Galo's</strong>, consultor de marketing digital y SEO y fundador de Nova Marketing. Llevo años posicionando PYMEs en algunos de los sectores más competitivos, desde industria B2B y salud hasta ecommerce y servicios profesionales.
-                        </p>
-                        <p>
-                            Cuando contratas posicionamiento SEO con nova hablas siempre conmigo. Yo hago la auditoría, yo diseño la estrategia y yo respondo en la reunión mensual. Sin capas comerciales ni gestores que cambian cada trimestre.
-                        </p>
-                    </div>
-                    <a href="https://www.linkedin.com/company/nova-marketing-pymes/" target="_blank" rel="noopener" class="inline-block mt-6 text-[12px] font-black tracking-widest text-accent hover:underline">
-                        Ver perfil en LinkedIn →
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ CASOS DE ÉXITO (CMS) ═══════════════════════════════════ -->
-    {allCases.length > 0 && (
-    <section class="py-20 sm:py-32 bg-zinc-50 border-t border-black/5 px-4 sm:px-6 overflow-hidden">
-      <div class="max-w-7xl mx-auto">
-        <div class="mb-12 reveal">
-          <span class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Resultados probados</span>
-          <h2 class="text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter font-extrabold text-zinc-900 leading-[0.9]">
-            Casos de éxito de posicionamiento<br class="hidden md:inline" /> SEO para PYMEs
-          </h2>
-        </div>
-        <div class="cases-carousel relative overflow-hidden">
-          <div class="cases-track flex gap-6 transition-transform duration-500 ease-in-out">
-            {allCases.map((cs: any) => {
-              const catName = (cs.categories || []).map((c: any) => c.name || c.attributes?.name).filter(Boolean).join(' | ');
-              const caseUrl = cs.isPublic && cs.slug ? `/casos-exito/${cs.slug}/` : null;
-              return (
-                <div class="cases-slide flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] bg-white p-8 border border-black/5 flex flex-col justify-between group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
-                  <div>
-                    {catName && <span class="text-[10px] font-black uppercase tracking-widest text-accent mb-4 block">{catName}</span>}
-                    <h3 class="text-base font-black uppercase tracking-tight text-zinc-900 mb-3 transition-colors leading-tight">
-                      {caseUrl ? (
-                        <a href={caseUrl} class="hover:text-accent transition-colors">{cs.title}</a>
-                      ) : (
-                        <span class="group-hover:text-accent transition-colors">{cs.title}</span>
-                      )}
-                    </h3>
-                    <p class="text-xs text-zinc-500 font-light leading-relaxed">{cs.description}</p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+            <button type="submit" class="w-full btn-mktg-v5 !py-6">QUIERO POSICIONAR MI WEB</button>
+          </form>
         </div>
       </div>
-    </section>
-    )}
-    <script>
-      function initCasesCarousel() {
-        const track = document.querySelector('.cases-track');
-        if (!track) return;
-        const slides = track.querySelectorAll('.cases-slide');
-        if (slides.length <= 4) return;
-        let current = 0;
-        const total = slides.length;
-        function getVisible() {
-          if (window.innerWidth >= 1024) return 4;
-          if (window.innerWidth >= 640) return 2;
-          return 1;
-        }
-        let slideWidth = slides[0].offsetWidth + 24;
-        window.addEventListener('resize', () => { slideWidth = slides[0].offsetWidth + 24; }, { passive: true });
-        function next() {
-          const visible = getVisible();
-          const maxIndex = total - visible;
-          current = current >= maxIndex ? 0 : current + 1;
-          track.style.transform = `translateX(-${current * slideWidth}px)`;
-        }
-        const interval = setInterval(next, 5000);
-        document.addEventListener('astro:before-preparation', () => clearInterval(interval));
-      }
-      document.addEventListener('DOMContentLoaded', initCasesCarousel);
-      document.addEventListener('astro:page-load', initCasesCarousel);
-    </script>
-
-    <!-- ═══ RECOMENDADOS POR LA IA ═════════════════════════════════ -->
-    <section class="py-20 sm:py-32 bg-white px-4 sm:px-6 border-t border-black/5 overflow-hidden">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-
-            <div class="reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Nos avala la IA</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-8 text-zinc-900 leading-[0.9]">
-                    La agencia SEO que recomienda la IA
-                </h2>
-                <div class="space-y-5 text-zinc-600 font-light text-base leading-relaxed">
-                    <p>
-                        Cuando alguien pregunta por una <strong class="font-semibold text-zinc-900">agencia SEO para PYMEs</strong> a ChatGPT, Gemini o Claude, nova aparece entre las agencias recomendadas. Es la mejor prueba de que sabemos posicionar, porque lo aplicamos primero en nosotros mismos.
-                    </p>
-                    <p>
-                        A los asistentes de IA no les puedes comprar un anuncio para salir primero. Recomiendan lo que encuentran. Casos reales publicados, una forma de trabajar transparente, una especialización clara y clientes que hablan de nosotros.
-                    </p>
-                    <p>
-                        Pruébalo tú mismo. Abre ChatGPT y pregúntale qué agencia SEO te recomienda para tu PYME. Si te sale nova, ya sabes quién puede hacer lo mismo por tu negocio.
-                    </p>
-                </div>
-            </div>
-
-            <div class="reveal lg:-mr-[12%] xl:-mr-[18%]">
-                <img src="/agencia-seo-para-pymes.webp" alt="Nova Marketing, agencia SEO para PYMEs recomendada por la IA" title="Nova Marketing, agencia SEO para PYMEs recomendada por la IA" class="w-full h-auto" loading="lazy" width="1000" height="667" />
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ═══ CONSEJOS SEO ═══════════════════════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-4xl mx-auto reveal">
-            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Consejos aplicables hoy</span>
-            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Cómo mejorar el SEO de tu pyme esta semana
-            </h2>
-            <p class="text-zinc-500 font-light text-base leading-relaxed mb-10">
-                Si todavía no estás listo para contratar una agencia SEO, empieza por aquí. Son acciones que cualquier pyme puede aplicar por su cuenta y que ya mueven la aguja en Google.
-            </p>
-            <ul class="space-y-6">
-                {[
-                    { lead: 'Completa tu ficha de Google al 100%.', text: 'Categorías, servicios, horarios, fotos reales y publicaciones. Es la palanca de SEO local más rentable y es gratis.' },
-                    { lead: 'Pide reseñas de forma sistemática.', text: 'Un cliente contento no reseña solo. Pídeselo el mismo día que termina el servicio, con enlace directo a tu ficha.' },
-                    { lead: 'Mide de verdad.', text: 'Si no tienes conversiones configuradas en GA4, estás decidiendo a ciegas. Empieza por marcar llamadas y formularios.' },
-                    { lead: 'Responde en tu web las dudas de tus clientes.', text: 'Cada pregunta frecuente es una página que puede posicionar y que además te ahorra llamadas.' },
-                ].map(tip => (
-                    <li class="flex items-start gap-4">
-                        <svg class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                        <p class="text-sm sm:text-base text-zinc-600 font-light leading-relaxed">
-                            <strong class="font-bold text-zinc-900">{tip.lead}</strong> {tip.text}
-                        </p>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    </section>
-
-    <!-- ═══ RESEÑAS GOOGLE ═════════════════════════════════════════ -->
-    <GoogleReviews locale="es" title="Lo que dicen nuestros clientes sobre el posicionamiento SEO de Nova" />
-
-    <!-- ═══ SERVICIOS COMPLEMENTARIOS ═══════════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-zinc-50/50 px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-12 sm:mb-16 reveal">
-                <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Más allá del SEO</span>
-                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                    Servicios complementarios de nuestra agencia SEO para tu pyme
-                </h2>
-                <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                    El posicionamiento funciona mejor cuando todo el marketing empuja en la misma dirección. Estos son los servicios que lo complementan.
-                </p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal">
-                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
-                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
-                        <a href="/" class="hover:text-accent transition-colors">Agencia de Marketing Digital para PYMEs</a>
-                    </h3>
-                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        La estrategia completa. Combinamos SEO, publicidad, web y visibilidad en IA en un solo plan orientado a que tu pyme gane clientes cada mes.
-                    </p>
-                    <a href="/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
-                </div>
-                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
-                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
-                        <a href="/agencia-sem-para-pymes/" class="hover:text-accent transition-colors">Agencia SEM para PYMEs</a>
-                    </h3>
-                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        Anuncios en Google para captar clientes desde la primera semana mientras el SEO gana posiciones. Fee fijo y la cuenta siempre a tu nombre.
-                    </p>
-                    <a href="/agencia-sem-para-pymes/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
-                </div>
-                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
-                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
-                        <a href="/diseno-web-para-pymes/" class="hover:text-accent transition-colors">Diseño Web para PYMEs</a>
-                    </h3>
-                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        El SEO empieza en una buena web. Páginas rápidas, adaptadas a móvil y enfocadas a convertir en clientes las visitas que trae el posicionamiento.
-                    </p>
-                    <a href="/diseno-web-para-pymes/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
-                </div>
-                <div class="service-card p-8 bg-white rounded-2xl border border-zinc-100/80 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-accent/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
-                    <h3 class="text-xl font-black uppercase tracking-tighter mb-4 text-zinc-900">
-                        <a href="/agencia-geo-para-pymes/" class="hover:text-accent transition-colors">Agencia GEO para PYMEs</a>
-                    </h3>
-                    <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
-                        Tus clientes ya preguntan a ChatGPT y Gemini qué empresa contratar. Trabajamos tu posicionamiento GEO para que la IA recomiende tu negocio.
-                    </p>
-                    <a href="/agencia-geo-para-pymes/" class="text-[11px] font-black tracking-widest text-accent hover:underline">SABER MÁS →</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ DÓNDE TRABAJAMOS ═══════════════════════════════════════ -->
-    <section class="py-20 sm:py-28 bg-white px-4 sm:px-6 border-t border-black/5">
-        <div class="max-w-4xl mx-auto text-center reveal">
-            <span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-accent mb-4 block">Dónde trabajamos</span>
-            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter uppercase mb-6 text-zinc-900 leading-[0.9]">
-                Agencia SEO con sede en Barcelona y clientes en toda España
-            </h2>
-            <p class="text-zinc-500 font-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
-                Nuestra base está en Barcelona y la mayoría de proyectos son de la ciudad y su área metropolitana, donde nos reunimos presencialmente. Pero el posicionamiento SEO no entiende de kilómetros. Trabajamos con PYMEs de toda España por videollamada con el mismo nivel de seguimiento.
-            </p>
-            <CityPills base="/agencia-seo-para-pymes/" lang="es" itemPrefix="agencia SEO en" homeLabel="Agencia SEO" />
-        </div>
-    </section>
-
-    <!-- ═══ FAQS ════════════════════════════════════════════════ -->
-    <FaqHome title="Preguntas sobre nuestra agencia SEO para PYMEs" items={faqs} emitSchema={false} />
-
-    <!-- ═══ CONTACTO ════════════════════════════════════════════ -->
-    <section id="contacto" class="py-20 sm:py-40 px-4 sm:px-6 relative bg-accent">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-20 items-center">
-            <div class="reveal text-white">
-                <span class="text-[10px] font-black uppercase tracking-[0.5em] mb-6 block opacity-70">CRECIMIENTO GARANTIZADO</span>
-                <h2 class="text-5xl sm:text-7xl font-black uppercase tracking-tighter leading-[0.8] mb-8">
-                   SAL PRIMERO <br>EN GOOGLE
-                </h2>
-                <p class="font-light max-w-md text-base sm:text-xl">Consúltame y te diré en qué posición está hoy tu web, y cómo subirla.</p>
-            </div>
-
-            <div class="reveal">
-                <div class="bg-white p-8 sm:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-sm">
-                    <form class="space-y-8" id="contact-form">
-                        <div class="grid sm:grid-cols-2 gap-6 text-[10px] font-black tracking-widest uppercase">
-                            <div class="flex flex-col gap-3">
-                                <label class="opacity-30">NOMBRE *</label>
-                                <input type="text" name="name" aria-label="Nombre" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
-                            </div>
-                            <div class="flex flex-col gap-3">
-                                <label class="opacity-30">TELÉFONO *</label>
-                                <input type="tel" name="phone" required autocomplete="tel" inputmode="tel" minlength="9" pattern="[0-9+\s.\(\)\-]{9,20}" title="Introduce un teléfono válido (mínimo 9 cifras)" aria-label="Teléfono" class="border-b border-black/10 py-2 focus:border-accent outline-none">
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
-                            <label class="opacity-30">EMAIL PROFESIONAL *</label>
-                            <input type="email" name="email" aria-label="Correo electrónico" required class="border-b border-black/10 py-2 focus:border-accent outline-none">
-                        </div>
-                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
-                            <label class="opacity-30">WEB *</label>
-                            <input type="text" name="url" aria-label="Sitio web" placeholder="www.tuempresa.com" class="border-b border-black/10 py-2 focus:border-accent outline-none">
-                        </div>
-                        <div class="flex flex-col gap-3 text-[10px] font-black tracking-widest uppercase">
-                            <label class="opacity-30">CONSULTA</label>
-                            <textarea name="msg" aria-label="Mensaje" rows="3" class="border-b border-black/10 py-2 focus:border-accent outline-none resize-none" placeholder="¿Qué búsquedas quieres dominar en Google?"></textarea>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <input type="checkbox" id="contact-form-terms" name="terms" required class="mt-1 accent-accent">
-                            <label for="contact-form-terms" class="text-xs text-zinc-500 font-light cursor-pointer select-none normal-case tracking-normal">He leído y acepto la <a href="/privacidad/" class="underline hover:text-accent transition-colors">política de privacidad</a>.</label>
-                        </div>
-                        <button type="submit" class="w-full btn-mktg-v5 !py-6">QUIERO POSICIONAR MI WEB</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
+  </section>
 
 </BaseLayout>
 
 <script>
-    document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const btn = form.querySelector('button');
-        if (btn) { btn.innerHTML = 'ENVIANDO...'; btn.disabled = true; }
-        const data = Object.fromEntries(new FormData(form));
-        try {
-            const res = await fetch('https://cms.novamarketing.es/api/contact', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
-            });
-            if (res.ok) {
-                window.location.href = '/gracias/';
-            } else { throw new Error(); }
-        } catch {
-            if (btn) { btn.innerHTML = 'ERROR — INTÉNTALO DE NUEVO'; btn.disabled = false; btn.style.background = '#ef4444'; }
-        }
-    });
-function initTimeline() {
-        const progressBar = document.getElementById('progress-bar');
-        const timeline = document.getElementById('timeline-container');
-        if (!progressBar || !timeline) return;
-
-        function updateProgress() {
-            // lecturas primero (evita reflows forzados intercalando lectura/escritura)
-            const rect = timeline.getBoundingClientRect();
-            const winHeight = window.innerHeight;
-            const nodes = timeline.querySelectorAll('.node-circle');
-            const nodeTops = Array.from(nodes, (node) => node.getBoundingClientRect().top);
-            // escrituras después
-            const topPassed = (winHeight / 2) - rect.top;
-            let percentage = (topPassed / rect.height) * 100;
-            percentage = Math.max(0, Math.min(100, percentage));
-            progressBar.style.height = `${percentage}%`;
-            nodes.forEach((node, i) => {
-                if (nodeTops[i] < winHeight / 2) {
-                    node.classList.add('!border-accent', '!bg-accent', '!text-white');
-                } else {
-                    node.classList.remove('!border-accent', '!bg-accent', '!text-white');
-                }
-            });
-        }
-
-        let progressTick = false;
-        function onProgressScroll() {
-            if (progressTick) return;
-            progressTick = true;
-            requestAnimationFrame(() => { updateProgress(); progressTick = false; });
-        }
-        window.addEventListener('scroll', onProgressScroll, { passive: true });
-        document.addEventListener('astro:page-load', updateProgress);
-        updateProgress();
+  document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const btn = form.querySelector('button');
+    if (btn) { btn.innerHTML = 'ENVIANDO...'; btn.disabled = true; }
+    const data = Object.fromEntries(new FormData(form));
+    try {
+      const res = await fetch('https://cms.novamarketing.es/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (res.ok) {
+        window.location.href = '/gracias/';
+      } else { throw new Error(); }
+    } catch {
+      if (btn) { btn.innerHTML = 'ERROR — INTÉNTALO DE NUEVO'; btn.disabled = false; btn.style.background = '#ef4444'; }
     }
-    document.addEventListener('DOMContentLoaded', initTimeline);
-    document.addEventListener('astro:page-load', initTimeline);
+  });
 </script>

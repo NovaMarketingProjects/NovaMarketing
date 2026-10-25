@@ -1,0 +1,46 @@
+---
+/**
+ * Reparto de la inversión mensual: honorarios de gestión frente a presupuesto
+ * en anuncios (una barra apilada por escenario). Pensado para ejemplos: el pie
+ * debe decir que las cifras son ilustrativas.
+ */
+import '../../styles/pillar.css';
+
+interface Row { label: string; fee: number; ads: number; note?: string; }
+interface Props { rows: Row[]; title?: string; caption?: string; legend?: [string, string]; }
+const { rows, title, caption, legend = ['Honorarios de gestión', 'Presupuesto en anuncios (va a Google)'] } = Astro.props;
+const top = Math.max(...rows.map((r) => r.fee + r.ads));
+const eur = (v: number) => v.toLocaleString('es-ES', { useGrouping: 'always' } as Intl.NumberFormatOptions) + ' €';
+---
+
+<figure class="pd-figure mt-12 reveal bg-white border border-black/5 rounded-3xl p-6 sm:p-8 shadow-[0_20px_60px_rgba(0,0,0,0.05)]">
+  <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+    {title && <p class="text-xs font-black uppercase tracking-[0.2em] text-zinc-900">{title}</p>}
+    <div class="flex flex-wrap gap-4 text-[11px] text-zinc-500">
+      <span class="inline-flex items-center gap-1.5"><i class="w-3 h-3 rounded-sm bg-zinc-800"></i>{legend[0]}</span>
+      <span class="inline-flex items-center gap-1.5"><i class="w-3 h-3 rounded-sm bg-accent"></i>{legend[1]}</span>
+    </div>
+  </div>
+  <div class="space-y-6">
+    {rows.map((r, i) => {
+      const total = r.fee + r.ads;
+      const feePct = Math.round((r.fee / total) * 100);
+      return (
+        <div>
+          <div class="flex items-baseline justify-between gap-4 mb-1.5">
+            <span class="text-sm font-semibold text-zinc-800">{r.label}</span>
+            <span class="text-sm font-black text-zinc-900 tabular-nums whitespace-nowrap">{eur(total)} / mes</span>
+          </div>
+          <div class="h-7 rounded-full bg-zinc-100 overflow-hidden">
+            <div class="pd-bar h-full flex" style={`width:${((total / top) * 100).toFixed(1)}%;--i:${i}`}>
+              <div class="h-full bg-zinc-800 flex items-center justify-center text-[10px] font-black text-white overflow-hidden" style={`width:${feePct}%`}>{feePct >= 12 ? `${feePct} %` : ''}</div>
+              <div class="h-full flex-1 bg-gradient-to-r from-accent to-blue-400 flex items-center justify-center text-[10px] font-black text-white">{100 - feePct} %</div>
+            </div>
+          </div>
+          <p class="text-[11px] text-zinc-400 font-light mt-1">{eur(r.fee)} de gestión + {eur(r.ads)} en anuncios{r.note ? ` · ${r.note}` : ''}</p>
+        </div>
+      );
+    })}
+  </div>
+  {caption && <figcaption class="pd-caption !text-left" set:html={caption} />}
+</figure>

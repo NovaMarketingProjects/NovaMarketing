@@ -1,0 +1,34 @@
+---
+/**
+ * Comparativa a dos columnas (p. ej. WordPress frente a desarrollo a medida).
+ * Cada fila es un criterio; `html` de las columnas admite enlaces.
+ */
+import '../../styles/pillar.css';
+
+interface Row { label: string; a: string; b: string; }
+interface Props { a: { label: string; href?: string }; b: { label: string; href?: string }; rows: Row[]; caption?: string; }
+const { a, b, rows, caption } = Astro.props;
+---
+
+<figure class="pd-figure mt-12 reveal">
+  <div class="overflow-hidden rounded-3xl border border-black/5 bg-white shadow-[0_15px_40px_rgba(0,0,0,0.06)]">
+    <div class="grid grid-cols-2 sm:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)_minmax(0,1fr)] bg-zinc-950 text-white">
+      <span class="hidden sm:block px-5 py-4 text-[10px] font-black uppercase tracking-[0.25em] text-zinc-400">Criterio</span>
+      {[a, b].map((c) => (
+        <span class="px-5 py-4 text-sm font-black tracking-tight">
+          {c.href ? <a href={c.href} class="underline decoration-white/30 underline-offset-4 hover:decoration-white">{c.label}</a> : c.label}
+        </span>
+      ))}
+    </div>
+    <div class="divide-y divide-zinc-100">
+      {rows.map((r, i) => (
+        <div class="pd-rise grid grid-cols-2 sm:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)_minmax(0,1fr)]" style={`--i:${i}`}>
+          <span class="col-span-2 sm:col-span-1 px-5 pt-4 sm:py-4 text-xs font-black uppercase tracking-widest text-zinc-900">{r.label}</span>
+          <span class="pc-body px-5 py-3 sm:py-4 text-sm font-light text-zinc-600 leading-relaxed" set:html={r.a} />
+          <span class="pc-body px-5 py-3 sm:py-4 text-sm font-light text-zinc-600 leading-relaxed border-l border-zinc-100" set:html={r.b} />
+        </div>
+      ))}
+    </div>
+  </div>
+  {caption && <figcaption class="pd-caption" set:html={caption} />}
+</figure>

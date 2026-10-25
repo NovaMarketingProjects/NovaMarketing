@@ -1,0 +1,47 @@
+---
+/**
+ * Cronograma tipo Gantt: fases de un proyecto web sobre una escala de semanas.
+ * `start` y `end` son semanas (1 = primera), ambas incluidas.
+ */
+import '../../styles/pillar.css';
+
+interface Phase { label: string; sub?: string; start: number; end: number; }
+interface Props { phases: Phase[]; weeks: number; caption?: string; unit?: string; }
+const { phases, weeks, caption, unit = 'Sem.' } = Astro.props;
+const cols = Array.from({ length: weeks }, (_, i) => i + 1);
+---
+
+<figure class="pd-figure mt-12 reveal">
+  <div class="rounded-3xl border border-black/5 bg-white shadow-[0_15px_40px_rgba(0,0,0,0.06)] p-5 sm:p-7">
+    <div class="hidden sm:grid gap-2 mb-3 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400" style={`grid-template-columns: minmax(0,1.3fr) repeat(${weeks}, minmax(0,1fr))`}>
+      <span></span>
+      {cols.map((w) => <span class="text-center">{unit} {w}</span>)}
+    </div>
+    <ol class="space-y-3">
+      {phases.map((p, i) => (
+        <li class="grid gap-2 items-center wg-row" style={`--w:${weeks}`}>
+          <div class="min-w-0">
+            <span class="block text-sm font-black tracking-tight text-zinc-900 leading-snug">{String(i + 1).padStart(2, '0')} · {p.label}</span>
+            {p.sub && <span class="block text-[11px] font-light text-zinc-500 leading-snug">{p.sub}</span>}
+          </div>
+          <div class="relative h-9 rounded-xl bg-zinc-100 wg-track">
+            <div class="pd-bar absolute inset-y-0 rounded-xl bg-accent flex items-center justify-center text-[10px] font-black text-white tracking-widest"
+              style={`left:${((p.start - 1) / weeks) * 100}%;width:${((p.end - p.start + 1) / weeks) * 100}%;--i:${i}`}>
+              {p.start === p.end ? `${unit} ${p.start}` : `${unit} ${p.start}–${p.end}`}
+            </div>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+  {caption && <figcaption class="pd-caption" set:html={caption} />}
+</figure>
+
+<style>
+  .wg-row { grid-template-columns: minmax(0, 1fr); }
+  .wg-track { grid-column: 1 / -1 !important; }
+  @media (min-width: 640px) {
+    .wg-row { grid-template-columns: minmax(0, 1.3fr) repeat(var(--w), minmax(0, 1fr)); }
+    .wg-track { grid-column: 2 / -1 !important; }
+  }
+</style>
