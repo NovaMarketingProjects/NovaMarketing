@@ -74,8 +74,8 @@ Redirect 301 /las-redes-sociales-en-2024-analisis-del-estudio-de-iab-spain/ http
 # Legacy/stray URLs
 Redirect 301 /google-ads/ https://novamarketing.es/agencia-sem-para-pymes/
 Redirect 301 /logout https://novamarketing.es/
-Redirect 301 /ca/casos-exit/cas-d-exit-tagtio/ https://novamarketing.es/
-Redirect 301 /ca/casos-exit/case-study/ https://novamarketing.es/
+Redirect 301 /ca/casos-exit/cas-d-exit-tagtio/ https://novamarketing.es/ca/casos-exit/
+Redirect 301 /ca/casos-exit/case-study/ https://novamarketing.es/ca/casos-exit/
 
 # Localized redirection for success stories (ES/CA)
 # From /ca/casos-exito/ to /ca/casos-exit/
@@ -187,3 +187,35 @@ Redirect 301 /ca/casos-exit/seo-local/ https://novamarketing.es/ca/casos-exit/
 # CA platform pages for inmobiliarias removed (ES-only pages remain)
 Redirect 301 /ca/agencia-inmobiliarias/wordpress/ https://novamarketing.es/ca/agencia-inmobiliarias/
 Redirect 301 /ca/agencia-inmobiliarias/desarrollo-propio/ https://novamarketing.es/ca/agencia-inmobiliarias/
+
+# ── 404s reported by Search Console (2026-10-25) ──
+# Blog posts in Catalan reached with the Spanish slug
+Redirect 301 /ca/blog/dar-acceso-a-tu-perfil-de-empresa-en-google/ https://novamarketing.es/ca/blog/donar-acces-al-teu-perfil-dempresa-a-google/
+Redirect 301 /ca/blog/cuanto-tarda-el-seo-en-dar-resultados-en-una-pyme/ https://novamarketing.es/ca/blog/quant-triga-el-seo-a-donar-resultats-en-una-pime/
+Redirect 301 /ca/blog/cuanto-cuesta-una-web-para-una-pyme-en-2026/ https://novamarketing.es/ca/blog/quant-costa-una-web-per-a-una-pime-el-2026/
+Redirect 301 /ca/blog/como-conseguir-mas-resenas-en-google-para-tu-pyme/ https://novamarketing.es/ca/blog/com-aconseguir-mes-ressenyes-a-google-per-a-la-teva-pime/
+Redirect 301 /ca/blog/mejores-herramientas-de-gestion-de-redes-sociales-para-pymes/ https://novamarketing.es/ca/blog/millors-eines-de-gestio-de-xarxes-socials-per-a-pimes/
+Redirect 301 /ca/blog/los-7-mejores-crm-para-una-pyme/ https://novamarketing.es/ca/blog/els-7-millors-crm-per-la-teva-pime/
+Redirect 301 /ca/blog/mejores-herramientas-seo-para-pymes/ https://novamarketing.es/ca/blog/millors-eines-seo-per-a-pimes/
+Redirect 301 /ca/blog/donde-viene-el-trafico/ https://novamarketing.es/ca/blog/don-ve-el-trafic-web/
+Redirect 301 /ca/blog/que-necesita-una-pyme-seo-o-sem/ https://novamarketing.es/ca/blog/que-necesita-una-pime-seo-o-sem/
+Redirect 301 /ca/blog/que-es-la-intencion-de-busqueda-en-el-seo/ https://novamarketing.es/ca/blog/que-es-la-intencio-de-cerca-en-el-seo/
+Redirect 301 /ca/blog/cuanto-tiene-que-invertir-una-pyme-en-marketing/ https://novamarketing.es/ca/blog/quant-ha-dinvertir-una-pime-en-marketing/
+Redirect 301 /ca/blog/como-saber-si-tu-web-esta-bien-hecha/ https://novamarketing.es/ca/blog/com-saber-si-la-teva-web-esta-ben-feta/
+# Category filters: other spellings and the other language
+Redirect 301 /blog/disseny-web/ https://novamarketing.es/blog/
+Redirect 301 /casos-exito/disseny-web/ https://novamarketing.es/casos-exito/
+Redirect 301 /ca/blog/diseno-web/ https://novamarketing.es/ca/blog/
+Redirect 301 /ca/blog/Consultoria-de-marketing/ https://novamarketing.es/ca/blog/
+Redirect 301 /ca/casos-exit/diseno-web/ https://novamarketing.es/ca/casos-exit/
+Redirect 301 /ca/casos-exit/Consultoria-de-marketing/ https://novamarketing.es/ca/casos-exit/
+# Success stories: removed or misspelled
+Redirect 301 /ca/casos-exit/cas-d-exito-superwagen/ https://novamarketing.es/ca/casos-exit/cas-d-exit-superwagen/
+Redirect 301 /casos-exito/caso-de-exit-superwagen/ https://novamarketing.es/casos-exito/caso-de-exito-superwagen/
+# Restaurants have no platform pages: closest page is web design
+Redirect 301 /agencia-restaurantes/desarrollo-propio/ https://novamarketing.es/agencia-restaurantes/diseno-web/
+Redirect 301 /agencia-restaurantes/wordpress/ https://novamarketing.es/agencia-restaurantes/diseno-web/
+Redirect 301 /ca/agencia-restaurantes/desarrollo-propio/ https://novamarketing.es/ca/agencia-restaurantes/diseno-web/
+Redirect 301 /ca/agencia-restaurantes/wordpress/ https://novamarketing.es/ca/agencia-restaurantes/diseno-web/
+# Catalan-only sector slugs without the /ca/ prefix (e.g. /agencia-psicolegs/meta-ads/)
+RewriteRule ^(agencia-(?:advocats|constructores|dentistes|gimnasos|hotels|psicolegs|terapeutes|geo-per-pimes|sem-per-pimes|seo-per-pimes))(/.*)?$ https://novamarketing.es/ca/$1$2 [R=301,L]

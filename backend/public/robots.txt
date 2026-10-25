@@ -1,3 +1,7 @@
-# To prevent search engines from seeing the site altogether, uncomment the next two lines:
-# User-Agent: *
-# Disallow: /
+# cms.novamarketing.es solo sirve la API y el panel: no hay páginas que indexar.
+# /api/contact es un endpoint POST del formulario; rastrearlo da 404 en Search Console.
+# /uploads/ se deja abierto porque la web usa esas imágenes.
+User-Agent: *
+Disallow: /api/
+Disallow: /admin
+Allow: /uploads/
