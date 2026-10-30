@@ -23,11 +23,19 @@ const bodyC = dark ? 'text-zinc-400' : 'text-zinc-500';
 ---
 
 {variant === 'rows' ? (
-  <div class:list={['mt-12 divide-y reveal', dark ? 'divide-white/10' : 'divide-zinc-100', extra]}>
+  <div class:list={['@container mt-12 reveal overflow-hidden rounded-2xl border', dark ? 'border-white/15 bg-white/[0.03]' : 'border-zinc-200 bg-white shadow-[0_15px_40px_rgba(0,0,0,0.05)]', extra]} role="table">
     {items.map((it, i) => (
-      <div class="pd-rise py-6 sm:py-7 grid md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.6fr)] gap-2 md:gap-10" style={`--i:${i}`}>
-        <h3 class:list={['text-base sm:text-lg font-black tracking-tight leading-snug', titleC]}>{it.title}</h3>
-        <p class:list={['pc-body text-sm sm:text-base font-light leading-relaxed', bodyC]} set:html={it.html} />
+      <div
+        class:list={['pd-rise grid @2xl:grid-cols-[minmax(0,0.85fr)_minmax(0,1.6fr)]', i > 0 && (dark ? 'border-t border-white/10' : 'border-t border-zinc-200')]}
+        style={`--i:${i}`}
+        role="row"
+      >
+        <div class:list={['px-5 sm:px-7 pt-5 pb-1 @2xl:py-6 @2xl:border-r', dark ? '@2xl:bg-white/[0.04] @2xl:border-white/10' : '@2xl:bg-zinc-50 @2xl:border-zinc-200']} role="rowheader">
+          <h3 class:list={['text-[15px] sm:text-base font-black tracking-tight leading-snug', titleC]}>{it.title}</h3>
+        </div>
+        <div class="px-5 sm:px-7 pt-1 pb-5 @2xl:py-6" role="cell">
+          <p class:list={['pc-body text-sm sm:text-[15px] font-light leading-relaxed', dark ? 'text-zinc-300' : 'text-zinc-600']} set:html={it.html} />
+        </div>
       </div>
     ))}
   </div>

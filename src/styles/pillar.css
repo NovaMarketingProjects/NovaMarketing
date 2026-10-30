@@ -23,7 +23,15 @@
 .pd-caption a:hover { text-decoration-color: var(--color-accent); }
 
 /* Pie de los diagramas */
-.pd-figure { margin: 0; }
+.pd-figure { margin-left: 0; margin-right: 0; margin-bottom: 0; }
+
+/* Separación uniforme entre los bloques de una sección (cabecera, diagramas, tarjetas, tablas) */
+.pillar-body > * + * { margin-top: 3rem; }
+.pillar-head + .pillar-body > :first-child { margin-top: 3.5rem; }
+@media (max-width: 639px) {
+  .pillar-body > * + * { margin-top: 2.25rem; }
+  .pillar-head + .pillar-body > :first-child { margin-top: 2.5rem; }
+}
 .pd-caption { margin-top: .9rem; font-size: .8rem; line-height: 1.5; color: #71717a; font-weight: 300; text-align: center; }
 
 /* Escalonado común: cada hijo animado usa --i */
