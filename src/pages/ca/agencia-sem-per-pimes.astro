@@ -43,9 +43,9 @@ const ICON = {
 };
 
 const faqs = [
-  { question: 'Quin pressupost necessita la meva pime per començar?', answer: "Com a orientació, recomanem començar amb entre 300 i 500 euros al mes de pressupost en anuncis, que va íntegre a Google, més els honoraris de gestió, des de 150 euros al mes sense IVA. La xifra real depèn del que costa cada clic a les teves cerques i del teu marge. Abans de començar fem els números amb tu i, si no surten, t'ho diem." },
-  { question: 'Quan hi haurà prou dades per avaluar les campanyes?', answer: 'Els anuncis poden començar a mostrar-se en pocs dies i els primers contactes solen arribar les primeres setmanes. Per valorar amb criteri el cost per contacte i la qualitat dels leads calen, en general, entre un i dos mesos de dades, més si el pressupost és baix o el teu cicle de venda és llarg.' },
-  { question: 'Podeu continuar amb un compte que ja existeix?', answer: "Sí, i sol ser el més recomanable, perquè l'historial del compte té valor. Comencem amb una revisió de la configuració, les conversions, les campanyes i les cerques reals que han activat els teus anuncis. Mantenim el que funciona i corregim la resta per ordre d'impacte, sense esborrar el compte ni començar de zero." },
+  { question: 'Quin pressupost necessita la meva pime per començar?', answer: "Com a orientació, recomanem començar amb entre 300 i 500 euros al mes de pressupost en anuncis, que pagues íntegre a Google, més els honoraris de gestió, des de 150 euros al mes sense IVA. La xifra real depèn del que costa cada clic a les teves cerques i del teu marge. Abans de començar fem els números amb tu i, si no surten, t'ho diem." },
+  { question: 'Quan hi haurà prou dades per avaluar les campanyes?', answer: 'Els anuncis poden començar a mostrar-se en pocs dies i els primers contactes solen arribar les primeres setmanes. Per valorar amb criteri el cost per contacte i la qualitat dels contactes calen, en general, entre un i dos mesos de dades. Més si el pressupost és baix o el teu cicle de venda és llarg.' },
+  { question: 'Podeu continuar amb un compte que ja existeix?', answer: "Sí, i sol ser el més recomanable, perquè l'historial del compte té valor. Comencem revisant la configuració, les conversions, les campanyes i les cerques reals que han activat els teus anuncis. Mantenim el que funciona i corregim la resta per ordre d'impacte, sense esborrar el compte ni començar de zero." },
   { question: "Com es pausa o s'acaba el servei?", answer: "Treballem mes a mes, sense permanència. Si vols pausar les campanyes per temporada o acabar el servei, ens ho dius i ho deixem endreçat. El compte de Google Ads sempre és al teu nom, així que conserves l'historial, les conversions i les audiències, i el pots reprendre tu o amb qui decideixis." },
 ];
 
@@ -102,7 +102,7 @@ const pageSchema = localAgencySchema({
                 <span class="lg:whitespace-nowrap text-mktg-gradient">per a Pimes</span>
             </h1>
       <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed max-w-3xl mx-auto mb-8">
-        Campanyes a Google pensades per aconseguir pressupostos, vendes i trucades que la teva empresa pugui atendre, amb el compte al teu nom i uns honoraris fixos que no depenen de quant gastis.
+        Campanyes de Google Ads perquè la teva pime rebi pressupostos, vendes i trucades que pugui atendre. Cobrem uns honoraris fixos, no un percentatge del que inverteixes, i el compte és sempre al teu nom.
       </p>
       <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
         {['Sense permanències', 'Honoraris fixos', 'El compte és teu'].map((item) => (
@@ -121,8 +121,8 @@ const pageSchema = localAgencySchema({
   <!-- ═══ OBJECTIU ═══════════════════════════════════════════════════════ -->
   <PSection kicker="Per què Google Ads" title="La teva inversió publicitària ha de respondre a un objectiu clar">
     <Fragment slot="intro">
-      <p>Google Ads permet aparèixer avui mateix davant de qui busca el que vens. Aquesta rapidesa és el seu avantatge i també el seu risc: <strong>una campanya sense un objectiu concret gasta igual de ràpid que una de ben plantejada</strong>, només que sense tornar clients.</p>
-      <p>A Nova comencem pel que la teva empresa necessita aconseguir i construïm les campanyes cap enrere. Quines cerques mereixen inversió, quin missatge necessita cada anunci i què ha de passar a la pàgina perquè el clic acabi en contacte. Si dubtes entre pagar per anuncis o treballar el posicionament, t'ho expliquem a <a href="/ca/blog/que-necesita-una-pime-seo-o-sem/">què necessita una pime, SEO o SEM</a>. Moltes vegades la resposta és combinar la publicitat amb el <a href="/ca/agencia-seo-per-pimes/">posicionament SEO</a>.</p>
+      <p>Amb Google Ads pots aparèixer avui mateix davant de qui busca el que vens. Aquesta rapidesa és l'avantatge i també el risc: <strong>una campanya sense un objectiu concret gasta igual de ràpid que una de ben plantejada</strong>, però no porta clients.</p>
+      <p>Per això comencem pel que necessita la teva empresa i construïm el compte cap enrere: quines cerques mereixen inversió, què ha de dir cada anunci i què ha de passar a la pàgina perquè el clic acabi en contacte. Si dubtes entre pagar anuncis o treballar el posicionament, ho comparem a <a href="/ca/blog/que-necesita-una-pime-seo-o-sem/">SEO o SEM per a una pime</a>. Sovint la resposta és combinar la publicitat amb el nostre <a href="/ca/agencia-seo-per-pimes/">servei de posicionament SEO</a>.</p>
     </Fragment>
     <PFlow
       steps={[
@@ -131,23 +131,23 @@ const pageSchema = localAgencySchema({
         { label: 'Pàgina de destinació', sub: 'respon a la cerca' },
         { label: 'Conversió mesurada', sub: 'contacte, venda, oportunitat' },
       ]}
-      caption="L'ordre en què plantegem un compte. Primer l'objectiu; la campanya és l'eina per arribar-hi."
+      caption="L'ordre en què plantegem un compte: primer l'objectiu de negoci, després la campanya que el persegueix."
     />
   </PSection>
 
   <!-- ═══ OBJECTIUS ══════════════════════════════════════════════════════ -->
   <PSection kicker="Objectius" title="Què vols aconseguir amb les teves campanyes" tone="soft">
     <Fragment slot="intro">
-      <p>Cada objectiu demana una configuració diferent: tipus de campanya, manera de pujar, pàgina de destinació i el que comptem com a conversió. Per això ho acordem abans de tocar el compte.</p>
+      <p>Cada objectiu demana una configuració diferent: tipus de campanya, estratègia de puja, pàgina de destinació i què compta com a conversió. Ho acordem amb tu abans de tocar el compte, perquè d'aquesta decisió en depèn tota la resta.</p>
     </Fragment>
     <PCards
       tone="soft"
       cols={2}
       items={[
-        { icon: ICON.doc, title: 'Sol·licituds de pressupost', html: "Per a empreses de serveis amb un tiquet alt, com reformes, instal·lacions o assessories. Busquem persones que ja saben què necessiten i volen preu. Mesurem formularis complets, no clics, i filtrem les cerques de bricolatge o de feina. Ho apliquem en sectors com les <a href=\"/ca/agencia-constructores/google-ads/\">constructores</a> o les <a href=\"/ca/agencia-inmobiliarias/google-ads/\">immobiliàries</a>, on un sol contracte pot justificar mesos d'inversió." },
-        { icon: ICON.cart, title: 'Vendes a la teva botiga en línia', html: "Si vens en línia, l'objectiu és facturar amb rendibilitat, no acumular visites. Treballem el catàleg, les campanyes de Shopping i la mesura d'ingressos per saber quins productes tornen el que s'hi ha invertit. Ho detallem al nostre servei de <a href=\"/ca/agencia-ecommerce/google-ads/\">Google Ads per a ecommerce</a>, amb la vista posada en el marge de cada producte." },
-        { icon: ICON.phone, title: 'Trucades i contactes per al teu negoci', html: "Clíniques, despatxos, restaurants o centres esportius solen rebre clients per telèfon. Activem anuncis amb trucada, horaris ajustats a quan pots atendre i zones reals de servei. Tenim enfocaments específics per a <a href=\"/ca/agencia-dentistes/google-ads/\">dentistes</a>, <a href=\"/ca/agencia-advocats/google-ads/\">advocats</a>, <a href=\"/ca/agencia-restaurantes/google-ads/\">restaurants</a> i <a href=\"/ca/agencia-gimnasos/google-ads/\">gimnasos</a>." },
-        { icon: ICON.users, title: "Oportunitats comercials per al teu equip de vendes", html: "En empreses B2B o industrials, l'anunci no tanca la venda; obre una conversa. Prioritzem cerques tècniques, formularis amb dades útils per al comercial i el seguiment de quins contactes acaben en oferta. Més detall a <a href=\"/ca/agencia-b2b/google-ads/\">Google Ads B2B</a> i a <a href=\"/ca/agencia-industrial/google-ads/\">Google Ads per a empreses industrials</a>." },
+        { icon: ICON.doc, title: 'Sol·licituds de pressupost', html: "Per a serveis de tiquet alt, com reformes, instal·lacions o assessories. Busquem qui ja sap què necessita i vol preu, per exemple amb «pressupost reforma cuina». Mesurem formularis enviats, no clics, i excloem les cerques de bricolatge o de feina. Ho apliquem a <a href=\"/ca/agencia-constructores/google-ads/\">Google Ads per a constructores</a> i a les <a href=\"/ca/agencia-inmobiliarias/google-ads/\">campanyes per a immobiliàries</a>, on un sol contracte pot pagar mesos d'inversió." },
+        { icon: ICON.cart, title: 'Vendes a la teva botiga en línia', html: "Si vens en línia, l'objectiu és facturar amb marge, no sumar visites. Treballem el catàleg, les campanyes de Shopping i la mesura d'ingressos per veure quins productes tornen el que s'hi ha invertit i quins no. Jutgem cada producte pel seu marge, no pel seu preu. Ho expliquem amb detall al nostre servei de <a href=\"/ca/agencia-ecommerce/google-ads/\">Google Ads per a ecommerce</a>." },
+        { icon: ICON.phone, title: 'Trucades i contactes per al teu negoci', html: "Clíniques, despatxos, restaurants o gimnasos reben molts clients per telèfon. Activem anuncis amb botó de trucada, els mostrem només a les hores en què algú pot contestar i limitem la zona a on dones servei. Tenim enfocaments propis per a <a href=\"/ca/agencia-dentistes/google-ads/\">clíniques dentals</a>, <a href=\"/ca/agencia-advocats/google-ads/\">despatxos d'advocats</a>, <a href=\"/ca/agencia-restaurantes/google-ads/\">restaurants</a> i <a href=\"/ca/agencia-gimnasos/google-ads/\">gimnasos</a>." },
+        { icon: ICON.users, title: "Oportunitats comercials per al teu equip de vendes", html: "En B2B o indústria, l'anunci no tanca la venda: obre una conversa amb el teu comercial. Prioritzem cerques tècniques com «fabricant de peces d'injecció», demanem al formulari les dades que el comercial necessita i seguim quins contactes acaben en oferta. Més detall a <a href=\"/ca/agencia-b2b/google-ads/\">Google Ads per a empreses B2B</a> i a <a href=\"/ca/agencia-industrial/google-ads/\">Google Ads per al sector industrial</a>." },
       ]}
     />
   </PSection>
@@ -155,18 +155,18 @@ const pageSchema = localAgencySchema({
   <!-- ═══ NÚMEROS ════════════════════════════════════════════════════════ -->
   <PSection id="numeros" kicker="Viabilitat" title="Abans d'invertir, comprovem si els números quadren">
     <Fragment slot="intro">
-      <p>Hi ha negocis on Google Ads funciona molt bé i d'altres on el clic costa més del que deixa el client. <strong>Preferim saber-ho abans que gastis</strong> que descobrir-ho tres mesos després. Fem aquest càlcul amb les teves dades reals a la primera conversa.</p>
-      <p>Prova de moure els valors. El resultat és el cost per clic a partir del qual les campanyes deixen de compensar amb aquest plantejament.</p>
+      <p>En alguns negocis Google Ads funciona molt bé i en d'altres el clic costa més del que deixa el client. <strong>Preferim saber-ho abans que gastis</strong>, no descobrir-ho tres mesos després. Fem aquest càlcul amb les teves dades reals a la primera conversa.</p>
+      <p>Mou els valors de la calculadora. El resultat és el cost per clic màxim que pots pagar abans que les campanyes deixin de compensar.</p>
     </Fragment>
-    <SemCalc locale="ca" caption="Exemple amb valors il·lustratius d'una empresa de serveis, no són dades d'un client. Canvia cada valor per acostar-lo al teu negoci." />
+    <SemCalc locale="ca" caption="Exemple amb valors il·lustratius d'una empresa de serveis, no són dades d'un client. Canvia cada valor pel teu i mira com es mou el cost per clic màxim." />
     <PCards
       cols={2}
       variant="numbered"
       items={[
-        { title: 'Marge dels teus productes o serveis', html: "El que importa no és el preu de venda, sinó el que queda després dels costos. Amb un marge alt pots pagar clics cars i continuar guanyant; amb un d'estret, cada euro de publicitat ha d'estar molt ben dirigit. Per això et preguntem pel marge aproximat de cada línia abans de proposar campanyes o pressupost." },
-        { title: "Cost d'adquisició que pot assumir la teva empresa", html: "A partir del marge i de quants contactes acaben en venda calculem quant pots pagar com a màxim per un client nou. Si, a més, aquest client repeteix o contracta altres serveis, el límit puja. Aquesta xifra és la referència amb què jutgem cada campanya, no el nombre de clics." },
-        { title: 'Demanda i competència a les cerques', html: "Revisem quanta gent busca el teu servei a la teva zona, quant costa aproximadament el clic i qui més s'hi anuncia. Una cerca amb poca demanda però molt precisa pot ser rendible; una altra amb molt volum i competidors amb més pressupost pot no ser-ho per a una pime. Entendre la <a href=\"/ca/blog/que-es-la-intencio-de-cerca-en-el-seo/\">intenció de cerca</a> ajuda a separar-les." },
-        { title: 'Capacitat per atendre els contactes rebuts', html: "Més contactes només són una bona notícia si algú els atén a temps. Si el teu equip triga dos dies a tornar una trucada o no pot assumir més feina en temporada alta, ho tenim en compte en fixar el pressupost i els horaris. Una campanya no ha de generar més demanda de la que pots convertir en clients." },
+        { title: 'Marge dels teus productes o serveis', html: "Compta el que et queda després dels costos, no el preu de venda. Amb un marge alt pots pagar clics cars i continuar guanyant; amb un d'estret, cada euro ha d'anar a cerques molt precises. Per això et demanem el marge aproximat de cada línia de producte o servei abans de proposar campanyes o pressupost." },
+        { title: "Cost d'adquisició que pot assumir la teva empresa", html: "Amb el teu marge i el percentatge de contactes que acaben en venda calculem quant pots pagar, com a màxim, per un client nou. Si aquest client repeteix o contracta més serveis, el límit puja. Aquesta xifra és la vara amb què mesurem cada campanya. El nombre de clics, per si sol, no decideix res." },
+        { title: 'Demanda i competència a les cerques', html: "Revisem quanta gent busca el teu servei a la teva zona, quant costa el clic aproximat i qui més s'hi anuncia. Una cerca petita però precisa pot ser rendible; una altra amb molt volum i competidors amb més pressupost pot no ser-ho per a una pime. Per separar-les analitzem la <a href=\"/ca/blog/que-es-la-intencio-de-cerca-en-el-seo/\">intenció de cerca</a> de cada terme." },
+        { title: 'Capacitat per atendre els contactes rebuts', html: "Més contactes només són una bona notícia si algú els atén a temps. Si el teu equip triga dos dies a tornar una trucada o va saturat en temporada alta, ajustem el pressupost i els horaris a aquesta realitat. La regla és senzilla: la campanya no ha de generar més demanda de la que pots convertir en clients." },
       ]}
     />
   </PSection>
@@ -174,7 +174,7 @@ const pageSchema = localAgencySchema({
   <!-- ═══ COMPTE ACTUAL ══════════════════════════════════════════════════ -->
   <PSection id="auditoria" kicker="Revisió de compte" title="El teu compte de Google Ads està aprofitant el pressupost?" tone="soft" layout="split">
     <Fragment slot="intro">
-      <p>Si ja inverteixes en Google Ads, el primer pas és mirar on va cada euro. La nostra revisió de compte recorre campanyes, cerques reals, conversions i pàgines de destinació, i acaba amb un pla ordenat per estalvi i impacte.</p>
+      <p>Si ja inverteixes en Google Ads, el primer pas és veure on va cada euro. La revisió de compte recorre campanyes, cerques reals, conversions i pàgines de destinació. Al final reps un pla amb els canvis ordenats per estalvi i impacte.</p>
       <p>També serveix com a <strong>segona opinió independent</strong> si treballes amb una altra agència i no tens clar què estàs pagant.</p>
     </Fragment>
     <PBars
@@ -193,10 +193,10 @@ const pageSchema = localAgencySchema({
       variant="rows"
       tone="soft"
       items={[
-        { title: 'Inversió destinada a cerques poc rellevants', html: "L'informe de termes de cerca mostra el que la gent va escriure realment abans de clicar el teu anunci. És habitual trobar-hi cerques de feina, de formació, de productes que no vens o d'altres ciutats. Cadascuna resta pressupost a les que sí que porten clients, i es corregeix amb paraules clau més ben triades i negatives." },
-        { title: 'Campanyes que competeixen entre elles', html: "Quan diverses campanyes o grups d'anuncis pugen per la mateixa cerca, Google tria quin mostra i les dades es reparteixen. El resultat és que no saps què funciona i de vegades pagues més pel clic. Reordenem l'estructura perquè cada cerca important tingui una única campanya responsable." },
-        { title: 'Conversions mal configurades o incompletes', html: "Si el compte compta com a conversió una visita a la pàgina de contacte, un clic al telèfon o un mateix formulari dues vegades, les pujes automàtiques optimitzen cap a una cosa que no és negoci. Comprovem què es mesura, com es mesura i si els números del compte quadren amb els contactes que rep la teva empresa." },
-        { title: 'Pàgines de destinació que frenen els resultats', html: "Molts anuncis porten a la portada o a una pàgina que no parla del que s'ha buscat, carrega lenta al mòbil o amaga el formulari. El clic està pagat, però el contacte no arriba. Revisem cada pàgina que rep trànsit de pagament i marquem què cal canviar primer." },
+        { title: 'Inversió destinada a cerques poc rellevants', html: "L'informe de termes de cerca mostra què va escriure la gent abans de clicar el teu anunci. És habitual trobar-hi cerques de feina, cursos, productes que no vens o altres ciutats, com «feina de paleta a Sabadell» en una empresa de reformes. Cadascuna resta pressupost a les que porten clients. Ho corregim amb paraules clau més ben triades i negatives." },
+        { title: 'Campanyes que competeixen entre elles', html: "Quan dues campanyes o grups d'anuncis pugen per la mateixa cerca, Google tria quin mostra i les dades es reparteixen. Acabes sense saber què funciona i de vegades pagues més pel clic. Reordenem l'estructura amb una regla: cada cerca important té una sola campanya responsable." },
+        { title: 'Conversions mal configurades o incompletes', html: "Si el compte registra com a conversió una visita a la pàgina de contacte, un clic al telèfon o el mateix formulari dues vegades, les pujes automàtiques optimitzen cap a una cosa que no és negoci. Comprovem què es mesura, com es mesura i si les conversions del compte quadren amb els contactes que t'arriben de veritat." },
+        { title: 'Pàgines de destinació que frenen els resultats', html: "Molts anuncis porten a la portada o a una pàgina que no parla del que s'ha buscat, triga a carregar al mòbil o amaga el formulari. El clic ja està pagat, però el contacte no arriba. Revisem cada pàgina que rep trànsit de pagament i et lliurem una llista de canvis, començant pels que més contactes poden recuperar." },
       ]}
     />
   </PSection>
@@ -204,7 +204,8 @@ const pageSchema = localAgencySchema({
   <!-- ═══ CERCA ══════════════════════════════════════════════════════════ -->
   <PSection kicker="Campanyes de cerca" title="Captar la demanda que ja existeix" layout="split">
     <Fragment slot="intro">
-      <p>Les campanyes de cerca són la base de gairebé qualsevol compte de pime. Apareixen quan algú escriu a Google exactament el que ofereixes, és a dir, quan la necessitat ja existeix. <strong>No cal convèncer ningú que et necessita</strong>, només que ets la millor opció.</p>
+      <p>Les campanyes de cerca són la base de gairebé qualsevol compte de pime. El teu anunci apareix quan algú escriu a Google el que ofereixes, és a dir, quan la necessitat ja existeix. <strong>No cal convèncer ningú que et necessita</strong>, només que ets la millor opció.</p>
+      <p>També són la via més ràpida mentre el SEO madura. En el <a href="/ca/casos-exit/villazon-merce-abogados/">cas de Villazón Mercé Abogados</a>, les campanyes de cerca van cobrir les consultes penals urgents des del llançament del seu web nou.</p>
     </Fragment>
     <PSerp
       slot="aside"
@@ -214,7 +215,7 @@ const pageSchema = localAgencySchema({
         { url: 'competidor-a.com', title: 'Reformes integrals | Demana pressupost', desc: 'Reformem tota la teva casa. Més de 20 anys d\'experiència.', label: 'Anunci' },
         { url: 'directori-reformes.cat › sabadell', title: 'Preus de reforma de bany a Sabadell', desc: 'Compara pressupostos de diverses empreses de la zona.' },
       ]}
-      caption="Il·lustració. Un anunci específic per al servei i la zona respon millor que un de genèric de la mateixa empresa."
+      caption="Il·lustració. Compara els dos anuncis: el que anomena el servei, la zona i el termini respon millor a la cerca que un de genèric."
     />
     <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
       <PCards
@@ -222,10 +223,10 @@ const pageSchema = localAgencySchema({
         variant="check"
         class="lg:grid-cols-1 !mt-12"
         items={[
-          { title: 'Campanyes de cerca per servei', html: "Separem cada servei important en la seva pròpia campanya o grup d'anuncis, amb el seu pressupost, les seves paraules clau i la seva pàgina. Així pots decidir quant invertir en cada línia i comparar quin servei porta clients a millor cost, en lloc de barrejar-ho tot en una sola campanya." },
-          { title: 'Separació entre cerques de marca i genèriques', html: "Qui busca el nom de la teva empresa ja et coneix; qui busca el servei, encara no. Barrejar-les inflaria els resultats de manera enganyosa. Les separem per veure quant aporta de veritat la publicitat i per protegir la teva marca quan altres hi pugen, una cosa habitual en els <a href=\"/ca/agencia-hotels/google-ads/\">hotels</a> davant de les plataformes de reserves." },
-          { title: "Paraules clau segons la intenció de l'usuari", html: "No és el mateix «quant costa reformar un bany» que «empresa reforma bany Sabadell». Prioritzem les cerques amb intenció de contractar, controlem les concordances per no obrir la porta a variacions sense sentit i reservem les més informatives per al SEO." },
-          { title: 'Termes negatius per filtrar trànsit', html: "Mantenim llistes de paraules negatives per campanya i per compte: feina, gratis, cursos, segona mà, ciutats on no treballes o serveis que no ofereixes. Les revisem de manera contínua amb els termes reals, perquè cada setmana apareixen cerques noves." },
+          { title: 'Campanyes de cerca per servei', html: "Cada servei important va en la seva pròpia campanya o grup d'anuncis, amb pressupost, paraules clau i pàgina propis. En una empresa de reformes, els banys i les reformes integrals van per separat. Així decideixes quant invertir en cada línia i veus quin servei porta clients a millor cost, en lloc de barrejar-ho tot en una sola campanya." },
+          { title: 'Separació entre cerques de marca i genèriques', html: "Qui busca el nom de la teva empresa ja et coneix; qui busca el servei, encara no. Si barreges les dues cerques, els resultats semblen millors del que són. Les separem per veure quant aporta de veritat la publicitat i per protegir la teva marca quan altres hi pugen, una cosa freqüent a les <a href=\"/ca/agencia-hotels/google-ads/\">campanyes per a hotels</a>, que competeixen amb les plataformes de reserves pel seu propi nom." },
+          { title: "Paraules clau segons la intenció de l'usuari", html: "No és el mateix «quant costa reformar un bany» que «empresa reforma bany Sabadell». Prioritzem les cerques amb intenció de contractar i controlem els tipus de concordança per no pagar variacions sense sentit. Les cerques informatives solen rendir més amb contingut, així que les deixem per al <a href=\"/ca/agencia-seo-per-pimes/\">posicionament orgànic</a>." },
+          { title: 'Termes negatius per filtrar trànsit', html: "Mantenim llistes de paraules negatives per campanya i per compte: feina, gratis, cursos, segona mà, ciutats on no treballes o serveis que no ofereixes. Les revisem de manera contínua amb els termes reals que han activat els teus anuncis, perquè cada setmana apareixen cerques noves." },
         ]}
       />
       <div class="mt-12">
@@ -236,7 +237,7 @@ const pageSchema = localAgencySchema({
             { label: 'Campanya · Reformes integrals', leaves: ['reforma integral pis', 'reforma habitatge preu'] },
             { label: 'Campanya · Marca', leaves: ["nom de l'empresa"] },
           ]}
-          caption="Exemple d'estructura. Cada servei té la seva campanya, els seus grups d'anuncis i les seves paraules clau; la marca va a part."
+          caption="Exemple d'estructura: cada servei té la seva campanya i les seves paraules clau, i la marca va en una campanya a part."
         />
       </div>
     </div>
@@ -245,7 +246,7 @@ const pageSchema = localAgencySchema({
   <!-- ═══ ECOMMERCE ══════════════════════════════════════════════════════ -->
   <PSection kicker="Shopping i Performance Max" title="Publicitat per vendre productes en línia" tone="soft" layout="split">
     <Fragment slot="intro">
-      <p>En una botiga en línia l'anunci mostra el producte amb foto i preu abans del clic. Això fa que <strong>la qualitat del catàleg pesi tant com la campanya</strong>. Treballem totes dues coses alhora i mesurem ingressos i marge, no només comandes.</p>
+      <p>En una botiga en línia l'anunci ensenya el producte amb foto i preu abans del clic. Per això <strong>la qualitat del catàleg pesa tant com la campanya</strong>. Treballem totes dues coses alhora i mesurem ingressos i marge, no només comandes.</p>
       <p>Si la teva botiga també ven a través de xarxes socials, ho coordinem amb <a href="/ca/agencia-ecommerce/meta-ads/">Meta Ads per a botigues en línia</a>.</p>
     </Fragment>
     <PStack
@@ -256,16 +257,16 @@ const pageSchema = localAgencySchema({
         { label: 'Merchant Center', sub: 'catàleg aprovat i sense errors' },
         { label: 'Dades de producte', sub: 'títols, preus, estoc, imatges' },
       ]}
-      caption="Cada capa depèn de l'anterior. Un catàleg amb errors limita qualsevol campanya."
+      caption="Llegeix l'esquema de baix a dalt: cada capa depèn de l'anterior, i un catàleg amb errors limita qualsevol campanya."
     />
     <PCards
       tone="soft"
       cols={2}
       items={[
-        { icon: ICON.doc, title: 'Preparació del catàleg a Merchant Center', html: "Revisem el feed de productes: títols que inclouen el que la gent busca, categories correctes, preus i estoc sincronitzats, imatges vàlides i productes sense rebuigs. Google decideix en quines cerques mostra cada producte a partir d'aquestes dades, així que un bon catàleg és la meitat de la feina." },
-        { icon: ICON.cart, title: 'Campanyes de Google Shopping', html: "Organitzem els productes en grups segons categoria, marge o rendiment per pujar més pels que compensen i menys pels que no. Revisem les cerques que activen cada producte i hi afegim negatives, igual que a les campanyes de text. És la manera més controlada de vendre un catàleg a Google." },
-        { icon: ICON.chart, title: 'Performance Max segons els objectius del negoci', html: "Performance Max reparteix la inversió entre cerca, Shopping, YouTube i altres espais de manera automàtica. Funciona bé quan té bons senyals: conversions correctes, valor de cada venda i un catàleg net. Sense aquests senyals pot gastar en trànsit de poca qualitat, així que la fem servir quan les dades ho justifiquen." },
-        { icon: ICON.money, title: 'Decisions d\'inversió per producte i marge', html: "No tots els productes mereixen la mateixa inversió. Separem els que deixen més marge, els més venuts i els que només consumeixen pressupost, i ajustem l'objectiu de retorn de cada grup. Així el compte s'alinea amb el que realment deixa diners a la teva botiga." },
+        { icon: ICON.doc, title: 'Preparació del catàleg a Merchant Center', html: "Revisem el feed de productes: títols amb les paraules que fa servir la gent, com «cotxet 3 peces» en lloc del codi del fabricant, categories correctes, preu i estoc sincronitzats, imatges vàlides i cap producte rebutjat. Google decideix en quines cerques mostra cada producte a partir d'aquestes dades, així que un bon catàleg és la meitat de la feina." },
+        { icon: ICON.cart, title: 'Campanyes de Google Shopping', html: "Agrupem els productes per categoria, marge o rendiment per pujar més pels que compensen i menys pels que no. Revisem quines cerques activa cada producte i hi afegim negatives, igual que a les campanyes de text. A <a href=\"/ca/casos-exit/palacio-del-bebe/\">Palacio del Bebé</a>, Shopping es va centrar en els productes de més marge i va aportar vendes des del primer mes mentre creixia el SEO." },
+        { icon: ICON.chart, title: 'Performance Max segons els objectius del negoci', html: "Performance Max reparteix la inversió de manera automàtica entre cerca, Shopping, YouTube i altres espais. Funciona quan rep bons senyals: conversions correctes, el valor de cada venda i un catàleg net. Sense aquests senyals pot gastar en trànsit de poca qualitat. La nostra regla: l'activem quan les dades del compte la justifiquen, no per defecte." },
+        { icon: ICON.money, title: 'Decisions d\'inversió per producte i marge', html: "No tots els productes mereixen la mateixa inversió. Separem els que deixen més marge, els més venuts i els que només consumeixen pressupost, i fixem un objectiu de retorn diferent per a cada grup. Així el compte inverteix més on la teva botiga guanya diners i menys on només factura." },
       ]}
     />
   </PSection>
@@ -273,8 +274,8 @@ const pageSchema = localAgencySchema({
   <!-- ═══ AUDIÈNCIES ═════════════════════════════════════════════════════ -->
   <PSection kicker="YouTube, Display i remarketing" title="Arribar a noves audiències i recuperar-ne l'atenció" layout="split">
     <Fragment slot="intro">
-      <p>La cerca capta qui ja et busca. Per arribar abans a qui encara no coneix la teva proposta, o per recuperar qui va visitar la teva web i no va contactar, hi ha altres formats. <strong>Els activem només quan el pressupost i l'objectiu ho justifiquen</strong>; per a moltes pimes, la cerca ben treballada és suficient al principi.</p>
-      <p>Quan l'objectiu és generar demanda a les xarxes socials, també treballem amb Meta Ads, per exemple per a <a href="/ca/agencia-gimnasos/meta-ads/">centres esportius i gimnasos</a> o per al <a href="/ca/agencia-restaurantes/meta-ads/">sector de la restauració</a>.</p>
+      <p>La cerca capta qui ja et busca. Per arribar abans a qui encara no et coneix, o per recuperar qui va visitar la teva web i no va contactar, hi ha altres formats. <strong>Els activem només quan el pressupost i l'objectiu ho justifiquen</strong>; per a moltes pimes, n'hi ha prou amb una cerca ben treballada al principi.</p>
+      <p>Si necessites generar demanda a les xarxes socials, també gestionem Meta Ads. Ho fem, per exemple, amb <a href="/ca/agencia-gimnasos/meta-ads/">campanyes a xarxes per a gimnasos</a>, <a href="/ca/agencia-restaurantes/meta-ads/">Meta Ads per a restaurants</a> i <a href="/ca/agencia-inmobiliarias/meta-ads/">Meta Ads per a immobiliàries</a>.</p>
     </Fragment>
     <PVenn
       slot="aside"
@@ -284,15 +285,15 @@ const pageSchema = localAgencySchema({
         { label: 'YouTube i Display', sub: 'descobriment' },
       ]}
       center="El teu client"
-      caption="Cada format cobreix un moment diferent. Combinem només els que encaixen amb el teu objectiu i el teu pressupost."
+      caption="Cada cercle cobreix un moment diferent de la compra. Combinem només els que encaixen amb el teu objectiu i el teu pressupost."
     />
     <PCards
       cols={2}
       items={[
-        { icon: ICON.video, title: 'YouTube per presentar la teva proposta', html: "Un vídeo curt pot explicar en segons el que un anunci de text no explica: com treballes, com és el teu producte o què et diferencia. El fem servir per a segments concrets, com persones interessades en temes relacionats amb el teu servei o visitants de la teva web, i mesurem si després augmenten les cerques de la teva marca i els contactes." },
-        { icon: ICON.eye, title: "Display dins d'una estratègia de cobertura", html: "Els anuncis gràfics en webs i aplicacions són barats per impressió, però fàcils de malbaratar. Els activem amb audiències ben definides i objectius de cobertura clars, com reforçar el record de marca en una zona o en un sector, mai com a substitut de les campanyes que generen contactes." },
-        { icon: ICON.repeat, title: 'Remarketing quan sigui viable i pertinent', html: "Tornar a mostrar anuncis a qui ja ha visitat la teva web funciona bé quan la decisió de compra triga dies o setmanes. Requereix un volum mínim de visites i el consentiment de galetes ben configurat. Si la teva web encara no té aquest trànsit, t'ho diem i no l'activem." },
-        { icon: ICON.shield, title: 'Control d\'ubicacions i qualitat del trànsit', html: "Revisem en quines webs, aplicacions i canals apareixen els teus anuncis i excloem els que porten clics accidentals o sense interès, com jocs infantils o pàgines de baixa qualitat. Així el pressupost de cobertura arriba a persones que poden convertir-se en clients." },
+        { icon: ICON.video, title: 'YouTube per presentar la teva proposta', html: "Un vídeo curt explica en segons el que un anunci de text no explica: com treballes, com és el teu producte o què et diferencia. El mostrem a segments concrets, com visitants de la teva web o persones interessades en temes propers al teu servei. Després mesurem si pugen les cerques de la teva marca i els contactes." },
+        { icon: ICON.eye, title: "Display dins d'una estratègia de cobertura", html: "Els anuncis gràfics en webs i aplicacions costen poc per impressió, però es malbaraten amb facilitat. Els fem servir amb audiències acotades i un objectiu de cobertura clar, com reforçar la teva marca en una comarca o en un sector concret. Mai substitueixen les campanyes que generen contactes." },
+        { icon: ICON.repeat, title: 'Remarketing quan sigui viable i pertinent', html: "Tornar a mostrar anuncis a qui ja ha visitat la teva web funciona quan la decisió triga dies o setmanes, com en una reforma o un tractament dental. Necessita un volum mínim de visites i el consentiment de galetes ben configurat. Si la teva web encara no té aquest trànsit, t'ho diem i no l'activem." },
+        { icon: ICON.shield, title: 'Control d\'ubicacions i qualitat del trànsit', html: "Revisem en quines webs, aplicacions i canals de YouTube apareixen els teus anuncis i excloem els que porten clics accidentals o sense interès, com jocs infantils o pàgines de baixa qualitat. Així el pressupost de cobertura arriba a persones que poden acabar sent clients." },
       ]}
     />
   </PSection>
@@ -300,17 +301,17 @@ const pageSchema = localAgencySchema({
   <!-- ═══ ANUNCIS ════════════════════════════════════════════════════════ -->
   <PSection kicker="Redacció d'anuncis" title="Anuncis que connecten amb el que busca el teu client" tone="dark">
     <Fragment slot="intro">
-      <p>A la pàgina de resultats el teu anunci competeix amb tres o quatre més en un parell de línies. Guanya el que respon millor a la cerca i dona motius per triar-lo. Escrivim els anuncis a partir dels dubtes reals dels teus clients, no de frases fetes del sector.</p>
+      <p>A la pàgina de resultats el teu anunci competeix amb tres o quatre més en un parell de línies. Guanya el que respon millor a la cerca i dona un motiu per triar-lo. Escrivim els anuncis a partir dels dubtes reals dels teus clients, sense frases fetes del sector.</p>
     </Fragment>
     <PCards
       tone="dark"
       cols={2}
       variant="numbered"
       items={[
-        { title: 'Missatges segons servei i necessitat', html: "Cada grup d'anuncis té textos que repeteixen el que la persona ha buscat i responen al que la preocupa: urgència, preu, zona o especialitat. Un anunci per a «advocat d'herències» no pot ser el mateix que per a «advocat laboral». Ho veiem sovint en serveis de salut com els de <a href=\"/ca/agencia-psicolegs/google-ads/\">psicòlegs</a> o <a href=\"/ca/agencia-terapeutes/google-ads/\">terapeutes</a>, on el to importa tant com l'oferta." },
-        { title: 'Propostes de valor que es poden acreditar', html: "«Líders del sector» o «la millor qualitat» no convencen ningú. Fem servir arguments que pots demostrar: anys d'experiència, termini de resposta, garantia, preu tancat, valoracions de clients. Si un anunci promet alguna cosa, la pàgina de destinació l'ha de confirmar." },
-        { title: "Recursos d'anunci útils per decidir", html: "Enllaços a serveis concrets, textos destacats, extractes de serveis, trucada, ubicació o formulari. Els recursos amplien l'anunci i donen informació abans del clic, cosa que filtra qui no encaixa. Triem només els que aporten alguna cosa al teu client i els mantenim actualitzats." },
-        { title: "Proves de missatges i crides a l'acció", html: "Provem variants de titulars i crides a l'acció, com «demana pressupost» davant de «consulta preus», i deixem les que aconsegueixen més contactes de qualitat, no només més clics. Canviem una cosa cada vegada per saber què ha funcionat i aplicar-ho a la resta del compte." },
+        { title: 'Missatges segons servei i necessitat', html: "Cada grup d'anuncis repeteix el que la persona ha buscat i respon al que la preocupa: urgència, preu, zona o especialitat. Un anunci per a «advocat d'herències» no pot ser el mateix que per a «advocat laboral». En salut, com a les <a href=\"/ca/agencia-psicolegs/google-ads/\">campanyes per a psicòlegs</a> o la <a href=\"/ca/agencia-terapeutes/google-ads/\">publicitat per a terapeutes</a>, el to pesa tant com l'oferta." },
+        { title: 'Propostes de valor que es poden acreditar', html: "«Líders del sector» o «la millor qualitat» no convencen ningú. Fem servir arguments que pots demostrar: anys d'experiència, termini de resposta, garantia, preu tancat o valoracions de clients. Si l'anunci promet alguna cosa, la pàgina de destinació l'ha de confirmar. Si no pot, la traiem de l'anunci." },
+        { title: "Recursos d'anunci útils per decidir", html: "Enllaços a serveis concrets, textos destacats, extractes de serveis, trucada, ubicació o formulari. Els recursos amplien l'anunci i donen informació abans del clic, cosa que filtra qui no encaixa. Per exemple, un text destacat amb «visita sense compromís al Vallès» evita clics de fora de la teva zona. Activem només els útils i els mantenim al dia." },
+        { title: "Proves de missatges i crides a l'acció", html: "Provem variants de titulars i crides a l'acció, com «demana pressupost» davant de «consulta preus», i ens quedem amb les que porten més contactes de qualitat, no només més clics. Canviem un element cada vegada per saber què ha funcionat i aplicar-ho a la resta del compte." },
       ]}
     />
   </PSection>
@@ -318,8 +319,8 @@ const pageSchema = localAgencySchema({
   <!-- ═══ LANDING ════════════════════════════════════════════════════════ -->
   <PSection kicker="Pàgina de destinació" title="Del clic al contacte: la pàgina de destinació" layout="split">
     <Fragment slot="intro">
-      <p>L'anunci porta la visita; la pàgina decideix si es converteix en contacte. Una millora en la conversió de la pàgina redueix el cost de cada client sense tocar el pressupost, per això la revisem amb la mateixa atenció que les campanyes.</p>
-      <p>Si la web necessita canvis de fons, ho coordinem amb el nostre servei de <a href="/ca/disseny-web-per-pimes/">disseny web per a pimes</a>. I si vols fer-ne una primera revisió pel teu compte, comença per <a href="/ca/blog/com-saber-si-la-teva-web-esta-ben-feta/">com saber si la teva web està ben feta</a>.</p>
+      <p>L'anunci porta la visita; la pàgina decideix si es converteix en contacte. Si la pàgina converteix millor, cada client et costa menys sense pujar el pressupost. Per això la revisem amb la mateixa atenció que les campanyes.</p>
+      <p>Si la web necessita canvis de fons, ho coordinem amb el nostre servei de <a href="/ca/disseny-web-per-pimes/">disseny web per a pimes</a>. Per fer-ne una primera revisió pel teu compte, comença per aquesta <a href="/ca/blog/com-saber-si-la-teva-web-esta-ben-feta/">guia per revisar la teva web</a>.</p>
     </Fragment>
     <PFlow
       slot="aside"
@@ -329,15 +330,15 @@ const pageSchema = localAgencySchema({
         { label: 'Pàgina', sub: 'urgències, horari, telèfon' },
         { label: 'Trucada', sub: 'cita el mateix dia' },
       ]}
-      caption="Exemple de coherència. Cada pas repeteix i confirma el que la persona buscava."
+      caption="Exemple de coherència: segueix la paraula «urgències» des de la cerca fins a la trucada."
     />
     <PCards
       cols={2}
       items={[
-        { icon: ICON.target, title: 'Coherència entre cerca, anunci i pàgina', html: "Si algú busca un servei concret i arriba a la portada, ha de tornar a buscar. La pàgina de destinació ha de parlar exactament del que prometia l'anunci, amb el mateix vocabulari i la mateixa oferta. Aquesta coherència també millora el nivell de qualitat que assigna Google i, amb ell, el cost del clic." },
-        { icon: ICON.doc, title: 'Formularis i vies de contacte senzilles', html: "Demanem només les dades necessàries per respondre, col·loquem el telèfon i el botó de contacte a la vista al mòbil i oferim alternatives com WhatsApp quan el teu equip el pot atendre. Cada camp de més és un motiu per abandonar, sobretot al mòbil." },
-        { icon: ICON.shield, title: 'Proves de confiança a prop de la decisió', html: "Ressenyes, casos, anys d'experiència, certificacions, fotos reals de l'equip o de la feina. Les col·loquem al costat del formulari o del botó de trucada, que és on apareix el dubte. Una persona que no et coneix necessita motius per donar-te el seu telèfon." },
-        { icon: ICON.chart, title: 'Millores de conversió basades en el comportament', html: "Analitzem fins on baixa la gent, on abandona el formulari i quina diferència hi ha entre mòbil i ordinador. Amb aquestes dades proposem canvis concrets i en comprovem l'efecte sobre els contactes, en lloc de redissenyar per intuïció." },
+        { icon: ICON.target, title: 'Coherència entre cerca, anunci i pàgina', html: "Si algú busca un servei concret i arriba a la portada, ha de tornar a buscar. La pàgina ha de parlar del que prometia l'anunci, amb les mateixes paraules i la mateixa oferta. Aquesta coherència també millora el nivell de qualitat que Google assigna als teus anuncis i, amb ell, abarateix el clic." },
+        { icon: ICON.doc, title: 'Formularis i vies de contacte senzilles', html: "Demanem només les dades necessàries per respondre, normalment nom, telèfon i què necessites. Deixem el telèfon i el botó de contacte a la vista al mòbil i oferim WhatsApp si el teu equip el pot atendre. Cada camp de més és un motiu per abandonar, sobretot des del mòbil." },
+        { icon: ICON.shield, title: 'Proves de confiança a prop de la decisió', html: "Ressenyes, casos, anys d'experiència, certificacions i fotos reals de l'equip o de la feina. Les col·loquem al costat del formulari o del botó de trucada, que és on apareix el dubte. Qui no et coneix necessita motius per donar-te el seu telèfon, i una ressenya amb nom convenç més que un eslògan." },
+        { icon: ICON.chart, title: 'Millores de conversió basades en el comportament', html: "Analitzem fins on baixa la gent, en quin camp abandona el formulari i com canvia el comportament entre mòbil i ordinador. Amb aquestes dades proposem canvis concrets i en mesurem l'efecte sobre els contactes. Si un canvi no millora els resultats, el retirem." },
       ]}
     />
   </PSection>
@@ -345,7 +346,7 @@ const pageSchema = localAgencySchema({
   <!-- ═══ MESURA ═════════════════════════════════════════════════════════ -->
   <PSection kicker="Mesura" title="Mesura per saber quines campanyes aporten negoci" tone="soft">
     <Fragment slot="intro">
-      <p>Les pujes automàtiques de Google aprenen del que els dius que és una conversió. Si els dones dades pobres, optimitzen cap a contactes pobres. <strong>Mesurar bé és la condició perquè tota la resta funcioni.</strong> Per entendre d'on arriba avui el teu trànsit, revisa <a href="/ca/blog/don-ve-el-trafic-web/">d'on ve el trànsit de la teva web</a>.</p>
+      <p>Les pujes automàtiques de Google aprenen del que els dius que és una conversió. Si els dones dades pobres, busquen contactes pobres. <strong>Mesurar bé és la condició perquè tota la resta funcioni.</strong> Si no saps d'on arriben avui les teves visites, comença per <a href="/ca/blog/don-ve-el-trafic-web/">d'on ve el trànsit de la teva web</a>.</p>
     </Fragment>
     <div class="grid lg:grid-cols-[1.1fr_1fr] gap-10 items-start">
       <PCards
@@ -353,10 +354,10 @@ const pageSchema = localAgencySchema({
         variant="rows"
         class="!mt-12"
         items={[
-          { title: 'Configuració de conversions rellevants', html: "Definim què compta com a conversió: formulari enviat, trucada de més d'una certa durada, compra amb el seu import, reserva. Ho configurem amb Google Tag Manager i GA4, eliminem duplicats i comprovem que cada acció es registra una sola vegada i a la campanya correcta." },
-          { title: 'Diferència entre contactes i oportunitats qualificades', html: "No tots els contactes valen el mateix. Un formulari d'algú de fora de la teva zona o que demana una cosa que no fas compta igual al compte si no el distingim. Et demanem una valoració senzilla dels contactes rebuts per saber quines campanyes porten els bons." },
-          { title: 'Connexió amb els resultats comercials quan sigui possible', html: "Si fas servir un CRM o pots marcar quins contactes es converteixen en clients, importem aquesta informació a Google Ads. Així les pujes s'orienten a vendes reals i no a formularis. Quan no és possible, busquem una alternativa manual que doni una referència fiable." },
-          { title: "Revisió de l'atribució i de la qualitat de les dades", html: "Comparem el que diu Google Ads amb GA4 i amb el que rep la teva empresa. Les diferències són normals, però s'han de poder explicar. Revisem el consentiment de galetes, els models d'atribució i les conversions de marca per no atribuir a la publicitat el que hauria arribat igualment. Si, a més, vols saber com et mencionen els assistents d'IA, ho treballem com a <a href=\"/ca/agencia-geo-per-pimes/\">agència GEO</a>." },
+          { title: 'Configuració de conversions rellevants', html: "Definim què compta com a conversió: formulari enviat, trucada de més d'una certa durada, compra amb el seu import o reserva. Ho configurem amb Google Tag Manager i GA4, eliminem duplicats i comprovem que cada acció es registra una sola vegada i a la campanya correcta. Reps la llista de conversions actives i què mesura cadascuna." },
+          { title: 'Diferència entre contactes i oportunitats qualificades', html: "No tots els contactes valen el mateix. Un formulari d'algú de fora de la teva zona, o que demana una cosa que no fas, compta igual que un de bo si no els distingim. Et demanem una valoració senzilla dels contactes rebuts, per exemple útil o no útil, per saber quines campanyes porten els bons." },
+          { title: 'Connexió amb els resultats comercials quan sigui possible', html: "Si fas servir un CRM o pots marcar quins contactes es converteixen en clients, importem aquesta informació a Google Ads. Així les pujes s'orienten a vendes reals i no a formularis. Si encara no en tens, compara <a href=\"/ca/blog/els-7-millors-crm-per-la-teva-pime/\">els 7 millors CRM per a una pime</a>; mentrestant, busquem una alternativa manual que doni una referència fiable." },
+          { title: "Revisió de l'atribució i de la qualitat de les dades", html: "Comparem el que diu Google Ads amb GA4 i amb el que rep la teva empresa. Les diferències són normals, però s'han de poder explicar. Revisem el consentiment de galetes, el model d'atribució i les conversions de marca per no atribuir a la publicitat el que hauria arribat igualment. Si, a més, t'interessa com et citen els assistents d'IA, ho treballem com a <a href=\"/ca/agencia-geo-per-pimes/\">agència GEO per a pimes</a>." },
         ]}
       />
       <div class="mt-12">
@@ -367,7 +368,7 @@ const pageSchema = localAgencySchema({
             { label: 'Oportunitats', sub: 'contactes que encaixen', side: 'El que valora el teu equip.' },
             { label: 'Clients', sub: 'vendes tancades', side: 'El que paga la inversió.' },
           ]}
-          caption="Esquema il·lustratiu. Com més avall arriba la mesura, millors decisions prenen les campanyes."
+          caption="Esquema il·lustratiu. Com més avall de l'embut arriba la mesura, millors decisions prenen les campanyes."
         />
       </div>
     </div>
@@ -376,7 +377,7 @@ const pageSchema = localAgencySchema({
   <!-- ═══ ESCALAR ════════════════════════════════════════════════════════ -->
   <PSection kicker="Optimització" title="Com decidim on invertir-hi més" layout="split">
     <Fragment slot="intro">
-      <p>Optimitzar no és canviar coses cada dia. És llegir les dades amb perspectiva i moure el pressupost cap al que funciona. Creuem dues preguntes: <strong>aquesta campanya és rendible?</strong> i <strong>té recorregut per créixer?</strong></p>
+      <p>Optimitzar no consisteix a canviar coses cada dia. Consisteix a llegir les dades amb perspectiva i moure el pressupost cap al que funciona. Per a cada campanya creuem dues preguntes: <strong>és rendible?</strong> i <strong>té recorregut per créixer?</strong></p>
     </Fragment>
     <PMatrix
       slot="aside"
@@ -389,15 +390,15 @@ const pageSchema = localAgencySchema({
         { label: 'Cerca genèrica', x: 76, y: 28 },
         { label: 'Zona secundària', x: 22, y: 22 },
       ]}
-      caption="Exemple de com classifiquem les campanyes d'un compte segons rendibilitat i volum."
+      caption="Exemple de classificació: a dalt a la dreta, el que mereix més inversió; a baix a l'esquerra, el que cal revisar o pausar."
     />
     <PCards
       cols={3}
       variant="numbered"
       items={[
-        { title: 'Ajustos de pujes segons els resultats', html: "Triem l'estratègia de puja segons les dades disponibles: més control al principi i objectius de cost o de retorn quan hi ha prou volum. També ajustem per dispositiu, horari i zona quan les dades mostren diferències clares, no per suposicions." },
-        { title: 'Redistribució del pressupost entre campanyes', html: "Cada mes revisem quines campanyes aconsegueixen clients a un cost acceptable i quines no. Movem pressupost de les segones a les primeres abans de demanar més inversió. Sovint hi ha marge de millora sense augmentar la despesa total." },
-        { title: 'Condicions per ampliar la inversió', html: "Proposem invertir-hi més només quan es compleixen tres condicions: el cost per client és dins del límit, la campanya es queda sense pressupost en cerques bones i el teu equip pot atendre més contactes. Si en falta alguna, primer la resolem." },
+        { title: 'Ajustos de pujes segons els resultats', html: "Triem l'estratègia de puja segons les dades disponibles: més control al principi i objectius de cost o de retorn quan hi ha prou volum. També ajustem per dispositiu, horari i zona quan les dades mostren diferències clares, per exemple si el mòbil porta contactes més barats que l'ordinador. Mai per suposicions." },
+        { title: 'Redistribució del pressupost entre campanyes', html: "Cada mes revisem quines campanyes aconsegueixen clients a un cost acceptable i quines no. Movem pressupost de les segones a les primeres abans de demanar-te més inversió. Sovint hi ha marge de millora sense augmentar la despesa total, i ho veuràs reflectit a l'informe mensual." },
+        { title: 'Condicions per ampliar la inversió', html: "Proposem invertir-hi més només si es compleixen tres condicions: el cost per client és dins del teu límit, la campanya es queda sense pressupost en cerques bones i el teu equip pot atendre més contactes. Si en falta alguna, primer la resolem. Més pressupost sobre una base fluixa només multiplica la despesa." },
       ]}
     />
   </PSection>
@@ -405,7 +406,7 @@ const pageSchema = localAgencySchema({
   <!-- ═══ ARRENCADA ══════════════════════════════════════════════════════ -->
   <PSection kicker="Primeres setmanes" title="Què passa durant l'arrencada de les teves campanyes" tone="soft">
     <Fragment slot="intro">
-      <p>Les primeres setmanes d'un compte nou o reestructurat són d'aprenentatge. Els costos poden moure's més del normal i convé no treure'n conclusions massa aviat. T'expliquem en cada moment què és esperable i què no.</p>
+      <p>Les primeres setmanes d'un compte nou o reestructurat són d'aprenentatge. El cost per contacte pot moure's més del normal i convé no treure'n conclusions massa aviat. T'expliquem en cada fase què és esperable i què no.</p>
     </Fragment>
     <div class="grid lg:grid-cols-[1fr_1.1fr] gap-10 items-start">
       <PCards
@@ -414,9 +415,9 @@ const pageSchema = localAgencySchema({
         class="lg:grid-cols-1"
         cols={2}
         items={[
-          { title: 'Preparació d\'accessos, mesura i materials', html: "Demanem accés al teu compte de Google Ads o el creem al teu nom, revisem Analytics, Tag Manager i Merchant Center si escau, i configurem les conversions. Recollim amb tu textos, ofertes, imatges i zones de servei. No es llança res fins que la mesura funciona." },
-          { title: 'Llançament i primeres comprovacions', html: "Activem les campanyes amb un pressupost controlat i revisem els primers dies que els anuncis s'aproven, que les cerques que entren tenen sentit i que les conversions es registren. És quan més paraules negatives hi afegim." },
-          { title: 'Lectura de dades i ajustos inicials', html: "Passades unes setmanes, amb prou dades, ajustem pujes, repartiment del pressupost entre campanyes, anuncis i pàgina de destinació. T'expliquem què hem vist, què hem canviat i què esperem del mes següent." },
+          { title: 'Preparació d\'accessos, mesura i materials', html: "Demanem accés al teu compte de Google Ads o el creem al teu nom. Revisem Analytics, Tag Manager i, si vens en línia, Merchant Center, i configurem les conversions. Amb tu recollim textos, ofertes, imatges i zones de servei. Regla fixa: no es llança res fins que la mesura funciona." },
+          { title: 'Llançament i primeres comprovacions', html: "Activem les campanyes amb un pressupost controlat. Els primers dies comprovem que els anuncis s'aproven, que les cerques que entren tenen sentit i que les conversions es registren. És la fase en què més paraules negatives hi afegim, perquè apareixen les primeres cerques reals." },
+          { title: 'Lectura de dades i ajustos inicials', html: "Passades unes setmanes, amb prou dades, ajustem pujes, repartiment del pressupost entre campanyes, anuncis i pàgina de destinació. Reps un resum amb el que hem vist, el que hem canviat i el que esperem del mes següent, i ho comentem amb tu." },
         ]}
       />
       <PLines
@@ -427,7 +428,7 @@ const pageSchema = localAgencySchema({
         ]}
         xLabels={['Setmana 1', '', '', 'Setmana 4', '', '', '', 'Setmana 8', '', '']}
         marker={{ at: 3, label: 'Primers ajustos amb dades' }}
-        caption="Esquema il·lustratiu, no són dades d'un client. Al principi el cost oscil·la; amb ajustos i aprenentatge tendeix a estabilitzar-se."
+        caption="Esquema il·lustratiu, no són dades d'un client. Fixa't en la línia grisa: el cost per contacte oscil·la al principi i tendeix a estabilitzar-se després dels primers ajustos."
       />
     </div>
   </PSection>
@@ -435,17 +436,17 @@ const pageSchema = localAgencySchema({
   <!-- ═══ CONTROL ════════════════════════════════════════════════════════ -->
   <PSection kicker="Transparència" title="Una col·laboració en què conserves el control" layout="split">
     <Fragment slot="intro">
-      <p>El teu compte publicitari és un actiu de la teva empresa: guarda l'historial, les conversions i les audiències d'anys d'inversió. Per això treballem de manera que en cap moment depenguis de nosaltres per accedir-hi.</p>
-      <p>Nova és una <a href="/ca/">agència de màrqueting digital per a pimes</a> amb seu a Barcelona. Portem campanyes a <a href="/ca/agencia-sem-per-pimes/barcelona/">Barcelona</a>, <a href="/ca/agencia-sem-per-pimes/sabadell/">Sabadell</a>, <a href="/ca/agencia-sem-per-pimes/sant-cugat/">Sant Cugat</a> i <a href="/ca/agencia-sem-per-pimes/terrassa/">Terrassa</a> amb reunions presencials, i a la resta d'Espanya per videotrucada.</p>
+      <p>El teu compte de Google Ads és un actiu de la teva empresa: guarda l'historial, les conversions i les audiències d'anys d'inversió. Per això treballem de manera que mai depenguis de nosaltres per accedir-hi.</p>
+      <p>Nova és una <a href="/ca/">agència de màrqueting digital per a pimes</a> amb seu a Barcelona. Ens reunim en persona amb les empreses de la zona, amb servei de <a href="/ca/agencia-sem-per-pimes/barcelona/">Google Ads a Barcelona</a>, <a href="/ca/agencia-sem-per-pimes/sabadell/">campanyes SEM a Sabadell</a>, <a href="/ca/agencia-sem-per-pimes/sant-cugat/">publicitat a Google a Sant Cugat</a> i <a href="/ca/agencia-sem-per-pimes/terrassa/">anuncis a Google a Terrassa</a>. Amb la resta d'Espanya treballem per videotrucada.</p>
       <p data-consultor-link>Cada projecte el dirigeix Sergio Galo's, fundador de Nova, que també treballa com a <a href="https://sergiogalos.es/consultor-seo-y-sem/" class="font-medium text-accent underline decoration-accent/30 underline-offset-4 hover:decoration-accent" target="_blank" rel="noopener">consultor SEO i SEM</a>.</p>
     </Fragment>
     <img slot="aside" src="/sergio-galos-agencia-sem-per-pimes.webp" alt="Sergio Galo's, consultor de Google Ads per a pimes" title="Sergio Galo's, consultor de Google Ads per a pimes" class="w-full max-w-xs mx-auto h-auto rounded-3xl" loading="lazy" width="473" height="591" />
     <PCards
       cols={3}
       items={[
-        { icon: ICON.key, title: 'Propietat i accés al teu compte publicitari', html: "El compte de Google Ads sempre és al teu nom i amb la teva forma de pagament. Nosaltres hi accedim com a gestors des del nostre compte d'administrador, i tu mantens l'accés complet. Si un dia ho deixem, retires el nostre accés i ho conserves tot." },
-        { icon: ICON.money, title: 'Visibilitat sobre inversió i honoraris', html: "Google et factura directament el pressupost en anuncis i nosaltres et facturem els honoraris de gestió, fixos i per separat. No cobrem un percentatge del que inverteixes, així que el nostre interès no és que gastis més, sinó que cada euro rendeixi." },
-        { icon: ICON.chat, title: 'Comunicació amb la persona que gestiona les teves campanyes', html: "Parles directament amb Sergio Galo's, consultor i fundador de Nova, que és qui revisa i ajusta les teves campanyes. Sense capes comercials ni gestors que canvien cada trimestre. Reps un informe mensual amb contactes i costos, i tenim una conversa per decidir els passos següents." },
+        { icon: ICON.key, title: 'Propietat i accés al teu compte publicitari', html: "El compte de Google Ads és sempre al teu nom i amb la teva forma de pagament. Nosaltres hi entrem com a gestors des del nostre compte d'administrador i tu conserves l'accés complet. Si un dia deixem de treballar junts, retires el nostre accés des del mateix compte i et quedes tot l'historial." },
+        { icon: ICON.money, title: 'Visibilitat sobre inversió i honoraris', html: "Google et factura directament el pressupost d'anuncis i nosaltres et facturem a part els honoraris de gestió, que són fixos. No cobrem un percentatge del que inverteixes. Així el nostre interès és que cada euro rendeixi, no que gastis més: si una pujada de pressupost no compensa, t'ho diem." },
+        { icon: ICON.chat, title: 'Comunicació amb la persona que gestiona les teves campanyes', html: "Parles directament amb Sergio Galo's, consultor i fundador de Nova, que és qui revisa i ajusta les teves campanyes. Sense intermediaris comercials ni gestors que canvien cada trimestre. Cada mes reps un informe amb contactes i cost per contacte, i el comentem junts per decidir els passos següents." },
       ]}
     />
     <div class="mt-12 text-center reveal">
@@ -457,15 +458,15 @@ const pageSchema = localAgencySchema({
   <!-- ═══ RESULTATS ══════════════════════════════════════════════════════ -->
   <PSection kicker="Casos reals" title="Resultats de campanyes: què val la pena comparar" tone="soft" width="wide">
     <Fragment slot="intro">
-      <p>Qualsevol agència pot ensenyar una gràfica que puja. Per valorar uns resultats de publicitat, també els nostres, convé mirar tres coses alhora i desconfiar de les xifres que arriben sense context.</p>
+      <p>Qualsevol agència pot ensenyar una gràfica que puja. Per valorar resultats de publicitat, també els nostres, mira aquestes tres coses alhora i desconfia de les xifres que arriben sense context.</p>
     </Fragment>
     <PCards
       tone="soft"
       cols={3}
       items={[
-        { icon: ICON.users, title: "Contactes qualificats i cost per adquisició", html: "El que és rellevant és quants contactes útils arriben i quant costa cadascun, comparat amb el que la teva empresa pot pagar per un client. Cent contactes barats que no encaixen valen menys que vint de bons. Pregunta sempre com s'ha mesurat la qualitat." },
-        { icon: ICON.cart, title: 'Vendes, ingressos i retorn publicitari', html: "En ecommerce, el retorn de la inversió publicitària indica quant es factura per euro invertit, però no inclou costos ni marge. Un retorn alt amb productes de marge baix pot ser menys rendible que un de moderat amb marge alt. Per això el comparem sempre amb el teu marge." },
-        { icon: ICON.chart, title: "Context d'inversió, període i punt de partida", html: "Un resultat sense pressupost, dates ni situació inicial no permet comparar. No és el mateix millorar un compte mal configurat que fer créixer un que ja funcionava, ni un mes de temporada alta que un any sencer." },
+        { icon: ICON.users, title: "Contactes qualificats i cost per adquisició", html: "El que és rellevant és quants contactes útils arriben i quant costa cadascun, comparat amb el que la teva empresa pot pagar per un client. Cent contactes barats que no encaixen valen menys que vint de bons. Pregunta sempre com s'ha mesurat la qualitat i qui l'ha valorada." },
+        { icon: ICON.cart, title: 'Vendes, ingressos i retorn publicitari', html: "En ecommerce, el retorn de la inversió publicitària (ROAS) indica quant factures per euro invertit, però no descompta costos ni marge. Un ROAS de 6 amb productes de marge baix pot deixar menys benefici que un de 4 amb marge alt. Per això sempre el llegim al costat del teu marge." },
+        { icon: ICON.chart, title: "Context d'inversió, període i punt de partida", html: "Un resultat sense pressupost, dates ni punt de partida no permet comparar. No és el mateix arreglar un compte mal configurat que fer créixer un que ja funcionava, ni un mes de temporada alta que un any sencer. Quan t'ensenyin un resultat, demana sempre aquestes tres dades." },
       ]}
     />
     <div class="grid lg:grid-cols-[1fr_1.2fr] gap-10 items-center">
@@ -477,7 +478,7 @@ const pageSchema = localAgencySchema({
         ]}
       />
       <div class="pillar-prose text-base mt-12 reveal">
-        <p>A <a href="/ca/casos-exit/cas-d-exit-superwagen/">Superwagen</a>, concessionari oficial Audi i Volkswagen a Sabadell i Sant Cugat, no vam augmentar el pressupost: vam centrar les campanyes de Google Ads en els vehicles d'ocasió, amb estoc real, segmentació geogràfica precisa i ofertes del mes. Combinat amb la feina de SEO local i per models, el concessionari va necessitar un 40 % menys d'inversió publicitària. És un resultat dels dos canals treballant junts, no només de la publicitat.</p>
+        <p>En el <a href="/ca/casos-exit/cas-d-exit-superwagen/">cas de Superwagen</a>, concessionari oficial Audi i Volkswagen a Sabadell i Sant Cugat, no vam pujar el pressupost. Vam centrar les campanyes de Google Ads en els vehicles d'ocasió, amb l'estoc real, segmentació geogràfica precisa i les ofertes del mes. Juntament amb el SEO local i per models, el concessionari va passar a necessitar un 40 % menys d'inversió publicitària. És un resultat dels dos canals treballant junts, no només de la publicitat.</p>
       </div>
     </div>
     <MoreCases locale="ca" categories={['google-ads']} embed />
@@ -486,13 +487,13 @@ const pageSchema = localAgencySchema({
   <!-- ═══ PREUS ══════════════════════════════════════════════════════════ -->
   <PSection kicker="Preus" title="Quant costa treballar Google Ads amb Nova" width="wide">
     <Fragment slot="intro">
-      <p>Tres conceptes separats, sense IVA i sense permanència. Abans de començar reps un pressupost tancat per escrit. Si vols veure com encaixa la publicitat en el conjunt del teu màrqueting, llegeix <a href="/ca/blog/quant-ha-dinvertir-una-pime-en-marketing/">quant ha d'invertir una pime en màrqueting</a>.</p>
+      <p>Tres conceptes separats, sense IVA i sense permanència. Abans de començar reps un pressupost tancat per escrit. Per decidir quina part del teu màrqueting hauria d'anar a publicitat, llegeix <a href="/ca/blog/quant-ha-dinvertir-una-pime-en-marketing/">quant ha d'invertir una pime en màrqueting</a>.</p>
     </Fragment>
     <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch reveal">
       {[
-        { title: 'Configuració o revisió inicial del compte', price: '900 €', note: "pagament únic · revisió d'un compte existent", text: "Si ja hi inverteixes, revisem campanyes, cerques, conversions i pàgines de destinació, i et lliurem un pla prioritzat en una videotrucada. Si comences de zero, la configuració del compte i de la mesura està inclosa en la gestió mensual.", items: ["Revisió d'estructura i cerques", 'Comprovació de conversions', 'Anàlisi de pàgines de destinació', 'Pla ordenat per impacte'] },
+        { title: 'Configuració o revisió inicial del compte', price: '900 €', note: "pagament únic · revisió d'un compte existent", text: "Si ja hi inverteixes, revisem campanyes, cerques, conversions i pàgines de destinació, i et presentem un pla prioritzat en una videotrucada. Si comences de zero, no pagues aquest concepte: la configuració del compte i de la mesura va inclosa en la gestió mensual.", items: ["Revisió d'estructura i cerques", 'Comprovació de conversions', 'Anàlisi de pàgines de destinació', 'Pla ordenat per impacte'] },
         { title: 'Honoraris de gestió i optimització', price: 'des de 150 € / mes', note: 'des de 400 € / mes en comptes més grans', text: "Una quota fixa segons el nombre de campanyes, serveis i formats, no un percentatge del que inverteixes. Inclou la gestió contínua del compte, els anuncis, la revisió de cerques, l'informe mensual i la línia directa amb el consultor.", items: ['Optimització contínua', 'Anuncis i recursos', 'Informe mensual de contactes i costos', 'Sense permanència, mes a mes'], featured: true },
-        { title: 'Pressupost destinat als anuncis', price: 'el decideixes tu', note: 'orientatiu: des de 300-500 € / mes', text: "És el que pagues a Google pels clics, i Google el factura directament a la teva empresa. Va íntegre als anuncis. La xifra adequada depèn del cost del clic al teu sector i del teu marge; la calculem amb tu abans de començar.", items: ['Facturat per Google', 'Ajustable cada mes', 'Sense comissions sobre la inversió'] },
+        { title: 'Pressupost destinat als anuncis', price: 'el decideixes tu', note: 'orientatiu: des de 300-500 € / mes', text: "És el que pagues a Google pels clics, i Google el factura directament a la teva empresa. Va íntegre als anuncis, sense cap comissió nostra. La xifra adequada depèn del cost del clic al teu sector i del teu marge; la calculem amb tu abans de començar.", items: ['Facturat per Google', 'Ajustable cada mes', 'Sense comissions sobre la inversió'] },
       ].map((p, i) => (
         <div class:list={['pd-rise rounded-3xl p-7 sm:p-8 flex flex-col border', p.featured ? 'bg-zinc-950 text-white border-zinc-950 shadow-2xl' : 'bg-white border-black/5 shadow-[0_15px_40px_rgba(0,0,0,0.06)]']} style={`--i:${i}`}>
           <h3 class:list={['text-lg font-black tracking-tight leading-snug mb-3', p.featured ? 'text-white' : 'text-zinc-900']}>{p.title}</h3>
@@ -518,7 +519,7 @@ const pageSchema = localAgencySchema({
         { label: 'Pime amb diversos serveis', fee: 250, ads: 1000 },
         { label: 'Compte amb Shopping o diverses zones', fee: 400, ads: 2500 },
       ]}
-      caption="Exemple amb xifres il·lustratives, sense IVA. Els honoraris són fixos; a mesura que creix el pressupost en anuncis, la gestió hi pesa proporcionalment menys. El teu pressupost real el calculem amb tu."
+      caption="Exemple amb xifres il·lustratives, sense IVA. Fixa't en la proporció: els honoraris són fixos, així que pesen menys a mesura que creix el pressupost en anuncis. El teu pressupost real el calculem amb tu."
     />
   </PSection>
 

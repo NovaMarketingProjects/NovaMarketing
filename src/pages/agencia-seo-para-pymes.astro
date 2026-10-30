@@ -95,7 +95,7 @@ const pageSchema = localAgencySchema({
                 <span class="lg:whitespace-nowrap text-mktg-gradient">para PYMEs</span>
             </h1>
       <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed max-w-3xl mx-auto mb-8">
-        Hacemos que tu empresa aparezca cuando tus clientes buscan lo que vendes, y medimos el trabajo en contactos y ventas, no en informes de posiciones.
+        Hacemos que tu empresa aparezca en Google cuando tus clientes buscan lo que vendes, y medimos el trabajo en contactos y ventas. En Superwagen, los leads desde SEO pasaron de 10-15 a más de 50 al mes.
       </p>
       <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
         {['Sin permanencias', 'Trato directo con el consultor', 'Informes de negocio'].map((item) => (
@@ -114,8 +114,8 @@ const pageSchema = localAgencySchema({
   <!-- ═══ OPORTUNIDAD ═══════════════════════════════════════════════════ -->
   <PSection kicker="Por qué SEO" title="Convierte las búsquedas de tus clientes en oportunidades de negocio" layout="split">
     <Fragment slot="intro">
-      <p>Cada día alguien escribe en Google el servicio que ofreces, el problema que resuelves o el nombre de tu categoría de producto. <strong>Esa búsqueda es una necesidad expresada en el momento exacto en que existe</strong>, y la empresa que aparece con una respuesta clara suele quedarse con el contacto.</p>
-      <p>Nova es una agencia SEO especializada en pymes. Trabajamos el posicionamiento orgánico como un canal comercial más, conectado con tu web, tu <a href="/agencia-sem-para-pymes/">publicidad en Google</a> y tu <a href="/agencia-geo-para-pymes/">presencia en las respuestas de la IA</a>, con un objetivo que se puede medir. Cuántos clientes nuevos llegan cada mes desde el buscador.</p>
+      <p>Cada día alguien escribe en Google el servicio que ofreces o el problema que resuelves. <strong>Esa búsqueda es una necesidad con fecha de hoy</strong>, y la empresa que aparece con una respuesta clara suele quedarse con el contacto.</p>
+      <p>Nova es una <a href="/">agencia de marketing digital para pymes</a> que trata el posicionamiento SEO como un canal comercial más. Lo coordinamos con tus <a href="/agencia-sem-para-pymes/">campañas de Google Ads</a> y tu <a href="/agencia-geo-para-pymes/">visibilidad en asistentes de IA</a>, y lo medimos con una cifra: cuántos clientes nuevos llegan cada mes desde el buscador. Los esquemas muestran el recorrido que trabajamos, de la búsqueda al contacto.</p>
     </Fragment>
     <PSerp
       slot="aside"
@@ -125,7 +125,7 @@ const pageSchema = localAgencySchema({
         { url: 'competidor-a.com', title: 'Empresa de reformas | Reformas en Barcelona y alrededores', desc: 'Más de 20 años de experiencia en reformas de todo tipo.' },
         { url: 'directorio-reformas.es › sabadell', title: 'Las 10 mejores empresas de reformas en Sabadell', desc: 'Compara opiniones y pide presupuesto a varias empresas.' },
       ]}
-      caption="Ilustración. El objetivo es que tu página sea la respuesta más clara a la búsqueda de tu cliente."
+      caption="Ilustración. Fíjate en el primer resultado: servicio y ciudad en el título, y precio, plazo y pruebas en la descripción."
     />
     <PFlow
       steps={[
@@ -134,24 +134,24 @@ const pageSchema = localAgencySchema({
         { label: 'Página que responde', sub: 'servicio, precio, pruebas' },
         { label: 'Contacto o venta', sub: 'llamada, formulario, pedido' },
       ]}
-      caption="El recorrido que optimizamos. Si falla un eslabón, el tráfico no se convierte en negocio."
+      caption="El recorrido que optimizamos. Si falla un eslabón, las visitas no se convierten en clientes."
     />
   </PSection>
 
   <!-- ═══ QUÉ FRENA EL POSICIONAMIENTO ═══════════════════════════════════ -->
   <PSection kicker="Diagnóstico" title="Qué está frenando el posicionamiento de tu empresa" tone="soft">
     <Fragment slot="intro">
-      <p>Cuando una web no capta clientes desde Google casi nunca hay una sola causa. Estos son los seis bloqueos que encontramos con más frecuencia en webs de pymes, y cada uno se corrige de forma distinta.</p>
+      <p>Cuando una web no capta clientes desde Google casi nunca hay una sola causa. Estos son los seis bloqueos que más encontramos en webs de pymes. Saber cuál es el tuyo decide por dónde empezamos.</p>
     </Fragment>
     <PCards
       tone="soft"
       items={[
-        { icon: ICON.search, title: 'Tus páginas importantes no aparecen en Google', html: 'Páginas de servicio sin indexar, bloqueadas por error o tan escondidas en la navegación que Google apenas las visita. Si una página no está en el índice, no puede posicionar por bueno que sea su contenido.' },
-        { icon: ICON.users, title: 'Recibes visitas que no se convierten en contactos', html: 'Tráfico de búsquedas informativas que no tienen relación con lo que vendes, o páginas que posicionan pero no explican por qué elegirte. Aquí el problema suele estar en la <a href="/diseno-web-para-pymes/">web y su conversión</a>, no en el SEO.' },
-        { icon: ICON.target, title: 'Tu competencia ocupa las búsquedas más rentables', html: 'Tus competidores tienen una página específica para cada servicio y zona, y tú una sola página genérica que intenta posicionar por todo. Google prefiere la respuesta más precisa.' },
-        { icon: ICON.code, title: 'Tu web arrastra problemas técnicos', html: 'Lentitud en móvil, contenido duplicado, redirecciones en cadena o plantillas que generan cientos de URLs sin valor. Problemas invisibles para el usuario que gastan el rastreo de Google. Si no sabes por dónde empezar, revisa <a href="/blog/como-saber-si-tu-web-esta-bien-hecha/">cómo saber si tu web está bien hecha</a>.' },
-        { icon: ICON.doc, title: 'Tus contenidos no responden a lo que busca el cliente', html: 'Textos escritos desde la empresa y no desde la duda del cliente. Sin precios orientativos, sin plazos, sin ejemplos. Entender la <a href="/blog/que-es-la-intencion-de-busqueda-en-el-seo/">intención de búsqueda</a> es lo que separa una página que posiciona de una que solo existe.' },
-        { icon: ICON.money, title: 'Dependencia de la publicidad para conseguir visitas', html: 'Si apagas los anuncios y los contactos desaparecen, tu negocio alquila su visibilidad. El SEO construye un canal propio que reduce esa dependencia. Te explicamos cuándo conviene cada canal en <a href="/blog/que-necesita-una-pyme-seo-o-sem/">qué necesita una pyme, SEO o SEM</a>.' },
+        { icon: ICON.search, title: 'Tus páginas importantes no aparecen en Google', html: 'Páginas de servicio sin indexar, bloqueadas por un error de configuración o tan escondidas en el menú que Google apenas las visita. Si una página no está en el índice, no puede posicionar, por bueno que sea su texto. Es lo primero que revisamos en Search Console, porque a veces una sola línea deja fuera media web.' },
+        { icon: ICON.users, title: 'Recibes visitas que no se convierten en contactos', html: 'Llegan visitas desde búsquedas que no tienen relación con lo que vendes, o páginas que posicionan pero no explican por qué elegirte. Si la página no muestra precio orientativo, pruebas y un contacto visible, el problema está en la web. Ahí entra el <a href="/diseno-web-para-pymes/">diseño web orientado a conversión</a>, y te lo decimos antes de que pagues por más tráfico.' },
+        { icon: ICON.target, title: 'Tu competencia ocupa las búsquedas más rentables', html: 'Tus competidores tienen una página para cada servicio y zona, y tú una sola página genérica que intenta posicionar por todo. Google elige la respuesta más precisa. Cuando <a href="/casos-exito/villazon-merce-abogados/">Villazón Mercé Abogados</a> pasó de una lista genérica de servicios a una página por delito, su web nueva sumó 191 keywords en dos meses.' },
+        { icon: ICON.code, title: 'Tu web arrastra problemas técnicos', html: 'Lentitud en móvil, contenido duplicado, redirecciones en cadena o plantillas que generan cientos de URLs sin valor. Tus clientes no lo ven, pero Google gasta su rastreo en páginas que no venden. Si quieres hacer una primera revisión por tu cuenta, empieza por esta guía para <a href="/blog/como-saber-si-tu-web-esta-bien-hecha/">saber si tu web está bien hecha</a>.' },
+        { icon: ICON.doc, title: 'Tus contenidos no responden a lo que busca el cliente', html: 'Textos escritos desde la empresa y no desde la duda del cliente: sin precios orientativos, sin plazos, sin ejemplos. Quien busca «reforma de baño completo» quiere saber cuánto cuesta y cuánto tarda. Entender la <a href="/blog/que-es-la-intencion-de-busqueda-en-el-seo/">intención de búsqueda del cliente</a> marca la diferencia entre una página que posiciona y otra que solo ocupa espacio.' },
+        { icon: ICON.money, title: 'Dependencia de la publicidad para conseguir visitas', html: 'Si apagas los anuncios y los contactos desaparecen, tu negocio alquila su visibilidad. El SEO construye un canal propio que sigue trayendo visitas cuando paras la inversión, como ves en el gráfico. A menudo conviene combinar los dos: te explicamos cuándo usar cada uno en <a href="/blog/que-necesita-una-pyme-seo-o-sem/">qué necesita una pyme, SEO o SEM</a>.' },
       ]}
     />
     <PLines
@@ -162,23 +162,23 @@ const pageSchema = localAgencySchema({
       ]}
       xLabels={['Mes 1', '', '', 'Mes 4', '', '', '', 'Mes 8', '', '', '', 'Mes 12']}
       marker={{ at: 7, label: 'Se pausa la inversión en anuncios' }}
-      caption="Esquema ilustrativo, no son datos de un cliente. La publicidad da visitas inmediatas que se detienen al dejar de pagar; el SEO tarda más en arrancar y se acumula."
+      caption="Esquema ilustrativo, no son datos de un cliente. Fíjate en el mes 8: al pausar los anuncios, sus visitas caen casi a cero, mientras las del SEO siguen subiendo."
     />
   </PSection>
 
   <!-- ═══ MOMENTO DE LA PYME ════════════════════════════════════════════ -->
   <PSection kicker="Punto de partida" title="Una estrategia SEO adaptada al momento de tu pyme">
     <Fragment slot="intro">
-      <p>No es lo mismo una web que nunca ha trabajado el SEO que una que ha perdido la mitad del tráfico tras una actualización de Google. El orden de las prioridades cambia según el momento de tu empresa.</p>
+      <p>El orden de las prioridades depende de dónde está tu web hoy. Una web que nunca ha trabajado el SEO necesita cosas distintas que una que ha perdido la mitad del tráfico tras una actualización de Google. Busca tu caso entre estos cinco.</p>
     </Fragment>
     <PCards
       variant="numbered"
       items={[
-        { title: 'Empresas que empiezan a trabajar su posicionamiento', html: 'Primero, que Google pueda rastrear e indexar bien la web. Después, una página sólida por cada servicio principal y el <a href="#seo-local">Perfil de Empresa</a> completo. Son las mejoras que antes se notan.' },
-        { title: 'Negocios con tráfico estancado', html: 'Revisamos qué páginas tienen potencial y no terminan de subir, qué búsquedas se reparten entre varias URLs y qué contenidos de la competencia responden mejor. Suele haber margen sin crear nada desde cero.' },
-        { title: 'Webs que han perdido visibilidad', html: 'Cruzamos fechas de caída con actualizaciones de Google, cambios en la web y migraciones. Hasta no saber la causa no tocamos nada, porque una corrección equivocada puede agravar la pérdida.' },
-        { title: 'Pymes que quieren abrir nuevos mercados', html: 'Nuevas ciudades, nuevos servicios o un segundo idioma. Planificamos la arquitectura antes de publicar para que cada mercado tenga sus páginas propias y no compitan entre sí.' },
-        { title: 'Empresas que necesitan cambiar de agencia SEO', html: 'Hacemos una revisión independiente del trabajo anterior, recuperamos los accesos que falten y mantenemos lo que funciona. El cambio no tiene por qué suponer empezar de cero.' },
+        { title: 'Empresas que empiezan a trabajar su posicionamiento', html: 'Primero, que Google pueda rastrear e indexar bien la web. Después, una página sólida por cada servicio principal y el <a href="#seo-local">Perfil de Empresa en Google</a> completo, que son las mejoras que antes se notan. Los primeros movimientos suelen verse entre el segundo y el tercer mes, como explicamos en <a href="/blog/cuanto-tarda-el-seo-en-dar-resultados-en-una-pyme/">cuánto tarda el SEO en una pyme</a>.' },
+        { title: 'Negocios con tráfico estancado', html: 'Revisamos qué páginas están entre la posición 5 y la 20 sin terminar de subir, qué búsquedas se reparten entre varias URLs y qué páginas de la competencia responden mejor. Casi siempre hay margen sin crear nada desde cero: mejorar títulos, completar contenido y reforzar el enlazado interno hacia las páginas que venden.' },
+        { title: 'Webs que han perdido visibilidad', html: 'Cruzamos las fechas de caída con actualizaciones de Google, cambios en la web y migraciones. Hasta saber la causa no tocamos nada, porque una corrección equivocada puede agravar la pérdida. Es lo que le pasó a <a href="/casos-exito/clustag/">Clustag</a>: una migración con las redirecciones mal hechas la dejó sin tráfico orgánico, y hoy recibe 678 visitas orgánicas al mes.' },
+        { title: 'Pymes que quieren abrir nuevos mercados', html: 'Nuevas ciudades, nuevos servicios o un segundo idioma. Planificamos la arquitectura antes de publicar para que cada mercado tenga sus propias páginas y no compitan entre sí. Por ejemplo, una versión en catalán con sus propias URLs y etiquetas hreflang, o una página por ciudad solo donde de verdad atiendes clientes.' },
+        { title: 'Empresas que necesitan cambiar de agencia SEO', html: 'Hacemos una revisión independiente del trabajo anterior, recuperamos los accesos que falten y mantenemos lo que funciona. Revisamos también los enlaces de baja calidad y los contenidos duplicados que puedan estar lastrando la web. Cambiar de agencia no te obliga a empezar de cero.' },
       ]}
     />
   </PSection>
@@ -186,8 +186,8 @@ const pageSchema = localAgencySchema({
   <!-- ═══ AUDITORÍA ══════════════════════════════════════════════════════ -->
   <PSection id="auditoria" kicker="Auditoría SEO" title="La auditoría que ordena tus prioridades" tone="soft" layout="split">
     <Fragment slot="intro">
-      <p>Antes de proponer nada, auditamos. La auditoría mide tu visibilidad real, revisa la salud técnica de la web y la compara con tus competidores directos. <strong>No entregamos un listado de cien errores automáticos</strong>, sino un diagnóstico que entiende cualquier gerente, con las tareas ordenadas por lo que aportan y lo que cuestan.</p>
-      <p>Si ya trabajas con otra agencia, también sirve como segunda opinión independiente sobre tu inversión actual.</p>
+      <p>Antes de proponer nada, auditamos. Medimos tu visibilidad real, revisamos la salud técnica de la web y la comparamos con tus competidores directos. <strong>El resultado es un diagnóstico que entiende cualquier gerente</strong>, con cada tarea colocada según lo que aporta y lo que cuesta, como en la matriz.</p>
+      <p>Si ya trabajas con otra agencia, la auditoría sirve también como segunda opinión independiente sobre lo que estás pagando.</p>
     </Fragment>
     <PMatrix
       slot="aside"
@@ -201,17 +201,17 @@ const pageSchema = localAgencySchema({
         { label: 'Páginas por zona', x: 64, y: 62 },
         { label: 'Retoques menores', x: 26, y: 24 },
       ]}
-      caption="Ejemplo de cómo priorizamos las tareas de una auditoría según impacto y esfuerzo."
+      caption="Ejemplo de priorización. Lo que queda arriba a la izquierda, mucho impacto y poco esfuerzo, se hace la primera semana."
     />
     <PCards
       variant="rows"
       tone="soft"
       items={[
-        { title: 'Rastreo e indexación de las páginas relevantes', html: 'Comprobamos qué páginas ve Google, cuáles indexa y cuáles se quedan fuera, con datos de Search Console y un rastreo completo de la web.' },
-        { title: 'Arquitectura y distribución de la autoridad interna', html: 'Analizamos a cuántos clics de la portada están tus páginas de negocio y cuántos enlaces internos reciben. Las páginas que más venden deben ser las más fáciles de encontrar.' },
-        { title: 'Rendimiento de contenidos y palabras clave', html: 'Qué páginas atraen tráfico, cuáles posicionan cerca del top 10 sin entrar y cuáles compiten entre sí por la misma búsqueda.' },
-        { title: 'Comparativa de visibilidad con tus competidores', html: 'Medimos tu visibilidad frente a tres competidores directos y detectamos las búsquedas que ellos captan y tú no.' },
-        { title: 'Plan de acción según impacto y esfuerzo', html: 'Terminamos con un plan ordenado y una videollamada para repasarlo. Sabrás qué hacer la primera semana y qué no merece la inversión.' },
+        { title: 'Rastreo e indexación de las páginas relevantes', html: 'Comprobamos qué páginas ve Google, cuáles indexa y cuáles se quedan fuera, cruzando Search Console con un rastreo completo de la web. Recibes la lista de páginas de negocio que no están en el índice y el motivo de cada una: un noindex olvidado, una canónica mal puesta o una página sin enlaces internos.' },
+        { title: 'Arquitectura y distribución de la autoridad interna', html: 'Medimos a cuántos clics de la portada están tus páginas de negocio y cuántos enlaces internos recibe cada una. Las páginas que más venden deben ser las más fáciles de encontrar, para Google y para tus clientes. Si tu servicio estrella está a cuatro clics y el blog ocupa la portada, lo verás en el informe.' },
+        { title: 'Rendimiento de contenidos y palabras clave', html: 'Detectamos qué páginas atraen tráfico, cuáles se quedan cerca del top 10 sin entrar y cuáles compiten entre sí por la misma búsqueda. Trabajamos con Search Console y Semrush, dos de las <a href="/blog/mejores-herramientas-seo-para-pymes/">herramientas SEO para pymes</a> que analizamos en el blog, para que tú también puedas seguir los datos.' },
+        { title: 'Comparativa de visibilidad con tus competidores', html: 'Medimos tu visibilidad frente a tres competidores directos y detectamos las búsquedas que ellos captan y tú no. Así sabes qué servicios o zonas les traen clientes y en qué páginas te están ganando. Muchas veces aparecen búsquedas que nadie de tu sector ha trabajado todavía.' },
+        { title: 'Plan de acción según impacto y esfuerzo', html: 'Terminamos con un plan ordenado por impacto y esfuerzo, y una videollamada para repasarlo contigo. Sabrás qué hacer la primera semana, qué planificar para los meses siguientes y qué no merece la inversión. El plan es tuyo: puedes ejecutarlo con nosotros, con tu equipo o con otro proveedor.' },
       ]}
     />
   </PSection>
@@ -219,7 +219,7 @@ const pageSchema = localAgencySchema({
   <!-- ═══ BÚSQUEDAS ══════════════════════════════════════════════════════ -->
   <PSection kicker="Investigación de palabras clave" title="Encontramos las búsquedas que acercan clientes a tu negocio">
     <Fragment slot="intro">
-      <p>No perseguimos las palabras con más volumen, sino las que hace alguien que está cerca de contratar. Una búsqueda con 50 consultas al mes y clara intención de compra puede aportar más clientes que otra con 5.000 visitas curiosas.</p>
+      <p>Priorizamos las búsquedas de quien está cerca de contratar, aunque tengan menos volumen. Una búsqueda con 50 consultas al mes y clara intención de compra puede aportar más clientes que otra con 5.000 visitas curiosas. Los dos esquemas muestran cómo ordenamos esas búsquedas y cómo las repartimos entre tus páginas.</p>
     </Fragment>
     <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
       <PCards
@@ -227,10 +227,10 @@ const pageSchema = localAgencySchema({
         variant="check"
         class="lg:grid-cols-1 !mt-12"
         items={[
-          { title: 'Palabras clave con intención de contratación', html: 'Búsquedas con servicio, ubicación, precio o comparativa. Son las que antes se convierten en llamadas y presupuestos.' },
-          { title: 'Consultas que intervienen en la decisión de compra', html: 'Dudas sobre plazos, costes o alternativas que el cliente resuelve antes de pedir presupuesto. Responderlas te pone en su lista.' },
-          { title: 'Oportunidades que tu competencia todavía no cubre', html: 'Búsquedas con demanda real en las que nadie de tu sector tiene una página específica. Suelen ser las victorias más rápidas.' },
-          { title: 'Asignación de búsquedas a cada página', html: 'Cada búsqueda importante tiene una única página responsable. Así evitamos que dos URLs de tu web se quiten posiciones entre sí.' },
+          { title: 'Palabras clave con intención de contratación', html: 'Búsquedas que incluyen el servicio, la ubicación, el precio o una comparativa, como «reformas integrales en Sabadell» o «precio reforma piso». Son las que antes se convierten en llamadas y presupuestos, y las que trabajamos primero aunque tengan menos volumen.' },
+          { title: 'Consultas que intervienen en la decisión de compra', html: 'Dudas sobre plazos, costes o alternativas que el cliente resuelve antes de pedir presupuesto, del tipo «agencia SEO o consultor freelance». Si tu web las responde con claridad y honestidad, entras en su lista corta antes de que hable con nadie.' },
+          { title: 'Oportunidades que tu competencia todavía no cubre', html: 'Búsquedas con demanda real en las que nadie de tu sector tiene una página específica. Suelen ser las victorias más rápidas, porque compites contra páginas genéricas. Las detectamos cruzando lo que te preguntan tus clientes por teléfono y por correo con los datos de búsqueda.' },
+          { title: 'Asignación de búsquedas a cada página', html: 'Cada búsqueda importante tiene una única página responsable, y lo dejamos documentado en un mapa de palabras clave. Así evitamos que dos URLs de tu web se quiten posiciones entre sí, algo muy habitual en blogs que repiten temas. El árbol muestra un ejemplo con una empresa de reformas.' },
         ]}
       />
       <div class="mt-12 space-y-10">
@@ -240,7 +240,7 @@ const pageSchema = localAgencySchema({
             { label: 'Comparativa', sub: '«agencia SEO o consultor freelance»', side: 'Te coloca en la lista corta.' },
             { label: 'Contratación', sub: '«agencia SEO para pymes en Barcelona»', side: 'Genera contactos.' },
           ]}
-          caption="Las tres intenciones que cubrimos, de la más amplia a la más cercana a la compra."
+          caption="Las tres intenciones que cubrimos. Cuanto más abajo, menos búsquedas y más cerca de la contratación."
         />
         <PTree
           root="Web de una reformista"
@@ -248,7 +248,7 @@ const pageSchema = localAgencySchema({
             { label: 'Reformas integrales', leaves: ['reformas integrales Sabadell', 'precio reforma piso'] },
             { label: 'Reforma de baños', leaves: ['reforma baño completo', 'cambiar bañera por plato'] },
           ]}
-          caption="Cada grupo de búsquedas tiene su propia página."
+          caption="Cada grupo de búsquedas tiene su propia página, y cada página responde a un solo grupo."
         />
       </div>
     </div>
@@ -257,7 +257,7 @@ const pageSchema = localAgencySchema({
   <!-- ═══ BASE TÉCNICA ═══════════════════════════════════════════════════ -->
   <PSection kicker="SEO técnico" title="Una base técnica que permite crecer" tone="soft" layout="split">
     <Fragment slot="intro">
-      <p>El contenido y los enlaces solo rinden si la web es técnicamente sólida. Es la parte menos visible del SEO y la que más se nota cuando falla.</p>
+      <p>El contenido y los enlaces solo rinden si la web es técnicamente sólida. Es la parte menos visible del SEO y la que más se nota cuando falla. Trabajamos de abajo arriba: sin rastreo e indexación, nada de lo que hay encima funciona.</p>
     </Fragment>
     <PStack
       slot="aside"
@@ -268,16 +268,16 @@ const pageSchema = localAgencySchema({
         { label: 'Rendimiento', sub: 'velocidad y experiencia' },
         { label: 'Rastreo e indexación', sub: 'Google encuentra y entiende' },
       ]}
-      caption="Cada capa se apoya en la anterior."
+      caption="Cada capa se apoya en la anterior, por eso empezamos siempre por la base."
     />
     <PCards
       tone="soft"
       items={[
-        { icon: ICON.search, title: 'Control de indexación y contenido duplicado', html: 'Canónicas, etiquetas noindex, parámetros de URL y sitemaps coherentes, para que Google dedique su tiempo a las páginas que importan.' },
-        { icon: ICON.link, title: 'Enlazado interno y profundidad de navegación', html: 'Enlaces contextuales entre páginas relacionadas y ninguna página de negocio a más de tres clics de la portada.' },
-        { icon: ICON.chart, title: 'Velocidad y experiencia de página', html: 'Optimizamos imágenes, código y servidor para cumplir las Core Web Vitals en móvil. En <a href="/casos-exito/clustag/">Clustag</a> pasamos de 53 a 98 en PageSpeed de escritorio.' },
-        { icon: ICON.code, title: 'Datos estructurados según el contenido', html: 'Marcado de organización, servicios, productos, artículos y preguntas frecuentes, siempre fiel a lo que se ve en la página.' },
-        { icon: ICON.target, title: 'Migraciones y redirecciones sin perder el rumbo', html: 'Mapa de redirecciones URL a URL, control antes y después del lanzamiento y seguimiento de posiciones. Si vas a rehacer la web, lo coordinamos con el <a href="/diseno-web-para-pymes/">diseño web</a> desde el principio.' },
+        { icon: ICON.search, title: 'Control de indexación y contenido duplicado', html: 'Revisamos canónicas, etiquetas noindex, parámetros de URL y sitemaps para que Google dedique su tiempo a las páginas que importan. En una tienda online, por ejemplo, los filtros de color y talla pueden generar miles de URLs casi idénticas. Decidimos cuáles se indexan y cuáles no, y lo dejamos documentado.' },
+        { icon: ICON.link, title: 'Enlazado interno y profundidad de navegación', html: 'Enlaces contextuales entre páginas relacionadas y ninguna página de negocio a más de tres clics de la portada. Un artículo del blog que resuelve una duda debe llevar al servicio que la soluciona, con un texto de enlace que diga qué hay al otro lado. Así la autoridad llega a las páginas que venden.' },
+        { icon: ICON.chart, title: 'Velocidad y experiencia de página', html: 'Optimizamos imágenes, código y servidor para cumplir las Core Web Vitals en móvil. En Clustag pasamos de 53 a 98 en PageSpeed de escritorio, y en Tattoox de 51 a 96 en móvil. Una web rápida no posiciona por sí sola, pero una web lenta pierde contactos en cada visita.' },
+        { icon: ICON.code, title: 'Datos estructurados según el contenido', html: 'Marcado de organización, servicios, productos, artículos y preguntas frecuentes, siempre fiel a lo que se ve en la página. Ayuda a Google y a los asistentes de IA a entender quién eres, qué ofreces y dónde. No marcamos nada que el usuario no pueda leer, porque puede acabar en una acción manual de Google.' },
+        { icon: ICON.target, title: 'Migraciones y redirecciones sin perder el rumbo', html: 'Mapa de redirecciones URL a URL, control antes y después del lanzamiento y seguimiento de posiciones durante las semanas siguientes. Una migración mal hecha puede vaciar el tráfico orgánico en pocos días. Si vas a rehacer la web, coordinamos el SEO con el diseño desde el primer boceto, antes de publicar nada.' },
       ]}
     />
   </PSection>
@@ -285,15 +285,15 @@ const pageSchema = localAgencySchema({
   <!-- ═══ CONTENIDOS ═════════════════════════════════════════════════════ -->
   <PSection kicker="Contenidos SEO" title="Contenidos que explican, posicionan y ayudan a decidir">
     <Fragment slot="intro">
-      <p>Un buen contenido SEO responde a la pregunta del cliente mejor que la competencia y le deja claro cuál es el siguiente paso. Trabajamos cuatro tipos de contenido, cada uno con un objetivo distinto.</p>
+      <p>Un buen contenido SEO responde la pregunta del cliente mejor que la competencia y deja claro cuál es el siguiente paso. Trabajamos cuatro tipos de contenido, cada uno con un objetivo: conseguir contactos, vender online, ganar autoridad o sacar partido a páginas que ya posicionan.</p>
     </Fragment>
     <PCards
       cols={2}
       items={[
-        { icon: ICON.doc, tag: 'Contratación', title: 'Páginas de servicio orientadas a la contratación', html: 'Qué incluye el servicio, para quién es, cuánto cuesta aproximadamente, cómo se trabaja y qué resultados ha conseguido. Es la página que convierte la búsqueda en contacto.' },
-        { icon: ICON.money, tag: 'Venta online', title: 'Categorías y fichas para negocios que venden online', html: 'Textos de categoría que ayudan a elegir, fichas con la información que el comprador necesita y filtros que no generan duplicados. Lo detallamos en nuestro <a href="/agencia-ecommerce/seo/">SEO para ecommerce</a>.' },
-        { icon: ICON.users, tag: 'Autoridad', title: 'Contenido especializado con experiencia propia', html: 'Artículos con datos, ejemplos y opinión de quien trabaja en el sector. Google y los asistentes de IA priorizan este contenido frente al genérico. Puedes ver ejemplos en nuestro <a href="/blog/">blog de marketing para pymes</a>.' },
-        { icon: ICON.chart, tag: 'Optimización', title: 'Actualización de páginas que ya tienen potencial', html: 'Páginas entre las posiciones 5 y 20 que con una mejora de contenido, títulos o enlaces internos pueden entrar en el top. Suele ser el trabajo con mejor retorno a corto plazo.' },
+        { icon: ICON.doc, tag: 'Contratación', title: 'Páginas de servicio orientadas a la contratación', html: 'Qué incluye el servicio, para quién es, cuánto cuesta aproximadamente, cómo se trabaja y qué resultados ha conseguido. Es la página que convierte la búsqueda en contacto. La redactamos con tu información y tú la revisas: en un despacho de abogados, por ejemplo, el abogado valida cada página antes de publicarla.' },
+        { icon: ICON.money, tag: 'Venta online', title: 'Categorías y fichas para negocios que venden online', html: 'Textos de categoría que ayudan a elegir, fichas con la información que el comprador necesita y filtros que no generan duplicados. En <a href="/casos-exito/palacio-del-bebe/">Palacio del Bebé</a>, una tienda de puericultura de Barcelona, el tráfico orgánico creció un 47 % trabajando las categorías con contenido sobre una web hecha por otro proveedor.' },
+        { icon: ICON.users, tag: 'Autoridad', title: 'Contenido especializado con experiencia propia', html: 'Artículos con datos, ejemplos y la opinión de quien trabaja en el sector. Google y los asistentes de IA priorizan este contenido frente al genérico escrito para rellenar. Te entrevistamos, tomamos nota de las dudas reales de tus clientes y lo convertimos en guías que se pueden citar y compartir.' },
+        { icon: ICON.chart, tag: 'Optimización', title: 'Actualización de páginas que ya tienen potencial', html: 'Páginas entre las posiciones 5 y 20 que, con una mejora de contenido, títulos o enlaces internos, pueden entrar en el top. Suele ser el trabajo con mejor retorno a corto plazo, porque Google ya considera relevante esa página. Cada mejora queda fechada para medir su efecto unas semanas después.' },
       ]}
     />
   </PSection>
@@ -301,7 +301,7 @@ const pageSchema = localAgencySchema({
   <!-- ═══ AUTORIDAD ══════════════════════════════════════════════════════ -->
   <PSection kicker="Autoridad y enlaces" title="Refuerza la autoridad de tu marca en tu sector" tone="dark">
     <Fragment slot="intro">
-      <p>Google posiciona mejor a las empresas que otras webs citan como referencia. Conseguimos enlaces y menciones que tengan sentido para tu negocio, no volumen de enlaces de baja calidad que pueden perjudicarte.</p>
+      <p>Google posiciona mejor a las empresas que otras webs citan como referencia. Buscamos enlaces y menciones con sentido para tu negocio y evitamos los paquetes de enlaces de baja calidad, que pueden perjudicarte. El flujo resume cómo una pieza citable acaba reforzando tus páginas clave.</p>
     </Fragment>
     <PFlow
       tone="dark"
@@ -317,10 +317,10 @@ const pageSchema = localAgencySchema({
       cols={2}
       variant="numbered"
       items={[
-        { title: 'Análisis de los enlaces que recibe tu web', html: 'Qué webs te enlazan, a qué páginas y con qué calidad, comparado con tus competidores.' },
-        { title: 'Recuperación de enlaces y menciones desaprovechadas', html: 'Enlaces que apuntan a páginas que ya no existen y medios que te nombran sin enlazar. Son las oportunidades más rápidas.' },
-        { title: 'Selección de oportunidades relevantes para tu negocio', html: 'Asociaciones, proveedores, medios locales y del sector. Priorizamos la relevancia temática sobre las métricas de autoridad.' },
-        { title: 'Coordinación entre contenido y captación de enlaces', html: 'Creamos piezas que merecen ser citadas y dirigimos esa autoridad hacia las páginas que generan negocio mediante el enlazado interno.' },
+        { title: 'Análisis de los enlaces que recibe tu web', html: 'Revisamos qué webs te enlazan, a qué páginas y con qué calidad, y lo comparamos con tus competidores. Si un competidor recibe enlaces de la asociación de tu sector o de la prensa local y tú no, ahí está la primera oportunidad. También señalamos los enlaces dudosos que conviene vigilar.' },
+        { title: 'Recuperación de enlaces y menciones desaprovechadas', html: 'Enlaces que apuntan a páginas que ya no existen y medios que te nombran sin enlazarte. Son las oportunidades más rápidas: a menudo basta una redirección bien hecha o un correo a quien escribió el artículo. Tras una migración, recuperarlos devuelve parte de la autoridad perdida.' },
+        { title: 'Selección de oportunidades relevantes para tu negocio', html: 'Asociaciones, proveedores, clientes, colegios profesionales y medios locales y del sector. Priorizamos la relevancia temática sobre las métricas de autoridad. Un enlace de la asociación de tu sector vale más que diez de blogs genéricos que no tienen nada que ver con lo que vendes.' },
+        { title: 'Coordinación entre contenido y captación de enlaces', html: 'Creamos piezas que merecen ser citadas, como guías de precios, datos propios o casos reales. Después dirigimos esa autoridad hacia las páginas que generan negocio mediante el enlazado interno. Esas mismas menciones ayudan a que los asistentes de IA reconozcan tu marca como referencia del sector.' },
       ]}
     />
   </PSection>
@@ -328,15 +328,15 @@ const pageSchema = localAgencySchema({
   <!-- ═══ SEO LOCAL ══════════════════════════════════════════════════════ -->
   <PSection id="seo-local" kicker="SEO local" title="SEO local para que te encuentren cerca">
     <Fragment slot="intro">
-      <p>Si tus clientes están en tu ciudad o comarca, el mapa de Google y las búsquedas con ubicación son la palanca más rentable. Trabajamos el Perfil de Empresa y la web a la vez, porque Google los evalúa juntos.</p>
+      <p>Si tus clientes están en tu ciudad o comarca, el mapa de Google y las búsquedas con ubicación son la palanca más rentable. Trabajamos el Perfil de Empresa en Google y la web a la vez, porque Google evalúa los dos juntos.</p>
     </Fragment>
     <PCards
       cols={2}
       items={[
-        { icon: ICON.target, title: 'Optimización del Perfil de Empresa en Google', html: 'Categorías, servicios, fotos, horarios y publicaciones. Si otra persona gestiona tu ficha, te enseñamos a <a href="/blog/dar-acceso-a-tu-perfil-de-empresa-en-google/">dar acceso a tu Perfil de Empresa</a> sin compartir contraseñas.' },
-        { icon: ICON.doc, title: 'Páginas para servicios y zonas de cobertura reales', html: 'Una página por ciudad solo cuando atiendes de verdad esa zona y puedes contar algo propio. Así trabajamos en <a href="/agencia-seo-para-pymes/sabadell/">Sabadell</a>, <a href="/agencia-seo-para-pymes/terrassa/">Terrassa</a> o <a href="/agencia-seo-para-pymes/sant-cugat/">Sant Cugat</a>.' },
-        { icon: ICON.search, title: 'Coherencia de los datos de tu negocio', html: 'Nombre, dirección y teléfono idénticos en la web, el Perfil de Empresa y los directorios. Las incoherencias restan confianza a Google.' },
-        { icon: ICON.users, title: 'Reputación y reseñas dentro de la estrategia local', html: 'Un sistema para pedir reseñas a tiempo y responderlas. Te lo explicamos paso a paso en <a href="/blog/como-conseguir-mas-resenas-en-google-para-tu-pyme/">cómo conseguir más reseñas en Google</a>.' },
+        { icon: ICON.target, title: 'Optimización del Perfil de Empresa en Google', html: 'Categorías, servicios, fotos, horarios y publicaciones, revisados como si fueran una página más de tu web. La categoría principal es la decisión que más pesa y la que más errores acumula. Si otra persona gestiona tu ficha, te enseñamos a <a href="/blog/dar-acceso-a-tu-perfil-de-empresa-en-google/">dar acceso a tu Perfil de Empresa</a> sin compartir contraseñas.' },
+        { icon: ICON.doc, title: 'Páginas para servicios y zonas de cobertura reales', html: 'Una página por ciudad solo cuando atiendes de verdad esa zona y puedes contar algo propio: clientes, proyectos o cómo te desplazas. Lo aplicamos en nuestra propia web, con páginas de <a href="/agencia-seo-para-pymes/barcelona/">agencia SEO en Barcelona</a>, <a href="/agencia-seo-para-pymes/sabadell/">posicionamiento SEO en Sabadell</a>, <a href="/agencia-seo-para-pymes/terrassa/">SEO para pymes de Terrassa</a> y <a href="/agencia-seo-para-pymes/sant-cugat/">agencia SEO en Sant Cugat</a>.' },
+        { icon: ICON.search, title: 'Coherencia de los datos de tu negocio', html: 'Nombre, dirección y teléfono idénticos en la web, el Perfil de Empresa en Google y los directorios. Las incoherencias restan confianza a Google y confunden al cliente. En la web nueva del <a href="/casos-exito/restaurante-loremar/">Restaurante Loremar</a>, en Sabadell, cuidamos el SEO local y dejamos el botón de reserva visible en todas las páginas.' },
+        { icon: ICON.users, title: 'Reputación y reseñas dentro de la estrategia local', html: 'Un sistema para pedir reseñas en el momento adecuado, justo después de un buen servicio, y para responderlas todas, también las negativas. Las reseñas influyen en tu posición en el mapa y en la decisión del cliente. Te lo explicamos paso a paso en <a href="/blog/como-conseguir-mas-resenas-en-google-para-tu-pyme/">cómo conseguir más reseñas en Google</a>.' },
       ]}
     />
     <div class="mt-12 text-center reveal">
@@ -348,16 +348,16 @@ const pageSchema = localAgencySchema({
   <!-- ═══ ESPECIALIZACIÓN ════════════════════════════════════════════════ -->
   <PSection kicker="Experiencia sectorial" title="Especialización según cómo vende tu empresa" tone="soft">
     <Fragment slot="intro">
-      <p>Cada modelo de negocio se busca de forma distinta. Ajustamos la estrategia a cómo compran tus clientes y tenemos páginas específicas para los sectores en los que más trabajamos.</p>
+      <p>Un despacho de abogados, una tienda online y un fabricante industrial se buscan de forma muy distinta. Ajustamos la estrategia a cómo compran tus clientes, y para los sectores en los que más trabajamos tenemos páginas específicas con sus propias prioridades.</p>
     </Fragment>
     <PCards
       tone="soft"
       cols={2}
       items={[
-        { icon: ICON.users, title: 'SEO para servicios profesionales', html: 'El cliente busca confianza antes que precio. Contenido con autoridad y SEO local por especialidad para <a href="/agencia-abogados/seo/">abogados</a>, <a href="/agencia-dentistas/seo/">dentistas</a>, <a href="/agencia-psicologos/seo/">psicólogos</a> y <a href="/agencia-terapeutas/seo/">terapeutas</a>.' },
-        { icon: ICON.money, title: 'SEO para ecommerce', html: 'Arquitectura de categorías, fichas de producto y control de filtros. Lo aplicamos en <a href="/casos-exito/palacio-del-bebe/">Palacio del Bebé</a> y lo detallamos en <a href="/agencia-ecommerce/seo/">SEO para ecommerce</a>.' },
-        { icon: ICON.chart, title: 'SEO para empresas B2B e industriales', html: 'Pocos decisores y búsquedas muy técnicas. Importa aparecer en las diez consultas del responsable de compras. Más en <a href="/agencia-b2b/seo/">SEO B2B</a> y <a href="/agencia-industrial/seo/">SEO industrial</a>.' },
-        { icon: ICON.target, title: 'SEO para negocios con presencia local', html: 'Perfil de Empresa, reseñas y páginas por zona para <a href="/agencia-restaurantes/seo/">restaurantes</a>, <a href="/agencia-gimnasios/seo/">gimnasios</a>, <a href="/agencia-inmobiliarias/seo/">inmobiliarias</a>, <a href="/agencia-constructoras/seo/">constructoras</a> y <a href="/agencia-hoteles/seo/">hoteles</a>.' },
+        { icon: ICON.users, title: 'SEO para servicios profesionales', html: 'El cliente busca confianza antes que precio, y suele comparar dos o tres opciones cercanas. Trabajamos contenido con autoridad y SEO local por especialidad en el <a href="/agencia-abogados/seo/">SEO para abogados</a>, el <a href="/agencia-dentistas/seo/">SEO para clínicas dentales</a>, el <a href="/agencia-psicologos/seo/">SEO para psicólogos</a> y el <a href="/agencia-terapeutas/seo/">SEO para terapeutas</a>.' },
+        { icon: ICON.money, title: 'SEO para ecommerce', html: 'Arquitectura de categorías, fichas de producto que resuelven dudas y control de filtros para no generar miles de URLs duplicadas. Si vendes online, también coordinamos el SEO con Google Shopping. Lo explicamos con detalle en nuestro servicio de <a href="/agencia-ecommerce/seo/">posicionamiento SEO para tiendas online</a>.' },
+        { icon: ICON.chart, title: 'SEO para empresas B2B e industriales', html: 'Pocos decisores, ventas largas y búsquedas muy técnicas. Importa aparecer en las diez consultas que hace el responsable de compras, no en mil genéricas. Es el enfoque de nuestro <a href="/agencia-b2b/seo/">SEO para empresas B2B</a> y del <a href="/agencia-industrial/seo/">SEO para empresas industriales</a>, con casos como Dipole RFID o Clustag.' },
+        { icon: ICON.target, title: 'SEO para negocios con presencia local', html: 'Perfil de Empresa en Google, reseñas y páginas por zona, adaptados a cómo busca cada cliente. Tenemos páginas propias de <a href="/agencia-restaurantes/seo/">SEO para restaurantes</a>, <a href="/agencia-gimnasios/seo/">SEO para gimnasios</a>, <a href="/agencia-inmobiliarias/seo/">SEO para inmobiliarias</a>, <a href="/agencia-constructoras/seo/">SEO para constructoras</a> y <a href="/agencia-hoteles/seo/">SEO para hoteles</a>.' },
       ]}
     />
   </PSection>
@@ -365,7 +365,7 @@ const pageSchema = localAgencySchema({
   <!-- ═══ RESULTADOS ═════════════════════════════════════════════════════ -->
   <PSection kicker="Casos reales" title="Resultados de proyectos de posicionamiento orgánico" width="wide">
     <Fragment slot="intro">
-      <p>Datos de proyectos que hemos llevado, con su punto de partida y el periodo de trabajo. Cada caso explica qué hicimos y por qué funcionó.</p>
+      <p>Datos de proyectos que hemos llevado, con su punto de partida y su periodo de trabajo. Las barras comparan el crecimiento del tráfico orgánico y las cifras muestran lo que ese tráfico supone en visitas y contactos. Pulsa en cada caso para ver qué hicimos y por qué funcionó.</p>
     </Fragment>
     <div class="grid lg:grid-cols-2 gap-8 items-start">
       <PBars
@@ -393,7 +393,7 @@ const pageSchema = localAgencySchema({
   <!-- ═══ INDICADORES ════════════════════════════════════════════════════ -->
   <PSection kicker="Medición" title="Los indicadores que usamos para tomar decisiones" tone="soft">
     <Fragment slot="intro">
-      <p>Las posiciones son un medio, no el objetivo. Seguimos cuatro indicadores en orden, porque cada uno anticipa al siguiente. Si quieres entender de dónde llega hoy tu tráfico, empieza por <a href="/blog/donde-viene-el-trafico/">de dónde viene el tráfico de tu web</a>.</p>
+      <p>Las posiciones solo importan si traen clientes. Seguimos cuatro indicadores en este orden, porque cada uno anticipa al siguiente. Si quieres entender de dónde llega hoy tu tráfico, empieza por <a href="/blog/donde-viene-el-trafico/">de dónde viene el tráfico de tu web</a>.</p>
     </Fragment>
     <div class="grid lg:grid-cols-[1fr_1.1fr] gap-10 items-start">
       <PCards
@@ -402,10 +402,10 @@ const pageSchema = localAgencySchema({
         cols={2}
         class="lg:grid-cols-1"
         items={[
-          { title: 'Visibilidad en búsquedas relevantes', html: 'Impresiones y posiciones en las búsquedas que hemos definido como objetivo, no en todas.' },
-          { title: 'Tráfico orgánico que llega a páginas de negocio', html: 'Visitas a páginas de servicio, categorías y productos, separadas del tráfico del blog.' },
-          { title: 'Contactos y ventas atribuibles al canal orgánico', html: 'Llamadas, formularios y pedidos con origen en Google, medidos con GA4 y la atribución de cada formulario.' },
-          { title: 'Evolución de las páginas que estamos trabajando', html: 'Cada mejora tiene fecha. Comparamos antes y después para saber qué funciona y repetirlo.' },
+          { title: 'Visibilidad en búsquedas relevantes', html: 'Impresiones y posiciones en las búsquedas que hemos definido como objetivo, no en todas. Subir en «qué es el SEO» no trae clientes a una empresa de reformas; subir en «reformas integrales en Sabadell», sí. Es el primer indicador en moverse, a veces en pocas semanas.' },
+          { title: 'Tráfico orgánico que llega a páginas de negocio', html: 'Visitas a páginas de servicio, categorías y productos, separadas del tráfico del blog. Así ves si el crecimiento llega a las páginas donde se vende o solo a artículos informativos. Lo mostramos página a página en el informe mensual.' },
+          { title: 'Contactos y ventas atribuibles al canal orgánico', html: 'Llamadas, formularios y pedidos con origen en Google, medidos con GA4 y la atribución de cada formulario. Es la cifra con la que valoramos nuestro trabajo y la primera que verás en cada informe, por delante de cualquier dato de posiciones.' },
+          { title: 'Evolución de las páginas que estamos trabajando', html: 'Cada mejora tiene fecha. Comparamos el antes y el después de cada página trabajada para saber qué funciona y repetirlo en otras. Si un cambio no da resultado en unas semanas, lo revisamos en lugar de insistir en lo mismo.' },
         ]}
       />
       <PLines
@@ -416,7 +416,7 @@ const pageSchema = localAgencySchema({
           { label: 'Contactos', points: [5, 5, 6, 8, 12, 17, 24, 31, 39, 46], color: '#16a34a' },
         ]}
         xLabels={['Inicio', '', '', 'Mes 3', '', '', 'Mes 6', '', '', 'Mes 9']}
-        caption="Esquema ilustrativo. La visibilidad sube primero; el tráfico y los contactos la siguen con unas semanas de retraso."
+        caption="Esquema ilustrativo. Fíjate en el desfase: la visibilidad sube primero y el tráfico y los contactos la siguen con unas semanas de retraso."
       />
     </div>
   </PSection>
@@ -436,10 +436,10 @@ const pageSchema = localAgencySchema({
       cols={4}
       variant="numbered"
       items={[
-        { title: 'Conocemos tus objetivos y revisamos los accesos', html: 'Una sesión para entender tus servicios, márgenes y clientes, y revisión de Search Console, Analytics y el Perfil de Empresa.' },
-        { title: 'Acordamos las primeras prioridades', html: 'A partir de la <a href="#auditoria">auditoría</a> elegimos las tareas de más impacto para los primeros meses y te las enviamos por escrito.' },
-        { title: 'Ejecutamos las mejoras con tu equipo', html: 'Aplicamos los cambios en la web o los preparamos para tu desarrollador. Tú solo validas los contenidos que hablan de tu negocio.' },
-        { title: 'Revisamos resultados y próximos pasos', html: 'Cada mes, un informe con lo realizado y su efecto, y una conversación sobre qué ajustar el mes siguiente.' },
+        { title: 'Conocemos tus objetivos y revisamos los accesos', html: 'Una primera sesión para entender tus servicios, tus márgenes y el tipo de cliente que buscas. Revisamos los accesos a Search Console, Analytics y el Perfil de Empresa en Google, y si falta alguno te guiamos para darlo de alta.' },
+        { title: 'Acordamos las primeras prioridades', html: 'A partir de la <a href="#auditoria">auditoría inicial</a> elegimos las tareas de más impacto para los primeros meses. Te las enviamos por escrito: qué haremos, en qué orden y qué esperamos conseguir con cada una. Si algo cambia en tu negocio, como un servicio nuevo o una temporada fuerte, reordenamos la lista.' },
+        { title: 'Ejecutamos las mejoras con tu equipo', html: 'Aplicamos los cambios en la web o los preparamos para tu desarrollador, con instrucciones claras. Tú solo validas los contenidos que hablan de tu negocio, como precios, plazos o casos. Ningún texto sobre tu empresa se publica sin tu visto bueno.' },
+        { title: 'Revisamos resultados y próximos pasos', html: 'Cada mes recibes un informe con lo realizado y su efecto en visibilidad, tráfico y contactos. Lo comentamos en una conversación breve y decidimos qué ajustar el mes siguiente. Sin permanencia: si el trabajo no te aporta, puedes parar cuando quieras.' },
       ]}
     />
   </PSection>
@@ -447,7 +447,7 @@ const pageSchema = localAgencySchema({
   <!-- ═══ INVERSIÓN ══════════════════════════════════════════════════════ -->
   <PSection kicker="Precios" title="Cuánto invertir en el SEO de tu pyme" tone="soft" width="wide">
     <Fragment slot="intro">
-      <p>Tarifas orientativas, sin IVA y sin permanencia. Antes de empezar recibes un presupuesto cerrado por escrito. Si quieres ver cómo encaja el SEO en el presupuesto total de marketing, lee <a href="/blog/cuanto-tiene-que-invertir-una-pyme-en-marketing/">cuánto tiene que invertir una pyme en marketing</a>.</p>
+      <p>Tarifas orientativas, sin IVA y sin permanencia. Antes de empezar recibes un presupuesto cerrado por escrito. Si quieres ver cómo encaja el SEO en tu presupuesto total, lee <a href="/blog/cuanto-tiene-que-invertir-una-pyme-en-marketing/">cuánto debe invertir una pyme en marketing</a>.</p>
     </Fragment>
     <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch reveal">
       {[
@@ -474,7 +474,7 @@ const pageSchema = localAgencySchema({
       variant="rows"
       tone="soft"
       items={[
-        { title: 'Qué determina el presupuesto de tu empresa', html: 'El tamaño de la web, la competencia de tus búsquedas, el número de servicios y zonas, el estado técnico de partida y cuánto contenido hay que crear. Una clínica con una sede no necesita lo mismo que un ecommerce con 3.000 productos.' },
+        { title: 'Qué determina el presupuesto de tu empresa', html: 'El tamaño de la web, la competencia de tus búsquedas, el número de servicios y zonas, el estado técnico de partida y cuánto contenido hay que crear. Una clínica con una sede no necesita lo mismo que un ecommerce con 3.000 productos. Por eso empezamos por la auditoría: con sus datos, la cuota mensual deja de ser una estimación.' },
       ]}
     />
   </PSection>
@@ -482,16 +482,16 @@ const pageSchema = localAgencySchema({
   <!-- ═══ CONSULTOR ══════════════════════════════════════════════════════ -->
   <PSection kicker="Quién está detrás" title="Un consultor responsable de la evolución de tu web" layout="split">
     <Fragment slot="intro">
-      <p>En Nova no hay capas comerciales entre tú y quien trabaja tu web. La misma persona hace la auditoría, define la estrategia y responde en la reunión mensual.</p>
+      <p>En Nova no hay comerciales entre tú y quien trabaja tu web. La misma persona hace la auditoría, define la estrategia y te responde en la reunión mensual.</p>
       <p data-consultor-link>Cada proyecto lo dirige Sergio Galo's, fundador de Nova, que también trabaja como <a href="https://sergiogalos.es/consultor-seo-para-pymes/" class="font-medium text-accent underline decoration-accent/30 underline-offset-4 hover:decoration-accent" target="_blank" rel="noopener">consultor SEO para pymes</a>.</p>
     </Fragment>
     <img slot="aside" src="/sergio-galos-agencia-seo-para-pymes.webp" alt="Sergio Galo's, consultor SEO para pymes" title="Sergio Galo's, consultor SEO para pymes" class="w-full max-w-xs mx-auto h-auto rounded-3xl" loading="lazy" width="473" height="591" />
     <PCards
       cols={3}
       items={[
-        { icon: ICON.users, title: 'Quién dirige tu estrategia SEO', html: 'Sergio Galo\'s, consultor de marketing digital y SEO y fundador de Nova, con años posicionando pymes de industria, salud, ecommerce y servicios profesionales.' },
-        { icon: ICON.link, title: 'Cómo nos coordinamos con tu equipo', html: 'Un canal directo para dudas, reuniones presenciales en Barcelona o por videollamada en el resto de España, y coordinación con tu desarrollador si lo tienes.' },
-        { icon: ICON.chart, title: 'Qué información recibes sobre el trabajo realizado', html: 'Un informe mensual con las tareas hechas, la evolución de las páginas trabajadas y los contactos desde Google. Y acceso permanente a tus herramientas.' },
+        { icon: ICON.users, title: 'Quién dirige tu estrategia SEO', html: 'Sergio Galo\'s, consultor de marketing digital y SEO y fundador de Nova. Lleva años posicionando pymes de industria, salud, ecommerce y servicios profesionales, desde un distribuidor de tecnología RFID con el que trabaja el SEO desde 2019 hasta un bufete penalista de Barcelona.' },
+        { icon: ICON.link, title: 'Cómo nos coordinamos con tu equipo', html: 'Un canal directo para tus dudas, sin tickets ni intermediarios. Reuniones presenciales en Barcelona o por videollamada en el resto de España. Si tienes desarrollador o equipo de marketing, nos coordinamos con ellos para que los cambios no se pisen.' },
+        { icon: ICON.chart, title: 'Qué información recibes sobre el trabajo realizado', html: 'Un informe mensual con las tareas hechas, la evolución de las páginas trabajadas y los contactos que llegan desde Google. Además tienes acceso permanente a tus herramientas: Search Console, Analytics y el Perfil de Empresa en Google siguen siendo tuyos.' },
       ]}
     />
   </PSection>

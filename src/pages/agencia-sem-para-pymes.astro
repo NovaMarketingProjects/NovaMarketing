@@ -43,9 +43,9 @@ const ICON = {
 };
 
 const faqs = [
-  { question: '¿Qué presupuesto necesita mi pyme para empezar?', answer: 'Como orientación, recomendamos empezar con entre 300 y 500 euros al mes de presupuesto en anuncios, que va íntegro a Google, más los honorarios de gestión, desde 150 euros al mes sin IVA. La cifra real depende de lo que cuesta cada clic en tus búsquedas y de tu margen. Antes de empezar hacemos los números contigo y, si no salen, te lo decimos.' },
-  { question: '¿Cuándo habrá datos suficientes para evaluar las campañas?', answer: 'Los anuncios pueden empezar a mostrarse en pocos días y los primeros contactos suelen llegar en las primeras semanas. Para valorar con criterio el coste por contacto y la calidad de los leads hacen falta, por lo general, entre uno y dos meses de datos, más si el presupuesto es bajo o tu ciclo de venta es largo.' },
-  { question: '¿Podéis continuar con una cuenta que ya existe?', answer: 'Sí, y suele ser lo más recomendable, porque el historial de la cuenta tiene valor. Empezamos con una revisión de la configuración, las conversiones, las campañas y las búsquedas reales que han activado tus anuncios. Mantenemos lo que funciona y corregimos lo demás por orden de impacto, sin borrar la cuenta ni empezar de cero.' },
+  { question: '¿Qué presupuesto necesita mi pyme para empezar?', answer: 'Como orientación, recomendamos empezar con entre 300 y 500 euros al mes de presupuesto en anuncios, que pagas íntegro a Google, más los honorarios de gestión, desde 150 euros al mes sin IVA. La cifra real depende de lo que cuesta cada clic en tus búsquedas y de tu margen. Antes de empezar hacemos los números contigo y, si no salen, te lo decimos.' },
+  { question: '¿Cuándo habrá datos suficientes para evaluar las campañas?', answer: 'Los anuncios pueden empezar a mostrarse en pocos días y los primeros contactos suelen llegar en las primeras semanas. Para valorar con criterio el coste por contacto y la calidad de los contactos hacen falta, por lo general, entre uno y dos meses de datos. Más si el presupuesto es bajo o tu ciclo de venta es largo.' },
+  { question: '¿Podéis continuar con una cuenta que ya existe?', answer: 'Sí, y suele ser lo más recomendable, porque el historial de la cuenta tiene valor. Empezamos revisando la configuración, las conversiones, las campañas y las búsquedas reales que han activado tus anuncios. Mantenemos lo que funciona y corregimos el resto por orden de impacto, sin borrar la cuenta ni empezar de cero.' },
   { question: '¿Cómo se pausa o se finaliza el servicio?', answer: 'Trabajamos mes a mes, sin permanencia. Si quieres pausar las campañas por temporada o terminar el servicio, nos lo dices y lo dejamos ordenado. La cuenta de Google Ads siempre está a tu nombre, así que conservas el historial, las conversiones y las audiencias, y puedes retomarla tú o con quien decidas.' },
 ];
 
@@ -102,7 +102,7 @@ const pageSchema = localAgencySchema({
                 <span class="lg:whitespace-nowrap text-mktg-gradient">para PYMEs</span>
             </h1>
       <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed max-w-3xl mx-auto mb-8">
-        Campañas en Google pensadas para conseguir presupuestos, ventas y llamadas que tu empresa pueda atender, con la cuenta a tu nombre y honorarios fijos que no dependen de cuánto gastes.
+        Campañas de Google Ads para que tu pyme reciba presupuestos, ventas y llamadas que pueda atender. Cobramos honorarios fijos, no un porcentaje de lo que inviertes, y la cuenta está siempre a tu nombre.
       </p>
       <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
         {['Sin permanencias', 'Honorarios fijos', 'La cuenta es tuya'].map((item) => (
@@ -121,8 +121,8 @@ const pageSchema = localAgencySchema({
   <!-- ═══ OBJETIVO ═══════════════════════════════════════════════════════ -->
   <PSection kicker="Por qué Google Ads" title="Tu inversión publicitaria debe responder a un objetivo claro">
     <Fragment slot="intro">
-      <p>Google Ads permite aparecer hoy mismo delante de quien busca lo que vendes. Esa rapidez es su ventaja y también su riesgo: <strong>una campaña sin objetivo concreto gasta igual de rápido que una bien planteada</strong>, solo que sin devolver clientes.</p>
-      <p>En Nova empezamos por lo que tu empresa necesita conseguir y construimos las campañas hacia atrás. Qué búsquedas merecen inversión, qué mensaje necesita cada anuncio y qué debe pasar en la página para que el clic acabe en contacto. Si dudas entre pagar por anuncios o trabajar el posicionamiento, te lo explicamos en <a href="/blog/que-necesita-una-pyme-seo-o-sem/">qué necesita una pyme, SEO o SEM</a>. Muchas veces la respuesta es combinar la publicidad con el <a href="/agencia-seo-para-pymes/">posicionamiento SEO</a>.</p>
+      <p>Con Google Ads puedes aparecer hoy mismo delante de quien busca lo que vendes. Esa rapidez es la ventaja y también el riesgo: <strong>una campaña sin objetivo concreto gasta igual de rápido que una bien planteada</strong>, pero no trae clientes.</p>
+      <p>Por eso empezamos por lo que necesita tu empresa y construimos la cuenta hacia atrás: qué búsquedas merecen inversión, qué debe decir cada anuncio y qué tiene que pasar en la página para que el clic acabe en contacto. Si dudas entre pagar anuncios o trabajar el posicionamiento, lo comparamos en <a href="/blog/que-necesita-una-pyme-seo-o-sem/">SEO o SEM para una pyme</a>. A menudo la respuesta es combinar la publicidad con nuestro <a href="/agencia-seo-para-pymes/">servicio de posicionamiento SEO</a>.</p>
     </Fragment>
     <PFlow
       steps={[
@@ -131,23 +131,23 @@ const pageSchema = localAgencySchema({
         { label: 'Página de destino', sub: 'responde a la búsqueda' },
         { label: 'Conversión medida', sub: 'contacto, venta, oportunidad' },
       ]}
-      caption="El orden en el que planteamos una cuenta. Primero el objetivo; la campaña es la herramienta para llegar a él."
+      caption="El orden en que planteamos una cuenta: primero el objetivo de negocio, después la campaña que lo persigue."
     />
   </PSection>
 
   <!-- ═══ OBJETIVOS ══════════════════════════════════════════════════════ -->
   <PSection kicker="Objetivos" title="Qué quieres conseguir con tus campañas" tone="soft">
     <Fragment slot="intro">
-      <p>Cada objetivo pide una configuración distinta: tipo de campaña, forma de pujar, página de destino y lo que contamos como conversión. Por eso lo acordamos antes de tocar la cuenta.</p>
+      <p>Cada objetivo pide una configuración distinta: tipo de campaña, estrategia de puja, página de destino y qué cuenta como conversión. Lo acordamos contigo antes de tocar la cuenta, porque de esa decisión depende todo lo demás.</p>
     </Fragment>
     <PCards
       tone="soft"
       cols={2}
       items={[
-        { icon: ICON.doc, title: 'Solicitudes de presupuesto', html: 'Para empresas de servicios con un ticket alto, como reformas, instalaciones o asesorías. Buscamos personas que ya saben lo que necesitan y quieren precio. Medimos formularios completos, no clics, y filtramos las búsquedas de bricolaje o empleo. Lo aplicamos en sectores como <a href="/agencia-constructoras/google-ads/">constructoras</a> o <a href="/agencia-inmobiliarias/google-ads/">inmobiliarias</a>, donde un solo contrato puede justificar meses de inversión.' },
-        { icon: ICON.cart, title: 'Ventas en tu tienda online', html: 'Si vendes online, el objetivo es facturar con rentabilidad, no acumular visitas. Trabajamos el catálogo, las campañas de Shopping y la medición de ingresos para saber qué productos devuelven lo invertido. Lo detallamos en nuestro servicio de <a href="/agencia-ecommerce/google-ads/">Google Ads para ecommerce</a>, con la vista puesta en el margen de cada producto.' },
-        { icon: ICON.phone, title: 'Llamadas y contactos para tu negocio', html: 'Clínicas, despachos, restaurantes o centros deportivos suelen recibir clientes por teléfono. Activamos anuncios con llamada, horarios ajustados a cuándo puedes atender y zonas reales de servicio. Tenemos enfoques específicos para <a href="/agencia-dentistas/google-ads/">dentistas</a>, <a href="/agencia-abogados/google-ads/">abogados</a>, <a href="/agencia-restaurantes/google-ads/">restaurantes</a> y <a href="/agencia-gimnasios/google-ads/">gimnasios</a>.' },
-        { icon: ICON.users, title: 'Oportunidades comerciales para tu equipo de ventas', html: 'En empresas B2B o industriales, el anuncio no cierra la venta; abre una conversación. Priorizamos búsquedas técnicas, formularios con datos útiles para el comercial y el seguimiento de qué contactos acaban en oferta. Más detalle en <a href="/agencia-b2b/google-ads/">Google Ads B2B</a> y <a href="/agencia-industrial/google-ads/">Google Ads para empresas industriales</a>.' },
+        { icon: ICON.doc, title: 'Solicitudes de presupuesto', html: 'Para servicios de ticket alto, como reformas, instalaciones o asesorías. Buscamos a quien ya sabe lo que necesita y quiere precio, por ejemplo con «presupuesto reforma cocina». Medimos formularios enviados, no clics, y excluimos las búsquedas de bricolaje o empleo. Lo aplicamos en <a href="/agencia-constructoras/google-ads/">Google Ads para constructoras</a> y en <a href="/agencia-inmobiliarias/google-ads/">campañas para inmobiliarias</a>, donde un solo contrato puede pagar meses de inversión.' },
+        { icon: ICON.cart, title: 'Ventas en tu tienda online', html: 'Si vendes online, el objetivo es facturar con margen, no sumar visitas. Trabajamos el catálogo, las campañas de Shopping y la medición de ingresos para ver qué productos devuelven lo invertido y cuáles no. Juzgamos cada producto por su margen, no por su precio. Lo explicamos en detalle en nuestro servicio de <a href="/agencia-ecommerce/google-ads/">Google Ads para ecommerce</a>.' },
+        { icon: ICON.phone, title: 'Llamadas y contactos para tu negocio', html: 'Clínicas, despachos, restaurantes o gimnasios reciben muchos clientes por teléfono. Activamos anuncios con botón de llamada, los mostramos solo en las horas en que alguien puede contestar y limitamos la zona a donde das servicio. Tenemos enfoques propios para <a href="/agencia-dentistas/google-ads/">clínicas dentales</a>, <a href="/agencia-abogados/google-ads/">despachos de abogados</a>, <a href="/agencia-restaurantes/google-ads/">restaurantes</a> y <a href="/agencia-gimnasios/google-ads/">gimnasios</a>.' },
+        { icon: ICON.users, title: 'Oportunidades comerciales para tu equipo de ventas', html: 'En B2B o industria, el anuncio no cierra la venta: abre una conversación con tu comercial. Priorizamos búsquedas técnicas como «fabricante de piezas de inyección», pedimos en el formulario los datos que el comercial necesita y seguimos qué contactos acaban en oferta. Más detalle en <a href="/agencia-b2b/google-ads/">Google Ads para empresas B2B</a> y en <a href="/agencia-industrial/google-ads/">Google Ads para el sector industrial</a>.' },
       ]}
     />
   </PSection>
@@ -155,18 +155,18 @@ const pageSchema = localAgencySchema({
   <!-- ═══ NÚMEROS ════════════════════════════════════════════════════════ -->
   <PSection id="numeros" kicker="Viabilidad" title="Antes de invertir, comprobamos si los números encajan">
     <Fragment slot="intro">
-      <p>Hay negocios donde Google Ads funciona muy bien y otros donde el clic cuesta más de lo que el cliente deja. <strong>Preferimos saberlo antes de que gastes</strong> que descubrirlo tres meses después. Hacemos este cálculo con tus datos reales en la primera conversación.</p>
-      <p>Prueba a mover los valores. El resultado es el coste por clic a partir del cual las campañas dejan de compensar con ese planteamiento.</p>
+      <p>En unos negocios Google Ads funciona muy bien y en otros el clic cuesta más de lo que deja el cliente. <strong>Preferimos saberlo antes de que gastes</strong>, no descubrirlo tres meses después. Hacemos este cálculo con tus datos reales en la primera conversación.</p>
+      <p>Mueve los valores de la calculadora. El resultado es el coste por clic máximo que puedes pagar antes de que las campañas dejen de compensar.</p>
     </Fragment>
-    <SemCalc caption="Ejemplo con valores ilustrativos de una empresa de servicios, no son datos de un cliente. Cambia cada valor para aproximarlo a tu negocio." />
+    <SemCalc caption="Ejemplo con valores ilustrativos de una empresa de servicios, no son datos de un cliente. Cambia cada valor por el tuyo y mira cómo se mueve el coste por clic máximo." />
     <PCards
       cols={2}
       variant="numbered"
       items={[
-        { title: 'Margen de tus productos o servicios', html: 'Lo que importa no es el precio de venta, sino lo que queda después de costes. Con un margen alto puedes pagar clics caros y seguir ganando; con uno estrecho, cada euro de publicidad tiene que estar muy bien dirigido. Por eso te preguntamos por el margen aproximado de cada línea antes de proponer campañas o presupuesto.' },
-        { title: 'Coste de adquisición que puede asumir tu empresa', html: 'A partir del margen y de cuántos contactos acaban en venta calculamos cuánto puedes pagar como máximo por un cliente nuevo. Si además ese cliente repite o contrata otros servicios, el límite sube. Esa cifra es la referencia con la que juzgamos cada campaña, no el número de clics.' },
-        { title: 'Demanda y competencia en las búsquedas', html: 'Revisamos cuánta gente busca tu servicio en tu zona, cuánto cuesta aproximadamente el clic y quién más se anuncia. Una búsqueda con poca demanda pero muy precisa puede ser rentable; otra con mucho volumen y competidores con más presupuesto puede no serlo para una pyme. Entender la <a href="/blog/que-es-la-intencion-de-busqueda-en-el-seo/">intención de búsqueda</a> ayuda a separar ambas.' },
-        { title: 'Capacidad para atender los contactos recibidos', html: 'Más contactos solo son buena noticia si alguien los atiende a tiempo. Si tu equipo tarda dos días en devolver una llamada o no puede asumir más trabajo en temporada alta, lo tenemos en cuenta al fijar el presupuesto y los horarios. Una campaña no debe generar más demanda de la que puedes convertir en clientes.' },
+        { title: 'Margen de tus productos o servicios', html: 'Cuenta lo que te queda después de costes, no el precio de venta. Con un margen alto puedes pagar clics caros y seguir ganando; con uno estrecho, cada euro tiene que ir a búsquedas muy precisas. Por eso te pedimos el margen aproximado de cada línea de producto o servicio antes de proponer campañas o presupuesto.' },
+        { title: 'Coste de adquisición que puede asumir tu empresa', html: 'Con tu margen y el porcentaje de contactos que acaban en venta calculamos cuánto puedes pagar, como máximo, por un cliente nuevo. Si ese cliente repite o contrata más servicios, el límite sube. Esa cifra es la vara con la que medimos cada campaña. El número de clics, por sí solo, no decide nada.' },
+        { title: 'Demanda y competencia en las búsquedas', html: 'Revisamos cuánta gente busca tu servicio en tu zona, cuánto cuesta el clic aproximado y quién más se anuncia. Una búsqueda pequeña pero precisa puede ser rentable; otra con mucho volumen y competidores con más presupuesto puede no serlo para una pyme. Para separarlas analizamos la <a href="/blog/que-es-la-intencion-de-busqueda-en-el-seo/">intención de búsqueda</a> de cada término.' },
+        { title: 'Capacidad para atender los contactos recibidos', html: 'Más contactos solo son buena noticia si alguien los atiende a tiempo. Si tu equipo tarda dos días en devolver una llamada o va saturado en temporada alta, ajustamos presupuesto y horarios a esa realidad. La regla es sencilla: la campaña no debe generar más demanda de la que puedes convertir en clientes.' },
       ]}
     />
   </PSection>
@@ -174,7 +174,7 @@ const pageSchema = localAgencySchema({
   <!-- ═══ CUENTA ACTUAL ══════════════════════════════════════════════════ -->
   <PSection id="auditoria" kicker="Revisión de cuenta" title="¿Tu cuenta de Google Ads está aprovechando el presupuesto?" tone="soft" layout="split">
     <Fragment slot="intro">
-      <p>Si ya inviertes en Google Ads, el primer paso es mirar dónde va cada euro. Nuestra revisión de cuenta recorre campañas, búsquedas reales, conversiones y páginas de destino, y termina con un plan ordenado por ahorro e impacto.</p>
+      <p>Si ya inviertes en Google Ads, el primer paso es ver adónde va cada euro. La revisión de cuenta recorre campañas, búsquedas reales, conversiones y páginas de destino. Al final recibes un plan con los cambios ordenados por ahorro e impacto.</p>
       <p>También sirve como <strong>segunda opinión independiente</strong> si trabajas con otra agencia y no tienes claro qué estás pagando.</p>
     </Fragment>
     <PBars
@@ -193,10 +193,10 @@ const pageSchema = localAgencySchema({
       variant="rows"
       tone="soft"
       items={[
-        { title: 'Inversión destinada a búsquedas poco relevantes', html: 'El informe de términos de búsqueda muestra lo que la gente escribió realmente antes de pulsar tu anuncio. Es habitual encontrar búsquedas de empleo, de formación, de productos que no vendes o de otras ciudades. Cada una de ellas resta presupuesto a las que sí traen clientes, y se corrige con palabras clave mejor elegidas y negativas.' },
-        { title: 'Campañas que compiten entre sí', html: 'Cuando varias campañas o grupos de anuncios pujan por la misma búsqueda, Google elige cuál muestra y los datos se reparten. El resultado es que no sabes qué funciona y a veces pagas más por el clic. Reordenamos la estructura para que cada búsqueda importante tenga una única campaña responsable.' },
-        { title: 'Conversiones mal configuradas o incompletas', html: 'Si la cuenta cuenta como conversión una visita a la página de contacto, un clic en el teléfono o un mismo formulario dos veces, las pujas automáticas optimizan hacia algo que no es negocio. Comprobamos qué se mide, cómo se mide y si los números de la cuenta cuadran con los contactos que recibe tu empresa.' },
-        { title: 'Páginas de destino que frenan los resultados', html: 'Muchos anuncios llevan a la portada o a una página que no habla de lo buscado, carga lenta en el móvil o esconde el formulario. El clic está pagado, pero el contacto no llega. Revisamos cada página que recibe tráfico de pago y marcamos qué cambiar primero.' },
+        { title: 'Inversión destinada a búsquedas poco relevantes', html: 'El informe de términos de búsqueda muestra qué escribió la gente antes de pulsar tu anuncio. Es habitual encontrar búsquedas de empleo, cursos, productos que no vendes u otras ciudades, como «trabajo de albañil en Sabadell» en una empresa de reformas. Cada una resta presupuesto a las que traen clientes. Lo corregimos con palabras clave mejor elegidas y negativas.' },
+        { title: 'Campañas que compiten entre sí', html: 'Cuando dos campañas o grupos de anuncios pujan por la misma búsqueda, Google elige cuál mostrar y los datos se reparten. Acabas sin saber qué funciona y a veces pagas más por el clic. Reordenamos la estructura con una regla: cada búsqueda importante tiene una sola campaña responsable.' },
+        { title: 'Conversiones mal configuradas o incompletas', html: 'Si la cuenta registra como conversión una visita a la página de contacto, un clic en el teléfono o el mismo formulario dos veces, las pujas automáticas optimizan hacia algo que no es negocio. Comprobamos qué se mide, cómo se mide y si las conversiones de la cuenta cuadran con los contactos que te llegan de verdad.' },
+        { title: 'Páginas de destino que frenan los resultados', html: 'Muchos anuncios llevan a la portada o a una página que no habla de lo buscado, tarda en cargar en el móvil o esconde el formulario. El clic ya está pagado, pero el contacto no llega. Revisamos cada página que recibe tráfico de pago y te entregamos una lista de cambios, empezando por los que más contactos pueden recuperar.' },
       ]}
     />
   </PSection>
@@ -204,7 +204,8 @@ const pageSchema = localAgencySchema({
   <!-- ═══ BÚSQUEDA ═══════════════════════════════════════════════════════ -->
   <PSection kicker="Campañas de búsqueda" title="Captar la demanda que ya existe" layout="split">
     <Fragment slot="intro">
-      <p>Las campañas de búsqueda son la base de casi cualquier cuenta de pyme. Aparecen cuando alguien escribe en Google exactamente lo que ofreces, es decir, cuando la necesidad ya existe. <strong>No hay que convencer a nadie de que te necesita</strong>, solo de que eres la mejor opción.</p>
+      <p>Las campañas de búsqueda son la base de casi cualquier cuenta de pyme. Tu anuncio aparece cuando alguien escribe en Google lo que ofreces, es decir, cuando la necesidad ya existe. <strong>No tienes que convencerle de que te necesita</strong>, solo de que eres la mejor opción.</p>
+      <p>También son la vía más rápida mientras el SEO madura. En el <a href="/casos-exito/villazon-merce-abogados/">caso de Villazón Mercé Abogados</a>, las campañas de búsqueda cubrieron las consultas penales urgentes desde el lanzamiento de su web nueva.</p>
     </Fragment>
     <PSerp
       slot="aside"
@@ -214,7 +215,7 @@ const pageSchema = localAgencySchema({
         { url: 'competidor-a.com', title: 'Reformas integrales | Pide presupuesto', desc: 'Reformamos tu casa completa. Más de 20 años de experiencia.', label: 'Anuncio' },
         { url: 'directorio-reformas.es › sabadell', title: 'Precios de reforma de baño en Sabadell', desc: 'Compara presupuestos de varias empresas de la zona.' },
       ]}
-      caption="Ilustración. Un anuncio específico para el servicio y la zona responde mejor que uno genérico de la misma empresa."
+      caption="Ilustración. Compara los dos anuncios: el que nombra el servicio, la zona y el plazo responde mejor a la búsqueda que uno genérico."
     />
     <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
       <PCards
@@ -222,10 +223,10 @@ const pageSchema = localAgencySchema({
         variant="check"
         class="lg:grid-cols-1 !mt-12"
         items={[
-          { title: 'Campañas de búsqueda por servicio', html: 'Separamos cada servicio importante en su propia campaña o grupo de anuncios, con su presupuesto, sus palabras clave y su página. Así puedes decidir cuánto invertir en cada línea y comparar qué servicio trae clientes a mejor coste, en lugar de mezclarlo todo en una sola campaña.' },
-          { title: 'Separación entre búsquedas de marca y genéricas', html: 'Quien busca el nombre de tu empresa ya te conoce; quien busca el servicio, todavía no. Mezclar ambas inflaría los resultados de forma engañosa. Las separamos para ver cuánto aporta de verdad la publicidad y para proteger tu marca cuando otros pujan por ella, algo habitual en <a href="/agencia-hoteles/google-ads/">hoteles</a> frente a las plataformas de reservas.' },
-          { title: 'Palabras clave según la intención del usuario', html: 'No es lo mismo «cuánto cuesta reformar un baño» que «empresa reforma baño Sabadell». Priorizamos las búsquedas con intención de contratar, controlamos las coincidencias para no abrir la puerta a variaciones sin sentido y reservamos las más informativas para el SEO.' },
-          { title: 'Términos negativos para filtrar tráfico', html: 'Mantenemos listas de palabras negativas por campaña y por cuenta: empleo, gratis, cursos, segunda mano, ciudades donde no trabajas o servicios que no ofreces. Las revisamos de forma continua con los términos reales, porque cada semana aparecen búsquedas nuevas.' },
+          { title: 'Campañas de búsqueda por servicio', html: 'Cada servicio importante va en su propia campaña o grupo de anuncios, con presupuesto, palabras clave y página propios. En una empresa de reformas, los baños y las reformas integrales van por separado. Así decides cuánto invertir en cada línea y ves qué servicio trae clientes a mejor coste, en vez de mezclarlo todo en una sola campaña.' },
+          { title: 'Separación entre búsquedas de marca y genéricas', html: 'Quien busca el nombre de tu empresa ya te conoce; quien busca el servicio, todavía no. Si mezclas ambas búsquedas, los resultados parecen mejores de lo que son. Las separamos para ver cuánto aporta de verdad la publicidad y para proteger tu marca cuando otros pujan por ella, algo frecuente en las <a href="/agencia-hoteles/google-ads/">campañas para hoteles</a>, que compiten con las plataformas de reservas por su propio nombre.' },
+          { title: 'Palabras clave según la intención del usuario', html: 'No es lo mismo «cuánto cuesta reformar un baño» que «empresa reforma baño Sabadell». Priorizamos las búsquedas con intención de contratar y controlamos los tipos de concordancia para no pagar variaciones sin sentido. Las búsquedas informativas suelen rendir más con contenido, así que las dejamos para el <a href="/agencia-seo-para-pymes/">posicionamiento orgánico</a>.' },
+          { title: 'Términos negativos para filtrar tráfico', html: 'Mantenemos listas de palabras negativas por campaña y por cuenta: empleo, gratis, cursos, segunda mano, ciudades donde no trabajas o servicios que no ofreces. Las revisamos de forma continua con los términos reales que han activado tus anuncios, porque cada semana aparecen búsquedas nuevas.' },
         ]}
       />
       <div class="mt-12">
@@ -236,7 +237,7 @@ const pageSchema = localAgencySchema({
             { label: 'Campaña · Reformas integrales', leaves: ['reforma integral piso', 'reforma vivienda precio'] },
             { label: 'Campaña · Marca', leaves: ['nombre de la empresa'] },
           ]}
-          caption="Ejemplo de estructura. Cada servicio tiene su campaña, sus grupos de anuncios y sus palabras clave; la marca va aparte."
+          caption="Ejemplo de estructura: cada servicio tiene su campaña y sus palabras clave, y la marca va en una campaña aparte."
         />
       </div>
     </div>
@@ -245,8 +246,8 @@ const pageSchema = localAgencySchema({
   <!-- ═══ ECOMMERCE ══════════════════════════════════════════════════════ -->
   <PSection kicker="Shopping y Performance Max" title="Publicidad para vender productos online" tone="soft" layout="split">
     <Fragment slot="intro">
-      <p>En una tienda online el anuncio muestra el producto con foto y precio antes del clic. Eso hace que <strong>la calidad del catálogo pese tanto como la campaña</strong>. Trabajamos ambos a la vez y medimos ingresos y margen, no solo pedidos.</p>
-      <p>Si tu tienda también vende a través de redes sociales, lo coordinamos con <a href="/agencia-ecommerce/meta-ads/">Meta Ads para ecommerce</a>.</p>
+      <p>En una tienda online el anuncio enseña el producto con foto y precio antes del clic. Por eso <strong>la calidad del catálogo pesa tanto como la campaña</strong>. Trabajamos ambos a la vez y medimos ingresos y margen, no solo pedidos.</p>
+      <p>Si tu tienda también vende a través de redes sociales, lo coordinamos con <a href="/agencia-ecommerce/meta-ads/">Meta Ads para tiendas online</a>.</p>
     </Fragment>
     <PStack
       slot="aside"
@@ -256,16 +257,16 @@ const pageSchema = localAgencySchema({
         { label: 'Merchant Center', sub: 'catálogo aprobado y sin errores' },
         { label: 'Datos de producto', sub: 'títulos, precios, stock, imágenes' },
       ]}
-      caption="Cada capa depende de la anterior. Un catálogo con errores limita cualquier campaña."
+      caption="Lee el esquema de abajo arriba: cada capa depende de la anterior, y un catálogo con errores limita cualquier campaña."
     />
     <PCards
       tone="soft"
       cols={2}
       items={[
-        { icon: ICON.doc, title: 'Preparación del catálogo en Merchant Center', html: 'Revisamos el feed de productos: títulos que incluyen lo que la gente busca, categorías correctas, precios y stock sincronizados, imágenes válidas y productos sin rechazos. Google decide en qué búsquedas mostrar cada producto a partir de esos datos, así que un buen catálogo es la mitad del trabajo.' },
-        { icon: ICON.cart, title: 'Campañas de Google Shopping', html: 'Organizamos los productos en grupos según categoría, margen o rendimiento para pujar más por los que compensan y menos por los que no. Revisamos las búsquedas que activan cada producto y añadimos negativas, igual que en las campañas de texto. Es la forma más controlada de vender un catálogo en Google.' },
-        { icon: ICON.chart, title: 'Performance Max según los objetivos del negocio', html: 'Performance Max reparte la inversión entre búsqueda, Shopping, YouTube y otros espacios de forma automática. Funciona bien cuando tiene buenas señales: conversiones correctas, valor de cada venta y un catálogo limpio. Sin ellas puede gastar en tráfico de poca calidad, así que la usamos cuando los datos lo justifican.' },
-        { icon: ICON.money, title: 'Decisiones de inversión por producto y margen', html: 'No todos los productos merecen la misma inversión. Separamos los que dejan más margen, los más vendidos y los que solo consumen presupuesto, y ajustamos el objetivo de retorno de cada grupo. Así la cuenta se alinea con lo que realmente deja dinero a tu tienda.' },
+        { icon: ICON.doc, title: 'Preparación del catálogo en Merchant Center', html: 'Revisamos el feed de productos: títulos con las palabras que usa la gente, como «cochecito 3 piezas» en vez del código del fabricante, categorías correctas, precio y stock sincronizados, imágenes válidas y ningún producto rechazado. Google decide en qué búsquedas mostrar cada producto a partir de esos datos, así que un buen catálogo es la mitad del trabajo.' },
+        { icon: ICON.cart, title: 'Campañas de Google Shopping', html: 'Agrupamos los productos por categoría, margen o rendimiento para pujar más por los que compensan y menos por los que no. Revisamos qué búsquedas activa cada producto y añadimos negativas, igual que en las campañas de texto. En <a href="/casos-exito/palacio-del-bebe/">Palacio del Bebé</a>, Shopping se centró en los productos de más margen y aportó ventas desde el primer mes mientras crecía el SEO.' },
+        { icon: ICON.chart, title: 'Performance Max según los objetivos del negocio', html: 'Performance Max reparte la inversión de forma automática entre búsqueda, Shopping, YouTube y otros espacios. Funciona cuando recibe buenas señales: conversiones correctas, el valor de cada venta y un catálogo limpio. Sin ellas puede gastar en tráfico de poca calidad. Nuestra regla: la activamos cuando los datos de la cuenta la justifican, no por defecto.' },
+        { icon: ICON.money, title: 'Decisiones de inversión por producto y margen', html: 'No todos los productos merecen la misma inversión. Separamos los que dejan más margen, los más vendidos y los que solo consumen presupuesto, y fijamos un objetivo de retorno distinto para cada grupo. Así la cuenta invierte más donde tu tienda gana dinero y menos donde solo factura.' },
       ]}
     />
   </PSection>
@@ -273,8 +274,8 @@ const pageSchema = localAgencySchema({
   <!-- ═══ AUDIENCIAS ═════════════════════════════════════════════════════ -->
   <PSection kicker="YouTube, Display y remarketing" title="Llegar a nuevas audiencias y recuperar su atención" layout="split">
     <Fragment slot="intro">
-      <p>La búsqueda capta a quien ya te busca. Para llegar antes a quien todavía no conoce tu propuesta, o para recuperar a quien visitó tu web y no contactó, existen otros formatos. <strong>Los activamos solo cuando el presupuesto y el objetivo lo justifican</strong>; para muchas pymes, la búsqueda bien trabajada es suficiente al principio.</p>
-      <p>Cuando el objetivo es generar demanda en redes sociales, trabajamos también con Meta Ads, por ejemplo para <a href="/agencia-gimnasios/meta-ads/">gimnasios</a> o <a href="/agencia-restaurantes/meta-ads/">restaurantes</a>.</p>
+      <p>La búsqueda capta a quien ya te busca. Para llegar antes a quien aún no te conoce, o para recuperar a quien visitó tu web y no contactó, hay otros formatos. <strong>Los activamos solo cuando el presupuesto y el objetivo lo justifican</strong>; para muchas pymes, una búsqueda bien trabajada basta al principio.</p>
+      <p>Si necesitas generar demanda en redes sociales, también gestionamos Meta Ads. Lo hacemos, por ejemplo, con <a href="/agencia-gimnasios/meta-ads/">campañas en redes para gimnasios</a>, <a href="/agencia-restaurantes/meta-ads/">Meta Ads para restaurantes</a> y <a href="/agencia-inmobiliarias/meta-ads/">Meta Ads para inmobiliarias</a>.</p>
     </Fragment>
     <PVenn
       slot="aside"
@@ -284,15 +285,15 @@ const pageSchema = localAgencySchema({
         { label: 'YouTube y Display', sub: 'descubrimiento' },
       ]}
       center="Tu cliente"
-      caption="Cada formato cubre un momento distinto. Combinamos solo los que encajan con tu objetivo y tu presupuesto."
+      caption="Cada círculo cubre un momento distinto de la compra. Combinamos solo los que encajan con tu objetivo y tu presupuesto."
     />
     <PCards
       cols={2}
       items={[
-        { icon: ICON.video, title: 'YouTube para presentar tu propuesta', html: 'Un vídeo corto puede explicar en segundos lo que un anuncio de texto no cuenta: cómo trabajas, cómo es tu producto o qué te diferencia. Lo usamos para segmentos concretos, como personas interesadas en temas relacionados con tu servicio o visitantes de tu web, y medimos si después aumentan las búsquedas de tu marca y los contactos.' },
-        { icon: ICON.eye, title: 'Display dentro de una estrategia de cobertura', html: 'Los anuncios gráficos en webs y aplicaciones son baratos por impresión, pero fáciles de desperdiciar. Los activamos con audiencias bien definidas y objetivos de cobertura claros, como reforzar el recuerdo de marca en una zona o en un sector, nunca como sustituto de las campañas que generan contactos.' },
-        { icon: ICON.repeat, title: 'Remarketing cuando sea viable y pertinente', html: 'Volver a mostrar anuncios a quien ya visitó tu web funciona bien cuando la decisión de compra tarda días o semanas. Requiere un volumen mínimo de visitas y el consentimiento de cookies bien configurado. Si tu web todavía no tiene ese tráfico, te lo decimos y no lo activamos.' },
-        { icon: ICON.shield, title: 'Control de ubicaciones y calidad del tráfico', html: 'Revisamos en qué webs, aplicaciones y canales aparecen tus anuncios y excluimos los que traen clics accidentales o sin interés, como juegos infantiles o páginas de baja calidad. Así el presupuesto de cobertura llega a personas que pueden convertirse en clientes.' },
+        { icon: ICON.video, title: 'YouTube para presentar tu propuesta', html: 'Un vídeo corto explica en segundos lo que un anuncio de texto no cuenta: cómo trabajas, cómo es tu producto o qué te diferencia. Lo mostramos a segmentos concretos, como visitantes de tu web o personas interesadas en temas cercanos a tu servicio. Después medimos si suben las búsquedas de tu marca y los contactos.' },
+        { icon: ICON.eye, title: 'Display dentro de una estrategia de cobertura', html: 'Los anuncios gráficos en webs y aplicaciones cuestan poco por impresión, pero se desperdician con facilidad. Los usamos con audiencias acotadas y un objetivo de cobertura claro, como reforzar tu marca en una comarca o en un sector concreto. Nunca sustituyen a las campañas que generan contactos.' },
+        { icon: ICON.repeat, title: 'Remarketing cuando sea viable y pertinente', html: 'Volver a mostrar anuncios a quien ya visitó tu web funciona cuando la decisión tarda días o semanas, como en una reforma o un tratamiento dental. Necesita un volumen mínimo de visitas y el consentimiento de cookies bien configurado. Si tu web todavía no tiene ese tráfico, te lo decimos y no lo activamos.' },
+        { icon: ICON.shield, title: 'Control de ubicaciones y calidad del tráfico', html: 'Revisamos en qué webs, aplicaciones y canales de YouTube aparecen tus anuncios y excluimos los que traen clics accidentales o sin interés, como juegos infantiles o páginas de baja calidad. Así el presupuesto de cobertura llega a personas que pueden acabar siendo clientes.' },
       ]}
     />
   </PSection>
@@ -300,17 +301,17 @@ const pageSchema = localAgencySchema({
   <!-- ═══ ANUNCIOS ═══════════════════════════════════════════════════════ -->
   <PSection kicker="Redacción de anuncios" title="Anuncios que conectan con lo que busca tu cliente" tone="dark">
     <Fragment slot="intro">
-      <p>En la página de resultados tu anuncio compite con otros tres o cuatro en un par de líneas. Gana el que mejor responde a la búsqueda y da motivos para elegirle. Escribimos los anuncios a partir de las dudas reales de tus clientes, no de frases hechas del sector.</p>
+      <p>En la página de resultados tu anuncio compite con otros tres o cuatro en un par de líneas. Gana el que mejor responde a la búsqueda y da un motivo para elegirlo. Escribimos los anuncios a partir de las dudas reales de tus clientes, sin frases hechas del sector.</p>
     </Fragment>
     <PCards
       tone="dark"
       cols={2}
       variant="numbered"
       items={[
-        { title: 'Mensajes según servicio y necesidad', html: 'Cada grupo de anuncios tiene textos que repiten lo que la persona buscó y responden a lo que le preocupa: urgencia, precio, zona o especialidad. Un anuncio para «abogado de herencias» no puede ser el mismo que para «abogado laboral». Lo vemos a menudo en servicios de salud como <a href="/agencia-psicologos/google-ads/">psicólogos</a> o <a href="/agencia-terapeutas/google-ads/">terapeutas</a>, donde el tono importa tanto como la oferta.' },
-        { title: 'Propuestas de valor que se pueden acreditar', html: '«Líderes del sector» o «la mejor calidad» no convencen a nadie. Usamos argumentos que puedes demostrar: años de experiencia, plazo de respuesta, garantía, precio cerrado, valoraciones de clientes. Si un anuncio promete algo, la página de destino tiene que confirmarlo.' },
-        { title: 'Recursos de anuncio útiles para decidir', html: 'Enlaces a servicios concretos, textos destacados, extractos de servicios, llamada, ubicación o formulario. Los recursos amplían el anuncio y dan información antes del clic, lo que filtra a quien no encaja. Elegimos solo los que aportan algo a tu cliente y los mantenemos actualizados.' },
-        { title: 'Pruebas de mensajes y llamadas a la acción', html: 'Probamos variantes de titulares y llamadas a la acción, como «pide presupuesto» frente a «consulta precios», y dejamos las que consiguen más contactos de calidad, no solo más clics. Cambiamos una cosa cada vez para saber qué ha funcionado y aplicarlo en el resto de la cuenta.' },
+        { title: 'Mensajes según servicio y necesidad', html: 'Cada grupo de anuncios repite lo que la persona buscó y responde a lo que le preocupa: urgencia, precio, zona o especialidad. Un anuncio para «abogado de herencias» no puede ser el mismo que para «abogado laboral». En salud, como en las <a href="/agencia-psicologos/google-ads/">campañas para psicólogos</a> o la <a href="/agencia-terapeutas/google-ads/">publicidad para terapeutas</a>, el tono pesa tanto como la oferta.' },
+        { title: 'Propuestas de valor que se pueden acreditar', html: '«Líderes del sector» o «la mejor calidad» no convencen a nadie. Usamos argumentos que puedes demostrar: años de experiencia, plazo de respuesta, garantía, precio cerrado o valoraciones de clientes. Si el anuncio promete algo, la página de destino tiene que confirmarlo. Si no puede, lo quitamos del anuncio.' },
+        { title: 'Recursos de anuncio útiles para decidir', html: 'Enlaces a servicios concretos, textos destacados, extractos de servicios, llamada, ubicación o formulario. Los recursos amplían el anuncio y dan información antes del clic, lo que filtra a quien no encaja. Por ejemplo, un texto destacado con «visita sin compromiso en el Vallès» evita clics de fuera de tu zona. Activamos solo los útiles y los mantenemos al día.' },
+        { title: 'Pruebas de mensajes y llamadas a la acción', html: 'Probamos variantes de titulares y llamadas a la acción, como «pide presupuesto» frente a «consulta precios», y nos quedamos con las que traen más contactos de calidad, no solo más clics. Cambiamos un elemento cada vez para saber qué ha funcionado y aplicarlo al resto de la cuenta.' },
       ]}
     />
   </PSection>
@@ -318,8 +319,8 @@ const pageSchema = localAgencySchema({
   <!-- ═══ LANDING ════════════════════════════════════════════════════════ -->
   <PSection kicker="Página de destino" title="Del clic al contacto: la página de destino" layout="split">
     <Fragment slot="intro">
-      <p>El anuncio trae la visita; la página decide si se convierte en contacto. Una mejora en la conversión de la página reduce el coste de cada cliente sin tocar el presupuesto, por eso la revisamos con la misma atención que las campañas.</p>
-      <p>Si la web necesita cambios de fondo, lo coordinamos con nuestro servicio de <a href="/diseno-web-para-pymes/">diseño web para pymes</a>. Y si quieres hacer una primera revisión por tu cuenta, empieza por <a href="/blog/como-saber-si-tu-web-esta-bien-hecha/">cómo saber si tu web está bien hecha</a>.</p>
+      <p>El anuncio trae la visita; la página decide si se convierte en contacto. Si la página convierte mejor, cada cliente te cuesta menos sin subir el presupuesto. Por eso la revisamos con la misma atención que las campañas.</p>
+      <p>Si la web necesita cambios de fondo, lo coordinamos con nuestro servicio de <a href="/diseno-web-para-pymes/">diseño web para pymes</a>. Para hacer una primera revisión por tu cuenta, empieza por esta <a href="/blog/como-saber-si-tu-web-esta-bien-hecha/">guía para revisar tu web</a>.</p>
     </Fragment>
     <PFlow
       slot="aside"
@@ -329,15 +330,15 @@ const pageSchema = localAgencySchema({
         { label: 'Página', sub: 'urgencias, horario, teléfono' },
         { label: 'Llamada', sub: 'cita el mismo día' },
       ]}
-      caption="Ejemplo de coherencia. Cada paso repite y confirma lo que la persona buscaba."
+      caption="Ejemplo de coherencia: sigue la palabra «urgencias» desde la búsqueda hasta la llamada."
     />
     <PCards
       cols={2}
       items={[
-        { icon: ICON.target, title: 'Coherencia entre búsqueda, anuncio y página', html: 'Si alguien busca un servicio concreto y llega a la portada, tiene que buscar de nuevo. La página de destino debe hablar exactamente de lo que prometía el anuncio, con el mismo vocabulario y la misma oferta. Esa coherencia también mejora el nivel de calidad que Google asigna y, con él, el coste del clic.' },
-        { icon: ICON.doc, title: 'Formularios y vías de contacto sencillas', html: 'Pedimos solo los datos necesarios para responder, colocamos el teléfono y el botón de contacto a la vista en el móvil y ofrecemos alternativas como WhatsApp cuando tu equipo puede atenderlo. Cada campo de más es una razón para abandonar, sobre todo en móvil.' },
-        { icon: ICON.shield, title: 'Pruebas de confianza cerca de la decisión', html: 'Reseñas, casos, años de experiencia, certificaciones, fotos reales del equipo o del trabajo. Las colocamos junto al formulario o al botón de llamada, que es donde aparece la duda. Una persona que no te conoce necesita motivos para darte su teléfono.' },
-        { icon: ICON.chart, title: 'Mejoras de conversión basadas en el comportamiento', html: 'Analizamos hasta dónde baja la gente, dónde abandona el formulario y qué diferencia hay entre móvil y ordenador. Con esos datos proponemos cambios concretos y comprobamos su efecto sobre los contactos, en lugar de rediseñar por intuición.' },
+        { icon: ICON.target, title: 'Coherencia entre búsqueda, anuncio y página', html: 'Si alguien busca un servicio concreto y llega a la portada, tiene que volver a buscar. La página debe hablar de lo que prometía el anuncio, con las mismas palabras y la misma oferta. Esa coherencia también mejora el nivel de calidad que Google asigna a tus anuncios y, con él, abarata el clic.' },
+        { icon: ICON.doc, title: 'Formularios y vías de contacto sencillas', html: 'Pedimos solo los datos necesarios para responder, normalmente nombre, teléfono y qué necesitas. Dejamos el teléfono y el botón de contacto a la vista en el móvil y ofrecemos WhatsApp si tu equipo puede atenderlo. Cada campo de más es una razón para abandonar, sobre todo desde el móvil.' },
+        { icon: ICON.shield, title: 'Pruebas de confianza cerca de la decisión', html: 'Reseñas, casos, años de experiencia, certificaciones y fotos reales del equipo o del trabajo. Las colocamos junto al formulario o al botón de llamada, que es donde aparece la duda. Quien no te conoce necesita motivos para darte su teléfono, y una reseña con nombre convence más que un eslogan.' },
+        { icon: ICON.chart, title: 'Mejoras de conversión basadas en el comportamiento', html: 'Analizamos hasta dónde baja la gente, en qué campo abandona el formulario y cómo cambia el comportamiento entre móvil y ordenador. Con esos datos proponemos cambios concretos y medimos su efecto sobre los contactos. Si un cambio no mejora los resultados, lo retiramos.' },
       ]}
     />
   </PSection>
@@ -345,7 +346,7 @@ const pageSchema = localAgencySchema({
   <!-- ═══ MEDICIÓN ═══════════════════════════════════════════════════════ -->
   <PSection kicker="Medición" title="Medición para saber qué campañas aportan negocio" tone="soft">
     <Fragment slot="intro">
-      <p>Las pujas automáticas de Google aprenden de lo que les dices que es una conversión. Si les das datos pobres, optimizan hacia contactos pobres. <strong>Medir bien es la condición para que todo lo demás funcione.</strong> Para entender de dónde llega hoy tu tráfico, revisa <a href="/blog/donde-viene-el-trafico/">de dónde viene el tráfico de tu web</a>.</p>
+      <p>Las pujas automáticas de Google aprenden de lo que les dices que es una conversión. Si les das datos pobres, buscan contactos pobres. <strong>Medir bien es la condición para que todo lo demás funcione.</strong> Si no sabes de dónde llegan hoy tus visitas, empieza por <a href="/blog/donde-viene-el-trafico/">de dónde viene el tráfico de tu web</a>.</p>
     </Fragment>
     <div class="grid lg:grid-cols-[1.1fr_1fr] gap-10 items-start">
       <PCards
@@ -353,10 +354,10 @@ const pageSchema = localAgencySchema({
         variant="rows"
         class="!mt-12"
         items={[
-          { title: 'Configuración de conversiones relevantes', html: 'Definimos qué cuenta como conversión: formulario enviado, llamada de más de cierta duración, compra con su importe, reserva. Lo configuramos con Google Tag Manager y GA4, eliminamos duplicados y comprobamos que cada acción se registra una sola vez y en la campaña correcta.' },
-          { title: 'Diferencia entre contactos y oportunidades cualificadas', html: 'No todos los contactos valen lo mismo. Un formulario de alguien fuera de tu zona o que pide algo que no haces cuenta igual en la cuenta si no lo distinguimos. Te pedimos una valoración sencilla de los contactos recibidos para saber qué campañas traen los buenos.' },
-          { title: 'Conexión con los resultados comerciales cuando sea posible', html: 'Si usas un CRM o puedes marcar qué contactos se convierten en clientes, importamos esa información a Google Ads. Así las pujas se orientan a ventas reales y no a formularios. Cuando no es posible, buscamos una alternativa manual que dé una referencia fiable.' },
-          { title: 'Revisión de atribución y calidad de los datos', html: 'Comparamos lo que dice Google Ads con GA4 y con lo que recibe tu empresa. Las diferencias son normales, pero deben poder explicarse. Revisamos el consentimiento de cookies, los modelos de atribución y las conversiones de marca para no atribuir a la publicidad lo que habría llegado igualmente. Si además quieres saber cómo te mencionan los asistentes de IA, lo trabajamos como <a href="/agencia-geo-para-pymes/">agencia GEO</a>.' },
+          { title: 'Configuración de conversiones relevantes', html: 'Definimos qué cuenta como conversión: formulario enviado, llamada de más de cierta duración, compra con su importe o reserva. Lo configuramos con Google Tag Manager y GA4, eliminamos duplicados y comprobamos que cada acción se registra una sola vez y en la campaña correcta. Recibes la lista de conversiones activas y qué mide cada una.' },
+          { title: 'Diferencia entre contactos y oportunidades cualificadas', html: 'No todos los contactos valen lo mismo. Un formulario de alguien de fuera de tu zona, o que pide algo que no haces, cuenta igual que uno bueno si no los distinguimos. Te pedimos una valoración sencilla de los contactos recibidos, por ejemplo útil o no útil, para saber qué campañas traen los buenos.' },
+          { title: 'Conexión con los resultados comerciales cuando sea posible', html: 'Si usas un CRM o puedes marcar qué contactos se convierten en clientes, importamos esa información a Google Ads. Así las pujas se orientan a ventas reales y no a formularios. Si aún no tienes uno, compara <a href="/blog/los-7-mejores-crm-para-una-pyme/">los 7 mejores CRM para una pyme</a>; mientras tanto, buscamos una alternativa manual que dé una referencia fiable.' },
+          { title: 'Revisión de atribución y calidad de los datos', html: 'Comparamos lo que dice Google Ads con GA4 y con lo que recibe tu empresa. Las diferencias son normales, pero tienen que poder explicarse. Revisamos el consentimiento de cookies, el modelo de atribución y las conversiones de marca para no atribuir a la publicidad lo que habría llegado igualmente. Si además te interesa cómo te citan los asistentes de IA, lo trabajamos como <a href="/agencia-geo-para-pymes/">agencia GEO para pymes</a>.' },
         ]}
       />
       <div class="mt-12">
@@ -367,7 +368,7 @@ const pageSchema = localAgencySchema({
             { label: 'Oportunidades', sub: 'contactos que encajan', side: 'Lo que valora tu equipo.' },
             { label: 'Clientes', sub: 'ventas cerradas', side: 'Lo que paga la inversión.' },
           ]}
-          caption="Esquema ilustrativo. Cuanto más abajo llega la medición, mejores decisiones toman las campañas."
+          caption="Esquema ilustrativo. Cuanto más abajo del embudo llega la medición, mejores decisiones toman las campañas."
         />
       </div>
     </div>
@@ -376,7 +377,7 @@ const pageSchema = localAgencySchema({
   <!-- ═══ ESCALAR ════════════════════════════════════════════════════════ -->
   <PSection kicker="Optimización" title="Cómo decidimos dónde invertir más" layout="split">
     <Fragment slot="intro">
-      <p>Optimizar no es cambiar cosas cada día. Es leer los datos con perspectiva y mover el presupuesto hacia lo que funciona. Cruzamos dos preguntas: <strong>¿esta campaña es rentable?</strong> y <strong>¿tiene recorrido para crecer?</strong></p>
+      <p>Optimizar no consiste en cambiar cosas cada día. Consiste en leer los datos con perspectiva y mover el presupuesto hacia lo que funciona. Para cada campaña cruzamos dos preguntas: <strong>¿es rentable?</strong> y <strong>¿tiene recorrido para crecer?</strong></p>
     </Fragment>
     <PMatrix
       slot="aside"
@@ -389,15 +390,15 @@ const pageSchema = localAgencySchema({
         { label: 'Búsqueda genérica', x: 76, y: 28 },
         { label: 'Zona secundaria', x: 22, y: 22 },
       ]}
-      caption="Ejemplo de cómo clasificamos las campañas de una cuenta según rentabilidad y volumen."
+      caption="Ejemplo de clasificación: arriba a la derecha, lo que merece más inversión; abajo a la izquierda, lo que hay que revisar o pausar."
     />
     <PCards
       cols={3}
       variant="numbered"
       items={[
-        { title: 'Ajustes de pujas según los resultados', html: 'Elegimos la estrategia de puja según los datos disponibles: más control al principio y objetivos de coste o de retorno cuando hay volumen suficiente. Ajustamos también por dispositivo, horario y zona cuando los datos muestran diferencias claras, no por suposiciones.' },
-        { title: 'Redistribución del presupuesto entre campañas', html: 'Cada mes revisamos qué campañas consiguen clientes a un coste aceptable y cuáles no. Movemos presupuesto de las segundas a las primeras antes de pedir más inversión. A menudo hay margen de mejora sin aumentar el gasto total.' },
-        { title: 'Condiciones para ampliar la inversión', html: 'Proponemos invertir más solo cuando se cumplen tres condiciones: el coste por cliente está dentro del límite, la campaña se queda sin presupuesto en búsquedas buenas y tu equipo puede atender más contactos. Si falta alguna, primero la resolvemos.' },
+        { title: 'Ajustes de pujas según los resultados', html: 'Elegimos la estrategia de puja según los datos disponibles: más control al principio y objetivos de coste o de retorno cuando hay volumen suficiente. También ajustamos por dispositivo, horario y zona cuando los datos muestran diferencias claras, por ejemplo si el móvil trae contactos más baratos que el ordenador. Nunca por suposiciones.' },
+        { title: 'Redistribución del presupuesto entre campañas', html: 'Cada mes revisamos qué campañas consiguen clientes a un coste aceptable y cuáles no. Movemos presupuesto de las segundas a las primeras antes de pedirte más inversión. A menudo hay margen de mejora sin aumentar el gasto total, y lo verás reflejado en el informe mensual.' },
+        { title: 'Condiciones para ampliar la inversión', html: 'Proponemos invertir más solo si se cumplen tres condiciones: el coste por cliente está dentro de tu límite, la campaña se queda sin presupuesto en búsquedas buenas y tu equipo puede atender más contactos. Si falta alguna, primero la resolvemos. Más presupuesto sobre una base floja solo multiplica el gasto.' },
       ]}
     />
   </PSection>
@@ -405,7 +406,7 @@ const pageSchema = localAgencySchema({
   <!-- ═══ ARRANQUE ═══════════════════════════════════════════════════════ -->
   <PSection kicker="Primeras semanas" title="Qué ocurre durante el arranque de tus campañas" tone="soft">
     <Fragment slot="intro">
-      <p>Las primeras semanas de una cuenta nueva o reestructurada son de aprendizaje. Los costes pueden moverse más de lo normal y conviene no sacar conclusiones demasiado pronto. Te explicamos en cada momento qué es esperable y qué no.</p>
+      <p>Las primeras semanas de una cuenta nueva o reestructurada son de aprendizaje. El coste por contacto puede moverse más de lo normal y conviene no sacar conclusiones demasiado pronto. Te explicamos en cada fase qué es esperable y qué no.</p>
     </Fragment>
     <div class="grid lg:grid-cols-[1fr_1.1fr] gap-10 items-start">
       <PCards
@@ -414,9 +415,9 @@ const pageSchema = localAgencySchema({
         class="lg:grid-cols-1"
         cols={2}
         items={[
-          { title: 'Preparación de accesos, medición y materiales', html: 'Pedimos acceso a tu cuenta de Google Ads o la creamos a tu nombre, revisamos Analytics, Tag Manager y Merchant Center si aplica, y configuramos las conversiones. Reunimos contigo textos, ofertas, imágenes y zonas de servicio. Nada se lanza hasta que la medición funciona.' },
-          { title: 'Lanzamiento y primeras comprobaciones', html: 'Activamos las campañas con un presupuesto controlado y revisamos en los primeros días que los anuncios se aprueban, que las búsquedas que entran tienen sentido y que las conversiones se registran. Es cuando más palabras negativas añadimos.' },
-          { title: 'Lectura de datos y ajustes iniciales', html: 'Pasadas unas semanas, con datos suficientes, ajustamos pujas, reparto del presupuesto entre campañas, anuncios y página de destino. Te contamos qué hemos visto, qué hemos cambiado y qué esperamos del mes siguiente.' },
+          { title: 'Preparación de accesos, medición y materiales', html: 'Pedimos acceso a tu cuenta de Google Ads o la creamos a tu nombre. Revisamos Analytics, Tag Manager y, si vendes online, Merchant Center, y configuramos las conversiones. Contigo reunimos textos, ofertas, imágenes y zonas de servicio. Regla fija: nada se lanza hasta que la medición funciona.' },
+          { title: 'Lanzamiento y primeras comprobaciones', html: 'Activamos las campañas con un presupuesto controlado. En los primeros días comprobamos que los anuncios se aprueban, que las búsquedas que entran tienen sentido y que las conversiones se registran. Es la fase en la que más palabras negativas añadimos, porque aparecen las primeras búsquedas reales.' },
+          { title: 'Lectura de datos y ajustes iniciales', html: 'Pasadas unas semanas, con datos suficientes, ajustamos pujas, reparto del presupuesto entre campañas, anuncios y página de destino. Recibes un resumen con lo que hemos visto, lo que hemos cambiado y lo que esperamos del mes siguiente, y lo comentamos contigo.' },
         ]}
       />
       <PLines
@@ -427,7 +428,7 @@ const pageSchema = localAgencySchema({
         ]}
         xLabels={['Semana 1', '', '', 'Semana 4', '', '', '', 'Semana 8', '', '']}
         marker={{ at: 3, label: 'Primeros ajustes con datos' }}
-        caption="Esquema ilustrativo, no son datos de un cliente. Al principio el coste oscila; con ajustes y aprendizaje tiende a estabilizarse."
+        caption="Esquema ilustrativo, no son datos de un cliente. Fíjate en la línea gris: el coste por contacto oscila al principio y tiende a estabilizarse tras los primeros ajustes."
       />
     </div>
   </PSection>
@@ -435,17 +436,17 @@ const pageSchema = localAgencySchema({
   <!-- ═══ CONTROL ════════════════════════════════════════════════════════ -->
   <PSection kicker="Transparencia" title="Una colaboración donde conservas el control" layout="split">
     <Fragment slot="intro">
-      <p>Tu cuenta publicitaria es un activo de tu empresa: guarda el historial, las conversiones y las audiencias de años de inversión. Por eso trabajamos de forma que en ningún momento dependas de nosotros para acceder a ella.</p>
-      <p>Nova es una <a href="/">agencia de marketing digital para pymes</a> con sede en Barcelona. Llevamos campañas en <a href="/agencia-sem-para-pymes/barcelona/">Barcelona</a>, <a href="/agencia-sem-para-pymes/sabadell/">Sabadell</a>, <a href="/agencia-sem-para-pymes/sant-cugat/">Sant Cugat</a> y <a href="/agencia-sem-para-pymes/terrassa/">Terrassa</a> con reuniones presenciales, y en el resto de España por videollamada.</p>
+      <p>Tu cuenta de Google Ads es un activo de tu empresa: guarda el historial, las conversiones y las audiencias de años de inversión. Por eso trabajamos de forma que nunca dependas de nosotros para acceder a ella.</p>
+      <p>Nova es una <a href="/">agencia de marketing digital para pymes</a> con sede en Barcelona. Nos reunimos en persona con las empresas de la zona, con servicio de <a href="/agencia-sem-para-pymes/barcelona/">Google Ads en Barcelona</a>, <a href="/agencia-sem-para-pymes/sabadell/">campañas SEM en Sabadell</a>, <a href="/agencia-sem-para-pymes/sant-cugat/">publicidad en Google en Sant Cugat</a> y <a href="/agencia-sem-para-pymes/terrassa/">anuncios en Google en Terrassa</a>. Con el resto de España trabajamos por videollamada.</p>
       <p data-consultor-link>Cada proyecto lo dirige Sergio Galo's, fundador de Nova, que también trabaja como <a href="https://sergiogalos.es/consultor-seo-y-sem/" class="font-medium text-accent underline decoration-accent/30 underline-offset-4 hover:decoration-accent" target="_blank" rel="noopener">consultor SEO y SEM</a>.</p>
     </Fragment>
     <img slot="aside" src="/sergio-galos-agencia-sem-para-pymes.webp" alt="Sergio Galo's, consultor de Google Ads para PYMEs" title="Sergio Galo's, consultor de Google Ads para PYMEs" class="w-full max-w-xs mx-auto h-auto rounded-3xl" loading="lazy" width="473" height="591" />
     <PCards
       cols={3}
       items={[
-        { icon: ICON.key, title: 'Propiedad y acceso a tu cuenta publicitaria', html: 'La cuenta de Google Ads está siempre a tu nombre y con tu forma de pago. Nosotros accedemos como gestores desde nuestra cuenta de administrador, y tú mantienes el acceso completo. Si un día terminamos, retiras nuestro acceso y lo conservas todo.' },
-        { icon: ICON.money, title: 'Visibilidad sobre inversión y honorarios', html: 'Google te factura directamente el presupuesto en anuncios y nosotros te facturamos los honorarios de gestión, fijos y por separado. No cobramos un porcentaje de lo que inviertes, así que nuestro interés no es que gastes más, sino que cada euro rinda.' },
-        { icon: ICON.chat, title: 'Comunicación con la persona que gestiona tus campañas', html: 'Hablas directamente con Sergio Galo\'s, consultor y fundador de Nova, que es quien revisa y ajusta tus campañas. Sin capas comerciales ni gestores que cambian cada trimestre. Recibes un informe mensual con contactos y costes, y tenemos una conversación para decidir los siguientes pasos.' },
+        { icon: ICON.key, title: 'Propiedad y acceso a tu cuenta publicitaria', html: 'La cuenta de Google Ads está siempre a tu nombre y con tu forma de pago. Nosotros entramos como gestores desde nuestra cuenta de administrador y tú conservas el acceso completo. Si un día dejamos de trabajar juntos, retiras nuestro acceso desde la propia cuenta y te quedas con todo el historial.' },
+        { icon: ICON.money, title: 'Visibilidad sobre inversión y honorarios', html: 'Google te factura directamente el presupuesto de anuncios y nosotros te facturamos aparte los honorarios de gestión, que son fijos. No cobramos un porcentaje de lo que inviertes. Así nuestro interés está en que cada euro rinda, no en que gastes más: si una subida de presupuesto no compensa, te lo decimos.' },
+        { icon: ICON.chat, title: 'Comunicación con la persona que gestiona tus campañas', html: 'Hablas directamente con Sergio Galo\'s, consultor y fundador de Nova, que es quien revisa y ajusta tus campañas. Sin intermediarios comerciales ni gestores que cambian cada trimestre. Cada mes recibes un informe con contactos y coste por contacto, y lo comentamos juntos para decidir los siguientes pasos.' },
       ]}
     />
     <div class="mt-12 text-center reveal">
@@ -457,15 +458,15 @@ const pageSchema = localAgencySchema({
   <!-- ═══ RESULTADOS ═════════════════════════════════════════════════════ -->
   <PSection kicker="Casos reales" title="Resultados de campañas: qué merece la pena comparar" tone="soft" width="wide">
     <Fragment slot="intro">
-      <p>Cualquier agencia puede enseñar una gráfica que sube. Para valorar unos resultados de publicidad, también los nuestros, conviene mirar tres cosas a la vez y desconfiar de las cifras que llegan sin contexto.</p>
+      <p>Cualquier agencia puede enseñar una gráfica que sube. Para valorar resultados de publicidad, también los nuestros, mira estas tres cosas a la vez y desconfía de las cifras que llegan sin contexto.</p>
     </Fragment>
     <PCards
       tone="soft"
       cols={3}
       items={[
-        { icon: ICON.users, title: 'Contactos cualificados y coste por adquisición', html: 'Lo relevante es cuántos contactos útiles llegan y cuánto cuesta cada uno, comparado con lo que tu empresa puede pagar por un cliente. Cien contactos baratos que no encajan valen menos que veinte buenos. Pregunta siempre cómo se ha medido la calidad.' },
-        { icon: ICON.cart, title: 'Ventas, ingresos y retorno publicitario', html: 'En ecommerce, el retorno de la inversión publicitaria indica cuánto se factura por euro invertido, pero no incluye costes ni margen. Un retorno alto con productos de margen bajo puede ser menos rentable que uno moderado con margen alto. Por eso lo comparamos siempre con tu margen.' },
-        { icon: ICON.chart, title: 'Contexto de inversión, periodo y punto de partida', html: 'Un resultado sin presupuesto, fechas ni situación inicial no permite comparar. No es lo mismo mejorar una cuenta mal configurada que hacer crecer una que ya funcionaba, ni un mes de temporada alta que un año completo.' },
+        { icon: ICON.users, title: 'Contactos cualificados y coste por adquisición', html: 'Lo relevante es cuántos contactos útiles llegan y cuánto cuesta cada uno, comparado con lo que tu empresa puede pagar por un cliente. Cien contactos baratos que no encajan valen menos que veinte buenos. Pregunta siempre cómo se ha medido la calidad y quién la ha valorado.' },
+        { icon: ICON.cart, title: 'Ventas, ingresos y retorno publicitario', html: 'En ecommerce, el retorno de la inversión publicitaria (ROAS) indica cuánto facturas por euro invertido, pero no descuenta costes ni margen. Un ROAS de 6 con productos de margen bajo puede dejar menos beneficio que uno de 4 con margen alto. Por eso siempre lo leemos junto a tu margen.' },
+        { icon: ICON.chart, title: 'Contexto de inversión, periodo y punto de partida', html: 'Un resultado sin presupuesto, fechas ni punto de partida no permite comparar. No es lo mismo arreglar una cuenta mal configurada que hacer crecer una que ya funcionaba, ni un mes de temporada alta que un año completo. Cuando te enseñen un resultado, pide siempre esos tres datos.' },
       ]}
     />
     <div class="grid lg:grid-cols-[1fr_1.2fr] gap-10 items-center">
@@ -477,7 +478,7 @@ const pageSchema = localAgencySchema({
         ]}
       />
       <div class="pillar-prose text-base mt-12 reveal">
-        <p>En <a href="/casos-exito/caso-de-exito-superwagen/">Superwagen</a>, concesionario oficial Audi y Volkswagen en Sabadell y Sant Cugat, no aumentamos el presupuesto: centramos las campañas de Google Ads en los vehículos de ocasión, con stock real, segmentación geográfica precisa y ofertas del mes. Combinado con el trabajo de SEO local y por modelos, el concesionario necesitó un 40 % menos de inversión publicitaria. Es un resultado de ambos canales trabajando juntos, no solo de la publicidad.</p>
+        <p>En el <a href="/casos-exito/caso-de-exito-superwagen/">caso de Superwagen</a>, concesionario oficial Audi y Volkswagen en Sabadell y Sant Cugat, no subimos el presupuesto. Centramos las campañas de Google Ads en los vehículos de ocasión, con el stock real, segmentación geográfica precisa y las ofertas del mes. Junto con el SEO local y por modelos, el concesionario pasó a necesitar un 40 % menos de inversión publicitaria. Es un resultado de los dos canales trabajando juntos, no solo de la publicidad.</p>
       </div>
     </div>
     <MoreCases locale="es" categories={['google-ads']} embed />
@@ -486,13 +487,13 @@ const pageSchema = localAgencySchema({
   <!-- ═══ PRECIOS ════════════════════════════════════════════════════════ -->
   <PSection kicker="Precios" title="Cuánto cuesta trabajar Google Ads con Nova" width="wide">
     <Fragment slot="intro">
-      <p>Tres conceptos separados, sin IVA y sin permanencia. Antes de empezar recibes un presupuesto cerrado por escrito. Si quieres ver cómo encaja la publicidad en el conjunto de tu marketing, lee <a href="/blog/cuanto-tiene-que-invertir-una-pyme-en-marketing/">cuánto tiene que invertir una pyme en marketing</a>.</p>
+      <p>Tres conceptos separados, sin IVA y sin permanencia. Antes de empezar recibes un presupuesto cerrado por escrito. Para decidir qué parte de tu marketing debería ir a publicidad, lee <a href="/blog/cuanto-tiene-que-invertir-una-pyme-en-marketing/">cuánto debe invertir una pyme en marketing</a>.</p>
     </Fragment>
     <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch reveal">
       {[
-        { title: 'Configuración o revisión inicial de la cuenta', price: '900 €', note: 'pago único · revisión de una cuenta existente', text: 'Si ya inviertes, revisamos campañas, búsquedas, conversiones y páginas de destino, y te entregamos un plan priorizado en una videollamada. Si empiezas desde cero, la configuración de la cuenta y de la medición está incluida en la gestión mensual.', items: ['Revisión de estructura y búsquedas', 'Comprobación de conversiones', 'Análisis de páginas de destino', 'Plan ordenado por impacto'] },
+        { title: 'Configuración o revisión inicial de la cuenta', price: '900 €', note: 'pago único · revisión de una cuenta existente', text: 'Si ya inviertes, revisamos campañas, búsquedas, conversiones y páginas de destino, y te presentamos un plan priorizado en una videollamada. Si empiezas desde cero, no pagas este concepto: la configuración de la cuenta y de la medición va incluida en la gestión mensual.', items: ['Revisión de estructura y búsquedas', 'Comprobación de conversiones', 'Análisis de páginas de destino', 'Plan ordenado por impacto'] },
         { title: 'Honorarios de gestión y optimización', price: 'desde 150 € / mes', note: 'desde 400 € / mes en cuentas mayores', text: 'Una cuota fija según el número de campañas, servicios y formatos, no un porcentaje de lo que inviertes. Incluye la gestión continua de la cuenta, los anuncios, la revisión de búsquedas, el informe mensual y la línea directa con el consultor.', items: ['Optimización continua', 'Anuncios y recursos', 'Informe mensual de contactos y costes', 'Sin permanencia, mes a mes'], featured: true },
-        { title: 'Presupuesto destinado a los anuncios', price: 'lo decides tú', note: 'orientativo: desde 300-500 € / mes', text: 'Es lo que pagas a Google por los clics, y Google lo factura directamente a tu empresa. Va íntegro a los anuncios. La cifra adecuada depende del coste del clic en tu sector y de tu margen; la calculamos contigo antes de empezar.', items: ['Facturado por Google', 'Ajustable cada mes', 'Sin comisiones sobre la inversión'] },
+        { title: 'Presupuesto destinado a los anuncios', price: 'lo decides tú', note: 'orientativo: desde 300-500 € / mes', text: 'Es lo que pagas a Google por los clics, y Google lo factura directamente a tu empresa. Va íntegro a los anuncios, sin comisión nuestra. La cifra adecuada depende del coste del clic en tu sector y de tu margen; la calculamos contigo antes de empezar.', items: ['Facturado por Google', 'Ajustable cada mes', 'Sin comisiones sobre la inversión'] },
       ].map((p, i) => (
         <div class:list={['pd-rise rounded-3xl p-7 sm:p-8 flex flex-col border', p.featured ? 'bg-zinc-950 text-white border-zinc-950 shadow-2xl' : 'bg-white border-black/5 shadow-[0_15px_40px_rgba(0,0,0,0.06)]']} style={`--i:${i}`}>
           <h3 class:list={['text-lg font-black tracking-tight leading-snug mb-3', p.featured ? 'text-white' : 'text-zinc-900']}>{p.title}</h3>
@@ -517,7 +518,7 @@ const pageSchema = localAgencySchema({
         { label: 'Pyme con varios servicios', fee: 250, ads: 1000 },
         { label: 'Cuenta con Shopping o varias zonas', fee: 400, ads: 2500 },
       ]}
-      caption="Ejemplo con cifras ilustrativas, sin IVA. Los honorarios son fijos; a medida que crece el presupuesto en anuncios, la gestión pesa proporcionalmente menos. Tu presupuesto real lo calculamos contigo."
+      caption="Ejemplo con cifras ilustrativas, sin IVA. Fíjate en la proporción: los honorarios son fijos, así que pesan menos a medida que crece el presupuesto en anuncios. Tu presupuesto real lo calculamos contigo."
     />
   </PSection>
 

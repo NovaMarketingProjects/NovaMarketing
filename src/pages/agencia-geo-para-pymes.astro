@@ -37,11 +37,11 @@ const ICON = {
 };
 
 const faqs = [
-  { question: '¿Se puede garantizar una aparición en ChatGPT?', answer: 'No. Nadie controla lo que responde un modelo de lenguaje, y las respuestas cambian según la pregunta, el momento y el asistente. Lo que sí podemos asegurar es el método. Revisar qué se dice hoy de tu empresa, corregir la información que falla, mejorar las páginas y fuentes que los asistentes consultan y medir con la misma muestra de preguntas si tu presencia mejora. Desconfía de quien te prometa salir siempre.' },
+  { question: '¿Se puede garantizar una aparición en ChatGPT?', answer: 'No. Nadie controla lo que responde un modelo de lenguaje, y las respuestas cambian según la pregunta, el momento y el asistente. Lo que sí podemos asegurar es el método: revisar qué se dice hoy de tu empresa, corregir la información que falla, mejorar las páginas y fuentes que consultan los asistentes y medir con la misma muestra de preguntas si tu presencia mejora. Desconfía de quien te prometa salir siempre.' },
   { question: '¿Necesito trabajar el SEO para contratar GEO?', answer: 'No es obligatorio, pero ayuda mucho. Los buscadores con IA y muchos asistentes se apoyan en páginas que ya están indexadas, bien posicionadas y citadas por otras webs. Si tu web tiene problemas de rastreo o contenidos pobres, el GEO tendrá menos con qué trabajar. En la auditoría te decimos si hace falta reforzar antes el posicionamiento orgánico o si podemos empezar directamente por las respuestas generadas.' },
   { question: '¿En qué asistentes y buscadores tiene sentido centrarse?', answer: 'Normalmente revisamos ChatGPT, Gemini, Claude, Perplexity, Copilot y las respuestas generadas de Google, porque son los que más usan hoy los clientes de una pyme en España. La prioridad depende de tu público. Un comprador industrial no usa las mismas herramientas que un paciente que busca dentista. Elegimos los asistentes de la muestra contigo y los mantenemos estables para poder comparar.' },
   { question: '¿Cuándo conviene repetir las mediciones?', answer: 'Solemos repetir la muestra completa cada mes en los planes de seguimiento, y una revisión puntual después de cambios importantes en la web o en fuentes externas. Repetir con más frecuencia no aporta mucho, porque las variaciones del día a día pueden confundirse con avances. Lo útil es comparar rondas hechas con las mismas preguntas, los mismos asistentes y condiciones parecidas.' },
-  { question: '¿Cómo se distingue una mención de una visita o una venta?', answer: 'Una mención es que el asistente nombre tu empresa en su respuesta. Una visita llega cuando el usuario pulsa una cita o busca tu marca después, y una venta cuando ese contacto se convierte en cliente. Medimos las tres cosas por separado. Las menciones, en la muestra de consultas; las visitas, en la analítica de tu web; y los contactos, preguntando el origen en formularios y llamadas.' },
+  { question: '¿Cómo se distingue una mención de una visita o una venta?', answer: 'Una mención es que el asistente nombre tu empresa en su respuesta. Una visita llega cuando el usuario pulsa una cita o busca tu marca después, y una venta cuando ese contacto se convierte en cliente. Medimos las tres por separado: las menciones, en la muestra de consultas; las visitas, en la analítica de tu web; y los contactos, preguntando el origen en formularios y llamadas.' },
   { question: '¿Qué necesita aportar mi empresa al proyecto?', answer: 'Una persona que conozca bien el negocio, los servicios que quieres potenciar y el tipo de cliente que te interesa. También accesos a la web, a Google Search Console, a la analítica y al Perfil de Empresa en Google. Más adelante te pediremos datos, casos y opiniones de tus profesionales, porque el contenido con experiencia propia es el que más fácilmente se convierte en fuente.' },
 ];
 
@@ -99,7 +99,7 @@ const pageSchema = localAgencySchema({
                 <span class="lg:whitespace-nowrap text-mktg-gradient">en IA</span>
             </h1>
       <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed max-w-3xl mx-auto mb-8">
-        Revisamos qué responden ChatGPT, Gemini, Claude, Perplexity y Google cuando tus clientes preguntan por lo que vendes, y trabajamos la información y las fuentes que hacen que tu empresa aparezca bien descrita.
+        Comprobamos qué responden ChatGPT, Gemini, Perplexity y Google cuando tus clientes preguntan por lo que vendes, y corregimos la información de la que sacan esas respuestas. Cada respuesta la revisa a mano el mismo consultor, que te enseña el antes y el después.
       </p>
       <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
         {['Sin permanencias', 'Trato directo con el consultor', 'Mediciones documentadas'].map((item) => (
@@ -118,9 +118,9 @@ const pageSchema = localAgencySchema({
   <!-- ═══ QUÉ ENCUENTRA EL CLIENTE ══════════════════════════════════════ -->
   <PSection kicker="Por qué GEO" title="¿Qué encuentra un cliente cuando pregunta por tu empresa a una IA?" layout="split">
     <Fragment slot="intro">
-      <p>Cada vez más clientes empiezan su búsqueda con una pregunta a un asistente. «¿Qué empresa me recomiendas para…?», «¿Es fiable este proveedor?», «¿Qué diferencia hay entre estas dos opciones?». <strong>La respuesta llega redactada, con una lista corta de nombres y algunas fuentes</strong>, y muchas veces el usuario no pasa de ahí.</p>
-      <p>Si tu empresa no aparece, aparece mal descrita o se confunde con otra, pierdes la oportunidad antes de que el cliente visite tu web. El GEO, la optimización para motores generativos, consiste en revisar esas respuestas y trabajar la información de la que dependen.</p>
-      <p>En Nova lo hacemos como parte de una <a href="/">agencia de marketing digital para pymes</a>, conectado con tu <a href="/agencia-seo-para-pymes/">posicionamiento en Google</a>, porque los asistentes beben en buena parte de lo que ya es visible en el buscador.</p>
+      <p>Cada vez más clientes empiezan con una pregunta a un asistente de IA como ChatGPT. «¿Qué empresa me recomiendas para…?», «¿Es fiable este proveedor?». <strong>El asistente contesta con un texto ya redactado, una lista corta de nombres y, a veces, los enlaces de donde ha sacado la información</strong>. Esos enlaces son las fuentes citadas. Muchas veces el cliente no pasa de ahí.</p>
+      <p>Si tu empresa no sale, sale con datos viejos o se confunde con otra, pierdes al cliente antes de que vea tu web. El GEO (optimización para motores generativos) consiste en revisar esas respuestas y mejorar la información de la que dependen. Al lado tienes un ejemplo de lo que lee tu cliente.</p>
+      <p>Lo hacemos como <a href="/">agencia de marketing digital para pymes</a> y siempre junto a tu <a href="/agencia-seo-para-pymes/">posicionamiento en Google</a>, porque los asistentes se apoyan en gran parte en lo que ya encuentra el buscador.</p>
     </Fragment>
     <GeoChat
       slot="aside"
@@ -132,15 +132,15 @@ const pageSchema = localAgencySchema({
         { name: 'Competidor B', desc: 'Empresa con más de 30 años, aunque su web no detalla los servicios.' },
       ]}
       sources={['web del proveedor', 'directorio sectorial', 'reseñas en Google']}
-      caption="Ilustración de una respuesta generada. El objetivo es que tu empresa aparezca y lo haga con datos correctos."
+      caption="Ilustración de una respuesta generada: solo caben tres empresas, y debajo aparecen las fuentes de las que sale cada dato."
     />
   </PSection>
 
   <!-- ═══ CÓMO INFLUYEN LAS RESPUESTAS ══════════════════════════════════ -->
   <PSection kicker="Decisión de compra" title="Cómo intervienen las respuestas generadas en la elección de una marca" tone="soft">
     <Fragment slot="intro">
-      <p>Un asistente no sustituye todo el proceso de compra, pero sí filtra. Reduce el mercado a tres o cuatro nombres, resume sus diferencias y propone criterios. La empresa que no entra en esa lista corta tiene que esforzarse mucho más para que el cliente la considere.</p>
-      <p>Estas son las cinco situaciones en las que más pesa la respuesta generada. Cada una pide un trabajo distinto.</p>
+      <p>Un asistente no cierra la venta por ti, pero filtra. Reduce el mercado a tres o cuatro nombres y explica en qué se diferencian. Si tu empresa queda fuera de esa lista corta, es difícil que el cliente llegue a tu web.</p>
+      <p>El esquema muestra en qué punto actúa ese filtro. Debajo tienes los cinco tipos de pregunta que más pesan y lo que necesita cada uno.</p>
     </Fragment>
     <PFunnel
       stages={[
@@ -149,16 +149,16 @@ const pageSchema = localAgencySchema({
         { label: 'Comprobación en la web', sub: 'servicios, precios, opiniones', side: 'Tu web confirma o contradice lo leído.' },
         { label: 'Contacto', sub: 'llamada, formulario, visita', side: 'Solo llegan quienes pasaron los filtros.' },
       ]}
-      caption="Esquema ilustrativo del recorrido. El asistente actúa como primer filtro, no como último paso."
+      caption="Esquema ilustrativo del recorrido: la lista corta del segundo paso decide quién llega a recibir la llamada."
     />
     <PCards
       tone="soft"
       items={[
-        { icon: ICON.search, title: 'Preguntas para descubrir proveedores', html: 'El cliente no sabe a quién llamar y pide nombres. Es la consulta más directa y también la más disputada, porque el asistente suele mencionar pocas empresas. Para entrar hace falta que tu actividad, tu especialidad y tu zona estén descritas con claridad en tu web y en fuentes que el modelo pueda contrastar.' },
-        { icon: ICON.chart, title: 'Comparaciones entre empresas y soluciones', html: 'Preguntas del tipo «X o Y, ¿cuál es mejor para mi caso?». El asistente compara con lo que encuentra publicado. Si tus ventajas no están explicadas en ningún sitio, la comparación se hará con los datos de tu competencia o con información antigua.' },
-        { icon: ICON.alert, title: 'Consultas sobre problemas concretos', html: 'Muchas compras empiezan con un problema, no con un servicio. «Mi web no recibe visitas», «la máquina pierde presión». Las páginas que explican causas y soluciones con detalle son las que el asistente cita. Entender la <a href="/blog/que-es-la-intencion-de-busqueda-en-el-seo/">intención detrás de cada búsqueda</a> ayuda a cubrirlas.' },
-        { icon: ICON.star, title: 'Búsquedas de referencias y confianza', html: '«¿Es fiable esta empresa?», «¿qué opinan sus clientes?». El asistente recoge reseñas, menciones en prensa y casos publicados. Una pyme con buenos trabajos pero sin rastro público de ellos parece, para el modelo, una empresa sin experiencia demostrable.' },
-        { icon: ICON.pin, title: 'Preguntas sobre servicios en una ubicación', html: 'Consultas con ciudad o comarca, muy frecuentes en servicios locales. Aquí cuentan el Perfil de Empresa en Google, la coherencia de dirección y teléfono y las páginas que explican qué zonas atiendes realmente. Un dato distinto en cada sitio hace dudar al asistente.' },
+        { icon: ICON.search, title: 'Preguntas para descubrir proveedores', html: 'El cliente no sabe a quién llamar y pide nombres: «¿qué empresa de climatización me recomiendas en Barcelona?». Es la pregunta más disputada, porque el asistente nombra pocas empresas. Para entrar, tu actividad, tu especialidad y tu zona tienen que estar explicadas con claridad en tu web y repetidas en otras fuentes que el asistente pueda contrastar.' },
+        { icon: ICON.chart, title: 'Comparaciones entre empresas y soluciones', html: '«¿Me conviene más la empresa X o la Y para una reforma de oficina?». El asistente compara con lo que encuentra publicado. Si tus ventajas no están escritas en ningún sitio, la comparación se hará con los datos de tu competencia o con información antigua. Revisamos qué se dice de ti en esas comparaciones y qué falta.' },
+        { icon: ICON.alert, title: 'Consultas sobre problemas concretos', html: 'Muchas compras empiezan por un problema: «mi web no recibe visitas», «la máquina pierde presión». El asistente cita las páginas que explican causas y soluciones con detalle. Entender la <a href="/blog/que-es-la-intencion-de-busqueda-en-el-seo/">intención de búsqueda detrás de cada consulta</a> nos ayuda a decidir qué páginas escribir y qué pregunta debe resolver cada una.' },
+        { icon: ICON.star, title: 'Búsquedas de referencias y confianza', html: '«¿Es fiable esta empresa?», «¿qué opinan sus clientes?». El asistente reúne reseñas, menciones en prensa y casos publicados. Si tus buenos trabajos no dejan rastro público, para el asistente eres una empresa sin experiencia demostrable. Comprobamos qué pruebas de tu trabajo encuentra y cuáles le faltan.' },
+        { icon: ICON.pin, title: 'Preguntas sobre servicios en una ubicación', html: 'Preguntas con ciudad o comarca, muy habituales en servicios locales. Aquí cuentan el Perfil de Empresa en Google, la misma dirección y el mismo teléfono en todas partes y páginas que expliquen qué zonas atiendes de verdad. Lo trabajamos zona a zona, como en el <a href="/agencia-geo-para-pymes/barcelona/">posicionamiento GEO en Barcelona</a> o el <a href="/agencia-geo-para-pymes/sant-cugat/">posicionamiento en IA en Sant Cugat</a>.' },
       ]}
     />
   </PSection>
@@ -166,8 +166,8 @@ const pageSchema = localAgencySchema({
   <!-- ═══ MUESTRA DE VISIBILIDAD ════════════════════════════════════════ -->
   <PSection id="diagnostico" kicker="Diagnóstico" title="El punto de partida: una muestra de tu visibilidad actual" layout="split">
     <Fragment slot="intro">
-      <p>Antes de cambiar nada medimos. Preparamos una muestra de preguntas reales de tus clientes, la lanzamos en varios asistentes y registramos cada respuesta. <strong>No es un informe automático de una herramienta</strong>, sino un análisis revisado a mano que explica qué se dice de tu empresa y por qué.</p>
-      <p>Esa muestra es la referencia con la que compararemos cada revisión posterior. Por eso la documentamos con tanto cuidado.</p>
+      <p>Antes de cambiar nada, medimos. Preparamos una lista de preguntas reales de tus clientes, se la hacemos a varios asistentes y guardamos cada respuesta. <strong>Las revisa una persona, una por una</strong>, y el resultado explica qué se dice de tu empresa y de dónde sale.</p>
+      <p>Esa muestra es la foto de partida. Todas las revisiones posteriores se comparan con ella.</p>
     </Fragment>
     <PBars
       slot="aside"
@@ -179,16 +179,16 @@ const pageSchema = localAgencySchema({
         { label: 'Tu empresa', value: 6, display: '6 de 40', note: 'dos de ellas con datos desactualizados' },
         { label: 'Competidor C', value: 4, display: '4 de 40' },
       ]}
-      caption="Esquema ilustrativo, no son datos de un cliente. Así resumimos la presencia de cada marca en la muestra inicial."
+      caption="Esquema ilustrativo, no son datos de un cliente: cada barra indica en cuántas de las 40 preguntas aparece cada marca."
     />
     <PCards
       variant="rows"
       items={[
-        { title: 'Consultas representativas de tus clientes', html: 'Definimos contigo entre 30 y 60 preguntas que haría un cliente real. Preguntas para encontrar proveedor, comparativas, dudas sobre problemas y búsquedas con ubicación. Partimos de tus servicios prioritarios, de lo que te preguntan en las reuniones comerciales y de los datos de búsqueda de tu web.' },
-        { title: 'Modelos y buscadores incluidos en la revisión', html: 'Normalmente ChatGPT, Gemini, Claude, Perplexity, Copilot y las respuestas generadas de Google. Ajustamos la lista a lo que usa tu público y la mantenemos fija para poder comparar. Para el resto de la medición usamos las mismas <a href="/blog/mejores-herramientas-seo-para-pymes/">herramientas SEO que recomendamos a las pymes</a>.' },
-        { title: 'Menciones de tu marca y de tus competidores', html: 'En cada respuesta anotamos si apareces, en qué lugar de la lista, con qué descripción y qué competidores se nombran. Así vemos con qué empresas te compara el asistente, que no siempre coinciden con las que tú consideras competencia.' },
-        { title: 'Fuentes citadas en las respuestas', html: 'Cuando el asistente enlaza fuentes, las registramos. Webs de competidores, directorios, medios, foros, plataformas de opiniones. Esa lista indica dónde conviene estar presente y qué páginas de tu web ya se están usando como referencia.' },
-        { title: 'Registro de fechas y condiciones de cada prueba', html: 'Guardamos la fecha, el asistente, el modo de uso y si la consulta se hizo con o sin búsqueda web activada, junto a una captura de la respuesta. Las respuestas cambian con el tiempo, y sin este registro no se puede saber si una mejora es real o casual.' },
+        { title: 'Consultas representativas de tus clientes', html: 'Definimos contigo entre 30 y 60 preguntas como las que haría un cliente real, por ejemplo «¿qué asesoría laboral trabaja con restaurantes en Sabadell?». Salen de tus servicios prioritarios, de lo que te preguntan en las reuniones comerciales, de las búsquedas que ya llegan a tu web y, si tienes campañas, de los términos que mejor funcionan en tus <a href="/agencia-sem-para-pymes/">anuncios de Google Ads</a>.' },
+        { title: 'Modelos y buscadores incluidos en la revisión', html: 'Normalmente ChatGPT, Gemini, Claude, Perplexity, Copilot y las respuestas generadas de Google, que son los resúmenes con IA que aparecen encima de los resultados. Ajustamos la lista a lo que usa tu público y no la cambiamos entre rondas, para poder comparar. Para medir tu web usamos las <a href="/blog/mejores-herramientas-seo-para-pymes/">herramientas SEO que recomendamos a las pymes</a>.' },
+        { title: 'Menciones de tu marca y de tus competidores', html: 'En cada respuesta anotamos si apareces, en qué puesto de la lista, cómo te describen y qué competidores salen. Recibes una tabla con tus competidores reales en los asistentes de IA, que a menudo no son los que tú tienes en mente. Una empresa pequeña del polígono de al lado puede estar ocupando tu sitio.' },
+        { title: 'Fuentes citadas en las respuestas', html: 'Las fuentes citadas son las páginas que el asistente enlaza para respaldar su respuesta. Las apuntamos todas: webs de competidores, directorios, medios, foros y portales de opiniones. Esa lista te dice dónde te conviene estar presente y qué páginas de tu web ya se están usando como referencia.' },
+        { title: 'Registro de fechas y condiciones de cada prueba', html: 'De cada prueba guardamos la fecha, el asistente, el modo de uso, si tenía la búsqueda web activada y una captura de la respuesta. Las respuestas cambian con el tiempo. Sin este registro no sabríamos si una mejora es real o fruto del azar, y tú no podrías comprobarlo.' },
       ]}
     />
   </PSection>
@@ -196,8 +196,8 @@ const pageSchema = localAgencySchema({
   <!-- ═══ QUÉ DICEN LOS ASISTENTES ══════════════════════════════════════ -->
   <PSection kicker="Percepción de marca" title="Qué dicen los asistentes sobre tu negocio" tone="soft" layout="split">
     <Fragment slot="intro">
-      <p>Aparecer es solo la mitad. La otra mitad es cómo te describen. Un asistente puede nombrar tu empresa y atribuirle un servicio que ya no ofreces, una dirección antigua o una especialidad que no es la tuya.</p>
-      <p>Por eso analizamos el contenido de cada respuesta, no solo si sales o no.</p>
+      <p>Salir no basta. También importa cómo te describen. Un asistente puede nombrar tu empresa y atribuirle un servicio que dejaste de ofrecer, una dirección antigua o una especialidad que no es la tuya.</p>
+      <p>Por eso leemos cada respuesta frase a frase y la comparamos con la realidad de tu negocio.</p>
     </Fragment>
     <PTree
       slot="aside"
@@ -207,16 +207,16 @@ const pageSchema = localAgencySchema({
         { label: 'Personas', leaves: ['fundadores', 'expertos que firman'] },
         { label: 'Sector y zona', leaves: ['categoría', 'ámbito geográfico'] },
       ]}
-      caption="Las relaciones que revisamos en cada respuesta."
+      caption="En cada rama comparamos lo que dice el asistente con lo que tu empresa es y hace hoy."
     />
     <PCards
       tone="soft"
       cols={2}
       items={[
-        { icon: ICON.doc, title: 'Servicios que asocian con tu marca', html: 'Comparamos los servicios que mencionan los asistentes con los que realmente quieres vender. Es habitual que una pyme sea conocida por una línea de negocio antigua y que la nueva, la más rentable, no aparezca en ninguna respuesta.' },
-        { icon: ICON.alert, title: 'Datos incompletos o contradictorios', html: 'Horarios distintos, direcciones de una sede anterior, precios de hace años o un nombre comercial que se confunde con otra empresa. Localizamos de dónde sale cada error, porque el asistente no lo inventa sin más, normalmente lo toma de alguna fuente.' },
-        { icon: ICON.star, title: 'Atributos que te diferencian de otras empresas', html: 'Rapidez, especialización, garantía, trato cercano. Revisamos si los asistentes recogen las razones por las que tus clientes te eligen o si te describen con frases genéricas que valdrían para cualquiera de tu sector.' },
-        { icon: ICON.users, title: 'Relación entre tu marca, tus expertos y tu sector', html: 'Comprobamos si los modelos conectan tu empresa con las personas que la dirigen y con la categoría correcta. En servicios profesionales, que el asistente sepa quién es tu abogado o tu doctora y qué experiencia tiene pesa tanto como el nombre de la empresa.' },
+        { icon: ICON.doc, title: 'Servicios que asocian con tu marca', html: 'Comparamos los servicios que te atribuyen los asistentes con los que quieres vender. Es habitual que una pyme siga asociada a una línea antigua y que la nueva, la más rentable, no salga en ninguna respuesta. Por ejemplo, una imprenta que hoy vive del gran formato y a la que siguen recomendando para tarjetas de visita.' },
+        { icon: ICON.alert, title: 'Datos incompletos o contradictorios', html: 'Horarios distintos, la dirección de una sede anterior, precios de hace años o un nombre comercial que se confunde con otra empresa. Para cada error buscamos de dónde sale, porque el asistente casi nunca lo inventa: lo toma de alguna fuente. Recibes la lista de errores con el origen de cada uno.' },
+        { icon: ICON.star, title: 'Atributos que te diferencian de otras empresas', html: 'Rapidez, especialización, garantía, trato cercano. Revisamos si los asistentes recogen las razones por las que tus clientes te eligen o si te describen con frases que valdrían para cualquier empresa de tu sector. Si tus clientes valoran que respondes en 24 horas, eso debería aparecer en la respuesta.' },
+        { icon: ICON.users, title: 'Relación entre tu marca, tus expertos y tu sector', html: 'Comprobamos si los asistentes relacionan tu empresa con las personas que la dirigen y con la categoría correcta. En servicios profesionales pesa mucho. Si alguien pregunta «¿qué abogada laboralista de Terrassa tiene experiencia en despidos?», el asistente necesita saber quién trabaja en tu despacho y qué casos ha llevado.' },
       ]}
     />
   </PSection>
@@ -224,8 +224,8 @@ const pageSchema = localAgencySchema({
   <!-- ═══ IDENTIDAD ═════════════════════════════════════════════════════ -->
   <PSection kicker="Identidad de marca" title="Una identidad de empresa comprensible en toda la web" layout="split">
     <Fragment slot="intro">
-      <p>Los modelos construyen una idea de tu empresa juntando piezas de muchos sitios. Si cada pieza dice algo distinto, la idea resultante es borrosa. El primer trabajo es que tu web y tus perfiles cuenten la misma historia, con las mismas palabras.</p>
-      <p>Es una base sobre la que se apoya todo lo demás, como muestra el esquema.</p>
+      <p>Los asistentes forman una idea de tu empresa juntando piezas de muchos sitios. Si cada pieza dice algo distinto, la idea sale borrosa. Lo primero es que tu web y tus perfiles cuenten lo mismo, con las mismas palabras.</p>
+      <p>En el esquema, esa identidad es la base. Si falla, todo lo que se construye encima pierde valor.</p>
     </Fragment>
     <PStack
       slot="aside"
@@ -235,15 +235,15 @@ const pageSchema = localAgencySchema({
         { label: 'Contenido que sirve de fuente', sub: 'respuestas y evidencias' },
         { label: 'Identidad clara', sub: 'quién eres, qué haces, dónde' },
       ]}
-      caption="Esquema de trabajo. Cada capa se apoya en la anterior."
+      caption="Esquema de trabajo: la identidad clara es la base y cada capa se apoya en la que tiene debajo."
     />
     <PCards
       cols={2}
       items={[
-        { icon: ICON.target, title: 'Información corporativa clara y consistente', html: 'Nombre comercial, razón social, dirección, teléfono, año de fundación y ámbito de trabajo, iguales en la web, el aviso legal, el Perfil de Empresa y los directorios. Parece básico, pero en casi todas las auditorías encontramos al menos una versión distinta de alguno de estos datos.' },
-        { icon: ICON.doc, title: 'Servicios y especialidades bien definidos', html: 'Una página por servicio importante, con un nombre que el cliente entiende, para quién es, qué incluye y qué no. Las descripciones vagas como «soluciones integrales» no dan al asistente nada concreto que repetir cuando alguien pregunta por ese servicio.' },
-        { icon: ICON.users, title: 'Autores y profesionales identificables', html: 'Páginas de equipo con nombre, cargo, formación y experiencia real, y artículos firmados por quien sabe del tema. Los asistentes valoran saber quién respalda una afirmación, y a tu cliente le ocurre lo mismo antes de confiar en una empresa que no conoce.' },
-        { icon: ICON.link, title: 'Perfiles externos alineados con tu actividad', html: 'LinkedIn, Perfil de Empresa en Google, asociaciones y plataformas del sector con la misma descripción y enlazando a tu web. Si otra persona gestiona tu ficha de Google, te explicamos cómo <a href="/blog/dar-acceso-a-tu-perfil-de-empresa-en-google/">darle acceso a tu Perfil de Empresa</a> sin compartir contraseñas.' },
+        { icon: ICON.target, title: 'Información corporativa clara y consistente', html: 'Nombre comercial, razón social, dirección, teléfono, año de fundación y zona de trabajo, idénticos en la web, el aviso legal, el Perfil de Empresa y los directorios. Parece básico, pero en casi todas las auditorías encontramos alguno de estos datos con dos versiones. Te entregamos la versión correcta y la lista de sitios donde corregirla.' },
+        { icon: ICON.doc, title: 'Servicios y especialidades bien definidos', html: 'Una página por cada servicio importante, con un nombre que tu cliente entienda, para quién es, qué incluye y qué no. Frases como «soluciones integrales» no le dan al asistente nada concreto que repetir. «Mantenimiento de calderas industriales con visita en 48 horas» sí se puede repetir cuando alguien pregunta por ese servicio.' },
+        { icon: ICON.users, title: 'Autores y profesionales identificables', html: 'Páginas de equipo con nombre, cargo, formación y experiencia real, y artículos firmados por quien sabe del tema. Los asistentes tienen en cuenta quién respalda una afirmación, y tu cliente también, antes de confiar en una empresa que no conoce. Te decimos qué profesionales de tu equipo deberían tener un perfil propio.' },
+        { icon: ICON.link, title: 'Perfiles externos alineados con tu actividad', html: 'LinkedIn, Perfil de Empresa en Google, asociaciones y plataformas del sector, todos con la misma descripción y un enlace a tu web. Revisamos cada perfil y te pasamos el texto que debe llevar. Si otra persona gestiona tu ficha de Google, te explicamos cómo <a href="/blog/dar-acceso-a-tu-perfil-de-empresa-en-google/">dar acceso a tu Perfil de Empresa</a> sin compartir contraseñas.' },
       ]}
     />
   </PSection>
@@ -251,18 +251,18 @@ const pageSchema = localAgencySchema({
   <!-- ═══ CONTENIDO FUENTE ══════════════════════════════════════════════ -->
   <PSection kicker="Contenido" title="Contenido que puede servir como fuente" tone="soft">
     <Fragment slot="intro">
-      <p>Un asistente cita lo que le permite responder bien. Eso significa contenido concreto, verificable y escrito por alguien que conoce el tema. Los textos genéricos que repiten lo que dicen otras cien webs rara vez se convierten en fuente.</p>
-      <p>Trabajamos cuatro tipos de contenido, empezando por las páginas que tienen más relación con la venta.</p>
+      <p>Un asistente cita lo que le permite responder bien: contenido concreto, que se puede comprobar y escrito por alguien que conoce el tema. Los textos genéricos que repiten lo que dicen otras cien webs casi nunca se citan.</p>
+      <p>Trabajamos cuatro tipos de contenido y empezamos por las páginas más cercanas a la venta.</p>
     </Fragment>
     <PCards
       tone="soft"
       cols={2}
       variant="check"
       items={[
-        { title: 'Respuestas directas a preguntas de compra', html: 'Cuánto cuesta, cuánto tarda, qué incluye, en qué casos no conviene. Respondemos en el primer párrafo y ampliamos después. Este formato facilita que el asistente extraiga la respuesta y la atribuya a tu empresa, y también ayuda al cliente que llega a la página con prisa.' },
-        { title: 'Explicaciones respaldadas por experiencia', html: 'Casos, ejemplos, errores habituales y criterios que solo conoce quien trabaja en el sector. Entrevistamos a tus profesionales y convertimos ese conocimiento en contenido. Es lo que distingue tu página de un texto genérico y lo que la hace merecedora de una cita.' },
-        { title: 'Datos propios con contexto y metodología', html: 'Plazos medios de tus proyectos, rangos de precio, resultados de encuestas a clientes. Publicados con la fecha, la muestra y el método, para que cualquiera pueda entender de dónde salen. Un dato sin contexto genera desconfianza, tanto en el lector como en el modelo.' },
-        { title: 'Información actualizada y fácil de verificar', html: 'Fecha de revisión visible, precios vigentes, normativa al día y enlaces a fuentes cuando corresponde. Retiramos o corregimos las páginas antiguas que contradicen la información actual, porque también pueden acabar citadas en una respuesta.' },
+        { title: 'Respuestas directas a preguntas de compra', html: 'Cuánto cuesta, cuánto tarda, qué incluye, cuándo no conviene. Damos la respuesta en el primer párrafo y ampliamos después, una técnica que también se llama AEO (optimización para respuestas). Con respuestas directas, preguntas frecuentes y datos verificables, las páginas de <a href="/casos-exito/tattoox/">la escuela online Tattoox</a> aparecen hoy en las respuestas con IA de Google para las búsquedas principales de su sector.' },
+        { title: 'Explicaciones respaldadas por experiencia', html: 'Casos, ejemplos, errores habituales y criterios que solo conoce quien trabaja en el sector. Entrevistamos a tus profesionales, por ejemplo a tu jefe de obra sobre los fallos más comunes en una reforma, y convertimos ese conocimiento en contenido. Eso distingue tu página de un texto genérico y le da motivos para ser citada.' },
+        { title: 'Datos propios con contexto y metodología', html: 'Plazos medios de tus proyectos, rangos de precio, resultados de encuestas a clientes. Los publicamos con la fecha, el número de casos y el método, para que se entienda de dónde salen. Una frase como «casi todas nuestras reformas de baño terminan en tres semanas» solo resulta creíble si dices sobre cuántas obras y de qué periodo.' },
+        { title: 'Información actualizada y fácil de verificar', html: 'Fecha de revisión visible, precios vigentes, normativa al día y enlaces a fuentes cuando hace falta. También retiramos o corregimos las páginas antiguas que contradicen la información actual, porque un asistente puede citar una tarifa de hace cuatro años si sigue publicada en tu web.' },
       ]}
     />
   </PSection>
@@ -270,18 +270,18 @@ const pageSchema = localAgencySchema({
   <!-- ═══ PAPEL DE LA WEB ═══════════════════════════════════════════════ -->
   <PSection kicker="Base técnica" title="El papel de tu web en la estrategia GEO">
     <Fragment slot="intro">
-      <p>Tu web es la única fuente sobre tu empresa que controlas por completo. Si los rastreadores de los asistentes no pueden leerla bien, o si la información está desordenada, pierdes la oportunidad de que sea la referencia principal.</p>
-      <p>Revisamos cinco aspectos técnicos. Cuando la web necesita cambios de fondo, lo coordinamos con nuestro equipo de <a href="/diseno-web-para-pymes/">diseño web para pymes</a> o con tu desarrollador.</p>
+      <p>Tu web es la única fuente sobre tu empresa que controlas del todo. Si los rastreadores de los asistentes, los programas que leen las webs por ellos, no pueden entrar o encuentran la información desordenada, otras fuentes ocupan su lugar.</p>
+      <p>Revisamos cinco puntos técnicos. Si la web necesita cambios de fondo, lo coordinamos con nuestro equipo de <a href="/diseno-web-para-pymes/">diseño web para pymes</a> o con tu desarrollador.</p>
     </Fragment>
     <PCards
       variant="numbered"
       cols={2}
       items={[
-        { title: 'Acceso al contenido que quieres hacer visible', html: 'Comprobamos el archivo robots.txt, el cortafuegos y la configuración del servidor para saber qué rastreadores de buscadores y asistentes pueden entrar. Decides qué partes abrir y cuáles no, pero con conocimiento de causa y no por una configuración heredada que nadie revisó.' },
-        { title: 'Estructura semántica de las páginas', html: 'Un único título principal, encabezados que siguen un orden lógico, listas y tablas cuando la información lo pide. Una página bien estructurada se entiende por partes, y eso facilita que un asistente extraiga justo el fragmento que responde a la pregunta.' },
-        { title: 'Datos estructurados coherentes con la información publicada', html: 'Marcado de organización, negocio local, servicios, personas y preguntas frecuentes, siempre fiel a lo que se ve en la página. Un marcado que dice algo distinto del texto visible resta credibilidad en lugar de sumarla.' },
-        { title: 'Enlaces internos que conectan conceptos y servicios', html: 'Enlazamos cada servicio con sus casos, sus autores y los artículos que lo explican. Esa red ayuda a buscadores y asistentes a entender de qué sabe tu empresa, igual que en el <a href="/agencia-seo-para-pymes/">SEO para pymes</a> ayuda a repartir la autoridad entre páginas.' },
-        { title: 'Revisión del contenido que depende de JavaScript', html: 'Algunos rastreadores no ejecutan JavaScript o lo hacen de forma limitada. Si tus precios, servicios u opiniones solo aparecen después de cargar un script, puede que no los vean. Comparamos el HTML que se sirve con lo que ve el usuario y proponemos soluciones.' },
+        { title: 'Acceso al contenido que quieres hacer visible', html: 'Revisamos el archivo robots.txt, el cortafuegos y la configuración del servidor para ver qué rastreadores de buscadores y asistentes pueden entrar. A veces encontramos el rastreador de ChatGPT bloqueado sin que nadie lo decidiera, por una configuración heredada. Tú decides qué abrir y qué no, pero sabiendo lo que eliges.' },
+        { title: 'Estructura semántica de las páginas', html: 'Un único título principal, encabezados en orden lógico y listas o tablas cuando la información lo pide. Una página bien ordenada se entiende por partes. Si alguien pregunta «¿cuánto tarda una reforma de baño?», el asistente puede tomar justo el fragmento que responde sin tener que interpretar toda la página.' },
+        { title: 'Datos estructurados coherentes con la información publicada', html: 'Los datos estructurados son un código que no ve el visitante y que resume quién eres, qué ofreces y dónde estás. Marcamos organización, negocio local, servicios, personas y preguntas frecuentes, siempre fiel a lo que se ve en la página. Si el marcado dice algo distinto del texto visible, resta credibilidad en lugar de sumarla.' },
+        { title: 'Enlaces internos que conectan conceptos y servicios', html: 'Enlazamos cada servicio con sus casos, sus autores y los artículos que lo explican. Esa red ayuda a buscadores y asistentes a entender de qué sabe tu empresa y qué páginas son las importantes. Esta misma página es un ejemplo: desde aquí enlazamos los sectores, las ciudades y los casos en los que aplicamos el GEO.' },
+        { title: 'Revisión del contenido que depende de JavaScript', html: 'Algunos rastreadores no ejecutan JavaScript o lo hacen a medias. Si tus precios, servicios u opiniones solo aparecen después de cargar un script, puede que no los vean. Comparamos el HTML que entrega tu servidor con lo que ve el usuario y te decimos qué conviene cambiar y con qué prioridad.' },
       ]}
     />
   </PSection>
@@ -289,7 +289,7 @@ const pageSchema = localAgencySchema({
   <!-- ═══ FUENTES EXTERNAS ══════════════════════════════════════════════ -->
   <PSection kicker="Autoridad" title="Las fuentes externas que hablan de tu empresa" tone="dark">
     <Fragment slot="intro">
-      <p>Los asistentes dan más peso a lo que confirman varias fuentes independientes. Lo que dices de ti en tu web cuenta, pero cuenta más cuando un medio, una asociación o tus clientes dicen lo mismo.</p>
+      <p>Los asistentes se fían más de lo que confirman varias fuentes independientes. Lo que dices en tu web cuenta, pero cuenta más cuando un medio, una asociación o tus clientes dicen lo mismo. El esquema muestra cómo se encadena esa confirmación.</p>
     </Fragment>
     <PFlow
       tone="dark"
@@ -299,17 +299,17 @@ const pageSchema = localAgencySchema({
         { label: 'El modelo lo confirma', sub: 'más confianza en el dato' },
         { label: 'Mención correcta', sub: 'en la respuesta generada' },
       ]}
-      caption="Esquema ilustrativo. La coincidencia entre fuentes es lo que da solidez a la información."
+      caption="Esquema ilustrativo: fíjate en el segundo paso, porque un dato que no coincide con tu web pierde fuerza."
     />
     <PCards
       tone="dark"
       cols={2}
       variant="numbered"
       items={[
-        { title: 'Medios y publicaciones de tu sector', html: 'Revistas especializadas, diarios locales y blogs de referencia en tu actividad. Buscamos oportunidades con sentido, como una entrevista, un artículo con datos propios o una colaboración, en lugar de notas de prensa genéricas que nadie lee ni cita.' },
-        { title: 'Directorios y asociaciones profesionales', html: 'Colegios profesionales, cámaras de comercio, asociaciones sectoriales y directorios de calidad. Son fuentes que los asistentes consultan con frecuencia para confirmar que una empresa existe y a qué se dedica. Revisamos que estés en los relevantes y con los datos correctos.' },
-        { title: 'Plataformas de opiniones y referencias', html: 'Google, plataformas del sector y portales de comparación. El volumen, la fecha y el contenido de las reseñas influyen en cómo te describen. Te ayudamos a tener un sistema para <a href="/blog/como-conseguir-mas-resenas-en-google-para-tu-pyme/">conseguir más reseñas en Google</a> de forma constante y responderlas.' },
-        { title: 'Menciones que necesitan corregirse o completarse', html: 'Artículos con un teléfono antiguo, fichas duplicadas, directorios con una actividad equivocada. Hacemos la lista, priorizamos por la relevancia de cada fuente y gestionamos las correcciones, porque un error repetido en varios sitios acaba en las respuestas.' },
+        { title: 'Medios y publicaciones de tu sector', html: 'Revistas especializadas, diarios locales y blogs de referencia en tu actividad. Buscamos oportunidades con sentido, como una entrevista, un artículo con datos propios o una colaboración. Una nota de prensa genérica rara vez se cita. Un artículo con datos de tu sector en tu comarca sí puede convertirse en fuente.' },
+        { title: 'Directorios y asociaciones profesionales', html: 'Colegios profesionales, cámaras de comercio, asociaciones sectoriales y directorios de calidad. Los asistentes los consultan a menudo para confirmar que una empresa existe y a qué se dedica. Revisamos en cuáles estás, en cuáles deberías estar y si tus datos son correctos en cada uno.' },
+        { title: 'Plataformas de opiniones y referencias', html: 'Google, plataformas del sector y portales de comparación. La cantidad, la fecha y el texto de las reseñas influyen en cómo te describen. Una reseña que dice «arreglaron la avería en el día» aporta más que cinco estrellas sin comentario. Te ayudamos a montar un sistema para <a href="/blog/como-conseguir-mas-resenas-en-google-para-tu-pyme/">conseguir más reseñas en Google</a> y responderlas.' },
+        { title: 'Menciones que necesitan corregirse o completarse', html: 'Artículos con un teléfono antiguo, fichas duplicadas, directorios con la actividad equivocada. Hacemos la lista, la ordenamos según la importancia de cada fuente y gestionamos las correcciones. Un error repetido en varios sitios suele acabar en las respuestas, así que empezamos por los que más se repiten.' },
       ]}
     />
   </PSection>
@@ -317,15 +317,15 @@ const pageSchema = localAgencySchema({
   <!-- ═══ PREGUNTAS CLAVE ═══════════════════════════════════════════════ -->
   <PSection kicker="Consultas prioritarias" title="Preguntas donde tu pyme necesita estar presente">
     <Fragment slot="intro">
-      <p>No todas las preguntas tienen el mismo valor. Priorizamos las que hace alguien que está decidiendo a quién contratar, porque son las que se convierten en contactos. Estas son las cuatro familias que siempre incluimos en la muestra.</p>
+      <p>No todas las preguntas valen lo mismo. Damos prioridad a las que hace alguien que está decidiendo a quién contratar, porque son las que acaban en una llamada. Estas cuatro familias entran siempre en la muestra.</p>
     </Fragment>
     <PCards
       cols={2}
       items={[
-        { icon: ICON.search, tag: 'Descubrimiento', title: 'Quién puede resolver el problema del cliente', html: '«¿Quién instala placas solares en naves industriales?», «¿qué abogado lleva divorcios en Sabadell?». Son las preguntas con más intención y las que más directamente llevan a una llamada. Necesitan páginas de servicio claras y señales externas que confirmen tu especialidad.' },
-        { icon: ICON.chart, tag: 'Comparación', title: 'Qué alternativas existen y cómo se comparan', html: 'El cliente ya tiene opciones y pide al asistente que las compare. Publicar comparativas honestas, explicar en qué casos encaja tu solución y en cuáles no, y documentar tus diferencias evita que la comparación se haga con información ajena.' },
-        { icon: ICON.doc, tag: 'Criterios', title: 'Qué criterios conviene revisar antes de contratar', html: '«¿Qué debo pedir a una empresa de reformas?». Quien responde bien esta pregunta define las reglas del juego. Una guía útil con criterios reales te posiciona como referencia y, de paso, destaca los puntos en los que tu empresa es fuerte.' },
-        { icon: ICON.target, tag: 'Encaje', title: 'Qué proveedor encaja en cada situación', html: '«Tengo un presupuesto ajustado», «necesito que sea urgente», «somos una empresa pequeña». El asistente recomienda según el caso. Contenido que explica para quién es cada servicio ayuda a que tu empresa aparezca en las situaciones donde de verdad encaja.' },
+        { icon: ICON.search, tag: 'Descubrimiento', title: 'Quién puede resolver el problema del cliente', html: '«¿Quién instala placas solares en naves industriales?», «¿qué abogado lleva divorcios en Sabadell?». Son las preguntas con más intención de compra y las que llevan más directamente a una llamada. Necesitan páginas de servicio claras y fuentes externas que confirmen tu especialidad, como trabajamos en el <a href="/agencia-abogados/posicionamiento-geo/">posicionamiento en IA para abogados</a>.' },
+        { icon: ICON.chart, tag: 'Comparación', title: 'Qué alternativas existen y cómo se comparan', html: '«¿Qué es mejor para una clínica pequeña, un programa de gestión en la nube o uno instalado?». El cliente ya tiene opciones y pide al asistente que las compare. Publicamos comparativas honestas que explican cuándo encaja tu solución y cuándo no. Así la comparación se hace con tus datos y no con información ajena.' },
+        { icon: ICON.doc, tag: 'Criterios', title: 'Qué criterios conviene revisar antes de contratar', html: '«¿Qué debo pedir a una empresa de reformas antes de firmar?». Quien responde bien esta pregunta marca las reglas del juego, y de paso destaca tus puntos fuertes. Es el enfoque de nuestro <a href="/agencia-constructoras/posicionamiento-geo/">GEO para constructoras y reformistas</a>. Con guías y páginas de servicio escritas así, <a href="/casos-exito/voltura-projects/">la web de reformas de Voltura Projects</a> ya aparecía citada en 6 respuestas de IA de Google a los siete meses de su lanzamiento.' },
+        { icon: ICON.target, tag: 'Encaje', title: 'Qué proveedor encaja en cada situación', html: '«Tengo un presupuesto ajustado», «lo necesito para la semana que viene», «somos una empresa de cinco personas». El asistente recomienda según cada situación. Si tu contenido explica para quién es cada servicio y para quién no, tu empresa aparece en los casos donde de verdad encaja y deja de competir donde no tiene opciones.' },
       ]}
     />
   </PSection>
@@ -333,16 +333,17 @@ const pageSchema = localAgencySchema({
   <!-- ═══ MODELO DE NEGOCIO ═════════════════════════════════════════════ -->
   <PSection kicker="Experiencia sectorial" title="GEO según tu modelo de negocio" tone="soft">
     <Fragment slot="intro">
-      <p>Cada tipo de empresa recibe preguntas distintas y depende de fuentes distintas. Ajustamos la muestra y las prioridades a cómo compran tus clientes, y tenemos páginas específicas para los sectores en los que más trabajamos.</p>
+      <p>Cada tipo de empresa recibe preguntas distintas y depende de fuentes distintas. Un despacho necesita que se conozca a sus profesionales y una tienda online, que sus fichas de producto estén completas.</p>
+      <p>Ajustamos la muestra a cómo compran tus clientes. Para los sectores en los que más trabajamos tienes una página específica con ejemplos de preguntas y fuentes.</p>
     </Fragment>
     <PCards
       tone="soft"
       cols={2}
       items={[
-        { icon: ICON.chart, title: 'Empresas B2B con procesos de compra largos', html: 'Varias personas deciden y comparan durante semanas. Fichas técnicas, casos y contenido para cada perfil del comité de compra. Lo detallamos en <a href="/agencia-b2b/posicionamiento-geo/">GEO para empresas B2B</a> y en <a href="/agencia-industrial/posicionamiento-geo/">posicionamiento en IA para empresas industriales</a>.' },
-        { icon: ICON.users, title: 'Servicios profesionales basados en la confianza', html: 'El cliente quiere saber quién le atenderá y qué experiencia tiene. Perfiles de profesionales, contenido firmado y reseñas. Trabajamos la visibilidad en IA de <a href="/agencia-abogados/posicionamiento-geo/">despachos de abogados</a>, <a href="/agencia-dentistas/posicionamiento-geo/">clínicas dentales</a> y <a href="/agencia-psicologos/posicionamiento-geo/">consultas de psicología</a>.' },
-        { icon: ICON.money, title: 'Ecommerce con productos que se comparan', html: 'Los asistentes recomiendan productos con características, precios y opiniones. Fichas completas, guías de compra y datos de producto coherentes en la tienda y en los comparadores. Más en nuestro servicio de <a href="/agencia-ecommerce/posicionamiento-geo/">GEO para tiendas online</a>.' },
-        { icon: ICON.pin, title: 'Negocios locales con una zona de atención', html: 'Perfil de Empresa, reseñas y páginas por zona real de servicio. Lo aplicamos a <a href="/agencia-restaurantes/posicionamiento-geo/">restaurantes</a>, <a href="/agencia-hoteles/posicionamiento-geo/">hoteles</a>, <a href="/agencia-inmobiliarias/posicionamiento-geo/">inmobiliarias</a> y <a href="/agencia-constructoras/posicionamiento-geo/">constructoras</a>, donde la pregunta casi siempre incluye una ciudad.' },
+        { icon: ICON.chart, title: 'Empresas B2B con procesos de compra largos', html: 'Deciden varias personas y comparan durante semanas. El ingeniero pregunta por especificaciones y el gerente por plazos y precio. Trabajamos fichas técnicas, casos y contenido para cada perfil del comité de compra. Lo explicamos en detalle en <a href="/agencia-b2b/posicionamiento-geo/">GEO para empresas B2B</a> y en <a href="/agencia-industrial/posicionamiento-geo/">posicionamiento en IA para la industria</a>.' },
+        { icon: ICON.users, title: 'Servicios profesionales basados en la confianza', html: 'Tu cliente quiere saber quién le atenderá y qué experiencia tiene, y pregunta cosas como «¿qué dentista de confianza hace implantes cerca de mí?». Trabajamos perfiles de profesionales, contenido firmado y reseñas para <a href="/agencia-abogados/posicionamiento-geo/">despachos de abogados</a>, <a href="/agencia-dentistas/posicionamiento-geo/">clínicas dentales</a>, <a href="/agencia-psicologos/posicionamiento-geo/">consultas de psicología</a> y <a href="/agencia-terapeutas/posicionamiento-geo/">centros de terapia</a>.' },
+        { icon: ICON.money, title: 'Ecommerce con productos que se comparan', html: 'Los asistentes recomiendan productos según características, precio y opiniones: «¿qué cafetera de menos de 300 euros me recomiendas?». Trabajamos fichas completas, guías de compra y datos de producto iguales en la tienda y en los comparadores. Lo detallamos en nuestro servicio de <a href="/agencia-ecommerce/posicionamiento-geo/">GEO para tiendas online</a>.' },
+        { icon: ICON.pin, title: 'Negocios locales con una zona de atención', html: 'Aquí la pregunta casi siempre incluye una ciudad: «gimnasio con clases de pilates en Terrassa». Cuentan el Perfil de Empresa, las reseñas y una página por cada zona que atiendes de verdad. Tenemos páginas de <a href="/agencia-restaurantes/posicionamiento-geo/">posicionamiento en IA para restaurantes</a>, <a href="/agencia-hoteles/posicionamiento-geo/">hoteles y alojamientos</a>, <a href="/agencia-gimnasios/posicionamiento-geo/">gimnasios y centros deportivos</a> y <a href="/agencia-inmobiliarias/posicionamiento-geo/">agencias inmobiliarias</a>.' },
       ]}
     />
     <div class="mt-12 text-center reveal">
@@ -354,7 +355,8 @@ const pageSchema = localAgencySchema({
   <!-- ═══ SEO, GEO Y AEO ════════════════════════════════════════════════ -->
   <PSection kicker="Estrategia conjunta" title="SEO, GEO y AEO dentro de una misma estrategia" layout="split">
     <Fragment slot="intro">
-      <p>Son tres nombres para trabajos que se solapan mucho. Tratarlos como servicios separados suele llevar a pagar dos veces por lo mismo o, peor, a hacer cambios que se contradicen. Los planificamos juntos y cada tarea se asigna a donde más aporta.</p>
+      <p>El SEO trabaja tu posición en los resultados de Google. El GEO, tu presencia en las respuestas que redactan los asistentes. El AEO, que tu contenido sea la respuesta directa a una pregunta concreta. Se solapan tanto que tratarlos por separado suele llevar a pagar dos veces o a hacer cambios que se contradicen.</p>
+      <p>Por eso los planificamos juntos. Si aún dudas entre invertir en buscadores o en anuncios, esta guía te ayuda a <a href="/blog/que-necesita-una-pyme-seo-o-sem/">elegir entre SEO y SEM</a>.</p>
     </Fragment>
     <PVenn
       slot="aside"
@@ -364,15 +366,15 @@ const pageSchema = localAgencySchema({
         { label: 'AEO', sub: 'respuesta directa' },
       ]}
       center="Tu marca"
-      caption="Las tres disciplinas comparten base. Web sólida, contenido útil y autoridad."
+      caption="Fíjate en la zona central: las tres disciplinas comparten web sólida, contenido útil y autoridad."
     />
     <PCards
       variant="rows"
       items={[
-        { title: 'Qué aporta el posicionamiento orgánico', html: 'Indexación, arquitectura, contenidos que posicionan y enlaces. Muchos asistentes buscan en la web antes de responder y tienden a usar páginas que ya están bien situadas. Por eso el trabajo de nuestra <a href="/agencia-seo-para-pymes/">agencia SEO para pymes</a> es, en la mayoría de proyectos, el punto de partida del GEO.' },
-        { title: 'Qué trabajamos para las respuestas generadas', html: 'La identidad de la empresa, la exactitud de los datos, las fuentes externas y la medición en los asistentes. Es la parte que el SEO tradicional no cubre, porque no se trata de una posición en una lista sino de cómo te describe un texto redactado por el modelo.' },
-        { title: 'Dónde encaja la optimización de respuestas', html: 'El AEO se centra en que tu contenido sea la respuesta directa a una pregunta, en fragmentos destacados, en respuestas de voz o en la primera frase de un asistente. Lo aplicamos sobre todo en preguntas frecuentes y páginas de servicio, con respuestas breves y claras.' },
-        { title: 'Cómo evitamos duplicar esfuerzos', html: 'Un único plan de trabajo, una única persona responsable y un calendario compartido. Si también inviertes en <a href="/agencia-sem-para-pymes/">publicidad en Google Ads</a>, usamos los datos de las campañas para saber qué preguntas y servicios convierten mejor y empezar por ellos.' },
+        { title: 'Qué aporta el posicionamiento orgánico', html: 'Indexación, arquitectura, contenidos que posicionan y enlaces. Muchos asistentes buscan en la web antes de responder y tienden a usar páginas que ya están bien situadas en Google. Por eso, en la mayoría de proyectos, el trabajo de nuestra <a href="/agencia-seo-para-pymes/">agencia SEO para pymes</a> es el punto de partida del GEO.' },
+        { title: 'Qué trabajamos para las respuestas generadas', html: 'La identidad de la empresa, la exactitud de los datos, las fuentes externas y la medición en los asistentes. Es la parte que el SEO tradicional no cubre. En Google compites por un puesto en una lista. En un asistente cuenta cómo te describe un texto que redacta él, y estar cuarto en Google no asegura ni una mención.' },
+        { title: 'Dónde encaja la optimización de respuestas', html: 'El AEO busca que tu contenido sea la respuesta directa: el fragmento destacado de Google, lo que lee un altavoz inteligente o la primera frase de un asistente. Lo aplicamos sobre todo en preguntas frecuentes y páginas de servicio. Si alguien pregunta «¿cuánto cuesta un diagnóstico GEO?», la cifra va en la primera línea.' },
+        { title: 'Cómo evitamos duplicar esfuerzos', html: 'Un único plan de trabajo, una sola persona responsable y un calendario compartido. Si también inviertes en <a href="/agencia-sem-para-pymes/">publicidad en Google Ads</a>, usamos los datos de las campañas para ver qué preguntas y servicios convierten mejor y empezar por ellos. Así cada tarea se hace una vez y en el canal donde más rinde.' },
       ]}
     />
   </PSection>
@@ -380,8 +382,8 @@ const pageSchema = localAgencySchema({
   <!-- ═══ HALLAZGOS A ACCIONES ══════════════════════════════════════════ -->
   <PSection kicker="Plan de trabajo" title="De los hallazgos a las acciones" tone="soft" layout="split">
     <Fragment slot="intro">
-      <p>La auditoría termina con una lista de tareas ordenada por el impacto que esperamos en las respuestas y el esfuerzo que exige cada una. Empezamos por lo que corrige errores y afecta a las consultas con más valor comercial.</p>
-      <p>Después repetimos la muestra para comprobar qué ha cambiado y decidir el siguiente paso.</p>
+      <p>El diagnóstico termina con una lista de tareas ordenada por el efecto que esperamos en las respuestas y el esfuerzo que exige cada una. Empezamos por lo que corrige errores en las preguntas con más valor comercial.</p>
+      <p>Después repetimos la muestra para ver qué ha cambiado y decidir el siguiente paso.</p>
     </Fragment>
     <PMatrix
       slot="aside"
@@ -395,17 +397,17 @@ const pageSchema = localAgencySchema({
         { label: 'Aparecer en medios del sector', x: 66, y: 60 },
         { label: 'Directorios poco relevantes', x: 30, y: 22 },
       ]}
-      caption="Ejemplo de cómo priorizamos las tareas según impacto y esfuerzo."
+      caption="Ejemplo de priorización: arriba a la izquierda queda lo que más mejora las respuestas con menos esfuerzo."
     />
     <PCards
       tone="soft"
       cols={2}
       variant="numbered"
       items={[
-        { title: 'Corregir información esencial sobre tu empresa', html: 'Datos de contacto, servicios, sedes y descripciones contradictorias en la web y en las fuentes externas más consultadas. Suele ser la tarea más rápida y la que antes se nota, porque elimina errores que los asistentes repetían en sus respuestas.' },
-        { title: 'Mejorar las páginas con mayor valor comercial', html: 'Las páginas de los servicios que más te interesa vender, reescritas para responder a las preguntas de la muestra. Añadimos precios orientativos, plazos, casos y preguntas frecuentes, y revisamos su estructura y su marcado.' },
-        { title: 'Desarrollar contenidos y evidencias que faltan', html: 'Comparativas, guías de criterios, casos documentados o datos propios que el diagnóstico ha señalado como ausentes. También las acciones externas, como colaboraciones con medios o la presencia en asociaciones, que refuerzan lo que dice tu web.' },
-        { title: 'Revisar de nuevo la muestra de consultas', html: 'Repetimos las mismas preguntas en los mismos asistentes y comparamos con la ronda anterior. Lo que ha mejorado se consolida, lo que no se mueve se revisa, y las nuevas preguntas que detectamos se incorporan con fecha para no mezclar resultados.' },
+        { title: 'Corregir información esencial sobre tu empresa', html: 'Datos de contacto, servicios, sedes y descripciones contradictorias en la web y en las fuentes externas más consultadas. Suele ser la tarea más rápida y la primera que se nota, porque elimina errores que los asistentes estaban repitiendo. Cambiar un teléfono antiguo en cinco directorios, por ejemplo, puede quedar resuelto en una mañana.' },
+        { title: 'Mejorar las páginas con mayor valor comercial', html: 'Reescribimos las páginas de los servicios que más te interesa vender para que respondan a las preguntas de la muestra. Añadimos precios orientativos, plazos, casos y preguntas frecuentes, y revisamos su estructura y su marcado. Si una pregunta importante no tiene respuesta en ninguna página de tu web, la creamos.' },
+        { title: 'Desarrollar contenidos y evidencias que faltan', html: 'Comparativas, guías de criterios, casos documentados o datos propios que el diagnóstico ha detectado como ausentes. También acciones fuera de tu web, como colaboraciones con medios o el alta en asociaciones, que confirman lo que dices en ella. Cada pieza nace de una pregunta concreta de la muestra.' },
+        { title: 'Revisar de nuevo la muestra de consultas', html: 'Repetimos las mismas preguntas en los mismos asistentes y comparamos con la ronda anterior. Lo que ha mejorado se mantiene, lo que no se mueve se revisa, y las preguntas nuevas se añaden con su fecha para no mezclar resultados. Recibes la comparación pregunta a pregunta.' },
       ]}
     />
   </PSection>
@@ -413,7 +415,7 @@ const pageSchema = localAgencySchema({
   <!-- ═══ EVOLUCIÓN ═════════════════════════════════════════════════════ -->
   <PSection kicker="Medición" title="Cómo interpretamos la evolución de tu presencia en IA">
     <Fragment slot="intro">
-      <p>Medimos tres indicadores en cada ronda y los leemos juntos. Una subida de menciones con datos erróneos no es una buena noticia, y una cita que no genera visitas tampoco dice mucho. Para el tráfico que llega a tu web, conviene entender antes <a href="/blog/donde-viene-el-trafico/">de dónde viene el tráfico de tu web</a> y cómo se registra.</p>
+      <p>En cada ronda medimos tres indicadores y los leemos juntos. Más menciones con datos erróneos no es una buena noticia, y una cita que no trae visitas tampoco dice mucho. Para interpretar las visitas conviene saber <a href="/blog/donde-viene-el-trafico/">de dónde viene el tráfico de tu web</a> y cómo lo registra la analítica.</p>
     </Fragment>
     <div class="grid lg:grid-cols-[1fr_1.1fr] gap-10 items-start">
       <PCards
@@ -421,9 +423,9 @@ const pageSchema = localAgencySchema({
         cols={2}
         class="lg:grid-cols-1"
         items={[
-          { title: 'Frecuencia de menciones en las consultas analizadas', html: 'Qué porcentaje de las preguntas de la muestra incluye tu empresa en la respuesta, separado por asistente y por familia de preguntas. Es el indicador más directo, aunque también el más variable entre rondas.' },
-          { title: 'Citas y enlaces hacia tus contenidos', html: 'Cuántas veces un asistente enlaza una página de tu web como fuente, y cuáles. Además, revisamos en la analítica las visitas que llegan desde asistentes y buscadores con IA, cuando la herramienta permite identificarlas.' },
-          { title: 'Exactitud de la información sobre tu marca', html: 'Porcentaje de respuestas en las que los datos sobre tu empresa son correctos. Servicios, ubicación, atributos y personas. Una presencia mal descrita puede perjudicar más que una ausencia, por eso lo medimos aparte.' },
+          { title: 'Frecuencia de menciones en las consultas analizadas', html: 'Qué parte de las preguntas de la muestra incluye tu empresa en la respuesta, separada por asistente y por familia de preguntas. Por ejemplo, 12 de 40 en ChatGPT y 6 de 40 en Gemini. Es el indicador más directo y también el que más varía de una ronda a otra.' },
+          { title: 'Citas y enlaces hacia tus contenidos', html: 'Cuántas veces un asistente enlaza una página de tu web como fuente, y cuáles. Además, revisamos en la analítica las visitas que llegan desde ChatGPT, Perplexity y otros asistentes, cuando la herramienta permite identificarlas. Así sabes qué páginas de tu web trabajan para ti en las respuestas.' },
+          { title: 'Exactitud de la información sobre tu marca', html: 'Porcentaje de respuestas en las que los datos sobre tu empresa son correctos: servicios, ubicación, atributos y personas. Lo medimos aparte porque una presencia mal descrita puede perjudicar más que no aparecer. Un asistente que te sitúa en otra ciudad te envía clientes que no puedes atender.' },
         ]}
       />
       <PLines
@@ -434,7 +436,7 @@ const pageSchema = localAgencySchema({
           { label: 'Exactitud', points: [55, 70, 82, 86, 90, 92], color: '#16a34a', dashed: true },
         ]}
         xLabels={['Ronda 1', 'Ronda 2', 'Ronda 3', 'Ronda 4', 'Ronda 5', 'Ronda 6']}
-        caption="Esquema ilustrativo, no son datos de un cliente. La exactitud suele mejorar primero, al corregir errores; menciones y citas avanzan más despacio."
+        caption="Esquema ilustrativo, no son datos de un cliente: la exactitud suele subir primero, al corregir errores, y menciones y citas avanzan más despacio."
       />
     </div>
   </PSection>
@@ -442,13 +444,13 @@ const pageSchema = localAgencySchema({
   <!-- ═══ EVIDENCIAS Y LÍMITES ══════════════════════════════════════════ -->
   <PSection kicker="Casos y transparencia" title="Evidencias y límites de los resultados" tone="soft" width="wide">
     <Fragment slot="intro">
-      <p>El GEO es una disciplina joven y los asistentes cambian a menudo. Preferimos explicar con claridad qué podemos demostrar y qué no, antes que presentar como seguro lo que es una tendencia.</p>
-      <p>Lo que sí podemos mostrar es nuestro propio caso. Cuando se pregunta a ChatGPT, Gemini o Claude por una agencia SEO para pymes, Nova aparece entre las recomendaciones, y en proyectos como <a href="/casos-exito/caso-de-exito-dipole-rfid/">Dipole RFID</a> o <a href="/casos-exito/tattoox/">Tattoox</a> hemos trabajado SEO y GEO a la vez.</p>
+      <p>El GEO es una disciplina joven y los asistentes cambian a menudo. Preferimos separar con claridad lo que podemos demostrar de lo que todavía es una tendencia.</p>
+      <p>Lo que sí podemos enseñar son resultados publicados. Cuando se pregunta a ChatGPT, Gemini o Claude por una agencia SEO para pymes, Nova aparece entre las recomendaciones, como ves en la captura. Google cita a Dipole RFID en sus respuestas con IA para búsquedas como «trazabilidad por RFID», y <a href="/casos-exito/tattoox/">el caso de Tattoox</a> suma presencia en más de 2.300 respuestas de IA, según Semrush.</p>
     </Fragment>
     <div class="grid lg:grid-cols-2 gap-8 items-start mt-12">
       <figure class="pd-figure reveal">
         <img src="/agencia-seo-para-pymes.webp" alt="Nova Marketing, agencia SEO para PYMEs recomendada por la IA" title="Nova Marketing, agencia SEO para PYMEs recomendada por la IA" class="w-full h-auto rounded-3xl border border-black/5 shadow-[0_25px_70px_rgba(0,0,0,0.08)]" loading="lazy" width="1000" height="667" />
-        <figcaption class="pd-caption">Respuesta de un asistente al preguntar por una agencia SEO para pymes.</figcaption>
+        <figcaption class="pd-caption">Respuesta de un asistente al preguntar por una agencia SEO para pymes: Nova aparece entre las opciones recomendadas.</figcaption>
       </figure>
       <PCounter
         cols={2}
@@ -456,16 +458,16 @@ const pageSchema = localAgencySchema({
           { value: 1126, label: 'palabras clave posicionadas en Dipole RFID, desde 450', href: '/casos-exito/caso-de-exito-dipole-rfid/' },
           { value: 6390, label: 'visitas orgánicas al mes en Dipole RFID, nº1 por delante de fabricantes', href: '/casos-exito/caso-de-exito-dipole-rfid/' },
         ]}
-        caption="Datos del caso publicado. El trabajo combinó SEO y GEO."
+        caption="Datos del caso publicado de Dipole RFID, un proyecto en el que trabajamos SEO y GEO a la vez."
       />
     </div>
     <PCards
       tone="soft"
       cols={3}
       items={[
-        { icon: ICON.chart, title: 'Diferencias entre modelos y momentos de consulta', html: 'La misma pregunta puede dar respuestas distintas en ChatGPT y en Gemini, e incluso en el mismo asistente con horas de diferencia. Por eso trabajamos con muestras amplias, repetimos las consultas y leemos tendencias, no respuestas sueltas.' },
-        { icon: ICON.target, title: 'Cambios observados tras las acciones realizadas', html: 'Cada acción tiene fecha, y cada ronda de medición también. Así podemos relacionar, por ejemplo, la corrección de un directorio con la desaparición de un dato erróneo. Es una relación razonable, no una prueba de causa, y así lo explicamos en los informes.' },
-        { icon: ICON.alert, title: 'Qué podemos demostrar y qué sigue siendo incierto', html: 'Podemos demostrar qué respuestas había antes y después, qué fuentes se citan y qué tráfico llega a tu web. No podemos saber con exactitud cómo pondera cada modelo sus fuentes ni asegurar que una mención se mantenga. Puedes ver más proyectos en nuestros <a href="/casos-exito/">casos de éxito</a>.' },
+        { icon: ICON.chart, title: 'Diferencias entre modelos y momentos de consulta', html: 'La misma pregunta puede dar respuestas distintas en ChatGPT y en Gemini, e incluso en el mismo asistente con unas horas de diferencia. Por eso trabajamos con muestras de 30 a 60 preguntas, las repetimos en cada ronda y leemos tendencias. Una respuesta suelta, buena o mala, no basta para sacar conclusiones.' },
+        { icon: ICON.target, title: 'Cambios observados tras las acciones realizadas', html: 'Cada acción tiene fecha, y cada ronda de medición también. Así podemos relacionar, por ejemplo, la corrección de un directorio con la desaparición de un dato erróneo. Es una relación razonable, no una prueba de causa, y así lo decimos en los informes. En <a href="/casos-exito/voltura-projects/">el caso de Voltura Projects</a>, la web se lanzó en marzo de 2026 y en octubre Google ya la citaba en 6 respuestas con IA.' },
+        { icon: ICON.alert, title: 'Qué podemos demostrar y qué sigue siendo incierto', html: 'Podemos demostrar qué respuestas había antes y después, qué fuentes se citan y qué tráfico llega a tu web. No podemos saber con exactitud cómo pondera cada asistente sus fuentes ni asegurar que una mención se mantenga, y por eso no prometemos apariciones. Puedes ver cómo lo contamos en <a href="/casos-exito/">todos nuestros casos de éxito</a>.' },
       ]}
     />
     <MoreCases locale="es" categories={['seo']} embed />
@@ -474,12 +476,12 @@ const pageSchema = localAgencySchema({
   <!-- ═══ ALCANCE / PRECIOS ═════════════════════════════════════════════ -->
   <PSection id="precios" kicker="Precios" title="Qué alcance puede tener tu proyecto GEO" width="wide">
     <Fragment slot="intro">
-      <p>Puedes empezar solo con el diagnóstico o con un plan mensual que incluye la optimización y el seguimiento. Tarifas orientativas, sin IVA y sin permanencia. Antes de empezar recibes un presupuesto cerrado por escrito.</p>
+      <p>Puedes empezar solo con el diagnóstico o con un plan mensual que incluye la optimización y el seguimiento. Los precios son orientativos, sin IVA y sin permanencia, y antes de empezar recibes un presupuesto cerrado por escrito.</p>
     </Fragment>
     <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch reveal">
       {[
-        { title: 'Diagnóstico inicial de visibilidad', price: '1.800 €', note: 'pago único · 3 a 4 semanas', desc: 'La muestra de consultas, el análisis de lo que dicen los asistentes, la revisión de tu web y tus fuentes externas, y un plan de acción priorizado que repasamos contigo en una videollamada.', items: ['Muestra de 30 a 60 consultas', 'Varios asistentes y buscadores', 'Comparativa con competidores', 'Plan de acción priorizado'] },
-        { title: 'Optimización de marca y contenidos', price: 'desde 400 € / mes', note: 'negocios locales y pequeñas empresas', desc: 'Aplicamos el plan mes a mes. Corrección de datos, mejora de páginas de servicio, marcado estructurado, perfiles externos y reseñas, con una revisión de la muestra para ver el efecto.', items: ['Corrección de información', 'Contenido que sirve de fuente', 'Perfil de Empresa y reseñas', 'Informe mensual de menciones'], featured: true },
+        { title: 'Diagnóstico inicial de visibilidad', price: '1.800 €', note: 'pago único · 3 a 4 semanas', desc: 'La muestra de consultas, el análisis de lo que dicen los asistentes, la revisión de tu web y de tus fuentes externas, y un plan de acción priorizado que repasamos contigo por videollamada.', items: ['Muestra de 30 a 60 consultas', 'Varios asistentes y buscadores', 'Comparativa con competidores', 'Plan de acción priorizado'] },
+        { title: 'Optimización de marca y contenidos', price: 'desde 400 € / mes', note: 'negocios locales y pequeñas empresas', desc: 'Aplicamos el plan mes a mes: corrección de datos, mejora de páginas de servicio, datos estructurados, perfiles externos y reseñas. Cada mes revisamos la muestra para ver el efecto.', items: ['Corrección de información', 'Contenido que sirve de fuente', 'Perfil de Empresa y reseñas', 'Informe mensual de menciones'], featured: true },
         { title: 'Seguimiento periódico y nuevas oportunidades', price: 'desde 900 € / mes', note: 'empresas medianas y sectores competidos', desc: 'Para proyectos con más servicios, sedes o competencia. Muestra más amplia, estrategia SEO y GEO conjunta, contenido experto firmado y trabajo con medios y asociaciones del sector.', items: ['Estrategia SEO y GEO conjunta', 'Seguimiento ampliado', 'Menciones en medios', 'Reunión mensual de negocio'] },
       ].map((p, i) => (
         <div class:list={['pd-rise rounded-3xl p-7 sm:p-8 flex flex-col border', p.featured ? 'bg-zinc-950 text-white border-zinc-950 shadow-2xl' : 'bg-white border-black/5 shadow-[0_15px_40px_rgba(0,0,0,0.06)]']} style={`--i:${i}`}>
@@ -503,9 +505,9 @@ const pageSchema = localAgencySchema({
   <!-- ═══ CONSULTOR ══════════════════════════════════════════════════════ -->
   <PSection kicker="Quién está detrás" title="Quién analiza e interpreta la presencia de tu marca" tone="soft" layout="split">
     <Fragment slot="intro">
-      <p>El análisis de las respuestas no lo hace una herramienta automática ni un equipo que cambia cada mes. Lo hace <strong>Sergio Galo's, consultor de marketing digital y SEO y fundador de Nova</strong>, que lleva años trabajando el posicionamiento de pymes industriales, de salud, de comercio electrónico y de servicios profesionales.</p>
-      <p>La misma persona prepara la muestra de consultas, lee cada respuesta, decide qué corregir primero y te lo explica en la reunión de seguimiento. Cuando un asistente describe mal tu empresa, sabes a quién preguntar y recibes una explicación concreta, no un gráfico sin contexto.</p>
-      <p>Trabajamos de forma presencial en Barcelona y el Vallès o por videollamada en el resto de España, y nos coordinamos con tu equipo o con tu desarrollador cuando hace falta tocar la web.</p>
+      <p>El análisis no lo hace una herramienta automática ni un equipo que cambia cada mes. Lo hace <strong>Sergio Galo's, consultor de marketing digital y SEO y fundador de Nova</strong>, que lleva años trabajando el posicionamiento de pymes industriales, de salud, de comercio electrónico y de servicios profesionales.</p>
+      <p>Él prepara la muestra, lee cada respuesta, decide qué corregir primero y te lo explica en la reunión de seguimiento. Si un asistente describe mal tu empresa, sabes a quién preguntar y recibes una explicación concreta.</p>
+      <p>Trabajamos en persona en Barcelona y el Vallès, con servicio propio de <a href="/agencia-geo-para-pymes/terrassa/">agencia GEO en Terrassa</a> y de <a href="/agencia-geo-para-pymes/sabadell/">posicionamiento GEO en Sabadell</a>, y por videollamada en el resto de España. Si hace falta tocar la web, nos coordinamos con tu equipo o con tu desarrollador.</p>
       <p data-consultor-link>Cada proyecto lo dirige Sergio Galo's, fundador de Nova, que también trabaja como <a href="https://sergiogalos.es/consultor-geo-ia/" class="font-medium text-accent underline decoration-accent/30 underline-offset-4 hover:decoration-accent" target="_blank" rel="noopener">consultor GEO e IA</a>.</p>
     </Fragment>
     <img slot="aside" src="/sergio-galos-agencia-seo-para-pymes.webp" alt="Sergio Galo's, consultor GEO y fundador de Nova Marketing" title="Sergio Galo's, consultor GEO y fundador de Nova Marketing" class="w-full max-w-xs mx-auto h-auto rounded-3xl" loading="lazy" width="473" height="591" />

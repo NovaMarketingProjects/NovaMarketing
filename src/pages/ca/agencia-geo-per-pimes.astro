@@ -37,11 +37,11 @@ const ICON = {
 };
 
 const faqs = [
-  { question: "Es pot garantir una aparició a ChatGPT?", answer: "No. Ningú controla el que respon un model de llenguatge, i les respostes canvien segons la pregunta, el moment i l'assistent. El que sí que podem assegurar és el mètode. Revisar què es diu avui de la teva empresa, corregir la informació que falla, millorar les pàgines i fonts que consulten els assistents i mesurar amb la mateixa mostra de preguntes si la teva presència millora. Desconfia de qui et prometi sortir sempre." },
+  { question: "Es pot garantir una aparició a ChatGPT?", answer: "No. Ningú controla el que respon un model de llenguatge, i les respostes canvien segons la pregunta, el moment i l'assistent. El que sí que podem assegurar és el mètode: revisar què es diu avui de la teva empresa, corregir la informació que falla, millorar les pàgines i fonts que consulten els assistents i mesurar amb la mateixa mostra de preguntes si la teva presència millora. Desconfia de qui et prometi sortir sempre." },
   { question: "Necessito treballar el SEO per contractar GEO?", answer: "No és obligatori, però ajuda molt. Els cercadors amb IA i molts assistents es recolzen en pàgines que ja estan indexades, ben posicionades i citades per altres webs. Si la teva web té problemes de rastreig o continguts pobres, el GEO tindrà menys amb què treballar. A l'auditoria et diem si cal reforçar abans el posicionament orgànic o si podem començar directament per les respostes generades." },
   { question: "En quins assistents i cercadors té sentit centrar-se?", answer: "Normalment revisem ChatGPT, Gemini, Claude, Perplexity, Copilot i les respostes generades de Google, perquè són els que més fan servir avui els clients d'una pime a Espanya. La prioritat depèn del teu públic. Un comprador industrial no fa servir les mateixes eines que un pacient que busca dentista. Triem els assistents de la mostra amb tu i els mantenim estables per poder comparar." },
   { question: "Quan convé repetir les mesures?", answer: "Solem repetir la mostra completa cada mes en els plans de seguiment, i una revisió puntual després de canvis importants a la web o a fonts externes. Repetir-ho més sovint no aporta gaire, perquè les variacions del dia a dia es poden confondre amb avenços. El que és útil és comparar rondes fetes amb les mateixes preguntes, els mateixos assistents i condicions semblants." },
-  { question: "Com es distingeix una menció d'una visita o una venda?", answer: "Una menció és que l'assistent anomeni la teva empresa a la seva resposta. Una visita arriba quan l'usuari clica una cita o busca la teva marca després, i una venda quan aquest contacte es converteix en client. Mesurem les tres coses per separat. Les mencions, a la mostra de consultes; les visites, a l'analítica de la teva web; i els contactes, preguntant l'origen als formularis i les trucades." },
+  { question: "Com es distingeix una menció d'una visita o una venda?", answer: "Una menció és que l'assistent anomeni la teva empresa a la seva resposta. Una visita arriba quan l'usuari clica una cita o busca la teva marca després, i una venda quan aquest contacte es converteix en client. Mesurem les tres per separat: les mencions, a la mostra de consultes; les visites, a l'analítica de la teva web; i els contactes, preguntant l'origen als formularis i les trucades." },
   { question: "Què ha d'aportar la meva empresa al projecte?", answer: "Una persona que conegui bé el negoci, els serveis que vols potenciar i el tipus de client que t'interessa. També accessos a la web, a Google Search Console, a l'analítica i al Perfil d'Empresa a Google. Més endavant et demanarem dades, casos i opinions dels teus professionals, perquè el contingut amb experiència pròpia és el que més fàcilment es converteix en font." },
 ];
 
@@ -99,7 +99,7 @@ const pageSchema = localAgencySchema({
                 <span class="lg:whitespace-nowrap text-mktg-gradient">en IA</span>
             </h1>
       <p class="text-lg sm:text-xl text-zinc-500 font-light leading-relaxed max-w-3xl mx-auto mb-8">
-        Revisem què responen ChatGPT, Gemini, Claude, Perplexity i Google quan els teus clients pregunten pel que vens, i treballem la informació i les fonts que fan que la teva empresa hi aparegui ben descrita.
+        Comprovem què responen ChatGPT, Gemini, Perplexity i Google quan els teus clients pregunten pel que vens, i corregim la informació d'on surten aquestes respostes. Cada resposta la revisa a mà el mateix consultor, que t'ensenya l'abans i el després.
       </p>
       <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-10">
         {['Sense permanències', 'Tracte directe amb el consultor', 'Mesures documentades'].map((item) => (
@@ -118,9 +118,9 @@ const pageSchema = localAgencySchema({
   <!-- ═══ QUÈ TROBA EL CLIENT ═══════════════════════════════════════════ -->
   <PSection kicker="Per què GEO" title="Què troba un client quan pregunta per la teva empresa a una IA?" layout="split">
     <Fragment slot="intro">
-      <p>Cada vegada més clients comencen la seva cerca amb una pregunta a un assistent. «Quina empresa em recomanes per…?», «Aquest proveïdor és de fiar?», «Quina diferència hi ha entre aquestes dues opcions?». <strong>La resposta arriba redactada, amb una llista curta de noms i algunes fonts</strong>, i sovint l'usuari no va més enllà.</p>
-      <p>Si la teva empresa no hi surt, hi surt mal descrita o es confon amb una altra, perds l'oportunitat abans que el client visiti la teva web. El GEO, l'optimització per a motors generatius, consisteix a revisar aquestes respostes i treballar la informació de la qual depenen.</p>
-      <p>A Nova ho fem com a part d'una <a href="/ca/">agència de màrqueting digital per a pimes</a>, connectat amb el teu <a href="/ca/agencia-seo-per-pimes/">posicionament a Google</a>, perquè els assistents beuen en bona part del que ja és visible al cercador.</p>
+      <p>Cada vegada més clients comencen amb una pregunta a un assistent d'IA com ChatGPT. «Quina empresa em recomanes per…?», «Aquest proveïdor és de fiar?». <strong>L'assistent contesta amb un text ja redactat, una llista curta de noms i, de vegades, els enllaços d'on ha tret la informació</strong>. Aquests enllaços són les fonts citades. Sovint el client no va més enllà.</p>
+      <p>Si la teva empresa no hi surt, hi surt amb dades velles o es confon amb una altra, perds el client abans que vegi la teva web. El GEO (optimització per a motors generatius) consisteix a revisar aquestes respostes i millorar la informació de la qual depenen. Al costat tens un exemple del que llegeix el teu client.</p>
+      <p>Ho fem com a <a href="/ca/">agència de màrqueting digital per a pimes</a> i sempre al costat del teu <a href="/ca/agencia-seo-per-pimes/">posicionament a Google</a>, perquè els assistents es basen en bona part en el que ja troba el cercador.</p>
     </Fragment>
     <GeoChat
       slot="aside"
@@ -133,15 +133,15 @@ const pageSchema = localAgencySchema({
         { name: 'Competidor B', desc: 'Empresa amb més de 30 anys, tot i que la seva web no detalla els serveis.' },
       ]}
       sources={['web del proveïdor', 'directori sectorial', 'ressenyes a Google']}
-      caption="Il·lustració d'una resposta generada. L'objectiu és que la teva empresa hi aparegui i ho faci amb dades correctes."
+      caption="Il·lustració d'una resposta generada: només hi caben tres empreses, i a sota apareixen les fonts d'on surt cada dada."
     />
   </PSection>
 
   <!-- ═══ COM INFLUEIXEN LES RESPOSTES ══════════════════════════════════ -->
   <PSection kicker="Decisió de compra" title="Com intervenen les respostes generades en l'elecció d'una marca" tone="soft">
     <Fragment slot="intro">
-      <p>Un assistent no substitueix tot el procés de compra, però sí que filtra. Redueix el mercat a tres o quatre noms, en resumeix les diferències i proposa criteris. L'empresa que no entra en aquesta llista curta s'ha d'esforçar molt més perquè el client la tingui en compte.</p>
-      <p>Aquestes són les cinc situacions en què la resposta generada pesa més. Cadascuna demana una feina diferent.</p>
+      <p>Un assistent no tanca la venda per tu, però filtra. Redueix el mercat a tres o quatre noms i explica en què es diferencien. Si la teva empresa queda fora d'aquesta llista curta, és difícil que el client arribi a la teva web.</p>
+      <p>L'esquema mostra en quin punt actua aquest filtre. A sota tens els cinc tipus de pregunta que pesen més i el que necessita cadascun.</p>
     </Fragment>
     <PFunnel
       stages={[
@@ -150,16 +150,16 @@ const pageSchema = localAgencySchema({
         { label: 'Comprovació a la web', sub: 'serveis, preus, opinions', side: 'La teva web confirma o contradiu el que ha llegit.' },
         { label: 'Contacte', sub: 'trucada, formulari, visita', side: 'Només hi arriben els qui han passat els filtres.' },
       ]}
-      caption="Esquema il·lustratiu del recorregut. L'assistent actua com a primer filtre, no com a últim pas."
+      caption="Esquema il·lustratiu del recorregut: la llista curta del segon pas decideix qui arriba a rebre la trucada."
     />
     <PCards
       tone="soft"
       items={[
-        { icon: ICON.search, title: 'Preguntes per descobrir proveïdors', html: "El client no sap a qui trucar i demana noms. És la consulta més directa i també la més disputada, perquè l'assistent sol mencionar poques empreses. Per entrar-hi cal que la teva activitat, la teva especialitat i la teva zona estiguin descrites amb claredat a la teva web i en fonts que el model pugui contrastar." },
-        { icon: ICON.chart, title: 'Comparacions entre empreses i solucions', html: "Preguntes del tipus «X o Y, quina és millor per al meu cas?». L'assistent compara amb el que troba publicat. Si els teus avantatges no estan explicats enlloc, la comparació es farà amb les dades de la teva competència o amb informació antiga." },
-        { icon: ICON.alert, title: 'Consultes sobre problemes concrets', html: `Moltes compres comencen amb un problema, no amb un servei. «La meva web no rep visites», «la màquina perd pressió». Les pàgines que expliquen causes i solucions amb detall són les que l'assistent cita. Entendre la <a href="/ca/blog/que-es-la-intencio-de-cerca-en-el-seo/">intenció que hi ha darrere de cada cerca</a> ajuda a cobrir-les.` },
-        { icon: ICON.star, title: 'Cerques de referències i confiança', html: "«Aquesta empresa és de fiar?», «què en pensen els seus clients?». L'assistent recull ressenyes, mencions a la premsa i casos publicats. Una pime amb bones feines però sense cap rastre públic d'aquestes sembla, per al model, una empresa sense experiència demostrable." },
-        { icon: ICON.pin, title: 'Preguntes sobre serveis en una ubicació', html: "Consultes amb ciutat o comarca, molt freqüents en serveis locals. Aquí compten el Perfil d'Empresa a Google, la coherència d'adreça i telèfon i les pàgines que expliquen quines zones atens realment. Una dada diferent a cada lloc fa dubtar l'assistent." },
+        { icon: ICON.search, title: 'Preguntes per descobrir proveïdors', html: "El client no sap a qui trucar i demana noms: «quina empresa de climatització em recomanes a Barcelona?». És la pregunta més disputada, perquè l'assistent anomena poques empreses. Per entrar-hi, la teva activitat, la teva especialitat i la teva zona han d'estar explicades amb claredat a la teva web i repetides en altres fonts que l'assistent pugui contrastar." },
+        { icon: ICON.chart, title: 'Comparacions entre empreses i solucions', html: "«Em convé més l'empresa X o la Y per a una reforma d'oficina?». L'assistent compara amb el que troba publicat. Si els teus avantatges no estan escrits enlloc, la comparació es farà amb les dades de la teva competència o amb informació antiga. Revisem què es diu de tu en aquestes comparacions i què hi falta." },
+        { icon: ICON.alert, title: 'Consultes sobre problemes concrets', html: `Moltes compres comencen per un problema: «la meva web no rep visites», «la màquina perd pressió». L'assistent cita les pàgines que expliquen causes i solucions amb detall. Entendre la <a href="/ca/blog/que-es-la-intencio-de-cerca-en-el-seo/">intenció de cerca darrere de cada consulta</a> ens ajuda a decidir quines pàgines escriure i quina pregunta ha de resoldre cadascuna.` },
+        { icon: ICON.star, title: 'Cerques de referències i confiança', html: "«Aquesta empresa és de fiar?», «què en pensen els seus clients?». L'assistent aplega ressenyes, mencions a la premsa i casos publicats. Si les teves bones feines no deixen rastre públic, per a l'assistent ets una empresa sense experiència demostrable. Comprovem quines proves de la teva feina troba i quines li falten." },
+        { icon: ICON.pin, title: 'Preguntes sobre serveis en una ubicació', html: `Preguntes amb ciutat o comarca, molt habituals en serveis locals. Aquí compten el Perfil d'Empresa a Google, la mateixa adreça i el mateix telèfon a tot arreu i pàgines que expliquin quines zones atens de debò. Ho treballem zona per zona, com en el <a href="/ca/agencia-geo-per-pimes/barcelona/">posicionament GEO a Barcelona</a> o el <a href="/ca/agencia-geo-per-pimes/sant-cugat/">posicionament en IA a Sant Cugat</a>.` },
       ]}
     />
   </PSection>
@@ -167,8 +167,8 @@ const pageSchema = localAgencySchema({
   <!-- ═══ MOSTRA DE VISIBILITAT ═════════════════════════════════════════ -->
   <PSection id="diagnostico" kicker="Diagnòstic" title="El punt de partida: una mostra de la teva visibilitat actual" layout="split">
     <Fragment slot="intro">
-      <p>Abans de canviar res, mesurem. Preparem una mostra de preguntes reals dels teus clients, la llancem en diversos assistents i registrem cada resposta. <strong>No és un informe automàtic d'una eina</strong>, sinó una anàlisi revisada a mà que explica què es diu de la teva empresa i per què.</p>
-      <p>Aquesta mostra és la referència amb què compararem cada revisió posterior. Per això la documentem amb tanta cura.</p>
+      <p>Abans de canviar res, mesurem. Preparem una llista de preguntes reals dels teus clients, les fem a diversos assistents i desem cada resposta. <strong>Les revisa una persona, una per una</strong>, i el resultat explica què es diu de la teva empresa i d'on surt.</p>
+      <p>Aquesta mostra és la foto de partida. Totes les revisions posteriors s'hi comparen.</p>
     </Fragment>
     <PBars
       slot="aside"
@@ -180,16 +180,16 @@ const pageSchema = localAgencySchema({
         { label: 'La teva empresa', value: 6, display: '6 de 40', note: 'dues amb dades desactualitzades' },
         { label: 'Competidor C', value: 4, display: '4 de 40' },
       ]}
-      caption="Esquema il·lustratiu, no són dades d'un client. Així resumim la presència de cada marca a la mostra inicial."
+      caption="Esquema il·lustratiu, no són dades d'un client: cada barra indica en quantes de les 40 preguntes apareix cada marca."
     />
     <PCards
       variant="rows"
       items={[
-        { title: 'Consultes representatives dels teus clients', html: "Definim amb tu entre 30 i 60 preguntes que faria un client real. Preguntes per trobar proveïdor, comparatives, dubtes sobre problemes i cerques amb ubicació. Partim dels teus serveis prioritaris, del que et pregunten a les reunions comercials i de les dades de cerca de la teva web." },
-        { title: 'Models i cercadors inclosos a la revisió', html: `Normalment ChatGPT, Gemini, Claude, Perplexity, Copilot i les respostes generades de Google. Ajustem la llista al que fa servir el teu públic i la mantenim fixa per poder comparar. Per a la resta de la mesura fem servir les mateixes <a href="/ca/blog/millors-eines-seo-per-a-pimes/">eines SEO que recomanem a les pimes</a>.` },
-        { title: 'Mencions de la teva marca i dels teus competidors', html: "A cada resposta anotem si hi apareixes, en quin lloc de la llista, amb quina descripció i quins competidors s'hi anomenen. Així veiem amb quines empreses et compara l'assistent, que no sempre coincideixen amb les que tu consideres competència." },
-        { title: 'Fonts citades a les respostes', html: "Quan l'assistent enllaça fonts, les registrem. Webs de competidors, directoris, mitjans, fòrums, plataformes d'opinions. Aquesta llista indica on convé ser present i quines pàgines de la teva web ja s'estan fent servir com a referència." },
-        { title: 'Registre de dates i condicions de cada prova', html: "Desem la data, l'assistent, el mode d'ús i si la consulta es va fer amb la cerca web activada o sense, juntament amb una captura de la resposta. Les respostes canvien amb el temps, i sense aquest registre no es pot saber si una millora és real o casual." },
+        { title: 'Consultes representatives dels teus clients', html: `Definim amb tu entre 30 i 60 preguntes com les que faria un client real, per exemple «quina assessoria laboral treballa amb restaurants a Sabadell?». Surten dels teus serveis prioritaris, del que et pregunten a les reunions comercials, de les cerques que ja arriben a la teva web i, si tens campanyes, dels termes que funcionen millor als teus <a href="/ca/agencia-sem-per-pimes/">anuncis de Google Ads</a>.` },
+        { title: 'Models i cercadors inclosos a la revisió', html: `Normalment ChatGPT, Gemini, Claude, Perplexity, Copilot i les respostes generades de Google, que són els resums amb IA que apareixen damunt dels resultats. Ajustem la llista al que fa servir el teu públic i no la canviem entre rondes, per poder comparar. Per mesurar la teva web fem servir les <a href="/ca/blog/millors-eines-seo-per-a-pimes/">eines SEO que recomanem a les pimes</a>.` },
+        { title: 'Mencions de la teva marca i dels teus competidors', html: "A cada resposta anotem si hi apareixes, en quina posició de la llista, com et descriuen i quins competidors hi surten. Reps una taula amb els teus competidors reals als assistents d'IA, que sovint no són els que tu tens al cap. Una empresa petita del polígon del costat pot estar ocupant el teu lloc." },
+        { title: 'Fonts citades a les respostes', html: "Les fonts citades són les pàgines que l'assistent enllaça per avalar la seva resposta. Les apuntem totes: webs de competidors, directoris, mitjans, fòrums i portals d'opinions. Aquesta llista et diu on et convé ser present i quines pàgines de la teva web ja s'estan fent servir com a referència." },
+        { title: 'Registre de dates i condicions de cada prova', html: "De cada prova desem la data, l'assistent, el mode d'ús, si tenia la cerca web activada i una captura de la resposta. Les respostes canvien amb el temps. Sense aquest registre no sabríem si una millora és real o fruit de l'atzar, i tu no ho podries comprovar." },
       ]}
     />
   </PSection>
@@ -197,8 +197,8 @@ const pageSchema = localAgencySchema({
   <!-- ═══ QUÈ DIUEN ELS ASSISTENTS ══════════════════════════════════════ -->
   <PSection kicker="Percepció de marca" title="Què diuen els assistents sobre el teu negoci" tone="soft" layout="split">
     <Fragment slot="intro">
-      <p>Aparèixer només és la meitat. L'altra meitat és com et descriuen. Un assistent pot anomenar la teva empresa i atribuir-li un servei que ja no ofereixes, una adreça antiga o una especialitat que no és la teva.</p>
-      <p>Per això analitzem el contingut de cada resposta, no només si hi surts o no.</p>
+      <p>Sortir-hi no n'hi ha prou. També importa com et descriuen. Un assistent pot anomenar la teva empresa i atribuir-li un servei que vas deixar d'oferir, una adreça antiga o una especialitat que no és la teva.</p>
+      <p>Per això llegim cada resposta frase per frase i la comparem amb la realitat del teu negoci.</p>
     </Fragment>
     <PTree
       slot="aside"
@@ -208,16 +208,16 @@ const pageSchema = localAgencySchema({
         { label: 'Persones', leaves: ['fundadors', 'experts que signen'] },
         { label: 'Sector i zona', leaves: ['categoria', 'àmbit geogràfic'] },
       ]}
-      caption="Les relacions que revisem a cada resposta."
+      caption="A cada branca comparem el que diu l'assistent amb el que la teva empresa és i fa avui."
     />
     <PCards
       tone="soft"
       cols={2}
       items={[
-        { icon: ICON.doc, title: 'Serveis que associen amb la teva marca', html: "Comparem els serveis que mencionen els assistents amb els que realment vols vendre. És habitual que una pime sigui coneguda per una línia de negoci antiga i que la nova, la més rendible, no aparegui en cap resposta." },
-        { icon: ICON.alert, title: 'Dades incompletes o contradictòries', html: "Horaris diferents, adreces d'una seu anterior, preus de fa anys o un nom comercial que es confon amb una altra empresa. Localitzem d'on surt cada error, perquè l'assistent no se l'inventa sense més ni més, normalment el pren d'alguna font." },
-        { icon: ICON.star, title: "Atributs que et diferencien d'altres empreses", html: "Rapidesa, especialització, garantia, tracte proper. Revisem si els assistents recullen les raons per les quals els teus clients et trien o si et descriuen amb frases genèriques que valdrien per a qualsevol empresa del teu sector." },
-        { icon: ICON.users, title: 'Relació entre la teva marca, els teus experts i el teu sector', html: "Comprovem si els models connecten la teva empresa amb les persones que la dirigeixen i amb la categoria correcta. En serveis professionals, que l'assistent sàpiga qui és el teu advocat o la teva doctora i quina experiència té pesa tant com el nom de l'empresa." },
+        { icon: ICON.doc, title: 'Serveis que associen amb la teva marca', html: "Comparem els serveis que t'atribueixen els assistents amb els que vols vendre. És habitual que una pime continuï associada a una línia antiga i que la nova, la més rendible, no surti en cap resposta. Per exemple, una impremta que avui viu del gran format i que encara recomanen per a targetes de visita." },
+        { icon: ICON.alert, title: 'Dades incompletes o contradictòries', html: "Horaris diferents, l'adreça d'una seu anterior, preus de fa anys o un nom comercial que es confon amb una altra empresa. Per a cada error busquem d'on surt, perquè l'assistent gairebé mai no se l'inventa: el pren d'alguna font. Reps la llista d'errors amb l'origen de cadascun." },
+        { icon: ICON.star, title: "Atributs que et diferencien d'altres empreses", html: "Rapidesa, especialització, garantia, tracte proper. Revisem si els assistents recullen les raons per les quals els teus clients et trien o si et descriuen amb frases que valdrien per a qualsevol empresa del teu sector. Si els teus clients valoren que respons en 24 hores, això hauria de sortir a la resposta." },
+        { icon: ICON.users, title: 'Relació entre la teva marca, els teus experts i el teu sector', html: "Comprovem si els assistents relacionen la teva empresa amb les persones que la dirigeixen i amb la categoria correcta. En serveis professionals pesa molt. Si algú pregunta «quina advocada laboralista de Terrassa té experiència en acomiadaments?», l'assistent necessita saber qui treballa al teu despatx i quins casos ha portat." },
       ]}
     />
   </PSection>
@@ -225,8 +225,8 @@ const pageSchema = localAgencySchema({
   <!-- ═══ IDENTITAT ═════════════════════════════════════════════════════ -->
   <PSection kicker="Identitat de marca" title="Una identitat d'empresa comprensible a tota la web" layout="split">
     <Fragment slot="intro">
-      <p>Els models construeixen una idea de la teva empresa ajuntant peces de molts llocs. Si cada peça diu una cosa diferent, la idea que en resulta és borrosa. La primera feina és que la teva web i els teus perfils expliquin la mateixa història, amb les mateixes paraules.</p>
-      <p>És una base sobre la qual es recolza tota la resta, com mostra l'esquema.</p>
+      <p>Els assistents es fan una idea de la teva empresa ajuntant peces de molts llocs. Si cada peça diu una cosa diferent, la idea surt borrosa. El primer és que la teva web i els teus perfils expliquin el mateix, amb les mateixes paraules.</p>
+      <p>A l'esquema, aquesta identitat és la base. Si falla, tot el que s'hi construeix a sobre perd valor.</p>
     </Fragment>
     <PStack
       slot="aside"
@@ -236,15 +236,15 @@ const pageSchema = localAgencySchema({
         { label: 'Contingut que serveix de font', sub: 'respostes i evidències' },
         { label: 'Identitat clara', sub: 'qui ets, què fas, on' },
       ]}
-      caption="Esquema de treball. Cada capa es recolza en l'anterior."
+      caption="Esquema de treball: la identitat clara és la base i cada capa es recolza en la que té a sota."
     />
     <PCards
       cols={2}
       items={[
-        { icon: ICON.target, title: 'Informació corporativa clara i coherent', html: "Nom comercial, raó social, adreça, telèfon, any de fundació i àmbit de treball, iguals a la web, l'avís legal, el Perfil d'Empresa i els directoris. Sembla bàsic, però gairebé en totes les auditories trobem com a mínim una versió diferent d'alguna d'aquestes dades." },
-        { icon: ICON.doc, title: 'Serveis i especialitats ben definits', html: "Una pàgina per cada servei important, amb un nom que el client entén, per a qui és, què inclou i què no. Les descripcions vagues com «solucions integrals» no donen a l'assistent res concret que pugui repetir quan algú pregunta per aquest servei." },
-        { icon: ICON.users, title: 'Autors i professionals identificables', html: "Pàgines d'equip amb nom, càrrec, formació i experiència real, i articles signats per qui coneix el tema. Els assistents valoren saber qui avala una afirmació, i al teu client li passa el mateix abans de confiar en una empresa que no coneix." },
-        { icon: ICON.link, title: 'Perfils externs alineats amb la teva activitat', html: `LinkedIn, Perfil d'Empresa a Google, associacions i plataformes del sector amb la mateixa descripció i enllaçant a la teva web. Si una altra persona gestiona la teva fitxa de Google, t'expliquem com <a href="/ca/blog/donar-acces-al-teu-perfil-dempresa-a-google/">donar-li accés al teu Perfil d'Empresa</a> sense compartir contrasenyes.` },
+        { icon: ICON.target, title: 'Informació corporativa clara i coherent', html: "Nom comercial, raó social, adreça, telèfon, any de fundació i zona de treball, idèntics a la web, l'avís legal, el Perfil d'Empresa i els directoris. Sembla bàsic, però gairebé en totes les auditories trobem alguna d'aquestes dades amb dues versions. Et donem la versió correcta i la llista de llocs on cal corregir-la." },
+        { icon: ICON.doc, title: 'Serveis i especialitats ben definits', html: "Una pàgina per cada servei important, amb un nom que el teu client entengui, per a qui és, què inclou i què no. Frases com «solucions integrals» no donen a l'assistent res concret per repetir. «Manteniment de calderes industrials amb visita en 48 hores» sí que es pot repetir quan algú pregunta per aquest servei." },
+        { icon: ICON.users, title: 'Autors i professionals identificables', html: "Pàgines d'equip amb nom, càrrec, formació i experiència real, i articles signats per qui coneix el tema. Els assistents tenen en compte qui avala una afirmació, i el teu client també, abans de confiar en una empresa que no coneix. Et diem quins professionals del teu equip haurien de tenir un perfil propi." },
+        { icon: ICON.link, title: 'Perfils externs alineats amb la teva activitat', html: `LinkedIn, Perfil d'Empresa a Google, associacions i plataformes del sector, tots amb la mateixa descripció i un enllaç a la teva web. Revisem cada perfil i et passem el text que ha de portar. Si una altra persona gestiona la teva fitxa de Google, t'expliquem com <a href="/ca/blog/donar-acces-al-teu-perfil-dempresa-a-google/">donar accés al teu Perfil d'Empresa</a> sense compartir contrasenyes.` },
       ]}
     />
   </PSection>
@@ -252,18 +252,18 @@ const pageSchema = localAgencySchema({
   <!-- ═══ CONTINGUT FONT ════════════════════════════════════════════════ -->
   <PSection kicker="Contingut" title="Contingut que pot servir com a font" tone="soft">
     <Fragment slot="intro">
-      <p>Un assistent cita el que li permet respondre bé. Això vol dir contingut concret, verificable i escrit per algú que coneix el tema. Els textos genèrics que repeteixen el que diuen cent webs més rarament es converteixen en font.</p>
-      <p>Treballem quatre tipus de contingut, començant per les pàgines que tenen més relació amb la venda.</p>
+      <p>Un assistent cita el que li permet respondre bé: contingut concret, que es pot comprovar i escrit per algú que coneix el tema. Els textos genèrics que repeteixen el que diuen cent webs més gairebé mai no es citen.</p>
+      <p>Treballem quatre tipus de contingut i comencem per les pàgines més properes a la venda.</p>
     </Fragment>
     <PCards
       tone="soft"
       cols={2}
       variant="check"
       items={[
-        { title: 'Respostes directes a preguntes de compra', html: "Quant costa, quant triga, què inclou, en quins casos no convé. Responem al primer paràgraf i ampliem després. Aquest format facilita que l'assistent n'extregui la resposta i l'atribueixi a la teva empresa, i també ajuda el client que arriba a la pàgina amb pressa." },
-        { title: 'Explicacions avalades per experiència', html: "Casos, exemples, errors habituals i criteris que només coneix qui treballa al sector. Entrevistem els teus professionals i convertim aquest coneixement en contingut. És el que distingeix la teva pàgina d'un text genèric i el que la fa mereixedora d'una cita." },
-        { title: 'Dades pròpies amb context i metodologia', html: "Terminis mitjans dels teus projectes, rangs de preu, resultats d'enquestes a clients. Publicats amb la data, la mostra i el mètode, perquè tothom pugui entendre d'on surten. Una dada sense context genera desconfiança, tant en el lector com en el model." },
-        { title: 'Informació actualitzada i fàcil de verificar', html: "Data de revisió visible, preus vigents, normativa al dia i enllaços a fonts quan correspon. Retirem o corregim les pàgines antigues que contradiuen la informació actual, perquè també poden acabar citades en una resposta." },
+        { title: 'Respostes directes a preguntes de compra', html: `Quant costa, quant triga, què inclou, quan no convé. Donem la resposta al primer paràgraf i ampliem després, una tècnica que també s'anomena AEO (optimització per a respostes). Amb respostes directes, preguntes freqüents i dades verificables, les pàgines de <a href="/ca/casos-exit/tattoox/">l'escola en línia Tattoox</a> apareixen avui a les respostes amb IA de Google per a les cerques principals del seu sector.` },
+        { title: 'Explicacions avalades per experiència', html: "Casos, exemples, errors habituals i criteris que només coneix qui treballa al sector. Entrevistem els teus professionals, per exemple el teu cap d'obra sobre les errades més comunes en una reforma, i convertim aquest coneixement en contingut. Això distingeix la teva pàgina d'un text genèric i li dona motius per ser citada." },
+        { title: 'Dades pròpies amb context i metodologia', html: "Terminis mitjans dels teus projectes, rangs de preu, resultats d'enquestes a clients. Els publiquem amb la data, el nombre de casos i el mètode, perquè s'entengui d'on surten. Una frase com «gairebé totes les nostres reformes de bany s'acaben en tres setmanes» només és creïble si dius sobre quantes obres i de quin període." },
+        { title: 'Informació actualitzada i fàcil de verificar', html: "Data de revisió visible, preus vigents, normativa al dia i enllaços a fonts quan cal. També retirem o corregim les pàgines antigues que contradiuen la informació actual, perquè un assistent pot citar una tarifa de fa quatre anys si continua publicada a la teva web." },
       ]}
     />
   </PSection>
@@ -271,18 +271,18 @@ const pageSchema = localAgencySchema({
   <!-- ═══ PAPER DE LA WEB ═══════════════════════════════════════════════ -->
   <PSection kicker="Base tècnica" title="El paper de la teva web en l'estratègia GEO">
     <Fragment slot="intro">
-      <p>La teva web és l'única font sobre la teva empresa que controles del tot. Si els rastrejadors dels assistents no la poden llegir bé, o si la informació està desordenada, perds l'oportunitat que sigui la referència principal.</p>
-      <p>Revisem cinc aspectes tècnics. Quan la web necessita canvis de fons, ho coordinem amb el nostre equip de <a href="/ca/disseny-web-per-pimes/">disseny web per a pimes</a> o amb el teu desenvolupador.</p>
+      <p>La teva web és l'única font sobre la teva empresa que controles del tot. Si els rastrejadors dels assistents, els programes que llegeixen les webs per ells, no hi poden entrar o hi troben la informació desordenada, altres fonts n'ocupen el lloc.</p>
+      <p>Revisem cinc punts tècnics. Si la web necessita canvis de fons, ho coordinem amb el nostre equip de <a href="/ca/disseny-web-per-pimes/">disseny web per a pimes</a> o amb el teu desenvolupador.</p>
     </Fragment>
     <PCards
       variant="numbered"
       cols={2}
       items={[
-        { title: 'Accés al contingut que vols fer visible', html: "Comprovem l'arxiu robots.txt, el tallafoc i la configuració del servidor per saber quins rastrejadors de cercadors i assistents hi poden entrar. Tu decideixes quines parts obrir i quines no, però amb coneixement de causa i no per una configuració heretada que ningú no va revisar." },
-        { title: 'Estructura semàntica de les pàgines', html: "Un únic títol principal, encapçalaments que segueixen un ordre lògic, llistes i taules quan la informació ho demana. Una pàgina ben estructurada s'entén per parts, i això facilita que un assistent n'extregui just el fragment que respon a la pregunta." },
-        { title: 'Dades estructurades coherents amb la informació publicada', html: "Marcatge d'organització, negoci local, serveis, persones i preguntes freqüents, sempre fidel al que es veu a la pàgina. Un marcatge que diu una cosa diferent del text visible resta credibilitat en lloc de sumar-ne." },
-        { title: 'Enllaços interns que connecten conceptes i serveis', html: `Enllacem cada servei amb els seus casos, els seus autors i els articles que l'expliquen. Aquesta xarxa ajuda cercadors i assistents a entendre de què en sap la teva empresa, igual que en el <a href="/ca/agencia-seo-per-pimes/">SEO per a pimes</a> ajuda a repartir l'autoritat entre pàgines.` },
-        { title: 'Revisió del contingut que depèn de JavaScript', html: "Alguns rastrejadors no executen JavaScript o ho fan de manera limitada. Si els teus preus, serveis o opinions només apareixen després de carregar un script, potser no els veuen. Comparem l'HTML que se serveix amb el que veu l'usuari i proposem solucions." },
+        { title: 'Accés al contingut que vols fer visible', html: "Revisem l'arxiu robots.txt, el tallafoc i la configuració del servidor per veure quins rastrejadors de cercadors i assistents hi poden entrar. De vegades trobem el rastrejador de ChatGPT bloquejat sense que ningú ho hagués decidit, per una configuració heretada. Tu decideixes què obrir i què no, però sabent què tries." },
+        { title: 'Estructura semàntica de les pàgines', html: "Un únic títol principal, encapçalaments en ordre lògic i llistes o taules quan la informació ho demana. Una pàgina ben ordenada s'entén per parts. Si algú pregunta «quant triga una reforma de bany?», l'assistent pot agafar just el fragment que respon sense haver d'interpretar tota la pàgina." },
+        { title: 'Dades estructurades coherents amb la informació publicada', html: "Les dades estructurades són un codi que el visitant no veu i que resumeix qui ets, què ofereixes i on ets. Marquem organització, negoci local, serveis, persones i preguntes freqüents, sempre fidel al que es veu a la pàgina. Si el marcatge diu una cosa diferent del text visible, resta credibilitat en lloc de sumar-ne." },
+        { title: 'Enllaços interns que connecten conceptes i serveis', html: "Enllacem cada servei amb els seus casos, els seus autors i els articles que l'expliquen. Aquesta xarxa ajuda cercadors i assistents a entendre de què en sap la teva empresa i quines pàgines són les importants. Aquesta mateixa pàgina n'és un exemple: des d'aquí enllacem els sectors, les ciutats i els casos en què apliquem el GEO." },
+        { title: 'Revisió del contingut que depèn de JavaScript', html: "Alguns rastrejadors no executen JavaScript o ho fan a mitges. Si els teus preus, serveis o opinions només apareixen després de carregar un script, potser no els veuen. Comparem l'HTML que entrega el teu servidor amb el que veu l'usuari i et diem què convé canviar i amb quina prioritat." },
       ]}
     />
   </PSection>
@@ -290,7 +290,7 @@ const pageSchema = localAgencySchema({
   <!-- ═══ FONTS EXTERNES ════════════════════════════════════════════════ -->
   <PSection kicker="Autoritat" title="Les fonts externes que parlen de la teva empresa" tone="dark">
     <Fragment slot="intro">
-      <p>Els assistents donen més pes al que confirmen diverses fonts independents. El que dius de tu a la teva web compta, però compta més quan un mitjà, una associació o els teus clients diuen el mateix.</p>
+      <p>Els assistents es fien més del que confirmen diverses fonts independents. El que dius a la teva web compta, però compta més quan un mitjà, una associació o els teus clients diuen el mateix. L'esquema mostra com s'encadena aquesta confirmació.</p>
     </Fragment>
     <PFlow
       tone="dark"
@@ -300,17 +300,17 @@ const pageSchema = localAgencySchema({
         { label: 'El model ho confirma', sub: 'més confiança en la dada' },
         { label: 'Menció correcta', sub: 'a la resposta generada' },
       ]}
-      caption="Esquema il·lustratiu. La coincidència entre fonts és el que dona solidesa a la informació."
+      caption="Esquema il·lustratiu: fixa't en el segon pas, perquè una dada que no coincideix amb la teva web perd força."
     />
     <PCards
       tone="dark"
       cols={2}
       variant="numbered"
       items={[
-        { title: 'Mitjans i publicacions del teu sector', html: "Revistes especialitzades, diaris locals i blogs de referència en la teva activitat. Busquem oportunitats amb sentit, com una entrevista, un article amb dades pròpies o una col·laboració, en lloc de notes de premsa genèriques que ningú no llegeix ni cita." },
-        { title: 'Directoris i associacions professionals', html: "Col·legis professionals, cambres de comerç, associacions sectorials i directoris de qualitat. Són fonts que els assistents consulten sovint per confirmar que una empresa existeix i a què es dedica. Revisem que siguis als rellevants i amb les dades correctes." },
-        { title: "Plataformes d'opinions i referències", html: `Google, plataformes del sector i portals de comparació. El volum, la data i el contingut de les ressenyes influeixen en com et descriuen. T'ajudem a tenir un sistema per <a href="/ca/blog/com-aconseguir-mes-ressenyes-a-google-per-a-la-teva-pime/">aconseguir més ressenyes a Google</a> de manera constant i respondre-les.` },
-        { title: 'Mencions que cal corregir o completar', html: "Articles amb un telèfon antic, fitxes duplicades, directoris amb una activitat equivocada. Fem la llista, prioritzem segons la rellevància de cada font i gestionem les correccions, perquè un error repetit en diversos llocs acaba a les respostes." },
+        { title: 'Mitjans i publicacions del teu sector', html: "Revistes especialitzades, diaris locals i blogs de referència en la teva activitat. Busquem oportunitats amb sentit, com una entrevista, un article amb dades pròpies o una col·laboració. Una nota de premsa genèrica rarament es cita. Un article amb dades del teu sector a la teva comarca sí que es pot convertir en font." },
+        { title: 'Directoris i associacions professionals', html: "Col·legis professionals, cambres de comerç, associacions sectorials i directoris de qualitat. Els assistents els consulten sovint per confirmar que una empresa existeix i a què es dedica. Revisem en quins hi ets, en quins hi hauries de ser i si les teves dades són correctes a cadascun." },
+        { title: "Plataformes d'opinions i referències", html: `Google, plataformes del sector i portals de comparació. La quantitat, la data i el text de les ressenyes influeixen en com et descriuen. Una ressenya que diu «van arreglar l'avaria el mateix dia» aporta més que cinc estrelles sense comentari. T'ajudem a muntar un sistema per <a href="/ca/blog/com-aconseguir-mes-ressenyes-a-google-per-a-la-teva-pime/">aconseguir més ressenyes a Google</a> i respondre-les.` },
+        { title: 'Mencions que cal corregir o completar', html: "Articles amb un telèfon antic, fitxes duplicades, directoris amb l'activitat equivocada. Fem la llista, l'ordenem segons la importància de cada font i gestionem les correccions. Un error repetit en diversos llocs sol acabar a les respostes, així que comencem pels que es repeteixen més." },
       ]}
     />
   </PSection>
@@ -318,15 +318,15 @@ const pageSchema = localAgencySchema({
   <!-- ═══ PREGUNTES CLAU ════════════════════════════════════════════════ -->
   <PSection kicker="Consultes prioritàries" title="Preguntes on la teva pime ha de ser present">
     <Fragment slot="intro">
-      <p>No totes les preguntes tenen el mateix valor. Prioritzem les que fa algú que està decidint a qui contractar, perquè són les que es converteixen en contactes. Aquestes són les quatre famílies que sempre incloem a la mostra.</p>
+      <p>No totes les preguntes valen el mateix. Donem prioritat a les que fa algú que està decidint a qui contractar, perquè són les que acaben en una trucada. Aquestes quatre famílies entren sempre a la mostra.</p>
     </Fragment>
     <PCards
       cols={2}
       items={[
-        { icon: ICON.search, tag: 'Descobriment', title: 'Qui pot resoldre el problema del client', html: "«Qui instal·la plaques solars en naus industrials?», «quin advocat porta divorcis a Sabadell?». Són les preguntes amb més intenció i les que porten més directament a una trucada. Necessiten pàgines de servei clares i senyals externs que confirmin la teva especialitat." },
-        { icon: ICON.chart, tag: 'Comparació', title: 'Quines alternatives hi ha i com es comparen', html: "El client ja té opcions i demana a l'assistent que les compari. Publicar comparatives honestes, explicar en quins casos encaixa la teva solució i en quins no, i documentar les teves diferències evita que la comparació es faci amb informació aliena." },
-        { icon: ICON.doc, tag: 'Criteris', title: 'Quins criteris convé revisar abans de contractar', html: "«Què he de demanar a una empresa de reformes?». Qui respon bé aquesta pregunta defineix les regles del joc. Una guia útil amb criteris reals et posiciona com a referència i, de passada, destaca els punts en què la teva empresa és forta." },
-        { icon: ICON.target, tag: 'Encaix', title: 'Quin proveïdor encaixa en cada situació', html: "«Tinc un pressupost ajustat», «necessito que sigui urgent», «som una empresa petita». L'assistent recomana segons el cas. Un contingut que explica per a qui és cada servei ajuda que la teva empresa aparegui en les situacions en què de debò encaixa." },
+        { icon: ICON.search, tag: 'Descobriment', title: 'Qui pot resoldre el problema del client', html: `«Qui instal·la plaques solars en naus industrials?», «quin advocat porta divorcis a Sabadell?». Són les preguntes amb més intenció de compra i les que porten més directament a una trucada. Necessiten pàgines de servei clares i fonts externes que confirmin la teva especialitat, com treballem en el <a href="/ca/agencia-advocats/posicionamiento-geo/">posicionament en IA per a advocats</a>.` },
+        { icon: ICON.chart, tag: 'Comparació', title: 'Quines alternatives hi ha i com es comparen', html: "«Què és millor per a una clínica petita, un programa de gestió al núvol o un d'instal·lat?». El client ja té opcions i demana a l'assistent que les compari. Publiquem comparatives honestes que expliquen quan encaixa la teva solució i quan no. Així la comparació es fa amb les teves dades i no amb informació aliena." },
+        { icon: ICON.doc, tag: 'Criteris', title: 'Quins criteris convé revisar abans de contractar', html: `«Què he de demanar a una empresa de reformes abans de signar?». Qui respon bé aquesta pregunta marca les regles del joc, i de passada destaca els teus punts forts. És l'enfocament del nostre <a href="/ca/agencia-constructores/posicionamiento-geo/">GEO per a constructores i reformistes</a>. Amb guies i pàgines de servei escrites així, <a href="/ca/casos-exit/voltura-projects/">la web de reformes de Voltura Projects</a> ja apareixia citada en 6 respostes d'IA de Google als set mesos del llançament.` },
+        { icon: ICON.target, tag: 'Encaix', title: 'Quin proveïdor encaixa en cada situació', html: "«Tinc un pressupost ajustat», «ho necessito per a la setmana que ve», «som una empresa de cinc persones». L'assistent recomana segons cada situació. Si el teu contingut explica per a qui és cada servei i per a qui no, la teva empresa apareix en els casos en què de debò encaixa i deixa de competir on no té opcions." },
       ]}
     />
   </PSection>
@@ -334,16 +334,17 @@ const pageSchema = localAgencySchema({
   <!-- ═══ MODEL DE NEGOCI ═══════════════════════════════════════════════ -->
   <PSection kicker="Experiència sectorial" title="GEO segons el teu model de negoci" tone="soft">
     <Fragment slot="intro">
-      <p>Cada tipus d'empresa rep preguntes diferents i depèn de fonts diferents. Ajustem la mostra i les prioritats a com compren els teus clients, i tenim pàgines específiques per als sectors en què més treballem.</p>
+      <p>Cada tipus d'empresa rep preguntes diferents i depèn de fonts diferents. Un despatx necessita que es coneguin els seus professionals i una botiga en línia, que les seves fitxes de producte estiguin completes.</p>
+      <p>Ajustem la mostra a com compren els teus clients. Per als sectors en què més treballem tens una pàgina específica amb exemples de preguntes i fonts.</p>
     </Fragment>
     <PCards
       tone="soft"
       cols={2}
       items={[
-        { icon: ICON.chart, title: 'Empreses B2B amb processos de compra llargs', html: `Hi decideixen diverses persones i comparen durant setmanes. Fitxes tècniques, casos i contingut per a cada perfil del comitè de compra. Ho detallem a <a href="/ca/agencia-b2b/posicionamiento-geo/">GEO per a empreses B2B</a> i a <a href="/ca/agencia-industrial/posicionamiento-geo/">posicionament en IA per a empreses industrials</a>.` },
-        { icon: ICON.users, title: 'Serveis professionals basats en la confiança', html: `El client vol saber qui l'atendrà i quina experiència té. Perfils de professionals, contingut signat i ressenyes. Treballem la visibilitat en IA de <a href="/ca/agencia-advocats/posicionamiento-geo/">despatxos d'advocats</a>, <a href="/ca/agencia-dentistes/posicionamiento-geo/">clíniques dentals</a> i <a href="/ca/agencia-psicolegs/posicionamiento-geo/">consultes de psicologia</a>.` },
-        { icon: ICON.money, title: 'Ecommerce amb productes que es comparen', html: `Els assistents recomanen productes amb característiques, preus i opinions. Fitxes completes, guies de compra i dades de producte coherents a la botiga i als comparadors. Més informació al nostre servei de <a href="/ca/agencia-ecommerce/posicionamiento-geo/">GEO per a botigues en línia</a>.` },
-        { icon: ICON.pin, title: "Negocis locals amb una zona d'atenció", html: `Perfil d'Empresa, ressenyes i pàgines per zona real de servei. Ho apliquem a <a href="/ca/agencia-restaurantes/posicionamiento-geo/">restaurants</a>, <a href="/ca/agencia-hotels/posicionamiento-geo/">hotels</a>, <a href="/ca/agencia-inmobiliarias/posicionamiento-geo/">immobiliàries</a> i <a href="/ca/agencia-constructores/posicionamiento-geo/">constructores</a>, on la pregunta gairebé sempre inclou una ciutat.` },
+        { icon: ICON.chart, title: 'Empreses B2B amb processos de compra llargs', html: `Hi decideixen diverses persones i comparen durant setmanes. L'enginyer pregunta per especificacions i el gerent per terminis i preu. Treballem fitxes tècniques, casos i contingut per a cada perfil del comitè de compra. Ho expliquem en detall a <a href="/ca/agencia-b2b/posicionamiento-geo/">GEO per a empreses B2B</a> i a <a href="/ca/agencia-industrial/posicionamiento-geo/">posicionament en IA per a la indústria</a>.` },
+        { icon: ICON.users, title: 'Serveis professionals basats en la confiança', html: `El teu client vol saber qui l'atendrà i quina experiència té, i pregunta coses com «quin dentista de confiança fa implants a prop meu?». Treballem perfils de professionals, contingut signat i ressenyes per a <a href="/ca/agencia-advocats/posicionamiento-geo/">despatxos d'advocats</a>, <a href="/ca/agencia-dentistes/posicionamiento-geo/">clíniques dentals</a>, <a href="/ca/agencia-psicolegs/posicionamiento-geo/">consultes de psicologia</a> i <a href="/ca/agencia-terapeutes/posicionamiento-geo/">centres de teràpia</a>.` },
+        { icon: ICON.money, title: 'Ecommerce amb productes que es comparen', html: `Els assistents recomanen productes segons característiques, preu i opinions: «quina cafetera de menys de 300 euros em recomanes?». Treballem fitxes completes, guies de compra i dades de producte iguals a la botiga i als comparadors. Ho detallem al nostre servei de <a href="/ca/agencia-ecommerce/posicionamiento-geo/">GEO per a botigues en línia</a>.` },
+        { icon: ICON.pin, title: "Negocis locals amb una zona d'atenció", html: `Aquí la pregunta gairebé sempre inclou una ciutat: «gimnàs amb classes de pilates a Terrassa». Hi compten el Perfil d'Empresa, les ressenyes i una pàgina per cada zona que atens de debò. Tenim pàgines de <a href="/ca/agencia-restaurantes/posicionamiento-geo/">posicionament en IA per a restaurants</a>, <a href="/ca/agencia-hotels/posicionamiento-geo/">hotels i allotjaments</a>, <a href="/ca/agencia-gimnasos/posicionamiento-geo/">gimnasos i centres esportius</a> i <a href="/ca/agencia-inmobiliarias/posicionamiento-geo/">agències immobiliàries</a>.` },
       ]}
     />
     <div class="mt-12 text-center reveal">
@@ -355,7 +356,8 @@ const pageSchema = localAgencySchema({
   <!-- ═══ SEO, GEO I AEO ════════════════════════════════════════════════ -->
   <PSection kicker="Estratègia conjunta" title="SEO, GEO i AEO dins d'una mateixa estratègia" layout="split">
     <Fragment slot="intro">
-      <p>Són tres noms per a feines que se solapen molt. Tractar-los com a serveis separats sol portar a pagar dues vegades per la mateixa cosa o, encara pitjor, a fer canvis que es contradiuen. Els planifiquem junts i cada tasca s'assigna allà on aporta més.</p>
+      <p>El SEO treballa la teva posició als resultats de Google. El GEO, la teva presència a les respostes que redacten els assistents. L'AEO, que el teu contingut sigui la resposta directa a una pregunta concreta. Se solapen tant que tractar-los per separat sol portar a pagar dues vegades o a fer canvis que es contradiuen.</p>
+      <p>Per això els planifiquem junts. Si encara dubtes entre invertir en cercadors o en anuncis, aquesta guia t'ajuda a <a href="/ca/blog/que-necesita-una-pime-seo-o-sem/">triar entre SEO i SEM</a>.</p>
     </Fragment>
     <PVenn
       slot="aside"
@@ -365,15 +367,15 @@ const pageSchema = localAgencySchema({
         { label: 'AEO', sub: 'resposta directa' },
       ]}
       center="La teva marca"
-      caption="Les tres disciplines comparteixen base. Web sòlida, contingut útil i autoritat."
+      caption="Fixa't en la zona central: les tres disciplines comparteixen web sòlida, contingut útil i autoritat."
     />
     <PCards
       variant="rows"
       items={[
-        { title: 'Què aporta el posicionament orgànic', html: `Indexació, arquitectura, continguts que posicionen i enllaços. Molts assistents busquen a la web abans de respondre i tendeixen a fer servir pàgines que ja estan ben situades. Per això la feina de la nostra <a href="/ca/agencia-seo-per-pimes/">agència de posicionament SEO per a pimes</a> és, en la majoria de projectes, el punt de partida del GEO.` },
-        { title: 'Què treballem per a les respostes generades', html: "La identitat de l'empresa, l'exactitud de les dades, les fonts externes i la mesura als assistents. És la part que el SEO tradicional no cobreix, perquè no es tracta d'una posició en una llista sinó de com et descriu un text redactat pel model." },
-        { title: "On encaixa l'optimització de respostes", html: "L'AEO se centra en el fet que el teu contingut sigui la resposta directa a una pregunta, en fragments destacats, en respostes de veu o en la primera frase d'un assistent. L'apliquem sobretot a preguntes freqüents i pàgines de servei, amb respostes breus i clares." },
-        { title: 'Com evitem duplicar esforços', html: `Un únic pla de treball, una única persona responsable i un calendari compartit. Si també inverteixes en <a href="/ca/agencia-sem-per-pimes/">publicitat a Google Ads</a>, fem servir les dades de les campanyes per saber quines preguntes i serveis converteixen millor i començar per aquests.` },
+        { title: 'Què aporta el posicionament orgànic', html: `Indexació, arquitectura, continguts que posicionen i enllaços. Molts assistents busquen a la web abans de respondre i tendeixen a fer servir pàgines que ja estan ben situades a Google. Per això, en la majoria de projectes, la feina de la nostra <a href="/ca/agencia-seo-per-pimes/">agència SEO per a pimes</a> és el punt de partida del GEO.` },
+        { title: 'Què treballem per a les respostes generades', html: "La identitat de l'empresa, l'exactitud de les dades, les fonts externes i la mesura als assistents. És la part que el SEO tradicional no cobreix. A Google competeixes per una posició en una llista. En un assistent compta com et descriu un text que redacta ell, i ser quart a Google no assegura ni una menció." },
+        { title: "On encaixa l'optimització de respostes", html: "L'AEO busca que el teu contingut sigui la resposta directa: el fragment destacat de Google, el que llegeix un altaveu intel·ligent o la primera frase d'un assistent. L'apliquem sobretot a preguntes freqüents i pàgines de servei. Si algú pregunta «quant costa un diagnòstic GEO?», la xifra va a la primera línia." },
+        { title: 'Com evitem duplicar esforços', html: `Un únic pla de treball, una sola persona responsable i un calendari compartit. Si també inverteixes en <a href="/ca/agencia-sem-per-pimes/">publicitat a Google Ads</a>, fem servir les dades de les campanyes per veure quines preguntes i serveis converteixen millor i començar per aquests. Així cada tasca es fa una vegada i al canal on rendeix més.` },
       ]}
     />
   </PSection>
@@ -381,8 +383,8 @@ const pageSchema = localAgencySchema({
   <!-- ═══ TROBALLES A ACCIONS ═══════════════════════════════════════════ -->
   <PSection kicker="Pla de treball" title="De les troballes a les accions" tone="soft" layout="split">
     <Fragment slot="intro">
-      <p>L'auditoria acaba amb una llista de tasques ordenada segons l'impacte que esperem a les respostes i l'esforç que exigeix cadascuna. Comencem pel que corregeix errors i afecta les consultes amb més valor comercial.</p>
-      <p>Després repetim la mostra per comprovar què ha canviat i decidir el pas següent.</p>
+      <p>El diagnòstic acaba amb una llista de tasques ordenada segons l'efecte que esperem a les respostes i l'esforç que exigeix cadascuna. Comencem pel que corregeix errors a les preguntes amb més valor comercial.</p>
+      <p>Després repetim la mostra per veure què ha canviat i decidir el pas següent.</p>
     </Fragment>
     <PMatrix
       slot="aside"
@@ -396,17 +398,17 @@ const pageSchema = localAgencySchema({
         { label: 'Sortir en mitjans del sector', x: 66, y: 60 },
         { label: 'Directoris poc rellevants', x: 30, y: 22 },
       ]}
-      caption="Exemple de com prioritzem les tasques segons impacte i esforç."
+      caption="Exemple de priorització: a dalt a l'esquerra hi ha el que més millora les respostes amb menys esforç."
     />
     <PCards
       tone="soft"
       cols={2}
       variant="numbered"
       items={[
-        { title: 'Corregir la informació essencial sobre la teva empresa', html: "Dades de contacte, serveis, seus i descripcions contradictòries a la web i a les fonts externes més consultades. Sol ser la tasca més ràpida i la que abans es nota, perquè elimina errors que els assistents repetien a les seves respostes." },
-        { title: 'Millorar les pàgines amb més valor comercial', html: "Les pàgines dels serveis que més t'interessa vendre, reescrites per respondre les preguntes de la mostra. Hi afegim preus orientatius, terminis, casos i preguntes freqüents, i en revisem l'estructura i el marcatge." },
-        { title: 'Desenvolupar els continguts i les evidències que falten', html: "Comparatives, guies de criteris, casos documentats o dades pròpies que el diagnòstic ha assenyalat com a absents. També les accions externes, com col·laboracions amb mitjans o la presència en associacions, que reforcen el que diu la teva web." },
-        { title: 'Tornar a revisar la mostra de consultes', html: "Repetim les mateixes preguntes als mateixos assistents i ho comparem amb la ronda anterior. El que ha millorat es consolida, el que no es mou es revisa, i les preguntes noves que detectem s'incorporen amb data per no barrejar resultats." },
+        { title: 'Corregir la informació essencial sobre la teva empresa', html: "Dades de contacte, serveis, seus i descripcions contradictòries a la web i a les fonts externes més consultades. Sol ser la tasca més ràpida i la primera que es nota, perquè elimina errors que els assistents anaven repetint. Canviar un telèfon antic en cinc directoris, per exemple, es pot resoldre en un matí." },
+        { title: 'Millorar les pàgines amb més valor comercial', html: "Reescrivim les pàgines dels serveis que més t'interessa vendre perquè responguin les preguntes de la mostra. Hi afegim preus orientatius, terminis, casos i preguntes freqüents, i en revisem l'estructura i el marcatge. Si una pregunta important no té resposta en cap pàgina de la teva web, la creem." },
+        { title: 'Desenvolupar els continguts i les evidències que falten', html: "Comparatives, guies de criteris, casos documentats o dades pròpies que el diagnòstic ha detectat com a absents. També accions fora de la teva web, com col·laboracions amb mitjans o l'alta en associacions, que confirmen el que hi dius. Cada peça neix d'una pregunta concreta de la mostra." },
+        { title: 'Tornar a revisar la mostra de consultes', html: "Repetim les mateixes preguntes als mateixos assistents i ho comparem amb la ronda anterior. El que ha millorat es manté, el que no es mou es revisa, i les preguntes noves s'afegeixen amb la seva data per no barrejar resultats. Reps la comparació pregunta per pregunta." },
       ]}
     />
   </PSection>
@@ -414,7 +416,7 @@ const pageSchema = localAgencySchema({
   <!-- ═══ EVOLUCIÓ ══════════════════════════════════════════════════════ -->
   <PSection kicker="Mesura" title="Com interpretem l'evolució de la teva presència en IA">
     <Fragment slot="intro">
-      <p>Mesurem tres indicadors a cada ronda i els llegim junts. Una pujada de mencions amb dades errònies no és una bona notícia, i una cita que no genera visites tampoc no diu gaire. Pel que fa al trànsit que arriba a la teva web, convé entendre abans <a href="/ca/blog/don-ve-el-trafic-web/">d'on ve el trànsit de la teva web</a> i com es registra.</p>
+      <p>A cada ronda mesurem tres indicadors i els llegim junts. Més mencions amb dades errònies no és una bona notícia, i una cita que no porta visites tampoc no diu gaire. Per interpretar les visites convé saber <a href="/ca/blog/don-ve-el-trafic-web/">d'on ve el trànsit de la teva web</a> i com el registra l'analítica.</p>
     </Fragment>
     <div class="grid lg:grid-cols-[1fr_1.1fr] gap-10 items-start">
       <PCards
@@ -422,9 +424,9 @@ const pageSchema = localAgencySchema({
         cols={2}
         class="lg:grid-cols-1"
         items={[
-          { title: 'Freqüència de mencions a les consultes analitzades', html: "Quin percentatge de les preguntes de la mostra inclou la teva empresa a la resposta, separat per assistent i per família de preguntes. És l'indicador més directe, tot i que també el més variable entre rondes." },
-          { title: 'Cites i enllaços cap als teus continguts', html: "Quantes vegades un assistent enllaça una pàgina de la teva web com a font, i quines. A més, revisem a l'analítica les visites que arriben des d'assistents i cercadors amb IA, quan l'eina permet identificar-les." },
-          { title: 'Exactitud de la informació sobre la teva marca', html: "Percentatge de respostes en què les dades sobre la teva empresa són correctes. Serveis, ubicació, atributs i persones. Una presència mal descrita pot perjudicar més que una absència, per això ho mesurem a part." },
+          { title: 'Freqüència de mencions a les consultes analitzades', html: "Quina part de les preguntes de la mostra inclou la teva empresa a la resposta, separada per assistent i per família de preguntes. Per exemple, 12 de 40 a ChatGPT i 6 de 40 a Gemini. És l'indicador més directe i també el que més varia d'una ronda a l'altra." },
+          { title: 'Cites i enllaços cap als teus continguts', html: "Quantes vegades un assistent enllaça una pàgina de la teva web com a font, i quines. A més, revisem a l'analítica les visites que arriben des de ChatGPT, Perplexity i altres assistents, quan l'eina permet identificar-les. Així saps quines pàgines de la teva web treballen per tu a les respostes." },
+          { title: 'Exactitud de la informació sobre la teva marca', html: "Percentatge de respostes en què les dades sobre la teva empresa són correctes: serveis, ubicació, atributs i persones. Ho mesurem a part perquè una presència mal descrita pot perjudicar més que no aparèixer-hi. Un assistent que et situa en una altra ciutat t'envia clients que no pots atendre." },
         ]}
       />
       <PLines
@@ -435,7 +437,7 @@ const pageSchema = localAgencySchema({
           { label: 'Exactitud', points: [55, 70, 82, 86, 90, 92], color: '#16a34a', dashed: true },
         ]}
         xLabels={['Ronda 1', 'Ronda 2', 'Ronda 3', 'Ronda 4', 'Ronda 5', 'Ronda 6']}
-        caption="Esquema il·lustratiu, no són dades d'un client. L'exactitud sol millorar primer, en corregir errors; mencions i cites avancen més a poc a poc."
+        caption="Esquema il·lustratiu, no són dades d'un client: l'exactitud sol pujar primer, en corregir errors, i mencions i cites avancen més a poc a poc."
       />
     </div>
   </PSection>
@@ -443,13 +445,13 @@ const pageSchema = localAgencySchema({
   <!-- ═══ EVIDÈNCIES I LÍMITS ═══════════════════════════════════════════ -->
   <PSection kicker="Casos i transparència" title="Evidències i límits dels resultats" tone="soft" width="wide">
     <Fragment slot="intro">
-      <p>El GEO és una disciplina jove i els assistents canvien sovint. Preferim explicar amb claredat què podem demostrar i què no, abans que presentar com a segur el que és una tendència.</p>
-      <p>El que sí que podem mostrar és el nostre propi cas. Quan es pregunta a ChatGPT, Gemini o Claude per una agència SEO per a pimes, Nova apareix entre les recomanacions, i en projectes com <a href="/ca/casos-exit/cas-d-exit-dipole-rfid/">Dipole RFID</a> o <a href="/ca/casos-exit/tattoox/">Tattoox</a> hem treballat SEO i GEO alhora.</p>
+      <p>El GEO és una disciplina jove i els assistents canvien sovint. Preferim separar amb claredat el que podem demostrar del que encara és una tendència.</p>
+      <p>El que sí que podem ensenyar són resultats publicats. Quan es pregunta a ChatGPT, Gemini o Claude per una agència SEO per a pimes, Nova apareix entre les recomanacions, com veus a la captura. Google cita Dipole RFID a les seves respostes amb IA per a cerques com «trazabilidad por RFID», i <a href="/ca/casos-exit/tattoox/">el cas de Tattoox</a> suma presència en més de 2.300 respostes d'IA, segons Semrush.</p>
     </Fragment>
     <div class="grid lg:grid-cols-2 gap-8 items-start mt-12">
       <figure class="pd-figure reveal">
         <img src="/agencia-seo-per-pimes.webp" alt="Nova Marketing, agència SEO per a pimes recomanada per la IA" title="Nova Marketing, agència SEO per a pimes recomanada per la IA" class="w-full h-auto rounded-3xl border border-black/5 shadow-[0_25px_70px_rgba(0,0,0,0.08)]" loading="lazy" width="1000" height="667" />
-        <figcaption class="pd-caption">Resposta d'un assistent en preguntar per una agència SEO per a pimes.</figcaption>
+        <figcaption class="pd-caption">Resposta d'un assistent en preguntar per una agència SEO per a pimes: Nova apareix entre les opcions recomanades.</figcaption>
       </figure>
       <PCounter
         cols={2}
@@ -457,16 +459,16 @@ const pageSchema = localAgencySchema({
           { value: 1126, label: 'paraules clau posicionades a Dipole RFID, des de 450', href: '/ca/casos-exit/cas-d-exit-dipole-rfid/' },
           { value: 6390, label: 'visites orgàniques al mes a Dipole RFID, nº1 per davant de fabricants', href: '/ca/casos-exit/cas-d-exit-dipole-rfid/' },
         ]}
-        caption="Dades del cas publicat. La feina va combinar SEO i GEO."
+        caption="Dades del cas publicat de Dipole RFID, un projecte en què vam treballar SEO i GEO alhora."
       />
     </div>
     <PCards
       tone="soft"
       cols={3}
       items={[
-        { icon: ICON.chart, title: 'Diferències entre models i moments de consulta', html: "La mateixa pregunta pot donar respostes diferents a ChatGPT i a Gemini, i fins i tot al mateix assistent amb hores de diferència. Per això treballem amb mostres àmplies, repetim les consultes i llegim tendències, no respostes soltes." },
-        { icon: ICON.target, title: 'Canvis observats després de les accions fetes', html: "Cada acció té data, i cada ronda de mesura també. Així podem relacionar, per exemple, la correcció d'un directori amb la desaparició d'una dada errònia. És una relació raonable, no una prova de causa, i així ho expliquem als informes." },
-        { icon: ICON.alert, title: 'Què podem demostrar i què continua sent incert', html: `Podem demostrar quines respostes hi havia abans i després, quines fonts es citen i quin trànsit arriba a la teva web. No podem saber amb exactitud com pondera cada model les seves fonts ni assegurar que una menció es mantingui. Pots veure més projectes als nostres <a href="/ca/casos-exit/">casos d'èxit</a>.` },
+        { icon: ICON.chart, title: 'Diferències entre models i moments de consulta', html: "La mateixa pregunta pot donar respostes diferents a ChatGPT i a Gemini, i fins i tot al mateix assistent amb unes hores de diferència. Per això treballem amb mostres de 30 a 60 preguntes, les repetim a cada ronda i llegim tendències. Amb una resposta solta, bona o dolenta, no n'hi ha prou per treure conclusions." },
+        { icon: ICON.target, title: 'Canvis observats després de les accions fetes', html: `Cada acció té data, i cada ronda de mesura també. Així podem relacionar, per exemple, la correcció d'un directori amb la desaparició d'una dada errònia. És una relació raonable, no una prova de causa, i així ho diem als informes. En <a href="/ca/casos-exit/voltura-projects/">el cas de Voltura Projects</a>, la web es va llançar el març del 2026 i a l'octubre Google ja la citava en 6 respostes amb IA.` },
+        { icon: ICON.alert, title: 'Què podem demostrar i què continua sent incert', html: `Podem demostrar quines respostes hi havia abans i després, quines fonts es citen i quin trànsit arriba a la teva web. No podem saber amb exactitud com pondera cada assistent les seves fonts ni assegurar que una menció es mantingui, i per això no prometem aparicions. Pots veure com ho expliquem a <a href="/ca/casos-exit/">tots els nostres casos d'èxit</a>.` },
       ]}
     />
     <MoreCases locale="ca" categories={['seo']} embed />
@@ -475,12 +477,12 @@ const pageSchema = localAgencySchema({
   <!-- ═══ ABAST / PREUS ═════════════════════════════════════════════════ -->
   <PSection id="precios" kicker="Preus" title="Quin abast pot tenir el teu projecte GEO" width="wide">
     <Fragment slot="intro">
-      <p>Pots començar només amb el diagnòstic o amb un pla mensual que inclou l'optimització i el seguiment. Tarifes orientatives, sense IVA i sense permanència. Abans de començar reps un pressupost tancat per escrit.</p>
+      <p>Pots començar només amb el diagnòstic o amb un pla mensual que inclou l'optimització i el seguiment. Els preus són orientatius, sense IVA i sense permanència, i abans de començar reps un pressupost tancat per escrit.</p>
     </Fragment>
     <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch reveal">
       {[
-        { title: 'Diagnòstic inicial de visibilitat', price: '1.800 €', note: 'pagament únic · 3 a 4 setmanes', desc: "La mostra de consultes, l'anàlisi del que diuen els assistents, la revisió de la teva web i les teves fonts externes, i un pla d'acció prioritzat que repassem amb tu en una videotrucada.", items: ['Mostra de 30 a 60 consultes', 'Diversos assistents i cercadors', 'Comparativa amb competidors', "Pla d'acció prioritzat"] },
-        { title: 'Optimització de marca i continguts', price: 'des de 400 € / mes', note: 'negocis locals i petites empreses', desc: "Apliquem el pla mes a mes. Correcció de dades, millora de pàgines de servei, marcatge estructurat, perfils externs i ressenyes, amb una revisió de la mostra per veure'n l'efecte.", items: ['Correcció d\'informació', 'Contingut que serveix de font', "Perfil d'Empresa i ressenyes", 'Informe mensual de mencions'], featured: true },
+        { title: 'Diagnòstic inicial de visibilitat', price: '1.800 €', note: 'pagament únic · 3 a 4 setmanes', desc: "La mostra de consultes, l'anàlisi del que diuen els assistents, la revisió de la teva web i de les teves fonts externes, i un pla d'acció prioritzat que repassem amb tu per videotrucada.", items: ['Mostra de 30 a 60 consultes', 'Diversos assistents i cercadors', 'Comparativa amb competidors', "Pla d'acció prioritzat"] },
+        { title: 'Optimització de marca i continguts', price: 'des de 400 € / mes', note: 'negocis locals i petites empreses', desc: "Apliquem el pla mes a mes: correcció de dades, millora de pàgines de servei, dades estructurades, perfils externs i ressenyes. Cada mes revisem la mostra per veure'n l'efecte.", items: ['Correcció d\'informació', 'Contingut que serveix de font', "Perfil d'Empresa i ressenyes", 'Informe mensual de mencions'], featured: true },
         { title: 'Seguiment periòdic i noves oportunitats', price: 'des de 900 € / mes', note: 'empreses mitjanes i sectors competits', desc: 'Per a projectes amb més serveis, seus o competència. Mostra més àmplia, estratègia SEO i GEO conjunta, contingut expert signat i feina amb mitjans i associacions del sector.', items: ['Estratègia SEO i GEO conjunta', 'Seguiment ampliat', 'Mencions en mitjans', 'Reunió mensual de negoci'] },
       ].map((p, i) => (
         <div class:list={['pd-rise rounded-3xl p-7 sm:p-8 flex flex-col border', p.featured ? 'bg-zinc-950 text-white border-zinc-950 shadow-2xl' : 'bg-white border-black/5 shadow-[0_15px_40px_rgba(0,0,0,0.06)]']} style={`--i:${i}`}>
@@ -504,9 +506,9 @@ const pageSchema = localAgencySchema({
   <!-- ═══ CONSULTOR ══════════════════════════════════════════════════════ -->
   <PSection kicker="Qui hi ha darrere" title="Qui analitza i interpreta la presència de la teva marca" tone="soft" layout="split">
     <Fragment slot="intro">
-      <p>L'anàlisi de les respostes no la fa una eina automàtica ni un equip que canvia cada mes. La fa <strong>Sergio Galo's, consultor de màrqueting digital i SEO i fundador de Nova</strong>, que fa anys que treballa el posicionament de pimes industrials, de salut, de comerç electrònic i de serveis professionals.</p>
-      <p>La mateixa persona prepara la mostra de consultes, llegeix cada resposta, decideix què cal corregir primer i t'ho explica a la reunió de seguiment. Quan un assistent descriu malament la teva empresa, saps a qui preguntar i reps una explicació concreta, no un gràfic sense context.</p>
-      <p>Treballem de manera presencial a Barcelona i al Vallès o per videotrucada a la resta d'Espanya, i ens coordinem amb el teu equip o amb el teu desenvolupador quan cal tocar la web.</p>
+      <p>L'anàlisi no la fa una eina automàtica ni un equip que canvia cada mes. La fa <strong>Sergio Galo's, consultor de màrqueting digital i SEO i fundador de Nova</strong>, que fa anys que treballa el posicionament de pimes industrials, de salut, de comerç electrònic i de serveis professionals.</p>
+      <p>Ell prepara la mostra, llegeix cada resposta, decideix què cal corregir primer i t'ho explica a la reunió de seguiment. Si un assistent descriu malament la teva empresa, saps a qui preguntar i reps una explicació concreta.</p>
+      <p>Treballem en persona a Barcelona i al Vallès, amb servei propi d'<a href="/ca/agencia-geo-per-pimes/terrassa/">agència GEO a Terrassa</a> i de <a href="/ca/agencia-geo-per-pimes/sabadell/">posicionament GEO a Sabadell</a>, i per videotrucada a la resta d'Espanya. Si cal tocar la web, ens coordinem amb el teu equip o amb el teu desenvolupador.</p>
       <p data-consultor-link>Cada projecte el dirigeix Sergio Galo's, fundador de Nova, que també treballa com a <a href="https://sergiogalos.es/consultor-geo-ia/" class="font-medium text-accent underline decoration-accent/30 underline-offset-4 hover:decoration-accent" target="_blank" rel="noopener">consultor GEO i IA</a>.</p>
     </Fragment>
     <img slot="aside" src="/sergio-galos-agencia-seo-per-pimes.webp" alt="Sergio Galo's, consultor GEO i fundador de Nova Marketing" title="Sergio Galo's, consultor GEO i fundador de Nova Marketing" class="w-full max-w-xs mx-auto h-auto rounded-3xl" loading="lazy" width="473" height="591" />
