@@ -69,13 +69,13 @@ const breadcrumbs = [
 
   <!-- Hero del servicio -->
   <section class="section pt-8" aria-labelledby="service-heading">
-    <div class="container max-w-4xl">
+    <div class="container">
       <div class="badge mb-4">Servicio</div>
       <h1 id="service-heading" class="font-heading font-black text-text-primary mb-4" style="font-size: clamp(2rem, 4vw, 3.5rem);">
         {service.heroHeadline || service.title}
       </h1>
       {(service.heroSubheadline || service.excerpt) && (
-        <p class="text-lg md:text-xl text-text-secondary leading-relaxed mb-8 max-w-[60ch]">
+        <p class="text-lg md:text-xl text-text-secondary leading-relaxed mb-8">
           {service.heroSubheadline || service.excerpt}
         </p>
       )}
@@ -113,7 +113,7 @@ const breadcrumbs = [
 
   <!-- CTA final -->
   <section id="contacto" class="section">
-    <div class="container max-w-2xl text-center">
+    <div class="container text-center">
       <h2 class="font-heading font-black text-text-primary mb-4" style="font-size: clamp(1.5rem, 3vw, 2.5rem);">
         ¿Hablamos sobre {service.title}?
       </h2>
