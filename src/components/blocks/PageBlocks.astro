@@ -1373,6 +1373,13 @@ function embedUrl(url: string): string {
 .pb-sev--media { background: #fef3c7; color: #b45309; }
 .pb-sev--baja  { background: #dcfce7; color: #15803d; }
 
+/* La sangría de 25px que reciben todos los p y span en escritorio (ver "Indentación
+   de contenido") descentra los medidores y deforma las barras: se anula dentro. */
+.pb-space .pb-gauges p, .pb-space .pb-gauges span,
+.pb-space .pb-bars p, .pb-space .pb-bars span,
+.pb-space .pb-bigstat p, .pb-space .pb-bigstat span { padding-left: 0; }
+.pb-space .pb-sev { padding-left: .55rem; }
+
 @media (prefers-reduced-motion: reduce) {
   .pb-space > .pb-will, .pb-will .pb-checklist li, .pb-will .pb-checklist li::before,
   .pb-will .pb-bars__fill, .pb-will .pb-gauge { transition: none !important; opacity: 1; transform: none; }
