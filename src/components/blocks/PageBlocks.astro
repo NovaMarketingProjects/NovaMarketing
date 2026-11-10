@@ -1427,6 +1427,55 @@ function embedUrl(url: string): string {
 .pb-sev--media { background: #fffbeb; color: #b45309; border-color: #fde68a; }
 .pb-sev--baja  { background: #f0fdf4; color: #15803d; border-color: #bbf7d0; }
 
+/* Calculadora de rentabilidad (bloque HTML):
+   <div class="pb-calc" data-one="cliente nuevo al mes" data-many="clientes nuevos al mes">
+     <p class="pb-calc__title">Título</p>
+     <label class="pb-calc__field"><span class="pb-calc__label">Cuota mensual</span><output class="pb-calc__out" data-out="fee"></output>
+       <input class="pb-calc__range" type="range" min="400" max="2000" step="50" value="600" data-in="fee"></label>
+     <label class="pb-calc__field">… data-out="margin" … data-in="margin"></label>
+     <div class="pb-calc__result"><span class="pb-calc__num" data-out="result"></span><span class="pb-calc__unit" data-out="unit"></span></div>
+     <p class="pb-calc__note">Nota</p>
+   </div>
+   Resultado = cuota / margen, redondeado hacia arriba. */
+.pb-calc {
+  margin: 2rem 0 2.5rem;
+  padding: 2rem 1.75rem;
+  border-radius: 1.5rem;
+  background: #09090b;
+  color: #fff;
+  display: grid;
+  gap: 1.5rem;
+}
+.pb-space .pb-calc p, .pb-space .pb-calc span { padding-left: 0; }
+.pb-html .pb-calc p { margin: 0; }
+.pb-calc__title {
+  font-family: 'Montserrat', 'Montserrat Fallback', sans-serif;
+  font-weight: 900; font-size: .6875rem; text-transform: uppercase; letter-spacing: .2em; color: #a1a1aa;
+}
+.pb-calc__field { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: .6rem 1rem; cursor: pointer; }
+.pb-calc__label { font-size: .9375rem; color: #e4e4e7; font-weight: 500; }
+.pb-calc__out { font-family: 'Montserrat', 'Montserrat Fallback', sans-serif; font-weight: 900; font-size: 1.125rem; color: #fff; }
+.pb-calc__range {
+  grid-column: 1 / -1; width: 100%; height: .5rem; margin: 0;
+  -webkit-appearance: none; appearance: none; border-radius: 999px; cursor: pointer;
+  background: linear-gradient(90deg, #3b82f6 var(--p, 50%), #27272a var(--p, 50%));
+}
+.pb-calc__range::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; width: 1.375rem; height: 1.375rem; border-radius: 50%;
+  background: #fff; border: 4px solid #3b82f6; box-shadow: 0 2px 10px rgba(0,0,0,.4);
+}
+.pb-calc__range::-moz-range-thumb {
+  width: 1.375rem; height: 1.375rem; border-radius: 50%; background: #fff; border: 4px solid #3b82f6;
+}
+.pb-calc__range:focus-visible { outline: 2px solid #93c5fd; outline-offset: 4px; }
+.pb-calc__result {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem .9rem;
+  padding: 1.25rem 1.5rem; border-radius: 1rem; background: #3b82f6;
+}
+.pb-calc__num { font-family: 'Montserrat', 'Montserrat Fallback', sans-serif; font-weight: 900; font-size: clamp(2.5rem, 6vw, 3.5rem); line-height: 1; letter-spacing: -0.04em; }
+.pb-calc__unit { font-size: 1rem; font-weight: 600; color: rgba(255,255,255,.9); }
+.pb-calc__note { font-size: .8125rem; line-height: 1.55; color: #a1a1aa; }
+
 /* Acordeón de preguntas frecuentes */
 .pb-faq summary::-webkit-details-marker { display: none; }
 .pb-space .pb-faq p { padding-left: 0; margin: 0; }
@@ -1439,7 +1488,7 @@ function embedUrl(url: string): string {
 
 /* Columna de gravedad centrada (cabecera incluida) */
 .pb-html td:has(> .pb-sev) { text-align: center; vertical-align: middle; white-space: nowrap; }
-.pb-html table:has(td:last-child > .pb-sev) tr > th:last-child { text-align: center; }
+.pb-html table:has(td:last-child > .pb-sev) tr > th:last-child { text-align: center; white-space: nowrap; }
 
 /* En móvil, las tablas con gravedad pasan a tarjetas: etiqueta arriba, título y texto debajo */
 @media (max-width: 639px) {
@@ -1516,6 +1565,33 @@ function initPbReveal() {
 }
 document.addEventListener('DOMContentLoaded', initPbReveal);
 document.addEventListener('astro:page-load', initPbReveal);
+
+// Calculadora de rentabilidad: clientes al mes que cubren la cuota (cuota / margen).
+function initPbCalc() {
+  const eur = (n: number) => n.toLocaleString('es-ES', { useGrouping: 'always' } as Intl.NumberFormatOptions) + ' €';
+  document.querySelectorAll<HTMLElement>('.pb-calc').forEach((box) => {
+    if (box.dataset.ready) return;
+    const fee = box.querySelector<HTMLInputElement>('[data-in="fee"]');
+    const margin = box.querySelector<HTMLInputElement>('[data-in="margin"]');
+    if (!fee || !margin) return;
+    box.dataset.ready = '1';
+    const out = (k: string) => box.querySelector<HTMLElement>(`[data-out="${k}"]`);
+    const fill = (r: HTMLInputElement) => r.style.setProperty('--p', ((+r.value - +r.min) / (+r.max - +r.min)) * 100 + '%');
+    const update = () => {
+      const f = +fee.value, m = +margin.value, n = Math.max(1, Math.ceil(f / m));
+      out('fee')!.textContent = eur(f);
+      out('margin')!.textContent = eur(m);
+      out('result')!.textContent = String(n);
+      out('unit')!.textContent = n === 1 ? (box.dataset.one ?? '') : (box.dataset.many ?? '');
+      fill(fee); fill(margin);
+    };
+    fee.addEventListener('input', update);
+    margin.addEventListener('input', update);
+    update();
+  });
+}
+document.addEventListener('DOMContentLoaded', initPbCalc);
+document.addEventListener('astro:page-load', initPbCalc);
 </script>
 
 <script>
