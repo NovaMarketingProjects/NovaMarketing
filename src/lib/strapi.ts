@@ -260,7 +260,13 @@ export const strapiClient = {
     let query = `/api/articles?populate=*&locale=${STRAPI_LOCALE[locale]}&publicationState=live&sort=publishedAt:desc`;
     if (options?.category) query += `&filters[categories][slug][$eq]=${options.category}`;
     if (options?.limit) query += `&pagination[pageSize]=${options.limit}`;
-    return strapiRequest(query);
+    // Orden por la fecha editorial (campo publishedDate del CMS); si falta, la de publicación.
+    // Se ordena aquí y no en la API para no depender de que el campo exista en el CMS.
+    const when = (item: any) => Date.parse((item.attributes ?? item).publishedDate || (item.attributes ?? item).publishedAt || 0) || 0;
+    return strapiRequest<StrapiResponse<BlogPost[]>>(query).then((res) => {
+      if (Array.isArray(res?.data)) res.data.sort((a: any, b: any) => when(b) - when(a));
+      return res;
+    });
   },
 
   getBlogPost: (slug: string, locale: Locale = 'es'): Promise<StrapiResponse<BlogPost[]>> =>
