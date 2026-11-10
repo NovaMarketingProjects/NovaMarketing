@@ -308,7 +308,7 @@ function embedUrl(url: string): string {
     {/* ── Big Stat ── */}
     {block.__component === 'blocks.big-stat' && (
       <div class={`pb-bigstat pb-bigstat--${block.color ?? 'black'}`}>
-        <span class="pb-bigstat__value">{block.value}</span>
+        <span class:list={['pb-bigstat__value', (block.value?.length ?? 0) > 9 && 'pb-bigstat__value--long']}>{block.value}</span>
         <span class="pb-bigstat__label">{block.label}</span>
         {block.description && <p class="pb-bigstat__desc">{block.description}</p>}
       </div>
@@ -1296,6 +1296,10 @@ function embedUrl(url: string): string {
   line-height: 1;
   color: #fff;
 }
+/* Cifras largas («1.500 → 6.390»): más pequeñas para que quepan en una línea */
+.pb-bigstat__value--long { font-size: clamp(2.6rem, 6.5vw, 4.75rem); white-space: nowrap; }
+@media (max-width: 480px) { .pb-bigstat__value--long { white-space: normal; } }
+
 .pb-bigstat__label {
   font-family: 'Montserrat', 'Montserrat Fallback', sans-serif;
   font-weight: 900;
