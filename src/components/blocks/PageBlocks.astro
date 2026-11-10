@@ -1364,21 +1364,41 @@ function embedUrl(url: string): string {
 .pb-will.is-in .pb-gauge { --pb-p: var(--v, 0); transition-delay: calc(var(--i, 0) * 250ms + 200ms); }
 
 /* Etiquetas de gravedad (en tablas) */
+/* Ancho fijo y texto centrado: el padding derecho descuenta el letter-spacing
+   que queda tras la última letra, para que el texto quede centrado de verdad. */
 .pb-sev {
-  display: inline-block; padding: .2rem .55rem; border-radius: .375rem;
+  display: inline-flex; align-items: center; justify-content: center; gap: .4rem;
+  min-width: 5.75rem;
+  padding: .35rem calc(.7rem - .12em) .35rem .7rem;
+  border: 1px solid currentColor; border-radius: 999px;
   font-family: 'Montserrat', 'Montserrat Fallback', sans-serif;
-  font-weight: 900; font-size: .625rem; text-transform: uppercase; letter-spacing: .12em; white-space: nowrap;
+  font-weight: 900; font-size: .625rem; line-height: 1; text-transform: uppercase; letter-spacing: .12em; white-space: nowrap;
 }
-.pb-sev--alta  { background: #fee2e2; color: #b91c1c; }
-.pb-sev--media { background: #fef3c7; color: #b45309; }
-.pb-sev--baja  { background: #dcfce7; color: #15803d; }
+.pb-sev::before { content: ''; width: .4rem; height: .4rem; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+.pb-sev--alta  { background: #fef2f2; color: #b91c1c; border-color: #fecaca; }
+.pb-sev--media { background: #fffbeb; color: #b45309; border-color: #fde68a; }
+.pb-sev--baja  { background: #f0fdf4; color: #15803d; border-color: #bbf7d0; }
+
+/* Columna de gravedad centrada (cabecera incluida) */
+.pb-html td:has(> .pb-sev) { text-align: center; vertical-align: middle; white-space: nowrap; }
+.pb-html table:has(td:last-child > .pb-sev) tr > th:last-child { text-align: center; }
+
+/* En móvil, las tablas con gravedad pasan a tarjetas: etiqueta arriba, título y texto debajo */
+@media (max-width: 639px) {
+  .pb-html table:has(.pb-sev) thead { display: none; }
+  .pb-html table:has(.pb-sev),
+  .pb-html table:has(.pb-sev) tbody { display: block; }
+  .pb-html table:has(.pb-sev) tr { display: flex; flex-direction: column; gap: .35rem; padding: 1.1rem 1.25rem; }
+  .pb-html table:has(.pb-sev) td { display: block; padding: 0; }
+  .pb-html table:has(.pb-sev) td:has(> .pb-sev) { order: -1; text-align: left; margin-bottom: .3rem; }
+}
 
 /* La sangría de 25px que reciben todos los p y span en escritorio (ver "Indentación
    de contenido") descentra los medidores y deforma las barras: se anula dentro. */
 .pb-space .pb-gauges p, .pb-space .pb-gauges span,
 .pb-space .pb-bars p, .pb-space .pb-bars span,
 .pb-space .pb-bigstat p, .pb-space .pb-bigstat span { padding-left: 0; }
-.pb-space .pb-sev { padding-left: .55rem; }
+.pb-space .pb-sev { padding-left: .7rem; }
 
 @media (prefers-reduced-motion: reduce) {
   .pb-space > .pb-will, .pb-will .pb-checklist li, .pb-will .pb-checklist li::before,
