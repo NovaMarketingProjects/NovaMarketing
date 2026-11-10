@@ -1339,10 +1339,10 @@ function embedUrl(url: string): string {
   width: 1.375rem; height: 1.375rem; top: 0.72rem; border-radius: 50%;
   background: #3b82f6 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 13l4 4L19 7'/%3E%3C/svg%3E") center / 0.8rem no-repeat;
 }
-.pb-will .pb-checklist li { opacity: 0; transform: translateX(-10px); transition: opacity .5s ease, transform .5s ease; }
-.pb-will .pb-checklist li::before { transform: scale(0); transition: transform .45s cubic-bezier(.34,1.56,.64,1); }
-.pb-will.is-in .pb-checklist li { opacity: 1; transform: none; transition-delay: calc(var(--i, 0) * 90ms + 150ms); }
-.pb-will.is-in .pb-checklist li::before { transform: scale(1); transition-delay: calc(var(--i, 0) * 90ms + 300ms); }
+.pb-will .pb-checklist li, .pb-checklist.pb-will li { opacity: 0; transform: translateX(-10px); transition: opacity .5s ease, transform .5s ease; }
+.pb-will .pb-checklist li::before, .pb-checklist.pb-will li::before { transform: scale(0); transition: transform .45s cubic-bezier(.34,1.56,.64,1); }
+.pb-will.is-in .pb-checklist li, .pb-checklist.pb-will.is-in li { opacity: 1; transform: none; transition-delay: calc(var(--i, 0) * 90ms + 150ms); }
+.pb-will.is-in .pb-checklist li::before, .pb-checklist.pb-will.is-in li::before { transform: scale(1); transition-delay: calc(var(--i, 0) * 90ms + 300ms); }
 
 /* Barras horizontales */
 .pb-bars {
@@ -1427,6 +1427,70 @@ function embedUrl(url: string): string {
 .pb-sev--media { background: #fffbeb; color: #b45309; border-color: #fde68a; }
 .pb-sev--baja  { background: #f0fdf4; color: #15803d; border-color: #bbf7d0; }
 
+/* Conversación con un asistente de IA (bloque HTML). Al entrar en pantalla aparece la
+   pregunta, el asistente «escribe» y luego llega la respuesta con sus fuentes:
+   <div class="pb-chat">
+     <p class="pb-chat__bar">Asistente de IA</p>
+     <p class="pb-chat__q">Pregunta</p>
+     <div class="pb-chat__typing"><i></i><i></i><i></i></div>
+     <div class="pb-chat__a"><p>Respuesta con <mark>tu empresa</mark></p>
+       <p class="pb-chat__sources"><span>Fuente 1</span><span>Fuente 2</span></p></div>
+     <p class="pb-chat__caption">Pie</p>
+   </div> */
+.pb-chat {
+  margin: 2rem 0 2.5rem;
+  border: 1px solid #e4e4e7;
+  border-radius: 1.5rem;
+  background: #fafafa;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0,0,0,.05);
+}
+.pb-space .pb-chat p, .pb-space .pb-chat span { padding-left: 0; }
+.pb-html .pb-chat p { margin: 0; }
+.pb-html .pb-chat .pb-chat__bar {
+  display: flex; align-items: center; gap: .5rem;
+  padding: .9rem 1.25rem; border-bottom: 1px solid #e4e4e7; background: #fff;
+  font-family: 'Montserrat', 'Montserrat Fallback', sans-serif;
+  font-weight: 900; font-size: .625rem; text-transform: uppercase; letter-spacing: .2em; color: #71717a;
+}
+.pb-chat__bar::before { content: ''; width: .5rem; height: .5rem; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 3px #dcfce7; }
+.pb-html .pb-chat .pb-chat__q {
+  margin: 1.5rem 1.25rem 0 auto; max-width: 85%; width: fit-content;
+  padding: .8rem 1.1rem; border-radius: 1.1rem 1.1rem .3rem 1.1rem;
+  background: #3b82f6; color: #fff; font-size: .9375rem; line-height: 1.5;
+}
+.pb-chat__typing { display: none; gap: .3rem; margin: 1rem 1.25rem 0; padding: .9rem 1rem; width: fit-content; border-radius: 1rem; background: #fff; border: 1px solid #e4e4e7; }
+.pb-chat__typing i { width: .45rem; height: .45rem; border-radius: 50%; background: #a1a1aa; animation: pb-dot 1s infinite ease-in-out; }
+.pb-chat__typing i:nth-child(2) { animation-delay: .15s; }
+.pb-chat__typing i:nth-child(3) { animation-delay: .3s; }
+@keyframes pb-dot { 0%, 80%, 100% { transform: translateY(0); opacity: .4; } 40% { transform: translateY(-4px); opacity: 1; } }
+.pb-chat__a {
+  margin: 1rem 1.25rem 1.5rem; max-width: 92%;
+  padding: 1rem 1.15rem; border-radius: 1.1rem 1.1rem 1.1rem .3rem;
+  background: #fff; border: 1px solid #e4e4e7; color: #3f3f46; font-size: .9375rem; line-height: 1.65;
+}
+.pb-chat__a mark { background: #dbeafe; color: #1d4ed8; font-weight: 700; padding: 0 .25rem; border-radius: .25rem; }
+.pb-html .pb-chat .pb-chat__sources { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .85rem; }
+.pb-chat__sources span {
+  display: inline-flex; align-items: center; gap: .35rem;
+  padding: .3rem .65rem; border-radius: 999px; background: #f4f4f5; border: 1px solid #e4e4e7;
+  font-size: .75rem; font-weight: 600; color: #52525b;
+}
+.pb-chat__sources span::before { content: '↗'; color: #3b82f6; font-weight: 900; }
+.pb-html .pb-chat .pb-chat__caption { padding: .9rem 1.25rem; border-top: 1px solid #e4e4e7; background: #fff; font-size: .8125rem; line-height: 1.5; color: #71717a; }
+
+@keyframes pb-chat-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes pb-typing-life {
+  0% { opacity: 0; max-height: 0; margin-top: 0; padding-top: 0; padding-bottom: 0; }
+  12%, 85% { opacity: 1; max-height: 3rem; margin-top: 1rem; padding-top: .9rem; padding-bottom: .9rem; }
+  100% { opacity: 0; max-height: 0; margin-top: 0; padding-top: 0; padding-bottom: 0; border-width: 0; }
+}
+.pb-will .pb-chat__q, .pb-will .pb-chat__a, .pb-will .pb-chat__sources span { opacity: 0; }
+.pb-will.is-in .pb-chat__q { animation: pb-chat-in .5s .3s cubic-bezier(.16,1,.3,1) forwards; }
+.pb-will.is-in .pb-chat__typing { display: flex; overflow: hidden; animation: pb-typing-life 1.6s .8s both; }
+.pb-will.is-in .pb-chat__a { animation: pb-chat-in .6s 2.4s cubic-bezier(.16,1,.3,1) forwards; }
+.pb-will.is-in .pb-chat__sources span { animation: pb-chat-in .4s cubic-bezier(.16,1,.3,1) forwards; animation-delay: calc(2.9s + var(--i, 0) * 150ms); }
+
 /* Calculadora de rentabilidad (bloque HTML):
    <div class="pb-calc" data-one="cliente nuevo al mes" data-many="clientes nuevos al mes">
      <p class="pb-calc__title">Título</p>
@@ -1490,6 +1554,22 @@ function embedUrl(url: string): string {
 .pb-html td:has(> .pb-sev) { text-align: center; vertical-align: middle; white-space: nowrap; }
 .pb-html table:has(td:last-child > .pb-sev) tr > th:last-child { text-align: center; white-space: nowrap; }
 
+/* En móvil, el resto de tablas con cabecera también pasan a tarjetas: cada dato con el nombre
+   de su columna encima (data-label lo pone wrapPbTables). La primera celda hace de título. */
+@media (max-width: 639px) {
+  .pb-html table[data-stack] thead { display: none; }
+  .pb-html table[data-stack], .pb-html table[data-stack] tbody { display: block; }
+  .pb-html table[data-stack] tr { display: block; padding: 1.1rem 1.25rem; }
+  .pb-html table[data-stack] td { display: block; padding: 0; }
+  .pb-html table[data-stack] td + td { margin-top: .7rem; }
+  .pb-html table[data-stack] td:first-child { font-weight: 700; color: #09090b; }
+  .pb-html table[data-stack] td + td::before {
+    content: attr(data-label); display: block; margin-bottom: .15rem;
+    font-family: 'Montserrat', 'Montserrat Fallback', sans-serif;
+    font-weight: 900; font-size: .5625rem; text-transform: uppercase; letter-spacing: .15em; color: #a1a1aa;
+  }
+}
+
 /* En móvil, las tablas con gravedad pasan a tarjetas: etiqueta arriba, título y texto debajo */
 @media (max-width: 639px) {
   .pb-html table:has(.pb-sev) thead { display: none; }
@@ -1510,6 +1590,7 @@ function embedUrl(url: string): string {
 @media (prefers-reduced-motion: reduce) {
   .pb-space > .pb-will, .pb-will .pb-checklist li, .pb-will .pb-checklist li::before,
   .pb-will .pb-bars__fill, .pb-will .pb-gauge { transition: none !important; opacity: 1; transform: none; }
+  .pb-will .pb-chat__q, .pb-will .pb-chat__a, .pb-will .pb-chat__sources span { opacity: 1; animation: none !important; }
   .pb-will .pb-gauge { --pb-p: var(--v, 0); }
 }
 </style>
@@ -1556,11 +1637,18 @@ function initPbReveal() {
     });
   }, { rootMargin: '0px 0px -12% 0px' });
 
-  blocks.forEach((el) => {
-    if (el.getBoundingClientRect().top < innerHeight) return;
+  const prime = (el: HTMLElement) => {
     el.querySelectorAll<HTMLElement>('.pb-checklist li, .pb-bars__row, .pb-gauge').forEach((c, i) => c.style.setProperty('--i', String(i)));
+    el.querySelectorAll<HTMLElement>('.pb-chat__sources span').forEach((c, i) => c.style.setProperty('--i', String(i)));
     el.classList.add('pb-will');
     io.observe(el);
+  };
+  blocks.forEach((el) => {
+    if (el.getBoundingClientRect().top >= innerHeight) { prime(el); return; }
+    // Bloque ya visible al cargar: sus piezas animadas que quedan por debajo se animan por separado.
+    el.querySelectorAll<HTMLElement>('.pb-chat, .pb-gauges, .pb-bars, .pb-checklist').forEach((w) => {
+      if (w.getBoundingClientRect().top >= innerHeight) prime(w);
+    });
   });
 }
 document.addEventListener('DOMContentLoaded', initPbReveal);
@@ -1661,6 +1749,14 @@ function wrapPbTables() {
     (table as HTMLElement).style.margin = '0';
     (table as HTMLElement).style.boxShadow = 'none';
     (table as HTMLElement).style.borderRadius = '0';
+    // En móvil se apila como tarjetas: cada celda lleva el nombre de su columna
+    const heads = Array.from(table.querySelectorAll('thead th')).map((th) => th.textContent?.trim() ?? '');
+    if (heads.length > 1 && !table.querySelector('.pb-sev')) {
+      table.setAttribute('data-stack', '');
+      table.querySelectorAll('tbody tr').forEach((tr) => {
+        Array.from(tr.children).forEach((td, i) => { if (heads[i]) td.setAttribute('data-label', heads[i]); });
+      });
+    }
   });
 }
 document.addEventListener('DOMContentLoaded', wrapPbTables);
