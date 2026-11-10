@@ -1264,7 +1264,174 @@ function embedUrl(url: string): string {
   max-width: 30rem;
   font-family: 'Inter', 'Inter Fallback', sans-serif;
 }
+
+/* ================================================================
+   Animación de entrada y piezas visuales para bloques HTML
+   Uso en Strapi (bloque "HTML personalizado"):
+   - <ul class="pb-checklist"><li><strong>Título.</strong> Texto</li></ul>
+   - <div class="pb-bars"><div class="pb-bars__row" style="--v:85">
+       <span class="pb-bars__label">Texto</span><span class="pb-bars__track"><span class="pb-bars__fill"></span></span>
+       <span class="pb-bars__val">Alta</span></div></div>   (--v de 0 a 100)
+   - <div class="pb-gauges"><div class="pb-gauge" style="--v:51"><span class="pb-gauge__num">51</span>
+       <span class="pb-gauge__label">Antes</span></div>…</div>     (puntuación 0-100)
+   - <span class="pb-sev pb-sev--alta">Alta</span>   (alta | media | baja)
+   Sin JS todo se ve en su estado final; la clase pb-will solo la pone el script.
+   ================================================================ */
+.pb-space > .pb-will {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+}
+.pb-space > .pb-will.is-in { opacity: 1; transform: none; }
+
+/* Checklist con marca animada */
+.pb-html ul.pb-checklist { padding-left: 0; }
+.pb-html ul.pb-checklist li { padding-left: 2.25rem; }
+.pb-html ul.pb-checklist li::before {
+  width: 1.375rem; height: 1.375rem; top: 0.72rem; border-radius: 50%;
+  background: #3b82f6 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 13l4 4L19 7'/%3E%3C/svg%3E") center / 0.8rem no-repeat;
+}
+.pb-will .pb-checklist li { opacity: 0; transform: translateX(-10px); transition: opacity .5s ease, transform .5s ease; }
+.pb-will .pb-checklist li::before { transform: scale(0); transition: transform .45s cubic-bezier(.34,1.56,.64,1); }
+.pb-will.is-in .pb-checklist li { opacity: 1; transform: none; transition-delay: calc(var(--i, 0) * 90ms + 150ms); }
+.pb-will.is-in .pb-checklist li::before { transform: scale(1); transition-delay: calc(var(--i, 0) * 90ms + 300ms); }
+
+/* Barras horizontales */
+.pb-bars {
+  margin: 2rem 0 2.5rem;
+  padding: 1.75rem 1.5rem;
+  border: 1px solid #e4e4e7;
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+  display: grid;
+  gap: 1.1rem;
+}
+.pb-bars__title {
+  font-family: 'Montserrat', 'Montserrat Fallback', sans-serif;
+  font-weight: 900; font-size: .625rem; text-transform: uppercase; letter-spacing: .2em;
+  color: #71717a; margin: 0 0 .25rem;
+}
+.pb-bars__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 2fr) 4.5rem;
+  align-items: center;
+  gap: 1rem;
+}
+.pb-bars__label { font-size: .9rem; font-weight: 500; color: #18181b; line-height: 1.35; }
+.pb-bars__track { height: .625rem; border-radius: 999px; background: #f4f4f5; overflow: hidden; }
+.pb-bars__fill {
+  display: block; height: 100%; border-radius: inherit;
+  width: calc(var(--v, 50) * 1%);
+  background: linear-gradient(90deg, #93c5fd, #3b82f6);
+  transform-origin: left center;
+}
+.pb-bars__val { font-family: 'Montserrat', 'Montserrat Fallback', sans-serif; font-weight: 900; font-size: .75rem; color: #3b82f6; text-align: right; }
+.pb-will .pb-bars__fill { transform: scaleX(0); transition: transform 1.1s cubic-bezier(.16,1,.3,1); }
+.pb-will.is-in .pb-bars__fill { transform: scaleX(1); transition-delay: calc(var(--i, 0) * 120ms + 200ms); }
+@media (max-width: 639px) {
+  .pb-bars__row { grid-template-columns: minmax(0, 1fr) 3.5rem; row-gap: .4rem; }
+  .pb-bars__track { grid-column: 1 / -1; grid-row: 2; }
+}
+
+/* Medidores de puntuación (0-100) */
+@property --pb-p { syntax: '<number>'; inherits: false; initial-value: 0; }
+.pb-gauges {
+  margin: 2rem 0 2.5rem;
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 1.5rem 2.5rem;
+  padding: 2rem 1.5rem;
+  border-radius: 1.5rem;
+  background: #09090b;
+}
+.pb-gauge {
+  --pb-p: var(--v, 0);
+  position: relative;
+  width: 8.5rem; aspect-ratio: 1;
+  border-radius: 50%;
+  display: grid; place-content: center; text-align: center;
+  background:
+    radial-gradient(closest-side, #09090b 82%, transparent 83% 100%),
+    conic-gradient(var(--pb-c, #22c55e) calc(var(--pb-p) * 1%), #27272a 0);
+}
+.pb-gauge--bad  { --pb-c: #ef4444; }
+.pb-gauge--mid  { --pb-c: #f59e0b; }
+.pb-gauge__num { font-family: 'Montserrat', 'Montserrat Fallback', sans-serif; font-weight: 900; font-size: 2.25rem; line-height: 1; color: #fff; letter-spacing: -0.04em; }
+.pb-gauge__label { margin-top: .35rem; font-size: .625rem; font-weight: 800; text-transform: uppercase; letter-spacing: .18em; color: #a1a1aa; }
+.pb-gauges__arrow { color: #3b82f6; font-size: 1.75rem; font-weight: 900; }
+.pb-gauges__caption { flex-basis: 100%; text-align: center; font-size: .8125rem; color: #a1a1aa; margin: 0; line-height: 1.5; }
+.pb-html .pb-gauges__caption a { color: #93c5fd; text-decoration-color: rgba(147,197,253,.4); }
+.pb-will .pb-gauge { --pb-p: 0; transition: --pb-p 1.4s cubic-bezier(.16,1,.3,1); }
+.pb-will.is-in .pb-gauge { --pb-p: var(--v, 0); transition-delay: calc(var(--i, 0) * 250ms + 200ms); }
+
+/* Etiquetas de gravedad (en tablas) */
+.pb-sev {
+  display: inline-block; padding: .2rem .55rem; border-radius: .375rem;
+  font-family: 'Montserrat', 'Montserrat Fallback', sans-serif;
+  font-weight: 900; font-size: .625rem; text-transform: uppercase; letter-spacing: .12em; white-space: nowrap;
+}
+.pb-sev--alta  { background: #fee2e2; color: #b91c1c; }
+.pb-sev--media { background: #fef3c7; color: #b45309; }
+.pb-sev--baja  { background: #dcfce7; color: #15803d; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pb-space > .pb-will, .pb-will .pb-checklist li, .pb-will .pb-checklist li::before,
+  .pb-will .pb-bars__fill, .pb-will .pb-gauge { transition: none !important; opacity: 1; transform: none; }
+  .pb-will .pb-gauge { --pb-p: var(--v, 0); }
+}
 </style>
+
+<script>
+// Entrada al hacer scroll y contadores en cifras. Solo se anima lo que está
+// por debajo de la pantalla al cargar; lo visible se deja quieto.
+function initPbReveal() {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const blocks = Array.from(document.querySelectorAll<HTMLElement>('.pb-space > *:not(.pb-will)'));
+  if (!blocks.length || reduce || !('IntersectionObserver' in window)) return;
+
+  const fmt = (n: number, dec: number, group: boolean) =>
+    n.toLocaleString('es-ES', { minimumFractionDigits: dec, maximumFractionDigits: dec, useGrouping: group ? 'always' : false } as Intl.NumberFormatOptions);
+
+  function countUp(el: HTMLElement) {
+    const src = el.textContent ?? '';
+    const parts = src.split(/(\d[\d.]*(?:,\d+)?)/);
+    const nums = parts.map((p, i) => {
+      if (i % 2 === 0) return null;
+      const dec = p.includes(',') ? p.split(',')[1].length : 0;
+      return { target: parseFloat(p.replace(/\./g, '').replace(',', '.')), dec, group: p.includes('.') };
+    });
+    if (!nums.some(Boolean)) return;
+    const t0 = performance.now(), dur = 1300;
+    const step = (t: number) => {
+      const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+      el.textContent = parts.map((p, i) => {
+        const n = nums[i];
+        return n ? fmt(n.target * e, n.dec, n.group) : p;
+      }).join('');
+      if (k < 1) requestAnimationFrame(step); else el.textContent = src;
+    };
+    requestAnimationFrame(step);
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((en) => {
+      if (!en.isIntersecting) return;
+      const el = en.target as HTMLElement;
+      el.classList.add('is-in');
+      el.querySelectorAll<HTMLElement>('.pb-metric__value, .pb-bigstat__value, .pb-gauge__num').forEach(countUp);
+      io.unobserve(el);
+    });
+  }, { rootMargin: '0px 0px -12% 0px' });
+
+  blocks.forEach((el) => {
+    if (el.getBoundingClientRect().top < innerHeight) return;
+    el.querySelectorAll<HTMLElement>('.pb-checklist li, .pb-bars__row, .pb-gauge').forEach((c, i) => c.style.setProperty('--i', String(i)));
+    el.classList.add('pb-will');
+    io.observe(el);
+  });
+}
+document.addEventListener('DOMContentLoaded', initPbReveal);
+document.addEventListener('astro:page-load', initPbReveal);
+</script>
 
 <script>
 function initPbTimelines() {
