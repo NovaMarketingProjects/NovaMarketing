@@ -21,6 +21,7 @@
  */
 import StrapiBlocks from './StrapiBlocks.astro';
 import { safeHref } from '../../lib/url';
+import { faqSchema } from '../../lib/schema';
 
 interface Props {
   blocks: any[];
@@ -37,6 +38,34 @@ const blocks = JSON.parse(
     .replace(/\/consultoria-marketing-digital-(barcelona|sabadell|sant-cugat|terrassa)\//g, '/agencia-de-marketing-digital-en-$1/')
     .replace(/<img\b(?![^>]*\btitle=)([^>]*?)\balt=\\"([^"\\]*)\\"/g, '<img$1alt=\\"$2\\" title=\\"$2\\"')
 );
+
+// Preguntas frecuentes dentro de un bloque HTML:
+//   <div class="pb-faq"><h3>Pregunta</h3><p>Respuesta</p>…</div>   (sin otros div dentro)
+// Se parte el bloque y la FAQ se pinta como acordeón, igual que en las páginas de
+// servicio, y además se emite su FAQPage en JSON-LD.
+const FAQ_RE = /<div class="pb-faq">([\s\S]*?)<\/div>/g;
+const faqItems: { question: string; answer: string }[] = [];
+const renderBlocks = (blocks ?? []).flatMap((block: any) => {
+  if (block.__component !== 'blocks.html' || !block.content?.includes('class="pb-faq"')) return [block];
+  const out: any[] = [];
+  let last = 0;
+  for (const m of block.content.matchAll(FAQ_RE)) {
+    const before = block.content.slice(last, m.index);
+    if (before.trim()) out.push({ ...block, content: before });
+    const items = [...m[1].matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>([\s\S]*?)(?=<h3|$)/g)]
+      .map((x) => ({ question: x[1].replace(/<[^>]+>/g, '').trim(), answer: x[2].trim() }))
+      .filter((it) => it.question && it.answer);
+    if (items.length) {
+      out.push({ __component: 'nova.faq', items });
+      faqItems.push(...items);
+    }
+    last = (m.index ?? 0) + m[0].length;
+  }
+  const after = block.content.slice(last);
+  if (after.trim()) out.push({ ...block, content: after });
+  return out;
+});
+const faqLd = faqItems.length ? JSON.stringify(faqSchema(faqItems)).replace(/</g, '\\u003c') : '';
 
 const STRAPI_URL = import.meta.env.STRAPI_URL || 'http://localhost:1337';
 
@@ -68,9 +97,28 @@ function embedUrl(url: string): string {
 
 ---
 
+{faqLd && <script type="application/ld+json" set:html={faqLd} />}
 <div class="pb-space">
-{blocks?.map((block) => (
+{renderBlocks.map((block) => (
   <>
+    {/* ── Preguntas frecuentes (acordeón, mismo diseño que FaqHome) ── */}
+    {block.__component === 'nova.faq' && (
+      <div class="pb-faq space-y-4">
+        {block.items.map((item: { question: string; answer: string }) => (
+          <details class="group border border-black/5 rounded-2xl bg-zinc-50/50 overflow-hidden hover:bg-white hover:border-accent/10 hover:shadow-[0_15px_40px_rgba(0,0,0,0.03)] transition-all duration-300">
+            <summary class="w-full px-6 sm:px-8 py-6 flex items-center justify-between text-left gap-6 cursor-pointer list-none">
+              <h3 class="pb-faq__q text-base sm:text-lg font-bold tracking-tight text-zinc-900 group-hover:text-accent transition-colors">{item.question}</h3>
+              <div class="relative w-6 h-6 shrink-0 transition-transform duration-500 group-open:rotate-45" aria-hidden="true">
+                <div class="absolute top-1/2 left-0 w-full h-[2px] bg-accent/30 rounded-full group-hover:bg-accent transition-colors"></div>
+                <div class="absolute top-0 left-1/2 h-full w-[2px] bg-accent/30 rounded-full group-hover:bg-accent transition-colors"></div>
+              </div>
+            </summary>
+            <div class="pb-faq__a px-6 sm:px-8 pb-8 pt-2 text-zinc-500 font-light text-sm sm:text-base leading-relaxed" set:html={item.answer} />
+          </details>
+        ))}
+      </div>
+    )}
+
     {/* ── HTML personalizado ── */}
     {block.__component === 'blocks.html' && block.content && (
       <div class="pb-html sb-content" set:html={block.content} />
@@ -1378,6 +1426,16 @@ function embedUrl(url: string): string {
 .pb-sev--alta  { background: #fef2f2; color: #b91c1c; border-color: #fecaca; }
 .pb-sev--media { background: #fffbeb; color: #b45309; border-color: #fde68a; }
 .pb-sev--baja  { background: #f0fdf4; color: #15803d; border-color: #bbf7d0; }
+
+/* Acordeón de preguntas frecuentes */
+.pb-faq summary::-webkit-details-marker { display: none; }
+.pb-space .pb-faq p { padding-left: 0; margin: 0; }
+.pb-space .pb-faq p + p { margin-top: .75rem; }
+.pb-faq__a a {
+  color: #8b5cf6; font-weight: 500;
+  text-decoration: underline; text-decoration-color: #8b5cf630; text-underline-offset: 3px;
+}
+.pb-faq__a a:hover { text-decoration-color: #8b5cf6; }
 
 /* Columna de gravedad centrada (cabecera incluida) */
 .pb-html td:has(> .pb-sev) { text-align: center; vertical-align: middle; white-space: nowrap; }
