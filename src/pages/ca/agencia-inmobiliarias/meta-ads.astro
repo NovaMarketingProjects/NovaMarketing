@@ -32,7 +32,7 @@ try {
 
 const faqs = [
   { question: "Què inclou la gestió de Meta Ads per a una immobiliària?", answer: "Inclou auditoria inicial, estratègia documentada i gestió setmanal. Campanyes de valoració per zona, difusió d'exclusives, producció i testing de creatius amb el teu material real, píxel i API de conversions i un informe mensual amb leads i captacions." },
-  { question: "Quant costa?", answer: "L'auditoria del teu compte costa 900 euros i la gestió mensual comença en 150 euros al mes amb fee fix. A això s'hi suma el teu pressupost publicitari, que va íntegre a Meta." },
+  { question: "Quant costa?", answer: "La gestió mensual comença en 150 euros al mes amb fee fix. L'auditoria del teu compte va inclosa en la gestió. Contractada sola, costa 900 euros. A això s'hi suma el teu pressupost publicitari, que va íntegre a Meta." },
   { question: "Funciona Meta per captar propietaris?", answer: "Molt bé, perquè arriba al propietari abans que busqui agència. Les campanyes de valoració amb segmentació per barri generen leads que Google no pot assolir, perquè aquesta persona encara no busca." },
   { question: "Qui produeix els creatius?", answer: "Nosaltres, amb el teu material. Fotos reals del teu equip, les teves operacions i la teva zona." },
   { question: "Els leads són exclusius?", answer: "Sempre. Les campanyes es fan amb la teva marca i la teva zona, així que cada contacte és teu i només teu." },
@@ -312,7 +312,7 @@ const pageSchema = localAgencySchema({
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
                 {[
-                    { small: 'Preu', name: "Auditoria Meta Ads", price: "900€", meta: ["Lliurament en 1 a 2 setmanes","Per a agències que ja inverteixen en Meta"], items: ["Sessió inicial d'objectius","Revisió completa del compte","Auditoria de creatius","Salut del píxel i la mesura","Anàlisi de l'embut","Comparativa amb 3 competidors","Accions ordenades per estalvi","Videotrucada de lliurament"], cta: "Vull auditar el meu compte" },
+                    { small: 'Preu', name: "Auditoria Meta Ads", price: "900€", meta: ["Inclosa si contractes un pla mensual", "Lliurament en 1 a 2 setmanes","Per a agències que ja inverteixen en Meta"], items: ["Sessió inicial d'objectius","Revisió completa del compte","Auditoria de creatius","Salut del píxel i la mesura","Anàlisi de l'embut","Comparativa amb 3 competidors","Accions ordenades per estalvi","Videotrucada de lliurament"], cta: "Vull auditar el meu compte" },
                     { small: 'Preu', name: "Meta Ads Immobiliària", price: "des de 150€ / mes", meta: ["Més el teu pressupost publicitari, que va íntegre a Meta","Per a agències que arrenquen en xarxes"], items: ["Diagnòstic inicial de l'agència","Estratègia documentada","Campanyes de valoració per zona","Creatius amb el teu material real","Píxel i API de conversions","Testing de creatius mensual","Informe mensual de leads i costos","Línia directa amb el consultor","Sense permanència"], cta: "Vull captar en xarxes" },
                     { small: 'Preu', name: "Meta Ads Big Immobiliària", price: "des de 400€ / mes", meta: ["Per a comptes amb més inversió i producció creativa","Per a grups i multizona"], items: ["Diagnòstic inicial de l'agència","Estratègia documentada","Tot el pla Meta Ads Immobiliària","Producció creativa ampliada","Difusió d'exclusives","Estratègia conjunta amb Google","Informe mensual de leads i costos","Línia directa amb el consultor","Sense permanència"], cta: "Vull escalar la meva captació" },
                 ].map(pl => (

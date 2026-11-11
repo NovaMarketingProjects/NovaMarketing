@@ -32,7 +32,7 @@ try {
 
 const faqs = [
   { question: "Què inclou la gestió de Google Ads per a un restaurant?", answer: "Inclou auditoria inicial, estratègia documentada i gestió setmanal. Campanyes per zona, ocasió i horari, landing amb carta i reserva, protecció de marca, mesura de conversions i un informe mensual amb reserves, trucades i cost per taula." },
-  { question: "Quant costa?", answer: "L'auditoria del teu compte costa 900 euros i la gestió mensual comença en 150 euros al mes amb fee fix. A això s'hi suma el teu pressupost publicitari, que va íntegre a Google." },
+  { question: "Quant costa?", answer: "La gestió mensual comença en 150 euros al mes amb fee fix. L'auditoria del teu compte va inclosa en la gestió. Contractada sola, costa 900 euros. A això s'hi suma el teu pressupost publicitari, que va íntegre a Google." },
   { question: "Quant pressupost necessita un restaurant?", answer: "Menys del que imagines, perquè el radi és petit i la intenció altíssima. Com a regla general, entre 300 i 600 euros al mes donen dades suficients per optimitzar." },
   { question: "Les reserves són directes?", answer: "Sí, aquest és l'objectiu. El clic aterra a la teva web i reserva al teu sistema, sense comissió de cap plataforma." },
   { question: "El compte de Google Ads serà meu?", answer: "Sí, sempre. El compte, l'historial i les conversions queden al teu nom des del primer dia." },
@@ -315,7 +315,7 @@ const pageSchema = localAgencySchema({
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
                 {[
-                    { small: 'Preu', name: "Auditoria Google Ads", price: "900€", meta: ["Lliurament en 1 a 2 setmanes","Per a locals que ja inverteixen en anuncis"], items: ["Sessió inicial d'objectius","Revisió completa del compte","Cost real per reserva","Anàlisi de landing i fitxa","Cobertura de zona i horaris","Comparativa amb 3 competidors","Accions ordenades per estalvi","Videotrucada de lliurament"], cta: "Vull auditar el meu compte" },
+                    { small: 'Preu', name: "Auditoria Google Ads", price: "900€", meta: ["Inclosa si contractes un pla mensual", "Lliurament en 1 a 2 setmanes","Per a locals que ja inverteixen en anuncis"], items: ["Sessió inicial d'objectius","Revisió completa del compte","Cost real per reserva","Anàlisi de landing i fitxa","Cobertura de zona i horaris","Comparativa amb 3 competidors","Accions ordenades per estalvi","Videotrucada de lliurament"], cta: "Vull auditar el meu compte" },
                     { small: 'Preu', name: "Google Ads Restaurant", price: "des de 150€ / mes", meta: ["Més el teu pressupost publicitari, que va íntegre a Google","Per a locals que arrenquen amb captació de pagament"], items: ["Diagnòstic inicial del restaurant","Estratègia documentada","Campanyes de zona i ocasió","Landing amb carta i reserva","Mesura de conversions","Revisió setmanal de campanyes","Informe mensual de reserves i costos","Línia directa amb el consultor","Sense permanència"], cta: "Vull reserves directes" },
                     { small: 'Preu', name: "Google Ads Big Restaurant", price: "des de 400€ / mes", meta: ["Per a grups amb diverses seus","Per a locals que volen escalar"], items: ["Diagnòstic inicial del restaurant","Estratègia documentada","Zona, ocasió i remarketing","Cobertura multiseu","Protecció de marca","Estratègia conjunta amb SEO","Informe mensual de reserves i costos","Línia directa amb el consultor","Sense permanència"], cta: "Vull escalar la meva captació" },
                 ].map(pl => (
