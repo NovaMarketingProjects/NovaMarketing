@@ -1556,7 +1556,10 @@ function embedUrl(url: string): string {
      <div class="pb-calc__result"><span class="pb-calc__num" data-out="result"></span><span class="pb-calc__unit" data-out="unit"></span></div>
      <p class="pb-calc__note">Nota</p>
    </div>
-   Resultado = cuota / margen, redondeado hacia arriba. */
+   Resultado = cuota / margen, redondeado hacia arriba.
+   Modo facturación (data-calc="revenue"): entradas data-in="visits" | "conv" (%) | "ticket" (€),
+   salidas data-out="visits" | "conv" | "ticket" | "result" (ventas al mes) y, opcional,
+   data-out="gain" (ventas extra con medio punto más de conversión). */
 .pb-calc {
   margin: 2rem 0 2.5rem;
   padding: 2rem 1.75rem;
@@ -1595,6 +1598,7 @@ function embedUrl(url: string): string {
 .pb-calc__num { font-family: 'Montserrat', 'Montserrat Fallback', sans-serif; font-weight: 900; font-size: clamp(2.5rem, 6vw, 3.5rem); line-height: 1; letter-spacing: -0.04em; }
 .pb-calc__unit { font-size: 1rem; font-weight: 600; color: rgba(255,255,255,.9); }
 .pb-calc__note { font-size: .8125rem; line-height: 1.55; color: #a1a1aa; }
+.pb-calc__note strong { color: #fff; font-weight: 800; }
 
 /* Acordeón de preguntas frecuentes */
 .pb-faq summary::-webkit-details-marker { display: none; }
@@ -1718,12 +1722,33 @@ function initPbCalc() {
   const eur = (n: number) => n.toLocaleString('es-ES', { useGrouping: 'always' } as Intl.NumberFormatOptions) + ' €';
   document.querySelectorAll<HTMLElement>('.pb-calc').forEach((box) => {
     if (box.dataset.ready) return;
-    const fee = box.querySelector<HTMLInputElement>('[data-in="fee"]');
-    const margin = box.querySelector<HTMLInputElement>('[data-in="margin"]');
-    if (!fee || !margin) return;
-    box.dataset.ready = '1';
     const out = (k: string) => box.querySelector<HTMLElement>(`[data-out="${k}"]`);
     const fill = (r: HTMLInputElement) => r.style.setProperty('--p', ((+r.value - +r.min) / (+r.max - +r.min)) * 100 + '%');
+    const input = (k: string) => box.querySelector<HTMLInputElement>(`[data-in="${k}"]`);
+    if (box.dataset.calc === 'revenue') {
+      const visits = input('visits'), conv = input('conv'), ticket = input('ticket');
+      if (!visits || !conv || !ticket) return;
+      box.dataset.ready = '1';
+      const num = (n: number, d = 0) => n.toLocaleString('es-ES', { useGrouping: 'always', minimumFractionDigits: d, maximumFractionDigits: d } as Intl.NumberFormatOptions);
+      const money = (n: number) => num(Math.round(n)) + ' €';
+      const update = () => {
+        const v = +visits.value, c = +conv.value, t = +ticket.value;
+        out('visits')!.textContent = num(v);
+        out('conv')!.textContent = num(c, 1) + ' %';
+        out('ticket')!.textContent = money(t);
+        out('result')!.textContent = money(v * (c / 100) * t);
+        const gain = out('gain');
+        if (gain) gain.textContent = money(v * 0.005 * t);
+        [visits, conv, ticket].forEach(fill);
+      };
+      [visits, conv, ticket].forEach((r) => r.addEventListener('input', update));
+      update();
+      return;
+    }
+    const fee = input('fee');
+    const margin = input('margin');
+    if (!fee || !margin) return;
+    box.dataset.ready = '1';
     const update = () => {
       const f = +fee.value, m = +margin.value, n = Math.max(1, Math.ceil(f / m));
       out('fee')!.textContent = eur(f);
